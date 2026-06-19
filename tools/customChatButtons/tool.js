@@ -218,7 +218,7 @@
         } else {
           index++;
           if (elem.text() !== button.short || elem.attr('title') !== button.long) {
-            elem.text(button.short).attr('title', button.long);
+            elem.textSafe(button.short).attr('title', button.long);
           }
           if (!elem[0].isCustomized) {
             elem[0].isCustomized = true;
@@ -258,7 +258,7 @@
       }
       while (index < buttons.length) {
         const button = buttons[index];
-        const elem = $('<span>').text(button.short).attr('title', button.long)
+        const elem = $('<span>').textSafe(button.short).attr('title', button.long)
           .on('click', this.clickHandler)
           .insertBefore(addButton);
         elem[0].isCustomized = true;

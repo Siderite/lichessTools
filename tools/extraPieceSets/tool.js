@@ -1,12 +1,18 @@
 (() => {
   class ExtraPieceSetsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['D3'];
+
     preferences = [
       {
         name: 'extraPieceSets',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['siderite','chesscom','hollowleaf','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1','sharechess','NayukiMafuyu'],
+        possibleValues: [
+          'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
+          'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27','BrayanGuti',
+          'code-and-chill','mannubhai1','lukasmonk'
+        ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
       }
@@ -20,10 +26,14 @@
         'userManualLinkTitle': 'User manual (EN)',
         'pieceFilterPlaceholder': '... filter',
         'pieceFilterTitle': 'LiChess Tools - filter piece sets by name',
+        'pieceSetTreeTitle': 'LiChess Tools - show tree of piece sets',
+        'pieceSetGridTitle': 'LiChess Tools - show piece sets grid',
+        'pieceSetTreeHeader': 'Piece sets',
 
         'extraPieceSets.siderite': 'Siderite', // don't translate these
         'extraPieceSets.chesscom': 'chess.com',
         'extraPieceSets.hollowleaf': 'HollowLeaf',
+        'extraPieceSets.fordCrownVictoria': 'FordCrownVictoria',
         'extraPieceSets.bend-n': 'bend-n',
         'extraPieceSets.comfysage': 'comfysage',
         'extraPieceSets.tage64': 'tage64',
@@ -34,7 +44,18 @@
         'extraPieceSets.FelixKling': 'FelixKling',
         'extraPieceSets.Moldenke1': 'Moldenke1',
         'extraPieceSets.sharechess': 'sharechess',
-        'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu'
+        'extraPieceSets.NayukiMafuyu': 'NayukiMafuyu',
+        'extraPieceSets.tsoj': 'tsoj',
+        'extraPieceSets.davidssmith': 'davidssmith',
+        'extraPieceSets.Djapec': 'Djapec',
+        'extraPieceSets.olliecampbell': 'olliecampbell',
+        'extraPieceSets.mowi12': 'mowi12',
+        'extraPieceSets.swapnilvasave24-web': 'swapnilvasave24-web',
+        'extraPieceSets.withmy27': 'withmy27',
+        'extraPieceSets.BrayanGuti': 'BrayanGuti',
+        'extraPieceSets.code-and-chill': 'code-and-chill',
+        'extraPieceSets.mannubhai1': 'mannubhai1',
+        'extraPieceSets.lukasmonk': 'lukasmonk'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -42,7 +63,10 @@
         'pieceSetTitle': 'LiChess Tools - %s',
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'pieceFilterPlaceholder': '... filtru',
-        'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume'
+        'pieceFilterTitle': 'LiChess Tools - filtreaz\u0103 seturile de piese dup\u0103 nume',
+        'pieceSetTreeTitle': 'LiChess Tools - arat\u0103 arborele seturilor de piese',
+        'pieceSetGridTitle': 'LiChess Tools - arat\u0103 grila seturilor de piese',
+        'pieceSetTreeHeader': 'Seturi de piese'
       }
     }
 
@@ -107,32 +131,29 @@
     };
 
     getUrl = (pieceSet,piece,color) => {
-      switch(pieceSet.category) {
-        case 'siderite':
-        case 'hollowleaf':
-        case 'bend-n':
-        case 'Moldenke1':
-        case 'NayukiMafuyu':
-        {
+      switch(pieceSet.cap || pieceSet.category) {
+        case 'wN':
+        { // wN
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
           return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
         }
-        case 'chesscom':
-        case 'tage64':
-        case 'OwOHamper':
-        case 'LichessHelper':
-        case 'FelixKling':
-        {
+        case 'wn':
+        { // wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type
+          return pieceSet.url+color[0]+pieceLetter+'.'+pieceSet.type;
         }
-        case 'sharechess':
-        {
+        case 'nw':
+        { // nw
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type
+          return pieceSet.url+pieceLetter+color[0]+'.'+pieceSet.type;
+        }
+        case 'WN':
+        { // WN
+          const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
+          return pieceSet.url+color[0].toUpperCase()+pieceLetter+'.'+pieceSet.type;
         }
         case 'basedpolymer':
-        {
+        { // weird
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
           let key = color[0]+pieceLetter;
           if (pieceSet.name == 'ichess_basedpolymer') {
@@ -152,16 +173,16 @@
             };
             key = ring[key];
           }
-          return pieceSet.url+key+'.'+pieceSet.type
+          return pieceSet.url+key+'.'+pieceSet.type;
         }
         case 'comfysage':
-        {
+        { // w/wn
           const pieceLetter = piece == 'knight' ? 'n' : piece[0];
-          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type
+          return pieceSet.url+color[0]+'/'+color[0]+pieceLetter+'.'+pieceSet.type;
         }
         case 'DragurKnight':
-        {
-          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type
+        { // w_knight
+          return pieceSet.url+color[0]+'_'+piece+'.'+pieceSet.type;
         }
         default:
           throw new Error('Unknown piece set type' + type);
@@ -180,14 +201,16 @@
         .off('click',this.addPieces)
         .on('click',this.addPieces);
       const isCollapsed = moreButton.text() != '-';
-      let searchInput = list.parent().find('input.lichessTools-extraPieceSets')
+      let searchContainer = list.parent().find('div.lichessTools-extraPieceSets')
       if (isCollapsed) {
         list.find('button.lichessTools-extraPieceSets').remove();
-        searchInput.remove();
+        searchContainer.remove();
       } else
-      if (!searchInput.length)
+      if (!searchContainer.length)
       {
-        searchInput = $('<input type="text" class="lichessTools-extraPieceSets">')
+        searchContainer = $('<div class="lichessTools-extraPieceSets">')
+          .insertBefore(list);
+        const searchInput = $('<input type="text" class="search">')
           .attr('placeholder',trans.noarg('pieceFilterPlaceholder'))
           .attr('title',trans.noarg('pieceFilterTitle'))
           .on('input',()=>{
@@ -196,9 +219,25 @@
               .find('button')
               .each((i,e)=>$(e).toggleClassSafe('lichessTools-filteredPieces',!$(e).attr('title').toLowerCase().includes(text)));
           })
-          .insertBefore(list);
+          .appendTo(searchContainer);
+        $('<button type="button" class="button grid">')
+          .text(lt.icon.Keypad)
+          .attr('title',trans.noarg('pieceSetGridTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            this.buildPieceSetVisual('grid');
+          })
+          .appendTo(searchContainer);
+        $('<button type="button" class="button tree">')
+          .text(lt.icon.PalmBranch)
+          .attr('title',trans.noarg('pieceSetTreeTitle'))
+          .on('click',ev=>{
+            ev.preventDefault();
+            this.buildPieceSetVisual('tree');
+          })
+          .appendTo(searchContainer);
         const maxHeight = parseInt(list.css('max-height'));
-        if (maxHeight) list.css('max-height',maxHeight-searchInput.height());
+        if (maxHeight) list.css('max-height',maxHeight-searchContainer.height());
       }
       list.find('button:not(.lichessTools-extraPieceSets)')
         .each((i,e)=>{
@@ -222,7 +261,9 @@
       }
       const currentSetName = lt.storage.get('extraPieceSets-set');
       const categories = Object.keys(this.options);
+      let index=0;
       for (const category of categories) {
+        if (category == 'lichess') continue; // don't duplicate lichess pieces
         if (!this.options[category]) {
           list.find('button.lichessTools-extraPieceSets.'+category).remove();
           continue;
@@ -240,11 +281,13 @@
             .attr('data-setName',pieceSet.name)
             .addClass('lichessTools-extraPieceSets')
             .addClass(category)
+            .addClass('i'+(index%5+1))
             .on('click',()=>this.setPieceSet(pieceSet.name))
             .appendTo(list)
             .find('piece')
             .css('background-image','url('+url+')');
         }
+        index++;
       }
       if (currentSetName) {
         const activeElems = list.find('button.active');
@@ -256,6 +299,41 @@
         }
       }
       lt.scrollIntoViewIfNeeded(list.find('button.active'));
+    };
+
+    buildPieceSetVisual = async (mode)=>{
+      if (!this.pieceSets) return;
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      const dialog = await lt.dialog({
+        header: trans.noarg('pieceSetTreeHeader')
+      });
+      $(dialog).addClass('lichessTools-extraPieceSets');
+      dialog.showModal();
+
+      await lt.timeout(100);
+
+      const impl = mode == 'grid' ? PieceSetGrid : PieceSetTree;
+      const graph = new impl(
+        this.pieceSets.filter(ps=>!ps.duplicate),
+        ps => this.getUrl(ps, 'knight', 'white'),
+        await lt.d3(),
+        ps=>{
+          this.setPieceSet(ps.name);
+          const dlg = $('dialog.lichessTools-extraPieceSets');
+          dlg.addClass('changed');
+          lt.global.clearTimeout(this._clearChanged);
+          this._clearChanged = lt.global.setTimeout(()=>dlg.removeClass('changed'),1000);
+        },
+        ()=>lt.storage.get('extraPieceSets-set')
+      );
+      const container = graph.getContainer();
+      $('.dialog-content',dialog)
+        .append(container);
+
+      requestAnimationFrame(()=>graph.fillContainer());
     };
 
     async init() {
@@ -328,7 +406,7 @@
           if (!data) {
             lt.global.console.warn('Could not load piece sets!');
           }
-          self.pieceSets = data?.pieceSets || [];
+          self.pieceSets = (data?.pieceSets || []).filter(ps=>!ps.duplicate);
           for (const pieceSet of self.pieceSets) {
             if (pieceSet.category == 'chesscom') continue;
             pieceSet.name+='_'+pieceSet.category;
@@ -345,5 +423,374 @@
     }
 
   }
+
+class PieceSetTree {
+    constructor(pieceSets, getPieceUrl, d3, onSelect, getSelected) {
+        this.pieceSets = pieceSets;
+        this.getPieceUrl = getPieceUrl;
+        this.d3 = d3;
+        this.onSelect = onSelect;
+        this.getSelected = getSelected;
+
+        this.width = 1400;
+        this.height = 900;
+
+        this.nodes = pieceSets.map((set, i) => {
+          const title = set.category + ' ' + set.name.replace('_'+set.category,'');
+          return {
+            id: i,
+            set,
+            name: title
+          };
+        });
+
+        this.distanceMatrix = this.buildDistanceMatrix();
+        this.parent = this.buildMST(this.distanceMatrix);
+        this.root = this.buildHierarchy();
+
+        this.container = this.render();
+    }
+
+    // -----------------------
+    // Distance
+    // -----------------------
+    buildDistanceMatrix() {
+        const n = this.nodes.length;
+        const D = Array.from({ length: n }, () => Array(n).fill(0));
+
+        for (let i = 0; i < n; i++) {
+            for (let j = i + 1; j < n; j++) {
+                const d = this.getDistance(this.nodes[i].set, this.nodes[j].set);
+                D[i][j] = D[j][i] = d;
+            }
+        }
+
+        return D;
+    }
+
+    getDistance(a, b) {
+        let total = 0, count = 0;
+
+        for (let p in a.hashes) {
+            if (b.hashes[p] !== undefined) {
+                total += this.hammingDistance(a.hashes[p], b.hashes[p]);
+                count++;
+            }
+        }
+
+        return count ? total / count : 999;
+    }
+
+    hammingDistance(a, b) {
+        let x = BigInt(a) ^ BigInt(b);
+        let d = 0;
+        while (x) {
+            d += Number(x & 1n);
+            x >>= 1n;
+        }
+        return d;
+    }
+
+    // -----------------------
+    // MST (Prim)
+    // -----------------------
+    buildMST(D) {
+        const n = D.length;
+        const parent = Array(n).fill(-1);
+        const key = Array(n).fill(Infinity);
+        const inTree = Array(n).fill(false);
+
+        key[0] = 0;
+
+        for (let _ = 0; _ < n; _++) {
+            let u = -1;
+
+            for (let i = 0; i < n; i++) {
+                if (!inTree[i] && (u === -1 || key[i] < key[u])) {
+                    u = i;
+                }
+            }
+
+            inTree[u] = true;
+
+            for (let v = 0; v < n; v++) {
+                if (inTree[v]) continue;
+
+                const adjusted = D[u][v] + v * 1e-9;
+
+                if (adjusted < key[v]) {
+                    key[v] = adjusted;
+                    parent[v] = u;
+                }
+            }
+        }
+
+        return parent;
+    }
+
+    // -----------------------
+    // Build hierarchy
+    // -----------------------
+    buildHierarchy() {
+        const nodes = this.nodes.map(n => ({
+            id: n.id,
+            name: n.name,
+            set: n.set,
+            children: []
+        }));
+
+        const root = nodes[0];
+
+        for (let i = 1; i < nodes.length; i++) {
+            const p = this.parent[i];
+            if (p >= 0) {
+                nodes[p].children.push(nodes[i]);
+            } else {
+                root.children.push(nodes[i]);
+            }
+        }
+
+        return root;
+    }
+
+    // -----------------------
+    // Render with D3
+    // -----------------------
+    render() {
+        const container = document.createElement("div");
+
+        const svg = this.d3.select(container)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%");
+        const g = svg.append("g");
+
+        svg.call(
+            this.d3.zoom()
+                .scaleExtent([0.2, 1e6])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                })
+        );
+
+        const root = this.d3.hierarchy(this.root);
+
+        const tree = this.d3.tree().size([4000, 4000]);
+        tree(root);
+
+        // LINKS
+        g.selectAll("path.link")
+            .data(root.links())
+            .enter()
+            .append("path")
+            .attr("d", this.d3.linkVertical()
+                .x(d => d.x + 100)
+                .y(d => d.y + 50)
+            );
+
+        // NODES
+        this.nodes = g.selectAll("g.node")
+            .data(root.descendants())
+            .enter()
+            .append("g")
+            .attr("transform", d => `translate(${d.x + 100},${d.y + 50})`);
+
+        // CIRCLE
+        this.nodes.append("circle")
+            .attr("r", 30);
+
+        // IMAGE
+        this.nodes.append("image")
+            .attr("href", d => this.getPieceUrl(d.data.set))
+            .attr("width", 48)
+            .attr("height", 48)
+            .attr("x", -24)
+            .attr("y", -24)
+            .on("click", (event, d) => {
+              this.onSelect(d.data.set);
+              this.updateSelection();
+            })
+            .append("title")
+            .text(d => d.data.name);
+
+        const simulation = this.d3.forceSimulation(root.descendants())
+            .force("x", this.d3.forceX(d => d.x + 100).strength(1))
+            .force("y", this.d3.forceY(d => d.y + 50).strength(1))
+            .force("collide", this.d3.forceCollide(36)) // radius + padding
+            .stop();
+
+        for (let i = 0; i < 60; i++) {
+          simulation.tick();
+        }
+
+        this.nodes.attr("transform", d =>
+            `translate(${d.x},${d.y})`
+        );
+
+        this.rendered = {
+          g:g,
+          svg:svg
+        };
+        this.updateSelection();
+        return container;
+    }
+
+    updateSelection() {
+      const setName = this.getSelected();
+      this.nodes.select("circle")
+        .attr("class", d =>
+            d.data.set.name === setName ? "selected" : ""
+        );
+    }
+    // -----------------------
+    // Public API
+    // -----------------------
+    getContainer() {
+        return this.container;
+    }
+
+    fillContainer() {
+        const bounds = this.rendered?.g.node().getBBox();
+
+        this.rendered?.svg.attr("viewBox", [
+          bounds.x,
+          bounds.y,
+          bounds.width,
+          bounds.height
+        ].join(" "));
+    }
+}
+
+class PieceSetGrid {
+    constructor(pieceSets, getPieceUrl, d3, onSelect, getSelected) {
+        this.pieceSets = pieceSets || [];
+        this.getPieceUrl = getPieceUrl;
+        this.d3 = d3;
+        this.onSelect = typeof onSelect === "function" ? onSelect : null;
+        this.getSelected = typeof getSelected === "function" ? getSelected : null;
+
+        this.width = 1400;
+        this.height = 900;
+        this.cellSize = 90;
+
+        // Determine grid dimensions
+        this.Nx = 0;
+        this.Ny = 0;
+        for (const ps of this.pieceSets) {
+            if (ps.coordinates) {
+                this.Nx = Math.max(this.Nx, (ps.coordinates.x || 0) + 1);
+                this.Ny = Math.max(this.Ny, (ps.coordinates.y || 0) + 1);
+            }
+        }
+        if (this.Nx < 1) this.Nx = 1;
+        if (this.Ny < 1) this.Ny = 1;
+
+        this.container = this.render();
+    }
+
+    render() {
+        const container = document.createElement("div");
+        container.style.width = "100%";
+        container.style.height = "100%";
+        container.style.overflow = "hidden";
+
+        const totalWidth = this.Nx * this.cellSize;
+        const totalHeight = this.Ny * this.cellSize;
+
+        const svg = this.d3.select(container)
+            .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`);
+
+        const g = svg.append("g");
+
+        // Zoom behavior
+        const zoom = this.d3.zoom()
+            .scaleExtent([0.1, 8])           // wide zoom range: zoom out a lot + zoom in
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Build grid
+        for (const ps of this.pieceSets) {
+            if (!ps.coordinates) continue;
+            const cellX = Math.floor(ps.coordinates.x) * this.cellSize;
+            const cellY = Math.floor(ps.coordinates.y) * this.cellSize;
+
+            // Background circle
+            const circle = g.append("circle")
+                .attr("data-key", ps.name)
+                .attr("cx", cellX + this.cellSize / 2)
+                .attr("cy", cellY + this.cellSize / 2)
+                .attr("r", this.cellSize / 2 - 5);
+            circle.attr("cursor", "pointer");
+
+            const title = ps.category + ' ' + ps.name.replace('_'+ps.category,'');
+
+            // Image
+            g.append("image")
+                .attr("x", cellX + 6)
+                .attr("y", cellY + 6)
+                .attr("width", this.cellSize - 12)
+                .attr("height", this.cellSize - 12)
+                .attr("href", this.getPieceUrl(ps))
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("cursor", "pointer")
+                .on("click", () => {
+                    this.onSelect(ps);
+                    this.updateSelection();
+                })
+                .append("title")
+                .text(title);
+        }
+
+        this.svg = svg;
+        this.g = g;
+        this.rendered = { svg, g, container, zoom };
+
+        this.updateSelection();
+        return container;
+    }
+
+    updateSelection() {
+        if (!this.getSelected || !this.g) return;
+
+        const setName = this.getSelected();
+
+        this.g.node().querySelectorAll('circle[data-key]')
+            .forEach(e=>{
+              e.classList.toggle('selected',e.getAttribute('data-key')==setName);
+            });
+
+    }
+
+    getContainer() {
+        return this.container;
+    }
+
+    setCellSize(newSize) {
+        this.cellSize = newSize || 90;
+        if (this.rendered && this.rendered.container) {
+            const newContainer = this.render();
+            const parent = this.rendered.container.parentNode;
+            if (parent) {
+                parent.replaceChild(newContainer, this.rendered.container);
+            }
+            this.container = newContainer;
+        }
+    }
+
+    fillContainer() {
+        if (this.rendered && this.rendered.svg) {
+            const totalWidth = this.Nx * this.cellSize;
+            const totalHeight = this.Ny * this.cellSize;
+            this.rendered.svg.attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`);
+        }
+    }
+}
+
   LiChessTools.Tools.ExtraPieceSets = ExtraPieceSetsTool;
 })();

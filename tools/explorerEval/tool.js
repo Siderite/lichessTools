@@ -87,7 +87,7 @@
       });
     }
 
-    showEvaluations(result) {
+    async showEvaluations(result) {
       const moves = result?.moves;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -97,10 +97,11 @@
       const orientation = analysis.getOrientation() == 'black' ? -1 : 1;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       if (lt.isGamePlaying()) return;
+      const isError = analysis.explorer.failing();
       let container = $('section.explorer-box table.moves');
       const tablebase = $('section.explorer-box table.tablebase');
       if (!container.length) {
-        if (this.options.evalRows && moves?.length) {
+        if (this.options.evalRows && moves?.length && !isError) {
           const dataElem = $('section.explorer-box div.data');
           $('div.message', dataElem).remove();
           container = $('<table class="moves lichessTools-evalTable">')
@@ -118,8 +119,13 @@
                   const uci = $(ev.target).parents("tr").attr("data-uci");
                   analysis.explorerMove(uci);
                 })
-            )
-            .appendTo(dataElem);
+            );
+            const puzzles = $('section.explorer-box table.lichessTools-puzzles');
+            if (puzzles.length) {
+              container.insertBefore(puzzles);
+            } else {
+              container.appendTo(dataElem);
+            }
           dataElem.toggleClassSafe('empty',false);
         } else {
           return;
@@ -133,7 +139,7 @@
           .insertAfter($('th:nth-child(1)', container));
       }
       $('tr:has(.lichessTools-evalRow)', container).remove();
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (co && this.options.evalRows && moves?.length) {
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
         const fen = co.fen.parseFen(analysis.node.fen).unwrap();
@@ -352,7 +358,7 @@
       const populateSpoa = (spoa, el) => {
         if (!el.length) return;
         if (el.find('div.lichessTools-spoa').length) {
-          el.find('span.spoa').text(spoa);
+          el.find('span.spoa').textSafe(spoa);
         } else {
           const text = el.text();
           el.empty()

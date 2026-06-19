@@ -14,8 +14,8 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['chessPursuit'],
-        defaultValue: 'chessPursuit',
+        possibleValues: ['mortalKombat','chessPursuit','starWars','superMario','chesscom'],
+        defaultValue: true,
         advanced: true
       },
       {
@@ -62,7 +62,11 @@
         'timeAlert.beep': 'Sound alert',
         'timeAlert.speak5': 'Read seconds when less than 6',
         'timeAlert.behind': 'Alert when behind on time',
-        'soundThemes.chessPursuit': 'Chess Pursuit'
+        'soundThemes.chessPursuit': 'Chess Pursuit',
+        'soundThemes.mortalKombat': 'Mortal Kombat',
+        'soundThemes.starWars': 'Star Wars',
+        'soundThemes.superMario': 'Super Mario World',
+        'soundThemes.chesscom': 'Chess.com'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -84,7 +88,11 @@
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
         'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
         'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
-        'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah'
+        'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah',
+        'soundThemes.mortalKombat': 'Mortal Kombat',
+        'soundThemes.starWars': 'R\u0103zboiul Stelelor',
+        'soundThemes.superMario': 'Lumea Super Mario',
+        'soundThemes.chesscom': 'Chess.com'
       }
     }
 
@@ -233,9 +241,7 @@
       'countdown4', 'countdown5', 'countdown6', 'countdown7', 'countdown8', 'countdown9', 'defeat', 'draw', 'error', 'explosion',
       'genericNotify', 'lowtime', 'move', 'newChallenge', 'newPM', 'outofbound', 'practiceComplete', 'tournament1st', 'tournament2nd', 'tournament3rd',
       'tournamentOther', 'victory' ];
-    themeUrls = new Map([
-      ['chessPursuit','https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/sound/']
-    ]);
+
     soundUrls = new Map();
     loadSound = async (e) => {
       const lt = this.lichessTools;
@@ -310,6 +316,15 @@
         speak5: lt.isOptionSet(timeAlert, 'speak5'),
         behind: lt.isOptionSet(timeAlert, 'behind') 
       };
+      if (!this.themeUrls) {
+        const self = this;
+        lt.comm.getData('soundThemeUrls.json').then(data=>{
+          if (!data) {
+            lt.global.console.warn('Could not load sound themes!');
+          }
+          self.themeUrls = new Map(data?.themeUrls || []);
+        });
+      }
       if (lichess.sound?.move) {
         lichess.sound.move = lt.unwrapFunction(lichess.sound.move, 'soundOptions');
         if (this.options.noMove) {
@@ -342,7 +357,16 @@
       if (soundThemes) {
         lichess.sound.changeSet = lt.wrapFunction(lichess.sound.changeSet,{
           id: 'soundOptions',
+          before: ($this,e)=>{
+            if (!this.themeUrls) {
+              lt.global.setTimeout(()=>lichess.sound.changeSet(e),100);
+              return false;
+            }
+          },
           after: ($this,result,e)=>{
+            if (!this.themeUrls) {
+              return;
+            }
             this.soundUrls.clear();
             let customThemeUrl = this.themeUrls.get(e);
             if (customThemeUrl) {

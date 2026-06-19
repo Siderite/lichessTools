@@ -1,12 +1,14 @@
 (() => {
   class ChapterEditingTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitRedraw', 'PgnEditor'];
+
     preferences = [
       {
         name: 'chapterEditing',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['tags', 'bulk'],
+        possibleValues: ['tags', 'bulk', 'merge'],
         defaultValue: true,
         advanced: true,
         needsLogin: true
@@ -19,6 +21,7 @@
         'options.chapterEditing': 'Study chapter editing',
         'chapterEditing.tags': 'Chapter tags',
         'chapterEditing.bulk': 'Multiple chapters',
+        'chapterEditing.merge': 'Merge lines',
         'bulkPgnTagEditHeader': 'PGN tags editor',
         'updatePgnTagsText': 'Update PGN tags',
         'bulkPgnTagsEditText': 'Edit PGN tags',
@@ -31,13 +34,18 @@
         'editChaptersButtonTitle': 'LiChess Tools - edit selected chapters',
         'cancelEditChaptersButtonText': 'Cancel',
         'cancelEditChaptersButtonTitle': 'LiChess Tools - cancel chapter selection',
-        'bulkEditUnchanged': '-- Unchanged --'
+        'bulkEditUnchanged': '-- Unchanged --',
+        'mergePgnButtonTitle': 'LiChess Tools - merge PGN in this chapter',
+        'mergeButtonText': 'Merge',
+        'mergePgnHeader': 'PGN to merge in this chapter',
+        'errorMergingPgnText': 'Error merging PGN'
       },
       'ro-RO': {
         'options.study': 'Studiu',
         'options.chapterEditing': 'Editare capitole de studiu',
         'chapterEditing.tags': 'Etichete de capitol',
         'chapterEditing.bulk': 'Mai multe capitole',
+        'chapterEditing.merge': 'Adaug\u0103 linii',
         'bulkPgnTagEditHeader': 'Editor etichete PGN',
         'updatePgnTagsText': 'Salveaz\u0103 etichete PGN',
         'bulkPgnTagsEditText': 'Modific\u0103 etichetele PGN',
@@ -50,7 +58,11 @@
         'editChaptersButtonTitle': 'LiChess Tools - modific\u0103 capitolele selectate',
         'cancelEditChaptersButtonText': 'Anuleaz\u0103',
         'cancelEditChaptersButtonTitle': 'LiChess Tools - anuleaz\u0103 selec\u0163ia de capitole',
-        'bulkEditUnchanged': '-- Neschimbat --'
+        'bulkEditUnchanged': '-- Neschimbat --',
+        'mergePgnButtonTitle': 'LiChess Tools - adaug\u0103 PGN \u00een capitol',
+        'mergeButtonText': 'Combin\u0103',
+        'mergePgnHeader': 'PGN de fuzionat \u00een acest capitol',
+        'errorMergingPgnText': 'Eroare la fuzionarea PGN'
       }
     }
 
@@ -204,7 +216,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      const studyChapters = lt.lichess.analysis.study.chapters;
+      const study = lt.lichess.analysis.study;
+      const studyChapters = study.chapters;
       const editForm = studyChapters.editForm;
       switch(ev) {
         case 'deleteChapter':
@@ -219,7 +232,7 @@
             lt.global.console.warn('Error deleting chapters',e);
             lt.announce(trans.noarg('errorDeletingChaptersMessage'));
           } finally {
-            site.analysis.study.chapters.sort([]);
+            study.chapters.sort([]);
             this.cancelEditChapters();
           }
           break;
@@ -240,6 +253,9 @@
                 mode: rest.mode || existingData.mode,
                 description: existingData.description || ''
               };
+              if (rest.orientation) {
+                study.chapterFlipMapProp(id,null);
+              }
               await editForm.send(ev,data);
               await lt.timeout(500);
             }
@@ -278,6 +294,13 @@
         if (!container.length) {
           container = $('<div class="lichessTools-bulkEditButtons">')
                         .insertBefore(chaptersElem);
+          $('<input type="checkbox" class="lichessTools-selectAllChapters">')
+            .on('input',ev=>{
+              ev.stopPropagation();
+              $('.study-list input.lichessTools-selectChapter')
+                .prop('checked',ev.currentTarget.checked);
+            })
+            .appendTo(container);
           $('<button type="button" data-act="editChapters" class="button text">')
             .text(trans.noarg('editChaptersButtonText'))
             .attr('title',trans.noarg('editChaptersButtonTitle'))
@@ -317,9 +340,64 @@
 
         });
       }
+      if (this.options.merge) {
+        const button = $('button.lichessTools-mergePgn');
+        const anchor = $('#chapter-name');
+        if (anchor.length && !button.length) {
+          $('<button type="button" class="button lichessTools-mergePgn">')
+            .attr('title',trans.noarg('mergePgnButtonTitle'))
+            .attr('data-icon',lt.icon.PlusButton)
+            .on('click',async (ev)=>{
+              ev.preventDefault();
+              const dialog = await lt.dialog({
+                header: trans.noarg('mergePgnHeader')
+              });
+              $(dialog).addClass('lichessTools-mergePgn');
+              $('.dialog-content',dialog)
+                .append('<textarea autofocus>')
+                .append($('<button type="button" class="button">')
+                  .text(trans.noarg('mergeButtonText'))
+                  .on('click',async (ev2)=>{
+                    ev2.preventDefault();
+                    const studyId = study.data?.id;
+                    const chapterId = study.chapters.editForm.current()?.id;
+                    if (!chapterId) return;
+                    const existingPgn = await lt.api.study.getChapterPgn(studyId, chapterId);
+                    const newPgn = $('.lichessTools-mergePgn textarea').val();
+                    try {
+                      $('.lichessTools-errorText').text('');
+                      const pgn = await this.mergePgns(existingPgn, newPgn);
+                      if (pgn) {
+                        await lt.api.study.updateChapterPgn(studyId, chapterId, pgn);
+                        dialog.close();
+                        return;
+                      }
+                    } catch(e) {
+                      lt.global.console.warn('Error merging PGN:',e);
+                    }
+                    $('.lichessTools-errorText').text(trans.noarg('errorMergingPgnText'));
+                  })
+                )
+                .append('<span class="lichessTools-errorText">');
+              dialog.showModal();
+            })
+            .insertAfter(anchor);
+        }
+      }
     };
     debouncedRefreshChapterEditControls = this.lichessTools.debounce(this.refreshChapterEditControls, 100);
 
+    mergePgns = async (pgn1, pgn2) => {
+      const lt = this.lichessTools;
+      const pgnEditor = lt.tools.PgnEditorTool;
+      if (!pgnEditor) {
+        throw new Error('PGN Editor required for this operation');
+      }
+      const games = await pgnEditor.mergePgnText(pgn1+'\r\n\r\n'+pgn2);
+      if (!games) return null;
+      const pgn = await pgnEditor.gamesToPgn(games);
+      return pgn;
+    };
 
     async start() {
       const lt = this.lichessTools;
@@ -333,7 +411,8 @@
       }
       this.options = {
         tags: lt.isOptionSet(value, 'tags'),
-        bulk: lt.isOptionSet(value, 'bulk')
+        bulk: lt.isOptionSet(value, 'bulk'),
+        merge: lt.isOptionSet(value, 'merge')
       };
       const $ = lt.$;
       const study = lichess?.analysis?.study;
@@ -377,6 +456,17 @@
         lt.uiApi.events.on('chat.resize', this.debouncedRefreshChapterEditControls);
         $('.study__chapters').observer()
           .on('button[data-id], button[data-id] h3',this.debouncedRefreshChapterEditControls);
+      }
+      study.chapters.editForm.toggle = lt.unwrapFunction(study.chapters.editForm.toggle, 'chapterEditing');
+      if (this.options.merge) {
+        study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
+          id: 'chapterEditing',
+          after: ($this, result, data) => {
+            lt.global.setTimeout(this.refreshChapterEditControls, 500);
+          }
+        });
+      }
+      if (this.options.bulk || this.options.merge) {
         this.refreshChapterEditControls();
       }
     }

@@ -41,7 +41,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis?.showFishnetAnalysis() && !analysis?.cevalEnabled()) return;
+        if (!analysis?.showStaticAnalysis() && !analysis?.cevalEnabled()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {
@@ -77,7 +77,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        if (!analysis?.showFishnetAnalysis()) return;
+        if (!analysis?.showStaticAnalysis()) return;
         const traverse = (node, path) => {
           let evl = node.eval;
           const ceval = node.ceval;
@@ -88,6 +88,8 @@
               let evalElem = $('eval', elem);
               if (!evalElem?.length) {
                 evalElem = $('<eval class="lichessTools-cevalDecimals">').appendTo(elem);
+              } else if (evalElem.length>1) {
+                $('.lichessTools-cevalDecimals',elem).remove();
               }
               const text = this.renderEval(evl.cp, evl.mate);
               evalElem.replaceText(text);
@@ -133,10 +135,10 @@
         .observer()
         .off('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .off('move, eval',this.showDecimalsMoves);
-      analysis.toggleFishnetAnalysis = lt.unwrapFunction(analysis.toggleFishnetAnalysis,'cevalDecimals');
+      analysis.toggleStaticAnalysis = lt.unwrapFunction(analysis.toggleStaticAnalysis,'cevalDecimals');
       $('.lichessTools-cevalDecimals').remove();
       if (!value) return;
-      analysis.toggleFishnetAnalysis = lt.wrapFunction(analysis.toggleFishnetAnalysis, {
+      analysis.toggleStaticAnalysis = lt.wrapFunction(analysis.toggleStaticAnalysis, {
         id: 'cevalDecimals',
         after: ($this,result,...args)=>{
           $('.lichessTools-cevalDecimals').remove();

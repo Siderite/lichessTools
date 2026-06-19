@@ -127,7 +127,7 @@
         const dialog = await lt.dialog({
           header: '',
           noClickAway: true,
-          resizeable: true,
+          resizable: true,
           htmlText: `<iframe
   width="100%"
   height="100%" 
@@ -152,7 +152,7 @@
           $(dialog).css('bottom', dialogPlacement.bottom || 'unset');
           $('.dialog-content', dialog).css('width', dialogPlacement.width);
           $('.dialog-content', dialog).css('height', dialogPlacement.height);
-        };
+        }
         dialog.show();
         this.ensureInViewport();
       }
@@ -160,6 +160,8 @@
 
     setDialogPlacement = (data) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!$('dialog.lichessTools-video').length) return;
       lt.storage.set('LichessTools.dialogPlacement', data);
       this.ensureInViewport();
     };
@@ -214,7 +216,35 @@
       const study = analysis?.study;
       if (!study) return;
       const count = analysis.node.comments?.length || 0;
-      $('span.comments count').attrSafe('data-count',count || null);
+      $('button.comments count').attrSafe('data-count',count || null);
+    };
+
+    ensureCommentTab = ()=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess?.analysis;
+      const study = analysis?.study;
+      if (!study) return;
+
+      const anchorElem = $('button.tags:not(:has(+button.comments))');
+      if (!anchorElem.length) return;
+
+      const commentThisPositionText = lt.global.i18n?.study?.commentThisPosition;
+      if (!commentThisPositionText) {
+        lt.global.console.warn('Could not determine commentThisPosition translation string!');
+      }
+      $('<button class="lichessTools-comments comments" role="tab">')
+        .attr('title',commentThisPositionText)
+        .append('<count class="data-count">')
+        .append($('<icon>').attr('data-icon',lt.icon.BubbleSpeech))
+        .on('click',()=>{
+          study.vm.toolTab('comments');
+          lt.analysisRedraw();
+        })
+        .insertAfter(anchorElem);
+      lt.analysisRedraw();
+      this.countComments();
     };
 
     async start() {
@@ -260,26 +290,13 @@
         this.alterStudyLinks();
       }
       lt.uiApi.events.off('analysis.change',this.countComments);
+      $('body').observer()
+        .off('.study__buttons',this.ensureCommentTab);
       if (this.options.commentTab) {
-        const anchorElem = $('span.tags:not(:has(+span.comments))');
-        if (anchorElem.length) {
-          const commentThisPositionText = lt.global.i18n?.study?.commentThisPosition;
-          if (!commentThisPositionText) {
-            lt.global.console.warn('Could not determine commentThisPosition translation string!');
-          }
-          $('<span class="lichessTools-comments comments" role="tab">')
-            .attr('title',commentThisPositionText)
-            .append('<count class="data-count">')
-            .append($('<i>').attr('data-icon',lt.icon.BubbleSpeech))
-            .on('click',()=>{
-              study.vm.toolTab('comments');
-              lt.analysisRedraw();
-            })
-            .insertAfter(anchorElem);
-          lt.analysisRedraw();
-        }
+        this.ensureCommentTab();
+        $('body').observer()
+          .on('.study__buttons',this.ensureCommentTab);
         lt.uiApi.events.on('analysis.change',this.countComments);
-        this.countComments();
       }
 
     }

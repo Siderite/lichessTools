@@ -46,7 +46,7 @@
       const $ = lt.$;
       if (!this.options.seconds) return;
       if (!$.cached('body').is('.playing')) return;
-      const selectedSquare = $('square.selected:not([style*="hidden"])')[0]?.cgKey;
+      const selectedSquare = $('square.selected:not([style*="hidden"],[style*="display: none"])')[0]?.cgKey;
       this.select(selectedSquare);
     };
 
@@ -59,12 +59,13 @@
       lt.global.clearInterval(this.checkPieceSelection);
       this.options = { seconds: +value };
       if (!this.options.seconds) return;
-      const bindings = lichess.mousetrap?.bindings;
-      if (!bindings) return;
       if (!$('main').is('.round,.puzzle')) return;
       this.unselectPiece = () => {
         const isLastMove = $('div.tview2 move:last-child').is('.active') || $('div.ruser-top + * div.buttons + *>:last-child')[0]?.className;
-        if (isLastMove) bindings.down?.find(b => b.combination == 'down')?.callback();
+        if (isLastMove) {
+          const callback = lt.getKeyHandler('down');
+          callback?.();
+        }
       };
       this.discoverChatInterval = lt.global.setInterval(this.checkPieceSelection, 500);
     }

@@ -64,7 +64,8 @@
         'daysText': '%s days',
         'hoursText': '%s hrs',
         'minutesText': '%s mins',
-        'continueFromHere': 'Go on!'
+        'continueFromHere': 'Go on!',
+        'variationsCountText': '%s variations'
       },
       'ro-RO': {
         'options.study': 'Studiu',
@@ -108,7 +109,8 @@
         'daysText': '%s zile',
         'hoursText': '%s ore',
         'minutesText': '%s minute',
-        'continueFromHere': 'Continu\u0103!'
+        'continueFromHere': 'Continu\u0103!',
+        'variationsCountText': '%s varia\u0163ii'
       }
     }
 
@@ -133,9 +135,11 @@
 
         $('.lichessTools-extendedInteractiveLesson-info').remove();
 
-        if (state.init || gp.state?.init) {
+        const inFlow = this.options.flow.sequential || this.options.flow.spacedRepetition;
+
+        if (state.init || gp.state?.init || (inFlow && !gp.currentPath)) {
           gp.resetStats?.();
-          if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+          if (inFlow) {
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
@@ -164,12 +168,12 @@
         }
         const parPath = analysis.path.slice(0, -2);
         const parNode = analysis.tree.nodeAtPath(parPath);
-        const isAcceptedMove = this.isPermanentNode(node) && (!(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(analysis.path));
+        const isAcceptedMove = this.isPermanentNode(node) && (!inFlow || this.inCurrentPath(analysis.path));
         if (!isAcceptedMove) {
           const position = lt.getNodePosition(node);
           const candidate = lt.getNextMoves(parNode, gp.threeFoldRepetition)
             .filter(c => this.isPermanentNode(c))
-            .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path))
+            .filter(c => !inFlow || this.inCurrentPath(c.path))
             .find(c => lt.getNodePosition(c) == position);
           if (candidate) {
             if (candidate.path !== undefined) {
@@ -183,7 +187,7 @@
         const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
           .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]))
         const nextMoves = allNextMoves
-          .filter(c => !(this.options.flow.sequential || this.options.flow.spacedRepetition) || this.inCurrentPath(c.path));
+          .filter(c => !inFlow || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
           state.feedback = 'bad';
           if (!state.comment) {
@@ -192,7 +196,44 @@
         } else if (!nextMoves.length) {
           state.feedback = 'end';
           state.hint = null;
-          this.markPathFinished(analysis.path, gp.goodMoves + (gp.isMyMove() ? 0 : 1), gp.badMoves, gp.askedForSolution);
+          const goodMoves = gp.goodMoves + (gp.isMyMove() ? 0 : 1);
+          const badMoves = gp.badMoves;
+          const { previousInterval, interval, successRate } = this.markPathFinished(analysis.path, goodMoves, badMoves, gp.askedForSolution);
+
+          const colorCodeSuccessRate = (rate) => {
+            const cls = rate > 0.9 ? 'green'
+                         : rate >= 0.7 ? 'yellow'
+                         : rate >= 0.5 ? 'orange'
+                         : 'red';
+            const elem = $('<span>')
+                     .addClass('lichessTools-rate-'+cls)
+                     .text((rate*100).toFixed(0)+'%');
+            return elem;
+          };
+
+          const infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">');
+          $('<div>')
+           .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
+           .append(colorCodeSuccessRate(successRate))
+           .appendSpan(')')
+           .appendTo(infoElem);
+
+          if (this.options.flow.spacedRepetition) {
+            $('<div>')
+              .text(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${interval.toFixed(1)}`))
+              .appendTo(infoElem);
+          }
+          const attach = ()=>{
+            const container = $('.gamebook .comment');
+            if (!container.length) {
+              lt.global.setTimeout(attach,100);
+              return;
+            }
+            $('.lichessTools-extendedInteractiveLesson-info',container).remove();
+            infoElem.appendTo(container);
+          };
+          attach();
+
         } else if (!node.children?.length) {
           // paths don't contain transpositions, but interactive uses them
           state.feedback = 'play';
@@ -200,10 +241,14 @@
         } else if (gp.isMyMove()) {
           state.feedback = 'play';
           state.hint = node.gamebook?.hint;
+        } else {
+          state.feedback = 'good';
+        }
+        if (gp.isMyMove() && state.feedback == 'play') {
           const nextMovesCount = new Set(nextMoves.map(c => c.uci)).size;
           if (!state.hint) {
             state.hint = trans.pluralSame('nextMovesCount', nextMovesCount);
-            if ((this.options.flow.sequential || this.options.flow.spacedRepetition) && this.options.flow.negativeHint) {
+            if (inFlow && this.options.flow.negativeHint) {
               const avoidText = allNextMoves
                 .filter(c=>!this.inCurrentPath(c.path))
                 .map(c=>c.san)
@@ -221,8 +266,6 @@
               .attr('data-count', nextMovesCount)
               .addClass('data-count');
             }, 100);
-        } else {
-          state.feedback = 'good';
         }
         gp.state = state;
         let func = null;
@@ -471,7 +514,6 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const trans = lt.translator;
-      const $ = lt.$;
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return;
@@ -489,47 +531,16 @@
       item.success = success;
       item.successRate = successRate;
       if (!item.interval) item.interval = 1;
-
-      const colorCodeSuccessRate = (rate) => {
-        const cls = rate > 0.9 ? 'green'
-                     : rate >= 0.7 ? 'yellow'
-                     : rate >= 0.5 ? 'orange'
-                     : 'red';
-        const elem = $('<span>')
-                 .addClass('lichessTools-rate-'+cls)
-                 .text((rate*100).toFixed(0)+'%');
-        return elem;
-      };
+       paths[path] = item;
 
       const previousInterval = item.interval;
-      const infoElem = $('<div class="lichessTools-extendedInteractiveLesson-info">');
-      $('<div>')
-       .appendSpan(`${goodMoves} ${lt.icon.Checked} | ${badMoves} ${lt.icon.RedX} (`)
-       .append(colorCodeSuccessRate(successRate))
-       .appendSpan(')')
-       .appendTo(infoElem);
 
       if (this.options.flow.spacedRepetition) {
         const factor = successRate >= 0.7
           ? 1 + ((successRate - 0.7) / 0.3) * 0.5
           : 0.5 + 0.5 * (successRate / 0.7);
         item.interval = Math.max(1/144, item.interval * factor);
-        $('<div>')
-          .text(trans.pluralSame('daysText',`${previousInterval.toFixed(1)} ${lt.icon.RightwardsArrow} ${item.interval.toFixed(1)}`))
-          .appendTo(infoElem);
       }
-      const attach = ()=>{
-        const container = $('.gamebook .comment');
-        if (!container.length) {
-          lt.global.setTimeout(attach,100);
-          return;
-        }
-        $('.lichessTools-extendedInteractiveLesson-info',container).remove();
-        infoElem.appendTo(container);
-      };
-      attach();
-
-      paths[path] = item;
 
       const traverse = (node, nodeList) => {
         const nextMoves = analysis.visibleChildren(node)
@@ -550,6 +561,7 @@
       this._paths[key] = paths;
       this.saveChapterPaths();
       this.refreshChapterProgress();
+      return { previousInterval, interval: item.interval, successRate };
     };
 
     isDonePath = (path) => {
@@ -897,8 +909,10 @@
       const $ = lt.$;
       const trans = lt.translator;
       const analysis = lt.lichess.analysis;
+      const study = analysis?.study;
+      if (!study) return;
 
-      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!analysis?.study?.data?.chapter?.gamebook);
+      $.cached('body').toggleClassSafe('lichessTools-extendedInteractiveLesson', this.options.extendedInteractive && !!study.data.chapter.gamebook);
       let translation = trans.noarg('extendedInteractiveLessonLong')
       $('button.preview').attrSafe('title', translation); //.attr('data-label',translation);
 
@@ -933,8 +947,8 @@
       }
 
       const menu = $('#analyse-cm');
-      const isWritableStudy = analysis?.study?.isWriting();
-      if (isWritableStudy && menu.length && analysis?.study?.data?.chapter?.gamebook) {
+      const isWritableStudy = study.isWriting();
+      if (isWritableStudy && menu.length && study.data.chapter.gamebook) {
         if (!menu.has('a[data-role="addDeviation"]').length) {
           const text = trans.noarg('addDeviationText');
           const title = trans.noarg('addDeviationTitle');
@@ -957,7 +971,7 @@
         }
       }
 
-      if (!analysis.study?.practice) {
+      if (!study.practice) {
         const gamebookElem = $('div.gamebook');
         let optionsElem = gamebookElem.find('.lichessTools-extendedInteractiveLesson-options');
         if (!optionsElem.length) {
@@ -983,6 +997,12 @@
           if (this.options.flow.negativeHint) {
             optionsArr.push(trans.noarg('extendedInteractiveLessonFlow.negativeHint'));
           }
+        }
+        const key = study.data.id + '/' + study.data.chapter.id;
+        const paths = this._paths[key];
+        const total = paths && Object.keys(paths).filter(k=>k!='currentPath').length;
+        if (total) {
+          optionsArr.push(trans.pluralSame('variationsCountText',total));
         }
         optionsElem.find('span').textSafe(optionsArr.join(', '));
       }
@@ -1163,9 +1183,9 @@
           }
         }
 
-        let act = container.children('i.act');
+        let act = container.children('icon.act');
         if (!act.length) {
-          act = $(`<i class="act lichessTools-reset">`)
+          act = $(`<icon class="act lichessTools-reset">`)
             .attr('data-icon',lt.icon.Reload)
             .attr('title', trans.noarg('resetVariationsButtonTitle'))
             .on('click', async (ev) => {
@@ -1276,7 +1296,7 @@
               this._previewPath = analysis.path;
               // fix lichess bug where entering Preview mode with engine on keeps engine running
               if (analysis.cevalEnabled()) {
-                analysis.ceval.stop();
+                analysis.ceval.reset();
                 analysis.ceval.isDeeper(false);
               }
               if (this.options.extendedInteractive) {

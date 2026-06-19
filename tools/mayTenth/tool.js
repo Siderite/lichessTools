@@ -6,23 +6,33 @@
         name: 'mayTenth',
         category: 'general',
         type: 'single',
-        possibleValues: [false, true],
-        defaultValue: true,
-        advanced: true,
-        hidden: true
+        possibleValues: ['mayTenth','never','always'],
+        defaultValue: 'mayTenth',
+        offValue: 'never',
+        advanced: true
       }
+    ];
+
+    upgrades = [
+      { name:'mayTenth', value:'mayTenth', version: '2.4.202', type: 'new' }
     ];
 
     intl = {
       'en-US': {
         'options.general': 'General',
         'options.mayTenth': 'LiChess Tools day!',
-        'mayTenthTitle': 'Happy LiChess Tools day!'
+        'mayTenthTitle': 'Happy LiChess Tools day!',
+        'mayTenth.mayTenth': 'On May 10th',
+        'mayTenth.never': 'Never',
+        'mayTenth.always': 'Always'
       },
       'ro-RO': {
         'options.general': 'General',
         'options.mayTenth': 'Ziua LiChess Tools!',
-        'mayTenthTitle': 'La mul\u0163i ani, LiChess Tools!'
+        'mayTenthTitle': 'La mul\u0163i ani, LiChess Tools!',
+        'mayTenth.mayTenth': 'Pe 10 mai',
+        'mayTenth.never': 'Niciodat\u0103',
+        'mayTenth.always': 'Totdeauna'
       }
     }
 
@@ -32,15 +42,17 @@
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('mayTenth');
       this.logOption('LT day', value);
-      $.cached('body').removeClass('lichessTools-mayTenth');
-      $('a.site-title,#topnav section a:has(span.home)').removeAttr('title');
-      if (!value) return;
-      const isMayTenth = new Date().toISOString().includes('-05-10');
+      this.options = {
+        mayTenth: lt.isOptionSet(value,'mayTenth'),
+        never: lt.isOptionSet(value,'never'),
+        always: lt.isOptionSet(value,'always'),
+      };
+      const isMayTenth = !this.options.never && new Date().toISOString().includes('-05-10');
       $.cached('body')
-        .toggleClass('lichessTools-mayTenth', isMayTenth);
+        .toggleClass('lichessTools-mayTenth', isMayTenth || this.options.always);
       if (isMayTenth) {
         $('a.site-title,#topnav section a:has(span.home)')
-          .attr('title', trans.noarg('mayTenthTitle'));
+          .attr('title', isMayTenth ? trans.noarg('mayTenthTitle') : null);
       }
     }
   }

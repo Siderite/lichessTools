@@ -1,5 +1,80 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Jun
+
+- support for multiple glyphs on the same move
+- disable Live Annotate option
+- Chess.com sound theme
+- $leaf,$white,$black,| move search
+- critical moves chart line
+
+02 Jun
+
+- show forum reaction tooltips on mobile
+- merge PGN in existing study chapters
+
+01 Jun
+
+- show opponent legal moves
+- Novelty auto glyph
+- collapsible blog TOC
+
+29 May
+
+- Study chapter coverage
+- 'r' for request analysis/learn from mistakes
+- option to configure LiChess Tools day behavior
+- show FPS tool
+- slow glyphs and keyboard shortcuts
+
+27 May
+
+- Chessagine integration in Explorer
+
+22 May
+
+- Elite Retro piece set
+- Piece sets grid
+
+18 May
+
+- show number of variations in interactive lesson info panel
+- notification of new members in teams you lead
+
+14 May
+
+- Finalize Calculation Trainer features
+
+11 May
+
+- chess.com shuiq board
+
+05 May
+
+- Calculation trainer
+
+03 May
+
+- Experimental theme added
+
+30 Apr
+
+- piece set similarity tree
+
+29 Apr
+
+- more boards and piece sets and cleaning the old ones
+- Super Mario World sound theme
+
+28 Apr
+
+- team member count chart
+- capture count in Chess Pursuit
+
+26 Apr
+
+- Added Ford Crown Victoria piece sets and sound themes again
+
 19 Apr
 
 - Online bots menu item

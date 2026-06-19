@@ -57,7 +57,7 @@ body.lichessTools .ublog-post__markup img.flag+br+em {
 }
 
 /* for berserk mode overlapping the flag */
-body.lichessTools .game__meta .user-link+img.flag+i[data-icon] {
+body.lichessTools .game__meta .user-link+img.flag+icon[data-icon] {
   margin-left: 2.5em;
 }
 

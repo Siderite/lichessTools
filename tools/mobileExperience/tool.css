@@ -30,6 +30,12 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   padding-bottom: 0.5em;
   flex: 0 0 2em;
   min-width:2em;
+  background: var(--m-bg_bg-page--mix-50);
+  display: none;
+}
+
+body.lichessTools.mobile div.analyse__controls button.lichessTools-shapeDrawing {
+  display: block;
 }
 
 /* fix for Kiwi mobile hover bug */
@@ -38,22 +44,26 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   color: initial;
 }*/
 
-body.lichessTools button.lichessTools-greenBrush {
+body.lichessTools button.lichessTools-greenBrush,
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-greenBrush {
   background: #629924;
   color: white;
 }
 
-body.lichessTools button.lichessTools-redBrush {
+body.lichessTools button.lichessTools-redBrush,
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-redBrush {
   background: #992424;
   color: white;
 }
 
-body.lichessTools button.lichessTools-blueBrush {
+body.lichessTools button.lichessTools-blueBrush,
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-blueBrush {
   background: #362499;
   color: white;
 }
 
-body.lichessTools button.lichessTools-yellowBrush {
+body.lichessTools button.lichessTools-yellowBrush,
+body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichessTools-yellowBrush {
   background: #979924;
   color: black;
 }
@@ -78,8 +88,9 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     height: unset;
   }
 
-  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__tools:has(.action-menu)+.analyse__controls:not(.lichessTools-liveStatus) {
+  body.lichessTools.mobile.lichessTools-mobileExperience main.analyse:has(.action-menu) .analyse__controls:not(.lichessTools-liveStatus) {
     height: 3em;
+    overflow: hidden;
   }
 
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button:not[data-act="engine-mode"] {
@@ -208,10 +219,14 @@ body.lichessTools .lichessTools-shapeDrawing.lichessTools-mobileExperience-tapDr
   color: white;
 }
 
+body.lichessTools :is(.analyse__controls,.rcontrols):has(div.lichessTools-shapeDrawing-tooltip) {
+  z-index:2;
+}
+
 body.lichessTools div.lichessTools-shapeDrawing-tooltip {
   position: absolute;
   background: none;
-  transform: translateY(calc(-5px - 100%));
+  translate: -50% calc(-5px - 100%);
   flex-direction: column;
   border:none;
   width: min-content;
@@ -239,6 +254,10 @@ body.lichessTools button.lichessTools-greenBrush + div.lichessTools-shapeDrawing
 body.lichessTools button.lichessTools-yellowBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-yellowBrush,
 body.lichessTools button.lichessTools-shapeDrawing:not(.lichessTools-redBrush,.lichessTools-blueBrush,.lichessTools-greenBrush,.lichessTools-yellowBrush) + div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
   border: 1px solid white;
+}
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
+  border: 1px solid gray;
 }
 
 

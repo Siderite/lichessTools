@@ -1,6 +1,8 @@
 (() => {
   class KeyboardHelpTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['KeyShortcuts','AdditionalGlyphs','ExplorerPractice','SearchMovesCommand'];
+
     preferences = [
       {
         name: 'keyboardHelp',
@@ -27,6 +29,8 @@
         'nextOpponentMistake': 'Next opponent mistake',
         'nextOpponentInaccuracy': 'Next opponent inaccuracy',
         'nextOpponentGood': 'Next opponent good/brilliant/interesting',
+        'nextSlow': 'Next slow move',
+        'nextOpponentSlow': 'Next opponent slow move',
         'variationLine': 'N-th variation',
         'cevalLine': 'N-th computer evaluation line',
         'explorerLine': 'N-th Explorer line',
@@ -44,7 +48,8 @@
         'switchExplorerTabs': 'Explorer cycle Lichess/Masters',
         'copyFenToClipboard': 'Copy FEN to clipboard',
         'searchMoves': 'Search in move list',
-        'deeperPlus': 'Analyse deeper'
+        'deeperPlus': 'Analyse deeper',
+        'keyRequestComputerAnalysis': 'Request computer analysis, Learn from your mistakes'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -58,6 +63,8 @@
         'nextOpponentMistake': 'Urm\u0103toarea gre\u015Feal\u0103 a adversarului',
         'nextOpponentInaccuracy': 'Urm\u0103toarea inexactitate a adversarului',
         'nextOpponentGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103 a adversarului',
+        'nextSlow': 'Urm\u0103toarea mi\u015fcare lent\u0103',
+        'nextOpponentSlow': 'Urm\u0103toarea mi\u015fcare lent\u0103 a adversarului',
         'variationLine': 'A N-a varia\u0163ie',
         'cevalLine': 'A N-a mutare din evaluarea calculatorului',
         'explorerLine': 'A N-a mutare din Explorator',
@@ -75,7 +82,8 @@
         'switchExplorerTabs': 'Cicleaz\u0103 Lichess/Masters \u00een Explorator',
         'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard',
         'searchMoves': 'Caut\u0103 \u00een lista de mut\u0103ri',
-        'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103'
+        'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103',
+        'keyRequestComputerAnalysis': 'Solicit\u0103 analiza calculatorului, \u00CEnva\u0163\u0103 din gre\u015felile tale'
       }
     }
 
@@ -84,6 +92,7 @@
       await lt.timeout(500);
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      const study = analysis?.study;
       const trans = lt.translator;
       const $ = lt.$;
       const table = $('div.keyboard-help > table tbody');
@@ -130,10 +139,19 @@
         row(['alt', 'm'], 'nextOpponentMistake');
         row(['alt', 'i'], 'nextOpponentInaccuracy');
         row(['alt', 'g'], 'nextOpponentGood');
+
+        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis) {
+          row(['o'], 'nextSlow');
+          row(['alt', 'o'], 'nextOpponentSlow');
+        }
+
         row(['.', '!then', '1-9'], 'variationLine');
         row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
         row(['shift', '.', '!then', '1-9'], 'explorerLine');
         row(['`', '!then', 'f'], 'freezeBoard');
+        if ($('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button').length) {
+          row(['r'], 'keyRequestComputerAnalysis');
+        }
         if (lt.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
           row(['`', '!then', 'r'], 'randomChapter');
         }
@@ -175,7 +193,7 @@
         }
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
-        row(['0'], 'obsIntegration');
+        row(['o'], 'obsIntegration');
       }
       const tool = lt.tools.SearchMovesCommandTool;
       if (tool?.canSearch()) {

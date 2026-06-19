@@ -17,6 +17,7 @@ const getObs = async (options) => {
       await obs.connect(options.url, options.password, connectOptions);
     } catch (e) {
       console.debug('Error connecting to OBS', e, options);
+      obs = null;
     }
   }
   return obs;

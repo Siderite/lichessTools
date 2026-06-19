@@ -38,10 +38,10 @@
       }
     };
 
-    executeCommand = (val) => {
+    executeCommand = async (val) => {
       for (const key in this.commands) {
         const command = this.commands[key];
-        if (command.handle(val)) return true;
+        if (await command.handle(val)) return true;
       }
     };
 
@@ -77,7 +77,7 @@
       }
     };
 
-    keydown = (ev) => {
+    keydown = async (ev) => {
       let help = false;
       if ([ev.code, ev.key].includes('Escape') || ev.which == 27) {
         ev.target.blur();
@@ -93,7 +93,7 @@
         }
         if (val === '/help') help = true;
         if (val.startsWith('/')) {
-          const result = this.executeCommand(val.substr(1));
+          const result = await this.executeCommand(val.substr(1));
           if (result) {
             ev.target.blur();
             ev.preventDefault();

@@ -30,6 +30,7 @@
       const $ = lt.$;
       const explorerBox = $('main.analyse .analyse__tools .explorer-box');
       if (!explorerBox.length) return;
+      explorerBox.toggleClassSafe('reduced',false);
       const h = this.isMobile
         ? this.height?.mobile
         : this.height?.desktop;

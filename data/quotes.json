@@ -1625,7 +1625,7 @@
             "name": "Siegbert Tarrasch"
         },
         {
-            "text": "I have found after 1.d4 there are more opportunities for richer play.",
+            "text": "I have found after 1.d4 there are more opportunities for richer play. (sometimes attributes to Kasparov)",
             "name": "Anatoly Karpov"
         },
         {
@@ -1789,8 +1789,8 @@
             "name": "Judit Polgar"
         },
         {
-            "text": "I think the draw quotient has always been high in world championship matches because the amount of effort people put into neutralizing each other's openings. It's just now with computers that it has reached a new level.",
-            "name": "Magnus Carlsen"
+            "text": "I think the draw quotient has always been high in world championship matches because the amount of effort people put into neutralizing each other's openings. It's just now with computers that it has reached a new level. (Chessbase 2012)",
+            "name": "Viswanathan Anand"
         },
         {
             "text": "I walked about 55 kilometers and was awake for 25 hours. Now I have to think about setting a sleeping record. (after setting a World Record by playing 614 games simultaneously)",
@@ -2866,7 +2866,7 @@
         },
         {
             "text": "Place the board so that the sun is in your opponent's eyes.",
-            "name": "Ruy López de Segura (c 1530-1580)"
+            "name": "Ruy López de Segura"
         },
         {
             "text": "Place the contents of the chess box in a hat, shake them up vigorously, pour them on the board from a height of two feet, and you get the style of Steinitz.",
@@ -3018,7 +3018,7 @@
         },
         {
             "text": "Sit your opponent with the sun in his eyes. (1561)",
-            "name": "Ruy López de Segura (c 1530-1580)"
+            "name": "Ruy López de Segura"
         },
         {
             "text": "Some part of a mistake is always correct.",
@@ -4409,7 +4409,7 @@
             "name": "William Graif"
         },
         {
-            "text": "Time is crucial, make sure you have enough of it, otherwise you won’t be able to convert even the best position in the world.",
+            "text": "Time is crucial, make sure you have enough of it, otherwise you won't be able to convert even the best position in the world.",
             "name": "Jerry (Chessnetwork)"
         },
         {
@@ -4417,7 +4417,7 @@
             "name": "Simon Williams"
         },
         {
-            "text": "Chess doesn’t drive people mad, it keeps mad people sane.",
+            "text": "Chess doesn't drive people mad, it keeps mad people sane.",
             "name": "Bill Hartston"
         },
         {
@@ -4541,7 +4541,7 @@
             "name": "Magnus Carlsen"
         },
         {
-            "text": "You need to have that edge, you need to have that confidence, you need to have that absolute belief that you’re the best and that you’ll win every time.",
+            "text": "You need to have that edge, you need to have that confidence, you need to have that absolute belief that you're the best and that you'll win every time.",
             "name": "Magnus Carlsen"
         },
         {
@@ -5539,6 +5539,74 @@
         {
             "text": "Chess is a matter of daily training.",
             "name": "Vladimir Kramnik"
+        },
+        {
+            "text": "When you absolutely don't know what to do anymore, it is time to panic.",
+            "name": "John van der Wiel"
+        },
+        {
+            "text": "Once you discover the beauty of chess, you are addicted forever.",
+            "name": "Temur Radjabov"
+        },
+        {
+            "text": "Of course in chess I care about winning, but it is not a goal, it's not a complete must. I was never fixated on the result. That is very unusual for chess. Most of the players are very determined to win. My main motivation is to do my best, to do something which is on the edge of my limits.",
+            "name": "Vladimir Kramnik"
+        },
+        {
+            "text": "Morphy has a great love for music, and his memory for any air he has once heard is astonishing. Mrs. Morphy is renowned in the salons of New Orleans as a brilliant pianist and musician, and her son, without ever having studied music, has a similar aptitude for it, and it is believed that he would have become famous theirin as in chess, had he given his attention to it.",
+            "name": "Frederick Milne Edge"
+        },
+        {
+            "text": "OK, 7/14 is a perfect result ... but 3 losses and 3 wins?! Only through the precise and correct practice of vegetarianism can one come to achieve perfection in chess - the draw !! (to Shakhriyar Mamedyarov on his results at the 2014 Candidates')",
+            "name": "Peter Leko"
+        },
+        {
+            "text": "For me, this personality, notwithstanding his fundamentally optimistic attitude, had a tragic note. The enormous mental resilience, without which no chess player can exist, was so much taken up by chess that he could never free his mind of this game, even when he was occupied by philosophical and humanitarian questions. (on Emanuel Lasker)",
+            "name": "Albert Einstein"
+        },
+        {
+            "text": "There are certain things which you must beware of and shun like the devil himself: these are drinking, chess, harlots, quarreling, and throwing dice for stakes. (Speculum Regale c 1250)",
+            "name": "a Norwegian treatise intended for the education of King Magnus Lagabote"
+        },
+        {
+            "text": "Carlsen's greatest chess strength is his remarkable intuitive grasp of simplified positions and his tremendous accuracy in them. I coached Carlsen for a year, in 2009, and I was amazed at how quickly he could correctly evaluate a position \"cold,\" seemingly without any calculation at all. My own style required tremendous energy and labor at the board, working through deep variations looking for the truth in each position. Carlsen comes from a different world champion lineage, that of Jose Capablanca and Anatoly Karpov, players who sense harmony on the board like virtuoso musicians with perfect pitch. (TIME)",
+            "name": "Garry Kasparov"
+        },
+        {
+            "text": "Carlsen will be ridiculously difficult to play against. (on the 2013 World Championship match)",
+            "name": "Viswanathan Anand"
+        },
+        {
+            "text": "Pillsbury aspired for the candle of his life to burn constantly at both ends. 'Wine, women, and not harmless songs, but strong cigars' - this was Pillsbury's principle in life.",
+            "name": "Alexander Alekhine"
+        },
+        {
+            "text": "It is ... impossible to keep one's excellence in a little glass casket, like a jewel, to take it out whenever wanted. On the contrary, it can only be conserved by continuous and good practice.",
+            "name": "Adolph Anderssen"
+        },
+        {
+            "text": "Utter crap. (review in Kingpin magazine of 'Unorthodox Openings' by Eric Schiller ... certainly the shortest review of a chess book in history!)",
+            "name": "Tony Miles"
+        },
+        {
+            "text": "Studying chess without a coach diminishes your efficiency and slows down your progress. Also, if you get used to doing something the wrong way, it is very hard to unlearn.",
+            "name": "Natalia Pogonina"
+        },
+        {
+            "text": "If a poor musician had come upon him ... The extreme kindheartedness and absence of Philidor knew no resistance to the appeal for charity, and precluded all discrimination of means. He gave whatever he could lay his hands on - coat, hat, shoes ... (on Francois-Andre Danican Philidor)",
+            "name": "George Allen"
+        },
+        {
+            "text": "I took his death very badly ... the death of Fischer.",
+            "name": "Boris Spassky"
+        },
+        {
+            "text": "The grandiosity of Chigorin's ideas is enchanting: his every move breathes with creative force and an irresistable will to win.",
+            "name": "Rudolph Spielmann"
+        },
+        {
+            "text": "The tactician must know what to do whenever something needs doing. The strategist must know what to do when nothing needs doing.",
+            "name": "Savielly Tartakower"
         }
     ]
 }

@@ -37,14 +37,14 @@
       return true;
     };
 
-    skipMoveIfPossible = () => {
+    skipMoveIfPossible = async () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
 
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (!co) {
         lt.global.console.warn('ChessOps not loaded');
         return;
@@ -112,9 +112,9 @@
       const analysis = lichess.analysis;
       if (value && analysis) {
         lt.registerCommand && lt.registerCommand('skipMoveCommand', {
-          handle: (val) => {
+          handle: async (val) => {
             if (val == 'skipmove') {
-              this.skipMoveIfPossible();
+              await this.skipMoveIfPossible();
               return true;
             }
           },

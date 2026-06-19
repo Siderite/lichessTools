@@ -1,4 +1,4 @@
-body.lichessTools .lichessTools-lastMoveArrow {
+body.lichessTools .lichessTools-boardStyle .lichessTools-lastMoveArrow {
   display: none;
   --lt-start-color: #40404040;
   --lt-end-color: #404040;
@@ -13,20 +13,20 @@ body.lichessTools .lichessTools-lastMoveArrow {
   opacity: 0.7;
 }
 
-body.lichessTools .lichessTools-lastMoveArrow .arrow-line {
+body.lichessTools .lichessTools-boardStyle .lichessTools-lastMoveArrow .arrow-line {
   stroke: url(#arrowGradient);
   stroke-width: var(--lt-width);
   marker-end: url(#arrowhead);
 }
 
-body.lichessTools .lichessTools-lastMoveArrow .arrowhead {
+body.lichessTools .lichessTools-boardStyle .lichessTools-lastMoveArrow .arrowhead {
   fill: var(--lt-end-color);
 }
 
-body.lichessTools .lichessTools-lastMoveArrow .stop-0 {
+body.lichessTools .lichessTools-boardStyle .lichessTools-lastMoveArrow .stop-0 {
   stop-color: var(--lt-start-color);
 }
 
-body.lichessTools .lichessTools-lastMoveArrow .stop-100 {
+body.lichessTools .lichessTools-boardStyle .lichessTools-lastMoveArrow .stop-100 {
   stop-color: var(--lt-end-color);
 }

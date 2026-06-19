@@ -78,7 +78,7 @@
           const handler = entry.handler;
           elem = $(`<a class="site_notification lichessTools-addNotifications">
             </a>`)
-            .append($('<i>').attr('data-icon', entry.icon))
+            .append($('<icon>').attr('data-icon', entry.icon))
             .append($('<span class="content">').append(entry.content))
             .attr('data-id', entry.id)
             .attr('href', entry.href)

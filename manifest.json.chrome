@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChess Tools",
-  "version": "2.4.188",
+  "version": "2.4.209",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/LiChessTools/",
@@ -53,6 +53,7 @@
         "tools/fixChessvision/tool.js",
         "tools/cacheBoundingRect/tool.js",
 
+        "tools/emitCeval/tool.js",
         "tools/emitRedraw/tool.js",
         "tools/emitContentLoaded/tool.js",
         "tools/emitChapterChange/tool.js",
@@ -65,6 +66,7 @@
         "tools/detectThirdParties/tool.js",
         "tools/cliCommands/tool.js",
         "tools/chessops/tool.js",
+        "tools/d3/tool.js",
         "tools/exportPgn/tool.js",
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
@@ -187,6 +189,11 @@
         "tools/lobbyCrosstable/tool.js",
         "tools/voiceInput/tool.js",
         "tools/botsMenuItem/tool.js",
+        "tools/teamStats/tool.js",
+        "tools/calculationTrainer/tool.js",
+        "tools/explorerChessagine/tool.js",
+        "tools/showFps/tool.js",
+        "tools/showOpponentMoves/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -235,6 +242,7 @@
         "tools/themes/noVariants.css",
         "tools/themes/noBullet.css",
         "tools/themes/squares.css",
+        "tools/themes/experimental.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
@@ -337,6 +345,11 @@
         "tools/lobbyRatingDiff/tool.css",
         "tools/lobbyCrosstable/tool.css",
         "tools/voiceInput/tool.css",
+        "tools/teamStats/tool.css",
+        "tools/calculationTrainer/tool.css",
+        "tools/explorerChessagine/tool.css",
+        "tools/showFps/tool.css",
+        "tools/showOpponentMoves/tool.css",
 
         "tools/tvOptions/tool.css",
 
@@ -390,7 +403,8 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "tools/chessops/chessops.bundle.mjs"
+        "tools/chessops/chessops.bundle.mjs",
+        "tools/d3/d3.bundle.mjs"
       ],
       "matches": [
         "*://lichess.org/*",

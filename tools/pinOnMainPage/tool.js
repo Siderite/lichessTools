@@ -61,14 +61,14 @@
       if (!study) return;
       const container = $('.study__side div[role=tablist],.relay-tour__side__header');
       if (!container.length) return;
-      let pin = $('span.lichessTools-pin', container);
+      let pin = $('button.lichessTools-pin', container);
       if (!this.options.enabled) {
         pin.remove();
         return;
       }
       const studyId = study.data.id;
       if (!pin.length) {
-        pin = $('<span class="lichessTools-pin narrow">')
+        pin = $('<button class="lichessTools-pin">')
           .attr('data-icon', lt.icon.PushPin)
           .attr('title', trans.noarg('pinTitle'))
           .on('click', ev => {
@@ -114,7 +114,7 @@
           .addClass('id_' + p.studyId)
           .attr('href', '/study/' + p.studyId)
           .attr('title', 'LiChess Tools - ' + p.studyName)
-          .append($('<i class="img">').attr('data-icon', lt.icon.PushPin))
+          .append($('<icon class="img">').attr('data-icon', lt.icon.PushPin))
           .append(innerElem)
           .appendTo(container);
         elem.find('.content .name').text(p.studyName);

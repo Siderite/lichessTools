@@ -46,9 +46,9 @@
       return this._gambits;
     };
 
-    computeFen = (fen, uci) => {
+    computeFen = async (fen, uci) => {
       const lt = this.lichessTools;
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (!co) return;
       fen = co.fen.parseFen(fen).unwrap();
       const ch = co.Chess.fromSetup(fen).unwrap();
@@ -115,7 +115,7 @@
       const side = analysis.getOrientation();
       const fen = analysis.node.fen;
       let sum = 0;
-      $('tr[data-uci]', container).each((i, e) => {
+      $('tr[data-uci]', container).each(async (i, e) => {
         if ($('td:has(div.bar)', e).addClass('lichessTools-bar').length) {
           if (!$('td.lichessTools-explorerGambits', e).length) {
             $('<td>')
@@ -126,7 +126,7 @@
         const uci = $(e).attr('data-uci');
         let move = null;
         if (uci) {
-          const moveFen = this.computeFen(fen, uci);
+          const moveFen = await this.computeFen(fen, uci);
           if (moveFen) {
             const pos = lt.getPositionFromFen(moveFen);
             const moveResult = gambits[side].get(pos);

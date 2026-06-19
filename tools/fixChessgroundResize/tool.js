@@ -83,9 +83,10 @@
       const prevSize = $('html').css('--board-size');
       let fireEvent = false;
       if (prevSize != boardSize) {
-        $('html').css('--board-size', boardSize);
+        const size = parseInt(boardSize);
+        $('html').css('--board-size', size ? boardSize : null);
         $('body')
-          .toggleClassSafe('lichessTools-hasBoardSize', true);
+            .toggleClassSafe('lichessTools-hasBoardSize',!!size);
         fireEvent = !!prevSize;
       }
       if ((!fireEvent || !this._prevPos) && ev?.type=='position') {

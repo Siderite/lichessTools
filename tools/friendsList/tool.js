@@ -10,6 +10,7 @@
         type: 'single',
         possibleValues: ['default', 'open', 'menu', 'button', 'hidden'],
         defaultValue: 'menu',
+        offValue: 'default',
         needsLogin: true
       },
       {
@@ -190,7 +191,7 @@
           .toggleClass(playingClass, isPlaying)
           .toggleClass('lichessTools-playing', isPlaying)
           .attr('href', '/@/' + userId + (isPlaying ? '/tv' : ''))
-          .append('<i>')
+          .append('<icon>')
           .append($('<span class="content">')
             .text(this.user_data.names[userId] || userId))
           .appendTo(notifs);
@@ -246,7 +247,7 @@
       const menu = section.children('a').eq(0);
       const friends = $('#friend_box a.user-link');
       const text = trans.pluralSame('onlineFriends', this.user_data.online.length);
-      menu.text(text);
+      menu.textSafe(text);
       menu.toggleClassSafe('lichessTools-somePlaying', !!this.user_data.playing.length);
       $('section.lichessTools-onlineFriends > a')
         .attr('data-count', this.user_data.playing.length);
@@ -273,7 +274,7 @@
         if (!friendMenu?.length) {
           friendMenu = $(e).clone()
             .attr('data-pt-pos', 'e');
-          friendMenu.find('i')
+          friendMenu.find('icon')
             .toggleClassSafe('line',true);
 
           group.append(friendMenu);
@@ -299,7 +300,7 @@
           if (!friendMenu.length) {
             const userName = this.user_data.names[user] || user;
             friendMenu = $('<a class="user-link temp">')
-              .append('<i class="line"></i>' + userName)
+              .append('<icon class="line"></icon>' + userName)
               .attr('data-pt-pos', 'e')
               .appendTo(group);
             const friendMenuElem = friendMenu[0];
@@ -422,21 +423,21 @@
                     .attr('placeholder',trans.noarg('friendFilterTitle'))
                     .on('input',this.filterFriends)
                  )
-          .append($(`<i data-role="hideInactive">`)
+          .append($(`<icon data-role="hideInactive">`)
             .attr('data-icon',lt.icon.Antichess)
             .attr('title', trans.noarg('hideInactiveTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideInactive');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-role="hideOffline">`)
+          .append($(`<icon data-role="hideOffline">`)
             .attr('data-icon',lt.icon.DiscOutline)
             .attr('title', trans.noarg('hideOfflineTitle'))
             .on('click', () => {
               $('main').toggleClass('lichessTools-hideOffline');
               this.scrollIfNeeded();
             }))
-          .append($(`<i data-role="hideNotPlaying">`)
+          .append($(`<icon data-role="hideNotPlaying">`)
             .attr('data-icon',lt.icon.AnalogTv)
             .attr('title', trans.noarg('hideNotPlayingTitle'))
             .on('click', () => {
@@ -446,7 +447,7 @@
           .appendTo(header);
         if (!isFavoritesOrBlocksOrFollowers) {
           liveButtons
-            .append($(`<i data-role="hideMuted">`)
+            .append($(`<icon data-role="hideMuted">`)
               .attr('data-icon',lt.icon.BellOutline)
               .attr('title', trans.noarg('hideMutedTitle'))
               .on('click', () => {
@@ -529,7 +530,7 @@
           let row = this.rows[user];
           if (row) continue;
           row = $(`<tr class="paginated">
-      <td><a class="user-link ulpt" href="/@/`+ user + `"><i class="line"></i>` + user + `</a></td>
+      <td><a class="user-link ulpt" href="/@/`+ user + `"><icon class="line"></icon>` + user + `</a></td>
       <td>?</td>
       <td>?</td>
       <td><div class="relation-actions btn-rack"></div></td>
@@ -805,7 +806,7 @@
                    ? lt.getTimeText(Date.now()-follower.time)
                    : '';
                 $(`<tr class="paginated">
-                     <td><a class="user-link ulpt" href="/@/${follower.user.id}"><i class="line"></i>${follower.user.name}</a></td>
+                     <td><a class="user-link ulpt" href="/@/${follower.user.id}"><icon class="line"></icon>${follower.user.name}</a></td>
                      <td>${timeText}</td>
                    </tr>`)
                   .appendTo(tbody);

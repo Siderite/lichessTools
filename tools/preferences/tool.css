@@ -142,7 +142,11 @@ div.lichessTools-preferences div.links {
 }
 
 div.lichessTools-preferences h1 {
-  width: fit-content;
+  width: stretch;
+}
+
+div.lichessTools-preferences h1 span {
+  font-size: 0.5em;
 }
 
 div.lichessTools-preferences h1:hover~div.links a {

@@ -32,18 +32,18 @@
       }
     }
 
-    regPgn = /(?:((?:\s*\[\s*\w+\s+"[^"]*"\s*\])+)|((?:^|\r?\n)\s*(?:\{[^\}]*\}\s*)?1\.[^\.]))/g;
+    regPgn = /(?:((?:\s*\[\s*\w+\s+"[^"]*"\s*\])+)|((?:^|\r?\n)\s*(?:\{[^\}]*\}\s*)*\d+\.+[^\.]))/g;
 
     isEmpty = (data) => {
       const lt = this.lichessTools;
       if (!data) return true;
-      if (data.game?.fen && !lt.isStartFen(data.game?.fen)) return false;
       if (!data.treeParts?.length) return true;
       if (data.treeParts.length == 1 && data.treeParts[0].id == '') return true;
       return false;
     }
 
     splitPgn = (input) => {
+      input = input?.trim();
       if (!input) return [];
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -56,6 +56,7 @@
         if (result && pgn) {
           const m = /\[Orientation\s*"Black"|StartFlipped\s*"1"\]/i.test(pgn);
           if (m) result.orientation = "black";
+          result.pgn = pgn;
         }
         return result;
       };
@@ -89,9 +90,16 @@
       for (const item of items) {
         if (item.type == 1) {
           if (prevItem) {
-            console.log('Empty PGN ignored', prevItem.value);
+            const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+            if (hasSetupFen) {
+              pgns.push(prevItem.result);
+              prevItem = null;
+            } else {
+              console.log('Empty PGN ignored', prevItem.value);
+            }
           }
           const result = importPgn(item.value, false);
+          item.result = result;
           if (!this.isEmpty(result)) {
             pgns.push(result);
             prevItem = null;
@@ -109,7 +117,17 @@
               continue;
             }
           }
-          const result = importPgn(item.value, false);
+          let result = importPgn(item.value, false);
+          if (this.isEmpty(result)) {
+            const prevPgn = pgns.at(-1)?.pgn;
+            if (prevPgn) {
+              const fixedResult = importPgn(prevPgn+item.value, false);
+              if (!this.isEmpty(fixedResult)) {
+                pgns.length--;
+                result = fixedResult;
+              }
+            }
+          }
           if (this.isEmpty(result)) {
             console.warn('2: Error parsing PGN', item.value);
           } else {
@@ -123,7 +141,12 @@
         if (!this.isEmpty(result)) {
           pgns.push(result);
         } else {
-          console.warn('3: Error parsing PGN', prevItem.value);
+          const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+          if (hasSetupFen) {
+            pgns.push(prevItem.result);
+          } else {
+            console.warn('3: Error parsing PGN', prevItem.value);
+          }
         }
       }
       return pgns;
@@ -175,23 +198,23 @@
             let pgns = this.splitPgn(input);
             if (andReload) {
               lt.global.console.debug('...merging ' + pgns.length + ' PGNs');
-              const pgnsByFen = [];
+              const pgnsByFen = new Map();
               let maxItem = { count: -1 };
               for (const pgn of pgns) {
                 const fen = pgn?.game?.fen;
                 if (!fen) continue;
-                let item = pgnsByFen.find(i => i.fen == fen);
+                let item = pgnsByFen.get(fen);
                 if (item) {
                   item.count++;
                 } else {
                   item = { fen: fen, count: 1 };
-                  pgnsByFen.push(item);
+                  pgnsByFen.set(fen,item);
                 }
                 if (item.count > maxItem.count) {
                   maxItem = item;
                 }
               }
-              if (pgnsByFen.length > 1) {
+              if (pgnsByFen.size > 1) {
                 lastError = trans.noarg('differentFensError');
                 console.warn('Error loading PGN', lastError);
                 pgns = pgns.filter(pgn => pgn?.game?.fen == maxItem.fen);
@@ -199,6 +222,7 @@
               let merge = false;
               for (let i = pgns.length - 1; i >= 0; i--) {
                 const pgn = pgns[i];
+                if (!pgn) continue;
                 try {
                   if (i > 0) {
                     $this.initialize(pgn, merge);
@@ -220,7 +244,7 @@
               const newPgn = $('div.pgn textarea').val();
               data = oldChangePgn(newPgn, false);
               $this.explorer.reload()
-              $this.redraw();
+              lt.global.requestAnimationFrame(()=>$this.redraw());
             } else {
               data = pgns[0];
             }

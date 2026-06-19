@@ -154,7 +154,7 @@
                 cost = uci && db.discoverDepth.get(uci)?.depth;
               }
             }
-            const color = lt.getGradientColor(cost, [{ q: 2, color: '#00FF00' }, { q: 5, color: '#FFFF00' }, { q: 15, color: '#FF0000' }]);
+            const color = lt.getGradientColor(cost, [{ q: 1, color: '#808080' }, { q: 2, color: '#00FF00' }, { q: 5, color: '#FFFF00' }, { q: 15, color: '#FF0000' }]);
             if (cost) {
               $(pve).attrSafe('data-cost',cost)
                     .css('--cost-color',color);
@@ -177,7 +177,7 @@
       const input = $('div.setting #analyse-multipv');
       if (!input.length) return;
       $('div.setting:has(#analyse-multipv) .range_value')
-        .text(input.val()+' / '+input.attr('max'));
+        .textSafe(input.val()+' / '+input.attr('max'));
     };
 
     //Lichess API limitation: https://github.com/lichess-org/lila/issues/17127
@@ -185,8 +185,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      const engine = analysis?.ceval?.engines?.activeEngine;
-      const isExternalEngine = engine?.tech == 'EXTERNAL';
+      const isExternalEngine = !!analysis?.ceval?.engines?.external;
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
@@ -447,6 +446,41 @@
       }
     };
 
+    handleCeval = async (args)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const [data,meta] = args;
+      if (!data?.depth || meta?.path != analysis.path) return;
+      let db = this.db.get(meta.path);
+      if (!db) {
+        db = new Map();
+        db.discoverDepth = new Map();
+        this.db.set(meta.path,db);
+      }
+      if (data?.pvs?.length) {
+        const side = analysis.turnColor()=='white'?-1:1;
+        const cp = lt.getCentipawns(data)*side;
+        if (cp) {
+          const best = lt.winPerc(cp);
+          for (const pv of data.pvs) {
+            const wp = lt.winPerc(lt.getCentipawns(pv)*side);
+            const uci = pv?.moves?.[0];
+            if (!uci) continue;
+            const obj = db.discoverDepth.get(uci);
+            const isCandidate = Math.abs(best-wp)<3;
+            if (!obj || (isCandidate && !obj.candidate)) {
+              db.discoverDepth.set(uci,{ depth: data.depth, candidate: isCandidate });
+            }
+          }
+        }
+      }
+      db.set(data.depth,data);
+      if (this.options.depthChart) {
+        this.drawChart();
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -482,7 +516,8 @@
         this.setupPvProcessing();
       }
       const analysis = lichess.analysis;
-      if (analysis?.ceval) {
+      const ceval = analysis?.ceval;
+      if (ceval) {
         analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
         if (this.options.moreLines) {
           main
@@ -498,43 +533,10 @@
         }
         this.handleMoreLines();
         lt.uiApi.events.off('analysis.change',this.drawChart);
-        const ctrl = analysis.ceval.engines?.ctrl;
-        if (ctrl) {
-          ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
+        lt.pubsub.off('lichessTools.ceval',this.handleCeval);
+        if (ceval) {
           if (this.options.depthChart||this.options.downloadCeval) {
-            ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
-              id: 'cevalLineOptions',
-              after: ($this, result, data, meta)=>{
-                if (!data?.depth || meta?.path != analysis.path) return;
-                let db = this.db.get(meta.path);
-                if (!db) {
-                  db = new Map();
-                  db.discoverDepth = new Map();
-                  this.db.set(meta.path,db);
-                }
-                if (data?.pvs?.length) {
-                  const side = analysis.turnColor()=='white'?-1:1;
-                  const cp = lt.getCentipawns(data)*side;
-                  if (cp) {
-                    const best = lt.winPerc(cp);
-                    for (const pv of data.pvs) {
-                      const wp = lt.winPerc(lt.getCentipawns(pv)*side);
-                      const uci = pv?.moves?.[0];
-                      if (!uci) continue;
-                      const obj = db.discoverDepth.get(uci);
-                      const isCandidate = Math.abs(best-wp)<3;
-                      if (!obj || (isCandidate && !obj.candidate)) {
-                        db.discoverDepth.set(uci,{ depth: data.depth, candidate: isCandidate });
-                      }
-                    }
-                  }
-                }
-                db.set(data.depth,data);
-                if (this.options.depthChart) {
-                  this.drawChart();
-                }
-              }
-            });
+            lt.pubsub.on('lichessTools.ceval',this.handleCeval);
             lt.uiApi.events.on('analysis.change',this.drawChart);
           }
         }

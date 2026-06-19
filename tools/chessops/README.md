@@ -1,3 +1,3 @@
-# Generate the following files with BundleChessops from LiChessToolsAdjacent:
+# Generate the following files with BundleJsLibraries from LiChessToolsAdjacent:
 
 chessops.bundle.mjs

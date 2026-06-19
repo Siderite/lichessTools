@@ -152,7 +152,7 @@
             .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
             .insertAfter('.lobby__start');
           const text = await lt.api.game.getUserPgns(userId,{ moves: false, max: 8 });
-          const co = lt.chessops;
+          const co = await lt.chessops();
           if (!co) {
             lt.global.setTimeout(this.applyLobbyElements,100);
             return;
@@ -212,7 +212,7 @@
               .addClass(result.timeControlClass)
               .toggleClass('white',result.userWhite)
               .attr('href',result.href)
-              .append($('<span>').text(name+' '+result.opponentRating))
+              .append($('<span>').text(name+(result.opponentRating?' '+result.opponentRating:'')))
               .appendTo(container)
               .each((i,e)=>lichess.powertip?.manualGame(e));
           }

@@ -67,7 +67,7 @@
         if (!perf || perf.prov) return;
         $('.lichessTools-showDeviation',e).remove();
         const deviation = $('<span class="lichessTools-showDeviation">')
-          .text('\u00B1'+perf.rd)
+          .text('\u00B1'+perf.rd) // +- character
           .appendTo(e);
         if (perf.prog) {
           deviation.addClass(perf.prog>0?'good':'bad');

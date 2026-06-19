@@ -7,7 +7,8 @@
         category: 'play',
         type: 'single',
         possibleValues: ['normal', 'noSide', 'smallSide', 'smallSideable'],
-        defaultValue: 'normal'
+        defaultValue: 'normal',
+        offValue: 'normal'
       },
       {
         name: 'playLayoutElements',

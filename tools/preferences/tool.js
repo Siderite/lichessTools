@@ -133,7 +133,7 @@
       };
 
       let html = `<div class="account box box-pad">
-            <h1 class="box__top">$trans(lichessToolsPreferences)</h1>
+            <h1 class="box__top">$trans(lichessToolsPreferences)<span>v${lt.currentOptions.version}</span></h1>
             <div class="links">
               <a class="rate" title="$trans(rateThisTitle)"
                  href="https://chromewebstore.google.com/detail/lichess-tools-by-siderite/langlhlcknngldkeliapahbhbcmlcbcj/reviews" target="_blank">$trans(rateThisText)</a>
@@ -584,7 +584,7 @@
             .map(t => t.preferences)
             .flat()
             .filter(p => p && (!p.hidden || p.offValue !== undefined))
-            .map(p => ({ key: p.name, offValue: p.offValue || false }));
+            .map(p => ({ key: p.name, offValue: p.offValue===undefined ? false : p.offValue }));
           for (const { key, offValue } of keys) options[key] = offValue;
           await lt.applyOptions(options);
           lt.fireReloadOptions();
@@ -598,7 +598,9 @@
           ev.preventDefault();
           const options = await lt.getOptions();
           const text = lt.global.JSON.stringify({...options, userId: lt.getUserId()}, null, 2);
-          lt.download(text,'lichesToolsOptions_' + lt.toTimeString(new Date()) + '.json','application/json');
+          const userId = lt.getUserId();
+          const filename = (userId?userId+'_':'')+'lichessToolsOptions_' + lt.toTimeString(new Date()) + '.json';
+          lt.download(text,filename,'application/json');
         });
       $('div.actionButtons #btnRestore', container)
         .on('click', async ev => {
@@ -743,8 +745,16 @@
           lichess.asset.loadCssPath('user.account');
           openPreferences();
           const fc = () => {
-            const m = /#lichessTools\/(?<pref>.*)$/.exec(location.hash);
+            const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(location.hash);
             const pref = m?.groups?.pref;
+            const filter = m?.groups?.filter;
+            if (filter) {
+              const elem = $('input.prefFilter');
+              if (elem.val() != filter) {
+                elem.val(filter);
+                elem.trigger('input');
+              }
+            }
             if (pref && pref != $this._lastScrolled) {
               const elem = $('[data-pref="' + pref + '"]');
               if (!elem.length) {

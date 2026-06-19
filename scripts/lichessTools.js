@@ -114,6 +114,13 @@
       WhiteChessRook: '\u2656',
       WhiteChessQueen: '\u2655',
       WhiteChessKing: '\u2654',
+      WhiteChessPawn: '\u2659',
+      BlackChessKnight: '\u265E',
+      BlackChessBishop: '\u265D',
+      BlackChessRook: '\u265C',
+      BlackChessQueen: '\u265B',
+      BlackChessKing: '\u265A',
+      BlackChessPawn: '\u265F',
       WhiteStar: '\u2606',
       BulletPoint: '\u2022',
       Ellipsis: '\u2026',
@@ -142,6 +149,9 @@
       WhiteSmilingFace: '\u263A',
       WhiteFrowningFace: '\u2639',
       BlackSquare: '\u25A0',
+      PalmBranch: '\u2E19',
+      Hourglass: '\u231B',
+      CyrillicCapitalLetterI: '\u0418',
 
       toEntity: function(s) {
         let result='';
@@ -220,7 +230,7 @@
 
     spinnerHtml = `<div class="spinner" aria-label="loading">
     <svg viewBox="-2 -2 54 54">
-        <g mask="url(#mask)" fill="none">
+        <g mask="url(#spinner-mask)" fill="none">
             <path id="a" stroke-width="3.779" d="m21.78 12.64c-1.284 8.436 8.943 12.7 14.54 17.61 3 2.632 4.412 4.442 5.684 7.93"/>
             <path id="b" stroke-width="4.157" d="m43.19 36.32c2.817-1.203 6.659-5.482 5.441-7.623-2.251-3.957-8.883-14.69-11.89-19.73-0.4217-0.7079-0.2431-1.835 0.5931-3.3 1.358-2.38 1.956-5.628 1.956-5.628"/>
             <path id="c" stroke-width="4.535" d="m37.45 2.178s-3.946 0.6463-6.237 2.234c-0.5998 0.4156-2.696 0.7984-3.896 0.6388-17.64-2.345-29.61 14.08-25.23 27.34 4.377 13.26 22.54 25.36 39.74 8.666"/>
@@ -360,30 +370,28 @@
     };
 
     async arrayRemoveAllAsync(arr,asyncPredicate) {
-      let result = [];
+      const result = [];
       if (!arr?.length) return result;
-      let i = 0;
-      while (i < arr.length) {
-        if (await asyncPredicate(arr[i])) {
-          result = result.concat(arr.splice(i, 1));
-        } else {
-          i++;
-        }
+      const kept = [];
+      for (const item of arr) {
+        const arr = await asyncPredicate(item) ? result : kept;
+        arr.push(item);
       }
+      arr.length = 0;
+      arr.push(...kept);
       return result;
     }
 
     arrayRemoveAll(arr, predicate) {
-      let result = [];
+      const result = [];
       if (!arr?.length) return result;
-      let i = 0;
-      while (i < arr.length) {
-        if (predicate(arr[i])) {
-          result = result.concat(arr.splice(i, 1));
-        } else {
-          i++;
-        }
+      const kept = [];
+      for (const item of arr) {
+        const arr = predicate(item) ? result : kept;
+        arr.push(item);
       }
+      arr.length = 0;
+      arr.push(...kept);
       return result;
     }
 
@@ -458,6 +466,7 @@
         if (options?.before) {
           const execute = options.before(this, ...args);
           if (execute === false) executeOriginal = false;
+          if (Array.isArray(execute)) args = execute;
         }
         let result = null;
         const func = wrappedFunc.__originalFunction;
@@ -490,9 +499,39 @@
       return func;
     }
 
+    patchMousetrap = (mt)=>{
+      if (mt._ltPatched) return;
+      mt._ltPatched = true;
+      mt.getMatches = this.wrapFunction(mt.getMatches,{
+        id: 'lichessTools',
+        before: ($this,e)=>{
+          const codeToKey = [
+            ['Period','.']
+          ];
+
+          for (const [code, key] of codeToKey) {
+            if (e?.code!=code) continue;
+            e = new KeyboardEvent(e.type, {
+                  key: key,
+                  code: e.code,
+                  shiftKey: e.shiftKey,
+                  ctrlKey: e.ctrlKey,
+                  altKey: e.altKey,
+                  metaKey: e.metaKey,
+                  bubbles: e.bubbles,
+                  cancelable: e.cancelable,
+                  composed: e.composed
+                });
+            return [e];
+          }
+        }
+      });
+    };
+
     getKeyHandler(combo, onlyMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       for (const key in mousetrap.bindings) {
         const arr = mousetrap.bindings[key];
         const index = arr.findIndex(b => b.combination == combo);
@@ -516,6 +555,7 @@
     unbindKeyHandler(combo, onlyMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       for (const key in mousetrap.bindings) {
         const arr = mousetrap.bindings[key];
         this.arrayRemoveAll(arr, b => (!onlyMine || b.lichessTools) && b.combination === combo);
@@ -525,6 +565,7 @@
     bindKeyHandler(combo, func, notMine) {
       const mousetrap = this.lichess.mousetrap;
       if (!mousetrap) return null;
+      this.patchMousetrap(mousetrap);
       const handler = this.getKeyHandler(combo);
       if (handler) {
         this.global.console.warn('Key handler for ' + combo + ' already bound!');
@@ -1146,7 +1187,7 @@
       const lastMove = {};
       let width = null;
       let parentOffset = null;
-      $('square.last-move:not([style*="hidden"])', container).each((i, s) => {
+      $('square.last-move:not([style*="hidden"],[style*="display: none"])', container).each((i, s) => {
         let res;
         let key;
         if (s.cgKey) {
@@ -1423,6 +1464,131 @@
       this.global.speechSynthesis.cancel();
     };
 
+    getSpeakableText = (text,options)=>{
+      options ||= {};
+
+      const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      const regChessMove = /(?<number>\d+\.\s?(\.\.)?\s*)?(?<move>\b((?<castle>[0O]-[0O](-[0O])?)|(?<piece>[NBRQK\u2654\u2655\u2656\u2657\u2658])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK\u2654\u2655\u2656\u2657\u2658]))?)(?<p2>\+|#)?)(?<glyph>[!\?]{1,2})?/g;
+      const pieces = {
+        'p':'pawn',
+        'n':'knight',
+        'b':'bishop',
+        'r':'rook',
+        'q':'queen',
+        'k':'king'
+      };
+      const annotations = {
+        '!':'good move',
+        '?':'mistake',
+        '!!':'brilliant',
+        '??':'blunder',
+        '?!':'inaccuracy',
+        '!?':'interesting'
+      };
+      const unicode = {
+        '\u2654': 'white king',
+        '\u2655': 'white queen',
+        '\u2656': 'white rook',
+        '\u2657': 'white bishop',
+        '\u2658': 'white knight',
+        '\u2659': 'white pawn',
+        '\u265A': 'black king',
+        '\u265B': 'black queen',
+        '\u265C': 'black rook',
+        '\u265D': 'black bishop',
+        '\u265E': 'black knight',
+        '\u265F': 'black pawn'
+      };
+
+      text = (text||'').replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      for (const ch in unicode) {
+        text = text.replaceAll(ch, unicode[ch]+', ');
+      }
+      if (options?.stripEmoji) {
+        text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
+      }
+      text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
+      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1, $2');
+      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1, $2');
+      text = text.replaceAll(urlRegex,(m)=>{
+        const url = new URL(m);
+        const host = url.host
+                        .replaceAll(/youtu.be/gi,'youtube')
+                        .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
+        return host+' URL ';
+      });
+      text = text.replaceAll(/#(?<black>-)?(?<moves>\d+)/gi,(...args)=>{
+        const m = args.at(-1);
+        return 'mate in '+m.moves+' for '+(m.black?'black':'white');
+      });
+      text = text.replaceAll(regChessMove,(...arr)=>{
+        const result = [];
+        const g = arr.at(-1);
+        let m;
+        if (g.number) {
+          const num = /\d+/.exec(g.number)[0];
+          result.push(num);
+          if ([...g.number.matchAll(/\./g)].length==3) result.push(', black moves');
+        }
+        if (g.move) {
+          const sanWords = g.move
+            .split('')
+            .map(c => {
+              if (c === 'x') return 'takes';
+              if (c === '+') return 'check';
+              if (c === '#') return 'checkmate';
+              if (c === '=') return 'promotes to';
+              if (c === '@') return 'at';
+              if (c === '0') return 'O';
+              const code = c.charCodeAt(0);
+              if (code > 48 && code < 58) return c; // 1-8
+              if (code > 96 && code < 105) return c.toUpperCase(); // a-h
+              return pieces[c.toLowerCase()] ?? c;
+            })
+            .join(' ')
+          result.push(sanWords);
+        }
+        if (g.glyph) {
+          const ann = g.name || annotations[g.glyph];
+          if (ann) result.push(', '+ann);
+        }
+        return result.join(' ')
+            .replace('O - O - O', 'long castle')
+            .replace('O - O', 'short castle')
+            .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
+            .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+            .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+            .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+            .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+            .replace(/(\d) H (\d)/, '$1H$2')
+            +', ';
+      });
+      if (options.readAnnotations && (options.glyphs?.length || options.isCheck || options.isMate)) {
+        const additional = (options.glyphs || [])
+          .map(g=>{
+            let name = g.name;
+            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            return name || annotations[g.symbol]
+          })
+          .concat([
+            options.isCheck?'check':'',
+            options.isMate?'checkmate':''
+          ])
+          .filter(g=>g)
+          .join(', ');
+        if (!text) {
+          text = additional;
+        } else {
+          if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+            text = `${additional}, ${text}`;
+          }
+        }
+      }
+
+      text = text.replaceAll(/lichess/gi,'lee chess');
+      return text;
+    };
+
     play = async (path, volume) => {
       const sound = await this.lichess.sound.load(path, this.lichess.sound.url(path));
       volume = +volume;
@@ -1552,10 +1718,14 @@
     getGradientColor = (q, gradient) => {
       let prev = null;
       for (const gr of gradient) {
-        if (q >= prev?.q && q <= gr.q) {
+        if (!prev) {
+          prev = gr;
+          if (q<prev.q) break;
+        }
+        if (q >= prev.q && q <= gr.q) {
           const c1 = this.getColor(prev.color);
           const c2 = this.getColor(gr.color);
-          const localQ = (q - prev.q) / (gr.q - prev.q);
+          const localQ = gr.q == prev.q ? 0.5 : (q - prev.q) / (gr.q - prev.q);
           const color = '#' + Math.round(c1.R + (c2.R - c1.R) * localQ).toString(16).padStart(2, '0')
             + Math.round(c1.G + (c2.G - c1.G) * localQ).toString(16).padStart(2, '0')
             + Math.round(c1.B + (c2.B - c1.B) * localQ).toString(16).padStart(2, '0')
@@ -1564,7 +1734,7 @@
         }
         prev = gr;
       }
-      return prev?.color || '#808080';
+      return prev?.color;
     };
 
     clone = (obj) => {
@@ -1761,7 +1931,7 @@
             lt.global.console.warn('Cannot unzip text. Using raw', ex);
           }
         }
-        if (text === undefined || options?.raw) return text;
+        if (text === undefined || options?.raw || text?.then) return text;
         try {
           return JSON.parse(text);
         } catch (e) {
@@ -1896,8 +2066,8 @@
         }
         return data;
       },
-      getDataUrl: async function(url, useProxy) {
-        const options = { url: url, useProxy: !!useProxy };
+      getDataUrl: async function(url, options) {
+        options = { url: url, ...options };
         const lt = this.lichessTools;
         let error = null;
         const data = await lt.comm.send({ type: 'getDataUrl', options: options })
@@ -2089,7 +2259,11 @@
             }
             return cached.value;
           }
-          lt.$('body').toggleClassSafe('lichessTools-apiLoading',true);
+          let apiElem = lt.$('body > .lichessTools-api');
+          if (!apiElem.length) {
+            apiElem = lt.$('<div class="lichessTools-api">').appendTo('body');
+          }
+          apiElem.toggleClassSafe('lichessTools-apiLoading',true);
           try {
             cache.lock(key);
             const immediateResult = options.minTime
@@ -2103,7 +2277,7 @@
             return result;
           } finally {
             cache.release(key);
-            lt.$('body').toggleClassSafe('lichessTools-apiLoading',false);
+            apiElem.toggleClassSafe('lichessTools-apiLoading',false);
           }
         };
         obj[funcName].__originalFunction = original;
@@ -2131,6 +2305,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 86400 * 10000, minTime: 1100 });
       },
       blog: {
         lichessTools: this,
@@ -2176,6 +2351,18 @@
           url.searchParams.set('page',page);
           const json = await lt.net.json(url.toString());
           return json;
+        },
+        updateChapterPgn: async function(studyId, chapterId, pgn) {
+          const lt = this.lichessTools;
+          await lt.net.postForm({
+              url: '/api/study/{studyId}/{chapterId}/moves',
+              args: { studyId, chapterId }
+            },
+            { pgn: pgn },
+            {
+              mode: 'cors',
+              credentials: 'include'
+            });
         },
         updatePgnTags: async function(studyId, chapterId, pgn) {
           const lt = this.lichessTools;
@@ -2498,6 +2685,36 @@
             args: { teamId }
           }, { ndjson: true });
           return players;
+        },
+        getTeam: async function (teamId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({
+            url: '/api/team/{teamId}',
+            args: { teamId }
+          },{
+            ignoreStatuses: [ 404 ]
+          });
+          return data;
+        },
+        getLeaderTeams: async function() {
+          const lt = this.lichessTools;
+          let html='';
+          let page=1;
+          let url = '/team/leader';
+          while (url) {
+            const page = await lt.net.fetch(url);
+            html += page;
+            url = $(page).find('a[rel="next"]').attr('href');
+            if (url) await lt.timeout(1000);
+          }
+          const result = $(html)
+                          .find('td.subject a[href^="/team/"]')
+                          .get()
+                          .map(e=>({
+                            id: /\/team\/(?<team>[^\/?#\s]*)/.exec($(e).attr('href'))?.groups?.team,
+                            name: [...e.childNodes].find(n=>n.nodeType===3)?.textContent
+                          }));
+          return result;
         }
       },
       streamer: {
@@ -2719,6 +2936,27 @@
           const data = await lt.net.json({ url: '/tournament/{tourId}?page=1&partial=true&me={userId}', args: { tourId: tourId, userId:userId } });
           return data;
         }
+      },
+      chessagine: {
+        lichessTools: this,
+        analyseFen: async function(fen,engine,rating) {
+          const lt = this.lichessTools;
+          const data = await lichessTools.comm.getDataUrl('https://www.chessagine.com/api/nn',{
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                endpoint: "analyze",
+                fen: fen,
+                engine: engine,
+                rating: rating,
+                rawWDL: true
+              })
+            });
+          if (!data.dataUrl) {
+            throw new Error('Could not get the data URL for '+fen+' '+engine+' rating:'+rating);
+          }
+          return lt.net.json(data.dataUrl);
+        }
       }
     }
 
@@ -2793,7 +3031,7 @@
       if (age<7) {
         const background = this.getGradientColor(age, [{ q: 0, color: '#FF0000' }, { q: 2, color: '#FF8000' }, { q: 5, color: '#FFFF00' }, { q: 8, color: '#808080' }]);
         const text = this.getGradientColor(age, [{ q: 0, color: '#FFFFFF' }, { q: 1.99, color: '#FFFFFF' }, { q: 2, color: '#000000' }]);
-        style = 'background:'+background+'; color:'+text+';';
+        style = background&&text ? 'background:'+background+'; color:'+text+';':'';
       }
       this.global.console.debug('%c site code age: ' + Math.round(age * 10) / 10 + ' days', style);
       await this.applyOptions();

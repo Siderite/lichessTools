@@ -38,8 +38,9 @@
           .attr('href','#')
           .text(trans.noarg('tableOfContentsText'))
           .attr('title',trans.noarg('tableOfContentsTitle'))
-          .on('click',()=>{
-            $('a.active[class^="lichessTools-toc_"]').removeClass('active');
+          .on('click',(ev)=>{
+            ev.preventDefault();
+            container.toggleClass('collapsed');
           })
         )
         .append($('<div class="entries">'));

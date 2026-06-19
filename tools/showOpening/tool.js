@@ -40,7 +40,7 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -111,8 +111,8 @@
             .appendTo(container);
         }
         openingEl
-          .text(opening)
-          .attr('title', opening);
+          .textSafe(opening)
+          .attrSafe('title', opening);
         fen = '';
         gameId = '';
       }
@@ -123,6 +123,7 @@
     openingTime = 0;
     withOpening = async (gameId, el, ply, fen, isMini) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       if (!lt.inViewport(el,true)) return;
       const analysis = lt.lichess?.analysis;
       const Math = lt.global.Math;
@@ -151,7 +152,11 @@
             analysis?.redraw();
           }
           el.openingData = { time: Date.now(), opening, el };
+          $(el).toggleClassSafe('lichessTools-withOpening',true);
           return el.openingData;
+        } else {
+          delete el.openingData;
+          $(el).toggleClassSafe('lichessTools-withOpening',false);
         }
       }
       
@@ -259,7 +264,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showFishnetAnalysis() === false && !analysis?.cevalEnabled())) return;
+      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;
@@ -271,7 +276,7 @@
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const result = await this.withOpening(gameId, $.cached('main.round, main.analyse, main#board-editor', 10000)[0], ply, fen, false);
       if (!result) {
-        metaSection.find('.lichessTools-opening').remove();
+        metaSection.find('.lichessTools-opening').textSafe('');
         this.showOpeningInExplorer(null);
         return;
       }
@@ -282,7 +287,7 @@
           visibleEl
             .append($('<span/>').addClass('lichessTools-opening').attr('title', trans.noarg('openingNameTitle')));
         }
-        metaSection.find('span.lichessTools-opening').text(result.opening);
+        metaSection.find('span.lichessTools-opening').textSafe(result.opening);
       }
       if (this.options.showInAnalysisTitle || lt.global.location.pathname=='/analysis') {
         if (!this.originalTitle) {

@@ -1,6 +1,8 @@
 (() => {
   class KeyShortcutsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitRedraw','ExplorerPractice','AdditionalGlyphs','SearchMovesCommand'];
+
     preferences = [
       {
         name: 'keyShortcuts',
@@ -162,9 +164,30 @@
         .toggleClass('lichessTools-hideSiteHeader');
     };
 
+    handleRKey = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const study = lt.lichess.analysis?.study;
+      if (study) {
+        this.randomChapter();
+      } else {
+        this.requestAnalysis();
+      }
+    };
+
+    requestAnalysis = () => {
+      if (this.makeMoveMode) {
+        return;
+      }
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const button = $('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button');
+      button.trigger('click');
+    };
+
     randomChapter = () => {
       if (this.makeMoveMode != 'general') {
-        this.oldHandlers['r']();
+        this.oldHandlers['r']?.();
         return;
       }
       this.clearMoveMode();
@@ -201,6 +224,7 @@
 
     bindKeysForAnalysis = () => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const analysis = lt.lichess.analysis;
       lt.unbindKeyHandler('i');
       lt.unbindKeyHandler('m');
@@ -210,6 +234,8 @@
       lt.unbindKeyHandler('alt+m', true);
       lt.unbindKeyHandler('alt+b', true);
       lt.unbindKeyHandler('alt+g', true);
+      lt.unbindKeyHandler('o', true);
+      lt.unbindKeyHandler('alt+o', true);
 
       lt.unbindKeyHandler('.', true);
       lt.unbindKeyHandler('ctrl+.', true);
@@ -244,6 +270,10 @@
         lt.bindKeyHandler('alt+m', () => lt.jumpToGlyphSymbols('?', true));
         lt.bindKeyHandler('alt+b', () => lt.jumpToGlyphSymbols('??', true));
         lt.bindKeyHandler('alt+g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar], true));
+        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length) {
+          lt.bindKeyHandler('o', () => this.jumpToSlowMoves(false));
+          lt.bindKeyHandler('alt+o', () => this.jumpToSlowMoves(true));
+        }
 
         lt.bindKeyHandler('.', () => this.prepareMove('pgn'));
         lt.bindKeyHandler('ctrl+.', () => this.prepareMove('ceval'));
@@ -254,7 +284,7 @@
         }
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('f', this.freezeBoard);
-        lt.bindKeyHandler('r', this.randomChapter);
+        lt.bindKeyHandler('r', this.handleRKey);
         if (analysis.ongoing) {
           lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }
@@ -273,6 +303,32 @@
           }
         }
       }
+    };
+
+    jumpToSlowMoves = (black) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      if (!analysis) return;
+      const glyphsTool = lt.tools.AdditionalGlyphsTool;
+      if (!glyphsTool.options.slow) return;
+
+      const nodes = [];
+      let path = '';
+      for (const node of analysis.mainline) {
+        path+=node.id;
+        if (node.isSlow === undefined) {
+          glyphsTool.processSlow(node);
+        }
+        if (node.isSlow && node.ply % 2 == !black) {
+          nodes.push(path);
+        }
+      }
+      if (!nodes.length) return;
+
+      let index = nodes.indexOf(analysis.path);
+      index = (index<0 ? 0 : index+1) % nodes.length;
+      analysis.userJumpIfCan(nodes[index]);
+      lt.analysisRedraw();
     };
 
     handleEditorAction = (index) => {

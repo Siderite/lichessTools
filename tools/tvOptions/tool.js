@@ -493,7 +493,7 @@
             const title = trans.noarg('bookmarkGame');
             $('div.setup', header)
               .prepend(
-                $(`<a class="bookmark lichessTools-bookmark" href="/bookmark/${gameId}"><i data-icon="${lt.icon.toEntity(lt.icon.Star)}" class="on is3"></i><i data-icon="${lt.icon.toEntity(lt.icon.StarOutline)}" class="off is3"></i><span></span></a>`)
+                $(`<a class="bookmark lichessTools-bookmark" href="/bookmark/${gameId}"><icon data-icon="${lt.icon.toEntity(lt.icon.Star)}" class="on is3"></icon><icon data-icon="${lt.icon.toEntity(lt.icon.StarOutline)}" class="off is3"></icon><span></span></a>`)
                   .attr('title', title)
               );
           }

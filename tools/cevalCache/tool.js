@@ -27,7 +27,7 @@
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
       const node = analysis.node;
-      const key = analysis.ceval.engines.activeEngine.id+'|'+analysis.data.game.variant.key+'|'+lt.getPositionFromFen(node.fen, true);
+      const key = analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(node.fen, true);
       const dbKey = 'lichessTools/evalCache/'+key;
       const value = await lt.storage.get(dbKey,{ db: true, raw: true });
       if (!value || node.ceval?.depth > value.depth) return;
@@ -41,6 +41,27 @@
         lt.analysisRedraw();
       }
     }
+
+    handleCeval = async (args)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const [data,meta] = args;
+      const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(data.fen, true);
+      const dbKey = 'lichessTools/evalCache/'+key;
+      let value = await lt.storage.get(dbKey,{ db: true, raw: true });
+      if (data.depth <= 20 || data.depth <= value?.depth) return;
+      value = { time: Date.now(), ...data };
+      try {
+        await lt.storage.set(dbKey,value,{ db: true, raw: true });
+      } catch(e) {
+        if (e.name === "QuotaExceededError") {
+          const dbStorage = lt.storage.getStore({ db: true, raw: true });
+          //dbStorage.clearStore(dbKey);
+          dbStorage.removeAllBy(dbKey,'time','upperBound',Date.now()-86400*1000*30);
+        }
+      };
+    };
 
     async start() {
       const lt = this.lichessTools;
@@ -56,31 +77,10 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       lt.uiApi.events.off('ply', this.handlePly);
-      const ctrl = analysis.ceval.engines?.ctrl;
-      if (ctrl) {
-        ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalCache');
-        if (this.options.enabled) {
-          lt.uiApi.events.on('ply', this.handlePly);
-          ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
-            id: 'cevalCache',
-            after: async ($this, result, data, meta)=>{
-              const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.activeEngine.id+'|'+meta.variant+'|'+lt.getPositionFromFen(data.fen, true);
-              const dbKey = 'lichessTools/evalCache/'+key;
-              let value = await lt.storage.get(dbKey,{ db: true, raw: true });
-              if (data.depth <= 20 || data.depth <= value?.depth) return;
-              value = { time: Date.now(), ...data };
-              try {
-                await lt.storage.set(dbKey,value,{ db: true, raw: true });
-              } catch(e) {
-                if (e.name === "QuotaExceededError") {
-                  const dbStorage = lt.storage.getStore({ db: true, raw: true });
-                  //dbStorage.clearStore(dbKey);
-                  dbStorage.removeAllBy(dbKey,'time','upperBound',Date.now()-86400*1000*30);
-                }
-              };
-            }
-          });
-        }
+      lt.pubsub.off('lichessTools.ceval',this.handleCeval);
+      if (this.options.enabled) {
+        lt.uiApi.events.on('ply', this.handlePly);
+        lt.pubsub.on('lichessTools.ceval',this.handleCeval);
       }
     }
 

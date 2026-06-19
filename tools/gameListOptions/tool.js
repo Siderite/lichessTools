@@ -398,8 +398,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                        .replace('$wins',w)
                        .replace('$draws',d)
                        .replace('$losses',l);
-          span.text(text)
-            .attr('title',trans.pluralSame('searchScoreTitle',w+d+l));
+          span.textSafe(text)
+            .attrSafe('title',trans.pluralSame('searchScoreTitle',w+d+l));
           
           count--;
           const pageIndex = page.paginator.nextPage;

@@ -60,7 +60,7 @@
         text += ', ' + commentText;
       }
       text = text.replace(/[\r\n\.]+/g, ',');
-      const r = /(?:\b(?<piece>[NBRQK])?(?<start>[a-h])?(?:[1-8])?(?<takes>x)?(?<end>[a-h][1-8])(?:=(?<promotion>[NBRQK]))?|\b(?<castles>^O-O(?<long>-O)?))(?:(?<check>\+)|(?<mate>#))?/g;
+      const r = /(?:\b(?<piece>[NBRQK\u2654\u2655\u2656\u2657\u2658])?(?<start>[a-h])?(?:[1-8])?(?<takes>x)?(?<end>[a-h][1-8])(?:=(?<promotion>[NBRQK\u2654\u2655\u2656\u2657\u2658]))?|\b(?<castles>^O-O(?<long>-O)?))(?:(?<check>\+)|(?<mate>#))?/g;
       const pieces = this.pieces;
       text = text.replace(r, function (...args) {
         const groups = args.at(-1);

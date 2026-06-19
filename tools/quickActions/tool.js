@@ -250,7 +250,7 @@
       $('main').toggleClassSafe('lichessTools-quickActions-practice',!!this.options.practice);
       $('body')
        .observer()
-       .off('button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
+       .off('div.analyse__controls,button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
       lt.pubsub.off('lichessTools.chapterChange',this.initQuickActions);
       this.initQuickActions();
       lt.global.setTimeout(this.refreshTooltip,1000);
@@ -258,7 +258,7 @@
       lt.pubsub.on('lichessTools.chapterChange',this.initQuickActions);
       $('body')
        .observer()
-       .on('button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
+       .on('div.analyse__controls,button.fbt[data-act="menu"],button.board-menu-toggle-btn,button.msg-app__convo__post__submit,.main-board cg-board,.msg-app__convo',this.initQuickActions);
     }
 
   }

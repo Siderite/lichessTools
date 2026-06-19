@@ -1,8 +1,6 @@
 (() => {
   class ChessOpsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
-
     preferences = [{
       name: 'chessOps',
       category: 'study',
@@ -33,9 +31,17 @@
         return;
       }
       if (!lt.chessops) {
-        // generate this with the BundleChessops project from LiChessToolsAdjacent
-        lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
-          lt.chessops = await import(url);
+        let chessops = null;
+        lt.chessops=()=>new Promise((resolve)=>{
+          if (chessops) {
+            resolve(chessops);
+            return;
+          }
+          // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
+          lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
+            chessops = await import(url);
+            resolve(chessops);
+          });
         });
       }
     }

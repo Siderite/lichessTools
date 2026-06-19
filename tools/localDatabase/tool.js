@@ -247,7 +247,7 @@
     }
 
     async search(text) {
-      if (!text) return [];
+      if (!text || !this.idDict) return [];
       let result = this.cache?.get(text);
       if (result) return result;
       let hits = 0;

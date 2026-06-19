@@ -8,11 +8,16 @@
         name: 'chatForumBlogs',
         category: 'comm',
         type: 'multiple',
-        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage'],
-        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage',
+        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage','reactionsTooltip'],
+        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip',
         needsLogin: true
       }
     ];
+
+    upgrades = [
+      { name:'chatForumBlogs', value:'reactionsTooltip', version: '2.4.203', type: 'new' }
+    ];
+
 
     intl = {
       'en-US': {
@@ -21,6 +26,7 @@
         'chatForumBlogs.pasteImages': 'Paste image support',
         'chatForumBlogs.bigEmoji': 'Large one emoji message',
         'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
+        'chatForumBlogs.reactionsTooltip': 'Reactions tooltip on mobile',
         'pastingError': 'There was an error generating the image URL',
         'deleteImageButtonTitle': 'LiChess Tools - delete image',
         'deleteImageQuestion': 'Are you sure you want to delete this image for everybody?',
@@ -32,6 +38,7 @@
         'chatForumBlogs.pasteImages': 'Suport lipire imagini',
         'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
         'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
+        'chatForumBlogs.reactionsTooltip': 'Tooltip la reac\u016fii pe mobil',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii',
         'deleteImageButtonTitle': 'LiChess Tools - \u015fterge imaginea',
         'deleteImageQuestion': 'Sigur \u015fterg imaginea pentru toat\u0103 lumea?',
@@ -226,7 +233,8 @@
         pasteImages: lt.isOptionSet(value, 'pasteImages'),
         bigEmoji: lt.isOptionSet(value, 'bigEmoji'),
         refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage'),
-        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage },
+        reactionsTooltip: lt.isOptionSet(value, 'reactionsTooltip'),
+        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip },
       };
       if (!this.isInboxOrForumOrProfilePage()) return;
       lt.global.clearInterval(this.interval);
@@ -246,6 +254,21 @@
       if (this.options.refreshOnMessage) {
         $('.msg-app.pane-convo').observer()
           .on('their,mine',this.refreshChat);
+      }
+      $('.lichessTools-reactionsTooltip').remove();
+      if (this.options.reactionsTooltip) {
+        $('div.reactions').each((i,e)=>{
+          if ($('.lichessTools-reactionsTooltip',e).length) return;
+          const titles = $('button.yes[title]',e)
+                           .map((i2,e2)=>$(e2).attr('title'))
+                           .get()
+                           .join('\r\n');
+          if (titles) {
+            $('<div class="lichessTools-reactionsTooltip">')
+              .text(titles)
+              .appendTo(e);
+          }
+        });
       }
     }
 

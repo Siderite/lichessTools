@@ -62,10 +62,10 @@
       }
       if (!this.options.enabled) return;
       if (showStylingButton && !$('.study__buttons .lichessTools-colors').length) {
-        const button = $('<button type="button">')
+        const button = $('<button type="button" class="lichessTools-colors">')
           .attr('title', trans.noarg('commentStyleCycle'))
-          .attr('data-icon', lt.icon.InkQuill)
-          .addClass('lichessTools-colors')
+          .append($('<icon>')
+             .attr('data-icon', lt.icon.InkQuill))
           .on('click', this.cycleCommentColor)
           .insertAfter('.study__buttons .comments');
       }

@@ -68,7 +68,7 @@
         const text = white + ' - ' + black;
         names.push(text);
       }
-      const co = lt.chessops;
+      const co = await lt.chessops();
       if (!co) return;
       const { parsePgn } = co.pgn;
       const { parseFen } = co.fen;

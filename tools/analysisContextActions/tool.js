@@ -10,6 +10,14 @@
         type: 'multiple',
         possibleValues: ['copyPgn', 'moveEval', 'showTranspos', 'removeSuperfluous', 'showOnEmpty', 'reorderVariations', 'positionInfo', 'lineEval'],
         defaultValue: 'copyPgn,moveEval,removeSuperfluous,showOnEmpty,reorderVariations'
+      },
+      {
+        name: 'analysisContextActionsCoverage',
+        category: 'analysis',
+        type: 'single',
+        possibleValues: [0,1,2,3,4,5],
+        defaultValue: 0,
+        advanced: true
       }
     ];
 
@@ -21,6 +29,7 @@
       'en-US': {
         'options.analysis': 'Analysis',
         'options.analysisContextActions': 'Extra context menu options',
+        'options.analysisContextActionsCoverage': 'Study chapter coverage depth for position info',
         'analysisContextActions.copyPgn': 'Copy branch as PGN',
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
         'analysisContextActions.lineEval': 'Engine evaluation for previous moves',
@@ -57,11 +66,19 @@
 Moves so far: $movesSoFar
 Following main moves: $movesMain
 Following total moves: $movesTotal
-Following branches: $branches`
+Following branches: $branches`,
+        'treeCoverageText': 'Coverage: %s%',
+        'analysisContextActionsCoverage.0': 'disabled',
+        'analysisContextActionsCoverage.1': '1',
+        'analysisContextActionsCoverage.2': '2',
+        'analysisContextActionsCoverage.3': '3',
+        'analysisContextActionsCoverage.4': '4',
+        'analysisContextActionsCoverage.5': '5'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.analysisContextActions': 'Op\u0163iuni \u00een plus \u00een meniul context',
+        'options.analysisContextActionsCoverage': 'Ad\u00e2ncime acoperire capitole studiu pentru informa\u0163ii pozi\u0163ie',
         'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163ia ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
         'analysisContextActions.lineEval': 'Evaluare mut\u0103ri precedente',
@@ -98,7 +115,14 @@ Following branches: $branches`
 Mut\u0103ri p\u00e2na acum: $movesSoFar
 Mut\u0103ri principale urm\u0103toare: $movesMain
 Total mut\u0103ri urm\u0103toare: $movesTotal
-Varia\u0163ii urm\u0103toare: $branches`
+Varia\u0163ii urm\u0103toare: $branches`,
+        'treeCoverageText': 'Acoperire: %s%',
+        'analysisContextActionsCoverage.0': 'dezactivat',
+        'analysisContextActionsCoverage.1': '1',
+        'analysisContextActionsCoverage.2': '2',
+        'analysisContextActionsCoverage.3': '3',
+        'analysisContextActionsCoverage.4': '4',
+        'analysisContextActionsCoverage.5': '5'
       }
     }
 
@@ -127,20 +151,29 @@ Varia\u0163ii urm\u0103toare: $branches`
       f(node);
       if (movesTotal) branches++;
       const ply = node.ply;
-      const text = trans.noarg('positionInfoOutputText')
+      let text = trans.noarg('positionInfoOutputText')
         .replace('$ply',`${ply}`)
         .replace('$movesSoFar',`${movesSoFar}`)
         .replace('$movesMain',`${movesMain}`)
         .replace('$movesTotal',`${movesTotal}`)
         .replace('$branches',`${branches}`);
+      if (this.options.positionInfoCoverageDepth && analysis.study && analysis.explorer.enabled()) {
+        const coverage = await this.computeTreeCoverage(node,this.options.positionInfoCoverageDepth);
+        text+='\r\n'+trans.pluralSame('treeCoverageText',Math.round(coverage*100));
+      }
       const moveNumber = Math.floor((ply + 1) / 2);
-      let header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
-      header += node.san;
-      if (node.glyphs?.length) {
-        header += node.glyphs.map(g=>g.symbol).join('');
+      let header;
+      if (moveNumber>0 && node.san) {
+        header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
+        header += '<san>'+node.san+'</san>';
+        if (node.glyphs?.length) {
+          header += node.glyphs.map(g=>g.symbol).join('');
+        }
+      } else {
+        header = '<span>'+trans.noarg('positionInfoText')+'</span>';
       }
       const dialog = await lt.dialog({
-        header: header,
+        header: $(header),
         noDrag: true
       });
       for (const line of text.split(/[\r\n]+/)) {
@@ -152,6 +185,71 @@ Varia\u0163ii urm\u0103toare: $branches`
       }
       $(dialog).addClass('lichessTools-positionInfo');
       dialog.showModal();
+    };
+
+    computeTreeCoverage = async (node, maxDepth) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      const explorer = analysis?.explorer;
+      const explorerCache = explorer?.cache;
+      if (!explorerCache) return null;
+      const side = analysis.getOrientation() == 'black' ? 1 : 0;
+
+      const recurse = async (n, depth) => {
+        if (depth <= 0) return 1.0;
+
+        if (!n.children?.length) return 1.0;
+
+        let expl = explorerCache[n.fen];
+        if (!expl) {
+          if (n.path === undefined) lt.traverse();
+          if (n.path != analysis.path) {
+            analysis.setPath(n.path);
+          }
+          await explorer.setNode();
+          while (explorer.loading()) {
+            await lt.timeout(10);
+          }
+          expl = explorer.current();
+        }
+
+        if (!expl?.moves?.length) {
+          return 1.0;
+        }
+
+        let total = 0;
+
+        const byUci = new Map();
+        for (const m of expl.moves) {
+          if ((n.ply % 2 == side) && !n.children.find(c=>c.uci==m.uci)) continue;
+          const games = (m.white || 0) + (m.draws || 0) + (m.black || 0);
+          if (games > 0) {
+            byUci.set(m.uci, games);
+            total += games;
+          }
+        }
+
+        let coverage = 0.0;
+        for (const child of n.children) {
+          const games = byUci.get(child.uci);
+          if (!games) continue;
+    
+          const childCoverage = await recurse(child, depth - 1);
+          const q = total ? games / total : 1;
+          coverage += q * childCoverage;
+        }
+
+        return coverage;
+      };
+
+      const initialPath = analysis.path;
+      try {
+        return await recurse(node, maxDepth);
+      } finally {
+        if (initialPath != analysis.path) {
+          analysis.setPath(initialPath);
+        }
+      }
     };
 
     extractVariationAsPGN = (ev) => {
@@ -194,7 +292,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
         this.evaluatedNodesTotal = 0;
-        $('.lichessTools-liveStatus label').text('');
+        $('.lichessTools-liveStatus label').textSafe('');
         this._analysedNode = null;
       }
     };
@@ -217,7 +315,7 @@ Varia\u0163ii urm\u0103toare: $branches`
       $.cached('body').toggleClass('lichessTools-evaluationStarted', !!value);
       if (!value) {
         this.evaluatedNodesTotal = 0;
-        $('.lichessTools-liveStatus label').text('');
+        $('.lichessTools-liveStatus label').textSafe('');
         this._analysedNode = null;
       }
     };
@@ -251,7 +349,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         $('main.analyse div.analyse__controls.analyse-controls')
           .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
       }
-      $('.lichessTools-liveStatus label').text(liveStatus);
+      $('.lichessTools-liveStatus label').textSafe(liveStatus);
       const node = nodes[0];
       if (!node) {
         this.setTerminationsEvaluation(false);
@@ -630,7 +728,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         if (menuItem.length) {
           if (ev.altKey) ev.preventDefault();
           const text = trans.noarg('extractVariationText' + this.suffix);
-          menuItem.text(text);
+          menuItem.textSafe(text);
         }
       }
     }
@@ -652,6 +750,7 @@ Varia\u0163ii urm\u0103toare: $branches`
         showOnEmpty: lt.isOptionSet(value, 'showOnEmpty'),
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
+        positionInfoCoverageDepth: +lt.currentOptions.getValue('analysisContextActionsCoverage') || 0,
         get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; }
       };
       clearInterval(this.engineCheckInterval);

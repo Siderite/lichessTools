@@ -54,6 +54,10 @@ body.lichessTools .lichessTools-positionInfo .dialog-header {
   font-size: 1.25em;
 }
 
+body.lichessTools:not(.piece-letter) .lichessTools-positionInfo .dialog-header san {
+  font-family: "Noto Chess", "Noto Sans";
+}
+
 body.lichessTools .lichessTools-positionInfo .dialog-content > div {
   display:flex;
   justify-content: space-between;

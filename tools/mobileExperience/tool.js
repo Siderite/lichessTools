@@ -22,6 +22,7 @@
         type: 'single',
         possibleValues: [1, 2, 3, 4],
         defaultValue: 1,
+        offValue: 1,
         advanced: true
       }, {
         name: 'screenLock',
@@ -318,7 +319,7 @@
       this.populateTooltip();
       $('.lichessTools-shapeDrawing-tooltip')
                         .toggleClassSafe('show', !isTooltip)
-                        .css('left',mainButton.offset().left+'px');
+                        .css('left',(mainButton.offset().left+mainButton.width()/2)+'px');
       this._tappedBrush = true;
     };
 
@@ -668,7 +669,7 @@
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
               return $this.showGauge()
-                     && $this.showAnalysis()
+                     && $this.showEvaluation()
                      && $this.isCevalAllowed()
                      && !$this.node.outcome();
             }

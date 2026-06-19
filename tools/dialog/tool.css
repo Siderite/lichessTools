@@ -12,6 +12,7 @@ body.lichessTools dialog.lichessTools-dialog {
   transition: none;
   transition-property: none;
   animation: none;
+  -transform: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog:backdrop {
@@ -28,6 +29,7 @@ body.lichessTools dialog.lichessTools-dialog .dialog-header {
   display:flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
@@ -51,6 +53,10 @@ body.lichessTools dialog.lichessTools-dialog .dialog-resize {
   bottom: 0;
   cursor: nw-resize;
   touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-resize:hover {

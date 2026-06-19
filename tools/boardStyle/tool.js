@@ -41,23 +41,24 @@
         const q = 800/containerWidth;
         container.toggleClassSafe('lichessTools-boardStyle',true);
 
-        const selectedKey = container.find('square.selected:not([style*="hidden"])').prop('cgKey');
+        const selectedKey = container.find('square.selected:not([style*="hidden"],[style*="display: none"])').prop('cgKey');
         container.find('piece')
           .each((i,e)=>{
             $(e).toggleClassSafe('selected',!!(selectedKey && e.cgKey==selectedKey));
           });
 
-        const lastMoves = container.find('.last-move:not([style*="hidden"])').get();
+        const lastMoves = container.find('.last-move:not([style*="hidden"],[style*="display: none"])').get();
         let arrow = container.find('.lichessTools-lastMoveArrow');
         if (lastMoves.length==2) {
           $(lastMoves[0])
-            .toggleClassSafe('dest',true)
-            .toggleClassSafe('orig',false);
+            .attrSafe('dest',true)
+            .attrSafe('orig',null);
           $(lastMoves[1])
-            .toggleClassSafe('dest',false)
-            .toggleClassSafe('orig',true);
+            .attrSafe('dest',null)
+            .attrSafe('orig',true);
 
           const destKey = lastMoves[0]?.cgKey;
+          const origKey = lastMoves[1]?.cgKey;
           container.find('piece.moved')
             .each((i,e)=>{
               $(e).toggleClassSafe('moved',e.cgKey==destKey);
@@ -66,7 +67,7 @@
                           .filter((i,e)=>e.cgKey===destKey)
                           .toggleClassSafe('moved',true)
                           .get()[0];
-          const cgPiece = piece
+          const cgPiece = piece?.cgPiece
             ? piece.cgPiece.split(' ')
             : [destKey?.endsWith('1')?'white':'black','king'];
           const isBlackTurn = cgPiece[0]=='white';
@@ -89,26 +90,35 @@
             <stop offset="0%" class="stop-0" />
             <stop offset="100%" class="stop-100" />
           </linearGradient>
-          <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="3" refY="1.75" orient="auto" markerUnits="strokeWidth">
+          <marker id="arrowhead" markerWidth="5" markerHeight="3.5" refX="3" refY="1.75" orient="auto-start-reverse" markerUnits="strokeWidth">
             <polygon points="0 0, 5 1.75, 0 3.5" class="arrowhead" />
           </marker>
         </defs>
         <line class="arrow-line" />
       </svg>`).appendTo(container);
             }
+            const dist = Math.sqrt(Math.pow(dest.x-orig.x,2)+Math.pow(dest.y-orig.y,2));
+            const shortener = dist==0 ? 1 : (dist - 50/q)/dist;
+            const shorterDest = {
+              x: Math.round(orig.x+(dest.x-orig.x)*shortener),
+              y: Math.round(orig.y+(dest.y-orig.y)*shortener)
+            };
             arrow.find('.arrow-line')
               .attrSafe('x1',orig.x)
               .attrSafe('y1',orig.y)
-              .attrSafe('x2',dest.x)
-              .attrSafe('y2',dest.y);
+              .attrSafe('x2',shorterDest.x)
+              .attrSafe('y2',shorterDest.y);
             arrow.find('#arrowGradient')
               .attrSafe('x1',orig.x)
               .attrSafe('y1',orig.y)
-              .attrSafe('x2',dest.x)
-             .attrSafe('y2',dest.y);
+              .attrSafe('x2',shorterDest.x)
+             .attrSafe('y2',shorterDest.y);
+            const isCastle = cgPiece[1] == 'king' && Math.abs(destKey[0].charCodeAt(0)-origKey[0].charCodeAt(0))>1; //TODO not perfect, breaks in certain positions in Chess960
+            arrow.toggleClassSafe('castle',isCastle);
           }
           if (e.usesArrow === undefined) {
             e.usesArrow = arrow.css('display') != 'none';
+            if (!e.usesArrow) arrow.remove();
           }
           const side = isBlackTurn ? 'black' : 'white';
           const prevSide = container.attr('sideToPlay');
@@ -134,6 +144,8 @@
             .removeAttrSafe('lastMoveSquare')
             .removeAttrSafe('lastPieceCaptured');
         }
+        const opening = container.closest('.lichessTools-withOpening').prop('openingData');
+        container.attrSafe('opening',opening?.opening || null);
       });
     };
     processBoards = this.lichessTools.debounce(this.processBoardsDirect,100);
@@ -147,9 +159,11 @@
         .off('square.last-move,square.selected',this.processBoards);
       $('.lichessTools-lastMoveArrow').remove();
       $('cg-container').toggleClassSafe('lichessTools-boardStyle',false);
+      lt.uiApi.events.off('ply', this.processBoards);
       if (value) {
         $('body').observer()
           .on('square.last-move,square.selected',this.processBoards, { attributes: true });
+        lt.uiApi.events.on('ply', this.processBoards);
         this.processBoards();
       }
     }

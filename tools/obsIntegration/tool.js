@@ -92,7 +92,7 @@
                 <label data-for="password"></label>
                 <div>
                   <input class="form-control" type="password" name="password">
-                  <i data-icon="${lt.icon.toEntity(lt.icon.Eye)}" aria-hidden="true" class="togglePassword"></i>
+                  <icon data-icon="${lt.icon.toEntity(lt.icon.Eye)}" aria-hidden="true" class="togglePassword"></icon>
                 </div>
                 <label data-for="options"></label>
                 <input class="form-control" type="text" name="options">
@@ -266,7 +266,7 @@
             .attr('role', 'tab')
             .on('mousedown', this.buttonClicked)
             .on('contextmenu', ev => ev.preventDefault())
-            .append($('<i>').attr('data-icon', lt.icon.CircledLatinCapitalLetterY))
+            .append($('<icon>').attr('data-icon', lt.icon.CircledLatinCapitalLetterY))
             .appendTo(container);
           buttonAdded = true;
         }

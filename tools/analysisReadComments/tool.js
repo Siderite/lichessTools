@@ -31,103 +31,6 @@
       }
     }
 
-    urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    regChessMove = /(?<number>\d+\.\s?(\.\.)?\s*)?(?<move>\b((?<castle>[0O]-[0O](-[0O])?)|(?<piece>[NBRQK])?(?<p1>([a-h])?([1-8])?(x)?([a-h][1-8]))(=(?<promotion>[NBRQK]))?)(?<p2>\+|#)?)(?<glyph>[!\?]{1,2})?/g;
-    pieces = {
-      'p':'pawn',
-      'n':'knight',
-      'b':'bishop',
-      'r':'rook',
-      'q':'queen',
-      'k':'king'
-    };
-    annotations = {
-      '!':'good move',
-      '?':'mistake',
-      '!!':'brilliant',
-      '??':'blunder',
-      '?!':'inaccuracy',
-      '!?':'interesting'
-    };
-    unicode = {
-      '\u2654': 'white king',
-      '\u2655': 'white queen',
-      '\u2656': 'white rook',
-      '\u2657': 'white bishop',
-      '\u2658': 'white knight',
-      '\u2659': 'white pawn',
-      '\u265A': 'black king',
-      '\u265B': 'black queen',
-      '\u265C': 'black rook',
-      '\u265D': 'black bishop',
-      '\u265E': 'black knight',
-      '\u265F': 'black pawn'
-    };
-    getSpeakableText = (text)=>{
-      if (!text) return;
-      text = text.replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
-      for (const ch in this.unicode) {
-        text = text.replaceAll(ch, this.unicode[ch]+', ');
-      }
-      if (this.options.stripEmoji) {
-        text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
-      }
-      text = text.replaceAll(/e\.\s*p\./gi,'un phsaant');
-      text = text.replaceAll(/(\d+)-(\d+)/gi,'$1, $2');
-      text = text.replaceAll(/(\d+)\s+-\s+(\d+)/gi,'$1, $2');
-      text = text.replaceAll(this.urlRegex,(m)=>{
-        const url = new URL(m);
-        const host = url.host
-                        .replaceAll(/youtu.be/gi,'youtube')
-                        .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
-        return host+' URL ';
-      });
-      text = text.replaceAll(this.regChessMove,(...arr)=>{
-        const result = [];
-        const g = arr.at(-1);
-        let m;
-        if (g.number) {
-          const num = /\d+/.exec(g.number)[0];
-          result.push(num);
-          if ([...g.number.matchAll(/\./g)].length==3) result.push(', black moves');
-        }
-        if (g.move) {
-          const sanWords = g.move
-            .split('')
-            .map(c => {
-              if (c === 'x') return 'takes';
-              if (c === '+') return 'check';
-              if (c === '#') return 'checkmate';
-              if (c === '=') return 'promotes to';
-              if (c === '@') return 'at';
-              if (c === '0') return 'O';
-              const code = c.charCodeAt(0);
-              if (code > 48 && code < 58) return c; // 1-8
-              if (code > 96 && code < 105) return c.toUpperCase(); // a-h
-              return this.pieces[c.toLowerCase()] ?? c;
-            })
-            .join(' ')
-          result.push(sanWords);
-        }
-        if (g.glyph) {
-          const ann = g.name || this.annotations[g.glyph];
-          if (ann) result.push(', '+ann);
-        }
-        return result.join(' ')
-            .replace('O - O - O', 'long castle')
-            .replace('O - O', 'short castle')
-            .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
-            .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
-            .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
-            .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
-            .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
-            .replace(/(\d) H (\d)/, '$1H$2')
-            +', ';
-      });
-      text = text.replaceAll(/lichess/gi,'lee chess');
-      return text;
-    };
-
     readComments = ()=>{
       const lt = this.lichessTools;
       if (!this.options.enabled || lt.storage.get('LiChessTools.dontReadComments')) return;
@@ -137,32 +40,14 @@
       const node = lichess.analysis.node;
       if (!node) return;
       const comments = lt.getNodeCommentsText(node);
-      let speakable = this.getSpeakableText(comments);
+      let speakable = lt.getSpeakableText(comments,{ 
+        stripEmoji: this.options.stripEmoji,
+        isCheck: node.san?.endsWith('+'),
+        isMate: node.san?.endsWith('#'),
+        readAnnotations: this.options.readAnnotations,
+        glyphs: node.glyphs
+      });
       let shouldSpeak = speakable != this.prev?.speakable && (node.fen != this.prev?.fen || Date.now()-this.prev?.time > 2000);
-      const isCheck = node.san?.endsWith('+');
-      const isMate = node.san?.endsWith('#');
-      if (this.options.readAnnotations && (node.glyphs?.length || isCheck || isMate)) {
-        const additional = (node.glyphs || [])
-          .map(g=>{
-            let name = g.name;
-            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
-            return name || this.annotations[g.symbol]
-          })
-          .concat([
-            isCheck?'check':'',
-            isMate?'checkmate':''
-          ])
-          .filter(g=>g)
-          .join(', ');
-        if (!speakable) {
-          speakable = additional;
-        } else {
-          if (additional && !speakable.toLowerCase().includes(additional.toLowerCase())) {
-            speakable = `${additional}, ${speakable}`;
-          }
-        }
-        shouldSpeak = node.fen != this.prev?.fen;
-      }
       this.prev = {
         speakable: speakable,
         fen: node.fen

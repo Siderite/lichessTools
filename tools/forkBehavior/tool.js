@@ -10,6 +10,7 @@
         type: 'single',
         possibleValues: ['hidden', 'normal', 'hybrid', 'chessbase'],
         defaultValue: 'normal',
+        offValue: 'normal',
         advanced: true
       }
     ];

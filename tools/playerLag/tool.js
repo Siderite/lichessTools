@@ -8,6 +8,7 @@
         type: 'single',
         possibleValues: ['none', 'bars', 'chart'],
         defaultValue: 'none',
+        offValue: 'none',
         needsLogin: true
       }
     ];
@@ -102,7 +103,7 @@
       container = $(container);
       let signal = container.find('signal');
       if (!signal.length) {
-        signal = $('<signal><i></i><i></i><i></i><i></i></signal>')
+        signal = $('<signal><icon></icon><icon></icon><icon></icon><icon></icon></signal>')
           .addClass('lichessTools-playerLag')
           .appendTo(container);
       }

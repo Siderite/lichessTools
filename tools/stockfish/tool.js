@@ -93,11 +93,11 @@
         useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
       }
       if (useBetterEngine) {
-        engineId = '__sf18_smallnet';
-        engineRoot = 'sf_18_smallnet.js';
+        engineId = '__sf_18';
+        engineRoot = 'sf_18_relaxed-simd.js';
       } else {
-        engineId = '__sf18';
-        engineRoot = 'sf_18.js';
+        engineId = '__sf_18_smallnet';
+        engineRoot = 'sf_18_smallnet_relaxed-simd.js';
       }
       try {
         if (!this._module) {
@@ -163,6 +163,45 @@
         console.log('Error instantiating Stockfish:', e);
       }
     }
+
+    async evaluate(fen,options) {
+      try {
+        const lt = this.lt;
+
+        let info = null;
+        let lastInfo = [];
+
+        const sf = await this.load();
+        if (!sf) throw new Error('Could not load Stockfish!');
+        const pv = options.pv || 1;
+        const depth = options.depth || 16;
+        const moves = options.moves;
+        sf.setMultiPv(pv);
+        sf.setDepth(depth);
+        if (moves) sf.setSearchMoves(moves);
+        sf.on('info', i => { 
+          if (i.cp === undefined && i.mate === undefined) return;
+          const ipv = i.multipv?.[0] || 1;
+          lastInfo[ipv-1] = i;
+        });
+        sf.on('bestmove', i => {
+          info = lastInfo;
+        });
+        sf.setPosition(fen);
+        sf.start();
+        while (!info && !options.cancelRequested) {
+          await lt.timeout(100);
+        }
+        if (options.cancelRequested) {
+          return;
+        }
+        await sf.stop();
+        return info;
+      } catch (e) {
+        this.lt.announce(this.lt.translator.noarg('couldNotLoadStockfish'));
+        console.log('Error instantiating Stockfish:', e);
+      }
+    };
 
     postMessage(message) {
       const sf = this._instance;

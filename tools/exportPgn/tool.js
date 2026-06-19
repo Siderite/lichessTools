@@ -197,18 +197,28 @@
           s += renderComments(node);
         }
         if (s) s += '\r\n'
-        if (node.children.length === 0) return s;
+
+        const reg = options.searchObj?.reg;
+        if (node.children.length === 0) {
+          return s;
+        }
 
 
         const first = node.children[0];
         first.path = node.path + first.id;
-        if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
+        const isBlackTurn = first.ply % 2 === 1;
+        if (forcePly || isBlackTurn) s += plyPrefix(first);
         s += fixCrazySan(first.san);
 
         s += renderGlyphs(first);
         s += renderComments(first);
 
-        const reg = options.searchObj?.reg;
+        const metaTokens = [];
+        metaTokens.push(isBlackTurn?'$white':'$black');
+        if (!first.children?.length) {
+          metaTokens.push('$leaf');
+        }
+
         if (reg) {
           let output = options.searchObj.output;
           if (s) {
@@ -217,12 +227,12 @@
           }
           const lastFind = options.searchObj.lastFind||0;
           reg.lastIndex = 0;
-          let match = reg.exec(first.fen||'');
+          let match = reg.exec(lt.normalizeString(first.fen));
           if (match) {
             options.searchObj.nodes.push(first.path);
           } else {
             reg.lastIndex = lastFind;
-            match = reg.exec(output);
+            match = reg.exec(output+metaTokens.join(','));
             if (match) {
               options.searchObj.nodes.push(first.path);
               options.searchObj.lastFind = output.length;

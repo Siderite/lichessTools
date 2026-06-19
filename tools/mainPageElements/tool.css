@@ -37,6 +37,10 @@ body.lichessTools main.lobby .lobby__about.lichessTools-hideElement {
   display: none;
 }
 
+body.lichessTools main.lobby .lobby__side.lichessTools-hideElement {
+  backdrop-filter: none;
+}
+
 
 body.lichessTools main.lobby .lobby__side {
   min-height: 300px;
@@ -65,6 +69,10 @@ body.lichessTools .lobby__counters:has(.lichessTools-extraCounters) {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+}
+
+body.lichessTools:has(.lobby__app.lichessTools-hideElement) .lobby__counters {
+  position: static;
 }
 
 body.lichessTools .lichessTools-extraCounters {

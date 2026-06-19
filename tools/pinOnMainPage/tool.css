@@ -13,26 +13,22 @@ body.lichessTools .lobby__side .lichessTools-pins {
   border-radius: 6px;
 }
 
-body.lichessTools span.lichessTools-pin {
+body.lichessTools button.lichessTools-pin {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-body.lichessTools span.lichessTools-pin.lichessTools-pinned {
+body.lichessTools button.lichessTools-pin.lichessTools-pinned {
   align-items: end;
 }
 
-body.lichessTools span.lichessTools-pin.lichessTools-pinned:before {
+body.lichessTools button.lichessTools-pin.lichessTools-pinned:before {
   transform-origin: center;
   transform: rotate(320deg) translate(-0.5em, 0.5em);
 }
 
-body.lichessTools .relay-tour__side__header span.lichessTools-pin {
-  background: var(--c-bg-zebra);
-}
-
-body.lichessTools .relay-tour__side__header span.lichessTools-pin.lichessTools-pinned:before {
+body.lichessTools .relay-tour__side__header button.lichessTools-pin.lichessTools-pinned:before {
   transform: rotate(320deg) translate(-0.5em, 0.1em);
 }
 
@@ -52,7 +48,7 @@ body.lichessTools a.lichessTools-pin span.name {
   white-space: break-spaces;
 }
 
-body.lichessTools a.lichessTools-pin i.img:before {
+body.lichessTools a.lichessTools-pin icon.img:before {
   filter: grayscale(1);
   font-size: 2em;
 }
@@ -67,6 +63,6 @@ body.lichessTools a.lichessTools-pin:hover span.lichessTools-unpin:hover {
 
 /* Prettier Lichess */
 
-body.lichessTools.lichessTools-prettier span.lichessTools-pin.lichessTools-pinned:before {
+body.lichessTools.lichessTools-prettier button.lichessTools-pin.lichessTools-pinned:before {
   transform: rotate(320deg) translate(-0.76em, 0.5em);
 }

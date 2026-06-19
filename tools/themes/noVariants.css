@@ -35,40 +35,40 @@ body.lichessTools.lichessTools-theme_noVariants .scheduled a[data-icon="\E066"] 
   display: none;
 }
 
--body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E006"]), /* Chess 960 */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E007"]), /* King of the hill */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E00D"]), /* Three check*/
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E01E"]), /* Antichess */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E01C"]), /* Atomic */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E03D"]), /* Horde */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E065"]), /* Racing kings */
-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has(i[data-icon="\E066"])  /* Crazyhouse */ {
+-body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .arena-list tr.paginated:has([data-icon="\E066"])  /* Crazyhouse */ {
   display: none;
 }
 
--body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E006"]), /* Chess 960 */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E007"]), /* King of the hill */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E00D"]), /* Three check*/
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E01E"]), /* Antichess */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E01C"]), /* Atomic */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E03D"]), /* Horde */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E065"]), /* Racing kings */
-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has(span[data-icon="\E066"])  /* Crazyhouse */ {
+-body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline a:has([data-icon="\E066"])  /* Crazyhouse */ {
   display: none;
 }
 
-body.lichessTools.lichessTools-theme_noVariants .tournamentline:has(a.tsht-variant):not(:has(span[data-icon="\E006"])) { /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .tournamentline:has(a.tsht-variant):not(:has([data-icon="\E006"])) { /* Chess 960 */
   display: none;
 }
 
--body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E006"]), /* Chess 960 */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E007"]), /* King of the hill */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E00D"]), /* Three check*/
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E01E"]), /* Antichess */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E01C"]), /* Atomic */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E03D"]), /* Horde */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E065"]), /* Racing kings */
-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has(i[data-icon="\E066"])  /* Crazyhouse */ {
+-body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .slist.swisses tr:has([data-icon="\E066"])  /* Crazyhouse */ {
   display: none;
 }
 
@@ -138,14 +138,14 @@ body.lichessTools.lichessTools-theme_noVariants fieldset.types input[data-icon="
   display: none;
 }
 
--body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E006"]), /* Chess 960 */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E007"]), /* King of the hill */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E00D"]), /* Three check*/
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E01E"]), /* Antichess */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E01C"]), /* Atomic */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E03D"]), /* Horde */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E065"]), /* Racing kings */
-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has(span[data-icon="\E066"])  /* Crazyhouse */ {
+-body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E006"]), /* Chess 960 */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E007"]), /* King of the hill */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E00D"]), /* Three check*/
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E01E"]), /* Antichess */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E01C"]), /* Atomic */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E03D"]), /* Horde */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E065"]), /* Racing kings */
+body.lichessTools.lichessTools-theme_noVariants .bots__list__entry:has([data-icon="\E066"])  /* Crazyhouse */ {
   display: none;
 }
 

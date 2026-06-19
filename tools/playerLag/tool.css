@@ -2,18 +2,18 @@ body.lichessTools div.round__app signal.lichessTools-playerLag {
   vertical-align: middle;
 }
 
-body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(2),
-body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(3),
-body.lichessTools div.round__app signal.lichessTools-playerLag.q1 i:nth-child(4) {
+body.lichessTools div.round__app signal.lichessTools-playerLag.q1 icon:nth-child(2),
+body.lichessTools div.round__app signal.lichessTools-playerLag.q1 icon:nth-child(3),
+body.lichessTools div.round__app signal.lichessTools-playerLag.q1 icon:nth-child(4) {
   opacity: 0.33;
 }
 
-body.lichessTools div.round__app signal.lichessTools-playerLag.q2 i:nth-child(3),
-body.lichessTools div.round__app signal.lichessTools-playerLag.q2 i:nth-child(4) {
+body.lichessTools div.round__app signal.lichessTools-playerLag.q2 icon:nth-child(3),
+body.lichessTools div.round__app signal.lichessTools-playerLag.q2 icon:nth-child(4) {
   opacity: 0.33;
 }
 
-body.lichessTools div.round__app signal.lichessTools-playerLag.q3 i:nth-child(4) {
+body.lichessTools div.round__app signal.lichessTools-playerLag.q3 icon:nth-child(4) {
   opacity: 0.33;
 }
 
