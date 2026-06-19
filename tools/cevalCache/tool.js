@@ -56,12 +56,12 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       lt.uiApi.events.off('ply', this.handlePly);
-      const ctrl = analysis.ceval.engines?.ctrl;
-      if (ctrl) {
-        ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalCache');
+      const ceval = analysis.ceval;
+      if (ceval) {
+        ceval.onEmit = lt.unwrapFunction(ceval.onEmit,'cevalCache');
         if (this.options.enabled) {
           lt.uiApi.events.on('ply', this.handlePly);
-          ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
+          ceval.onEmit = lt.wrapFunction(ceval.onEmit,{
             id: 'cevalCache',
             after: async ($this, result, data, meta)=>{
               const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.activeEngine.id+'|'+meta.variant+'|'+lt.getPositionFromFen(data.fen, true);

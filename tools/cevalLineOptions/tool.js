@@ -185,8 +185,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      const engine = analysis?.ceval?.engines?.activeEngine;
-      const isExternalEngine = engine?.tech == 'EXTERNAL';
+      const isExternalEngine = !!analysis?.ceval?.engines?.external;
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
@@ -482,7 +481,8 @@
         this.setupPvProcessing();
       }
       const analysis = lichess.analysis;
-      if (analysis?.ceval) {
+      const ceval = analysis?.ceval;
+      if (ceval) {
         analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
         if (this.options.moreLines) {
           main
@@ -498,11 +498,10 @@
         }
         this.handleMoreLines();
         lt.uiApi.events.off('analysis.change',this.drawChart);
-        const ctrl = analysis.ceval.engines?.ctrl;
-        if (ctrl) {
-          ctrl.onEmit = lt.unwrapFunction(ctrl.onEmit,'cevalLineOptions');
+        if (ceval) {
+          ceval.onEmit = lt.unwrapFunction(ceval.onEmit,'cevalLineOptions');
           if (this.options.depthChart||this.options.downloadCeval) {
-            ctrl.onEmit = lt.wrapFunction(ctrl.onEmit,{
+            ceval.onEmit = lt.wrapFunction(ceval.onEmit,{
               id: 'cevalLineOptions',
               after: ($this, result, data, meta)=>{
                 if (!data?.depth || meta?.path != analysis.path) return;

@@ -78,7 +78,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+      const isExternalEngine = !!analysis?.ceval?.engines?.external;
 
       const isPractice = analysis.practice?.running() || analysis.study?.practice;
       if (!isPractice || this.options.practice) {
@@ -269,7 +269,7 @@
         : node.ceval?.depth || evl?.depth;
       const state = analysis.ceval.state;
       const isIdle = state == 0 || state == 2;
-      const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+      const isExternalEngine = !!analysis?.ceval?.engines?.external;
       const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
 
       if (analysis.ceval?.canGoDeeper && isIdle && analysis.ceval?.curEval) {
@@ -345,7 +345,7 @@
           analysis.evalCache.fetch = lt.wrapFunction(analysis.evalCache.fetch, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
-              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const isExternalEngine = !!analysis?.ceval?.engines?.external;
               const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
@@ -357,14 +357,14 @@
           analysis.explorer.fetchTablebaseHit = lt.wrapFunction(analysis.explorer.fetchTablebaseHit, {
             id: 'customEngineOptions',
             before: ($this, ...args) => {
-              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const isExternalEngine = !!analysis?.ceval?.engines?.external;
               const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
               return false;
             },
             after: ($this, result, ...args) => {
-              const isExternalEngine = /external/i.test(analysis.ceval?.engines?.active?.tech);
+              const isExternalEngine = !!analysis?.ceval?.engines?.external;
               const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
               if (!noCloud) return;
               if ((analysis.practice?.running() || analysis.study?.practice) && !this.options.practice) return;
