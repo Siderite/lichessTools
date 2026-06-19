@@ -954,6 +954,13 @@
       }
     },
     {
+      "category": "lichess",
+      "name": "papercut",
+      "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/papercut/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
       "category": "siderite",
       "name": "Chess Pursuit",
       "url": "https://siderite.github.io/lichessToolsAdjacent/ChessPursuit/pieces/",
