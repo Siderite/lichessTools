@@ -43,6 +43,7 @@
     }
 
     splitPgn = (input) => {
+      input = input?.trim();
       if (!input) return [];
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -55,6 +56,7 @@
         if (result && pgn) {
           const m = /\[Orientation\s*"Black"|StartFlipped\s*"1"\]/i.test(pgn);
           if (m) result.orientation = "black";
+          result.pgn = pgn;
         }
         return result;
       };
@@ -115,7 +117,17 @@
               continue;
             }
           }
-          const result = importPgn(item.value, false);
+          let result = importPgn(item.value, false);
+          if (this.isEmpty(result)) {
+            const prevPgn = pgns.at(-1)?.pgn;
+            if (prevPgn) {
+              const fixedResult = importPgn(prevPgn+item.value, false);
+              if (!this.isEmpty(fixedResult)) {
+                pgns.length--;
+                result = fixedResult;
+              }
+            }
+          }
           if (this.isEmpty(result)) {
             console.warn('2: Error parsing PGN', item.value);
           } else {
