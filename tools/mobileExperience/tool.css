@@ -88,8 +88,9 @@ body.lichessTools div.analyse__controls .jumps:has(button[data-act="next"].disab
     height: unset;
   }
 
-  body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__tools:has(.action-menu)+.analyse__controls:not(.lichessTools-liveStatus) {
+  body.lichessTools.mobile.lichessTools-mobileExperience main.analyse:has(.action-menu) .analyse__controls:not(.lichessTools-liveStatus) {
     height: 3em;
+    overflow: hidden;
   }
 
   body.lichessTools.mobile.lichessTools-mobileExperience div.analyse__controls button:not[data-act="engine-mode"] {
