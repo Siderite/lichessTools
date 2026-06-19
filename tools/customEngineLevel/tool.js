@@ -264,7 +264,7 @@
       const targetDepth = isPractice 
         ? this.options.practiceDepth || this.options.depth
         : this.options.depth;
-      const curDepth = (work?.threatMode || analysis.threatMode())
+      const curDepth = analysis.threatMode()
         ? analysis.ceval.curEval.depth
         : node.ceval?.depth || evl?.depth;
       const state = analysis.ceval.state;
@@ -309,6 +309,15 @@
       }
     };
 
+    handleCeval = async (args)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const [data,meta] = args;
+      if (!data?.depth || meta?.path != analysis.path) return;
+      return this.determineCevalState(data, analysis.node, analysis.threatMode());
+    };
+
     wrapEval = () => {
       const lt = this.lichessTools;
       if (lt.currentOptions?.enableLichessTools === false) return;
@@ -316,6 +325,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
+      lt.pubsub.off('lichessTools.ceval',this.handleCeval);
       if (this.options.depth || this.options.practiceDepth || this.options.noCloud || this.options.noCloudExternal || this.options.infiniteExternal) {
         if (!lt.isWrappedFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions')) {
           analysis.evalCache.onLocalCeval = lt.wrapFunction(analysis.evalCache.onLocalCeval, {
@@ -325,19 +335,9 @@
             }
           });
         }
-        if (analysis.ceval?.onEmit && !lt.isWrappedFunction(analysis.ceval.onEmit, 'customEngineOptions')) {
-          analysis.ceval.onEmit = lt.wrapFunction(analysis.ceval.onEmit, {
-            id: 'customEngineOptions',
-            before: ($this, evl, node, threatMode) => {
-              return this.determineCevalState(evl, node, threatMode);
-            }
-          });
-        }
+        lt.pubsub.on('lichessTools.ceval',this.handleCeval);
       } else {
         analysis.evalCache.onLocalCeval = lt.unwrapFunction(analysis.evalCache.onLocalCeval, 'customEngineOptions');
-        if (analysis.ceval?.onEmit) {
-          analysis.ceval.onEmit = lt.unwrapFunction(analysis.ceval.onEmit, 'customEngineOptions');
-        }
       }
 
       if (this.options.noCloud || this.options.noCloudExternal) {
