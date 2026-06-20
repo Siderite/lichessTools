@@ -364,8 +364,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const turnColor = analysis.turnColor();
-      const square = $('square.check').prop('cgKey') || $('square.king.'+turnColor).prop('cgKey');
+      const square = $('square.check').filter((i,e)=>e.getBoundingClientRect().width).prop('cgKey');
       return square;
     };
 
