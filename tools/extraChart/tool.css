@@ -18,6 +18,15 @@ body.lichessTools .lichessTools-chartInfo {
   font-size: 1.1em;
 }
 
+/* hide the ugly percentage ticks */
+body.lichessTools tick {
+  display: none;
+}
+
+body.lichessTools tick:is(.zero,.lichessTools-material,.lichessTools-principled) {
+  display: block;
+}
+
 body.lichessTools tick.lichessTools-material {
   height: 0;
   border-top: 5px #00FF00 solid;
