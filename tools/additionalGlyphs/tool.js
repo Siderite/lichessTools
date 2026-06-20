@@ -223,11 +223,17 @@
         const d2=cp2-cp1;
         const q = Math.abs(d1-d2)/Math.abs(d1);
         if (q<0.2) {
-          newGlyphs.push({
-            glyph: 'X',
-            name: 'miss',
-            fill: '#df5353'
-          });
+          const w = lt.winPerc(cp);
+          const w1 = lt.winPerc(cp1);
+          const side = node.ply % 2 == 0 ? -1 : 1;
+          const badMove = (w - w1) * side < -20	;
+          if (badMove) { 
+            newGlyphs.push({
+              glyph: 'X',
+              name: 'miss',
+              fill: '#df5353'
+            });
+          }
         }
       }
       if (!newGlyphs.length) return;
