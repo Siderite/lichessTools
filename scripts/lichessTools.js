@@ -736,7 +736,7 @@
       if (new RegExp(',\\s*' + this.escapeRegex(searchValue.toString()) + '\\s*,', 'i').test(',' + optionValues + ',')) return true;
       if (optionValues === true || optionValues === 'true') {
         if (searchValue === false || searchValue === 'false') return false;
-        if (defaultValue) return new RegExp(',\\s*' + this.escapeRegex(searchValue.toString()) + '\\s*,', 'i').test(',' + defaultValue + ',');
+        if (defaultValue && typeof(defaultValue) == 'string') return new RegExp(',\\s*' + this.escapeRegex(searchValue.toString()) + '\\s*,', 'i').test(',' + defaultValue + ',');
         return true;
       }
       return false;
