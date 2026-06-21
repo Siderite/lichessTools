@@ -152,6 +152,8 @@
       PalmBranch: '\u2E19',
       Hourglass: '\u231B',
       CyrillicCapitalLetterI: '\u0418',
+      Ladder: '\uD83E\uDE9C',
+
 
       toEntity: function(s) {
         let result='';
@@ -2007,7 +2009,7 @@
             sendResponse(ev.detail);
           }
         });
-        lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000, resultFilter: (r)=>r?.dataUrl });
       },
       send: function (data, sendResponse, timeout) {
         const lt = this.lichessTools;
@@ -2273,7 +2275,9 @@
               if (!immediateResult?.then) throw new Error('Memoize only works on async functions or known sync functions!');
             }
             const result = await immediateResult;
-            cache.setCached(key, result, options);
+            if (!options.resultFilter || options.resultFilter(result)) {
+              cache.setCached(key, result, options);
+            }
             return result;
           } finally {
             cache.release(key);
@@ -2304,8 +2308,10 @@
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 86400 * 10000, minTime: 5000 });
-        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 86400 * 10000, minTime: 1100 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
+        lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
+        lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
       },
       blog: {
         lichessTools: this,
@@ -2957,6 +2963,74 @@
           }
           return lt.net.json(data.dataUrl);
         }
+      },
+      lichessladders: {
+        lichessTools: this,
+        getLaddersId: async function(userId) {
+          if (!userId) throw new Error('userId cannot be empty');
+          const lt = this.lichessTools;
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/users/search?lichessId='+lt.global.encodeURIComponent(userId));
+          if (!result?.text) {
+            throw new Error('Could not get the Ladders data for userId '+userId+' '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return +(data?.[0]?.id) || null;
+        },
+        getSummary: async function() {
+          const lt = this.lichessTools;
+          const userId = lt.getUserId();
+          if (!userId) throw new Error('getSummary requires being logged in');
+          const laddersId = await this.getLaddersId(userId);
+          if (!laddersId) return null;
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/users/'+lt.global.encodeURIComponent(laddersId)+'/notifications/summary');
+          if (!result?.text) {
+            throw new Error('Could not get the summary data Ladders id '+laddersId+' '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
+        getUserChallenges: async function(laddersId) {
+          const lt = this.lichessTools;
+          if (!laddersId) throw new Error('laddersId cannot be empty');
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/users/'+lt.global.encodeURIComponent(laddersId)+'/challenges');
+          if (!result?.text) {
+            throw new Error('Could not get user challenges for Ladders id '+laddersId+' '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
+        getLadders: async function() {
+          const lt = this.lichessTools;
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/ladders');
+          if (!result?.text) {
+            throw new Error('Could not get the ladders data '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
+        getUpcomingChallenges: async function() {
+          const lt = this.lichessTools;
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/challenges/upcoming');
+          if (!result?.text) {
+            throw new Error('Could not get the upcoming challenges data '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
+        getLiveChallenges: async function() {
+          const lt = this.lichessTools;
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/challenges/live');
+          if (!result?.text) {
+            throw new Error('Could not get the live challenges data '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        }
       }
     }
 
@@ -3001,6 +3075,8 @@
     }
 
     async init() {
+      const $ = this.$;
+      $('html').attr('data-page-href',this.global.location.href);
       this.api.init();
       const setTimeout = this.global.setTimeout;
       const console = this.global.console;
