@@ -60,9 +60,13 @@
       let notifications = $('div.notifications', app);
       const totalEntries = {};
       for (const notification of this.notifications) {
-        const entries = await notification.getEntries();
-        for (const entry of entries) {
-          totalEntries[entry.id] = entry;
+        try {
+          const entries = await notification.getEntries();
+          for (const entry of entries) {
+            totalEntries[entry.id] = entry;
+          }
+        } catch(ex) {
+          lt.global.console.warn('Error getting entries for notification '+entry.id);
         }
       }
       const entries = Object.values(totalEntries);
