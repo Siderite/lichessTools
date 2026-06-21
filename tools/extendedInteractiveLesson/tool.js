@@ -999,7 +999,7 @@
           }
         }
         const key = study.data.id + '/' + study.data.chapter.id;
-        const paths = this._paths[key];
+        const paths = this._paths?.[key];
         const total = paths && Object.keys(paths).filter(k=>k!='currentPath').length;
         if (total) {
           optionsArr.push(trans.pluralSame('variationsCountText',total));
