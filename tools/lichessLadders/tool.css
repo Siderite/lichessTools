@@ -107,10 +107,9 @@ body.lichessTools main.lichessTools-lichessLadders article .header {
 }
 
 body.lichessTools main.lichessTools-lichessLadders article .matchup {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: start;
-  gap: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 body.lichessTools main.lichessTools-lichessLadders article .player {
@@ -166,6 +165,14 @@ body.lichessTools main.lichessTools-lichessLadders article .footer {
   font-size: 0.8em;
   color: var(--c-font);
   text-decoration: none;
+}
+
+
+body.lichessTools main.lichessTools-lichessLadders article a.challengePlayer {
+    text-transform: uppercase;
+    border: 1px solid var(--c-link);
+    border-radius: 5px;
+    padding: 0.3em;
 }
 
 body.lichessTools main.lichessTools-lichessLadders article a.mini-game {

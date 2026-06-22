@@ -1196,7 +1196,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2395,7 +2397,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3594,7 +3598,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4793,7 +4799,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5992,7 +6000,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7191,7 +7201,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8390,7 +8402,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9589,7 +9603,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10788,7 +10804,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11987,7 +12005,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13186,7 +13206,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14385,7 +14407,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15584,7 +15608,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16783,7 +16809,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17982,7 +18010,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19181,7 +19211,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20380,7 +20412,9 @@
     "lichessLaddersSubmenu.4": "Patru",
     "lichessLaddersSubmenu.5": "Cinci",
     "goToSummaryTitle": "vezi sumarul Lichess Ladders",
-    "goToGameTitle": "vezi jocul"
+    "goToGameTitle": "vezi jocul",
+    "challengeNowText": "Provoacă acum",
+    "challengeNowTitle": "provoacă apărătorul la un joc acum"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21579,7 +21613,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22778,7 +22814,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23977,7 +24015,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25176,7 +25216,9 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26375,6 +26417,8 @@
     "lichessLaddersSubmenu.4": "Four",
     "lichessLaddersSubmenu.5": "Five",
     "goToSummaryTitle": "go to Lichess Ladders summary",
-    "goToGameTitle": "open game"
+    "goToGameTitle": "open game",
+    "challengeNowText": "Challenge now",
+    "challengeNowTitle": "challenge the defender to a game now"
   }
 }
