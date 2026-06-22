@@ -28,6 +28,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.options.enabled || !$.cached('body').is('.playing')) return;
+      const target = $(ev.target);
+      if (!target.is('cg-board') && !target.closest('cg-board').length) return;
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 20) {
         const icon = ev.deltaY > 0
@@ -42,6 +44,7 @@
         }
         this.scrollTotal = 0;
       }
+      ev.preventDefault();
     };
 
     async start() {
