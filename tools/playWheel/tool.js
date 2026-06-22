@@ -58,7 +58,7 @@
       };
       const isRound = !!$('main.round,main.puzzle').length;
       if (!isRound) return;
-      $('body').off('wheel',this.wheel);
+      $('body')[0]?.removeEventListener('wheel', this.wheel, { passive: false });
       this._oldReleasePC ||= Element.prototype.releasePointerCapture;
       if (this.options.enabled) {
         const self = this;
@@ -66,7 +66,7 @@
           if (!pointerId) return;
           return self._oldReleasePC.call(this,pointerId);
         };
-        $('body').on('wheel',this.wheel);
+        $('body')[0]?.addEventListener('wheel', this.wheel, { passive: false });
       }
     }
 
