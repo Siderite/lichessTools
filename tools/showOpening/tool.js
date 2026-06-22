@@ -203,9 +203,12 @@
         const termination = lt.getPgnTag(pgn, 'Termination');
         if (termination && termination != 'Unterminated') time += 86400;
         el.openingData = { time: time, opening: opening, el };
+
+        if (!ply) ply = this.minPlyEstimate(fen);
         if (ply) {
           el.maxPly = Math.max(ply, +el.maxPly || 0);
         }
+
         const timeString = (lt.getPgnTag(pgn, 'UTCDate')||'') +' '+ (lt.getPgnTag(pgn, 'UTCTime')||'');
         const gameTime = lt.dateParseUTC(timeString);
         if (gameTime) {
@@ -213,6 +216,27 @@
         }
         return el.openingData;
       }
+    };
+
+    minPlyEstimate = (fen) => {
+      const lt = this.lichessTools;
+      const board = lt.getBoardFromFen(fen);
+      if (!board) return;
+      const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+      this.startBoard ||= lt.getBoardFromFen(startFen);
+
+      let changes = 0;
+      const rowsToCheck = [0, 1, 6, 7];
+
+      for (const row of rowsToCheck) {
+        for (let f = 0; f < 8; f++) {
+          const current = board[row][f];
+          const start = this.startBoard[row][f];
+          if (current !== start) changes++;
+        }
+      }
+
+      return changes;
     };
 
     showOpeningInExplorer = (opening) => {
