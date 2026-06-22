@@ -10,6 +10,10 @@ body.lichessTools #topnav section a.lichessTools-lichessLadders div[role="group"
   white-space: nowrap;
 }
 
+body.lichessTools #topnav section a.lichessTools-lichessLadders div[role="group"] a.upcoming {
+  font-style: italic;
+}
+
 body.lichessTools #topnav section a.lichessTools-lichessLaddersPage {
   color: var(--c-clearer);
   font-weight: bold;

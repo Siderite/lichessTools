@@ -1187,7 +1187,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2359,25 +2368,34 @@
     "extraChart.critical": "关键",
     "criticalLegendText": "关键",
     "criticalLegendTitle": "关键着法",
-    "options.lichessLadders": "Lichess Ladders integration",
-    "lichessLadders.menuItem": "Menu item",
-    "lichessLadders.page": "Summary page",
-    "lichessLadders.challengeNotifications": "Challenge notifications",
-    "lichessLadders.messageNotifications": "Message notifications",
+    "options.lichessLadders": "Lichess Ladders 集成",
+    "lichessLadders.menuItem": "菜单项",
+    "lichessLadders.page": "摘要页面",
+    "lichessLadders.challengeNotifications": "挑战通知",
+    "lichessLadders.messageNotifications": "消息通知",
     "lichessLaddersText": "Lichess Ladders",
-    "lichessLaddersTitle": "LiChess Tools - go to Lichess Ladders",
-    "unreadLaddersMessagesNotificationText": "You have %s unread Lichess Ladders messages",
-    "unreadLaddersMessagesNotificationText:one": "You have one unread Lichess Ladders message",
-    "unreadLaddersMessagesNotificationTitle": "LiChess Tools - go to Lichess Ladders challenges",
-    "laddersChallengeTimeText": "You have a Lichess Ladders game starting in %s minutes",
-    "laddersChallengeTimeText:one": "You have a Lichess Ladders game starting in one minute",
-    "laddersChallengeTimeTitle": "LiChess Tools - go to Lichess Ladders challenges",
-    "lichessLaddersPageTitle": "Lichess Ladders Summary - LiChess Tools",
-    "lichessLaddersPageHeader": "Lichess Ladders summary",
-    "userChallengesText": "Your challenges",
-    "upcomingChallengesText": "Challenges coming up soon",
-    "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersTitle": "LiChess Tools - 前往 Lichess Ladders",
+    "unreadLaddersMessagesNotificationText": "您有 %s 条未读的 Lichess Ladders 消息",
+    "unreadLaddersMessagesNotificationText:one": "您有 1 条未读的 Lichess Ladders 消息",
+    "unreadLaddersMessagesNotificationTitle": "LiChess Tools - 前往 Lichess Ladders 挑战",
+    "laddersChallengeTimeText": "您的 Lichess Ladders 对局将在 %s 分钟后开始",
+    "laddersChallengeTimeText:one": "您的 Lichess Ladders 对局将在 1 分钟后开始",
+    "laddersChallengeTimeTitle": "LiChess Tools - 前往 Lichess Ladders 挑战",
+    "lichessLaddersPageTitle": "Lichess Ladders 摘要 - LiChess Tools",
+    "lichessLaddersPageHeader": "Lichess Ladders 摘要",
+    "userChallengesText": "您的挑战",
+    "upcomingChallengesText": "即将开始的挑战",
+    "liveChallengesText": "正在进行的挑战",
+    "lichessLaddersPageMenuText": "摘要",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3567,7 +3585,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4757,7 +4784,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5947,7 +5983,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7137,7 +7182,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8327,7 +8381,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9517,7 +9580,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10707,7 +10779,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11897,7 +11978,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13087,7 +13177,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14277,7 +14376,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15467,7 +15575,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16657,7 +16774,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -17847,7 +17973,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19037,7 +19172,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20227,7 +20371,16 @@
     "userChallengesText": "Provocările tale",
     "upcomingChallengesText": "Provocări care vor veni în curând",
     "liveChallengesText": "Provocări în joc acum",
-    "lichessLaddersPageMenuText": "Sumar"
+    "lichessLaddersPageMenuText": "Sumar",
+    "options.lichessLaddersSubmenu": "Intrări meniu Lichess Ladders",
+    "lichessLaddersSubmenu.0": "Nici una",
+    "lichessLaddersSubmenu.1": "Una",
+    "lichessLaddersSubmenu.2": "Două",
+    "lichessLaddersSubmenu.3": "Trei",
+    "lichessLaddersSubmenu.4": "Patru",
+    "lichessLaddersSubmenu.5": "Cinci",
+    "goToSummaryTitle": "vezi sumarul Lichess Ladders",
+    "goToGameTitle": "vezi jocul"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21417,7 +21570,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22607,7 +22769,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -23797,7 +23968,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -24987,7 +25167,16 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26177,6 +26366,15 @@
     "userChallengesText": "Your challenges",
     "upcomingChallengesText": "Challenges coming up soon",
     "liveChallengesText": "Challenges playing now",
-    "lichessLaddersPageMenuText": "Summary"
+    "lichessLaddersPageMenuText": "Summary",
+    "options.lichessLaddersSubmenu": "Lichess Ladders menu challenge items",
+    "lichessLaddersSubmenu.0": "None",
+    "lichessLaddersSubmenu.1": "One",
+    "lichessLaddersSubmenu.2": "Two",
+    "lichessLaddersSubmenu.3": "Three",
+    "lichessLaddersSubmenu.4": "Four",
+    "lichessLaddersSubmenu.5": "Five",
+    "goToSummaryTitle": "go to Lichess Ladders summary",
+    "goToGameTitle": "open game"
   }
 }
