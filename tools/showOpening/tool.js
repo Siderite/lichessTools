@@ -36,6 +36,7 @@
 
     miniGameOpening = async (el) => {
       if (!this.options.showInMinigames) return;
+      if (el instanceof Event) el = null;
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
@@ -65,11 +66,11 @@
       }
       let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) {
+        if (!lt.inViewport(el,true)) {
           notInViewport = true;
           continue;
         }
-        //if ($(el).closest('.now-playing').length) continue;
+        //if ($(el).closest('.now-playing').length) continue; // Current games
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -364,6 +365,8 @@
         .off('input[type=checkbox]',this.miniGameOpening);
       $('body').observer()
         .off('input[type=checkbox]',this.refreshOpeningDebounced);
+      $(window).off('scroll',this.miniGameOpeningDebounced);
+
       if (this.options.showInBoard || this.options.showInAnalysisTitle) {
         lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
         lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
@@ -380,6 +383,7 @@
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);
         lt.pubsub.on('content-loaded', this.miniGameOpening);
+        $(window).on('scroll',this.miniGameOpeningDebounced);
         this.miniGameOpeningDebounced();
       }
     }

@@ -29,7 +29,7 @@ body.lichessTools #topnav section a.lichessTools-lichessLaddersPage {
     position: absolute;
     top: 0;
     right: 0;
-    translate: 10rem 0;
+    translate: 9rem 0;
     width: min-content;
   }
 
