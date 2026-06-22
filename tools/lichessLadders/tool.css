@@ -136,6 +136,22 @@ body.lichessTools main.lichessTools-lichessLadders article .player span {
   white-space: nowrap;
 }
 
+body.lichessTools main.lichessTools-lichessLadders article .player span.color-white:after {
+  font-size: 1.5em;
+  content: var(--icon-BlackChessKnight);
+  color: white;
+  -webkit-text-stroke: 1px #808080;
+  text-shadow: 0 0 1px #808080;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player span.color-black:after {
+  font-size: 1.5em;
+  content: var(--icon-BlackChessKnight);
+  color: black;
+  -webkit-text-stroke: 1px #808080;
+  text-shadow: 0 0 1px #808080;
+}
+
 body.lichessTools main.lichessTools-lichessLadders article .player:hover {
   text-decoration: underline;
 }

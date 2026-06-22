@@ -184,13 +184,13 @@
         <div class="header">$ladder$</div>
         <div class="matchup">
           <div class="player">
-            <span><a href="$challengerUrl$" class="ulpt">$challengerName$</a> $challengerColor$</span>
+            <span><a href="$challengerUrl$" class="ulpt">$challengerName$</a> <span class="color-$challengerColor$"></span></span>
             <div class="meta">$challengerMeta$</div>
           </div>
           <div class="vs">
           </div>
           <div class="player">
-            <span><a href="$defenderUrl$" class="ulpt">$defenderName$</a> $defenderColor$</span>
+            <span><a href="$defenderUrl$" class="ulpt">$defenderName$</a> <span class="color-$defenderColor$"></span></span>
             <div class="meta">$defenderMeta$</div>
           </div>
         </div>
@@ -201,13 +201,13 @@
       let key = challenge.ladder?.type+'Rating';
       if (!challenge.fromUser?.[key]) key = 'classicalRating';
       const challengerName = challenge.fromUser?.lichessName;
-      const challengerColor = challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing;
+      const challengerColor = challenge.challengerIsWhite ? 'white' : 'black';
       const challengerMeta = (challenge.fromUser?.[key] || '')+(challenge.fromUser?.[key+'IsProvisional']?'?':'');
       const challengerOrientation = challenge.challengerIsWhite ? 'white' : 'black';
       key = challenge.ladder?.type+'Rating';
       if (!challenge.toUser?.[key]) key = 'classicalRating';
       const defenderName = challenge.toUser?.lichessName;
-      const defenderColor = !challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing;
+      const defenderColor = !challenge.challengerIsWhite ? 'white' : 'black';
       const defenderMeta = (challenge.toUser?.[key] || '')+(challenge.toUser?.[key+'IsProvisional']?'?':'');
       const data = {
         ladder: challenge.ladder?.name,
