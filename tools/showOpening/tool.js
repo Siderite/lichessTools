@@ -69,7 +69,7 @@
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        //if ($(el).closest('.now-playing').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -158,7 +158,7 @@
           $(el).toggleClassSafe('lichessTools-withOpening',true);
           return el.openingData;
         } else {
-          delete el.openingData;
+          if (el.openingData?.opening) delete el.openingData?.opening;
           $(el).toggleClassSafe('lichessTools-withOpening',false);
         }
       }
@@ -169,7 +169,10 @@
       const data = el?.openingData;
       if (data) {
         const now = Date.now();
-        if (el.maxPly > 14 || now - data.time < 2000) return { time: now, opening: data.opening, el };
+        const getOpeningUntilPly = 14;
+        if (el.maxPly > getOpeningUntilPly || now - data.time < 2000) {
+          return { time: now, opening: data.opening, el };
+        }
         if (isMini) return; // don't get the opening for minigames from API once retrieved
       }
 
