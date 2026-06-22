@@ -65,8 +65,8 @@
           for (const entry of entries) {
             totalEntries[entry.id] = entry;
           }
-        } catch(ex) {
-          lt.global.console.warn('Error getting entries for notification '+entry.id);
+        } catch(e) {
+          lt.global.console.warn('Error getting notification entries',e);
         }
       }
       const entries = Object.values(totalEntries);

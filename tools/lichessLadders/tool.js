@@ -276,7 +276,9 @@
       lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
 
       const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId());
-      const userChallenges = await lt.api.lichessladders.getUserChallenges(laddersId);      
+      const userChallenges = laddersId
+        ? await lt.api.lichessladders.getUserChallenges(laddersId)
+        : [];
 
       let upcomingChallenges = await lt.api.lichessladders.getUpcomingChallenges();
       const ids = new Set(userChallenges.map(ch => ch.id));
@@ -371,7 +373,9 @@
         }
         const populateUserChallenges = async ()=>{
           const laddersId = await lt.api.lichessladders.getLaddersId(userId);
-          const userChallenges = await lt.api.lichessladders.getUserChallenges(laddersId);
+          const userChallenges = laddersId
+            ? await lt.api.lichessladders.getUserChallenges(laddersId)
+            : [];
           for (const challenge of userChallenges.slice(0,this.options.maxItemCount)) {
             const getUserText = (user)=>{
               if (!user) return '';
