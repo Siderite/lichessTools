@@ -138,6 +138,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
+      const lichess = lt.lichess;
 
       let game = null;
       if (challenge?.challenge) {
@@ -150,39 +151,45 @@
         <div class="header">$ladder$</div>
         <div class="matchup">
           <div class="player">
-            <a href="$challengerUrl$">$challengerName$</a>
+            <span><a href="$challengerUrl$" class="ulpt">$challengerName$</a> $challengerColor$</span>
             <div class="meta">$challengerMeta$</div>
           </div>
           <div class="vs">
           </div>
           <div class="player">
-            <a href="$defenderUrl$">$defenderName$</a>
+            <span><a href="$defenderUrl$" class="ulpt">$defenderName$</a> $defenderColor$</span>
             <div class="meta">$defenderMeta$</div>
           </div>
         </div>
         <div class="footer">
-          <a data-live="$gameId$" class="mini-game" data-state="$gameState$">$gameTime$</a>
+          <a data-live="$gameId$" data-orientation="$challengerOrientation$" class="mini-game" data-state="$gameState$">$gameTime$</a>
         </div>
       </div>`;
       let key = challenge.ladder?.type+'Rating';
       if (!challenge.fromUser?.[key]) key = 'classicalRating';
-      const challengerName = challenge.fromUser?.lichessName+' '+(challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing)
+      const challengerName = challenge.fromUser?.lichessName;
+      const challengerColor = challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing;
       const challengerMeta = (challenge.fromUser?.[key] || '')+(challenge.fromUser?.[key+'IsProvisional']?'?':'');
+      const challengerOrientation = challenge.challengerIsWhite ? 'white' : 'black';
       key = challenge.ladder?.type+'Rating';
       if (!challenge.toUser?.[key]) key = 'classicalRating';
-      const defenderName = challenge.toUser?.lichessName+' '+(!challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing)
-      const defenderMeta = (challenge.toUser?.[key] || '')+(challenge.toUser?.[key+'IsProvisional']?'?':'')+' '+(challenge.toUser?.lichessId==challenge?.white?.lichessId ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing);
+      const defenderName = challenge.toUser?.lichessName;
+      const defenderColor = !challenge.challengerIsWhite ? lt.icon.WhiteChessKing : lt.icon.BlackChessKing;
+      const defenderMeta = (challenge.toUser?.[key] || '')+(challenge.toUser?.[key+'IsProvisional']?'?':'');
       const data = {
         ladder: challenge.ladder?.name,
         challengerUrl: challenge.fromUser?.lichessURL,
         challengerName: challengerName,
+        challengerColor: challengerColor,
         challengerMeta: challengerMeta,
+        challengerOrientation: challengerOrientation,
         defenderUrl: challenge.toUser?.lichessURL,
         defenderName: defenderName,
+        defenderColor: defenderColor,
         defenderMeta: defenderMeta,
         gameId: challenge.gameId ? encodeURIComponent(challenge.gameId) : '',
         gameTime: challenge.dateScheduled ? this.toDateTimeString(challenge.dateScheduled) : '',
-        gameState: game ? [game?.fen?.split(' ')?.slice(0,2)?.join(' ')||'','white',game?.lastMove].join(',') : ''
+        gameState: game ? [game?.fen?.split(' ')?.slice(0,2)?.join(' ')||'',challengerOrientation,game?.lastMove].join(',') : ''
       };
       html = html.replace(/\$(.*?)\$/g, function (m, key) {
         const value = data.hasOwnProperty(key)
@@ -198,10 +205,12 @@
         .each((i,e)=>{
           e=$(e);
           const id = e.attr('data-live');
-          e.attr('href','/'+id)
+          const orientation = e.attr('data-orientation');
+          e.attr('href','/'+id+'/'+orientation)
            .addClass('mini-game mini-game--init mini-game-'+id)
            .append('<span class="cg-wrap"><cg-container><cg-board></cg-board></cg-container></span>');
         });
+      lichess.powertip?.manualUserIn(result[0]);
       return result;
     };
 
@@ -320,13 +329,12 @@
             };
             const text=getUserText(challenge?.white)+' - '+getUserText(challenge?.black);
             const orientation = userId?.toLowerCase()==challenge?.white?.lichessId?.toLowerCase() ? 'white' : 'black';
-            $('<a>')
+            $('<a class="glpt">')
               .attr('href', '/'+challenge.gameId+'/'+orientation)
               .text(text)
               .appendTo(group);
           }
-          group.find('a:not(.lichessTools-lichessLadders)')
-               .each((i,e)=>lichess.powertip?.manualGame(e));
+          lichess.powertip?.manualGameIn(group[0]);
         };
         populateUserChallenges();
       }

@@ -129,6 +129,10 @@ body.lichessTools main.lichessTools-lichessLadders article .player a {
   white-space: nowrap;
 }
 
+body.lichessTools main.lichessTools-lichessLadders article .player span {
+  white-space: nowrap;
+}
+
 body.lichessTools main.lichessTools-lichessLadders article .player:hover {
   text-decoration: underline;
 }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Jun
+
+- Lichess Ladders integration
+
 09 Jun
 
 - support for multiple glyphs on the same move
