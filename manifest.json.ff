@@ -14,7 +14,8 @@
     "activeTab",
     "https://lichess.org/*",
     "https://lichess.dev/*",
-    "https://testy.lichess.dev/*"
+    "https://testy.lichess.dev/*",
+    "https://*.lichessladders.com/*"
   ],
   "content_scripts": [{
       "js": [

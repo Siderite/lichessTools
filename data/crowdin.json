@@ -1198,7 +1198,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2399,7 +2400,8 @@
     "goToSummaryTitle": "前往 Lichess Ladders 摘要",
     "goToGameTitle": "打开对局",
     "challengeNowText": "立即挑战",
-    "challengeNowTitle": "立即向防守方发起对局挑战"
+    "challengeNowTitle": "立即向防守方发起对局挑战",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3600,7 +3602,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4801,7 +4804,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6002,7 +6006,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7203,7 +7208,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8404,7 +8410,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9605,7 +9612,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10806,7 +10814,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12007,7 +12016,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13208,7 +13218,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14409,7 +14420,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15610,7 +15622,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -16811,7 +16824,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18012,7 +18026,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -19213,7 +19228,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -20414,7 +20430,8 @@
     "goToSummaryTitle": "vezi sumarul Lichess Ladders",
     "goToGameTitle": "vezi jocul",
     "challengeNowText": "Provoacă acum",
-    "challengeNowTitle": "provoacă apărătorul la un joc acum"
+    "challengeNowTitle": "provoacă apărătorul la un joc acum",
+    "laddersError": "Eroare conectare la Lichess Ladders"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -21615,7 +21632,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -22816,7 +22834,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -24017,7 +24036,8 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -25218,7 +25238,8 @@
     "goToSummaryTitle": "Lichess Ladders özetine git",
     "goToGameTitle": "oyunu aç",
     "challengeNowText": "Şimdi meydan oku",
-    "challengeNowTitle": "şimdi savunmacıyla bir maç yap"
+    "challengeNowTitle": "şimdi savunmacıyla bir maç yap",
+    "laddersError": "Error connecting to Lichess Ladders"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -26419,6 +26440,7 @@
     "goToSummaryTitle": "go to Lichess Ladders summary",
     "goToGameTitle": "open game",
     "challengeNowText": "Challenge now",
-    "challengeNowTitle": "challenge the defender to a game now"
+    "challengeNowTitle": "challenge the defender to a game now",
+    "laddersError": "Error connecting to Lichess Ladders"
   }
 }

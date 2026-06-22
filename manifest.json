@@ -18,7 +18,8 @@
   "host_permissions": [
     "*://lichess.org/*",
     "*://lichess.dev/*",
-    "*://testy.lichess.dev/*"
+    "*://testy.lichess.dev/*",
+    "*://*.lichessladders.com/*"
   ],
   "content_scripts": [
     {

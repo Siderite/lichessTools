@@ -56,7 +56,8 @@
         'goToSummaryTitle': 'go to Lichess Ladders summary',
         'goToGameTitle': 'open game',
         'challengeNowText': 'Challenge now',
-        'challengeNowTitle': 'challenge the defender to a game now'
+        'challengeNowTitle': 'challenge the defender to a game now',
+        'laddersError': 'Error connecting to Lichess Ladders'
       },
       'ro-RO': {
         'options.integration': 'Integrare',
@@ -89,7 +90,8 @@
         'goToSummaryTitle': 'vezi sumarul Lichess Ladders',
         'goToGameTitle': 'vezi jocul',
         'challengeNowText': 'Provoac\u0103 acum',
-        'challengeNowTitle': 'provoac\u0103 ap\u0103r\u0103torul la un joc acum'
+        'challengeNowTitle': 'provoac\u0103 ap\u0103r\u0103torul la un joc acum',
+        'laddersError': 'Eroare de conectare la Lichess Ladders'
       }
     }
 
@@ -275,7 +277,8 @@
 
       lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
 
-      const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId());
+      const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId())
+        .catch(e=>lt.announce(trans.noarg('laddersError')));
       const userChallenges = laddersId
         ? await lt.api.lichessladders.getUserChallenges(laddersId)
         : [];
@@ -372,7 +375,8 @@
             .appendTo(group);
         }
         const populateUserChallenges = async ()=>{
-          const laddersId = await lt.api.lichessladders.getLaddersId(userId);
+          const laddersId = await lt.api.lichessladders.getLaddersId(userId)
+            .catch(e=>lt.announce(trans.noarg('laddersError')));
           const userChallenges = laddersId
             ? await lt.api.lichessladders.getUserChallenges(laddersId)
             : [];
