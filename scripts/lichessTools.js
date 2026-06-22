@@ -3011,6 +3011,17 @@
           const data = lt.global.JSON.parse(result.text);
           return data;
         },
+        getUserLadders: async function(laddersId) {
+          const lt = this.lichessTools;
+          if (!laddersId) throw new Error('laddersId cannot be empty');
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/users/'+laddersId+'/ladders');
+          if (!result?.text) {
+            throw new Error('Could not get the ladders data for ladderId '+laddersId+' '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
         getUpcomingChallenges: async function() {
           const lt = this.lichessTools;
 
