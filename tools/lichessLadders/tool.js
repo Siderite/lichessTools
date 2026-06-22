@@ -166,7 +166,7 @@
       return `${dateStr} ${timeStr}`;
     };
 
-    createChallengeElem = (challenge) => {
+    createChallengeElem = async (challenge) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -177,6 +177,16 @@
       if (challenge?.challenge) {
         game = challenge.gameStatus;
         challenge = challenge.challenge;
+      }
+      if (!game && challenge.gameId) {
+        const mini = await lt.api.game.getMini(challenge.gameId);
+        const state = $(mini).attr('data-state')?.split(',');
+        if (state?.length == 3) {
+          game = {
+            fen: state[0],
+            lastMove: state[2]
+          };
+        }
       }
 
       const encodeURIComponent = lt.global.encodeURIComponent;
@@ -212,14 +222,14 @@
       const data = {
         ladder: challenge.ladder?.name,
         challengerUrl: challenge.fromUser?.lichessURL,
-        challengerName: challengerName,
+        challengerName: lt.htmlEncode(challengerName),
         challengerColor: challengerColor,
-        challengerMeta: challengerMeta,
+        challengerMeta: lt.htmlEncode(challengerMeta),
         challengerOrientation: challengerOrientation,
         defenderUrl: challenge.toUser?.lichessURL,
-        defenderName: defenderName,
+        defenderName: lt.htmlEncode(defenderName),
         defenderColor: defenderColor,
-        defenderMeta: defenderMeta,
+        defenderMeta: lt.htmlEncode(defenderMeta),
         gameId: challenge.gameId ? encodeURIComponent(challenge.gameId) : '',
         gameTime: challenge.dateScheduled ? this.toDateTimeString(challenge.dateScheduled) : '',
         gameState: game ? [game?.fen?.split(' ')?.slice(0,2)?.join(' ')||'',challengerOrientation,game?.lastMove].join(',') : ''
@@ -307,7 +317,7 @@
         const container = $('<div>')
           .appendTo(section); 
         for (const challenge of userChallenges) {
-          const elem = this.createChallengeElem(challenge)
+          const elem = (await this.createChallengeElem(challenge))
             .appendTo(container);
         }
       }
@@ -318,7 +328,7 @@
         const container = $('<div>')
           .appendTo(section); 
         for (const challenge of upcomingChallenges) {
-          const elem = this.createChallengeElem(challenge)
+          const elem = (await this.createChallengeElem(challenge))
             .appendTo(container);
         }
       }
@@ -329,7 +339,7 @@
         const container = $('<div>')
           .appendTo(section); 
         for (const challenge of liveChallenges) {
-          const elem = this.createChallengeElem(challenge)
+          const elem = (await this.createChallengeElem(challenge))
             .appendTo(container);
         }
       }

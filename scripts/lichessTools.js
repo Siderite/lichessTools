@@ -2601,7 +2601,7 @@
         getMini: async function (gameId, color) {
           const lt = this.lichessTools;
           const html = await lt.net.fetch({
-            url: '/{gameId}' + (color == 'White' ? '/white' : '/black') + '/mini',
+            url: '/{gameId}' + (color?.toLowerCase() == 'white' ? '/white' : '/black') + '/mini',
             args: { gameId }
           });
           return html;
