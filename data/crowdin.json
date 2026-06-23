@@ -2391,7 +2391,7 @@
     "userChallengesText": "您的挑战",
     "upcomingChallengesText": "即将开始的挑战",
     "liveChallengesText": "正在进行的挑战",
-    "lichessLaddersPageMenuText": "Lichess Ladders summary",
+    "lichessLaddersPageMenuText": "Lichess Ladders 摘要",
     "options.lichessLaddersSubmenu": "Lichess Ladders 菜单挑战项目",
     "lichessLaddersSubmenu.0": "无",
     "lichessLaddersSubmenu.1": "一",
@@ -2404,7 +2404,7 @@
     "challengeNowText": "立即挑战",
     "challengeNowTitle": "立即向防守方发起对局挑战",
     "laddersError": "连接 Lichess Ladders 时出错",
-    "gotoLichessLaddersTitle": "more on Lichess Ladders",
+    "gotoLichessLaddersTitle": "更多 Lichess Ladders 详情",
     "laddersLaddersText": "Ladders"
   },
   "zh-TW": {
