@@ -106,6 +106,14 @@ body.lichessTools main.lichessTools-lichessLadders article .header {
   color: var(--c-font);
 }
 
+body.lichessTools main.lichessTools-lichessLadders article a.ladder {
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.ladder:hover {
+  text-decoration: underline;
+}
+
 body.lichessTools main.lichessTools-lichessLadders article .matchup {
   display: flex;
   justify-content: space-between;
@@ -183,6 +191,9 @@ body.lichessTools main.lichessTools-lichessLadders article .footer {
   text-decoration: none;
 }
 
+body.lichessTools main.lichessTools-lichessLadders article .footer a:hover .gameTime {
+  text-decoration: underline;
+}
 
 body.lichessTools main.lichessTools-lichessLadders article a.challengePlayer {
     text-transform: uppercase;

@@ -193,7 +193,9 @@
 
       const encodeURIComponent = lt.global.encodeURIComponent;
       let html = `<article>
-        <div class="header">$ladder$</div>
+        <div class="header">
+          <a class="ladder" href="https://lichessladders.com/ladders/$ladderId$">$ladder$</a>
+        </div>
         <div class="matchup">
           <div class="player">
             <span><a href="$challengerUrl$" class="ulpt">$challengerName$</a> <span class="color-$challengerColor$"></span></span>
@@ -207,7 +209,9 @@
           </div>
         </div>
         <div class="footer">
-          <a data-live="$gameId$" data-orientation="$challengerOrientation$" class="mini-game" data-state="$gameState$">$gameTime$</a>
+          <a data-live="$gameId$" data-orientation="$challengerOrientation$" class="mini-game" data-state="$gameState$">
+            <span class="gameTime">$gameTime$</span>
+          </a>
         </div>
       </div>`;
       let key = challenge.ladder?.type+'Rating';
@@ -223,6 +227,7 @@
       const defenderMeta = (challenge.toUser?.[key] || '')+(challenge.toUser?.[key+'IsProvisional']?'?':'');
       const data = {
         ladder: challenge.ladder?.name,
+        ladderId: challenge.ladder?.id,
         challengerUrl: challenge.fromUser?.lichessURL,
         challengerName: lt.htmlEncode(challengerName),
         challengerColor: challengerColor,
@@ -259,7 +264,8 @@
         });
       lichess.powertip?.manualUserIn(result[0]);
       if (!challenge.gameId && userId?.toLowerCase()==challenge.fromUser?.lichessId?.toLowerCase()) {
-        let challengeUrl = '/?user='+encodeURIComponent(challenge.toUser?.lichessId)+'&variant=standard&gameMode=rated';
+        const variant = challenge.ladder?.type == 'chess960' ? 'chess960' : 'standard';
+        let challengeUrl = '/?user='+encodeURIComponent(challenge.toUser?.lichessId)+'&variant='+variant+'&gameMode=rated';
         if (challenge.ladder?.type=='correspondence') {
           challengeUrl += '&time=correspondence'
             +'&minutesPerSide='+challenge.ladder?.timeControlBase
