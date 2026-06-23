@@ -67,6 +67,78 @@ body.lichessTools main.lichessTools-lichessLadders div[class^="lichessTools-lich
   gap: 1em;
 }
 
+
+body.lichessTools main.lichessTools-lichessLadders div.lichessTools-lichessLadders-ladders div.ladders {
+  display: flex;
+  justify-items: start;
+  gap: 1em;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders div.lichessTools-lichessLadders-ladders div.ladders::-webkit-scrollbar {
+  display: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
+  position: relative;
+  min-width: 7em;
+  min-height: 7em;
+  max-width: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  border: 1px solid var(--c-font);
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder:hover {
+  border-color: var(--c-clearer);
+  color: var(--c-clearer);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.joined {
+  border-width: 2px;
+  border-color: var(--c-brag);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
+  font-size: 2em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
+  content: attr(data-type-icon);
+  src: url('../font/lichess.woff2') format('woff2');
+  font-family: "lichess";
+  position: absolute;
+  font-size: 6em;
+  opacity: 0.5;
+  line-height: 1;
+  user-select:none;
+  pointer-events:none;
+}
+
+@media (max-width: 1000px) {
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
+    min-width: 3em;
+    min-height: 3em;
+    max-width: 3em;
+    max-height: 3em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
+    font-size: 1em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
+    font-size: 2.5em;
+  }
+}
+
 body.lichessTools main.lichessTools-lichessLadders h2 {
   padding: 0.5em;
 }

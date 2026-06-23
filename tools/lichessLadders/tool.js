@@ -58,7 +58,8 @@
         'challengeNowText': 'Challenge now',
         'challengeNowTitle': 'challenge the defender to a game now',
         'laddersError': 'Error connecting to Lichess Ladders',
-        'gotoLichessLaddersTitle': 'more on Lichess Ladders'
+        'gotoLichessLaddersTitle': 'more on Lichess Ladders',
+        'laddersLaddersText': 'Ladders'
       },
       'ro-RO': {
         'options.integration': 'Integrare',
@@ -93,7 +94,8 @@
         'challengeNowText': 'Provoac\u0103 acum',
         'challengeNowTitle': 'provoac\u0103 ap\u0103r\u0103torul la un joc acum',
         'laddersError': 'Eroare de conectare la Lichess Ladders',
-        'gotoLichessLaddersTitle': 'mai multe pe Lichess Ladders'
+        'gotoLichessLaddersTitle': 'mai multe pe Lichess Ladders',
+        'laddersLaddersText': 'Sc\u0103ri'
       }
     }
 
@@ -306,6 +308,13 @@
       upcomingChallenges = upcomingChallenges.filter(ch => !ids.has(ch.id));
       const liveChallenges = await lt.api.lichessladders.getLiveChallenges();
 
+      const allLadders = await lt.api.lichessladders.getLadders();
+      const userLadders = laddersId
+        ? await lt.api.lichessladders.getUserLadders(laddersId)
+        : [];
+      userLadders.forEach(l=>l.joined=true);
+      const ladders = userLadders.concat(allLadders.filter(l=>!userLadders.find(ul=>ul.id==l.id)));
+
       const main = $('#main-wrap main')
         .empty()
         .attr('class','lichessTools-lichessLadders')
@@ -317,6 +326,48 @@
                             .attr('data-icon',lt.icon.GreaterThan)
                   )
         );
+
+      if (ladders?.length) {
+        const section = $('<div class="lichessTools-lichessLadders-ladders">')
+          .append($('<h3>')
+                    .append($('<span>').text(trans.noarg('laddersLaddersText')))
+                    .append($('<a>')
+                              .attr('href','https://lichessladders.com/ladders')
+                              .attr('title',trans.noarg('gotoLichessLaddersTitle'))
+                              .attr('data-icon',lt.icon.GreaterThan)
+                    )
+          )
+          .appendTo(main);
+        const container = $('<div class="ladders">')
+          .appendTo(section);
+        for (const ladder of ladders) {
+          const text = ladder.type=='correspondence'
+            ? ladder.timeControlBase+' D'
+            : ladder.timeControlBase+'+'+ladder.timeControlIncrement;
+          let icon = '';
+          switch (ladder.type) {
+            case 'correspondence':
+              icon = lt.icon.PaperAirplane;
+              break;
+            case 'classical':
+              icon = lt.icon.Turtle;
+              break;
+            case 'chess960':
+              icon = lt.icon.DieSix;
+              break;
+          }
+          if (ladder.level=='team') {
+            icon = lt.icon.Group;
+          }
+          $('<a class="ladder">')
+            .attr('data-type-icon',icon)
+            .attr('title',ladder.name+'\r\n'+ladder.description)
+            .attr('href', 'https://lichessladders.com/ladders/'+ladder.id)
+            .append($('<span>').text(text))
+            .toggleClass('joined',!!ladder.joined)
+            .appendTo(container);
+        }
+      }
 
       if (userChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-userChallenges">')
