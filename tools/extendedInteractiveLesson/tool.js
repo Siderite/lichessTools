@@ -1028,7 +1028,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis?.study?.data?.chapter?.gamebook) return;
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
       if (!$('h2.lichessTools-separator', container).length) {

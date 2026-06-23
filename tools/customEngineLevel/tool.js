@@ -111,7 +111,7 @@
       
 
       $('.tview2').toggleClassSafe('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
       if (!$('h2.lichessTools-separator', container).length) {

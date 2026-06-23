@@ -318,7 +318,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
       $('.tview2').toggleClassSafe('lichessTools-indentedVariations', this.options.indentedVariations);
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
 
