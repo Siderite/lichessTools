@@ -52,7 +52,7 @@
         'userChallengesText': 'Your challenges',
         'upcomingChallengesText': 'Challenges coming up soon',
         'liveChallengesText': 'Challenges playing now',
-        'lichessLaddersPageMenuText': 'Summary',
+        'lichessLaddersPageMenuText': 'Lichess Ladders summary',
         'goToSummaryTitle': 'go to Lichess Ladders summary',
         'goToGameTitle': 'open game',
         'challengeNowText': 'Challenge now',
@@ -87,7 +87,7 @@
         'userChallengesText': 'Provoc\u0103rile tale',
         'upcomingChallengesText': 'Provoc\u0103ri care vor veni \u00een cur\u00e2nd',
         'liveChallengesText': 'Provoc\u0103ri \u00een joc acum',
-        'lichessLaddersPageMenuText': 'Sumar',
+        'lichessLaddersPageMenuText': 'Sumar Lichess Ladders',
         'goToSummaryTitle': 'vezi sumarul Lichess Ladders',
         'goToGameTitle': 'vezi jocul',
         'challengeNowText': 'Provoac\u0103 acum',
@@ -395,17 +395,17 @@
         const elem = $('<a target="_blank">')
           .addClass('lichessTools-lichessLadders')
           .text(trans.noarg('lichessLaddersText'))
-          .attr('title', trans.noarg('lichessLaddersTitle'))
-          .attr('href','https://lichessladders.com/')
           .appendTo(container);
-        const group = $('<div role="group"></div>')
-          .appendTo(elem);
         if (this.options.page) {
-          $('<a class="lichessTools-lichessLaddersPage">')
-            .attr('href', '/page/lichessLadders')
-            .attr('title', trans.noarg('lichessLaddersPageTitle'))
+          elem
             .text(trans.noarg('lichessLaddersPageMenuText'))
-            .appendTo(group);
+            .attr('title', trans.noarg('lichessLaddersPageTitle'))
+            .attr('href','/page/lichessLadders')
+        } else {
+          elem
+            .text(trans.noarg('lichessLaddersText'))
+            .attr('title', trans.noarg('lichessLaddersTitle'))
+            .attr('href','https://lichessladders.com/')
         }
         const populateUserChallenges = async ()=>{
           const laddersId = await lt.api.lichessladders.getLaddersId(userId)
@@ -413,6 +413,10 @@
           const userChallenges = laddersId
             ? await lt.api.lichessladders.getUserChallenges(laddersId)
             : [];
+          if (!userChallenges?.length) return;
+
+          const group = $('<div role="group"></div>')
+            .appendTo(elem);
           for (const challenge of userChallenges.slice(0,this.options.maxItemCount)) {
             const getUserText = (user)=>{
               if (!user) return '';
