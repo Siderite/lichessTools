@@ -1,7 +1,7 @@
 (() => {
   class GameListOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitContentLoaded'];
+    dependencies = ['EmitRedraw', 'EmitContentLoaded'];
 
     preferences = [
       {
@@ -667,10 +667,10 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
       $('.lichessTools-gameListOptions-analysisLink')
         .removeClass('lichessTools-gameListOptions-analysisLink')
       lt.pubsub.off('lichessTools.redraw',this.processLists);
-      lt.pubsub.off('content-loaded',this.processLists);
+      lt.pubsub.off('lichessTools.contentLoaded',this.processLists);
       if (!this.options.isSet) return;
       lt.pubsub.on('lichessTools.redraw',this.processLists);
-      lt.pubsub.on('content-loaded',this.processLists);
+      lt.pubsub.on('lichessTools.contentLoaded',this.processLists);
       this.processLists();
     }
 

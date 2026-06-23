@@ -355,7 +355,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameOpening);
       lt.uiApi.events.off('ply', this.refreshOpeningDebounced);
       lt.uiApi.socket.events.off('endData', this.refreshOpeningDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameOpening);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameOpening);
       lt.global.clearInterval(this.interval);
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       metaSection.find('.lichessTools-opening').remove();
@@ -382,7 +382,7 @@
       }
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);
-        lt.pubsub.on('content-loaded', this.miniGameOpening);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameOpening);
         $(window).on('scroll',this.miniGameOpeningDebounced);
         this.miniGameOpeningDebounced();
       }

@@ -1,6 +1,8 @@
 (() => {
   class CevalCacheTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitCeval'];
+
     preferences = [
       {
         name: 'cevalCache',

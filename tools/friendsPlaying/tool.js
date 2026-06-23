@@ -1,6 +1,8 @@
 (() => {
   class FriendsPlayingTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['FriendsList'];
+
     preferences = [
       {
         name: 'friendsPlaying',

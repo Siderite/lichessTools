@@ -1,7 +1,7 @@
 (() => {
   class CalculationTrainerTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['Stockfish', 'ChessOps'];
+    dependencies = ['Stockfish', 'ChessOps', 'Dialog'];
 
     preferences = [
       {

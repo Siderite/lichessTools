@@ -1,7 +1,7 @@
 (() => {
   class ChapterNameFromTagsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties', 'ChessOps'];
+    dependencies = ['DetectThirdParties', 'ChessOps', 'ExportPGN'];
 
     preferences = [
       {

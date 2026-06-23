@@ -604,7 +604,7 @@
         this.interval = lt.global.setInterval(this.processChat, 1000);
         this.processChat();
       }
-      lt.pubsub.off('content-loaded', this.notificationButtonInTeams);
+      lt.pubsub.off('lichessTools.contentLoaded', this.notificationButtonInTeams);
       $('.lichessTools-notify').remove();
       if (this.options.teamChatNotifications) {
         this._refreshNotificationsClean?.();
@@ -641,7 +641,7 @@
         }
         if (this.isTeamsListPage()) {
           this.notificationButtonInTeams();
-          lt.pubsub.on('content-loaded', this.notificationButtonInTeams);
+          lt.pubsub.on('lichessTools.contentLoaded', this.notificationButtonInTeams);
         }
       } else {
         this.destroySockets(this.sockets);

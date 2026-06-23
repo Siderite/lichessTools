@@ -1,7 +1,7 @@
 (() => {
   class ChapterEditingTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'PgnEditor'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'PgnEditor'];
 
     preferences = [
       {

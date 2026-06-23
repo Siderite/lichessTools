@@ -7,8 +7,8 @@
         lt.global.setTimeout(()=>this.emit(el),250);
         return;
       }
-      lt.debug && lt.global.console.debug('content-loaded',el);
-      lt.pubsub.emit('content-loaded',el);
+      lt.debug && lt.global.console.debug('lichessTools.contentLoaded',el);
+      lt.pubsub.emit('lichessTools.contentLoaded',el);
     };
     emit = lichessTools.debounce(this.emitDirect,250);
 

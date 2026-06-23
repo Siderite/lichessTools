@@ -388,7 +388,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameStructure);
       lt.uiApi.events.off('ply', this.refreshStructureDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameStructureDebounced);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameStructureDebounced);
       lt.global.clearInterval(this.interval);
       $('body').observer()
         .off('input[type=checkbox]',this.miniGameStructure);
@@ -399,7 +399,7 @@
         lt.uiApi.socket.events.on('fen', this.miniGameStructure);
         lt.uiApi.events.on('ply', this.refreshStructureDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
-        lt.pubsub.on('content-loaded', this.miniGameStructureDebounced);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameStructureDebounced);
         lt.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshStructureDebounced, 1000);

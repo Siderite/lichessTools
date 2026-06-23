@@ -134,7 +134,7 @@
         return;
       }
 
-      lt.pubsub.off('content-loaded', this.processNotifications);
+      lt.pubsub.off('lichessTools.contentLoaded', this.processNotifications);
       lt.global.clearInterval(this.interval);
       lt.global.clearInterval(this.closeInterval);
       lt.uiApi.socket.events.off('notifications', this.updateNotificationCount);
@@ -145,7 +145,7 @@
         refresh: this.forcedProcessNotifications.bind(this)
       };
 
-      lt.pubsub.on('content-loaded', this.processNotifications);
+      lt.pubsub.on('lichessTools.contentLoaded', this.processNotifications);
       this.interval = lt.global.setInterval(() => {
         if ($('div.shown #notify-app div.empty.text').length || $('#notify-toggle > span').attr('data-count')!==this.lastNewCount?.toString()) {
           this.forcedProcessNotifications();

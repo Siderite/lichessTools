@@ -281,7 +281,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameKmaps);
       lt.uiApi.events.off('ply', this.refreshKmapsDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshKmapsDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameKmapsDebounced);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameKmapsDebounced);
       lt.global.clearInterval(this.interval);
       $('body').observer()
         .off('input[type=checkbox]',this.miniGameKmapsDebounced);
@@ -292,7 +292,7 @@
         lt.uiApi.socket.events.on('fen', this.miniGameKmaps);
         lt.uiApi.events.on('ply', this.refreshKmapsDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshKmapsDebounced);
-        lt.pubsub.on('content-loaded', this.miniGameKmapsDebounced);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameKmapsDebounced);
         lt.global.setTimeout(this.refreshKmapsDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshKmapsDebounced, 1000);

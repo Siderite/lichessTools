@@ -437,11 +437,11 @@
       if (!lichess || !lt.uiApi) return;
       $(lt.global).off('hashchange', this.hashChange);
       lt.uiApi.socket.events.off('close', this.hashChange);
-      lt.pubsub.off('content-loaded', this.refreshTimeControls);
+      lt.pubsub.off('lichessTools.contentLoaded', this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
         $(lt.global).on('hashchange', this.hashChange);
         lt.uiApi.socket.events.on('close', this.hashChange);
-        lt.pubsub.on('content-loaded', this.refreshTimeControls);
+        lt.pubsub.on('lichessTools.contentLoaded', this.refreshTimeControls);
         lt.global.setTimeout(this.hashChange, 100);
       }
 

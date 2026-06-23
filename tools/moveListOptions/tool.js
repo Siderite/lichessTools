@@ -1,7 +1,7 @@
 (() => {
   class MoveListOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange', 'DetectThirdParties', 'GamebookPlayClass'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange', 'DetectThirdParties', 'GamebookPlayClass', 'ExportPGN'];
 
     preferences = [
       {

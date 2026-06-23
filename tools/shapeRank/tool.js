@@ -1,7 +1,7 @@
 (() => {
   class ShapeRankTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw', 'MobileExperience'];
 
     preferences = [
       {
