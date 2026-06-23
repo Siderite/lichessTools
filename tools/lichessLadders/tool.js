@@ -435,7 +435,7 @@
       const lichessLaddersSubmenu = lt.currentOptions.getValue('lichessLaddersSubmenu');
       this.logOption('Lichess Ladders', lichessLadders);
       this.options = {
-        menuItem: lt.isOptionSet(lichessLadders, 'enabled'),
+        menuItem: lt.isOptionSet(lichessLadders, 'menuItem'),
         page: lt.isOptionSet(lichessLadders, 'page'),
         challengeNotifications: lt.isOptionSet(lichessLadders, 'challengeNotifications'),
         messageNotifications: lt.isOptionSet(lichessLadders, 'messageNotifications'),
@@ -451,7 +451,6 @@
       if (this.options.menuItem) {
         const elem = $('<a target="_blank">')
           .addClass('lichessTools-lichessLadders')
-          .text(trans.noarg('lichessLaddersText'))
           .appendTo(container);
         if (this.options.page) {
           elem
