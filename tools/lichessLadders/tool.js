@@ -57,7 +57,8 @@
         'goToGameTitle': 'open game',
         'challengeNowText': 'Challenge now',
         'challengeNowTitle': 'challenge the defender to a game now',
-        'laddersError': 'Error connecting to Lichess Ladders'
+        'laddersError': 'Error connecting to Lichess Ladders',
+        'gotoLichessLaddersTitle': 'more on Lichess Ladders'
       },
       'ro-RO': {
         'options.integration': 'Integrare',
@@ -91,7 +92,8 @@
         'goToGameTitle': 'vezi jocul',
         'challengeNowText': 'Provoac\u0103 acum',
         'challengeNowTitle': 'provoac\u0103 ap\u0103r\u0103torul la un joc acum',
-        'laddersError': 'Eroare de conectare la Lichess Ladders'
+        'laddersError': 'Eroare de conectare la Lichess Ladders',
+        'gotoLichessLaddersTitle': 'mai multe pe Lichess Ladders'
       }
     }
 
@@ -305,14 +307,21 @@
                   .append($('<span>').text(trans.noarg('lichessLaddersPageHeader')))
                   .append($('<a>')
                             .attr('href','https://lichessladders.com')
-                            .attr('title',trans.noarg('lichessLaddersTitle'))
+                            .attr('title',trans.noarg('gotoLichessLaddersTitle'))
                             .attr('data-icon',lt.icon.GreaterThan)
                   )
         );
 
       if (userChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-userChallenges">')
-          .append($('<h3>').text(trans.noarg('userChallengesText')))
+          .append($('<h3>')
+                    .append($('<span>').text(trans.noarg('userChallengesText')))
+                    .append($('<a>')
+                              .attr('href','https://lichessladders.com/challenges')
+                              .attr('title',trans.noarg('gotoLichessLaddersTitle'))
+                              .attr('data-icon',lt.icon.GreaterThan)
+                    )
+          )
           .appendTo(main);
         const container = $('<div>')
           .appendTo(section); 
@@ -323,7 +332,14 @@
       }
       if (upcomingChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-upcomingChallenges">')
-          .append($('<h3>').text(trans.noarg('upcomingChallengesText')))
+          .append($('<h3>')
+                    .append($('<span>').text(trans.noarg('upcomingChallengesText')))
+                    .append($('<a>')
+                              .attr('href','https://lichessladders.com/challenges/scheduled')
+                              .attr('title',trans.noarg('gotoLichessLaddersTitle'))
+                              .attr('data-icon',lt.icon.GreaterThan)
+                    )
+          )
           .appendTo(main);
         const container = $('<div>')
           .appendTo(section); 
@@ -334,7 +350,14 @@
       }
       if (liveChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-liveChallenges">')
-          .append($('<h3>').text(trans.noarg('liveChallengesText')))
+          .append($('<h3>')
+                    .append($('<span>').text(trans.noarg('liveChallengesText')))
+                    .append($('<a>')
+                              .attr('href','https://lichessladders.com/challenges/live')
+                              .attr('title',trans.noarg('gotoLichessLaddersTitle'))
+                              .attr('data-icon',lt.icon.GreaterThan)
+                    )
+          )
           .appendTo(main);
         const container = $('<div>')
           .appendTo(section); 
