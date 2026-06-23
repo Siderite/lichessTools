@@ -89,11 +89,14 @@
         }
         return;
       }
+
+      this.tabId ||= lt.randomToken();
       this.interval = lt.global.setInterval(this.addQuietModeMenu,500);
 
       if (!isProperty) {
         const quietMode = lichess.quietMode;
         const storage = lt.storage;
+        const $this = this;
         Object.defineProperty(lichess, 'forcedQuietMode', {
           configurable: true,
           get: function () {
@@ -110,10 +113,15 @@
             return !!storage.get('LichessTools.quietMode');
           },
           set: function (val) {
-            storage.set('LichessTools.quietMode', !!val);
+            storage.set('LichessTools.quietMode', val ? $this.tabId : false);
           }
         });
         if (quietMode) lichess.quietMode = true;
+        $(window).on('beforeunload',()=>{
+          if (storage.get('LichessTools.quietMode') == $this.tabId) {
+            storage.set('LichessTools.quietMode',false);
+          }
+        });
       }
     }
   }
