@@ -5,3 +5,16 @@ body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-pr
 body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-practice-depth input {
   pointer-events: none;
 }
+
+@media (min-width: 799.4px) {
+
+  body.lichessTools .analyse__tools .action-menu {
+    max-height: var(--board-size);
+    min-height: 100%;
+  }
+
+  body.lichessTools .analyse__tools .action-menu .inner {
+    overflow-y: auto;
+  }
+
+}

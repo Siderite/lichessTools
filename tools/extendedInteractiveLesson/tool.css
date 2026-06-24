@@ -364,6 +364,19 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
   left:-1em;
 }
 
+@media (min-width: 799.4px) {
+
+  body.lichessTools .analyse__tools .action-menu {
+    max-height: var(--board-size);
+    min-height: 100%;
+  }
+
+  body.lichessTools .analyse__tools .action-menu .inner {
+    overflow-y: auto;
+  }
+
+}
+
 /* Prettier Lichess CSS */
 
 body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {
