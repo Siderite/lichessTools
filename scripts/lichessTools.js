@@ -2311,6 +2311,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
+        lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
       },
       blog: {

@@ -148,6 +148,10 @@ body.lichessTools main.lichessTools-lichessLadders h3 {
   padding: 1em;
 }
 
+body.lichessTools main.lichessTools-lichessLadders h4 {
+  padding: 1em;
+}
+
 body.lichessTools main.lichessTools-lichessLadders article {
   display: flex;
   flex-direction: column;

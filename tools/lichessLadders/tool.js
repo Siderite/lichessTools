@@ -308,12 +308,17 @@
       upcomingChallenges = upcomingChallenges.filter(ch => !ids.has(ch.id));
       const liveChallenges = await lt.api.lichessladders.getLiveChallenges();
 
-      const allLadders = await lt.api.lichessladders.getLadders();
+      const ladders = await lt.api.lichessladders.getLadders();
       const userLadders = laddersId
         ? await lt.api.lichessladders.getUserLadders(laddersId)
         : [];
-      userLadders.forEach(l=>l.joined=true);
-      const ladders = userLadders.concat(allLadders.filter(l=>!userLadders.find(ul=>ul.id==l.id)));
+      const joinedIds = new Set(userLadders.map(l=>l.id));
+      ladders.forEach(l=>l.joined = joinedIds.has(l.id));
+      ladders.sort((l1,l2)=>{
+        const v1 = (l1.joined ? -10000000 : 0)+l1.id;
+        const v2 = (l2.joined ? -10000000 : 0)+l2.id;
+        return v1-v2;
+      });
 
       const main = $('#main-wrap main')
         .empty()
@@ -369,6 +374,26 @@
         }
       }
 
+      const displayChallenges = async (challenges, container)=>{
+        let laddersInOrder = ladders;
+        if (!ladders?.length) {
+          laddersInOrder = challenges.map(c=>c.challenge?.ladder || c.ladder);
+          laddersInOrder.sort((l1,l2)=>l1.id-l2.id);
+        }
+        for (const ladder of laddersInOrder) {
+          const ladderChallenges = challenges.filter(c=>c.ladder?.id==ladder.id || c.challenge?.ladder?.id==ladder.id);
+          if (!ladderChallenges.length) continue;
+          $('<h4>')
+            .text(ladder.name)
+            .appendTo(container);
+          const ladderElem = $('<div>').appendTo(container);
+          for (const challenge of ladderChallenges) {
+            const elem = await this.createChallengeElem(challenge);
+            elem.appendTo(ladderElem);
+          }
+        }
+      };
+
       if (userChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-userChallenges">')
           .append($('<h3>')
@@ -380,12 +405,7 @@
                     )
           )
           .appendTo(main);
-        const container = $('<div>')
-          .appendTo(section); 
-        for (const challenge of userChallenges) {
-          const elem = (await this.createChallengeElem(challenge))
-            .appendTo(container);
-        }
+        displayChallenges(userChallenges,section);
       }
       if (upcomingChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-upcomingChallenges">')
@@ -398,12 +418,7 @@
                     )
           )
           .appendTo(main);
-        const container = $('<div>')
-          .appendTo(section); 
-        for (const challenge of upcomingChallenges) {
-          const elem = (await this.createChallengeElem(challenge))
-            .appendTo(container);
-        }
+        displayChallenges(upcomingChallenges,section);
       }
       if (liveChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-liveChallenges">')
@@ -416,12 +431,7 @@
                     )
           )
           .appendTo(main);
-        const container = $('<div>')
-          .appendTo(section); 
-        for (const challenge of liveChallenges) {
-          const elem = (await this.createChallengeElem(challenge))
-            .appendTo(container);
-        }
+        displayChallenges(liveChallenges,section);
       }
       lt.uiApi.initializeDom(main[0]);
     };
@@ -449,7 +459,7 @@
       const container = $('#topnav section a[href="/"]+div[role="group"]');
       container.find('.lichessTools-lichessLadders').remove();
       if (this.options.menuItem) {
-        const elem = $('<a target="_blank">')
+        const elem = $('<a>')
           .addClass('lichessTools-lichessLadders')
           .appendTo(container);
         if (this.options.page) {
@@ -459,6 +469,7 @@
             .attr('href','/page/lichessLadders')
         } else {
           elem
+            .attr('target','_blank')
             .text(trans.noarg('lichessLaddersText'))
             .attr('title', trans.noarg('lichessLaddersTitle'))
             .attr('href','https://lichessladders.com/')
