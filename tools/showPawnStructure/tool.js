@@ -200,7 +200,7 @@
       return result;
     };
 
-    getStructureName = async (structure) => {
+    getStructureName = async (structure, onlyNamed) => {
       const lt = this.lichessTools;
       const threshold = this.options.fuzzy ? 90 : 100;
 
@@ -247,7 +247,7 @@
         return arrItem.value;
       }
 
-      if (this.options.onlyNamed) return null;
+      if (onlyNamed || this.options.onlyNamed) return null;
       return {
         name: structure.split(' ')[0],
         best: arrItem
@@ -322,7 +322,7 @@
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        if ($(el).closest('.lichessTools-lichessLadders-userChallenges').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -331,7 +331,8 @@
         }
         const board = lt.getBoardFromFen(fen);
         const structure = this.getStructure(board, $(el).attr('data-state')?.includes('black'));
-        const structureName = await this.getStructureName(structure);
+        const inCurrentGames = !!$(el).closest('.now-playing').length;
+        const structureName = await this.getStructureName(structure, inCurrentGames);
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
       }

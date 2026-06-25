@@ -303,10 +303,12 @@
         ? await lt.api.lichessladders.getUserChallenges(laddersId)
         : [];
 
-      let upcomingChallenges = await lt.api.lichessladders.getUpcomingChallenges();
       const ids = new Set(userChallenges.map(ch => ch.id));
-      upcomingChallenges = upcomingChallenges.filter(ch => !ids.has(ch.id));
+      const upcomingChallenges = await lt.api.lichessladders.getUpcomingChallenges();
+      lt.arrayRemoveAll(upcomingChallenges, ch => ids.has(ch.id));
+
       const liveChallenges = await lt.api.lichessladders.getLiveChallenges();
+      lt.arrayRemoveAll(liveChallenges, ch => ids.has(ch.challenge.id));
 
       const ladders = await lt.api.lichessladders.getLadders();
       const userLadders = laddersId

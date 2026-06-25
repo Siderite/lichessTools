@@ -224,7 +224,7 @@
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        if ($(el).closest('.lichessTools-lichessLadders-userChallenges').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
