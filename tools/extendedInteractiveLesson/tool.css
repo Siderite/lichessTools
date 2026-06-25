@@ -371,10 +371,14 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
     min-height: 100%;
   }
 
-  body.lichessTools .analyse__tools .action-menu .inner {
-    overflow-y: auto;
+  body.lichessTools .analyse__tools:has(.action-menu) :is(.ceval, .pv_box, .gamebook-edit, .practice-box) {
+    display: none;
   }
 
+}
+
+body.lichessTools .analyse__tools .action-menu .inner {
+  overflow-y: auto;
 }
 
 /* Prettier Lichess CSS */

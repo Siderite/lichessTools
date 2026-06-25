@@ -13,8 +13,12 @@ body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-pr
     min-height: 100%;
   }
 
-  body.lichessTools .analyse__tools .action-menu .inner {
-    overflow-y: auto;
+  body.lichessTools .analyse__tools:has(.action-menu) :is(.ceval, .pv_box, .gamebook-edit, .practice-box) {
+    display: none;
   }
 
+}
+
+body.lichessTools .analyse__tools .action-menu .inner {
+  overflow-y: auto;
 }
