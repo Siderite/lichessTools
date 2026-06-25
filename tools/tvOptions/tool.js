@@ -207,7 +207,7 @@
     refreshTimeControls = this.lichessTools.debounce(this.refreshTimeControlsDirect, 100);
 
     _maxGamesCount = 30;
-    refreshGames = async (playerIds, className, container, streamers) => {
+    refreshGames = async (playerIds, container, streamers) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -246,7 +246,6 @@
               html.addClass(variant);
               if (streamers) {
                 $('<span>')
-                  .addClass(className)
                   .append($('<a rel="noopener nofollow" target="_blank">')
                     .attr('href', '/streamer/' + data.id + '?redirect=1')
                     .text(trans.noarg('streamerLink')))
@@ -311,19 +310,19 @@
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv', this.options.streamerTv);
         const playerIds = (await lt.api.streamer.getLiveStreamers())?.map(s => s.id);
-        await this.refreshGames(playerIds, 'lichessTools-streamerTv', container, true);
+        await this.refreshGames(playerIds, container, true);
       } else {
         container.removeClass('lichessTools-streamerTv');
       }
       if (userId && this.isFriendsTvPage()) {
         container.toggleClass('lichessTools-friendsTv', this.options.friendsTv);
         const playerIds = this.users_playing;
-        await this.refreshGames(playerIds, 'lichessTools-friendsTv', container, false);
+        await this.refreshGames(playerIds, container, false);
       } else {
         container.removeClass('lichessTools-friendsTv');
       }
       if (userId && this.isTeamTvPage()) {
-        container.toggleClass('lichessTools-teamTv', this.options.teamTv);
+        container.toggleClass('lichessTools-teamTv', true/*this.options.teamTv*/);
         if (!$('select.lichessTools-teams', container).length) {
           const select = $('<select class="lichessTools-teams">')
             .on('change', ev => {
@@ -344,7 +343,7 @@
           container.prepend(lt.spinnerHtml);
         }
         const playerIds = await this.getTeamPlayerIds();
-        await this.refreshGames(playerIds, 'lichessTools-teamTv', container, false);
+        await this.refreshGames(playerIds, container, false);
       } else {
         container.removeClass('lichessTools-teamTv');
       }
