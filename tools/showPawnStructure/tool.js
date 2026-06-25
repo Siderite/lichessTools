@@ -330,7 +330,7 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board, $(el).attr('data-state')?.includes('black'));
+        const structure = this.getStructure(board);
         const inCurrentGames = !!$(el).closest('.now-playing').length;
         const structureName = await this.getStructureName(structure, inCurrentGames);
         this.addStructureAnchor(el, structureName, structure);
@@ -357,9 +357,7 @@
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
-      const analysisOrientation = analysis?.getOrientation();
-      const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
-      const structure = await this.getStructure(board, isBlackOrientation);
+      const structure = await this.getStructure(board);
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();
