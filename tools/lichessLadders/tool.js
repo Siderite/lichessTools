@@ -405,7 +405,7 @@
                     )
           )
           .appendTo(main);
-        displayChallenges(userChallenges,section);
+        await displayChallenges(userChallenges,section);
       }
       if (upcomingChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-upcomingChallenges">')
@@ -418,7 +418,7 @@
                     )
           )
           .appendTo(main);
-        displayChallenges(upcomingChallenges,section);
+        await displayChallenges(upcomingChallenges,section);
       }
       if (liveChallenges?.length) {
         const section = $('<div class="lichessTools-lichessLadders-liveChallenges">')
@@ -431,7 +431,7 @@
                     )
           )
           .appendTo(main);
-        displayChallenges(liveChallenges,section);
+        await displayChallenges(liveChallenges,section);
       }
       lt.uiApi.initializeDom(main[0]);
     };
