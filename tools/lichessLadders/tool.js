@@ -261,7 +261,7 @@
           const id = e.attr('data-live');
           const orientation = e.attr('data-orientation');
           e.attr('href','/'+id+'/'+orientation)
-           .addClass('mini-game mini-game--init')
+           .addClass('mini-game mini-game--init mini-game-'+id)
            .append('<span class="cg-wrap"></span>');
         });
       lichess.powertip?.manualUserIn(result[0]);
