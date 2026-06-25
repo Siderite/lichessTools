@@ -273,7 +273,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (analysis.gamebookPlay() || lt.isGamePlaying()) return;
+      if (analysis.gamebookPlay()) return;
       if (['hybrid', 'chessbase'].includes(this.options.value)) {
         const board = $('div.main-board');
         if (!board.prop('forkBehavior_init')) {
