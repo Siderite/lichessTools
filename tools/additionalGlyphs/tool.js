@@ -3,22 +3,20 @@
 
     dependencies = ['EmitRedraw'];
 
-    // TODO remove disableLiveAnnotate and use analysis.settings.showLiveGlyphs when available
     preferences = [
       {
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty','disableLiveAnnotate'],
-        defaultValue: 'enabled,mate,book,miss,slow,disableLiveAnnotate',
+        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty'],
+        defaultValue: 'enabled,mate,book,miss,slow',
         advanced: true
       }
     ];
 
     upgrades = [
       { name:'additionalGlyphs', value:'miss', version: '2.4.44', type: 'new' },
-      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' },
-      { name:'additionalGlyphs', value:'disableLiveAnnotate', version: '2.4.205', type: 'new' }
+      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' }
     ];
 
     intl = {
@@ -30,8 +28,7 @@
         'additionalGlyphs.book': 'Book',
         'additionalGlyphs.miss': 'Miss',
         'additionalGlyphs.slow': 'Slow',
-        'additionalGlyphs.novelty': 'Novelty',
-        'additionalGlyphs.disableLiveAnnotate': 'Disable Live Annotate'
+        'additionalGlyphs.novelty': 'Novelty'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -41,8 +38,7 @@
         'additionalGlyphs.book': 'Deschidere',
         'additionalGlyphs.miss': 'Rateu',
         'additionalGlyphs.slow': 'Lent',
-        'additionalGlyphs.novelty': 'Noutate',
-        'additionalGlyphs.disableLiveAnnotate': 'Dezactiveaz\u0103 Live Annotate'
+        'additionalGlyphs.novelty': 'Noutate'
       }
     }
 
@@ -173,9 +169,7 @@
       const node = analysis?.node;
       if (!node) return;
 
-      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
-        ? analysis.showStaticAnalysis()
-        : analysis?.settings?.showStaticAnalysis;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
       $('body').toggleClassSafe('lichessTools-compOff',!showStaticAnalysis && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
@@ -388,17 +382,8 @@
         book: lt.isOptionSet(value, 'book'),
         miss: lt.isOptionSet(value, 'miss'),
         slow: lt.isOptionSet(value, 'slow'),
-        novelty: lt.isOptionSet(value, 'novelty'),
-        disableLiveAnnotate: lt.isOptionSet(value, 'disableLiveAnnotate')
+        novelty: lt.isOptionSet(value, 'novelty')
       };
-      if (this.options.disableLiveAnnotate && analysis.liveAnnotate) {
-        analysis._liveAnnotate = analysis.liveAnnotate;
-        analysis.liveAnnotate = null;
-      }
-      if (!this.options.disableLiveAnnotate && analysis._liveAnnotate) {
-        analysis.liveAnnotate = analysis._liveAnnotate;
-        analysis._liveAnnotate = null;
-      }
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);

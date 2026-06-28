@@ -41,9 +41,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
-          ? analysis.showStaticAnalysis()
-          : analysis?.settings?.showStaticAnalysis;
+        const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
         if (!showStaticAnalysis && !analysis?.cevalEnabled()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval || analysis.node.eval;
@@ -80,9 +78,7 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
-          ? analysis.showStaticAnalysis()
-          : analysis?.settings?.showStaticAnalysis;
+        const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
         if (!showStaticAnalysis) return;
         const traverse = (node, path) => {
           let evl = node.eval;
@@ -144,9 +140,7 @@
       if (analysis.toggleStaticAnalysis) { //TODO remove this when Lichess code stabilizes
         analysis.toggleStaticAnalysis = lt.unwrapFunction(analysis.toggleStaticAnalysis,'cevalDecimals');
       } else 
-      if (analysis.settings) {
-        analysis.settings.set = lt.unwrapFunction(analysis.settings.set,'cevalDecimals');
-      }
+      analysis.settings.set = lt.unwrapFunction(analysis.settings.set,'cevalDecimals');
       $('.lichessTools-cevalDecimals').remove();
       if (!value) return;
       if (analysis.toggleStaticAnalysis) { //TODO remove this when Lichess code stabilizes
@@ -158,8 +152,7 @@
             this.showDecimalsMoves();
           }
         });
-      } else
-      if (analysis.settings) {
+      } else {
         analysis.settings.set = lt.wrapFunction(analysis.settings.set, {
           id: 'cevalDecimals',
           after: ($this,result,...args)=>{

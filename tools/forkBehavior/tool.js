@@ -322,9 +322,7 @@
               if (!this.inForkClick && (nextSansCount > 1 || nextTranspos.length)) {
                 switch (this.options.value) {
                   case 'hybrid':
-                    const disclosureMode = analysis.disclosureMode //TODO remove this when Lichess code stabilizes
-                      ? analysis.disclosureMode()
-                      : analysis.settings?.disclosureMode;
+                    const disclosureMode = analysis.settings?.disclosureMode;
                     if (disclosureMode) break;
                     if (this.variationSelect != analysis.path) {
                       this.variationSelect = analysis.path;

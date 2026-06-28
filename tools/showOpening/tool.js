@@ -41,9 +41,7 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
-        ? analysis.showStaticAnalysis()
-        : analysis?.settings?.showStaticAnalysis;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
       if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
@@ -295,9 +293,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.showStaticAnalysis //TODO remove this when Lichess code stabilizes
-        ? analysis.showStaticAnalysis()
-        : analysis?.settings?.showStaticAnalysis;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
       if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
