@@ -753,6 +753,7 @@
       const analysis = lt.lichess.analysis;
 
       const minSegmentLength = 3;
+      const M = 16;
 
       const evalData = mainline
         .map((node, x) => {
@@ -768,43 +769,49 @@
             cp: ceval ? this.getCp(ceval) : null
           };
         })
-        .filter(i=>i.cp!==null);
+        .filter(i => i.cp !== null);
 
       const n = evalData.length;
       if (mainline.length < 2 * minSegmentLength + 1) {
         return null;
       }
-    
+
       const prefixSum   = new Float64Array(n + 1);
       const prefixSumSq = new Float64Array(n + 1);
 
       for (let i = 0; i < n; i++) {
         const cp = evalData[i].cp;
         prefixSum[i + 1]   = prefixSum[i]   + cp;
-        prefixSumSq[i + 1] = prefixSumSq[i] + cp*cp;
+        prefixSumSq[i + 1] = prefixSumSq[i] + cp * cp;
       }
 
       function segmentLogLik(start, end) {
-        const m    = end - start;
-        const sum  = prefixSum[end]   - prefixSum[start];
-        const sumSq= prefixSumSq[end] - prefixSumSq[start];
-        const mean = sum / m;
-        const ss   = Math.max(sumSq - m * mean * mean, 1e-10);
+        const m     = end - start;
+        const sum   = prefixSum[end]   - prefixSum[start];
+        const sumSq = prefixSumSq[end] - prefixSumSq[start];
+        const mean  = sum / m;
+        const ss    = Math.max(sumSq - m * mean * mean, 1e-10);
         return -(m / 2) * Math.log(ss);
       }
 
-      const nullLogLik = segmentLogLik(0, n);
-
       const allScores = new Float64Array(n).fill(0);
-      for (let tau = minSegmentLength; tau < n - minSegmentLength; tau++) {
-        const score = segmentLogLik(0, tau) + segmentLogLik(tau, n) - nullLogLik;
+      for (let tau = 0; tau < n; tau++) {
+        const left  = Math.min(M, tau);              // points available to the left
+        const right = Math.min(M, n - tau);           // points available to the right
+        if (left < minSegmentLength || right < minSegmentLength) {
+          continue; // not enough data on one side to make a meaningful local comparison
+        }
+        const start = tau - left;
+        const end   = tau + right;
+        const score = segmentLogLik(start, tau) + segmentLogLik(tau, end) - segmentLogLik(start, end);
         allScores[tau] = score;
       }
+
       const result = mainline
         .map((node, x) => {
-          const index = evalData.findIndex(i=>i.x==x);
+          const index = evalData.findIndex(i => i.x == x);
           return {
-            y: index>=0 ? allScores[index]/200 : 0,
+            y: index >= 0 ? allScores[index] / (M * 7) : 0,
             x: x
           };
         });
