@@ -366,13 +366,31 @@
           if (ladder.level=='team') {
             icon = lt.icon.Group;
           }
-          $('<a class="ladder">')
+          const elem = $('<a class="ladder">')
             .attr('data-type-icon',icon)
             .attr('title',ladder.name+'\r\n'+ladder.description)
             .attr('href', 'https://lichessladders.com/ladders/'+ladder.id)
             .append($('<span>').text(text))
             .toggleClass('joined',!!ladder.joined)
             .appendTo(container);
+          if (ladder.joined) {
+            lt.api.lichessladders.getUserLadder(laddersId, ladder.id).then(data=>{
+              elem
+                .attr('data-count',data?.openChallengeCount)
+                .addClass('data-count')
+                .append(
+                  $('<span class="ranking">').text(data?.ranking)
+                );
+              const delta = data?.previousChallenge?.previousRanking - data?.previousChallenge?.newRanking;
+              if (delta) {
+                elem.append(
+                  $('<span class="delta">')
+                    .attr('data-icon',delta>0 ? lt.icon.UpwardsWhiteArrow : lt.icon.DownwardsWhiteArrow)
+                    .addClass(delta>0 ? 'green' : 'red')
+                );
+              }
+            });
+          }
         }
       }
 

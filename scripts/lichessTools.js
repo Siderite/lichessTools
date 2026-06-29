@@ -2313,6 +2313,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getUserLadder', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
       },
       blog: {
         lichessTools: this,
@@ -3018,7 +3019,7 @@
 
           const result = await lt.comm.fetchText('https://api.lichessladders.com/users/'+laddersId+'/ladders');
           if (!result?.text) {
-            throw new Error('Could not get the ladders data for ladderId '+laddersId+' '+(result?.err||''));
+            throw new Error('Could not get the ladders data for Ladders id '+laddersId+' '+(result?.err||''));
           }
           const data = lt.global.JSON.parse(result.text);
           return data;
@@ -3039,6 +3040,18 @@
           const result = await lt.comm.fetchText('https://api.lichessladders.com/challenges/live');
           if (!result?.text) {
             throw new Error('Could not get the live challenges data '+(result?.err||''));
+          }
+          const data = lt.global.JSON.parse(result.text);
+          return data;
+        },
+        getUserLadder: async function(laddersId,ladderId) {
+          const lt = this.lichessTools;
+          if (!laddersId) throw new Error('laddersId cannot be empty');
+          if (!ladderId) throw new Error('ladderId cannot be empty');
+
+          const result = await lt.comm.fetchText('https://api.lichessladders.com/ladders/'+ladderId+'/users/'+laddersId);
+          if (!result?.text) {
+            throw new Error('Could not get the ladders data for Ladders id '+laddersId+' and ladder id '+ladderId+' '+(result?.err||''));
           }
           const data = lt.global.JSON.parse(result.text);
           return data;

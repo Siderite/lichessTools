@@ -139,6 +139,33 @@ body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
   }
 }
 
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
+  right: 0.25em;
+  top: 0.25em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .ranking {
+  position: absolute;
+  left: 0.25em;
+  bottom: 0.25em;
+  font-size: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta {
+  position: absolute;
+  right: 0.25em;
+  bottom: 0.25em;
+  font-size: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.green {
+  color: var(--c-good);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.red {
+  color: var(--c-bad);
+}
+
 body.lichessTools main.lichessTools-lichessLadders h2 {
   padding: 0.5em;
 }
