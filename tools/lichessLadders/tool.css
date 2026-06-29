@@ -122,23 +122,6 @@ body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
   pointer-events:none;
 }
 
-@media (max-width: 1000px) {
-  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
-    min-width: 3em;
-    min-height: 3em;
-    max-width: 3em;
-    max-height: 3em;
-  }
-
-  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
-    font-size: 1em;
-  }
-
-  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
-    font-size: 2.5em;
-  }
-}
-
 body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
   right: 0.25em;
   top: 0.25em;
@@ -164,6 +147,36 @@ body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.gree
 
 body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.red {
   color: var(--c-bad);
+}
+
+@media (max-width: 1000px) {
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
+    min-width: 3em;
+    min-height: 3em;
+    max-width: 3em;
+    max-height: 3em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
+    font-size: 1em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
+    font-size: 2.5em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
+    font-size: 0.66em;
+    padding: 0 2px;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .ranking {
+    font-size: 0.66em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta {
+    font-size: 0.66em;
+  }
 }
 
 body.lichessTools main.lichessTools-lichessLadders h2 {
