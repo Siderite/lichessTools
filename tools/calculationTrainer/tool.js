@@ -439,7 +439,6 @@
         .text(trans.noarg('calculationTrainerText'))
         .attr('title', trans.noarg('calculationTrainerTitle'))
         .on('click',async (ev)=>{
-          // TODO remember position and size
           ev.preventDefault();
           const dlg = await lt.dialog({
             header: trans.noarg('calculationTrainerHeader'),

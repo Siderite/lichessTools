@@ -137,33 +137,20 @@
         .observer()
         .off('div.ceval pearl, div.ceval.enabled ~ div.pv_box .pv',this.showDecimals)
         .off('move, eval',this.showDecimalsMoves);
-      if (analysis.toggleStaticAnalysis) { //TODO remove this when Lichess code stabilizes
-        analysis.toggleStaticAnalysis = lt.unwrapFunction(analysis.toggleStaticAnalysis,'cevalDecimals');
-      } else 
       analysis.settings.set = lt.unwrapFunction(analysis.settings.set,'cevalDecimals');
       $('.lichessTools-cevalDecimals').remove();
       if (!value) return;
-      if (analysis.toggleStaticAnalysis) { //TODO remove this when Lichess code stabilizes
-        analysis.toggleStaticAnalysis = lt.wrapFunction(analysis.toggleStaticAnalysis, {
-          id: 'cevalDecimals',
-          after: ($this,result,...args)=>{
-            $('.lichessTools-cevalDecimals').remove();
-            this.showDecimals();
-            this.showDecimalsMoves();
-          }
-        });
-      } else {
-        analysis.settings.set = lt.wrapFunction(analysis.settings.set, {
-          id: 'cevalDecimals',
-          after: ($this,result,...args)=>{
-            if (args?.[0]!='showStaticAnalysis') return;
 
-            $('.lichessTools-cevalDecimals').remove();
-            this.showDecimals();
-            this.showDecimalsMoves();
-          }
-        });
-      }
+      analysis.settings.set = lt.wrapFunction(analysis.settings.set, {
+        id: 'cevalDecimals',
+        after: ($this,result,...args)=>{
+          if (args?.[0]!='showStaticAnalysis') return;
+
+          $('.lichessTools-cevalDecimals').remove();
+          this.showDecimals();
+          this.showDecimalsMoves();
+        }
+      });
       lt.pubsub.on('lichessTools.redraw', this.setupObserver);
       this.setupObserver();
       this.showDecimals();

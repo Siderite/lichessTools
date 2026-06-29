@@ -668,9 +668,7 @@
           analysis.showEvalGauge = lt.wrapFunction(analysis.showEvalGauge, {
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
-              const showGauge = $this.showGauge //TODO remove this when Lichess code stabilizes
-                ? $this.showGauge()
-                : $this.settings.showGauge;
+              const showGauge = $this.settings.showGauge;
               return showGauge
                      && $this.showEvaluation()
                      && $this.isCevalAllowed()
