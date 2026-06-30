@@ -111,7 +111,7 @@
       }
       arr.transpositionStartIndex = arr.length;
       if (noTranspositions || !lt.transpositionBehavior?.consideredVariations || !node.transposition) return arr;
-      let transpositions = node.transposition.filter(n => n !== node);
+      let transpositions = node.transposition().filter(n => n !== node);
       if (lt.transpositionBehavior?.excludeSameLine) {
         transpositions = transpositions?.filter(n => n.path && !n.path.startsWith(node.path) && !node.path.startsWith(n.path));
       }

@@ -1054,7 +1054,7 @@
           pos.push(node);
           if (pos.length > 1) {
             for (const transpoNode of pos) {
-              transpoNode.transposition = pos;
+              transpoNode.transposition = ()=>pos;
             }
           } else {
             node.transposition = null;

@@ -47,7 +47,7 @@
         return;
       }
       this.state = lt.traverse();
-      let transpositions = currNode.transposition;
+      let transpositions = currNode.transposition?.();
       if (lt.transpositionBehavior?.excludeSameLine) {
         transpositions = transpositions?.filter(n => n === currNode || (n.path && !n.path.startsWith(nodePath) && !nodePath.startsWith(n.path)));
       }

@@ -143,7 +143,7 @@
       if (this.options.transposition) {
         const currentNode = lichess.analysis.node;
         lt.assertPathSet(currentNode);
-        let transpositions = currentNode.transposition;
+        let transpositions = currentNode.transposition?.();
         if (lt.transpositionBehavior?.excludeSameLine) {
           transpositions = transpositions?.filter(n => n === currentNode || (n.path && !n.path.startsWith(currentNode.path) && !currentNode.path.startsWith(n.path)));
         }
