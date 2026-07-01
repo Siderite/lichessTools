@@ -170,27 +170,15 @@
       return `${dateStr} ${timeStr}`;
     };
 
-    createChallengeElem = async (challenge) => {
+    createChallengeElem = async (challenge, elems) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
       const userId = lt.getUserId();
 
-      let game = null;
       if (challenge?.challenge) {
-        game = challenge.gameStatus;
         challenge = challenge.challenge;
-      }
-      if (!game && challenge.gameId) {
-        const mini = await lt.api.game.getMini(challenge.gameId);
-        const state = $(mini).attr('data-state')?.split(',');
-        if (state?.length == 3) {
-          game = {
-            fen: state[0],
-            lastMove: state[2]
-          };
-        }
       }
 
       const encodeURIComponent = lt.global.encodeURIComponent;
@@ -211,9 +199,6 @@
           </div>
         </div>
         <div class="footer">
-          <a data-live="$gameId$" data-orientation="$challengerOrientation$" class="mini-game" data-state="$gameState$">
-            <span class="gameTime">$gameTime$</span>
-          </a>
         </div>
       </div>`;
       let key = challenge.ladder?.type+'Rating';
@@ -221,7 +206,6 @@
       const challengerName = challenge.fromUser?.lichessName;
       const challengerColor = challenge.challengerIsWhite ? 'white' : 'black';
       const challengerMeta = (challenge.fromUser?.[key] || '')+(challenge.fromUser?.[key+'IsProvisional']?'?':'');
-      const challengerOrientation = challenge.challengerIsWhite ? 'white' : 'black';
       key = challenge.ladder?.type+'Rating';
       if (!challenge.toUser?.[key]) key = 'classicalRating';
       const defenderName = challenge.toUser?.lichessName;
@@ -234,14 +218,10 @@
         challengerName: lt.htmlEncode(challengerName),
         challengerColor: challengerColor,
         challengerMeta: lt.htmlEncode(challengerMeta),
-        challengerOrientation: challengerOrientation,
         defenderUrl: challenge.toUser?.lichessURL,
         defenderName: lt.htmlEncode(defenderName),
         defenderColor: defenderColor,
-        defenderMeta: lt.htmlEncode(defenderMeta),
-        gameId: challenge.gameId ? encodeURIComponent(challenge.gameId) : '',
-        gameTime: challenge.dateScheduled ? this.toDateTimeString(challenge.dateScheduled) : '',
-        gameState: game ? [game?.fen?.split(' ')?.slice(0,2)?.join(' ')||'',challengerOrientation,game?.lastMove].join(',') : ''
+        defenderMeta: lt.htmlEncode(defenderMeta)
       };
       html = html.replace(/\$(.*?)\$/g, function (m, key) {
         const value = data.hasOwnProperty(key)
@@ -265,6 +245,13 @@
            .append('<span class="cg-wrap"></span>');
         });
       lichess.powertip?.manualUserIn(result[0]);
+
+      if (challenge.gameId) {
+        const gameElem = elems.find(e=>e.gameId == challenge.gameId);
+        if (gameElem) {
+          result.find('.footer').append(gameElem);
+        }
+      }
       if (!challenge.gameId && userId?.toLowerCase()==challenge.fromUser?.lichessId?.toLowerCase()) {
         const variant = challenge.ladder?.type == 'chess960' ? 'chess960' : 'standard';
         let challengeUrl = '/?user='+encodeURIComponent(challenge.toUser?.lichessId)+'&variant='+variant+'&gameMode=rated';
@@ -321,6 +308,13 @@
         const v2 = (l2.joined ? -10000000 : 0)+l2.id;
         return v1-v2;
       });
+
+      const gameData = [...userChallenges,...upcomingChallenges,...liveChallenges]
+                         .map(c=>c.challenge ? c.challenge : c)
+                         .map(c=>({ id: c.gameId, color: c.challengerIsWhite ? 'white' : 'black' }))
+                         .filter(d=>d.id);
+      const gameElems = await lt.api.game.getMinis(gameData);
+
 
       const main = $('#main-wrap main')
         .empty()
@@ -408,7 +402,7 @@
             .appendTo(container);
           const ladderElem = $('<div>').appendTo(container);
           for (const challenge of ladderChallenges) {
-            const elem = await this.createChallengeElem(challenge);
+            const elem = await this.createChallengeElem(challenge,gameElems);
             elem.appendTo(ladderElem);
           }
         }

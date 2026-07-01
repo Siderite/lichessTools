@@ -525,14 +525,9 @@
                     .text(translationText)
                     .attr('title', translationTitle))
                   .append(container));
-              for (const m of matches) {
-                const gameId = m[1];
-                const color = m[2];
-                await lt.timeout(500);
-                text = await lt.api.game.getMini(gameId, color);
-                if (!text) continue;
-                container.append(text);
-              }
+              const gameData = [...matches].map(m=>({ id: m[1], color: m[2]}));
+              const elems = await lt.api.game.getMinis(gameData);
+              container.append(elems);
               lt.uiApi.initializeDom(container[0]);
             }
           }

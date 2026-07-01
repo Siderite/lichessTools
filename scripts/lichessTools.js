@@ -2608,6 +2608,52 @@
           });
           return html;
         },
+        getMinis: async function (gameData) {
+          const lt = this.lichessTools;
+          const ids = gameData.map(d=>d.id);
+          let url='';
+          const result = [];
+          while (ids.length) {
+            url+=','+ids.splice(0,1)[0];
+            if (url.length>1900) {
+              const html = await lt.net.fetch('/round/minis?ids='+url.slice(1));
+              $('<div>').append(html).find('a')
+                .each((i,e)=>result.push(e));
+              url='';
+              await lt.timeout(500);
+            }
+          }
+          if (!url.endsWith('=')) {
+            const html = await lt.net.fetch('/round/minis?ids='+url.slice(1));
+            $('<div>').append(html).find('a')
+              .each((i,e)=>result.push(e));
+          }
+
+          const flip = (el)=>{
+            const elem = $(el);
+            const id = elem.attr('href').slice(1);
+            const state = elem.attr('data-state');
+            elem
+              .attr('href','/'+id+'/black')
+              .attr('data-state',state.replace(',white,',',black,'));
+            const [blackPlayer,board,whitePlayer] = elem.children('span').get();
+            $(blackPlayer).find('.mini-game__clock--black')
+              .removeClass('mini-game__clock--black')
+              .addClass('mini-game__clock--white');
+            $(whitePlayer).find('.mini-game__clock--white')
+              .removeClass('mini-game__clock--white')
+              .addClass('mini-game__clock--black');
+            elem.empty().append([whitePlayer,board,blackPlayer]);
+          };
+
+          for (const elem of result) {
+            const id = $(elem).attr('href').slice(1);
+            const color = gameData.find(d=>d.id==id).color;
+            if (color?.toLowerCase()=='black') flip(elem);
+            elem.gameId = id;
+          }
+          return result;
+        },
         deleteImported: async function(gameId) {
           const lt = this.lichessTools;
           await lt.net.fetch({ url: '/{id}/delete', args: { id: gameId } },{ method: 'POST' });
