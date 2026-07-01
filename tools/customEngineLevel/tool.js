@@ -446,9 +446,9 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      lt.unbindKeyHandler('plus', true);
+      lt.unbindKeyHandler('+', true);
       if (this.options.plus) {
-        lt.bindKeyHandler('plus', this.goDeeper);
+        lt.bindKeyHandler('+', this.goDeeper);
       }
       lt.pubsub.off('lichessTools.redraw', this.analysisControls);
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
