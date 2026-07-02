@@ -415,6 +415,7 @@
         ceval.isDeeper(true);
       }
       analysis.node.autoDeeper = 99;
+      lt.analysisRedraw();
     };
 
     async start() {

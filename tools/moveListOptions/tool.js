@@ -530,7 +530,7 @@
 
       if (analysis.path != nodePath) {
         analysis.jump(nodePath);
-        analysis.redraw();
+        lt.analysisRedraw();
         while (analysis.path != nodePath) {
           await lt.timeout(50);
         }

@@ -60,7 +60,6 @@
       }
       if (redraw) {
         chessground?.state?.dom?.redrawNow();
-        //analysis.redraw();
       }
     };
 
