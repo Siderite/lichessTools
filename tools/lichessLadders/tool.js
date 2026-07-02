@@ -235,22 +235,18 @@
       result.find('a[data-live=""]')
         .removeAttr('data-live')
         .addClass('nolink');
-      result.find('a[data-live]')
-        .each((i,e)=>{
-          e=$(e);
-          const id = e.attr('data-live');
-          const orientation = e.attr('data-orientation');
-          e.attr('href','/'+id+'/'+orientation)
-           .addClass('mini-game mini-game--init mini-game-'+id)
-           .append('<span class="cg-wrap"></span>');
-        });
-      lichess.powertip?.manualUserIn(result[0]);
 
       if (challenge.gameId) {
-        const gameElem = elems.find(e=>e.gameId == challenge.gameId);
-        if (gameElem) {
-          result.find('.footer').append(gameElem);
+        const id = challenge.gameId;
+        let gameElem = elems.find(e=>e.gameId == id);
+        if (!gameElem) {
+          gameElem = $('<a>')
+                       .attr('href','/'+id)
+                       .attr('data-state',challenge.challengerIsWhite ? ',white,' : ',black,')
+                       .addClass('mini-game mini-game--init mini-game-'+id)
+                       .append('<span class="cg-wrap"></span>');
         }
+        result.find('.footer').append(gameElem);
       }
       if (!challenge.gameId && userId?.toLowerCase()==challenge.fromUser?.lichessId?.toLowerCase()) {
         const variant = challenge.ladder?.type == 'chess960' ? 'chess960' : 'standard';
