@@ -13,6 +13,11 @@ body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-pr
     min-height: 100%;
   }
 
+  body.lichessTools .analyse__tools .action-menu__tools >a,
+  body.lichessTools .analyse__tools .action-menu__tools button {
+    min-height: 2.5em;
+  }
+
   body.lichessTools .analyse__tools:has(.action-menu) :is(.ceval, .pv_box, .gamebook-edit, .practice-box, .retro-box) {
     display: none;
   }

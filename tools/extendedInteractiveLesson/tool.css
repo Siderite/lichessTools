@@ -371,6 +371,11 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
     min-height: 100%;
   }
 
+  body.lichessTools .analyse__tools .action-menu__tools >a,
+  body.lichessTools .analyse__tools .action-menu__tools button {
+    min-height: 2.5em;
+  }
+
   body.lichessTools .analyse__tools:has(.action-menu) :is(.ceval, .pv_box, .gamebook-edit, .practice-box, .retro-box) {
     display: none;
   }
