@@ -232,9 +232,6 @@
       const result = $(html);
       result.find('.vs')
         .attr('data-icon',lt.icon.Swords);
-      result.find('a[data-live=""]')
-        .removeAttr('data-live')
-        .addClass('nolink');
 
       if (challenge.gameId) {
         const id = challenge.gameId;
@@ -242,6 +239,7 @@
         if (!gameElem) {
           gameElem = $('<a>')
                        .attr('href','/'+id)
+                       .attr('data-live',id)
                        .attr('data-state',challenge.challengerIsWhite ? ',white,' : ',black,')
                        .addClass('mini-game mini-game--init mini-game-'+id)
                        .append('<span class="cg-wrap"></span>');

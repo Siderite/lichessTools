@@ -55,12 +55,6 @@ body.lichessTools main.lichessTools-lichessLadders > div {
   margin-top: 2em;
 }
 
-body.lichessTools main.lichessTools-lichessLadders a.nolink {
-  color: inherit;
-  text-decoration: none;
-  cursor: default;
-}
-
 body.lichessTools main.lichessTools-lichessLadders div[class^="lichessTools-lichessLadders-"] > div {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
