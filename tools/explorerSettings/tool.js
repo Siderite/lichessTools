@@ -194,7 +194,7 @@
                      explorer.config.selectPlayer(playerName);
                    }
                    this.showSettingsDirect();
-                   analysis.redraw();
+                   lt.analysisRedraw();
                  })
                  .appendTo(engines);
            }
@@ -219,7 +219,7 @@
                    lt.storage.set('LiChessTools.chessagineRating',rating);
                    const playerName = '!lt_'+engine+'_'+rating;
                    explorer.config.selectPlayer(playerName);
-                   analysis.redraw();
+                   lt.analysisRedraw();
                  })
                  .appendTo(ratings);
            }

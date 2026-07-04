@@ -668,7 +668,8 @@
           analysis.showEvalGauge = lt.wrapFunction(analysis.showEvalGauge, {
             id: 'mobileExperience',
             after: ($this, result, ...args) => {
-              return $this.showGauge()
+              const showGauge = $this.settings.showGauge;
+              return showGauge
                      && $this.showEvaluation()
                      && $this.isCevalAllowed()
                      && !$this.node.outcome();

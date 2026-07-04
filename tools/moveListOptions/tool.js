@@ -1,7 +1,7 @@
 (() => {
   class MoveListOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange', 'DetectThirdParties', 'GamebookPlayClass'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'EmitCommentChange', 'DetectThirdParties', 'GamebookPlayClass', 'ExportPGN'];
 
     preferences = [
       {
@@ -318,7 +318,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
       $('.tview2').toggleClassSafe('lichessTools-indentedVariations', this.options.indentedVariations);
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
 
@@ -530,7 +530,7 @@
 
       if (analysis.path != nodePath) {
         analysis.jump(nodePath);
-        analysis.redraw();
+        lt.analysisRedraw();
         while (analysis.path != nodePath) {
           await lt.timeout(50);
         }

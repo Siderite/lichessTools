@@ -3200,6 +3200,12 @@
     "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Ng3/5...Bg6/6. h4/6...h6/7. Nf3/7...Nd7/8. h5/8...Bh7/9. Bd3/9...Bxd3/10. Qxd3/10...e6/11. Bf4/11...Qa5",
     "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Ng3/5...Bg6/6. h4/6...h6/7. Nf3/7...Nd7/8. h5/8...Bh7/9. Bd3/9...Bxd3/10. Qxd3/10...e6/11. Bf4/11...Qa5+"
   ],
+  "r3kbnrpp1n1pp12p1p2pq6P3P43Q1NN1PPPB1PP1R3K2Rb": [
+    "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Ng3/5...Bg6/6. h4/6...h6/7. Nf3/7...Nd7/8. h5/8...Bh7/9. Bd3/9...Bxd3/10. Qxd3/10...e6/11. Bf4/11...Qa5/12. Bd2"
+  ],
+  "r3k1nrpp1n1pp12p1p2pq6P1b1P43Q1NN1PPPB1PP1R3K2Rw": [
+    "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Ng3/5...Bg6/6. h4/6...h6/7. Nf3/7...Nd7/8. h5/8...Bh7/9. Bd3/9...Bxd3/10. Qxd3/10...e6/11. Bf4/11...Qa5/12. Bd2/12...Bb4"
+  ],
   "r3kbnrppqnppp12p4p7P3P43Q1NN1PPP2PP1R1B1K2Rw": [
     "Chess Opening Theory/1. e4/1...c6/2. d4/2...d5/3. Nc3/3...dxe4/4. Nxe4/4...Bf5/5. Ng3/5...Bg6/6. h4/6...h6/7. Nf3/7...Nd7/8. h5/8...Bh7/9. Bd3/9...Bxd3/10. Qxd3/10...Qc7"
   ],
@@ -6453,6 +6459,9 @@
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Nc3/3...Nf6/4. Nxe5",
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nf6/3. Nxe5/3...Nc6/4. Nc3"
   ],
+  "r1bqkb1rpppp1ppp2n54N34n32N5PPPP1PPPR1BQKB1Rw": [
+    "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Nc3/3...Nf6/4. Nxe5/4...Nxe4"
+  ],
   "r1bqkb1rpppp1ppp5n24n34P32N5PPPP1PPPR1BQKB1Rw": [
     "Chess Opening Theory/1. e4/1...e5/2. Nf3/2...Nc6/3. Nc3/3...Nf6/4. Nxe5/4...Nxe5"
   ],
@@ -7272,6 +7281,9 @@
   ],
   "rnbqkb1rpppppppp1n64P32P58PP1P1PPPRNBQKBNRw": [
     "Chess Opening Theory/1. e4/1...Nf6/2. e5/2...Nd5/3. c4/3...Nb6"
+  ],
+  "rnbqkb1rpppppppp1n64P3P1P581P1P1PPPRNBQKBNRb": [
+    "Chess Opening Theory/1. e4/1...Nf6/2. e5/2...Nd5/3. c4/3...Nb6/4. a4"
   ],
   "rnbqkb1rpppppppp1n62P1P388PP1P1PPPRNBQKBNRb": [
     "Chess Opening Theory/1. e4/1...Nf6/2. e5/2...Nd5/3. c4/3...Nb6/4. c5"

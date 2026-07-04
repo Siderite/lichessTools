@@ -768,9 +768,23 @@ Varia\u0163ii urm\u0103toare: $branches`,
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);
       }
-      if (((this.options.moveEval && analysis.study) || this.options.lineEval) && !$('div.lichessTools-liveStatus').length) {
-        $('main.analyse div.analyse__controls.analyse-controls')
-          .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
+      if (analysis.ceval) {
+        analysis.ceval.available = lt.unwrapFunction(analysis.ceval.available,'analysisContextActions');
+      }
+      if ((this.options.moveEval && analysis.study) || this.options.lineEval) {
+        if (!$('div.lichessTools-liveStatus').length) {
+          $('main.analyse div.analyse__controls.analyse-controls')
+            .after('<div class="lichessTools-liveStatus analyse__controls"><label></label></div>');
+        }
+        if (analysis.ceval) {
+          analysis.ceval.available = lt.wrapFunction(analysis.ceval.available,{
+            id: 'analysisContextActions',
+            after: ($this,result,...args)=>{
+              if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
+              return $this.analysable; 
+            }
+          });
+        }
       }
       lt.pubsub.off('lichessTools.redraw', this.ensureShowOnEmpty);
       lt.pubsub.on('lichessTools.redraw', this.ensureShowOnEmpty);

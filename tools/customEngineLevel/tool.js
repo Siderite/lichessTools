@@ -1,7 +1,7 @@
 (() => {
   class CustomEngineLevelTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw','EmitCeval'];
 
     preferences = [
       {
@@ -111,7 +111,7 @@
       
 
       $('.tview2').toggleClassSafe('lichessTools-noCloud', this.options.noCloud || (isExternalEngine && this.options.noCloudExternal));
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
       if (!$('h2.lichessTools-separator', container).length) {
@@ -415,6 +415,7 @@
         ceval.isDeeper(true);
       }
       analysis.node.autoDeeper = 99;
+      lt.analysisRedraw();
     };
 
     async start() {
@@ -446,9 +447,9 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      lt.unbindKeyHandler('plus', true);
+      lt.unbindKeyHandler('+', true);
       if (this.options.plus) {
-        lt.bindKeyHandler('plus', this.goDeeper);
+        lt.bindKeyHandler('+', this.goDeeper);
       }
       lt.pubsub.off('lichessTools.redraw', this.analysisControls);
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);

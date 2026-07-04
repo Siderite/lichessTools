@@ -200,7 +200,7 @@
       return result;
     };
 
-    getStructureName = async (structure) => {
+    getStructureName = async (structure, onlyNamed) => {
       const lt = this.lichessTools;
       const threshold = this.options.fuzzy ? 90 : 100;
 
@@ -247,7 +247,7 @@
         return arrItem.value;
       }
 
-      if (this.options.onlyNamed) return null;
+      if (onlyNamed || this.options.onlyNamed) return null;
       return {
         name: structure.split(' ')[0],
         best: arrItem
@@ -294,7 +294,8 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -319,7 +320,7 @@
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        if ($(el).closest('.lichessTools-lichessLadders-userChallenges').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -327,8 +328,9 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board, $(el).attr('data-state')?.includes('black'));
-        const structureName = await this.getStructureName(structure);
+        const structure = this.getStructure(board);
+        const inCurrentGames = !!$(el).closest('.now-playing').length;
+        const structureName = await this.getStructureName(structure, inCurrentGames);
         this.addStructureAnchor(el, structureName, structure);
         fen = '';
       }
@@ -345,14 +347,13 @@
       if (this.isGamesPage()) {
         return;
       }
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
-      const analysisOrientation = analysis?.getOrientation();
-      const isBlackOrientation = (analysisOrientation && analysisOrientation == 'black') || $('.cg-wrap').eq(0).is('.orientation-black');
-      const structure = await this.getStructure(board, isBlackOrientation);
+      const structure = await this.getStructure(board);
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();
@@ -382,7 +383,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameStructure);
       lt.uiApi.events.off('ply', this.refreshStructureDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshStructureDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameStructureDebounced);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameStructureDebounced);
       lt.global.clearInterval(this.interval);
       $('body').observer()
         .off('input[type=checkbox]',this.miniGameStructure);
@@ -393,7 +394,7 @@
         lt.uiApi.socket.events.on('fen', this.miniGameStructure);
         lt.uiApi.events.on('ply', this.refreshStructureDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshStructureDebounced);
-        lt.pubsub.on('content-loaded', this.miniGameStructureDebounced);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameStructureDebounced);
         lt.global.setTimeout(this.refreshStructureDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshStructureDebounced, 1000);

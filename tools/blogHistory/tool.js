@@ -1,6 +1,8 @@
 (() => {
   class BlogHistoryTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitRedraw', 'EmitContentLoaded'];
+
     preferences = [
       {
         name: 'blogHistory',
@@ -114,7 +116,7 @@
         showVisited: lt.isOptionSet(value, 'showVisited'),
         persistView: lt.isOptionSet(value, 'persistView')
       };
-      lt.pubsub.off('content-loaded', this.processBlogCards);
+      lt.pubsub.off('lichessTools.contentLoaded', this.processBlogCards);
       lt.pubsub.off('lichessTools.redraw', this.processBlogCards);
       $('.ublog-post__meta')
         .observer()
@@ -131,7 +133,7 @@
             });
           this.processVisited();
         }
-        lt.pubsub.on('content-loaded', this.processBlogCards);
+        lt.pubsub.on('lichessTools.contentLoaded', this.processBlogCards);
         lt.pubsub.on('lichessTools.redraw', this.processBlogCards);
         this.processBlogCards();
       }

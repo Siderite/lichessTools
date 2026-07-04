@@ -22,9 +22,12 @@ body.lichessTools.lichessTools-miniGameSize .pv_box .pv-board {
   z-index: 100000;
 }
 
-body.lichessTools.lichessTools-miniGameSize div.puzzle__tools:has(.pv-board),
 body.lichessTools.lichessTools-miniGameSize div.analyse__tools:has(.pv-board) {
   overflow: visible;
+}
+
+body.lichessTools.lichessTools-miniGameSize div.puzzle__tools:has(.pv-board) {
+  overflow-x: visible;
 }
 
 body.lichessTools.lichessTools-miniGameSize .tv-games .page-menu__content {

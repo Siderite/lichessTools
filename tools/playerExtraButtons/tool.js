@@ -78,9 +78,9 @@
       this.options = {
         report: lt.isOptionSet(value, 'report')
       };
-      lt.pubsub.off('content-loaded',this.addButtons);
+      lt.pubsub.off('lichessTools.contentLoaded',this.addButtons);
       if (this.options.report) {
-        lt.pubsub.on('content-loaded',this.addButtons);
+        lt.pubsub.on('lichessTools.contentLoaded',this.addButtons);
         this.addButtons();
       }
     }

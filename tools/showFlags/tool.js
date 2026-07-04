@@ -288,14 +288,14 @@
       const lichess = lt.lichess;
       if (!lichess) return;
       const $ = lt.$;
-      lt.pubsub.off('content-loaded', this.debouncedProcessFlags);
+      lt.pubsub.off('lichessTools.contentLoaded', this.debouncedProcessFlags);
       lt.pubsub.off('lichessTools.puzzleStart', this.resetFlags);
       $('#form3-flag').off('change', this.clearCache);
       $('body').observer()
         .off('.user-link',this.refreshFlags,{attributes:true,attributeFilter:['href']});
       if (value) {
         this.debouncedProcessFlags();
-        lt.pubsub.on('content-loaded', this.debouncedProcessFlags);
+        lt.pubsub.on('lichessTools.contentLoaded', this.debouncedProcessFlags);
         lt.pubsub.on('lichessTools.puzzleStart', this.resetFlags);
         $('body').observer()
           .on('.user-link',this.refreshFlags,{attributes:true,attributeFilter:['href']});

@@ -143,7 +143,7 @@
         }
       )};
       lastStream.promise.then(()=>{
-        analysis.redraw();
+        lt.analysisRedraw();
         lastStream.sync = true;
       });
       explorer.lastStream = lastStream;

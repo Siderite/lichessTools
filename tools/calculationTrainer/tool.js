@@ -1,7 +1,7 @@
 (() => {
   class CalculationTrainerTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['Stockfish', 'ChessOps'];
+    dependencies = ['Stockfish', 'ChessOps', 'Dialog'];
 
     preferences = [
       {
@@ -439,7 +439,6 @@
         .text(trans.noarg('calculationTrainerText'))
         .attr('title', trans.noarg('calculationTrainerTitle'))
         .on('click',async (ev)=>{
-          // TODO remember position and size
           ev.preventDefault();
           const dlg = await lt.dialog({
             header: trans.noarg('calculationTrainerHeader'),

@@ -287,7 +287,7 @@
       const $ = lt.$;
 
       // Clean up existing event listeners
-      lt.pubsub.off('content-loaded', this.debouncedProcessGameCounts);
+      lt.pubsub.off('lichessTools.contentLoaded', this.debouncedProcessGameCounts);
       lt.pubsub.off('lichessTools.puzzleStart', this.resetGameCounts);
       $('body').observer()
         .off('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
@@ -295,7 +295,7 @@
       if (value) {
         // Enable: start processing and bind event listeners
         this.debouncedProcessGameCounts();
-        lt.pubsub.on('content-loaded', this.debouncedProcessGameCounts);
+        lt.pubsub.on('lichessTools.contentLoaded', this.debouncedProcessGameCounts);
         lt.pubsub.on('lichessTools.puzzleStart', this.resetGameCounts);
         $('body').observer()
           .on('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});

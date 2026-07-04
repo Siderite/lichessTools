@@ -273,7 +273,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
-      if (analysis.gamebookPlay() || lt.isGamePlaying()) return;
+      if (analysis.gamebookPlay()) return;
       if (['hybrid', 'chessbase'].includes(this.options.value)) {
         const board = $('div.main-board');
         if (!board.prop('forkBehavior_init')) {
@@ -322,7 +322,8 @@
               if (!this.inForkClick && (nextSansCount > 1 || nextTranspos.length)) {
                 switch (this.options.value) {
                   case 'hybrid':
-                    if (analysis.disclosureMode && analysis.disclosureMode()) break;
+                    const disclosureMode = analysis.settings?.disclosureMode;
+                    if (disclosureMode) break;
                     if (this.variationSelect != analysis.path) {
                       this.variationSelect = analysis.path;
                       $('.analyse__tools').addClass('lichessTools-forkBehavior-hybrid');

@@ -28,12 +28,14 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.options.enabled || !$.cached('body').is('.playing')) return;
+      const target = $(ev.target);
+      if (!target.is('cg-board') && !target.closest('cg-board').length) return;
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 20) {
         const icon = ev.deltaY > 0
           ? lt.icon.JumpNext
           : lt.icon.JumpPrev;
-        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app rb1 button.fbt[data-icon="'+icon+'"]');
+        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app bo3 button.fbt[data-icon="'+icon+'"]');
         if (!button.prop('disabled')) {
           button
             .trigger('pointerdown')
@@ -42,6 +44,7 @@
         }
         this.scrollTotal = 0;
       }
+      ev.preventDefault();
     };
 
     async start() {
@@ -55,7 +58,7 @@
       };
       const isRound = !!$('main.round,main.puzzle').length;
       if (!isRound) return;
-      $('body').off('wheel',this.wheel);
+      $('body')[0]?.removeEventListener('wheel', this.wheel, { passive: false });
       this._oldReleasePC ||= Element.prototype.releasePointerCapture;
       if (this.options.enabled) {
         const self = this;
@@ -63,7 +66,7 @@
           if (!pointerId) return;
           return self._oldReleasePC.call(this,pointerId);
         };
-        $('body').on('wheel',this.wheel);
+        $('body')[0]?.addEventListener('wheel', this.wheel, { passive: false });
       }
     }
 

@@ -8,16 +8,15 @@
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty','disableLiveAnnotate'],
-        defaultValue: 'enabled,mate,book,miss,slow,disableLiveAnnotate',
+        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty'],
+        defaultValue: 'enabled,mate,book,miss,slow',
         advanced: true
       }
     ];
 
     upgrades = [
       { name:'additionalGlyphs', value:'miss', version: '2.4.44', type: 'new' },
-      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' },
-      { name:'additionalGlyphs', value:'disableLiveAnnotate', version: '2.4.205', type: 'new' }
+      { name:'additionalGlyphs', value:'slow', version: '2.4.202', type: 'new' }
     ];
 
     intl = {
@@ -29,8 +28,7 @@
         'additionalGlyphs.book': 'Book',
         'additionalGlyphs.miss': 'Miss',
         'additionalGlyphs.slow': 'Slow',
-        'additionalGlyphs.novelty': 'Novelty',
-        'additionalGlyphs.disableLiveAnnotate': 'Disable Live Annotate'
+        'additionalGlyphs.novelty': 'Novelty'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -40,17 +38,8 @@
         'additionalGlyphs.book': 'Deschidere',
         'additionalGlyphs.miss': 'Rateu',
         'additionalGlyphs.slow': 'Lent',
-        'additionalGlyphs.novelty': 'Noutate',
-        'additionalGlyphs.disableLiveAnnotate': 'Dezactiveaz\u0103 Live Annotate'
+        'additionalGlyphs.novelty': 'Noutate'
       }
-    }
-
-    isStandardGlyph = (glyph) => {
-      const lt = this.lichessTools;
-      return ![
-        lt.icon.Mate, lt.icon.OpenBook, lt.icon.Hourglass, lt.icon.CyrillicCapitalLetterI,
-        lt.icon.CryingFace, lt.icon.SlightlyFrowningFace, lt.icon.NeutralFace, lt.icon.SlightlySmilyingFace, lt.icon.GrinningFaceWithSmilingEyes
-      ].includes(glyph);
     }
 
     updateGlyphs = ()=>{
@@ -60,47 +49,17 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       let redraw = false;
-      const index = analysis.node.glyphs?.findIndex(g=>g.symbol=='??');
-      if (this.options.miss && index>=0 && analysis.nodeList.length>2 && !chessground?.state?.drawable?.autoShapes?.find(s=>s.customSvg?.miss)) {
-        const blunderGlyph = analysis.node.glyphs[index];
-        const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
-        const d1=cp-cp1;
-        const d2=cp2-cp1;
-        const q = Math.abs(d1-d2)/Math.abs(d1);
-        if (q<0.2) {
-          const customSvg = chessground?.state?.drawable?.autoShapes?.at(-index-1)?.customSvg;
-          let html = customSvg?.html;
-          if (html) {
-            // keep in sync with https://github.com/lichess-org/lila/blob/1cce0f57a5c91182dba3a8808da081277d6c9c2c/ui/lib/src/game/glyphs.ts#L119
-            const missPath = 'M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z';
-            html = html.replace(/\bd="[^"]+"/,'d="'+missPath+'"');
-            customSvg.html = html;
-            customSvg.miss = true;
-            blunderGlyph.name='miss';
-            redraw = true;
-          }
-        }
-      }
-      // fix overlapping glyphs/motifs
+      const glyphs = analysis.node.glyphs || [];
       const autoShapes = chessground?.state?.drawable?.autoShapes || [];
-      const groups = [...new Set(autoShapes.map(s=>s.orig))].map(k=>autoShapes.filter(s=>s.orig==k)).filter(g=>g.length>1);
-      for (const group of groups) {
-        for (let i=0; i<group.length; i++) {
-          const shape = group[i];
-          const m = /matrix\(.4 0 0 .4 (?<x>\d+) -12\)/.exec(shape.customSvg?.html);
-          const expected = 71-28*i;
-          if (m && +m.groups.x != expected) {
-            shape.customSvg.html = shape.customSvg.html.replace(
-              m[0],
-              `matrix(.4 0 0 .4 ${expected} -12)`
-            );
-            redraw = true;
-          }
+      for (const glyph of glyphs.filter(g=>g.fill)) {
+        const shape = autoShapes.find(s=>s.label?.text==glyph.symbol);
+        if (shape?.label && shape.label.fill != glyph.fill) {
+          shape.label.fill = glyph.fill;
+          redraw = true;
         }
       }
       if (redraw) {
         chessground?.state?.dom?.redrawNow();
-        analysis.redraw();
       }
     };
 
@@ -209,7 +168,8 @@
       const node = analysis?.node;
       if (!node) return;
 
-      $('body').toggleClassSafe('lichessTools-compOff',!analysis?.showStaticAnalysis() && !analysis?.cevalEnabled());
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      $('body').toggleClassSafe('lichessTools-compOff',!showStaticAnalysis && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
       const glyphs = node.glyphs || (node.glyphs = []);
@@ -250,6 +210,25 @@
           });
         }
       }
+      if (this.options.miss && !symbols.find(s=>s=='X')) {
+        const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
+        const d1=cp-cp1;
+        const d2=cp2-cp1;
+        const q = Math.abs(d1-d2)/Math.abs(d1);
+        if (q<0.2) {
+          const w = lt.winPerc(cp);
+          const w1 = lt.winPerc(cp1);
+          const side = node.ply % 2 == 0 ? -1 : 1;
+          const badMove = (w - w1) * side < -20	;
+          if (badMove) { 
+            newGlyphs.push({
+              glyph: 'X',
+              name: 'miss',
+              fill: '#df5353'
+            });
+          }
+        }
+      }
       if (!newGlyphs.length) return;
 
       const setShapes = (shapes) => {
@@ -262,7 +241,7 @@
         }
       };
 
-      if (!symbols.find(g=>this.isStandardGlyph(g)) || lt.storage.get('analyse.show-move-annotation') === false) {
+      if (lt.storage.get('analyse.show-move-annotation') === false) {
         setShapes();
         return;
       }
@@ -384,8 +363,7 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const turnColor = analysis.turnColor();
-      const square = $('square.check').prop('cgKey') || $('square.king.'+turnColor).prop('cgKey');
+      const square = $('square.check').filter((i,e)=>e.getBoundingClientRect().width).prop('cgKey');
       return square;
     };
 
@@ -403,17 +381,8 @@
         book: lt.isOptionSet(value, 'book'),
         miss: lt.isOptionSet(value, 'miss'),
         slow: lt.isOptionSet(value, 'slow'),
-        novelty: lt.isOptionSet(value, 'novelty'),
-        disableLiveAnnotate: lt.isOptionSet(value, 'disableLiveAnnotate')
+        novelty: lt.isOptionSet(value, 'novelty')
       };
-      if (this.options.disableLiveAnnotate && analysis.liveAnnotate) {
-        analysis._liveAnnotate = analysis.liveAnnotate;
-        analysis.liveAnnotate = null;
-      }
-      if (!this.options.disableLiveAnnotate && analysis._liveAnnotate) {
-        analysis.liveAnnotate = analysis._liveAnnotate;
-        analysis._liveAnnotate = null;
-      }
       const study = analysis.study;
       lt.pubsub.off('lichessTools.redraw', this.drawGlyphs);
       lt.global.clearInterval(this.interval);

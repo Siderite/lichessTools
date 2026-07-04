@@ -164,9 +164,9 @@
       const lichess = lt.lichess;
       const value = lt.currentOptions.getValue('showDeviation');
       this.logOption('Show deviation', value);
-      lt.pubsub.off('content-loaded',this.addDeviation);
+      lt.pubsub.off('lichessTools.contentLoaded',this.addDeviation);
       if (!value) return;
-      lt.pubsub.on('content-loaded',this.addDeviation);
+      lt.pubsub.on('lichessTools.contentLoaded',this.addDeviation);
     }
   }
   LiChessTools.Tools.ShowDeviation = ShowDeviationTool;

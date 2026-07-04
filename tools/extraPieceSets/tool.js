@@ -491,6 +491,38 @@ class PieceSetTree {
         return d;
     }
 
+    base64ToBytes(b64) {
+      const binStr = atob(b64);
+      const bytes = new Uint8Array(binStr.length);
+      for (let i = 0; i < binStr.length; i++) {
+        bytes[i] = binStr.charCodeAt(i);
+      }
+      return bytes;
+    }
+
+    popcount(byte) {
+      let count = 0;
+      byte &= 0xff;
+      while (byte) {
+        count += byte & 1;
+        byte >>= 1;
+      }
+      return count;
+    }
+
+    hammingDistance(base64A, base64B) {
+      const bytesA = this.base64ToBytes(base64A);
+      const bytesB = this.base64ToBytes(base64B);
+      if (bytesA.length !== bytesB.length) {
+        throw new Error("Byte arrays must have equal length");
+      }
+      let dist = 0;
+      for (let i = 0; i < bytesA.length; i++) {
+        dist += this.popcount(bytesA[i] ^ bytesB[i]);
+      }
+      return dist;
+    }
+
     // -----------------------
     // MST (Prim)
     // -----------------------

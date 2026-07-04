@@ -999,7 +999,7 @@
           }
         }
         const key = study.data.id + '/' + study.data.chapter.id;
-        const paths = this._paths[key];
+        const paths = this._paths?.[key];
         const total = paths && Object.keys(paths).filter(k=>k!='currentPath').length;
         if (total) {
           optionsArr.push(trans.pluralSame('variationsCountText',total));
@@ -1028,7 +1028,7 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis?.study?.data?.chapter?.gamebook) return;
-      const container = $('div.analyse__tools div.action-menu');
+      const container = $('div.analyse__tools div.action-menu .inner');
       if (!container.length) return;
 
       if (!$('h2.lichessTools-separator', container).length) {

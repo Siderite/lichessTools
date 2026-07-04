@@ -1,6 +1,8 @@
 (() => {
   class CevalLineOptionsTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['EmitRedraw','EmitCeval'];
+
     preferences = [
       {
         name: 'cevalLineOptions',

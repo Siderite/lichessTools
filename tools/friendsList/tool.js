@@ -908,9 +908,9 @@
       $(lt.global).off('hashchange', this.hashchange);
       $(lt.global).off('scroll scrollend',this.onScroll);
       if (this.isLivePage) {
-        lt.pubsub.off('content-loaded', this.updateFriendsPage);
+        lt.pubsub.off('lichessTools.contentLoaded', this.updateFriendsPage);
         if (liveFriendsPage) {
-          lt.pubsub.on('content-loaded', this.updateFriendsPage);
+          lt.pubsub.on('lichessTools.contentLoaded', this.updateFriendsPage);
         } else {
           $('.lichessTools-livePageHeader').remove();
           $('.lichessTools-friendsPage').removeClass('lichessTools-friendsPage');

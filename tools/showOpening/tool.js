@@ -36,11 +36,13 @@
 
     miniGameOpening = async (el) => {
       if (!this.options.showInMinigames) return;
+      if (el instanceof Event) el = null;
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -62,11 +64,11 @@
       }
       let notInViewport = false;
       for (const el of elems) {
-        if (!lt.inViewport(el)) {
+        if (!lt.inViewport(el,true)) {
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        if ($(el).closest('.lichessTools-lichessLadders-userChallenges').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -155,7 +157,7 @@
           $(el).toggleClassSafe('lichessTools-withOpening',true);
           return el.openingData;
         } else {
-          delete el.openingData;
+          if (el.openingData?.opening) delete el.openingData?.opening;
           $(el).toggleClassSafe('lichessTools-withOpening',false);
         }
       }
@@ -166,7 +168,10 @@
       const data = el?.openingData;
       if (data) {
         const now = Date.now();
-        if (el.maxPly > 14 || now - data.time < 2000) return { time: now, opening: data.opening, el };
+        const getOpeningUntilPly = 14;
+        if (el.maxPly > getOpeningUntilPly || now - data.time < 2000) {
+          return { time: now, opening: data.opening, el };
+        }
         if (isMini) return; // don't get the opening for minigames from API once retrieved
       }
 
@@ -200,9 +205,12 @@
         const termination = lt.getPgnTag(pgn, 'Termination');
         if (termination && termination != 'Unterminated') time += 86400;
         el.openingData = { time: time, opening: opening, el };
+
+        if (!ply) ply = this.minPlyEstimate(fen);
         if (ply) {
           el.maxPly = Math.max(ply, +el.maxPly || 0);
         }
+
         const timeString = (lt.getPgnTag(pgn, 'UTCDate')||'') +' '+ (lt.getPgnTag(pgn, 'UTCTime')||'');
         const gameTime = lt.dateParseUTC(timeString);
         if (gameTime) {
@@ -210,6 +218,27 @@
         }
         return el.openingData;
       }
+    };
+
+    minPlyEstimate = (fen) => {
+      const lt = this.lichessTools;
+      const board = lt.getBoardFromFen(fen);
+      if (!board) return;
+      const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+      this.startBoard ||= lt.getBoardFromFen(startFen);
+
+      let changes = 0;
+      const rowsToCheck = [0, 1, 6, 7];
+
+      for (const row of rowsToCheck) {
+        for (let f = 0; f < 8; f++) {
+          const current = board[row][f];
+          const start = this.startBoard[row][f];
+          if (current !== start) changes++;
+        }
+      }
+
+      return changes;
     };
 
     showOpeningInExplorer = (opening) => {
@@ -264,7 +293,8 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;
@@ -321,7 +351,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameOpening);
       lt.uiApi.events.off('ply', this.refreshOpeningDebounced);
       lt.uiApi.socket.events.off('endData', this.refreshOpeningDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameOpening);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameOpening);
       lt.global.clearInterval(this.interval);
       const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members:not(.none), .analyse__underboard .copyables, main#board-editor .copyables');
       metaSection.find('.lichessTools-opening').remove();
@@ -331,6 +361,8 @@
         .off('input[type=checkbox]',this.miniGameOpening);
       $('body').observer()
         .off('input[type=checkbox]',this.refreshOpeningDebounced);
+      $(window).off('scroll',this.miniGameOpeningDebounced);
+
       if (this.options.showInBoard || this.options.showInAnalysisTitle) {
         lt.uiApi.socket.events.on('endData', this.refreshOpeningDebounced);
         lt.uiApi.events.on('ply', this.refreshOpeningDebounced);
@@ -346,7 +378,8 @@
       }
       if (this.options.showInMinigames) {
         lt.uiApi.socket.events.on('fen', this.miniGameOpening);
-        lt.pubsub.on('content-loaded', this.miniGameOpening);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameOpening);
+        $(window).on('scroll',this.miniGameOpeningDebounced);
         this.miniGameOpeningDebounced();
       }
     }

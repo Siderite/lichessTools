@@ -1,0 +1,322 @@
+body.lichessTools a.lichessTools-lichessLadders span {
+  display: block;
+  font-size: xx-small;
+  font-family: Verdana, sans-serif;
+  max-height: 2.5em;
+  overflow: hidden;
+}
+
+body.lichessTools #topnav section a.lichessTools-lichessLadders div[role="group"] a {
+  white-space: nowrap;
+}
+
+body.lichessTools #topnav section a.lichessTools-lichessLadders div[role="group"] a.upcoming {
+  font-style: italic;
+}
+
+body.lichessTools #topnav section a.lichessTools-lichessLaddersPage {
+  color: var(--c-clearer);
+  font-weight: bold;
+}
+
+@media (min-width: 1019.3px) {
+  body.lichessTools a.lichessTools-lichessLadders {
+    position: relative;
+  }
+
+  body.lichessTools #topnav.hover section:hover a.lichessTools-lichessLadders div[role="group"] {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    translate: 9rem 0;
+    width: min-content;
+  }
+
+  body.lichessTools #topnav.hover section:hover a.lichessTools-lichessLadders:hover div[role="group"] {
+    visibility: visible;
+  }
+}
+
+body.lichessTools.mobile #topnav section a.lichessTools-lichessLadders div[role="group"] {
+  display: contents;
+}
+
+body.lichessTools.mobile #topnav section a.lichessTools-lichessLadders div[role="group"] a {
+  display: block;
+  padding: 1em 0 0 1em;
+}
+
+html[data-page-href*="/page/lichessLadders"] main:not(.lichessTools-lichessLadders) {
+  display: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders > div {
+  margin-top: 2em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders div[class^="lichessTools-lichessLadders-"] > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1em;
+}
+
+
+body.lichessTools main.lichessTools-lichessLadders div.lichessTools-lichessLadders-ladders div.ladders {
+  display: flex;
+  justify-items: start;
+  gap: 1em;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders div.lichessTools-lichessLadders-ladders div.ladders::-webkit-scrollbar {
+  display: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
+  position: relative;
+  min-width: 7em;
+  min-height: 7em;
+  max-width: 7em;
+  max-height: 7em;
+  overflow: hidden;
+  border: 1px solid var(--c-font);
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder:hover {
+  border-color: var(--c-clearer);
+  color: var(--c-clearer);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.joined {
+  border-width: 2px;
+  border-color: var(--c-brag);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
+  font-size: 2em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
+  content: attr(data-type-icon);
+  src: url('../font/lichess.woff2') format('woff2');
+  font-family: "lichess";
+  position: absolute;
+  font-size: 6em;
+  opacity: 0.5;
+  line-height: 1;
+  user-select:none;
+  pointer-events:none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
+  right: 0.25em;
+  top: 0.25em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .ranking {
+  position: absolute;
+  left: 0.25em;
+  bottom: 0.25em;
+  font-size: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta {
+  position: absolute;
+  right: 0.25em;
+  bottom: 0.25em;
+  font-size: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.green {
+  color: var(--c-good);
+}
+
+body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta.red {
+  color: var(--c-bad);
+}
+
+@media (max-width: 1000px) {
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder {
+    min-width: 3em;
+    min-height: 3em;
+    max-width: 3em;
+    max-height: 3em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder span {
+    font-size: 1em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
+    font-size: 2.5em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
+    font-size: 0.66em;
+    padding: 0 2px;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .ranking {
+    font-size: 0.66em;
+  }
+
+  body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .delta {
+    font-size: 0.66em;
+  }
+}
+
+body.lichessTools main.lichessTools-lichessLadders h2 {
+  padding: 0.5em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders h3 {
+  font-size: 1.5em;
+  padding: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders h4 {
+  padding: 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article {
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(6px);
+  background: var(--c-bg-zebra);
+  border: 1px solid var(--c-brag);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  gap: 1.5em;
+  padding: 1.5em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article:has(cg-board) {
+  padding: 1em;
+  gap: 0.6em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article:hover {
+  border-color: #c9c9c4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .header {
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.ladder {
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.ladder:hover {
+  text-decoration: underline;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .matchup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player:last-child {
+  align-items: flex-end;
+  text-align: right;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player a {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(-c-clearer);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player span {
+  white-space: nowrap;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player span.color-white:after {
+  font-size: 1.5em;
+  content: var(--icon-BlackChessKnight);
+  color: white;
+  -webkit-text-stroke: 1px #808080;
+  text-shadow: 0 0 1px #808080;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player span.color-black:after {
+  font-size: 1.5em;
+  content: var(--icon-BlackChessKnight);
+  color: black;
+  -webkit-text-stroke: 1px #808080;
+  text-shadow: 0 0 1px #808080;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .player:hover {
+  text-decoration: underline;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.8em;
+  color: var(--c-font);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .vs {
+  
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid color: var(--c-dimmer);
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .footer {
+  font-size: 0.8em;
+  color: var(--c-font);
+  text-decoration: none;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article .footer a:hover .gameTime {
+  text-decoration: underline;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.challengePlayer {
+    text-transform: uppercase;
+    border: 1px solid var(--c-link);
+    border-radius: 5px;
+    padding: 0.3em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.mini-game {
+  flex-grow: 1;
+  padding: 0 1em;
+}
+
+body.lichessTools main.lichessTools-lichessLadders article a.mini-game .cg-wrap {
+  margin-top: 1em;
+}

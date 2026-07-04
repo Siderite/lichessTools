@@ -1,7 +1,7 @@
 (() => {
   class PuzzleOptionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw','EmitPuzzleChange']
+    dependencies = ['EmitPuzzleChange']
 
     preferences = [
       {

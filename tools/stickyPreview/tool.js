@@ -1,7 +1,7 @@
 (() => {
   class StickyPreviewTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange'];
+    dependencies = ['EmitChapterChange'];
 
     preferences = [
       {
@@ -78,11 +78,9 @@
       const lichess = lt.lichess;
       const study = lichess?.analysis?.study;
       if (!study) return;
-      //lt.pubsub.off('lichessTools.redraw', this.bindButtons);
       study.setGamebookOverride = lt.unwrapFunction(study.setGamebookOverride,'stickyPreview');
       lt.pubsub.off('lichessTools.chapterChange', this.keepPreviewOn);
       if (value) {
-        //lt.pubsub.on('lichessTools.redraw', this.bindButtons);
         study.setGamebookOverride = lt.wrapFunction(study.setGamebookOverride,{
           id: 'stickyPreview',
           after: ($this, result, ...args)=>{

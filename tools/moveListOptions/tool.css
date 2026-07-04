@@ -373,6 +373,29 @@ body.lichessTools.mobile div.lichessTools-moveListOptions-header {
   order: 3;
 }
 
+@media (min-width: 799.4px) {
+
+  body.lichessTools .analyse__tools .action-menu {
+    max-height: var(--board-size);
+    min-height: 100%;
+  }
+
+  body.lichessTools .analyse__tools .action-menu__tools >a,
+  body.lichessTools .analyse__tools .action-menu__tools button {
+    min-height: 2.5em;
+  }
+
+  body.lichessTools .analyse__tools:has(.action-menu) :is(.ceval, .pv_box, .gamebook-edit, .practice-box, .retro-box) {
+    display: none;
+  }
+
+}
+
+body.lichessTools .analyse__tools .action-menu .inner {
+  overflow-y: auto;
+}
+
+
 /* Prettier */
 
 @media (min-width: 1261px) {

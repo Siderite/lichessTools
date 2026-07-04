@@ -224,7 +224,7 @@
           notInViewport = true;
           continue;
         }
-        if ($(el).closest('.now-playing').length) continue;
+        if ($(el).closest('.lichessTools-lichessLadders-userChallenges').length) continue;
 
         fen = fen || $(el).attr('data-state') || lt.getPositionFromBoard(el, true);
         if (!fen) {
@@ -245,7 +245,8 @@
       const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing') || (analysis?.showStaticAnalysis() === false && !analysis?.cevalEnabled())) return;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
 
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
@@ -278,7 +279,7 @@
       lt.uiApi.socket.events.off('fen', this.miniGameKmaps);
       lt.uiApi.events.off('ply', this.refreshKmapsDebounced);
       lt.pubsub.off('lichessTools.redraw', this.refreshKmapsDebounced);
-      lt.pubsub.off('content-loaded', this.miniGameKmapsDebounced);
+      lt.pubsub.off('lichessTools.contentLoaded', this.miniGameKmapsDebounced);
       lt.global.clearInterval(this.interval);
       $('body').observer()
         .off('input[type=checkbox]',this.miniGameKmapsDebounced);
@@ -289,7 +290,7 @@
         lt.uiApi.socket.events.on('fen', this.miniGameKmaps);
         lt.uiApi.events.on('ply', this.refreshKmapsDebounced);
         lt.pubsub.on('lichessTools.redraw', this.refreshKmapsDebounced);
-        lt.pubsub.on('content-loaded', this.miniGameKmapsDebounced);
+        lt.pubsub.on('lichessTools.contentLoaded', this.miniGameKmapsDebounced);
         lt.global.setTimeout(this.refreshKmapsDebounced,1000); // this is not essential to loading
         if ($('main').is('#board-editor')) {
           this.interval = lt.global.setInterval(this.refreshKmapsDebounced, 1000);

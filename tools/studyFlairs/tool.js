@@ -303,7 +303,7 @@
         memberFlairs: lt.isOptionSet(value, 'memberFlairs'),
         topicFlairs: lt.isOptionSet(value, 'topicFlairs')
       };
-      lt.pubsub.off('content-loaded', this.processStudyListDebounced);
+      lt.pubsub.off('lichessTools.contentLoaded', this.processStudyListDebounced);
       lt.global.clearInterval(this.interval);
       $('div.lichessTools-studyFlairs,span.lichessTools-studyFlairs').removeClass('lichessTools-studyFlairs')
       $('img.lichessTools-studyFlair,.lichessTools-bottomFlairs').remove();
@@ -326,7 +326,7 @@
         this.processStudy();
       }
       if (/^\/study\b/.test(lt.global.location.pathname) && $('.studies.list').length) {
-        lt.pubsub.on('content-loaded', this.processStudyListDebounced);
+        lt.pubsub.on('lichessTools.contentLoaded', this.processStudyListDebounced);
         this.processStudyList();
       }
     }

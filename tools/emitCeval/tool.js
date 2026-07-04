@@ -17,24 +17,37 @@
       });
     };
 
+    wrapLichessEvent = (data,meta)=>{
+      const lt = this.lichessTools;
+      lt.pubsub.emit('lichessTools.ceval',[data,meta]);
+    }
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const ceval = lichess?.analysis?.ceval;
       if (!ceval) return;
-      const engines = ceval.engines;
-      if (!engines) throw new Error('ceval.engines does not exist!');
-      engines.makeEngine = lt.unwrapFunction(engines.makeEngine,'emitCeval');
-      engines.makeEngine = lt.wrapFunction(engines.makeEngine,{
-        id: 'emitCeval',
-        after: ($this,result,...args)=>{
-          this.wrapWorker(result);
+
+      const useLichessEvent = true;
+      lt.uiApi.events.off('analysis.eval',this.wrapLichessEvent);
+      if (useLichessEvent) {
+        lt.uiApi.events.on('analysis.eval',this.wrapLichessEvent);
+      } else {
+        const engines = ceval.engines;
+        if (!engines) throw new Error('ceval.engines does not exist!');
+        if (!lt.isWrappedFunction(engines.makeEngine,'emitCeval')) {
+          engines.makeEngine = lt.wrapFunction(engines.makeEngine,{
+            id: 'emitCeval',
+            after: ($this,result,...args)=>{
+              this.wrapWorker(result);
+            }
+          });
+          const worker = ceval?.worker;
+          if (worker) {
+            this.wrapWorker(worker);
+          }
         }
-      });
-      const worker = ceval?.worker;
-      if (worker) {
-        this.wrapWorker(worker);
       }
     }
 

@@ -18,6 +18,15 @@ body.lichessTools .lichessTools-chartInfo {
   font-size: 1.1em;
 }
 
+/* ugly percentage ticks now look like ruler markings*/
+body.lichessTools tick:not(.lichessTools-material,.lichessTools-principled) {
+  width: 50%;
+}
+
+body.lichessTools tick.zero {
+  border-bottom-width: 2px !important; /* remove when https://github.com/lichess-org/lila/issues/20712 is fixed */
+}
+
 body.lichessTools tick.lichessTools-material {
   height: 0;
   border-top: 5px #00FF00 solid;

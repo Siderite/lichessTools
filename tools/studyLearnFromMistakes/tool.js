@@ -45,7 +45,7 @@
       analysis.mainline.forEach(n => {
         if (!n.children?.length) return;
         lt.assertPathSet(n);
-        let compChild = n.comp || n.ltComp;
+        let compChild = n.children.find(ch=>ch.comp || ch.ltComp);
         if (!compChild) {
           const comment = n.children.flatMap(ch => ch.comments || []).find(c => c.by == 'lichess')?.text;
           if (!comment) return;

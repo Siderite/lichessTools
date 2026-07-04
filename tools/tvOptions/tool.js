@@ -207,7 +207,7 @@
     refreshTimeControls = this.lichessTools.debounce(this.refreshTimeControlsDirect, 100);
 
     _maxGamesCount = 30;
-    refreshGames = async (playerIds, className, container, streamers) => {
+    refreshGames = async (playerIds, container, streamers) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -246,7 +246,6 @@
               html.addClass(variant);
               if (streamers) {
                 $('<span>')
-                  .addClass(className)
                   .append($('<a rel="noopener nofollow" target="_blank">')
                     .attr('href', '/streamer/' + data.id + '?redirect=1')
                     .text(trans.noarg('streamerLink')))
@@ -311,19 +310,19 @@
       if (this.isStreamerTvPage()) {
         container.toggleClass('lichessTools-streamerTv', this.options.streamerTv);
         const playerIds = (await lt.api.streamer.getLiveStreamers())?.map(s => s.id);
-        await this.refreshGames(playerIds, 'lichessTools-streamerTv', container, true);
+        await this.refreshGames(playerIds, container, true);
       } else {
         container.removeClass('lichessTools-streamerTv');
       }
       if (userId && this.isFriendsTvPage()) {
         container.toggleClass('lichessTools-friendsTv', this.options.friendsTv);
         const playerIds = this.users_playing;
-        await this.refreshGames(playerIds, 'lichessTools-friendsTv', container, false);
+        await this.refreshGames(playerIds, container, false);
       } else {
         container.removeClass('lichessTools-friendsTv');
       }
       if (userId && this.isTeamTvPage()) {
-        container.toggleClass('lichessTools-teamTv', this.options.teamTv);
+        container.toggleClass('lichessTools-teamTv', true/*this.options.teamTv*/);
         if (!$('select.lichessTools-teams', container).length) {
           const select = $('<select class="lichessTools-teams">')
             .on('change', ev => {
@@ -344,7 +343,7 @@
           container.prepend(lt.spinnerHtml);
         }
         const playerIds = await this.getTeamPlayerIds();
-        await this.refreshGames(playerIds, 'lichessTools-teamTv', container, false);
+        await this.refreshGames(playerIds, container, false);
       } else {
         container.removeClass('lichessTools-teamTv');
       }
@@ -437,11 +436,11 @@
       if (!lichess || !lt.uiApi) return;
       $(lt.global).off('hashchange', this.hashChange);
       lt.uiApi.socket.events.off('close', this.hashChange);
-      lt.pubsub.off('content-loaded', this.refreshTimeControls);
+      lt.pubsub.off('lichessTools.contentLoaded', this.refreshTimeControls);
       if (this.options.friendsTv || this.options.streamerTv) {
         $(lt.global).on('hashchange', this.hashChange);
         lt.uiApi.socket.events.on('close', this.hashChange);
-        lt.pubsub.on('content-loaded', this.refreshTimeControls);
+        lt.pubsub.on('lichessTools.contentLoaded', this.refreshTimeControls);
         lt.global.setTimeout(this.hashChange, 100);
       }
 
@@ -526,14 +525,9 @@
                     .text(translationText)
                     .attr('title', translationTitle))
                   .append(container));
-              for (const m of matches) {
-                const gameId = m[1];
-                const color = m[2];
-                await lt.timeout(500);
-                text = await lt.api.game.getMini(gameId, color);
-                if (!text) continue;
-                container.append(text);
-              }
+              const gameData = [...matches].map(m=>({ id: m[1], color: m[2]}));
+              const elems = await lt.api.game.getMinis(gameData);
+              container.append(elems);
               lt.uiApi.initializeDom(container[0]);
             }
           }

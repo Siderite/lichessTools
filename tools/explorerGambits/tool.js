@@ -186,6 +186,7 @@
       const side = analysis.getOrientation();
       const pos = lt.getPositionFromFen(analysis.node.fen);
       const gambits = await this.gambit_dict();
+      if (!gambits) return;
       const result = gambits[side].get(pos);
       lt.requestAF(async ()=>{
         await this.showGambits(result);

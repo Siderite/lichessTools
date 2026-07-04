@@ -41,12 +41,13 @@
       if (currNode.path === undefined) currNode.path = nodePath;
       const tools = $('div.analyse__tools');
       let fork = $('div.lichessTools-transpositions', tools);
-      if (analysis.disclosureMode && analysis.disclosureMode()) {
+      const disclosureMode = analysis.settings?.disclosureMode;
+      if (disclosureMode) {
         fork.remove();
         return;
       }
       this.state = lt.traverse();
-      let transpositions = currNode.transposition;
+      let transpositions = currNode.transposition?.();
       if (lt.transpositionBehavior?.excludeSameLine) {
         transpositions = transpositions?.filter(n => n === currNode || (n.path && !n.path.startsWith(nodePath) && !nodePath.startsWith(n.path)));
       }

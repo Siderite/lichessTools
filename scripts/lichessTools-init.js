@@ -149,6 +149,7 @@ lichessTools.loadTool(LiChessTools.Tools.CalculationTrainer);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerChessagine);
 lichessTools.loadTool(LiChessTools.Tools.ShowFps);
 lichessTools.loadTool(LiChessTools.Tools.ShowOpponentMoves);
+lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
