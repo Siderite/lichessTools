@@ -47,21 +47,3 @@
     max-width: unset;
   }
 }
-
-/** Prettier **/
-
-@media (min-width: 1259.3px) {
-
-  body.lichessTools.lichessTools-prettier.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .mchat__tab .cmn-toggle {
-    position: absolute !important;
-  }
-
-  body.lichessTools.lichessTools-prettier.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) section.mchat {
-    backdrop-filter: none !important;
-  }
-
-  body.lichessTools.lichessTools-prettier.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) {
-    position: static !important;
-  }
-
-}

@@ -36,13 +36,3 @@ body.lichessTools .lichessTools-explorerSettings .lichessTools-engines label,
 body.lichessTools .lichessTools-explorerSettings .lichessTools-ratings label {
   width: stretch;
 }
-
-/* Pretty Lichess fixes */
-
-body.lichessTools.lichessTools-prettier .explorer-box td {
-  padding: 5px !important;
-}
-
-body.lichessTools.lichessTools-prettier .explorer__config .choices button {
-  padding: 0 5px !important;
-}

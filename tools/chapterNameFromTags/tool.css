@@ -10,9 +10,3 @@ body.lichessTools div.form-group button.lichessTools-changeNameButton {
   }
 
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier div.form-group button.lichessTools-changeNameButton {
-  text-wrap: wrap !important;
-}

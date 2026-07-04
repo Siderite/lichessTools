@@ -246,10 +246,3 @@ body.lichessTools.lichessTools-theme_mobile.mobile .forum .slist td:last-child {
 body.lichessTools.lichessTools-theme_mobile.mobile .studies.list .study {
   max-width:100vw;
 }
-
-/** Prettier **/
-
-body.lichessTools.lichessTools-prettier.lichessTools-theme_mobile.mobile main.analyse.has-players:not(.has-relay-tour) .main-board {
-  margin-top: 2rem;
-  margin-bottom: 2.5rem;
-}

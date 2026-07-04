@@ -64,9 +64,3 @@ body.lichessTools .copyables .pgn:has(.is-error) {
 body.lichessTools:has(.study__multiboard__options label.eval input:not(:checked)) .lichessTools-opening {
   display: none;
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier section.explorer-box div.data div.title .lichessTools-opening {
-  color: var(--primaryColor);
-}

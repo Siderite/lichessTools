@@ -70,31 +70,3 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.ranks,
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.files {
   display: none;
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger cg-container coords {
-  font-size: 1.3em !important;
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.files {
-  bottom: -1.3em !important;
-}
-
-@media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main.gauge-on div.analyse__board {
-    left: -0.6em;
-  }
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
-  margin-top: 1em !important;
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out coords.files {
-  bottom: 0 !important;
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-fixCoords-fix.coords-out coords.ranks {
-  right: 0 !important;
-}

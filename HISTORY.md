@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+04 Jul
+
+- removing Prettier integration
+
 22 Jun
 
 - Lichess Ladders integration
