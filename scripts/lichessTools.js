@@ -780,7 +780,7 @@
       const inAnalysisMode = !!this.lichess.analysis;
       const mTv = !inAnalysisMode && /\/tv(\/([^\/]+))?/.exec(this.global.location.pathname);
       const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
-      const analysisUrl = $('div.buttons a.analysis,rb1 a.analysis').attr('href') || '';
+      const analysisUrl = $('div.buttons a.analysis,bo3 a.analysis').attr('href') || '';
       const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
       const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {

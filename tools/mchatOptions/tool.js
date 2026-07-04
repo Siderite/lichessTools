@@ -410,7 +410,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (running && $('.result-wrap').length) return false;
-      if (!$('main l4x').length) return false;
+      if (!$('main aPp').length) return false;
       if (playing && !$('body').is('.playing')) return false;
       return true;
     };
@@ -538,7 +538,7 @@
     getMoveString = (selected)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const el = $('main.round l4x kwdb'+(selected?'.a1t':'')).last();
+      const el = $('main.round aPp Z7yx'+(selected?'.a1t':'')).last();
       const index = el.index()+1;
       if (index==0) return '';
       const sideIndicator = index % 3 == 0 ? '...' : '.';

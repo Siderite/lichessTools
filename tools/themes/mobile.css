@@ -35,25 +35,25 @@ body.lichessTools.lichessTools-theme_mobile.mobile {
     max-height: 25em;
   }
 
-  body.lichessTools.lichessTools-theme_mobile.mobile rm6 .col1-moves > button[data-ply] {
+  body.lichessTools.lichessTools-theme_mobile.mobile i5d .col1-moves > button[data-ply] {
     font-size: 2em;
     padding: 0 0.75em;
   }
 
-  body.lichessTools.lichessTools-theme_mobile.mobile rm6 rb1 {
+  body.lichessTools.lichessTools-theme_mobile.mobile i5d bo3 {
     justify-content: space-around;
     font-size: 1.25em;
   }
 
-  body.lichessTools.lichessTools-theme_mobile.mobile rm6 rb1 .fbt {
+  body.lichessTools.lichessTools-theme_mobile.mobile i5d bo3 .fbt {
     flex-basis: auto;
   }
 
-  body.lichessTools.lichessTools-theme_mobile.mobile rm6 rb1 .noop {
+  body.lichessTools.lichessTools-theme_mobile.mobile i5d bo3 .noop {
     display:none;
   }
 
-  body.lichessTools.lichessTools-theme_mobile.mobile:has(.ricons .fbt.analysis) rm6 rb1 a.fbt.analysis {
+  body.lichessTools.lichessTools-theme_mobile.mobile:has(.ricons .fbt.analysis) i5d bo3 a.fbt.analysis {
     display:none;
   }
 

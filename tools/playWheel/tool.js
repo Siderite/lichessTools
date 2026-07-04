@@ -35,7 +35,7 @@
         const icon = ev.deltaY > 0
           ? lt.icon.JumpNext
           : lt.icon.JumpPrev;
-        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app rb1 button.fbt[data-icon="'+icon+'"]');
+        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app bo3 button.fbt[data-icon="'+icon+'"]');
         if (!button.prop('disabled')) {
           button
             .trigger('pointerdown')

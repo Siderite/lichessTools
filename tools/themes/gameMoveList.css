@@ -25,7 +25,7 @@
     grid-row-end: 12;
   }
 
-  body.lichessTools.lichessTools-theme_gameMoveList .round__app .ruser-top + * rb1 + * {
+  body.lichessTools.lichessTools-theme_gameMoveList .round__app .ruser-top + * bo3 + * {
     flex-basis: calc(var(---cg-width) / 2);
     min-height: 10em;
   }
