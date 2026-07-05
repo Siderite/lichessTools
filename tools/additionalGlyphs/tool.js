@@ -363,7 +363,9 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const square = $('square.check').filter((i,e)=>e.getBoundingClientRect().width).prop('cgKey');
+      const square = $('square.check')
+        .filter((i,e)=>e.style.display!='none' && e.style.visibility!='hidden')
+        .prop('cgKey');
       return square;
     };
 
