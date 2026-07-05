@@ -842,12 +842,17 @@
       return (w1 - w2) * side;
     }
 
+    computeBrilliantCache = new LiChessTools.MaxSizedMap(1000);
     computeBrilliant = (side, node, prevNode, prev2Node) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if ([cp1,cp2].findIndex(cp=>!cp && cp!==0)>=0) return 0;
+
+      const key = [node?.fen, side, cp1, cp2, prevNode?.fen, prev2Node?.fen].join('|');
+      let result = this.computeBrilliantCache.get(key);
+      if (result) return result;
 
       const threshold = Math.abs(cp1) > 200 || this.hasTacticalMotif(node, side, prevNode) ? -50 : -25;
       if ((cp1 - cp2) * side < threshold) return 0;
@@ -890,7 +895,9 @@
       board = lt.getBoardFromFen(prev2Node.fen);
       const mmw3 = this.maxMaterialWon(board, side) / 100;
       const bril = (mmw3 - mmw1 - delta);
-      return bril + bonus;
+      result = bril + bonus;
+      this.computeBrilliantCache.set(key,result);
+      return result;
     };
 
     computeSpectacle = (board, x, y, side) => {

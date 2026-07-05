@@ -438,6 +438,9 @@
       const $ = lt.$;
       const trans = lt.translator;
 
+      const anchor = $('.mchat__messages');
+      if (!anchor.length) return;
+
       const container = $('.lichessTools-mchatOptions-extraButtons');
       if (!this.options.autoWhisper && !this.options.prependMove && !this.options.insertSelectedMove) {
         container.remove();
@@ -446,7 +449,7 @@
 
       if (!container.length) {
         $('<div class="lichessTools-mchatOptions-extraButtons">')
-          .insertBefore('.mchat__messages');
+          .insertBefore(anchor);
       }
       let autoWhisperButton = container.find('.lichessTools-autoWhisper');
       if (!autoWhisperButton.length) {
