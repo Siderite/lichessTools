@@ -244,7 +244,7 @@
               const newPgn = $('div.pgn textarea').val();
               data = oldChangePgn(newPgn, false);
               $this.explorer.reload()
-              lt.global.requestAnimationFrame(()=>$this.redraw());
+              lt.analysisRedraw();
             } else {
               data = pgns[0];
             }
