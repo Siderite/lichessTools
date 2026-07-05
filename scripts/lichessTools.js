@@ -3154,7 +3154,7 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
-      this.currentOptions = await this.getOptions();
+      this.currentOptions = this.getOptions();
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
@@ -3278,7 +3278,7 @@
       }
     }
 
-    async getOptions() {
+    getOptions() {
       let options = this.global.localStorage.getItem('LiChessTools2.options');
       options = this.jsonParse(options);
       const defaults = this.getDefaultOptions();
@@ -3292,6 +3292,13 @@
         if (!this.enableLichessTools) return false;
         return this[optionName]
       };
+      if (!options.version) {
+        this.comm.send({ type: 'getVersion' })
+          .catch(e => {
+            console.warn('Error loading the extension version');
+          })
+          .then(data=>options.version = data.version);
+      }
       return options;
     }
 
@@ -3301,7 +3308,7 @@
       if (options) {
         await this.saveOptions(options);
       }
-      options = await this.getOptions();
+      options = this.getOptions();
       const enableTime = +(options['enableLichessTools.enableTime']||0);
       if (enableTime) {
         let saveOptions = false;
@@ -3372,15 +3379,7 @@
 
     async saveOptions(options) {
       const trans = this.translator;
-      const data = await this.comm.send({ type: 'getVersion' })
-                                             .catch(e => { 
-                                               this.announce(trans.noarg('errorSavingPreferences'));
-                                               throw e;
-                                             });
-      const version = data.version;
-      this.debug && console.log('Saving options version',version);
       this.obsoleteOptions(options);
-      options.version = version;
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);
     }
