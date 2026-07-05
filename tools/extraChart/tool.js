@@ -478,7 +478,9 @@
           underAttack.push.apply(underAttack, ua);
         }
       }
-      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))].map(i => i.split('=')[1].toLowerCase()).reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
+      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
+                  .map(i => i.split('=')[1].toLowerCase())
+                  .reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
       this.tensionCache.set(fen,result);
       return result;
     };
@@ -524,9 +526,13 @@
       return !!moves.length;
     };
 
+    materialWonCache = new LiChessTools.MaxSizedMap(10000);
     materialWon = (board, x, y) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
+      const key = [lt.getFenFromBoard(board),x,y].join('|');
+      let result = this.materialWonCache.get(key);
+      if (result) return result;
       board = lt.clone(board);
       const ch = board[y][x];
       if (!ch) return 0;
@@ -536,16 +542,22 @@
         .sort((m1, m2) => this.pieceMaterial[m1.spc.toLowerCase()] - this.pieceMaterial[m2.spc.toLowerCase()]);
       const move = moves[0];
       if (!move) return 0;
-      let result = this.pieceMaterial[ch.toLowerCase()] * side; //capture piece
+      result = this.pieceMaterial[ch.toLowerCase()] * side; //capture piece
       board[y][x] = move.spc;
       board[move.sy][move.sx] = null;
       result += this.materialWon(board, x, y);
-      return Math.sign(result) != side ? 0 : result;
+      result = Math.sign(result) != side ? 0 : result;
+      this.materialWonCache.set(key,result);
+      return result;
     };
 
+    maxMaterialWonCache = new LiChessTools.MaxSizedMap(10000);
     maxMaterialWon = (board, m) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
+      const key = [lt.getFenFromBoard(board),m].join('|');
+      let result = this.maxMaterialWonCache.get(key);
+      if (result) return result;
       let mx = 0;
       for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
@@ -559,7 +571,9 @@
           }
         }
       }
-      return mx * m;
+      result = mx * m;
+      this.maxMaterialWonCache.set(key, result);
+      return result;
     };
 
     smooth = (points) => {
