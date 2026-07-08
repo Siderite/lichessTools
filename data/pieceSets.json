@@ -1051,6 +1051,13 @@
       }
     },
     {
+      "category": "siderite",
+      "name": "Noctie Neo",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/Noctie/pieces/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
       "category": "chesscom",
       "name": "Neo",
       "url": "https://assets-themes.chess.com/image/ejgfv/150/",
