@@ -1055,7 +1055,25 @@
       "name": "Noctie Neo",
       "url": "https://siderite.github.io/lichessToolsAdjacent/Noctie/pieces/",
       "type": "svg",
-      "cap": "wN"
+      "cap": "wN",
+      "hashes": {
+        "wp": "bDSTw21ol5UGaTIyMjIyDA==",
+        "bp": "PErCPy2VkuoGhoZMDAYMKA==",
+        "wn": "jIcz0cl8NocIcXF52XkxBg==",
+        "bn": "w2i0jzaUyeoGFxYLKwuOTA==",
+        "wb": "w404kudqHJ1pcXFhaToSDA==",
+        "bb": "HWDGPTOVzOoDD5aWhoZMTA==",
+        "wr": "fDWTwkd+uIEQaXEyMnFxFg==",
+        "br": "8GzBJz7UweoHC5aWloaGjg==",
+        "wq": "YY2e08dqOIwIaXFp6HEyEA==",
+        "bq": "E25wjy2VwPoDB5aWIw+OTA==",
+        "wk": "IzeZci1pxpYFaWnU1PAzFA==",
+        "bk": "Y8gxjzjRzuoDCxcrKQeOTA=="
+      },
+      "coordinates": {
+        "x": 22,
+        "y": 21
+      }
     },
     {
       "category": "chesscom",
