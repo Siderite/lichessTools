@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+07 Jul
+
+- added Noctie Neo piece set
+
 04 Jul
 
 - removing Prettier integration
