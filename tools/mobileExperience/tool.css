@@ -32,6 +32,7 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing {
   min-width:2em;
   background: var(--m-bg_bg-page--mix-50);
   display: none;
+  order: 1;
 }
 
 body.lichessTools.mobile div.analyse__controls button.lichessTools-shapeDrawing {
@@ -71,6 +72,11 @@ body.lichessTools div.analyse__controls button.lichessTools-shapeDrawing.lichess
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove {
   flex: 1 1 1em;
   line-height: normal;
+  min-height: unset;
+}
+
+body.lichessTools div.analyse__controls button.lichessTools-randomNextMove:before {
+  vertical-align: 0.3em; /* quirk of the specific Unicode character makes closer to the bottom */
 }
 
 body.lichessTools div.analyse__controls button.lichessTools-randomNextMove.hide {
