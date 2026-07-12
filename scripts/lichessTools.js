@@ -2288,6 +2288,30 @@
       }
     };
 
+    addRetries = (obj, key, maxRetries) => {
+      const original = obj[key];
+      if (typeof original !== "function") {
+        throw new Error("Key must point to a function");
+      }
+
+      let delayMs = 100;
+      obj[key] = async function (...args) {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          try {
+            const result = original.apply(this, args);
+            return await Promise.resolve(result);
+          } catch (err) {
+            if (attempt === maxRetries) {
+              throw err;
+            }
+            await lt.timeout(delayMs);
+            delayMs *= 2;
+          }
+        }
+      };
+      obj[key].__originalFunction = original;
+    };
+
     api = {
       lichessTools: this,
       init: function () {
@@ -2310,6 +2334,12 @@
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
+
+        lt.addRetries(lt.api.lichessladders, 'getLaddersId', 3);
+        lt.addRetries(lt.api.lichessladders, 'getLadders', 3);
+        lt.addRetries(lt.api.lichessladders, 'getSummary', 3);
+        lt.addRetries(lt.api.lichessladders, 'getUserLadder', 3);
+
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
