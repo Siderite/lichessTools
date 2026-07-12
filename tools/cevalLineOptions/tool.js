@@ -82,6 +82,7 @@
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
         const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
+
         $('div.pv_box span.pv-san').each((i, e) => {
           if (!lt.inViewport(e)) return;
           const key = this.getKey(e, comp);
@@ -116,11 +117,13 @@
         $('div.pv_box span.pv-san')
           .each((i, e) => {
             const key = this.getKey(e,comp);
-            if (!key) return;
-            const val = this.dict.get(key);
-            const cls = val?.count > 1 && this.options.highlight
-              ? ('pv-san ' + val.cls).trim()
-              : 'pv-san';
+            let cls = 'pv-san';
+            if (key) {
+              const val = this.dict.get(key);
+              if (val?.count > 1 && this.options.highlight) {
+                cls = ('pv-san ' + val.cls).trim();
+              }
+            }
             if (e.className != cls) e.className = cls;
           });
         let db = null;
