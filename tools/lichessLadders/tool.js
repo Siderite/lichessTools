@@ -277,6 +277,10 @@
       if (lt.global.location.pathname!="/page/lichessLadders") return;
 
       lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
+      const main = $('#main-wrap main')
+        .empty()
+        .attr('class','lichessTools-lichessLadders')
+        .append(lt.spinnerHtml);
 
       const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId())
         .catch(e=>lt.announce(trans.noarg('laddersError')));
@@ -310,9 +314,8 @@
       const gameElems = await lt.api.game.getMinis(gameData);
 
 
-      const main = $('#main-wrap main')
+      main
         .empty()
-        .attr('class','lichessTools-lichessLadders')
         .append($('<h2>')
                   .append($('<span>').text(trans.noarg('lichessLaddersPageHeader')))
                   .append($('<a>')
