@@ -196,7 +196,7 @@
 
     pieceTension = (x, y, board, withSupport) => {
       const underAttack = [];
-      var ch = board[y][x];
+      const ch = board[y][x];
       if (!ch) return underAttack;
       const m = ch === ch.toUpperCase() ? 1 : -1;
       switch (ch.toLowerCase()) {
@@ -1498,10 +1498,11 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
+      const analysis = lichess.analysis;
 
       if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
-      if (!lichess.analysis) return;
+      if (!analysis) return;
 
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
       if (!forced && this.prevBrilliant != currentBrilliant) {
@@ -1511,13 +1512,15 @@
       let localLine = null;
       if (this.options.local) {
         localLine = this.getLocalLine();
+      } else {
+        localLine = analysis.mainline;
       }
 
-      if (lichess.analysis.mainline.find(n => n.eval && n.eval._originator != 'lichessTools')) {
+      if (analysis.mainline.find(n => n.eval && n.eval._originator != 'lichessTools')) {
         $('#acpl-chart-container').removeClass('lichessTools-extraChart');
         $('form.future-game-analysis').remove();
       }
-      if (!lichess.analysis.mainline.find(n => this.getNodeCeval(n))) {
+      if (!analysis.mainline.find(n => this.getNodeCeval(n))) {
         if (!localLine || !localLine.find(n => this.getNodeCeval(n))) {
           $('#acpl-chart-container.lichessTools-extraChart').remove();
           this.clearCharts();
@@ -1529,7 +1532,7 @@
 
       let container = $.cached('#acpl-chart-container.lichessTools-extraChart, div.computer-analysis.active #acpl-chart-container, div.study__server-eval.ready',3000);
       if (!chart) {
-        const serverEval = lichess.analysis.study?.serverEval;
+        const serverEval = analysis.study?.serverEval;
         chart = /*serverEval?.requested && */serverEval?.chart;
         if (!chart) {
           const canvas = $('canvas#acpl-chart', container)[0];
@@ -1554,7 +1557,7 @@
               container.insertBefore(message);
               loadChartModule = true;
             } else
-            if (lichess.analysis.study) {
+            if (analysis.study) {
               const elem = $('.study__message');
               if (elem.length && !elem.closest('.study__glyphs').length) {
                 elem.append(container)
@@ -1568,8 +1571,8 @@
             }
             if (loadChartModule) {
               const mod = await this.getChartModule();
-              const mainline = lichess.analysis.mainline;
-              chart = await mod.acpl(container.find("#acpl-chart")[0], lichess.analysis.data, mainline, lichess.analysis.trans);
+              const mainline = analysis.mainline;
+              chart = await mod.acpl(container.find("#acpl-chart")[0], analysis.data, mainline, analysis.trans);
             }
           }
         }
@@ -1750,7 +1753,7 @@
           chart.data.datasets.push({
             label: 'Material',
             type: 'line',
-            data: this.smooth(this.getMaterialData(lichess.analysis.mainline)),
+            data: this.smooth(this.getMaterialData(analysis.mainline)),
             borderWidth: 2,
             borderDash: [3, 3],
             cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
@@ -1766,8 +1769,8 @@
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingMaterial];
-          if (dataset.data?.length < lichess.analysis.mainline.length) {
-            const newData = this.smooth(this.getMaterialData(lichess.analysis.mainline));
+          if (dataset.data?.length < analysis.mainline.length) {
+            const newData = this.smooth(this.getMaterialData(analysis.mainline));
             dataset.data = newData;
             updateChart = true;
           }
@@ -1785,7 +1788,7 @@
           chart.data.datasets.push({
             label: 'Principled',
             type: 'line',
-            data: this.smooth(this.getPrincipledData(lichess.analysis.mainline)),
+            data: this.smooth(this.getPrincipledData(analysis.mainline)),
             borderWidth: 2,
             borderDash: [4, 2],
             cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
@@ -1801,8 +1804,8 @@
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingPrincipled];
-          if (dataset.data?.length < lichess.analysis.mainline.length) {
-            const newData = this.smooth(this.getPrincipledData(lichess.analysis.mainline));
+          if (dataset.data?.length < analysis.mainline.length) {
+            const newData = this.smooth(this.getPrincipledData(analysis.mainline));
             dataset.data = newData;
             updateChart = true;
           }
@@ -1890,7 +1893,7 @@
         updateChart = true;
       }
       if (this.options.accuracy || this.tempAccuracyOn) {
-        const mainline = lichess.analysis.mainline;
+        const mainline = analysis.mainline;
         if (existingAccuracy < 0) {
           chart.data.datasets.push({
             label: 'Accuracy',
@@ -1925,7 +1928,7 @@
         updateChart = true;
       }
       if (this.options.sharpness) {
-        const mainline = lichess.analysis.mainline;
+        const mainline = analysis.mainline;
         if (existingSharpness < 0) {
           chart.data.datasets.push({
             label: 'Sharpness',
@@ -1960,7 +1963,7 @@
         updateChart = true;
       }
       if (this.options.coord) {
-        const mainline = lichess.analysis.mainline;
+        const mainline = analysis.mainline;
         if (existingCoord < 0) {
           chart.data.datasets.push({
             label: 'Coordination',
@@ -2030,7 +2033,7 @@
       }
       if (this.options.tension) {
         if (existingMaxTension < 0) {
-          const x = this.getMaxTension(lichess.analysis.mainline);
+          const x = this.getMaxTension(analysis.mainline);
           chart.data.datasets.push({
             label: 'Max tension',
             type: 'line',
@@ -2056,8 +2059,8 @@
         } else {
           const dataset = chart.data.datasets[existingMaxTension];
           const existingData = dataset.data;
-          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-            const x = this.getMaxTension(lichess.analysis.mainline);
+          if (this.prevMainlineLength != analysis.mainline.length) {
+            const x = this.getMaxTension(analysis.mainline);
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }
@@ -2075,7 +2078,7 @@
       }
       if (this.options.potential) {
         if (existingMaxPotential < 0) {
-          const x = this.getMaxPotential(lichess.analysis.mainline);
+          const x = this.getMaxPotential(analysis.mainline);
           chart.data.datasets.push({
             label: 'Max potential',
             type: 'line',
@@ -2100,8 +2103,8 @@
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingMaxPotential];
-          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-            const x = this.getMaxPotential(lichess.analysis.mainline);
+          if (this.prevMainlineLength != analysis.mainline.length) {
+            const x = this.getMaxPotential(analysis.mainline);
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }
@@ -2125,7 +2128,7 @@
       }*/
       if (this.options.local) {
         if (existingMiddleGame < 0) {
-          const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
+          const x = this.getGamePhases(analysis.mainline).middleGame;
           if (x) {
           chart.data.datasets.push({
             label: middleGameText,
@@ -2157,8 +2160,8 @@
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingMiddleGame];
-          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-            const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
+          if (this.prevMainlineLength != analysis.mainline.length) {
+            const x = this.getGamePhases(analysis.mainline).middleGame;
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }
@@ -2183,7 +2186,7 @@
       }*/
       if (this.options.local) {
         if (existingEndGame < 0) {
-          const x = this.getGamePhases(lichess.analysis.mainline).endGame;
+          const x = this.getGamePhases(analysis.mainline).endGame;
           if (x) {
           chart.data.datasets.push({
             label: endGameText,
@@ -2215,8 +2218,8 @@
           updateChart = true;
         } else {
           const dataset = chart.data.datasets[existingEndGame];
-          if (this.prevMainlineLength != lichess.analysis.mainline.length) {
-            const x = this.getGamePhases(lichess.analysis.mainline).endGame;
+          if (this.prevMainlineLength != analysis.mainline.length) {
+            const x = this.getGamePhases(analysis.mainline).endGame;
             dataset.data = [
               { x: x, y: -1.05 },
               { x: x, y: 1.05 }
@@ -2227,7 +2230,7 @@
       }
 
       if (this.options.brilliant) {
-        this.setBrilliant(lichess.analysis.mainline, forced);
+        this.setBrilliant(analysis.mainline, forced);
 
         this.showGoodMoves(forced);
       }
@@ -2239,7 +2242,7 @@
       const maxX = Math.max.apply(null, chart.data.datasets
         .filter(d => d.type == 'line')
         .map(d => d.data?.at(-1)?.x)
-        .concat([lichess.analysis.mainline.at(-1)?.ply]));
+        .concat([analysis.mainline.at(-1)?.ply]));
       if (maxX != chart.options?.scales?.x?.max) {
         chart.options.scales.x.max = maxX;
         updateChart = true;
@@ -2247,7 +2250,7 @@
 
       if (updateChart) {
         chart.update('none');
-        this.prevMainlineLength = lichess.analysis.mainline.length;
+        this.prevMainlineLength = analysis.mainline.length;
       }
       this.prevSmooth = this.options.smooth;
     };
@@ -2437,8 +2440,8 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      var isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
-      var localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
+      const isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
+      const localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
       if (!localLine.length) return;
       const dict = new Map();
       for (const node of localLine) {
