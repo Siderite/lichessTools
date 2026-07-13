@@ -3317,18 +3317,20 @@
         ...defaults,
         ...options
       };
-      this.upgradeOptions(options);
       options.getValue = function (optionName, optionValue) {
         if (!this.enableLichessTools) return false;
         return this[optionName]
       };
-      if (!options.version) {
-        this.comm.send({ type: 'getVersion' })
-          .catch(e => {
-            console.warn('Error loading the extension version');
-          })
-          .then(data=>options.version = data.version);
-      }
+      this.comm.send({ type: 'getVersion' })
+        .catch(e => {
+          console.warn('Error loading the extension version');
+        })
+        .then(data=>{
+          if (data?.version) {
+            options.version = data.version;
+          }
+          this.upgradeOptions(options);
+        });
       return options;
     }
 
