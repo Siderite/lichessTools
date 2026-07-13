@@ -294,7 +294,8 @@
       if (!analysis) return;
       if (!this.options.slow) return;
       const centi = analysis.data?.game?.moveCentis;
-      if (!this.slowMoves && centi) {
+      const isCorrespondence = analysis.data?.game?.speed == 'correspondence';
+      if (!this.slowMoves && centi && !isCorrespodence) {
         const longMoves = this.findLongMoves(centi);
         this.slowMoves = new Map(longMoves.map(m=>[m.index,m.time]));
       }

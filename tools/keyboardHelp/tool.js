@@ -140,7 +140,8 @@
         row(['alt', 'i'], 'nextOpponentInaccuracy');
         row(['alt', 'g'], 'nextOpponentGood');
 
-        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis) {
+        const isCorrespondence = analysis.data?.game?.speed == 'correspondence';
+        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis && !isCorrespondence) {
           row(['o'], 'nextSlow');
           row(['alt', 'o'], 'nextOpponentSlow');
         }
