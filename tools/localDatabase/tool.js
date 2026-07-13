@@ -157,7 +157,7 @@
     async readNumber(byteCount) {
       const u8 = await this.readBytes(byteCount);
       let result = 0;
-      for (var i=0; i<byteCount; i++) {
+      for (let i=0; i<byteCount; i++) {
         result|=(u8[i] << (i*8));
       }
       return result;

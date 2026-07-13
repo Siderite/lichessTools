@@ -140,7 +140,7 @@
       if (this.options.persistView) {
         const isBlogUrl = /^\/blog(?!\/search\b)(?:\/|$)?/i.test(lt.global.location.pathname);
         if (isBlogUrl) {
-          var href = lt.global.location.href;
+          const href = lt.global.location.href;
           lt.storage.set('LiChessTools.blogHistory-view',href);
         }
         const blogViewUrl = lt.storage.get('LiChessTools.blogHistory-view');
