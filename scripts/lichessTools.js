@@ -2019,11 +2019,11 @@
             delete this.sendResponses[uid];
             reject(new Error('Send timeout'));
           }, timeout || this.timeout);
-          const f = (data) => {
+          const f = (rdata) => {
             clearTimeout(pointer);
             delete this.sendResponses[uid];
-            if (sendResponse) sendResponse(data);
-            resolve(data);
+            if (sendResponse) sendResponse(rdata);
+            resolve(rdata);
           };
           this.sendResponses[uid] = f;
           const customEvent = new CustomEvent("LichessTools.send", {
@@ -3184,7 +3184,7 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
-      this.currentOptions = this.getOptions();
+      this.currentOptions = await this.getOptions(true);
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
@@ -3308,7 +3308,7 @@
       }
     }
 
-    getOptions() {
+    async getOptions(fromInit) {
       let options = this.global.localStorage.getItem('LiChessTools2.options');
       options = this.jsonParse(options);
       const defaults = this.getDefaultOptions();
@@ -3321,16 +3321,18 @@
         if (!this.enableLichessTools) return false;
         return this[optionName]
       };
-      this.comm.send({ type: 'getVersion' })
-        .catch(e => {
-          console.warn('Error loading the extension version');
-        })
-        .then(data=>{
-          if (data?.version) {
-            options.version = data.version;
-          }
-          this.upgradeOptions(options);
-        });
+      if (!fromInit) {
+        this.comm.send({ type: 'getVersion' },
+          data=>{
+            if (data?.version) {
+              options.version = data.version;
+              this._loadedVersion = true;
+            }
+            this.upgradeOptions(options);
+          }).catch(e=>{
+            console.warn('Error loading the extension version',e);
+          });
+      }
       return options;
     }
 
@@ -3340,7 +3342,7 @@
       if (options) {
         await this.saveOptions(options);
       }
-      options = this.getOptions();
+      options = await this.getOptions();
       const enableTime = +(options['enableLichessTools.enableTime']||0);
       if (enableTime) {
         let saveOptions = false;
