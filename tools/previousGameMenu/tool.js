@@ -84,10 +84,8 @@
             .trigger('mouseover');
         };
         item.on('mouseover',f);
-      } else {
-        item.removeAttr('href');
+        container.append(item);
       }
-      container.append(item);
     }
 
   }
