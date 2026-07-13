@@ -43,6 +43,7 @@ body.lichessTools tick.lichessTools-principled {
 
 body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #009914;
+  user-select: none;
 }
 
 html.dark body.lichessTools div.symbol.lichessTools-goodMoves,
@@ -145,7 +146,7 @@ body.lichessTools .lichessTools-extraChart-tooltip .node-11786585 {
 
 body.lichessTools #acpl-chart-container:has(.lichessTools-chartLegend),
 body.lichessTools div.study__server-eval.ready:has(.lichessTools-chartLegend) {
-  padding-bottom: 3em;
+  padding-bottom: 2em;
 }
 
 

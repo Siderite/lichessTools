@@ -1344,42 +1344,42 @@
       const fill = (container, count, color) => {
         let elem = $('div.lichessTools-goodMoves', container);
         if (!elem.length) {
-          const adviceSummary = $('div.advice-summary__player', container);
-          if (adviceSummary.length) {
-          elem = $('<div></div>')
-            .addClass('lichessTools-goodMoves')
-            .addClass('advice-summary__error')
-            .text(' ' + trans.noarg('goodMovesText'))
-            .prepend($('<strong></strong>'))
-            .attr('title', trans.noarg('goodMovesTitle'))
-            .on('click', (ev) => {
-              ev.preventDefault();
-              lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
-            })
-            .on('pointermove', (ev) => {
-              const chart = this._chart;
-              if (!chart) return;
-              const dataset = chart.data.datasets.at(0);
-              if (!dataset) return;
-              const elems = this.getInterestingMoveElements(color);
-              if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves = dataset.hoverBackgroundColor || this.colors.originalChart;
-              dataset.hoverBackgroundColor = this.colors.interestingMoves();
-              dataset.pointHoverBackgroundColor = this.colors.interestingMoves();
-              this.safeSetActiveElements(chart,elems,dataset);
-              chart.update('none');
-            })
-            .on('pointerleave', (ev) => {
-              const chart = this._chart;
-              if (!chart) return;
-              const dataset = chart.data.datasets.at(0);
-              if (!dataset) return;
-              const elems = [];
-              dataset.hoverBackgroundColor = this.colors.beforeInterestingMoves;
-              dataset.pointHoverBackgroundColor = this.colors.beforeInterestingMoves;
-              this.safeSetActiveElements(chart,elems,dataset);
-              chart.update('none');
-            })
-            .insertAfter(adviceSummary);
+          const adviceAcpl = $('div.advice-summary__acpl', container);
+          if (adviceAcpl.length) {
+            elem = $('<div></div>')
+              .addClass('lichessTools-goodMoves')
+              .addClass('advice-summary__error')
+              .text(' ' + trans.noarg('goodMovesText'))
+              .prepend($('<strong></strong>'))
+              .attr('title', trans.noarg('goodMovesTitle'))
+              .on('click', (ev) => {
+                ev.preventDefault();
+                lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
+              })
+              .on('pointermove', (ev) => {
+                const chart = this._chart;
+                if (!chart) return;
+                const dataset = chart.data.datasets.at(0);
+                if (!dataset) return;
+                const elems = this.getInterestingMoveElements(color);
+                if (!this.colors.beforeInterestingMoves) this.colors.beforeInterestingMoves = dataset.hoverBackgroundColor || this.colors.originalChart;
+                dataset.hoverBackgroundColor = this.colors.interestingMoves();
+                dataset.pointHoverBackgroundColor = this.colors.interestingMoves();
+                this.safeSetActiveElements(chart,elems,dataset);
+                chart.update('none');
+              })
+              .on('pointerleave', (ev) => {
+                const chart = this._chart;
+                if (!chart) return;
+                const dataset = chart.data.datasets.at(0);
+                if (!dataset) return;
+                const elems = [];
+                dataset.hoverBackgroundColor = this.colors.beforeInterestingMoves;
+                dataset.pointHoverBackgroundColor = this.colors.beforeInterestingMoves;
+                this.safeSetActiveElements(chart,elems,dataset);
+                chart.update('none');
+              })
+              .prependTo(adviceAcpl);
           }
         }
         if (elem.length) {
@@ -2430,6 +2430,7 @@
 
     showAccuracy = (ev)=>{
       const el = ev.currentTarget;
+      if (!el?.offsetParent) return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
