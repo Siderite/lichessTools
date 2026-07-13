@@ -60,8 +60,20 @@
       return `${san}-${turn}`;
     };
 
+    sanToIndex = (san) => {
+      if (!san) return 1;
+
+      let hash = 5381;
+      for (let i = 0; i < san.length; i++) {
+        hash = (hash * 33) ^ san.charCodeAt(i);
+      }
+
+      const positiveHash = Math.abs(hash) >>> 0;
+      const index = (positiveHash % 30) + 1;
+      return index;
+    };
+
     dict = new Map();
-    clsIndex = 0;
     handlePvsDirect = () => {
       if (this._inHandlePvs) return;
       try {
@@ -101,17 +113,8 @@
           const key = entry[0];
           const val = entry[1];
           if (val.count > 1 && !val.cls) {
-            if (demotes.length) {
-              const demote = demotes.shift();
-              val.cls = demote.cls;
-              demote.cls = '';
-            } else {
-              this.clsIndex++;
-              if (this.clsIndex > 30) {
-                lt.global.console.debug('Ceval highlight class index: ', this.clsIndex);
-              }
-              val.cls = 'lichessTools-cevalHighlight-' + this.clsIndex;
-            }
+            const clsIndex = this.sanToIndex(key);
+            val.cls = 'lichessTools-cevalHighlight-' + clsIndex;
           }
         });
         $('div.pv_box span.pv-san')
