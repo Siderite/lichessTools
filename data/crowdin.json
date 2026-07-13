@@ -1200,7 +1200,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2403,7 +2404,8 @@
     "challengeNowTitle": "立即向防守方发起对局挑战",
     "laddersError": "连接 Lichess Ladders 时出错",
     "gotoLichessLaddersTitle": "更多 Lichess Ladders 详情",
-    "laddersLaddersText": "天梯赛"
+    "laddersLaddersText": "天梯赛",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3606,7 +3608,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4809,7 +4812,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6012,7 +6016,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7215,7 +7220,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8418,7 +8424,8 @@
     "challengeNowTitle": "Défier le défenseur pour une partie maintenant",
     "laddersError": "Erreur de connexion à Lichess Ladders",
     "gotoLichessLaddersTitle": "Plus d'info au sujet de Lichess Ladders",
-    "laddersLaddersText": "Échelles"
+    "laddersLaddersText": "Échelles",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9621,7 +9628,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10824,7 +10832,8 @@
     "challengeNowTitle": "πρόκληση του αμυντικού σε ένα παιχνίδι τώρα",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12027,7 +12036,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13230,7 +13240,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14433,7 +14444,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15636,7 +15648,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16839,7 +16852,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18042,7 +18056,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19245,7 +19260,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20448,7 +20464,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21651,7 +21668,8 @@
     "challengeNowTitle": "provoacă apărătorul la un joc acum",
     "laddersError": "Eroare conectare la Lichess Ladders",
     "gotoLichessLaddersTitle": "mai multe pe Lichess Ladders",
-    "laddersLaddersText": "Scări"
+    "laddersLaddersText": "Scări",
+    "mobileExperience.hideStartEnd": "Ascunde butoanele de navigare start/final"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22854,7 +22872,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24057,7 +24076,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25260,7 +25280,8 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26463,7 +26484,8 @@
     "challengeNowTitle": "şimdi savunmacıyla bir maç yap",
     "laddersError": "Lichess Ladders'a bağlanırken hata oluştu",
     "gotoLichessLaddersTitle": "Lichess Ladders ile daha fazlası",
-    "laddersLaddersText": "Merdivenler"
+    "laddersLaddersText": "Merdivenler",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27666,6 +27688,7 @@
     "challengeNowTitle": "challenge the defender to a game now",
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
-    "laddersLaddersText": "Ladders"
+    "laddersLaddersText": "Ladders",
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
   }
 }

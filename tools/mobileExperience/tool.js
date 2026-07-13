@@ -7,7 +7,7 @@
         name: 'mobileExperience',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag',*/ 'randomNextMove', 'selectiveRandom', 'inInteractive'],
+        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag',*/ 'randomNextMove', 'selectiveRandom', 'inInteractive', 'hideStartEnd'],
         defaultValue: 'showGauge,randomNextMove,selectiveRandom' 
       }, {
         name: 'mobileExperienceRound',
@@ -60,6 +60,7 @@
         'mobileExperience.randomNextMove': 'Random move button',
         'mobileExperience.selectiveRandom': '...only when variations',
         'mobileExperience.inInteractive': 'Extra buttons in interactive',
+        'mobileExperience.hideStartEnd': 'Hide start/end navigation buttons',
         'mobileExperienceRound.shapeDrawingRound': 'Game arrows',
         'mobileExperienceRound.tapDragRound': 'Tap&Drag',
         'mobileExperienceRound.standardButtons': 'Standard buttons',
@@ -91,6 +92,7 @@
         'mobileExperience.randomNextMove': 'Buton mutare aleatoare',
         'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163ii',
         'mobileExperience.inInteractive': 'Butoane suplimentare \u00een lec\u0163ii interactive',
+        'mobileExperience.hideStartEnd': 'Ascunde butoanele de navigare start/final',
         'mobileExperienceRound.shapeDrawingRound': 'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.tapDragRound': 'Atinge \u015fi trage',
         'mobileExperienceRound.standardButtons': 'Butoane standard',
@@ -388,7 +390,7 @@
       const trans = lt.translator;
       const isAnalyse = !!$('main.analyse').length;
       const isRound = !!$('main.round,main.puzzle').length;
-      const isEnabled = !!(this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove);
+      const isEnabled = !!(this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove || this.options.hideStartEnd);
       $.cached('body').toggleClassSafe('lichessTools-mobileExperience', isEnabled);
 
       let wrap = null;
@@ -524,6 +526,9 @@
             .on('mousedown', this.clickOrTapAnalysisControls);
           }
         }
+
+        $('.analyse__controls').toggleClassSafe('lichessTools-hideStartEnd', this.options.hideStartEnd);
+          
         if (!this.options.shapeDrawing && !this.options.randomNextMove) {
           if (this.originalHandler) {
             const elem = $('.analyse__controls')[0];
@@ -650,6 +655,7 @@
         randomNextMove : lt.isOptionSet(mobileExperience, 'randomNextMove'),
         selectiveRandom : lt.isOptionSet(mobileExperience, 'selectiveRandom'),
         inInteractive : lt.isOptionSet(mobileExperience, 'inInteractive'),
+        hideStartEnd : lt.isOptionSet(mobileExperience, 'hideStartEnd'),
         shapeDrawingRound : lt.isOptionSet(mobileExperienceRound, 'shapeDrawingRound'),
         standardButtons : lt.isOptionSet(mobileExperienceRound, 'standardButtons'),
         invert : lt.isOptionSet(mobileExperienceRound, 'invert'),
@@ -680,7 +686,7 @@
           if ($('body.mobile .eval-gauge').length) lt.analysisRedraw();
         }
       }
-      if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
+      if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove || this.options.hideStartEnd) {
         lt.pubsub.on('lichessTools.redraw', this.handleRedraw);
         lt.pubsub.on('lichessTools.chapterChange', this.handleRedraw);
       }
