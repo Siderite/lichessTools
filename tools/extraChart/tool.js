@@ -2117,11 +2117,12 @@
         middleGameText = 'Middlegame';
       }
       let existingMiddleGame = chart.data.datasets.findIndex(s => s.label === middleGameText);
-      if (existingMiddleGame >= 0 && !this.options.local) {
+      // do not delete the original middle game line
+      /*if (existingMiddleGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingMiddleGame, 1);
         existingMiddleGame = -1;
         updateChart = true;
-      }
+      }*/
       if (this.options.local) {
         if (existingMiddleGame < 0) {
           const x = this.getGamePhases(lichess.analysis.mainline).middleGame;
@@ -2144,7 +2145,7 @@
               offset: -5,
               align: 45,
               rotation: 90,
-              formatter: _ => trans.noarg('middleGameTitle')
+              formatter: _ => middleGameText
             }
           });
           } else {
@@ -2174,11 +2175,12 @@
       }
 
       let existingEndGame = chart.data.datasets.findIndex(s => s.label === endGameText);
-      if (existingEndGame >= 0 && !this.options.local) {
+      // do not delete the original endgame line
+      /*if (existingEndGame >= 0 && !this.options.local) {
         chart.data.datasets.splice(existingEndGame, 1);
         existingEndGame = -1;
         updateChart = true;
-      }
+      }*/
       if (this.options.local) {
         if (existingEndGame < 0) {
           const x = this.getGamePhases(lichess.analysis.mainline).endGame;
@@ -2201,7 +2203,7 @@
               offset: -5,
               align: 45,
               rotation: 90,
-              formatter: _ => trans.noarg('endGameTitle')
+              formatter: _ => endGameText
             }
           });
           } else {
