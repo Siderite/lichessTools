@@ -384,4 +384,5 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
 
 body.lichessTools .analyse__tools .action-menu .inner {
   overflow-y: auto;
+  padding-bottom: 3em;
 }

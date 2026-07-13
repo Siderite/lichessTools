@@ -393,4 +393,5 @@ body.lichessTools.mobile div.lichessTools-moveListOptions-header {
 
 body.lichessTools .analyse__tools .action-menu .inner {
   overflow-y: auto;
+  padding-bottom: 3em;
 }

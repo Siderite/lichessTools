@@ -26,4 +26,5 @@ body.lichessTools .abset-practice:has(#abset-practice:not(:checked)) + .abset-pr
 
 body.lichessTools .analyse__tools .action-menu .inner {
   overflow-y: auto;
+  padding-bottom: 3em;
 }
