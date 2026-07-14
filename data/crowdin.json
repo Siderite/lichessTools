@@ -1201,7 +1201,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2405,7 +2408,10 @@
     "laddersError": "连接 Lichess Ladders 时出错",
     "gotoLichessLaddersTitle": "更多 Lichess Ladders 详情",
     "laddersLaddersText": "天梯赛",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3609,7 +3615,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4813,7 +4822,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6017,7 +6029,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7221,7 +7236,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8425,7 +8443,10 @@
     "laddersError": "Erreur de connexion à Lichess Ladders",
     "gotoLichessLaddersTitle": "Plus d'info au sujet de Lichess Ladders",
     "laddersLaddersText": "Échelles",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9629,7 +9650,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10833,7 +10857,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12037,7 +12064,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13241,7 +13271,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14445,7 +14478,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15649,7 +15685,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16853,7 +16892,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18057,7 +18099,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19261,7 +19306,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20465,7 +20513,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21669,7 +21720,10 @@
     "laddersError": "Eroare conectare la Lichess Ladders",
     "gotoLichessLaddersTitle": "mai multe pe Lichess Ladders",
     "laddersLaddersText": "Scări",
-    "mobileExperience.hideStartEnd": "Ascunde butoanele de navigare start/final"
+    "mobileExperience.hideStartEnd": "Ascunde butoanele de navigare start/final",
+    "options.boardSaturate": "Saturație tablă",
+    "boardSaturateText": "Saturație",
+    "boardSaturateTitle": "LiChess Tools - saturație tablă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22873,7 +22927,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24077,7 +24134,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25281,7 +25341,10 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26485,7 +26548,10 @@
     "laddersError": "Lichess Ladders'a bağlanırken hata oluştu",
     "gotoLichessLaddersTitle": "Lichess Ladders ile daha fazlası",
     "laddersLaddersText": "Merdivenler",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27689,6 +27755,9 @@
     "laddersError": "Error connecting to Lichess Ladders",
     "gotoLichessLaddersTitle": "more on Lichess Ladders",
     "laddersLaddersText": "Ladders",
-    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons"
+    "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
+    "options.boardSaturate": "Board saturation",
+    "boardSaturateText": "Saturation",
+    "boardSaturateTitle": "LiChess Tools - board saturation"
   }
 }

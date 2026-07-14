@@ -189,6 +189,7 @@
         "tools/showFps/tool.js",
         "tools/showOpponentMoves/tool.js",
         "tools/lichessLadders/tool.js",
+        "tools/boardSaturate/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -346,6 +347,7 @@
         "tools/showFps/tool.css",
         "tools/showOpponentMoves/tool.css",
         "tools/lichessLadders/tool.css",
+        "tools/boardSaturate/tool.css",
 
         "tools/tvOptions/tool.css",
 

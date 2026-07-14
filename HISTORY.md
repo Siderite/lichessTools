@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Jul
+
+- board saturation
+
 13 Jul
 
 - option to hide start/end navigation buttons in analysis
