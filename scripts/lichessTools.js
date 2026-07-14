@@ -2317,6 +2317,7 @@
       init: function () {
         const lt = this.lichessTools;
         lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserPgns', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserGamesJson', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
@@ -2629,6 +2630,24 @@
             }
           );
           return pgn;
+        },
+        getUserGamesJson: async function (userId, options) {
+          const lt = this.lichessTools;
+          const query = options
+            ? '?' + Object.keys(options)
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
+              .join('&')
+            : '';
+          const result = await lt.net.json(
+            {
+              url: '/api/games/user/{userId}' + query,
+              args: { userId }
+            },
+            {
+              ndjson: true
+            }
+          );
+          return result;
         },
         getMini: async function (gameId, color) {
           const lt = this.lichessTools;
