@@ -1204,7 +1204,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2411,7 +2412,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3618,7 +3620,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4825,7 +4828,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6032,7 +6036,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7239,7 +7244,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8446,7 +8452,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9653,7 +9660,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10860,7 +10868,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12067,7 +12076,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13274,7 +13284,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14481,7 +14492,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15688,7 +15700,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16895,7 +16908,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18102,7 +18116,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19309,7 +19324,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20516,7 +20532,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21723,7 +21740,8 @@
     "mobileExperience.hideStartEnd": "Ascunde butoanele de navigare start/final",
     "options.boardSaturate": "Saturație tablă",
     "boardSaturateText": "Saturație",
-    "boardSaturateTitle": "LiChess Tools - saturație tablă"
+    "boardSaturateTitle": "LiChess Tools - saturație tablă",
+    "mobileExperience.hscrub": "Control mutări prin glisare"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22930,7 +22948,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24137,7 +24156,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25344,7 +25364,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26551,7 +26572,8 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27758,6 +27780,7 @@
     "mobileExperience.hideStartEnd": "Hide start/end navigation buttons",
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
-    "boardSaturateTitle": "LiChess Tools - board saturation"
+    "boardSaturateTitle": "LiChess Tools - board saturation",
+    "mobileExperience.hscrub": "Slide move control"
   }
 }

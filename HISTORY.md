@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 14 Jul
 
 - board saturation
+- restore horizontal slide controls in mobile analysis
 
 13 Jul
 
