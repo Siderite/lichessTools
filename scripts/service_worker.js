@@ -11,7 +11,7 @@ const getObs = async (options) => {
   if (!obs.socket) {
     let connectOptions = undefined;
     try {
-      connectionOptions = options.connectOptions ? JSON.parse(options.connectOptions) : undefined;
+      connectOptions = options.connectOptions ? JSON.parse(options.connectOptions) : undefined;
     } catch { }
     try {
       await obs.connect(options.url, options.password, connectOptions);
