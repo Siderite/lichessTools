@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Jul
+
+- image pasting in team/game/study chat
+
 14 Jul
 
 - board saturation
