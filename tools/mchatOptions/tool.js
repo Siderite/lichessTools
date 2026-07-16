@@ -64,6 +64,72 @@
 
     urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
+    isImage = (file) => {
+      return [
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+        'image/png',
+        'image/apng',
+        'image/tiff'
+      ].includes(file?.type);
+    };
+
+    getImagePastingElements = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const arr = [
+        '.mchat__say' // team/game/study chat input box
+      ];
+      return $(arr.join(', '));
+    };
+
+    getImageUrl = async (ev) => {
+      const lt = this.lichessTools;
+      const file = ev.clipboardData?.files[0] || ev.dataTransfer?.files[0]
+      if (!this.isImage(file)) return;
+      ev.preventDefault();
+      lt.global.console.debug('Sending image to hosting service...');
+      const buffer = await file.arrayBuffer();
+      const base64 = btoa(
+        new Uint8Array(buffer)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
+      lt.global.console.debug('... got reply ' + JSON.stringify(res));
+      if (!res?.link) {
+        lt.global.console.warn('Could not send image!', res?.err);
+        return;
+      }
+      const imageData = lt.storage.get('LiChessTools.imageData')||[];
+      const key = res.link.replace(/\.(?:png|jpg|jpeg)$/,'');
+      imageData.push([key,res]);
+      lt.storage.set('LiChessTools.imageData', imageData, { zip:true });
+      return res.link;
+    };
+
+    pasteImage = async (ev) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const el = $(ev.currentTarget);
+      const insertElem = el;
+      let loader = null;
+      try {
+        el.addClass('lichessTools-imagePasting');
+        loader = $('<div class="ddloader"></div>').insertAfter(el);
+        const url = await this.getImageUrl(ev);
+        if (!url) return;
+        const text = url;
+        insertElem.insertText(text);
+      } catch (e) {
+        lt.announce(trans.noarg('pastingError'));
+      } finally {
+        loader.remove();
+        el.removeClass('lichessTools-imagePasting');
+      }
+    };
+
     processChat = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -111,6 +177,13 @@
             .attr('src', url.toString())
             .appendTo($(e).empty());
         });
+        this.getImagePastingElements()
+          .each((i, e) => {
+            if (e.imagePastingInit) return;
+            e.imagePastingInit = true;
+            $(e).on('paste drop', this.pasteImage);
+            $(e).on('dragover', ev=>ev.preventDefault());
+          });
       }
       if (this.options.unlimited) {
         const maxLength = 138;
