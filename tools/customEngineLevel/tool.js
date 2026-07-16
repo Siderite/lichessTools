@@ -287,7 +287,6 @@
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
           analysis.ceval.worker?.stop();
-          analysis.ceval.curEval = null;
           analysis.ceval.download = undefined;
           if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
