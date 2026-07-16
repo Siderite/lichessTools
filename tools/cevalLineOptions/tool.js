@@ -55,22 +55,34 @@
       const e = $(elem);
       const idx = +($(e).attr('data-move-index')) % 2;
       if (this.options.highlightOnlyMe && idx != comp) return;
-      const san = e.text().replace(/[\+#\?!]/, '');
+      const san = e.text().replace(/[\+#=\?!]/, '');
       const turn = (idx + comp) % 2;
       return `${san}-${turn}`;
     };
 
-    sanToIndex = (san) => {
-      if (!san) return 1;
+    sanToIndex = (key, idxSet) => {
+      if (!key || !idxSet || idxSet.size>=30) return 1;
 
       let hash = 5381;
-      for (let i = 0; i < san.length; i++) {
-        hash = (hash * 33) ^ san.charCodeAt(i);
+      for (let i = 0; i < key.length; i++) {
+        hash = (hash * 33) ^ key.charCodeAt(i);
       }
+      const baseHash = Math.abs(hash) >>> 0;
 
-      const positiveHash = Math.abs(hash) >>> 0;
-      const index = (positiveHash % 30) + 1;
-      return index;
+      let attempt = 0;
+      while (attempt < 100) {
+        let h = baseHash + attempt * 0x9e3779b1;
+        h = (h ^ (h >>> 16)) * 0x85ebca6b;
+        h = (h ^ (h >>> 13)) * 0xc2b2ae35;
+        h = h ^ (h >>> 16);
+        const index = ((h >>> 0) % 30) + 1;
+
+        if (!idxSet.has(index)) {
+          return index;
+        }
+        attempt++;
+      }
+      return 1;
     };
 
     dict = new Map();
@@ -85,8 +97,6 @@
         const analysis = lichess.analysis;
         const analysisTools = $('main .analyse__tools, main .puzzle__tools');
         if (!analysisTools.length) return;
-        this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
-        [...this.dict.values()].forEach(v => v.count = 0);
         const fen = analysis
           ? analysis.node.fen
           : lt.getPositionFromBoard($('.main-board')[0],true);
@@ -95,36 +105,36 @@
         const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
 
-        $('div.pv_box span.pv-san').each((i, e) => {
-          if (!lt.inViewport(e)) return;
-          const key = this.getKey(e, comp);
-          if (!key) return;
-          const data = this.dict.get(key);
-          if (data) {
-            data.count++;
+        [...this.dict.values()].forEach(v => v.count = 0);
+        $('div.pv_box span.pv-san')
+          .each((i, e) => {
+            //if (!lt.inViewport(e)) return;
+            const key = this.getKey(e, comp);
+            if (!key) return;
+            const data = this.dict.get(key);
+            if (data) {
+              data.count++;
+            } else {
+              this.dict.set(key, { count: 1, cls: 0 });
+            }
+          });
+        const clsSet = new Set();
+        [...this.dict.values()].forEach(v => {
+          if (v.count<=0) {
+            v.cls = 0;
           } else {
-            this.dict.set(key, { count: 1, cls: '' });
-          }
-        });
-        const arr = [...this.dict];
-        arr.sort((a, b) => b[1].count - a[1].count);
-        const demotes = arr.map(entry => entry[1]).filter(val => val.count <= 1 && val.cls);
-        arr.forEach((entry) => {
-          const key = entry[0];
-          const val = entry[1];
-          if (val.count > 1 && !val.cls) {
-            const clsIndex = this.sanToIndex(key);
-            val.cls = 'lichessTools-cevalHighlight-' + clsIndex;
+            clsSet.add(v.cls);
           }
         });
         $('div.pv_box span.pv-san')
           .each((i, e) => {
-            const key = this.getKey(e,comp);
             let cls = 'pv-san';
+            const key = this.getKey(e,comp);
             if (key) {
               const val = this.dict.get(key);
               if (val?.count > 1 && this.options.highlight) {
-                cls = ('pv-san ' + val.cls).trim();
+                const clsIndex = this.sanToIndex(key, clsSet);
+                cls = 'pv-san lichessTools-cevalHighlight-' + clsIndex;
               }
             }
             if (e.className != cls) e.className = cls;

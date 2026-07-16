@@ -1,3 +1,8 @@
+body.lichessTools .pv_box:has([class*="cevalHighlight"]) .pv-san {
+  padding: 1px;
+  background-clip: content-box;
+}
+
 body.lichessTools .pv-san.lichessTools-cevalHighlight-1 {
   background: #ff8080;
   color: black;
