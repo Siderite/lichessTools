@@ -7,6 +7,7 @@ body.lichessTools.mobile:has(.site-buttons div.lichessTools-onlineFriends) #user
 
 body.lichessTools section.lichessTools-onlineFriends .data-count:after {
   top: 0.5em;
+  left: unset;
   background: #1b78d0;
 }
 

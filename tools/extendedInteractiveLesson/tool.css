@@ -117,6 +117,7 @@ body.lichessTools .analyse .gamebook button.hint.data-count::after {
   color: var(--c-primary);
   border-radius: 25%;
   border: 1px solid #80808080;
+  left: unset;
 }
 
 body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::after {
