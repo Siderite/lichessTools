@@ -189,6 +189,72 @@ body.lichessTools .pv-san.lichessTools-cevalHighlight-30 {
   border-radius: 33%;
 }
 
+body.lichessTools .pv-san.lichessTools-cevalHighlight-31 {
+  border: 1px dashed #0000ff;
+  background: #404040;
+  color: white;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-32 {
+  border: 1px dashed #ffff00;
+  background: #404040;
+  color: white;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-33 {
+  border: 1px dashed #00ffff;
+  background: #404040;
+  color: white;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-34 {
+  border: 1px dashed #ff00ff;
+  background: #404040;
+  color: white;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-35 {
+  border: 1px dashed #ff0000;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-36 {
+  border: 1px dashed #00ff00;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-37 {
+  border: 1px dashed #0000ff;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-38 {
+  border: 1px dashed #ffff00;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-39 {
+  border: 1px dashed #00ffff;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
+body.lichessTools .pv-san.lichessTools-cevalHighlight-40 {
+  border: 1px dashed #ff00ff;
+  background: #404040;
+  color: white;
+  border-radius: 33%;
+}
+
 body.lichessTools switch.lichessTools-cevalMoreLines {
   cursor: pointer;
 }

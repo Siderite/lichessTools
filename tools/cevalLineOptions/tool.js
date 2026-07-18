@@ -61,8 +61,7 @@
     };
 
     sanToIndex = (key, idxSet) => {
-      if (!key || !idxSet || idxSet.size>=30) return 1;
-
+      const maxSize = 40;
       let hash = 5381;
       for (let i = 0; i < key.length; i++) {
         hash = (hash * 33) ^ key.charCodeAt(i);
@@ -70,14 +69,14 @@
       const baseHash = Math.abs(hash) >>> 0;
 
       let attempt = 0;
-      while (attempt < 100) {
+      while (attempt < maxSize) {
         let h = baseHash + attempt * 0x9e3779b1;
         h = (h ^ (h >>> 16)) * 0x85ebca6b;
         h = (h ^ (h >>> 13)) * 0xc2b2ae35;
         h = h ^ (h >>> 16);
-        const index = ((h >>> 0) % 30) + 1;
+        const index = ((h >>> 0) % maxSize) + 1;
 
-        if (!idxSet.has(index)) {
+        if (!idxSet.has(index) || idxSet.size>=maxSize) {
           return index;
         }
         attempt++;
@@ -85,7 +84,6 @@
       return 1;
     };
 
-    dict = new Map();
     handlePvsDirect = () => {
       if (this._inHandlePvs) return;
       try {
@@ -105,36 +103,30 @@
         const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
 
-        [...this.dict.values()].forEach(v => v.count = 0);
+        const dict = new Map();
         $('div.pv_box span.pv-san')
           .each((i, e) => {
             //if (!lt.inViewport(e)) return;
             const key = this.getKey(e, comp);
             if (!key) return;
-            const data = this.dict.get(key);
+            const data = dict.get(key);
             if (data) {
               data.count++;
             } else {
-              this.dict.set(key, { count: 1, cls: 0 });
+              dict.set(key, { count: 1, cls: 0 });
             }
           });
         const clsSet = new Set();
-        [...this.dict.values()].forEach(v => {
-          if (v.count<=0) {
-            v.cls = 0;
-          } else {
-            clsSet.add(v.cls);
-          }
-        });
         $('div.pv_box span.pv-san')
           .each((i, e) => {
             let cls = 'pv-san';
             const key = this.getKey(e,comp);
             if (key) {
-              const val = this.dict.get(key);
+              const val = dict.get(key);
               if (val?.count > 1 && this.options.highlight) {
                 const clsIndex = this.sanToIndex(key, clsSet);
                 cls = 'pv-san lichessTools-cevalHighlight-' + clsIndex;
+                clsSet.add(clsIndex);
               }
             }
             if (e.className != cls) e.className = cls;
