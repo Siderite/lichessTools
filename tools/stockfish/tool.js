@@ -103,7 +103,11 @@
         if (!this._module) {
           this.lt.debug && this.lt.global.console.debug('SF', 'loading module...');
           const engines = lichess?.analysis?.ceval?.engines;
-          const engine = engines?.localEngines?.find(e => e.id == engineId) || engines?.localEngines?.[0];
+          let engine = engines?.localEngineMap?.get(engineId)?.info;
+          if (!engine) {
+            engineId = [...engines?.localEngineMap?.keys()][0];
+            engine = engines?.localEngineMap?.get(engineId)?.info;
+          }
           const assetUrl = engine?.assets?.js
             ? engine.assets.root + '/' + engine.assets.js
             : 'npm/lila-stockfish-web/' + engineRoot;

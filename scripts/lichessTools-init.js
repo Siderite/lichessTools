@@ -11,7 +11,6 @@ lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.Feedback);
-//lichessTools.loadTool(LiChessTools.Tools.CacheBoundingRect);
 
 lichessTools.loadTool(LiChessTools.Tools.EmitEsmLoaded);
 lichessTools.loadTool(LiChessTools.Tools.InterceptEventHandlers);
@@ -150,6 +149,7 @@ lichessTools.loadTool(LiChessTools.Tools.ExplorerChessagine);
 lichessTools.loadTool(LiChessTools.Tools.ShowFps);
 lichessTools.loadTool(LiChessTools.Tools.ShowOpponentMoves);
 lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
+lichessTools.loadTool(LiChessTools.Tools.BoardSaturate);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

@@ -28,30 +28,6 @@ body.lichessTools.mobile #topnav section a.lichessTools-previousStudy div[role="
   display: none;
 }
 
-/* Prettier */
-body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy {
-  flex-direction: column;
-  align-items: flex-start !important;
-  justify-content: center;
-}
-
-@media (min-width: 1019.3px) {
-  body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy {
-    position: relative;
-    clip-path: unset !important;
-  }
-
-  body.lichessTools.lichessTools-prettier nav#topnav section>div[role="group"]:has(a.lichessTools-previousStudy:hover) {
-    clip-path: unset !important;
-    overflow: visible !important;
-  }
-
-  body.lichessTools.lichessTools-prettier nav#topnav a.lichessTools-previousStudy div[role="group"] {
-    opacity: 1 !important;
-    clip-path: unset !important;
-  }
-}
-
 /* Lichess Helper CSS */
 
 @media (min-width: 1019.3px) {

@@ -196,7 +196,11 @@
         const existingData = this.leaderTeams.get(team);
         if (!existingData.get(timeKey)) {
           const teamData = await lt.api.team.getTeam(team);
-          if (!teamData) continue;
+          if (!teamData) {
+            this.leaderTeams.delete(team);
+            save = true;
+            continue;
+          }
           existingData.set(timeKey,{ nbMembers: teamData.nbMembers });
           save = true;
         }

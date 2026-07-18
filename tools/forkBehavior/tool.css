@@ -99,10 +99,3 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase button.close-button
 body.lichessTools .analyse__tools.lichessTools-forkBehavior-hidden .analyse__fork {
   display:none;
 }
-
-/* Prettier Lichess */
-
-
-body.lichessTools.lichessTools-prettier dialog.lichessTools-forkBehavior-chessbase select {
-  background: var(--c-bg-box) !important;
-}

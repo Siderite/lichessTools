@@ -38,7 +38,7 @@
         this.frames = 0;
         this.last = now;
       }
-      requestAnimationFrame(this.tick);
+      lt.global.requestAnimationFrame(this.tick);
     };
 
     async start() {

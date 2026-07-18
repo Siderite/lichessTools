@@ -171,9 +171,3 @@ body.lichessTools piece.lichessTools-mostAdvanced {
   border-bottom: 3px #FF000030 groove;
   border-radius: 50%;
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier button.lichessTools-moveAssistant.lichessTools-enabled {
-  color: #00A000 !important;
-}

@@ -119,6 +119,7 @@ body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder::before {
 body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder.data-count::after {
   right: 0.25em;
   top: 0.25em;
+  left: unset;
 }
 
 body.lichessTools main.lichessTools-lichessLadders .ladders a.ladder .ranking {

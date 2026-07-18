@@ -294,7 +294,8 @@
       if (!analysis) return;
       if (!this.options.slow) return;
       const centi = analysis.data?.game?.moveCentis;
-      if (!this.slowMoves && centi) {
+      const isCorrespondence = analysis.data?.game?.speed == 'correspondence';
+      if (!this.slowMoves && centi && !isCorrespondence) {
         const longMoves = this.findLongMoves(centi);
         this.slowMoves = new Map(longMoves.map(m=>[m.index,m.time]));
       }
@@ -363,7 +364,9 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!analysis) return;
-      const square = $('square.check').filter((i,e)=>e.getBoundingClientRect().width).prop('cgKey');
+      const square = $('square.check')
+        .filter((i,e)=>e.style.display!='none' && e.style.visibility!='hidden')
+        .prop('cgKey');
       return square;
     };
 

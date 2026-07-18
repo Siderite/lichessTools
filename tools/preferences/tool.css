@@ -324,22 +324,3 @@ div.lichessTools-preferences div.file button {
   align-items: center;
   display: flex;
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools-prettier div.lichessTools-preferences table.lichessTools-globalSwitch tr:nth-child(odd) td {
-  background-color: #434548 !important;
-}
-
-body.lichessTools-prettier.lichessTools-advancedPreferences div.lichessTools-preferences section.lichessTools-advancedPreference h2:after {
-  background: gray !important;
-  opacity: 1;
-}
-
-body.lichessTools-prettier div.lichessTools-preferences .actionButtons button {
-  text-transform: capitalize !important;
-}
-
-body.lichessTools-prettier div.lichessTools-preferences p.saved {
-  background: var(--m-secondary_bg--mix-10) !important;
-}

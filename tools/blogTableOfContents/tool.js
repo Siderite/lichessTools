@@ -27,6 +27,32 @@
       }
     }
 
+    scrollIntoView = (elem, container) => {
+      if (!elem || !container) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const itemRect = elem.getBoundingClientRect();
+
+      const currentScroll = container.scrollTop;
+      const itemTopInContainer = itemRect.top - containerRect.top + currentScroll;
+      const itemBottomInContainer = itemTopInContainer + itemRect.height;
+
+      let targetScroll = currentScroll;
+
+      if (itemTopInContainer < currentScroll) {
+        targetScroll = itemTopInContainer - 10;
+      } else if (itemBottomInContainer > currentScroll + containerRect.height) {
+        targetScroll = itemBottomInContainer - containerRect.height + 10;
+      }
+
+      if (targetScroll !== currentScroll) {
+        container.scrollTo({
+          top: targetScroll,
+          behavior: "smooth"
+        });
+      }
+    };
+
     addTableOfContents = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -72,8 +98,7 @@
                 .each((i,e)=>{
                   const isActive = $(e).attr('href')==href;
                   if (isActive) {
-                    const s = (e.scrollIntoViewIfNeeded || e.scrollIntoView).bind(e);
-                    s && lt.requestAF(s,'TOCscroll');
+                    lt.requestAF(()=>this.scrollIntoView(e,entryContainer[0]),'TOCscroll');
                   }
                   $(e).toggleClassSafe('active',isActive);
                 });

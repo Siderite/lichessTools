@@ -61,13 +61,14 @@
     showPopupDirect = async (nextMoves, nextTranspos) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const analysis = lichess.analysis;
       const trans = lt.translator;
       const $ = lt.$;
       const hasTranspos = !!nextTranspos.length;
       const size = nextMoves.length + nextTranspos.length + (hasTranspos ? 2 : 0);
       let dlg = null;
       let selectElem = null;
-      const selectedIndex = lichess.analysis?.fork?.selectedIndex || 0;
+      const selectedIndex = analysis?.fork?.selectedIndex || 0;
       if (lt.isMobile()) {
         selectElem = $('<ul>');
         let container = hasTranspos && nextMoves.length
@@ -133,7 +134,7 @@
       f=()=>{
         lt.uiApi.events.off('ply',f);
         dlg.close();
-        lt.global.requestAnimationFrame(()=>dlg.remove());
+        lt.requestAF(()=>dlg.remove(),'forkBehavior.dlgRemove');
       };
       lt.uiApi.events.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
@@ -143,7 +144,7 @@
         .attr('data-icon', lt.icon.InfoCircle)
         .appendTo(dlg);
       $(dlg)
-        .on('close', () => lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, null))
+        .on('close', () => analysis.explorer.setHovering(analysis.node.fen, null))
         .addClass('lichessTools-forkBehavior-chessbase');
       selectElem = $('select,ul', dlg).eq(0);
       const makeMove = (ev) => {
@@ -155,9 +156,9 @@
         dlg.close();
         const [uci, path] = val.split(' ');
         if (path) {
-          lichess.analysis.userJumpIfCan(path);
+          analysis.userJumpIfCan(path);
         } else {
-          lichess.analysis.playUci(uci);
+          analysis.playUci(uci);
         }
         lt.analysisRedraw();
       }

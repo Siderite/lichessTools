@@ -7,7 +7,7 @@
         name: 'mobileExperience',
         category: 'mobile',
         type: 'multiple',
-        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag',*/ 'randomNextMove', 'selectiveRandom', 'inInteractive'],
+        possibleValues: ['showGauge', 'hideOctopus', 'shapeDrawing',/* 'tapDrag',*/ 'randomNextMove', 'selectiveRandom', 'inInteractive', 'hideStartEnd', 'hscrub'],
         defaultValue: 'showGauge,randomNextMove,selectiveRandom' 
       }, {
         name: 'mobileExperienceRound',
@@ -60,6 +60,8 @@
         'mobileExperience.randomNextMove': 'Random move button',
         'mobileExperience.selectiveRandom': '...only when variations',
         'mobileExperience.inInteractive': 'Extra buttons in interactive',
+        'mobileExperience.hideStartEnd': 'Hide start/end navigation buttons',
+        'mobileExperience.hscrub': 'Slide move control',
         'mobileExperienceRound.shapeDrawingRound': 'Game arrows',
         'mobileExperienceRound.tapDragRound': 'Tap&Drag',
         'mobileExperienceRound.standardButtons': 'Standard buttons',
@@ -91,6 +93,8 @@
         'mobileExperience.randomNextMove': 'Buton mutare aleatoare',
         'mobileExperience.selectiveRandom': '...doar c\u00e2nd sunt varia\u0163ii',
         'mobileExperience.inInteractive': 'Butoane suplimentare \u00een lec\u0163ii interactive',
+        'mobileExperience.hideStartEnd': 'Ascunde butoanele de navigare start/final',
+        'mobileExperience.hscrub': 'Control mut\u0103ri prin glisare',
         'mobileExperienceRound.shapeDrawingRound': 'S\u0103ge\u0163i \u00een joc',
         'mobileExperienceRound.tapDragRound': 'Atinge \u015fi trage',
         'mobileExperienceRound.standardButtons': 'Butoane standard',
@@ -388,7 +392,7 @@
       const trans = lt.translator;
       const isAnalyse = !!$('main.analyse').length;
       const isRound = !!$('main.round,main.puzzle').length;
-      const isEnabled = !!(this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove);
+      const isEnabled = !!(this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove || this.options.hideStartEnd || this.options.hscrub);
       $.cached('body').toggleClassSafe('lichessTools-mobileExperience', isEnabled);
 
       let wrap = null;
@@ -524,6 +528,9 @@
             .on('mousedown', this.clickOrTapAnalysisControls);
           }
         }
+
+        $('.analyse__controls').toggleClassSafe('lichessTools-hideStartEnd', this.options.hideStartEnd);
+          
         if (!this.options.shapeDrawing && !this.options.randomNextMove) {
           if (this.originalHandler) {
             const elem = $('.analyse__controls')[0];
@@ -577,6 +584,138 @@
             }
           }
         }
+      }
+      const controls = $('.analyse__controls');
+      if (controls.length) {
+        const el = controls[0];
+        if (this.options.hscrub) {
+          if (!controls.prop('_initHscrub')) {
+            controls.prop('_initHscrub',true);
+            el.addEventListener('pointerup', this.hscrubPointerUp, { passive: false });
+            el.addEventListener('pointerdown', this.hscrubPointerDown, { passive: true });
+            el.addEventListener('pointercancel', this.hscrubPointerReset, { passive: true });
+          }
+        } else {
+          if (controls.prop('_initHscrub')) {
+            el.removeEventListener('pointerup', this.hscrubPointerUp, { passive: false });
+            el.removeEventListener('pointerdown', this.hscrubPointerDown, { passive: true });
+            el.removeEventListener('pointercancel', this.hscrubPointerReset, { passive: true });
+            controls.prop('_initHscrub',false);
+          }
+        }
+      }
+    };
+
+    g = { timer: 0, x:0, y: 0, lastMove: 0 };
+    holdDuration = 500;
+    scrubInterval = 100;
+
+    click = (e) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!(e.target instanceof HTMLElement)) return;
+      const button = e.target.closest('[data-act]');
+      const action = button?.dataset.act;
+      if (!action) return;
+      $(button).trigger('click');
+    }
+
+
+    hold = (e) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (!(e.target instanceof HTMLElement)) return;
+      const button = e.target.closest('[data-act]');
+      const action = button?.dataset.act;
+      if (action === 'prev' || action === 'next') {
+        $(button).trigger('click');
+      } else {
+        this.click(ctrl, e);
+      }
+    };
+
+    hscrubPointerReset = (e) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('.analyse__controls')[0];
+      lt.global.clearTimeout(this.g.timer);
+      if (this.g.lastMove) this.scrubControl('pointerup', e);
+      el.releasePointerCapture(e.pointerId);
+      el.removeEventListener('pointermove', this.hscrubPointerMove);
+      this.g.x = 0;
+      this.g.y = 0;
+      this.g.timer = 0;
+      this.g.lastMove = 0;
+    };
+
+    hscrubPointerDown = (e) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('.analyse__controls')[0];
+      [this.g.x, this.g.y] = [e.clientX, e.clientY];
+      this.g.timer = lt.global.setTimeout(() => {
+        this.hold(e);
+        this.hscrubPointerReset(e);
+      }, this.holdDuration);
+      el.addEventListener('pointermove', this.hscrubPointerMove, { passive: false });
+    };
+
+    hscrubPointerMove = (e) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const el = $('.analyse__controls')[0];
+      const [dx, dy] = [e.clientX - this.g.x, e.clientY - this.g.y];
+
+      if (!this.lastMove && Math.abs(dy) > 12) return this.hscrubPointerReset(e);
+      if (Math.abs(dx) < 5 || Math.abs(dx) < Math.abs(dy) * 2) return;
+      lt.global.clearTimeout(this.g.timer);
+      this.g.timer = 0;
+
+      if (dx && performance.now() - this.g.lastMove > this.scrubInterval) {
+        if (!el.hasPointerCapture(e.pointerId)) {
+          el.setPointerCapture(e.pointerId);
+        }
+        e.preventDefault();
+        this.g.lastMove = performance.now();
+        if (this.scrubControl(dx, e)) {
+          this.hscrubPointerReset(e);
+        } else {
+          [this.g.x, this.g.y] = [e.clientX, e.clientY];
+        }
+      }
+    };
+
+    hscrubPointerUp = (e) => {
+      if (this.g.timer && this.click) this.click(e);
+      this.hscrubPointerReset(e);
+      e.preventDefault();
+    };
+
+    last = [];
+
+    scrubControl = (dx) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      if (!analysis) return;
+      if (dx === 'pointerup') {
+        const v = this.last.slice(-3).reduce((a, b) => a + b, 0) / Math.min(this.last.length, 3);
+        if (v > 16) {
+          analysis.navigate.last();
+        }
+        else 
+        if (v < -16) {
+          analysis.navigate.first();
+        }
+        this.last = [];
+      } else {
+        if (dx > 0) {
+          analysis.navigate.next();
+        }
+        else {
+          analysis.navigate.prev();
+        }
+        this.last.push(dx);
       }
     };
 
@@ -650,6 +789,8 @@
         randomNextMove : lt.isOptionSet(mobileExperience, 'randomNextMove'),
         selectiveRandom : lt.isOptionSet(mobileExperience, 'selectiveRandom'),
         inInteractive : lt.isOptionSet(mobileExperience, 'inInteractive'),
+        hideStartEnd : lt.isOptionSet(mobileExperience, 'hideStartEnd'),
+        hscrub : lt.isOptionSet(mobileExperience, 'hscrub'),
         shapeDrawingRound : lt.isOptionSet(mobileExperienceRound, 'shapeDrawingRound'),
         standardButtons : lt.isOptionSet(mobileExperienceRound, 'standardButtons'),
         invert : lt.isOptionSet(mobileExperienceRound, 'invert'),
@@ -680,7 +821,7 @@
           if ($('body.mobile .eval-gauge').length) lt.analysisRedraw();
         }
       }
-      if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove) {
+      if (this.options.showGauge || this.options.hideOctopus || this.options.standardButtons || this.options.shapeDrawing || this.options.shapeDrawingRound || this.options.randomNextMove || this.options.hideStartEnd || this.options.hscrub) {
         lt.pubsub.on('lichessTools.redraw', this.handleRedraw);
         lt.pubsub.on('lichessTools.chapterChange', this.handleRedraw);
       }

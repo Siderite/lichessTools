@@ -65,27 +65,3 @@ body.lichessTools .lichessTools-jiggle {
     transform: rotate(0.5deg);
   }
 }
-
-
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier input.lichessTools-editButtons {
-  text-decoration: underline !important;
-}
-
-body.lichessTools.lichessTools-prettier section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
-  border: dashed 1px gray !important;
-}
-
-body.lichessTools.lichessTools-prettier section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red !important;
-}
-
-body.lichessTools.lichessTools-prettier section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
-  border: dashed 1px red !important;
-}
-
-body.lichessTools.lichessTools-prettier section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red !important;
-}

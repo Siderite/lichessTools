@@ -602,6 +602,8 @@
         this.clearArrows('moveAssistant');
         this.clearHighlight('lichessTools-weakSquare');
         this.clearHighlight('lichessTools-weakSquareOpponent');
+        $('.lichessTools-mostAdvanced, .lichessTools-unhappy, .lichessTools-happy')
+          .removeClass('lichessTools-mostAdvanced lichessTools-unhappy lichessTools-happy');
         this.processHighlights();
         ['weakSquare','backwardPawn','isolatedPawn','hangingPawn'].forEach(c=>{
           [c,c+'Opponent'].forEach(c2=>{

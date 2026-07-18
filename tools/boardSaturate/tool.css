@@ -1,0 +1,20 @@
+body.lichessTools .lichessTools-boardSaturate {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  align-items: center;
+  padding: .5rem 1rem;
+}
+
+body.lichessTools:not(.simple-board) #dasher_app .board .list button  {
+  filter: saturate(var(--lt-board-saturate));
+}
+
+body.lichessTools:not(.simple-board) cg-board:before  {
+  filter: brightness(calc(var(---board-brightness) / 100)) contrast(calc(var(---board-contrast) / 100))
+    hue-rotate(calc(var(---board-hue) * 3.6deg)) saturate(var(--lt-board-saturate));
+}
+
+
+html.transp body.lichessTools:not(.simple-board) cg-board:before  {
+  filter: hue-rotate(calc(var(---board-hue) * 3.6deg)) contrast(calc(var(---board-contrast) / 100)) saturate(var(--lt-board-saturate));
+}

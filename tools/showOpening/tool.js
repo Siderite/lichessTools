@@ -325,7 +325,7 @@
         }
         const title = result.opening && result.opening!='*'
           ? result.opening
-          : analysis?.nodeList?.findLast(n=>n.opening)?.opening;
+          : analysis?.nodeList?.findLast(n=>n.opening?.name)?.opening?.name;
         lt.global.document.title = title || this.originalTitle;
       }
       this.showOpeningInExplorer(result.opening);

@@ -176,26 +176,3 @@ html.darkBoard body.lichessTools .analyse__moves:not(:has(.context-menu)) .liche
 html.transp body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
   filter: drop-shadow(0 0 2px var(--c-accent));
 }
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition {
-  background: lawngreen !important;
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition {
-    background: darkgreen !important;
-  }
-}
-
-html.dark body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition,
-html.darkBoard body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition,
-html.transp body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-transposition {
-  background: darkgreen !important;
-}
-
-body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-lastInLine,
-body.lichessTools.lichessTools-prettier main.analyse .tview2 move.lichessTools-inCheck {
-  filter: brightness(150%);
-}

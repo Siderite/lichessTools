@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.217",
+  "version": "2.4.224",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/LiChessTools/",
@@ -46,7 +46,6 @@
         "tools/fixChessgroundResize/tool.js",
         "tools/fixWakeLock/tool.js",
         "tools/fixChessvision/tool.js",
-        "tools/cacheBoundingRect/tool.js",
 
         "tools/emitCeval/tool.js",
         "tools/emitRedraw/tool.js",
@@ -190,6 +189,7 @@
         "tools/showFps/tool.js",
         "tools/showOpponentMoves/tool.js",
         "tools/lichessLadders/tool.js",
+        "tools/boardSaturate/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -347,6 +347,7 @@
         "tools/showFps/tool.css",
         "tools/showOpponentMoves/tool.css",
         "tools/lichessLadders/tool.css",
+        "tools/boardSaturate/tool.css",
 
         "tools/tvOptions/tool.css",
 

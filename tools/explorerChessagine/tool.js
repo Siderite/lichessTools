@@ -98,14 +98,14 @@
       const title = trans.noarg('chessagineTabTitle');
       const engineName = this.ENGINES.find(e=>e.id==engine)?.label;
       const text = engineName+(rating?' ('+rating+')':'');
-      lt.global.requestAnimationFrame(()=>{
+      lt.requestAF(()=>{
         const tab = $('.explorer-title .player.active')
           .attrSafe('title',title);
         if (tab.text()!=text) {
           tab.replaceText(text);
           tab.find('strong').text('');
         }
-      });
+      },'explorerChessagine.refreshUi');
 
     };
 

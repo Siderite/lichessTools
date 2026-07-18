@@ -55,13 +55,35 @@
       const e = $(elem);
       const idx = +($(e).attr('data-move-index')) % 2;
       if (this.options.highlightOnlyMe && idx != comp) return;
-      const san = e.text().replace(/[\+#\?!]/, '');
+      const san = e.text().replace(/[\+#=\?!]/, '');
       const turn = (idx + comp) % 2;
       return `${san}-${turn}`;
     };
 
-    dict = new Map();
-    clsIndex = 0;
+    sanToIndex = (key, idxSet) => {
+      const maxSize = 40;
+      let hash = 5381;
+      for (let i = 0; i < key.length; i++) {
+        hash = (hash * 33) ^ key.charCodeAt(i);
+      }
+      const baseHash = Math.abs(hash) >>> 0;
+
+      let attempt = 0;
+      while (attempt < maxSize) {
+        let h = baseHash + attempt * 0x9e3779b1;
+        h = (h ^ (h >>> 16)) * 0x85ebca6b;
+        h = (h ^ (h >>> 13)) * 0xc2b2ae35;
+        h = h ^ (h >>> 16);
+        const index = ((h >>> 0) % maxSize) + 1;
+
+        if (!idxSet.has(index) || idxSet.size>=maxSize) {
+          return index;
+        }
+        attempt++;
+      }
+      return 1;
+    };
+
     handlePvsDirect = () => {
       if (this._inHandlePvs) return;
       try {
@@ -73,8 +95,6 @@
         const analysis = lichess.analysis;
         const analysisTools = $('main .analyse__tools, main .puzzle__tools');
         if (!analysisTools.length) return;
-        this.dict = new Map([...this.dict.entries()].filter(e => e[1].cls));
-        [...this.dict.values()].forEach(v => v.count = 0);
         const fen = analysis
           ? analysis.node.fen
           : lt.getPositionFromBoard($('.main-board')[0],true);
@@ -82,45 +102,33 @@
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
         const turn = fen.includes(' b') ? 1 : 0;
         const comp = side ^ turn;
-        $('div.pv_box span.pv-san').each((i, e) => {
-          if (!lt.inViewport(e)) return;
-          const key = this.getKey(e, comp);
-          if (!key) return;
-          const data = this.dict.get(key);
-          if (data) {
-            data.count++;
-          } else {
-            this.dict.set(key, { count: 1, cls: '' });
-          }
-        });
-        const arr = [...this.dict];
-        arr.sort((a, b) => b[1].count - a[1].count);
-        const demotes = arr.map(entry => entry[1]).filter(val => val.count <= 1 && val.cls);
-        arr.forEach((entry) => {
-          const key = entry[0];
-          const val = entry[1];
-          if (val.count > 1 && !val.cls) {
-            if (demotes.length) {
-              const demote = demotes.shift();
-              val.cls = demote.cls;
-              demote.cls = '';
-            } else {
-              this.clsIndex++;
-              if (this.clsIndex > 30) {
-                lt.global.console.debug('Ceval highlight class index: ', this.clsIndex);
-              }
-              val.cls = 'lichessTools-cevalHighlight-' + this.clsIndex;
-            }
-          }
-        });
+
+        const dict = new Map();
         $('div.pv_box span.pv-san')
           .each((i, e) => {
-            const key = this.getKey(e,comp);
+            //if (!lt.inViewport(e)) return;
+            const key = this.getKey(e, comp);
             if (!key) return;
-            const val = this.dict.get(key);
-            const cls = val?.count > 1 && this.options.highlight
-              ? ('pv-san ' + val.cls).trim()
-              : 'pv-san';
+            const data = dict.get(key);
+            if (data) {
+              data.count++;
+            } else {
+              dict.set(key, { count: 1, cls: 0 });
+            }
+          });
+        const clsSet = new Set();
+        $('div.pv_box span.pv-san')
+          .each((i, e) => {
+            let cls = 'pv-san';
+            const key = this.getKey(e,comp);
+            if (key) {
+              const val = dict.get(key);
+              if (val?.count > 1 && this.options.highlight) {
+                const clsIndex = this.sanToIndex(key, clsSet);
+                cls = 'pv-san lichessTools-cevalHighlight-' + clsIndex;
+                clsSet.add(clsIndex);
+              }
+            }
             if (e.className != cls) e.className = cls;
           });
         let db = null;

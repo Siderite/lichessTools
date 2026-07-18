@@ -333,7 +333,7 @@
       $('.dialog-content',dialog)
         .append(container);
 
-      requestAnimationFrame(()=>graph.fillContainer());
+      lt.requestAF(()=>graph.fillContainer(),'extraPieceSets.buildPieceSetVisual');
     };
 
     async init() {

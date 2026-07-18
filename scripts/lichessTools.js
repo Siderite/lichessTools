@@ -2019,11 +2019,11 @@
             delete this.sendResponses[uid];
             reject(new Error('Send timeout'));
           }, timeout || this.timeout);
-          const f = (data) => {
+          const f = (rdata) => {
             clearTimeout(pointer);
             delete this.sendResponses[uid];
-            if (sendResponse) sendResponse(data);
-            resolve(data);
+            if (sendResponse) sendResponse(rdata);
+            resolve(rdata);
           };
           this.sendResponses[uid] = f;
           const customEvent = new CustomEvent("LichessTools.send", {
@@ -2288,11 +2288,36 @@
       }
     };
 
+    addRetries = (obj, key, maxRetries) => {
+      const original = obj[key];
+      if (typeof original !== "function") {
+        throw new Error("Key must point to a function");
+      }
+
+      let delayMs = 100;
+      obj[key] = async function (...args) {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+          try {
+            const result = original.apply(this, args);
+            return await Promise.resolve(result);
+          } catch (err) {
+            if (attempt === maxRetries) {
+              throw err;
+            }
+            await lt.timeout(delayMs);
+            delayMs *= 2;
+          }
+        }
+      };
+      obj[key].__originalFunction = original;
+    };
+
     api = {
       lichessTools: this,
       init: function () {
         const lt = this.lichessTools;
         lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserPgns', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserGamesJson', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
@@ -2310,6 +2335,12 @@
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
+
+        lt.addRetries(lt.api.lichessladders, 'getLaddersId', 3);
+        lt.addRetries(lt.api.lichessladders, 'getLadders', 3);
+        lt.addRetries(lt.api.lichessladders, 'getSummary', 3);
+        lt.addRetries(lt.api.lichessladders, 'getUserLadder', 3);
+
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
@@ -2599,6 +2630,24 @@
             }
           );
           return pgn;
+        },
+        getUserGamesJson: async function (userId, options) {
+          const lt = this.lichessTools;
+          const query = options
+            ? '?' + Object.keys(options)
+              .map(k => k + '=' + lt.global.encodeURIComponent(options[k]))
+              .join('&')
+            : '';
+          const result = await lt.net.json(
+            {
+              url: '/api/games/user/{userId}' + query,
+              args: { userId }
+            },
+            {
+              ndjson: true
+            }
+          );
+          return result;
         },
         getMini: async function (gameId, color) {
           const lt = this.lichessTools;
@@ -3154,7 +3203,7 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
-      this.currentOptions = await this.getOptions();
+      this.currentOptions = await this.getOptions(true);
       for (const tool of this.tools) {
         if (!tool?.init) continue;
         try {
@@ -3278,7 +3327,7 @@
       }
     }
 
-    async getOptions() {
+    async getOptions(fromInit) {
       let options = this.global.localStorage.getItem('LiChessTools2.options');
       options = this.jsonParse(options);
       const defaults = this.getDefaultOptions();
@@ -3287,11 +3336,22 @@
         ...defaults,
         ...options
       };
-      this.upgradeOptions(options);
       options.getValue = function (optionName, optionValue) {
         if (!this.enableLichessTools) return false;
         return this[optionName]
       };
+      if (!fromInit) {
+        this.comm.send({ type: 'getVersion' },
+          data=>{
+            if (data?.version) {
+              options.version = data.version;
+              this._loadedVersion = true;
+            }
+            this.upgradeOptions(options);
+          }).catch(e=>{
+            console.warn('Error loading the extension version',e);
+          });
+      }
       return options;
     }
 
@@ -3372,15 +3432,7 @@
 
     async saveOptions(options) {
       const trans = this.translator;
-      const data = await this.comm.send({ type: 'getVersion' })
-                                             .catch(e => { 
-                                               this.announce(trans.noarg('errorSavingPreferences'));
-                                               throw e;
-                                             });
-      const version = data.version;
-      this.debug && console.log('Saving options version',version);
       this.obsoleteOptions(options);
-      options.version = version;
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);
     }

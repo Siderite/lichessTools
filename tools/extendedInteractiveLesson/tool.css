@@ -117,6 +117,7 @@ body.lichessTools .analyse .gamebook button.hint.data-count::after {
   color: var(--c-primary);
   border-radius: 25%;
   border: 1px solid #80808080;
+  left: unset;
 }
 
 body.lichessTools .analyse .gamebook button.hint.data-count[data-count='1']::after {
@@ -384,59 +385,5 @@ body.lichessTools button[data-icon].lichessTools-extendedInteractiveLesson-feedb
 
 body.lichessTools .analyse__tools .action-menu .inner {
   overflow-y: auto;
-}
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier .analyse .gamebook span.lichessTools-score {
-  filter: brightness(200%);
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson button.preview::before {
-  content: var(--icon-Storm) !important;
-}
-
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleGreen"] line,
-body.lichessTools.lichessTools-prettier.lichessTools-extendedInteractiveLesson svg.cg-shapes g[cgHash*="paleRed"] line {
-  stroke: white !important;
-}
-
-body.lichessTools.lichessTools-prettier .gamebook .comment {
-  backdrop-filter: blur(16px) !important;
-  border-radius: var(--borderRadius) !important;
-  border: 2px solid var(--surfaceColorHover) !important;
-  background: var(--surfaceColor) !important;
-  overflow: visible !important;
-}
-
-body.lichessTools.lichessTools-prettier .gamebook .comment .content {
-  backdrop-filter: none !important;
-  border-radius: 0 !important;
-  border: none !important;
-  background: none !important;
-  overflow: auto !important;
-}
-
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.lichessTools-giveUp,
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.lichessTools-readComments,
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.hint {
-  padding: .8em 1em !important;
-  bottom: 0;
-}
-
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.hint.data-count:after {
-  top: 0;
-}
-
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.lichessTools-giveUp:hover,
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.lichessTools-readComments:hover,
-body.lichessTools.lichessTools-prettier .analyse .gamebook button.hint:hover {
-  backdrop-filter: blur(16px) !important;
-  border-left: none !important;
-  background: var(--surfaceColorHover) !important;
-  border-radius: var(--borderRadius) !important;
-}
-
-body.lichessTools.lichessTools-prettier .analyse .gamebook .comment:has(button.lichessTools-giveUp,button.lichessTools-readComments):not(.hinted,:has(button.hint)) {
-  padding-bottom: 1em !important;
+  padding-bottom: 3em;
 }

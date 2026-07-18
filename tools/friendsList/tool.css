@@ -7,6 +7,7 @@ body.lichessTools.mobile:has(.site-buttons div.lichessTools-onlineFriends) #user
 
 body.lichessTools section.lichessTools-onlineFriends .data-count:after {
   top: 0.5em;
+  left: unset;
   background: #1b78d0;
 }
 
@@ -528,77 +529,4 @@ body.lichessTools .lichessTools-crossTable.good {
 /* Unrated CSS */
 body.lichessTools.dynamicContentShown section.lichessTools-onlineFriends .user-link {
   visibility: inherit;
-}
-
-/* Prettier Lichess CSS */
-
-body.lichessTools.lichessTools-prettier #topnav:has(section.lichessTools-onlineFriends) {
-  padding-right: 10em;
-}
-
-
-body.lichessTools.lichessTools-prettier #topnav.hover section.lichessTools-onlineFriends div[role="group"] {
-  overflow-y: auto !important;
-}
-
-
-body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
-  color: #1b78d0 !important;
-}
-
-html.dark body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying,
-html.darkBoard body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying,
-html.transp body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
-  color: #3692e7 !important;
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
-    color: #3692e7 !important;
-  }
-}
-
-body.lichessTools.lichessTools-prettier #topnav section.lichessTools-onlineFriends a:hover {
-  padding-left: 0.7rem !important;
-}
-
-body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
-  color: #1b78d0 !important;
-}
-
-html.dark body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv,
-html.darkBoard body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv,
-html.transp body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
-  color: #3692e7 !important;
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier tr.lichessTools-online.lichessTools-playing a.lichessTools-tv {
-    color: #3692e7 !important;
-  }
-}
-
-body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
-  color: #1b78d0 !important;
-}
-
-html.dark body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle,
-html.darkBoard body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle,
-html.transp body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
-  color: #3692e7 !important;
-}
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-prettier .site-buttons div.lichessTools-onlineFriends.lichessTools-somePlaying>button.toggle {
-    color: #3692e7 !important;
-  }
-}
-
-body.lichessTools.lichessTools-prettier main.lichessTools-friendsPage table.slist tbody {
-  background-image: repeating-linear-gradient(var(--backgroundColor) 0 5rem, transparent 5rem 10rem);
-}
-
-
-body.lichessTools.lichessTools-prettier #main-wrap main.lichessTools-friendsPage {
-  overflow: auto !important;
 }

@@ -151,36 +151,29 @@
           const container = $('<div class="lichessTools-recentGames">')
             .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
             .insertAfter('.lobby__start');
-          const text = await lt.api.game.getUserPgns(userId,{ moves: false, max: 8 });
-          const co = await lt.chessops();
-          if (!co) {
-            lt.global.setTimeout(this.applyLobbyElements,100);
-            return;
-          }
-          const { parsePgn } = co.pgn;
+
           const results = [];
-          const games = parsePgn(text);
+          const games = await lt.api.game.getUserGamesJson(userId,{ moves: false, max: 8 });
+          games.sort((g1,g2)=>(g2.lastMoveAt || g2.createdAt) - (g1.lastMoveAt || g1.createdAt));
           for (const game of games) {
-            const site = game.headers.get('Site');
-            const variant = game.headers.get('Variant');
+            const id = game.id
+            const variant = game.variant;
             const variantClass = variant
               ? variant.toLowerCase()
               : 'standard';
-            const timeControl = game.headers.get('TimeControl');
-            let timeControlClass =  lt.getGameTime(timeControl);
-            if (timeControlClass == '-') timeControlClass = 'correspondence';
-            const white = game.headers.get('White');
-            const black = game.headers.get('Black');
-            const userWhite = white?.toLowerCase() == userId;
+            let timeControlClass =  game.perf;
+            const white = game.players?.white?.user?.name;
+            const black = game.players?.black?.user?.name;
+            const userWhite = game.players?.white?.user?.id == userId;
             const opponentId = userWhite ? black : white;
             const [opponentRating, yourRating, deltaRating] = userWhite 
-              ? [+game.headers.get('BlackElo'),+game.headers.get('WhiteElo'),+game.headers.get('WhiteRatingDiff')]
-              : [+game.headers.get('WhiteElo'),+game.headers.get('BlackElo'),+game.headers.get('BlackRatingDiff')];
-            const href = site + (userWhite?'':'/black');
-            const result = game.headers.get('Result') || '*';
+              ? [+game.players?.black?.rating || '',+game.players?.white?.rating || '',+game.players?.white?.ratingDiff || '']
+              : [+game.players?.white?.rating || '',+game.players?.black?.rating || '',+game.players?.black?.ratingDiff || ''];
+            const href = '/' + id + (userWhite?'':'/black');
+            const winner = game.winner;
             let resultClass = '';
-            if (result === '1-0') resultClass = userWhite?'win':'loss';
-            if (result === '0-1') resultClass = userWhite?'loss':'win';
+            if (winner === 'white') resultClass = userWhite?'win':'loss';
+            if (winner === 'black') resultClass = userWhite?'loss':'win';
             results.push({
              href,
              variantClass,
@@ -193,6 +186,7 @@
              deltaRating
             });
           }
+
           const users = await lt.api.user.getUsers([...new Set(results.map(r=>r.opponentId).filter(id=>id))]);
           for (const result of results) {
             const user = users.find(u=>u.id == result.opponentId);

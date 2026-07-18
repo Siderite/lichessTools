@@ -41,8 +41,3 @@ body.lichessTools section.lichessTools-explorerSnaps button.remove:before {
 body.lichessTools .explorer-title span.lichess.lichessTools-explorerSnaps {
   cursor: help;
 }
-
-/* Prettier */
-body.lichessTools.lichessTools-prettier section.lichessTools-explorerSnaps button.button {
-  padding: 0.5em !important;
-}

@@ -60,8 +60,9 @@
         if (!lt.inViewport(e)) return;
 
         const userNode = e.childNodes[userNodeIndex];
-        const userId = userNode.textContent?.trim()?.toLowerCase();
+        let userId = userNode.textContent?.trim();
         const textEl = $('<span>').addClass('lichessTools-userText').text(' ' + userId);
+        userId = userId?.toLowerCase();
         e.insertBefore(textEl[0], userNode);
         e.removeChild(userNode);
 

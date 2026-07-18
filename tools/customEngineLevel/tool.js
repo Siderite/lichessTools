@@ -286,7 +286,8 @@
         && targetDepth && curDepth >= (node.autoDeeper || targetDepth) && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
         if (analysis.ceval.state == 3) {
-          analysis.ceval.reset();
+          analysis.ceval.worker?.stop();
+          analysis.ceval.download = undefined;
           if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
             if (analysis.practice?.running()) {

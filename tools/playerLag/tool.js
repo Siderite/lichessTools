@@ -103,7 +103,7 @@
       container = $(container);
       let signal = container.find('signal');
       if (!signal.length) {
-        signal = $('<signal><icon></icon><icon></icon><icon></icon><icon></icon></signal>')
+        signal = $('<signal><i></i><i></i><i></i><i></i></signal>')
           .addClass('lichessTools-playerLag')
           .appendTo(container);
       }

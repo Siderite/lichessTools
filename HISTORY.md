@@ -1,5 +1,26 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Jul
+
+- image pasting in team/game/study chat
+
+14 Jul
+
+- board saturation
+- restore horizontal slide controls in mobile analysis
+
+13 Jul
+
+- option to hide start/end navigation buttons in analysis
+
+07 Jul
+
+- added Noctie Neo piece set
+
+04 Jul
+
+- removing Prettier integration
+
 22 Jun
 
 - Lichess Ladders integration
