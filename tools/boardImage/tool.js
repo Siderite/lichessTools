@@ -55,6 +55,7 @@
           overflow: 'visible'
         });
       svgElement.find('svg').css('overflow', 'visible');
+      svgElement.find('text').attr('font-family', '"Noto Sans", sans-serif');
       const svgURL = new lt.global.XMLSerializer().serializeToString(svgElement[0]);
       const url = 'data:image/svg+xml; charset=utf8, ' + lt.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
