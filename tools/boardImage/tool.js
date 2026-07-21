@@ -55,6 +55,7 @@
           overflow: 'visible'
         });
       svgElement.find('svg').css('overflow', 'visible');
+      svgElement.find('text').attr('font-family', '"Noto Sans", sans-serif');
       const svgURL = new lt.global.XMLSerializer().serializeToString(svgElement[0]);
       const url = 'data:image/svg+xml; charset=utf8, ' + lt.global.encodeURIComponent(svgURL);
       return await this.getImage(url);
@@ -136,7 +137,7 @@
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
       board.find('square.selected,square.last-move').each((i, e) => {
-        if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
+        if ($(e).css('visibility')=='hidden' || $(e).css('display')=='none') return; //https://github.com/lichess-org/lila/issues/19260
         const css = {
           background: $(e).css('background-color'),
         };
@@ -181,7 +182,7 @@
       }
       board.find('square.move-dest')
         .each((i, e) => {
-          if ($(e).css('visibility')=='hidden') return; //https://github.com/lichess-org/lila/issues/19260
+          if ($(e).css('visibility')=='hidden' || $(e).css('display')=='none') return; //https://github.com/lichess-org/lila/issues/19260
           const css = {
             background: '#14551e80',
             borderColor: $(e).css('border-color'),
