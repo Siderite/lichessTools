@@ -108,7 +108,7 @@
     };
 
     // Cache configuration and accessors
-    cacheExpiration = 2 * 86400000; // 2 days
+    cacheExpiration = 3600 * 1000; // 1 hour
 
     // Lazy-loads the cache from localStorage
     get gameCountCache() {

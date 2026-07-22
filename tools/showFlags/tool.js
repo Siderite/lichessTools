@@ -73,7 +73,7 @@
       return dict;
     };
 
-    cacheExpiration = 2 * 86400000; //2 days
+    cacheExpiration = 10 * 3600 * 1000; // 10 hours
     get flagCache() {
       const lt = this.lichessTools;
       const global = lt.global;
