@@ -33,7 +33,7 @@ const getCenteredPosition = async (width, height) => {
   });
 };
 
-const hostingService = 'imgbb';
+globalThis.hostingService ||= 'imgbb';
 
 const handlers = {
   disconnect: async (data) => {
@@ -56,7 +56,7 @@ const handlers = {
     const buffer = data?.options?.buffer;
     if (!buffer)
       return;
-    switch (hostingService) {
+    switch (globalThis.hostingService) {
       case 'imgur': {
         const formData = new FormData();
         formData.append('image', buffer);
@@ -71,14 +71,16 @@ const handlers = {
             }),
             body: formData
           });
-        if (!response.ok)
+        if (!response.ok) {
+          globalThis.hostingService = 'imgbb';
           throw new Error('Imgur upload failed with status ' + response.status);
+        }
         const responseData = await response.json();
         return {
           link: responseData.data?.link,
           id: responseData.data?.id,
           deleteHash: responseData.data?.deletehash,
-          service: hostingService
+          service: globalThis.hostingService
         };
       }
       break;
@@ -88,8 +90,11 @@ const handlers = {
         formData.append('type', 'base64');
         formData.append('title', 'LiChess Tools image');
         formData.append('description', 'from Inbox chat paste in Lichess.org');
-        let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}';
-        const args = { key:'370e6c2c08e7773fc0960160e36f535c' }; //expiration:86400*100, 
+        let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}&name=test.jpg';
+        const args = { 
+          key:'370e6c2c08e7773fc0960160e36f535c',
+          expiration: '' //86400*100
+        }; 
         for (const k in args) {
           url = url.replace('{' + k + '}', encodeURIComponent(args[k]));
         }
@@ -97,26 +102,28 @@ const handlers = {
             method: 'POST',
             body: formData
           });
-        if (!response.ok)
+        if (!response.ok) {
+          globalThis.hostingService = 'imgur';
           throw new Error('Imgbb upload failed with status ' + response.status);
+        }
         const responseData = await response.json();
         return {
           link : responseData.data?.url,
           id: responseData.data?.id,
           deleteHash: responseData.data?.delete_url?.match(/\/(?<hash>[^\/]+)$/)?.groups?.hash,
-          service: hostingService
+          service: globalThis.hostingService
         };
       }
       break;
       default:
-        throw new Error('Image hosting service ' + hostingService + ' not supported!');
+        throw new Error('Image hosting service ' + globalThis.hostingService + ' not supported!');
     }
   },
   deleteImage: async (data) => {
     const id = data?.options?.id;
     const hash = data?.options?.hash;
     if (!hash) return;
-    const service = data?.options?.service || hostingService;
+    const service = data?.options?.service || globalThis.hostingService;
     switch (service) {
       case 'imgur': {
         const response = await fetch('https://api.imgur.com/3/image/'+hash,{ method: 'DELETE' });
