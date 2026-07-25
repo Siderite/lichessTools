@@ -316,6 +316,7 @@
 
       main
         .empty()
+        .append(`<a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#lichessLadders" target="_blank"></a>`)
         .append($('<h2>')
                   .append($('<span>').text(trans.noarg('lichessLaddersPageHeader')))
                   .append($('<a>')
