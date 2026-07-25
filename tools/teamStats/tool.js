@@ -162,10 +162,18 @@
 
       const userId = lt.getUserId().toLowerCase();
       const isLeader = !!$('section.team-show__meta a').filter((i,e)=>$(e).attr('href')?.toLowerCase().includes(userId)).length;
-      if (!isLeader) return;
 
       await this.ensureLeaderTeams();
       const teamData = this.leaderTeams.get(teamName);
+
+      if (!isLeader) {
+        if (teamData) {
+          this.leaderTeams.delete(teamName);
+          this.saveLeaderTeams();
+        }
+        return;
+      }
+
       if (teamData) {
         const container = $('.team-show__content__col2');
         if (container.length) {
