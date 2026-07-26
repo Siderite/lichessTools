@@ -2,12 +2,8 @@
   class Api {
     constructor(lichessTools) {
       this.lichessTools = lichessTools;
-      for (const key of [
-            'blog','study','puzzle','user','game',
-            'team','streamer','evaluation','notification',
-            'flair','timeline','relation','tournament',
-            'chessagine','lichessladders'
-      ]) {
+      for (const key in this) {
+        if (['lichessTools'].includes(key)) continue;
         this[key].lichessTools = lichessTools;
       }
     }
