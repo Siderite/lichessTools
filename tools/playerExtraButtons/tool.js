@@ -59,7 +59,7 @@
                 .text(trans.noarg('playerExtraButtons.report'))
                 .on('click',async (ev)=>{
                   ev.preventDefault();
-                  await lt.api.relations.blockPlayer(userId);
+                  await lt.api.relation.blockPlayer(userId);
                   reportButton.closest('form')[0].submit();
                 })
                 .insertBefore(reportButton);

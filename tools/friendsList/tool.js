@@ -392,7 +392,7 @@
           const topHeader = $('.box__top h1');
           if (!topHeader.prop('_friendsInit')) {
             topHeader.prop('_friendsInit',true);
-            const friends = await lt.api.relations.getFriends(1,1);
+            const friends = await lt.api.relation.getFriends(1,1);
             $('.box__top h1').replaceText(trans.pluralSame('friendsNumberTitle',friends?.nbResults || 0));
           }
       }
@@ -509,7 +509,7 @@
               if (link.prop('disabled')) {
                 return;
               }
-              lt.api.relations.unblockPlayer(user);
+              lt.api.relation.unblockPlayer(user);
               $(ev.currentTarget)
                 .addClass('disabled')
                 .prop('disabled',true);
@@ -820,13 +820,13 @@
                   .on('click',async (ev)=>{
                     ev.preventDefault();
                     $('.lichessTools-pager',tbody).remove();
-                    followers = await lt.api.relations.getFollowersNew(followers.nextPage,1);
+                    followers = await lt.api.relation.getFollowersNew(followers.nextPage,1);
                     await f(followers);
                   });
               };
             }
           };
-          const followers = await lt.api.relations.getFollowersNew(1,1);
+          const followers = await lt.api.relation.getFollowersNew(1,1);
           $('.box__top h1')
             .replaceText(trans.pluralSame('followersNumberTitle',followers?.nbResults || 0));
           lt.global.document.title = trans.noarg('followersPageTitle');
@@ -884,7 +884,7 @@
       }
 
       if (lt.currentOptions.enableLichessTools) {
-        lt.api.relations.refreshFollowers(); // this runs in the background and should update the followers local db even when no options are selected
+        lt.api.relation.refreshFollowers(); // this runs in the background and should update the followers local db even when no options are selected
       }
 
       const setInterval = lt.global.setInterval;

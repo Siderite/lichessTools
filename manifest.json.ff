@@ -22,7 +22,16 @@
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
         "scripts/lichess-icons.js",
-        "scripts/lichessTools.js"
+        "scripts/lichessTools.js",
+        "scripts/lichessTools-network.js",
+        "scripts/lichessTools-storage.js",
+        "scripts/lichessTools-comm.js",
+        "scripts/lichessTools-cache.js",
+        "scripts/lichessTools-api.js",
+        "scripts/lichessTools-toolBase.js",
+        "scripts/lichessTools-indexedDbStorage.js",
+        "scripts/lichessTools-apiSemaphore.js",
+        "scripts/lichessTools-maxSizedMap.js"
       ],
       "matches": [
         "*://lichess.org/*",
