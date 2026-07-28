@@ -132,23 +132,23 @@
             this.lt.announce(this.lt.translator.noarg('stockfishError'));
             this.emit('error',e);
           };
-          // TODO maybe should be using non NNUE engine for simple analysis
-          //if (useBetterEngine) {
-            const getBuffer=async (i)=>{
-              const nnueFilename = sf.getRecommendedNnue(i);
-              let result = await this.lt.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
-              if (!result) {
-                const nnueUrl = lichess.asset.url('lifat/nnue/'+nnueFilename, { version: false })
-                const response = await fetch(nnueUrl);
-                const buffer = await response.arrayBuffer();
-                result = new Uint8Array(buffer);
-                await this.lt.storage.set('nnue--db/nnue/'+nnueFilename, result, { db:true, raw:true });
-              }
-              return result;
+          const getBuffer=async (i)=>{
+            const nnueFilename = sf.getRecommendedNnue(i);
+            if (!nnueFilename) return;
+            let result = await this.lt.storage.get('nnue--db/nnue/'+nnueFilename, { db:true, raw:true });
+            if (!result) {
+              const nnueUrl = lichess.asset.url('lifat/nnue/'+nnueFilename, { version: false })
+              const response = await fetch(nnueUrl);
+              const buffer = await response.arrayBuffer();
+              result = new Uint8Array(buffer);
+              await this.lt.storage.set('nnue--db/nnue/'+nnueFilename, result, { db:true, raw:true });
             }
-            sf.setNnueBuffer(await getBuffer(0),0);
-            sf.setNnueBuffer(await getBuffer(1),1);
-          //}
+            return result;
+          }
+          for (const i of [0,1]) {
+            const buffer = await getBuffer(i);
+            if (buffer) sf.setNnueBuffer(buffer,i);
+          }
           if (sf.uci && !sf.postMessage) sf.postMessage = sf.uci;
           await sf.ready;
           sf.listen = this.listen.bind(this);
