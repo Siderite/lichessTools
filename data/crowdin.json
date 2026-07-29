@@ -8466,8 +8466,8 @@
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - saturation de la couleur de l'échiquier",
     "mobileExperience.hscrub": "Déplacement dans les coups par glissement du doigt",
-    "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "removeFolderButtonTitle": "Supprimer dossier",
+    "expandAllButtonTitle": "Développer/réduire toutes les préférences"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
