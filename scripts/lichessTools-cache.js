@@ -127,6 +127,7 @@
         if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
         const lt = cache.lichessTools;
+        const $ = lt.$;
 
         const original = obj[funcName];
         if (!original) throw new Error('Could not find function '+funcName);
@@ -143,11 +144,11 @@
             }
             return cached.value;
           }
-          let apiElem = lt.$('body > .lichessTools-api');
+          let apiElem = $('body > .lichessTools-api');
           if (!apiElem.length) {
-            apiElem = lt.$('<div class="lichessTools-api">').appendTo('body');
+            apiElem = $('<div class="lichessTools-api">').appendTo('body');
           }
-          apiElem.toggleClassSafe('lichessTools-apiLoading',true);
+          lt.requestAF(()=>apiElem.toggleClassSafe('lichessTools-apiLoading',true), 'lichessTools-cache');
           try {
             cache.lock(key);
             const immediateResult = options.minTime
@@ -163,7 +164,7 @@
             return result;
           } finally {
             cache.release(key);
-            apiElem.toggleClassSafe('lichessTools-apiLoading',false);
+            lt.requestAF(()=>apiElem.toggleClassSafe('lichessTools-apiLoading',false), 'lichessTools-cache');
           }
         };
         obj[funcName].__originalFunction = original;
