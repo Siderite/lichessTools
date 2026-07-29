@@ -1205,7 +1205,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2413,7 +2415,9 @@
     "options.boardSaturate": "棋盘饱和度",
     "boardSaturateText": "饱和度",
     "boardSaturateTitle": "LiChess Tools - 棋盘饱和度",
-    "mobileExperience.hscrub": "滑动走子控制"
+    "mobileExperience.hscrub": "滑动走子控制",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3621,7 +3625,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4829,7 +4835,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6037,7 +6045,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7245,7 +7255,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8453,7 +8465,9 @@
     "options.boardSaturate": "Saturation de la couleur de l'échiquier",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - saturation de la couleur de l'échiquier",
-    "mobileExperience.hscrub": "Déplacement dans les coups par glissement du doigt"
+    "mobileExperience.hscrub": "Déplacement dans les coups par glissement du doigt",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9661,7 +9675,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10869,7 +10885,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12077,7 +12095,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13285,7 +13305,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14493,7 +14515,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15701,7 +15725,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16909,7 +16935,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18117,7 +18145,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19325,7 +19355,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20533,7 +20565,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21741,7 +21775,9 @@
     "options.boardSaturate": "Saturație tablă",
     "boardSaturateText": "Saturație",
     "boardSaturateTitle": "LiChess Tools - saturație tablă",
-    "mobileExperience.hscrub": "Control mutări prin glisare"
+    "mobileExperience.hscrub": "Control mutări prin glisare",
+    "removeFolderButtonTitle": "Curăță directorul",
+    "expandAllButtonTitle": "Extinde/restrânge toate preferințele"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22949,7 +22985,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24157,7 +24195,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25365,7 +25405,9 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26573,7 +26615,9 @@
     "options.boardSaturate": "Tahta doygunluğu",
     "boardSaturateText": "Doygunluk",
     "boardSaturateTitle": "LiChess Tools - tahta doygunluğu",
-    "mobileExperience.hscrub": "Hamle kaydırma kontrolü"
+    "mobileExperience.hscrub": "Hamle kaydırma kontrolü",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27781,6 +27825,8 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control"
+    "mobileExperience.hscrub": "Slide move control",
+    "removeFolderButtonTitle": "Clear folder",
+    "expandAllButtonTitle": "Expand/collapse all preferences"
   }
 }
