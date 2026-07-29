@@ -627,10 +627,10 @@
       if (!(e.target instanceof HTMLElement)) return;
       const button = e.target.closest('[data-act]');
       const action = button?.dataset.act;
-      if (action === 'prev' || action === 'next') {
+      if (['prev', 'next'].includes(action)) {
         $(button).trigger('click');
       } else {
-        this.click(ctrl, e);
+        this.click(e);
       }
     };
 

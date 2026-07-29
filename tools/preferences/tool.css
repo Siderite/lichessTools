@@ -47,7 +47,7 @@ div.lichessTools-preferences:has(.filteredOut) .lichessTools-prefCount {
 }
 
 div.lichessTools-preferences section.filteredOut {
-  disply:none;
+  display:none;
 }
 
 div.lichessTools-preferences form > div:has(input.categoryToggle:checked) section.filteredIn {
