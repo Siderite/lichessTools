@@ -122,12 +122,14 @@
             let cls = 'pv-san';
             const key = this.getKey(e,comp);
             if (key) {
-              const val = dict.get(key);
-              if (val?.count > 1 && this.options.highlight) {
-                const clsIndex = this.sanToIndex(key, clsSet);
-                cls = 'pv-san lichessTools-cevalHighlight-' + clsIndex;
-                clsSet.add(clsIndex);
+              const data = dict.get(key);
+              let clsIndex = data.cls;
+              if (data?.count > 1 && !clsIndex && this.options.highlight) {
+                clsIndex = this.sanToIndex(key, clsSet);
+                data.cls = clsIndex;
               }
+              cls = 'pv-san lichessTools-cevalHighlight-' + clsIndex;
+              clsSet.add(clsIndex);
             }
             if (e.className != cls) e.className = cls;
           });
