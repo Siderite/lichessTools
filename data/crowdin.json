@@ -2416,8 +2416,8 @@
     "boardSaturateText": "饱和度",
     "boardSaturateTitle": "LiChess Tools - 棋盘饱和度",
     "mobileExperience.hscrub": "滑动走子控制",
-    "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "removeFolderButtonTitle": "清空文件夹",
+    "expandAllButtonTitle": "展开/折叠所有偏好设置"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
