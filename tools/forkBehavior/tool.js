@@ -167,13 +167,13 @@
         const val = selectElem.val() || $(ev?.target).attr('value');
         if (!val) return;
         const [uci, path] = val.split(' ');
-        lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, uci);
-        const fork = lichess.analysis.fork;
+        analysis.explorer.setHovering(analysis.node.fen, uci);
+        const fork = analysis.fork;
         if (!fork?.forks?.length) return;
         const index = fork.forks.findIndex(c => c.uci == uci);
         if (index < 0 || fork.selectedIndex == index) return;
         fork.selectedIndex = index;
-        lichess.analysis.setAutoShapes();
+        analysis.setAutoShapes();
         lt.analysisRedraw();
       };
 
