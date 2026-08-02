@@ -39,6 +39,8 @@
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getSummary', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getUserLadder', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
+
+        lt.cache.memoizeAsyncFunction(lt.api.wikiBooks, 'getWiki', { persist: 'session', interval: 3600 * 1000 });
       }
 
       blog = {
@@ -886,6 +888,17 @@
           const data = lt.global.JSON.parse(result.text);
           return data;
         }
+      };
+
+      wikiBooks = {
+        baseUrl: 'https://en.wikibooks.org',
+        async getWiki(title) {
+          const lt = this.lichessTools;
+          const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+          const json = await lt.net.fetch(`${this.baseUrl}/w/api.php?titles=${title}&${apiArgs}`,{ noUserAgent: true });
+          const result = lt.global.JSON.parse(json);
+          return result || null;
+        },
       };
 
   }
