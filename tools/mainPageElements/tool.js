@@ -49,7 +49,8 @@
         'monthGamesPlayed': 'Games this month: %s',
         'dayGamesPlayed': 'Games today: %s',
         'recentGamesHeaderText': 'Recent games',
-        'moreGamesText': 'More >'
+        'moreGamesText': 'More >',
+        'AiGameText': 'Computer level %s'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -78,7 +79,8 @@
         'monthGamesPlayed': 'Jocuri luna aceasta: %s',
         'dayGamesPlayed': 'Jocuri azi: %s',
         'recentGamesHeaderText': 'Jocuri recente',
-        'moreGamesText': 'Mai mult >'
+        'moreGamesText': 'Mai mult >',
+        'AiGameText': 'Calculator de nivel %s'
       }
     }
 
@@ -162,8 +164,12 @@
               ? variant.toLowerCase()
               : 'standard';
             let timeControlClass =  game.perf;
-            const white = game.players?.white?.user?.name;
-            const black = game.players?.black?.user?.name;
+            const white = game.players?.white?.aiLevel
+              ? trans.pluralSame('AiGameText',game.players.white.aiLevel)
+              : game.players?.white?.user?.name;
+            const black = game.players?.black?.aiLevel
+              ? trans.pluralSame('AiGameText',game.players.black.aiLevel)
+              : game.players?.black?.user?.name;
             const userWhite = game.players?.white?.user?.id == userId;
             const opponentId = userWhite ? black : white;
             const [opponentRating, yourRating, deltaRating] = userWhite 

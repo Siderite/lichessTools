@@ -1207,7 +1207,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2417,7 +2418,8 @@
     "boardSaturateTitle": "LiChess Tools - 棋盘饱和度",
     "mobileExperience.hscrub": "滑动走子控制",
     "removeFolderButtonTitle": "清空文件夹",
-    "expandAllButtonTitle": "展开/折叠所有偏好设置"
+    "expandAllButtonTitle": "展开/折叠所有偏好设置",
+    "AiGameText": "Computer level %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3627,7 +3629,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4837,7 +4840,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6047,7 +6051,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7257,7 +7262,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8467,7 +8473,8 @@
     "boardSaturateTitle": "LiChess Tools - saturation de la couleur de l'échiquier",
     "mobileExperience.hscrub": "Déplacement dans les coups par glissement du doigt",
     "removeFolderButtonTitle": "Supprimer dossier",
-    "expandAllButtonTitle": "Développer/réduire toutes les préférences"
+    "expandAllButtonTitle": "Développer/réduire toutes les préférences",
+    "AiGameText": "Computer level %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9677,7 +9684,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10887,7 +10895,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12097,7 +12106,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13307,7 +13317,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14517,7 +14528,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15727,7 +15739,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16937,7 +16950,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18147,7 +18161,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19357,7 +19372,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20567,7 +20583,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21777,7 +21794,8 @@
     "boardSaturateTitle": "LiChess Tools - saturație tablă",
     "mobileExperience.hscrub": "Control mutări prin glisare",
     "removeFolderButtonTitle": "Curăță directorul",
-    "expandAllButtonTitle": "Extinde/restrânge toate preferințele"
+    "expandAllButtonTitle": "Extinde/restrânge toate preferințele",
+    "AiGameText": "Calculator de nivel %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22987,7 +23005,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24197,7 +24216,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25407,7 +25427,8 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26617,7 +26638,8 @@
     "boardSaturateTitle": "LiChess Tools - tahta doygunluğu",
     "mobileExperience.hscrub": "Hamle kaydırma kontrolü",
     "removeFolderButtonTitle": "Klasörü temizle",
-    "expandAllButtonTitle": "Tüm tercihleri genişlet/daralt"
+    "expandAllButtonTitle": "Tüm tercihleri genişlet/daralt",
+    "AiGameText": "Computer level %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27827,6 +27849,7 @@
     "boardSaturateTitle": "LiChess Tools - board saturation",
     "mobileExperience.hscrub": "Slide move control",
     "removeFolderButtonTitle": "Clear folder",
-    "expandAllButtonTitle": "Expand/collapse all preferences"
+    "expandAllButtonTitle": "Expand/collapse all preferences",
+    "AiGameText": "Computer level %s"
   }
 }
