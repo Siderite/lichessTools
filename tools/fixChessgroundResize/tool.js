@@ -105,17 +105,23 @@
     fireResize = lichessTools.debounce(this.fireResizeDirect,200);
 
     checkBoardPosition = () => {
-      const lt = this.lichessTools;
-      if (lt.global.document.readyState != 'complete') return;
-      const $ = lt.$;
-      const element = $('.main-board cg-board')[0];
-      if (element!==this.board) {
-        lt.debug && lt.global.console.debug('Resetting board element');
-        if (this.cleanup) this.cleanup();
-        this.board = element;
-        if (element) {
-          this.cleanup = this.monitorElement(element,this.fireResize);
+      try {
+        if (this.inCheckBoardPosition) return;
+        this.inCheckBoardPosition = true;
+        const lt = this.lichessTools;
+        if (lt.global.document.readyState != 'complete') return;
+        const $ = lt.$;
+        const element = $('.main-board cg-board')[0];
+        if (element!==this.board) {
+          lt.debug && lt.global.console.debug('Resetting board element');
+          if (this.cleanup) this.cleanup();
+          this.board = element;
+          if (element) {
+            this.cleanup = this.monitorElement(element,this.fireResize);
+          }
         }
+      } finally {
+        this.inCheckBoardPosition=false;
       }
     }
 
