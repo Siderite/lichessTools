@@ -171,7 +171,7 @@
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
       if (!analysis) return;
-      const onMainline = analysis.node == analysis.mainline[analysis.node.ply];
+      const onMainline = analysis.mainline.includes(analysis.node);
       const $ = lt.$;
       $.cached('body').toggleClassSafe('lichessTools-notOnMainline', !onMainline);
     };
