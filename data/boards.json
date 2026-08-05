@@ -360,6 +360,112 @@
     {
       "value": "https://siderite.github.io/lichessToolsAdjacent/Gameknot/board/Rusted Metal.jpg",
       "text": "Gameknot Rusted Metal"
+    },
+
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/blueprint/board.svg",
+      "text": "ChessSkins Blueprint"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/bubblegum/board.svg",
+      "text": "ChessSkins Bubblegum"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/chalkboard/board.svg",
+      "text": "ChessSkins Chalkboard"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/circuit/board.svg",
+      "text": "ChessSkins Circuit"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/classic/board.svg",
+      "text": "ChessSkins Classic"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/dunes/board.svg",
+      "text": "ChessSkins Dunes"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/espresso/board.svg",
+      "text": "ChessSkins Espresso"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/glacier/board.svg",
+      "text": "ChessSkins Glacier"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/glass/board.svg",
+      "text": "ChessSkins Glass"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/kraft/board.svg",
+      "text": "ChessSkins Kraft"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/maple/board.svg",
+      "text": "ChessSkins Maple"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/marble/board.svg",
+      "text": "ChessSkins Marble"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/midnight/board.svg",
+      "text": "ChessSkins Midnight"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/moss/board.svg",
+      "text": "ChessSkins Moss"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/nebula/board.svg",
+      "text": "ChessSkins Nebula"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/blueprint/neon-grid.svg",
+      "text": "ChessSkins Neon Grid"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/newsprint/board.svg",
+      "text": "ChessSkins Newsprint"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/obsidian/board.svg",
+      "text": "ChessSkins Obsidian"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/parchment/board.svg",
+      "text": "ChessSkins Parchment"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/blueprint/pixel-park.svg",
+      "text": "ChessSkins Pixel Park"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/sakura/board.svg",
+      "text": "ChessSkins Sakura"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/tatami/board.svg",
+      "text": "ChessSkins Tatami"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/tidepool/board.svg",
+      "text": "ChessSkins Tidepool"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/tournament/board.svg",
+      "text": "ChessSkins Tournament"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/walnut/board.svg",
+      "text": "ChessSkins Walnut"
+    },
+    {
+      "value": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/boards/watercolor/board.svg",
+      "text": "ChessSkins Watercolor"
     }
+
   ]
 }

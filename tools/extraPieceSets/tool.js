@@ -11,7 +11,7 @@
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
           'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27','BrayanGuti',
-          'code-and-chill','mannubhai1','lukasmonk'
+          'code-and-chill','mannubhai1','lukasmonk','chessskins'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
@@ -55,7 +55,8 @@
         'extraPieceSets.BrayanGuti': 'BrayanGuti',
         'extraPieceSets.code-and-chill': 'code-and-chill',
         'extraPieceSets.mannubhai1': 'mannubhai1',
-        'extraPieceSets.lukasmonk': 'lukasmonk'
+        'extraPieceSets.lukasmonk': 'lukasmonk',
+        'extraPieceSets.chessskins': 'ChessSkins'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',

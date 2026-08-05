@@ -15253,6 +15253,175 @@
         "x": 8,
         "y": 11
       }
+    },
+
+    {
+      "category": "chessskins",
+      "name": "Cosmos",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/cosmos/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Deep-sea",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/deep-sea/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Dinos",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/dinos/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Dojo",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/dojo/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Doodle",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/doodle/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Duckies",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/duckies/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Garden-bugs",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/garden-bugs/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Goofball",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/goofball/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "High-seas",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/high-seas/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Invaders",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/invaders/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Midnight Gothic",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/midnight-gothic/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Monster Mash",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/monster-mash/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Neon Grid",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/neon-grid/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Pixel",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/pixel/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Polar",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/polar/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Robots",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/robots/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Snack Attack",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/snack-attack/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Spellbound",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/spellbound/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Spooky",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/spooky/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Sweet Tooth",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/sweet-tooth/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Thin Line",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/thin-line/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Valhalla",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/valhalla/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Wild West",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/wild-west/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "chessskins",
+      "name": "Woodland",
+      "url": "https://raw.githubusercontent.com/NikAgs/ChessSkins/refs/heads/main/skins/woodland/",
+      "type": "svg",
+      "cap": "wN"
     }
   ]
 }
