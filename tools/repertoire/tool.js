@@ -200,23 +200,12 @@
     isOwnMutationNode = node => node?.nodeType == 1
       && node.matches?.('glyph.lichessTools-repertoire');
 
-    setupMoveListObserver = () => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const container = $('div.analyse__moves')[0];
-      if (container == this.observedMoveList) return;
-      this.moveListObserver?.disconnect();
-      this.moveListObserver = null;
-      this.observedMoveList = container;
-      if (!container) return;
-      this.moveListObserver = new lt.global.MutationObserver(mutations => {
-        const hasExternalMutation = mutations.some(mutation =>
-          [...mutation.addedNodes, ...mutation.removedNodes]
-            .some(node => !this.isOwnMutationNode(node))
-        );
-        if (hasExternalMutation) this.markMovesDebounced();
-      });
-      this.moveListObserver.observe(container.parentElement || container, { childList: true, subtree: true });
+    handleMoveListMutation = mutations => {
+      const hasExternalMutation = mutations.some(mutation =>
+        [...mutation.addedNodes, ...mutation.removedNodes]
+          .some(node => !this.isOwnMutationNode(node))
+      );
+      if (hasExternalMutation) this.markMovesDebounced();
     };
 
     clearArrows = () => {
@@ -264,7 +253,6 @@
       const color = this.getPlayerColor(analysis);
       const repertoire = this.repertoires?.[color];
       this.clearMarkers();
-      this.setupMoveListObserver();
       if (!repertoire?.positions?.size) {
         this.clearArrows();
         return;
@@ -355,9 +343,8 @@
       };
       lt.pubsub.off('lichessTools.redraw', this.markMovesDebounced);
       $.cached('body').off('click', this.retryLoad);
-      this.moveListObserver?.disconnect();
-      this.moveListObserver = null;
-      this.observedMoveList = null;
+      $('body').observer()
+        .off('div.analyse__moves,div.analyse__moves *', this.handleMoveListMutation);
       this.clearMarkers();
       this.clearArrows();
       this.repertoires = null;
@@ -369,6 +356,11 @@
       ]);
       this.repertoires = { white: whitePositions, black: blackPositions };
       lt.pubsub.on('lichessTools.redraw', this.markMovesDebounced);
+      $('body').observer()
+        .on('div.analyse__moves,div.analyse__moves *', this.handleMoveListMutation, {
+          characterData: false,
+          executeDirect: true
+        });
       if ((white && !whitePositions) || (black && !blackPositions)) {
         $.cached('body').one('click', this.retryLoad);
       }
