@@ -6,7 +6,7 @@ Compares moves on Lichess analysis pages with a user's White or Black opening re
 
 ## Matching
 
-- Uses the repertoire matching the analyzed player's color (`analysis.data.player.color`, with the initial analysis orientation as fallback).
+- In completed-game analysis, uses the repertoire matching the analyzed player's color (`analysis.data.player.color`, with the initial analysis orientation as fallback). In studies, uses the live board orientation so flipping the board switches repertoires.
 - Parses every game and every variation in the selected PGN through Chessops.
 - Stores normalized FEN positions (piece placement, side to move, castling rights, and en-passant square). Halfmove and fullmove counters are ignored.
 - For every normalized position, stores its prepared child moves by UCI together with SAN display text.

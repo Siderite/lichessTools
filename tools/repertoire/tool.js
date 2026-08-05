@@ -159,7 +159,9 @@
     };
 
     getPlayerColor = analysis => {
-      const color = analysis.data?.player?.color || analysis.data?.orientation || analysis.getOrientation?.();
+      const color = analysis.study
+        ? analysis.getOrientation?.()
+        : analysis.data?.player?.color || analysis.data?.orientation || analysis.getOrientation?.();
       return color == 'black' ? 'black' : 'white';
     };
 
