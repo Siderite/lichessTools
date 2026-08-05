@@ -77,8 +77,6 @@
 
     storageKey = color => `lichessTools/LT/repertoire${color == 'white' ? 'White' : 'Black'}-file`;
 
-    normalizeFen = fen => fen?.split(/\s+/).slice(0, 4).join(' ');
-
     getFile = async color => {
       const lt = this.lichessTools;
       const fileHandle = await lt.storage.get(this.storageKey(color), { db: true, raw: true });
@@ -104,7 +102,7 @@
       const moves = new Map();
 
       const traverse = (position, node) => {
-        const fen = this.normalizeFen(makeFen(position.toSetup()));
+        const fen = lt.getPositionFromFen(makeFen(position.toSetup()), true);
         for (const child of node.children || []) {
           const next = position.clone();
           const move = parseSan(next, child.data.san);
@@ -126,7 +124,7 @@
             repertoireMoves.set(uci, { uci: uci, san: child.data.san });
           }
           makeSanAndPlay(next, move);
-          positions.add(this.normalizeFen(makeFen(next.toSetup())));
+          positions.add(lt.getPositionFromFen(makeFen(next.toSetup()), true));
           traverse(next, child);
         }
       };
@@ -135,7 +133,7 @@
         if (!game.headers.get('FEN') && !game.moves?.children?.length) continue;
         try {
           const position = startingPosition(game.headers).unwrap();
-          positions.add(this.normalizeFen(makeFen(position.toSetup())));
+          positions.add(lt.getPositionFromFen(makeFen(position.toSetup()), true));
           traverse(position, game.moves);
         } catch (e) {
           lt.global.console.warn('Invalid repertoire game', e);
@@ -224,9 +222,9 @@
       if (!analysis || !chessground) return;
       const shapes = autoShapes.filter(shape => !shape.lichessToolsRepertoire);
       const node = analysis.node;
-      const repertoireMoves = repertoire?.moves.get(this.normalizeFen(node?.fen));
+      const repertoireMoves = repertoire?.moves.get(lt.getPositionFromFen(node?.fen, true));
       const deviation = repertoire && node?.children?.find(child =>
-        !repertoire.positions.has(this.normalizeFen(child.fen))
+        !repertoire.positions.has(lt.getPositionFromFen(child.fen, true))
         && !repertoireMoves?.has(child.uci)
       );
       if (deviation && repertoireMoves?.size) {
@@ -267,15 +265,15 @@
       const inRepertoireTitle = lt.translator.pluralSame('repertoireMoveTitle', colorText);
       const nodes = [...(analysis.tree.root?.children || [])].map(node => ({
         node: node,
-        parentFen: this.normalizeFen(analysis.tree.root.fen)
+        parentFen: lt.getPositionFromFen(analysis.tree.root.fen, true)
       }));
       while (nodes.length) {
         const { node, parentFen } = nodes.shift();
         nodes.push(...(node.children || []).map(child => ({
           node: child,
-          parentFen: this.normalizeFen(node.fen)
+          parentFen: lt.getPositionFromFen(node.fen, true)
         })));
-        if (repertoire.positions.has(this.normalizeFen(node.fen))) {
+        if (repertoire.positions.has(lt.getPositionFromFen(node.fen, true))) {
           if (this.options.book) {
             this.addMarker(node, 'lichessTools-inRepertoire', lt.icon.Book, inRepertoireTitle);
           }
