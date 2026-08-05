@@ -160,7 +160,7 @@
 
     getPlayerColor = analysis => {
       const color = analysis.study
-        ? analysis.getOrientation?.()
+        ? analysis.study.data?.chapter?.setup?.orientation || analysis.getOrientation?.()
         : analysis.data?.player?.color || analysis.data?.orientation || analysis.getOrientation?.();
       return color == 'black' ? 'black' : 'white';
     };
