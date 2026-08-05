@@ -30,8 +30,8 @@
         name: 'repertoireDisplay',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['book', 'deviations', 'arrows'],
-        defaultValue: 'book',
+        possibleValues: ['matches', 'deviations', 'arrows'],
+        defaultValue: 'matches',
         offValue: false,
         advanced: true,
         author: 'sahinakkaya'
@@ -44,7 +44,7 @@
         'options.repertoireWhite': 'White repertoire PGN',
         'options.repertoireBlack': 'Black repertoire PGN',
         'options.repertoireDisplay': 'Repertoire display',
-        'repertoireDisplay.book': 'Mark moves in repertoire',
+        'repertoireDisplay.matches': 'Mark moves in repertoire',
         'repertoireDisplay.deviations': 'Mark deviations from repertoire',
         'repertoireDisplay.arrows': 'Show repertoire arrows after deviation',
         'repertoireMoveTitle': 'LiChess Tools - move in your %s repertoire',
@@ -61,7 +61,7 @@
         'options.repertoireWhite': 'PGN repertoriu cu albele',
         'options.repertoireBlack': 'PGN repertoriu cu negrele',
         'options.repertoireDisplay': 'Afi\u015fare repertoriu',
-        'repertoireDisplay.book': 'Mark se mișcă în repertoriu',
+        'repertoireDisplay.matches': 'Mark se mișcă în repertoriu',
         'repertoireDisplay.deviations': 'Afișează săgețile repertoriului după abatere',
         'repertoireDisplay.arrows': 'S\u0103ge\u0163i pentru mut\u0103rile preg\u0103tite',
         'repertoireMoveTitle': 'LiChess Tools - mutare din repertoriul t\u0103u cu %s',
@@ -277,7 +277,7 @@
           parentFen: lt.getPositionFromFen(node.fen, true)
         })));
         if (repertoire.positions.has(lt.getPositionFromFen(node.fen, true))) {
-          if (this.options.book) {
+          if (this.options.matches) {
             this.addMarker(node, 'lichessTools-inRepertoire', lt.icon.Book, inRepertoireTitle);
           }
           continue;
@@ -338,7 +338,7 @@
       this.logOption('Black repertoire PGN', black);
       this.logOption('Repertoire display', display);
       this.options = {
-        book: lt.isOptionSet(display, 'book'),
+        matches: lt.isOptionSet(display, 'matches'),
         deviations: lt.isOptionSet(display, 'deviations'),
         arrows: lt.isOptionSet(display, 'arrows')
       };

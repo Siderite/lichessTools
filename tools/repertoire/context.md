@@ -17,11 +17,11 @@ Compares moves on Lichess analysis pages with a user's White or Black opening re
 
 `repertoireDisplay` is an advanced multiple-choice preference:
 
-- `book` — green book markers for repertoire positions.
+- `matches` — green book markers for repertoire positions.
 - `deviations` — player deviation, opponent deviation, and repertoire-end markers.
 - `arrows` — prepared moves on the board when viewing the position before a deviation.
 
-The default is `book`, keeping the default presentation limited to the original repertoire-matching request. All optional prepared-move arrows use the same thin blue style.
+The default is `matches`, keeping the default presentation limited to the original repertoire-matching request. All optional prepared-move arrows use the same thin blue style.
 
 ## Move states
 
