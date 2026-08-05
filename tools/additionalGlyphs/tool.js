@@ -60,6 +60,7 @@
       }
       if (redraw) {
         chessground?.state?.dom?.redrawNow();
+        this.restackGlyphs();
       }
     };
 
@@ -160,7 +161,7 @@
       return longMoves;
     };
 
-    drawGlyphsDirect = (withRestack) => {
+    drawGlyphsDirect = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -285,7 +286,6 @@
       setShapes(shapes);
       if (redraw) {
         lt.analysisRedraw();
-        if (withRestack) this.restackGlyphs();
       }
     };
     drawGlyphs = this.lichessTools.debounce(this.drawGlyphsDirect, 50);
@@ -442,7 +442,8 @@
             }
             if (!same) {
               this.prevAutoShapes = [ ...drawable.autoShapes ];
-              this.drawGlyphs(true);
+              this.drawGlyphs();
+              this.restackGlyphs();
             }
           } finally {
             this._inInterval = false;
