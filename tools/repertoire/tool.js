@@ -11,7 +11,9 @@
         fileDescription: 'PGN files',
         fileExtension: '.pgn',
         defaultValue: '',
-        offValue: ''
+        advanced: true,
+        offValue: '',
+        author: 'sahinakkaya'
       },
       {
         name: 'repertoireBlack',
@@ -20,7 +22,9 @@
         fileDescription: 'PGN files',
         fileExtension: '.pgn',
         defaultValue: '',
-        offValue: ''
+        advanced: true,
+        offValue: '',
+        author: 'sahinakkaya'
       },
       {
         name: 'repertoireDisplay',
@@ -29,7 +33,8 @@
         possibleValues: ['book', 'deviations', 'arrows'],
         defaultValue: 'book',
         offValue: false,
-        advanced: true
+        advanced: true,
+        author: 'sahinakkaya'
       }
     ];
 
@@ -39,9 +44,9 @@
         'options.repertoireWhite': 'White repertoire PGN',
         'options.repertoireBlack': 'Black repertoire PGN',
         'options.repertoireDisplay': 'Repertoire display',
-        'repertoireDisplay.book': 'Book markers',
-        'repertoireDisplay.deviations': 'Deviation markers',
-        'repertoireDisplay.arrows': 'Prepared move arrows',
+        'repertoireDisplay.book': 'Mark moves in repertoire',
+        'repertoireDisplay.deviations': 'Mark deviations from repertoire',
+        'repertoireDisplay.arrows': 'Show repertoire arrows after deviation',
         'repertoireMoveTitle': 'LiChess Tools - move in your %s repertoire',
         'repertoireOwnDeviationTitle': 'LiChess Tools - you left your repertoire. Prepared: %s',
         'repertoireOpponentDeviationTitle': 'LiChess Tools - opponent left your repertoire. Prepared replies: %s',
@@ -56,8 +61,8 @@
         'options.repertoireWhite': 'PGN repertoriu cu albele',
         'options.repertoireBlack': 'PGN repertoriu cu negrele',
         'options.repertoireDisplay': 'Afi\u015fare repertoriu',
-        'repertoireDisplay.book': 'Marcaje carte',
-        'repertoireDisplay.deviations': 'Marcaje abateri',
+        'repertoireDisplay.book': 'Mark se mișcă în repertoriu',
+        'repertoireDisplay.deviations': 'Afișează săgețile repertoriului după abatere',
         'repertoireDisplay.arrows': 'S\u0103ge\u0163i pentru mut\u0103rile preg\u0103tite',
         'repertoireMoveTitle': 'LiChess Tools - mutare din repertoriul t\u0103u cu %s',
         'repertoireOwnDeviationTitle': 'LiChess Tools - ai ie\u015fit din repertoriu. Mut\u0103ri preg\u0103tite: %s',
