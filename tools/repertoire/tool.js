@@ -79,8 +79,11 @@
 
     getFile = async color => {
       const lt = this.lichessTools;
-      const fileHandle = await lt.storage.get(this.storageKey(color), { db: true, raw: true });
-      if (!fileHandle) return null;
+      const storedFile = await lt.storage.get(this.storageKey(color), { db: true, raw: true });
+      if (!storedFile) return null;
+      // The fallback input picker stores a File instead of a FileSystemFileHandle.
+      if (!storedFile.getFile) return storedFile;
+      const fileHandle = storedFile;
       if (fileHandle.queryPermission) {
         let permission = await fileHandle.queryPermission({ mode: 'read' });
         if (permission != 'granted' && lt.global.navigator?.userActivation?.hasBeenActive && fileHandle.requestPermission) {
@@ -88,7 +91,7 @@
         }
         if (permission != 'granted') return null;
       }
-      return fileHandle.getFile ? await fileHandle.getFile() : fileHandle;
+      return await fileHandle.getFile();
     };
 
     buildRepertoire = async text => {
