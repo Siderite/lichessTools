@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+06 Aug
+
+- Repertoire tool
+- new boards and pieces
+
 16 Jul
 
 - image pasting in team/game/study chat
