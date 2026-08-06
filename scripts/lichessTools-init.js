@@ -59,6 +59,7 @@ lichessTools.loadTool(LiChessTools.Tools.StickyPreview);
 lichessTools.loadTool(LiChessTools.Tools.StickyAnalysis);
 lichessTools.loadTool(LiChessTools.Tools.ChapterNameFromTags);
 lichessTools.loadTool(LiChessTools.Tools.EnhancedPgnImport);
+lichessTools.loadTool(LiChessTools.Tools.Repertoire);
 lichessTools.loadTool(LiChessTools.Tools.CommentStyling);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
