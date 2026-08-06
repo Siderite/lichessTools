@@ -1212,9 +1212,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -1222,7 +1221,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2434,20 +2434,20 @@
     "removeFolderButtonTitle": "清空文件夹",
     "expandAllButtonTitle": "展开/折叠所有偏好设置",
     "AiGameText": "电脑级别 %s",
-    "options.repertoireWhite": "White repertoire PGN",
-    "options.repertoireBlack": "Black repertoire PGN",
-    "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
-    "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
-    "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
-    "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
-    "repertoireEndTitle": "LiChess Tools - end of your %s repertoire",
-    "repertoireReadError": "Could not read the %s repertoire PGN",
-    "repertoireParseError": "Could not parse the %s repertoire PGN",
-    "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "options.repertoireWhite": "白方开局库 PGN",
+    "options.repertoireBlack": "黑方开局库 PGN",
+    "options.repertoireDisplay": "开局库显示",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
+    "repertoireMoveTitle": "LiChess Tools - 位于您的 %s 开局库中",
+    "repertoireOwnDeviationTitle": "LiChess Tools - 您已离开开局库。已预备：%s",
+    "repertoireOpponentDeviationTitle": "LiChess Tools - 对手已离开您的开局库。已预备应手：%s",
+    "repertoireEndTitle": "LiChess Tools - 您的 %s 开局库已结束",
+    "repertoireReadError": "无法读取 %s 开局库 PGN",
+    "repertoireParseError": "无法解析 %s 开局库 PGN",
+    "repertoireColor.white": "白方",
+    "repertoireColor.black": "黑方",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3662,9 +3662,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -3672,7 +3671,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4887,9 +4887,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -4897,7 +4896,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6112,9 +6112,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -6122,7 +6121,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7337,9 +7337,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -7347,7 +7346,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8562,9 +8562,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -8572,7 +8571,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9787,9 +9787,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -9797,7 +9796,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11012,9 +11012,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -11022,7 +11021,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12237,9 +12237,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -12247,7 +12246,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13462,9 +13462,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -13472,7 +13471,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14687,9 +14687,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -14697,7 +14696,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15912,9 +15912,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -15922,7 +15921,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17137,9 +17137,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -17147,7 +17146,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18362,9 +18362,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -18372,7 +18371,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19587,9 +19587,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -19597,7 +19596,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20812,9 +20812,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -20822,7 +20821,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22037,9 +22037,8 @@
     "options.repertoireWhite": "Repertoriu PGN cu albele",
     "options.repertoireBlack": "Repertoriu PGN cu negrele",
     "options.repertoireDisplay": "Afișare repertoriu",
-    "repertoireDisplay.book": "Simboluri repertoriu",
-    "repertoireDisplay.deviations": "Simboluri abateri",
-    "repertoireDisplay.arrows": "Săgeți cu mișcările pregătite",
+    "repertoireDisplay.deviations": "Marcare deviații de la repertoriu",
+    "repertoireDisplay.arrows": "Afișează săgeți din repertoriu după abatere",
     "repertoireMoveTitle": "LiChess Tools - mutare din repertoriul tău cu %s",
     "repertoireOwnDeviationTitle": "LiChess Tools - ai ieșit din repertoriu. Mutări pregătite: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - adversarul a ieșit din repertoriu. Răspunsuri pregătite: %s",
@@ -22047,7 +22046,8 @@
     "repertoireReadError": "Nu am putut citi PGN-ul repertoriului cu %s",
     "repertoireParseError": "Nu am putut interpreta PGN-ul repertoriului cu %s",
     "repertoireColor.white": "albele",
-    "repertoireColor.black": "negrele"
+    "repertoireColor.black": "negrele",
+    "repertoireDisplay.matches": "Marcare mutări din repertoriu"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23262,9 +23262,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -23272,7 +23271,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24487,9 +24487,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -24497,7 +24496,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25712,9 +25712,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -25722,7 +25721,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26937,9 +26937,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -26947,7 +26946,8 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28162,9 +28162,8 @@
     "options.repertoireWhite": "White repertoire PGN",
     "options.repertoireBlack": "Black repertoire PGN",
     "options.repertoireDisplay": "Repertoire display",
-    "repertoireDisplay.book": "Repertoire markers",
-    "repertoireDisplay.deviations": "Deviation markers",
-    "repertoireDisplay.arrows": "Prepared move arrows",
+    "repertoireDisplay.deviations": "Mark deviations from repertoire",
+    "repertoireDisplay.arrows": "Show repertoire arrows after deviation",
     "repertoireMoveTitle": "LiChess Tools - move in your %s repertoire",
     "repertoireOwnDeviationTitle": "LiChess Tools - you left your repertoire. Prepared: %s",
     "repertoireOpponentDeviationTitle": "LiChess Tools - opponent left your repertoire. Prepared replies: %s",
@@ -28172,6 +28171,7 @@
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
-    "repertoireColor.black": "Black"
+    "repertoireColor.black": "Black",
+    "repertoireDisplay.matches": "Mark moves in repertoire"
   }
 }
