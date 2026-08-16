@@ -323,7 +323,8 @@
           analysis.fork.proceed = lt.wrapFunction(analysis.fork.proceed, {
             id: 'forkBehavior',
             before: ($this, ...args) => {
-              if (this.mousewheelOn || this.pointermoveOn || analysis.gamebookPlay()) {
+              const inHscrub = !!lt.tools.MobileExperienceTool?.g?.lastMove;
+              if (this.mousewheelOn || this.pointermoveOn || analysis.gamebookPlay() || inHscrub) {
                 this.nextResult = undefined;
                 return;
               }
