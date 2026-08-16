@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - Mad_Amateur shadow piece set
 - Frog Software Foundation msfrogpieces piece set
+- One click move for game play and puzzles
 
 06 Aug
 
