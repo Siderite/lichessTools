@@ -475,7 +475,7 @@ class PieceSetTree {
         let total = 0, count = 0;
 
         for (let p in a.hashes) {
-            if (b.hashes[p] !== undefined) {
+            if (b.hashes?.[p] !== undefined) {
                 total += this.hammingDistance(a.hashes[p], b.hashes[p]);
                 count++;
             }

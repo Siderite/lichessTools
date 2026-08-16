@@ -5802,7 +5802,7 @@
       "category": "basedpolymer",
       "name": "amogus_1",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/amogus_1/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "wW02kjvUxalYJzOTi0tLBg==",
         "bp": "bDyWE8jEbeuETiYmDpaWTA==",
@@ -5826,7 +5826,7 @@
       "category": "basedpolymer",
       "name": "amogus_2",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/amogus_2/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "DiSby2S2melgjJozOyKUaA==",
         "bp": "OGTHDzCQz+9ghJ6WpiaMYA==",
@@ -5850,7 +5850,7 @@
       "category": "basedpolymer",
       "name": "celtic",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/celtic/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "KXOFjVK6rdQjNlQUNjZMEA==",
         "bp": "ltZyeIWFUvqejkxMTEwoEA==",
@@ -5874,7 +5874,7 @@
       "category": "basedpolymer",
       "name": "chessvision",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/chessvision/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "zjR5w4ZqaZVReXGyEjI2DA==",
         "bp": "McrGPHmVhuojFw5MTE5MCA==",
@@ -5898,7 +5898,7 @@
       "category": "basedpolymer",
       "name": "chicago",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/chicago/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "wzQ+y8lrMpQraXGysrIWTA==",
         "bp": "HmPBND+VyOoXBweOhkxMDA==",
@@ -5922,7 +5922,7 @@
       "category": "basedpolymer",
       "name": "christmas",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/christmas/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "MzaYlWdrmZQycWFmJhQwMA==",
         "bp": "MzaYtWdLmLSycWEnppYWTA==",
@@ -5946,7 +5946,7 @@
       "category": "basedpolymer",
       "name": "doge",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/doge/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "5BLJeSNlXp7ays3k5mwOJg==",
         "bp": "NcuWNGmVlOoXB44MDEwMMA==",
@@ -5970,7 +5970,7 @@
       "category": "basedpolymer",
       "name": "eyes",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/eyes/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "MLabmW1kkpsqaWlzFBQIEA==",
         "bp": "y0xkNpORbewWlpaOTEwwAA==",
@@ -5994,7 +5994,7 @@
       "category": "basedpolymer",
       "name": "falcon",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/falcon/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "YzmchWN6nJVpcZZUFhYWCA==",
         "bp": "zNIzKcyFc9ozD8xMTExMMA==",
@@ -6018,7 +6018,7 @@
       "category": "basedpolymer",
       "name": "fantasy",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/fantasy/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "OWiFl3pIhfciIhSyFjYMEA==",
         "bp": "h9J6eIWFUvqejkyOTEwMMA==",
@@ -6042,7 +6042,7 @@
       "category": "basedpolymer",
       "name": "fantasy_alt",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/fantasy_alt/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "pSXY2HKqjdVLaxS2NkwQAA==",
         "bp": "WlolY52dUuK2lkyODCgQAA==",
@@ -6066,7 +6066,7 @@
       "category": "basedpolymer",
       "name": "freak",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/freak/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "NDTLySKz3cYe2U03YaQYAA==",
         "bp": "Z003EIyXWeocLy8fHZ4YIA==",
@@ -6088,33 +6088,15 @@
     },
     {
       "category": "basedpolymer",
-      "name": "ichess",
-      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/ichess/",
-      "type": "png",
-      "hashes": {
-        "wp": "NjfLwDpuhZXI8GkyMjIyMA==",
-        "bp": "tMlLPzCVheoTF5ZMDkxMCA==",
-        "wn": "PNMPONhuJ4XI8Gl4/Ox5Gg==",
-        "bn": "w0xghyeV2foTBxeDAxOGZA==",
-        "wb": "MI9P88JqOYXo8GlpaWkyFA==",
-        "bb": "j3ByDG6VhfoDD4aWk5ZMKA==",
-        "wr": "TI8aP5B+h8HI8OhpaejU1A==",
-        "br": "jnB74HiBhf4DDxeWlhcrKw==",
-        "wq": "0ZhnE2djzYXI8Glp6KrqaQ==",
-        "bq": "kWdjyWKcjPoDD5aXF1UXlg==",
-        "wk": "splmYi9ukZno8GnozHFxNg==",
-        "bk": "M2pMnReRke4DD5czI46OTA=="
-      },
-      "coordinates": {
-        "x": 5,
-        "y": 11
-      }
+      "name": "game_room",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/game_room/",
+      "type": "webp"
     },
     {
       "category": "basedpolymer",
       "name": "iowa",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/iowa/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "pWtqlNVrKpSWsrJUFlRMKA==",
         "bp": "VMmqelWFqPqOjo5MTExMMA==",
@@ -6138,7 +6120,7 @@
       "category": "basedpolymer",
       "name": "nyc",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/nyc/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "4JwPw3hqx5VhaWFhaTIyDA==",
         "bp": "42MVPJWVlOqGloaGlkxMMA==",
@@ -6162,7 +6144,7 @@
       "category": "basedpolymer",
       "name": "oslo",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/oslo/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "lmltlFJrrZSWshZUFhZMKA==",
         "bp": "0JB6eoWFevqOTExMTExMMA==",
@@ -6186,7 +6168,7 @@
       "category": "basedpolymer",
       "name": "penguin",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/penguin/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "aTOUzWM0nMtMjm1psjIWDA==",
         "bp": "l2xskjLJybZMUjOTjk5OLA==",
@@ -6210,7 +6192,7 @@
       "category": "basedpolymer",
       "name": "pokemon",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pokemon/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "0OiT52topJORweLUcXJKVg==",
         "bp": "yS8ulzBozYdoMTHwcXEaDA==",
@@ -6232,9 +6214,15 @@
     },
     {
       "category": "basedpolymer",
+      "name": "pony",
+      "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/pony/",
+      "type": "webp"
+    },
+    {
+      "category": "basedpolymer",
       "name": "prmi",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/prmi/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "rXJyjRKdjeKSlheTsyAAAA==",
         "bp": "nGNjTGqVmeqOjpaXs2gAAA==",
@@ -6282,7 +6270,7 @@
       "category": "basedpolymer",
       "name": "royale",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/royale/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "0mtrlJRrapQrMzISshYWDA==",
         "bp": "LNLSL3qFhPoXhkxMjgxMCA==",
@@ -6306,7 +6294,7 @@
       "category": "basedpolymer",
       "name": "sea",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/sea/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "2GjYYx8eaPGFlNaWFjFizA==",
         "bp": "J5MnnODhl45aYylp6c6cMg==",
@@ -6330,7 +6318,7 @@
       "category": "basedpolymer",
       "name": "skulls",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/skulls/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "SyaWWWm2lslMDoayMgwAAA==",
         "bp": "SSSWS2+UmutMDIaWDigQAA==",
@@ -6354,7 +6342,7 @@
       "category": "basedpolymer",
       "name": "wehrmacht_soviet",
       "url": "https://raw.githubusercontent.com/basedpolymer/lichess_enhancement/refs/heads/main/ressources/pieces/wehrmacht_soviet/",
-      "type": "png",
+      "type": "webp",
       "hashes": {
         "wp": "BZqWpGVP+LMxcmTMRh3xMQ==",
         "bp": "tKYUrJrTTdxzYx8WoJ+fTg==",
