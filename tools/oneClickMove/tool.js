@@ -48,6 +48,7 @@
         const pos = co.Chess.fromSetup(setup).unwrap();
 
         destMan = co.compat.chessgroundDests(pos);
+        this._cache.set(key,destMan);
       }
       return destMan;
     };
