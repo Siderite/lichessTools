@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+16 Aug
+
+- Mad_Amateur shadow piece set
+
 06 Aug
 
 - Repertoire tool

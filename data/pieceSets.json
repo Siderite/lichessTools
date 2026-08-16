@@ -15853,6 +15853,14 @@
         "x": 8,
         "y": 22
       }
+    },
+
+    {
+      "category": "Mad_Amateur",
+      "name": "Shadow",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/Mad_Amateur/pieces/shadow/",
+      "type": "png",
+      "cap": "wN"
     }
   ]
 }
