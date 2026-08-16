@@ -213,7 +213,7 @@
       const lt = this.lichessTools;
       const chessground = lt.getChessground();
       const autoShapes = chessground?.state?.drawable?.autoShapes || [];
-      const shapes = autoShapes.filter(shape => !shape.lichessToolsRepertoire);
+      const shapes = autoShapes.filter(shape => shape.source!='repertoire');
       if (shapes.length != autoShapes.length) chessground.setAutoShapes(shapes);
     };
 
@@ -223,7 +223,7 @@
       const chessground = lt.getChessground();
       const autoShapes = chessground?.state?.drawable?.autoShapes || [];
       if (!analysis || !chessground) return;
-      const shapes = autoShapes.filter(shape => !shape.lichessToolsRepertoire);
+      const shapes = autoShapes.filter(shape => shape.source!='repertoire');
       const node = analysis.node;
       const repertoireMoves = repertoire?.moves.get(lt.getPositionFromFen(node?.fen, true));
       const deviation = repertoire && node?.children?.find(child =>
@@ -237,8 +237,8 @@
             orig: move.uci.slice(0, 2),
             dest: move.uci.slice(2, 4),
             brush: 'blue',
-            modifiers: { lineWidth: 8 },
-            lichessToolsRepertoire: true
+            modifiers: { lineWidth: 8, hilite: '#ffff00' },
+            source: 'repertoire'
           });
         }
       }
