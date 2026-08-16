@@ -40,7 +40,7 @@ When themes selected: CSS classes `lichessTools-theme_<themeName>` added to body
 | adamisko | Vintage Adamisko |
 | arcade | Arcade (requires Board Styling) |
 | fixThirdParties | Fix third parties |
-| timeControls | Hover time controls |
+| timeControls | Hover time controls, formatted in minutes (for example, `60+1` is shown as `1+1` and `15+0` as `¼+0`) |
 | firstInteraction | First interaction |
 | noVariants | No chess variants |
 | noBullet | Hide Bullet chess |

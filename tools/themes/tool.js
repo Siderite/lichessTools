@@ -203,6 +203,7 @@
         }
 
         this.toggleFlairX();
+        this.toggleTimeControls();
       } finally {
         this._inApplyThemes = false;
       }
@@ -353,6 +354,50 @@
       if (enabled) {
         document.addEventListener("pointerenter",this.flairEnter , true);
       }
+    };
+
+    formatTimeControl = timeControl => {
+      const match = /^(\d+)(\+\d+)?$/.exec(timeControl);
+      if (!match) return timeControl;
+      const seconds = +match[1];
+      const minutes = Math.floor(seconds / 60);
+      const fraction = {
+        0: '',
+        15: '\u00bc',
+        30: '\u00bd',
+        45: '\u00be'
+      }[seconds % 60];
+      if (fraction === undefined) return timeControl;
+      const initial = minutes
+        ? minutes + fraction
+        : fraction || '0';
+      return initial + (match[2] || '');
+    };
+
+    setTimeControlLabels = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('#powerTip a[data-tc],#miniGame a[data-tc]').each((i, e) => {
+        $(e).attr('data-tc-label', this.formatTimeControl($(e).attr('data-tc')));
+      });
+    };
+
+    toggleTimeControls = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const selector = '#powerTip,#miniGame,#powerTip *,#miniGame *';
+      $('body').observer().off(selector, this.setTimeControlLabels);
+      if (!(`,${this.themes || ''},`.includes(',timeControls,'))) {
+        $('#powerTip a[data-tc-label],#miniGame a[data-tc-label]').removeAttr('data-tc-label');
+        return;
+      }
+      $('body').observer().on(selector, this.setTimeControlLabels, {
+        attributes: true,
+        attributeFilter: ['data-tc'],
+        characterData: false,
+        executeDirect: true
+      });
+      this.setTimeControlLabels();
     };
 
     async start() {
