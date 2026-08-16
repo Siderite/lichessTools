@@ -265,7 +265,7 @@
       const startOfYear = new Date(year, 0, 1, 0, 0, 0);
       const startOfNextYear = new Date(year + 1, 0, 1, 0, 0, 0);
       const qYear = (currentDate - startOfYear) / (startOfNextYear - startOfYear);
-      const yearGames = Math.round(this.explorerInfo.monthGames*12*qYear)+gamesInPlay;
+      const yearGames = Math.round(this.explorerInfo.monthGames*12*qYear+gamesInPlay);
 
       const startOfMonth = new Date(year, month-1, 1);
       const startOfNextMonth = new Date(year, month, 1);
