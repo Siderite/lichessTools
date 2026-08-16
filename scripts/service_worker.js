@@ -90,7 +90,7 @@ const handlers = {
         formData.append('type', 'base64');
         formData.append('title', 'LiChess Tools image');
         formData.append('description', 'from Inbox chat paste in Lichess.org');
-        let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}&name=test.jpg';
+        let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}';
         const args = { 
           key:'370e6c2c08e7773fc0960160e36f535c',
           expiration: '' //86400*100
