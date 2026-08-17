@@ -632,8 +632,9 @@
       switch (m[1]) {
         case '\u00bd': initial = 0.5; break;
         case '\u00bc': initial = 0.25; break;
-        default: initial = +m[1] * (notPgn ? 60 : 1); break;
+        default: initial = +m[1]; break;
       }
+      initial *= notPgn ? 60 : 1;
       const increment = m[2] ? +m[2] : 0;
       const time = initial + 40 * increment;
       if (!time) return timeControl;
