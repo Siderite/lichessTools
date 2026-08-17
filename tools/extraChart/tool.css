@@ -110,6 +110,7 @@ body.lichessTools .lichessTools-extraChart-tooltip .lichessTools-extraChart-game
   flex: 1 0 100%;
   font-size: 0.75em;
   height:1em;
+  white-space: nowrap;
 }
 
 body.lichessTools .lichessTools-extraChart-tooltip .node-6006044 {
