@@ -83,7 +83,7 @@ body.lichessTools .lichessTools-extraChart-tooltip {
   overflow: hidden;
   transform: translateY(-100%);
   flex-wrap: wrap;
-  min-width: 12em;
+  min-width: 13em;
 }
 
 body.lichessTools .lichessTools-extraChart-tooltip.hide {
