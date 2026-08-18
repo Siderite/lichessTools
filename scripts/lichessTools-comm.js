@@ -10,10 +10,19 @@
       init() {
         const lt = this.lichessTools;
         lt.global.addEventListener('LichessTools.receive', (ev) => {
-          const sendResponse = this.sendResponses[ev.detail.uid];
+          let detail;
+          try {
+            detail = typeof ev.detail == 'string'
+              ? JSON.parse(ev.detail)
+              : ev.detail;
+          } catch (e) {
+            lt.global.console.warn('Could not parse extension response',e);
+            return;
+          }
+          const sendResponse = this.sendResponses[detail?.uid];
           if (sendResponse) {
-            delete this.sendResponses[ev.detail.uid];
-            sendResponse(ev.detail);
+            delete this.sendResponses[detail.uid];
+            sendResponse(detail);
           }
         });
         lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000, resultFilter: (r)=>r?.dataUrl });
@@ -35,7 +44,8 @@
           };
           this.sendResponses[uid] = f;
           const customEvent = new CustomEvent("LichessTools.send", {
-            detail: { ...data, uid: uid },
+            // Strings can safely cross Firefox's page/content-script boundary.
+            detail: JSON.stringify({ ...data, uid: uid }),
             bubbles: true,
             cancelable: true,
             composed: false,
