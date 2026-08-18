@@ -367,8 +367,10 @@
             .appendTo(container);
           if (ladder.joined) {
             lt.api.lichessladders.getUserLadder(laddersId, ladder.id).then(data=>{
+              let challengeCount = data?.openChallengeCount;
+              if (!(challengeCount > 0)) challengeCount = 0;
               elem
-                .attr('data-count',data?.openChallengeCount)
+                .attr('data-count', challengeCount)
                 .addClass('data-count')
                 .append(
                   $('<span class="ranking">').text(data?.ranking)
