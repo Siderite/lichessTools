@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - noUiSlider tool
 - specify rating charts interval
+- solve the Orion issues for iPhone
 
 16 Aug
 
