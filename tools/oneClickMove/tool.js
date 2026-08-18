@@ -8,7 +8,7 @@
         name: 'oneClickMove',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['play','analysis', 'onlyOrientation', 'moveFromPgn'],
+        possibleValues: ['play','puzzles','analysis', 'onlyOrientation', 'moveFromPgn'],
         defaultValue: false,
         advanced: true
       }
@@ -19,7 +19,8 @@
         'options.analysis2': 'Analysis - minor',
         'options.oneClickMove': 'One click move',
         'oneClickMove.analysis': 'Analysis/Study',
-        'oneClickMove.play': 'Play/Puzzles',
+        'oneClickMove.play': 'Game play',
+        'oneClickMove.puzzles': 'Puzzles',
         'oneClickMove.onlyOrientation': 'Only orientation side',
         'oneClickMove.moveFromPgn': 'Move from PGN'
       },
@@ -27,7 +28,8 @@
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
         'options.oneClickMove': 'Mutare cu un singur click',
         'oneClickMove.analysis': 'Analiz\u0103/Studiu',
-        'oneClickMove.play': 'Joc/Puzzle-uri',
+        'oneClickMove.play': '\u00e2n joc',
+        'oneClickMove.puzzles': 'Puzzle-uri',
         'oneClickMove.onlyOrientation': 'Doar juc\u0103torul orient\u0103rii',
         'oneClickMove.moveFromPgn': 'Mi\u015Fc\u0103ri din PGN'
       }
@@ -77,13 +79,28 @@
       return 'standard';
     };
 
+    isPlaying = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      return $.cached('body').is('.playing') && !$('.puzzle__feedback').is('.after');
+    };
+
+    isTrainingPage = ()=>{
+      const lt = this.lichessTools;
+      return /^\/training/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
+    };
+
+
     boardClick = async (ev) => {
       if (ev.which > 1 || ev.shiftKey) return;
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess.analysis;
-      if (!(this.options.analysis && analysis) && !(this.options.play && !analysis)) return; //TODO better play detection
+      if (!this.options.analysis && analysis) return;
+      if (!this.options.play && this.isPlaying() && !this.isTrainingPage()) return;
+      if (!this.options.puzzles && this.isTrainingPage()) return;
+
       if (!ev.x && !ev.y) return;
       const board = $('div.main-board cg-board');
       if (!board.length) return;
@@ -147,12 +164,7 @@
       }
       if (uci) {
         ev.preventDefault();
-        // use the manual playUci, because of promotions
-        /*if (analysis) {
-          lt.global.setTimeout(() => analysis.playUci(uci), 50);
-        } else {*/
-          this.playUci(uci, board, orientation);
-        /*}*/
+        this.playUci(uci, board, orientation);
       }
     };
 
@@ -245,6 +257,7 @@
       this.options = {
         analysis: lt.isOptionSet(value, 'analysis'),
         play: lt.isOptionSet(value, 'play'),
+        puzzles: lt.isOptionSet(value, 'puzzles'),
         onlyOrientation: lt.isOptionSet(value, 'onlyOrientation'),
         moveFromPgn: lt.isOptionSet(value, 'moveFromPgn')
       };
@@ -257,7 +270,7 @@
       if (lichess.socket?.handle) {
         lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'oneClickMove');
       }
-      if ((analysis && this.options.analysis) || ($('main.round,main.puzzle').length && this.options.play)) {
+      if ((analysis && this.options.analysis) || ($('main.round').length && this.options.play) || ($('main.puzzle').length && this.options.puzzles)) {
         this.interval = lt.global.setInterval(this.handleBoard, 1000);
         this.handleBoard();
       }

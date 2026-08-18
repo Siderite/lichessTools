@@ -591,7 +591,7 @@
     "fullScreenTitle": "أدوات شطرنج الحياة - ملء الشاشة",
     "options.oneClickMove": "نقرة واحدة",
     "oneClickMove.analysis": "التحليل/الدراسة",
-    "oneClickMove.play": "تشغيل/ألغاز",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "الجانب الإتجاهي فقط",
     "oneClickMove.moveFromPgn": "نقل من PGN",
     "options.commonTeams": "إظهار الفرق المشتركة",
@@ -1223,7 +1223,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -1817,7 +1818,7 @@
     "fullScreenTitle": "LiChess Tools - 全屏",
     "options.oneClickMove": "一键走子",
     "oneClickMove.analysis": "分析/研习",
-    "oneClickMove.play": "对局/谜题",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "仅限朝向方",
     "oneClickMove.moveFromPgn": "从 PGN 走子",
     "options.commonTeams": "显示共同团队",
@@ -2449,7 +2450,8 @@
     "repertoireColor.white": "白方",
     "repertoireColor.black": "黑方",
     "repertoireDisplay.matches": "标记开局库中的着法",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3043,7 +3045,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "Analysis/Study",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -3675,7 +3677,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4269,7 +4272,7 @@
     "fullScreenTitle": "LiChess Tools - celá obrazovka",
     "options.oneClickMove": "Přesunout jedním kliknutím",
     "oneClickMove.analysis": "Analýza/Studie",
-    "oneClickMove.play": "Přehrát/Úlohy",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Pouze orientační strana",
     "oneClickMove.moveFromPgn": "Přesunout z PGN",
     "options.commonTeams": "Zobrazit společné týmy",
@@ -4901,7 +4904,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5495,7 +5499,7 @@
     "fullScreenTitle": "LiChess Tools - volledig scherm",
     "options.oneClickMove": "Eén klik verplaatsen",
     "oneClickMove.analysis": "Analyse/Studie",
-    "oneClickMove.play": "Speel/Puzzels",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Alleen oriëntatie zijde",
     "oneClickMove.moveFromPgn": "Verplaatsen vanaf PGN",
     "options.commonTeams": "Toon veelgebruikte teams",
@@ -6127,7 +6131,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -6721,7 +6726,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "Analysis/Study",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -7353,7 +7358,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -7947,7 +7953,7 @@
     "fullScreenTitle": "LiChess Tools - plein écran",
     "options.oneClickMove": "Coup en un clic",
     "oneClickMove.analysis": "Analyse/Étude",
-    "oneClickMove.play": "Jouer/Problèmes",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Uniquement le côté orienté",
     "oneClickMove.moveFromPgn": "Coup depuis PGN",
     "options.commonTeams": "Afficher les équipes communes",
@@ -8579,7 +8585,8 @@
     "repertoireColor.white": "Blancs",
     "repertoireColor.black": "Noirs",
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
-    "profileSlider.minmax": "Spécifier l'intervalle de classement"
+    "profileSlider.minmax": "Spécifier l'intervalle de classement",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9173,7 +9180,7 @@
     "fullScreenTitle": "LiChess Tools - Vollbild",
     "options.oneClickMove": "Ein-Klick-Zugbewegung",
     "oneClickMove.analysis": "Analyse/Studie",
-    "oneClickMove.play": "Spiele/Rätsel",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Einzige Orientierungsseite",
     "oneClickMove.moveFromPgn": "Von PGN verschieben",
     "options.commonTeams": "Gemeinsame Teams anzeigen",
@@ -9805,7 +9812,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10399,7 +10407,7 @@
     "fullScreenTitle": "LiChess Tools - πλήρης οθόνη",
     "options.oneClickMove": "Κίνηση με ένα κλικ",
     "oneClickMove.analysis": "Ανάλυση/Μελέτη",
-    "oneClickMove.play": "Αναπαραγωγή/Γρίφων",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Μόνο πλευρά προσανατολισμού",
     "oneClickMove.moveFromPgn": "Μετακίνηση από το PGN",
     "options.commonTeams": "Εμφάνιση κοινών ομάδων",
@@ -11031,7 +11039,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -11625,7 +11634,7 @@
     "fullScreenTitle": "LiChess Tools - schermo intero",
     "options.oneClickMove": "Mossa con un solo clic",
     "oneClickMove.analysis": "Analisi/Studio",
-    "oneClickMove.play": "Gioca/Puzzle",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Solo lato di orientamento",
     "oneClickMove.moveFromPgn": "Sposta da PGN",
     "options.commonTeams": "Mostra squadre in comune",
@@ -12257,7 +12266,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -12851,7 +12861,7 @@
     "fullScreenTitle": "Lichess Verktøy - fullskjerm",
     "options.oneClickMove": "Ett klikk trekk",
     "oneClickMove.analysis": "Analyser/Studie",
-    "oneClickMove.play": "Spill / Puslespill",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Bare orienteringssiden",
     "oneClickMove.moveFromPgn": "Flytt fra PGN",
     "options.commonTeams": "Vis felles team",
@@ -13483,7 +13493,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14077,7 +14088,7 @@
     "fullScreenTitle": "LiChess Tools - fullskjerm",
     "options.oneClickMove": "Etklikkstrekk",
     "oneClickMove.analysis": "Analyse/Studie",
-    "oneClickMove.play": "Spill/Sjakknøtter",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Bare orienteringssiden",
     "oneClickMove.moveFromPgn": "Trekk fra PGN",
     "options.commonTeams": "Vis felleslag",
@@ -14709,7 +14720,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15303,7 +15315,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "Analysis/Study",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -15935,7 +15947,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -16529,7 +16542,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "Analysis/Study",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -17161,7 +17174,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -17755,7 +17769,7 @@
     "fullScreenTitle": "LiChess Tools — pełny ekran",
     "options.oneClickMove": "Wykonaj posunięcie pojedynczym kliknięciem",
     "oneClickMove.analysis": "W analizie/opracowaniu",
-    "oneClickMove.play": "W partii/zadaniach szachowych",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Tylko dla strony gracza",
     "oneClickMove.moveFromPgn": "Posunięcia z PGN",
     "options.commonTeams": "Pokaż wspólne kluby",
@@ -18387,7 +18401,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -18981,7 +18996,7 @@
     "fullScreenTitle": "LiChess Tools - Tela cheia",
     "options.oneClickMove": "Movimento de um clique",
     "oneClickMove.analysis": "Analisar/Estudo",
-    "oneClickMove.play": "Reproduzir/Problemas",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Somente o lado da orientação",
     "oneClickMove.moveFromPgn": "Mover do PGN",
     "options.commonTeams": "Mostrar equipes comuns",
@@ -19613,7 +19628,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20207,7 +20223,7 @@
     "fullScreenTitle": "LiChess Tools - Tela cheia",
     "options.oneClickMove": "Movimento de um clique",
     "oneClickMove.analysis": "Analisar/Estudo",
-    "oneClickMove.play": "Reproduzir/Problemas",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Somente o lado da orientação",
     "oneClickMove.moveFromPgn": "Mover do PGN",
     "options.commonTeams": "Mostrar equipes comuns",
@@ -20839,7 +20855,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -21433,7 +21450,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "Mutare cu un singur click",
     "oneClickMove.analysis": "Analiză/Studiu",
-    "oneClickMove.play": "Joc/Puzzle-uri",
+    "oneClickMove.play": "În joc",
     "oneClickMove.onlyOrientation": "Doar jucătorul orientării",
     "oneClickMove.moveFromPgn": "Mişcări din PGN",
     "options.commonTeams": "Arată echipe comune",
@@ -22065,7 +22082,8 @@
     "repertoireColor.white": "albele",
     "repertoireColor.black": "negrele",
     "repertoireDisplay.matches": "Marcare mutări din repertoriu",
-    "profileSlider.minmax": "Specifică interval rating"
+    "profileSlider.minmax": "Specifică interval rating",
+    "oneClickMove.puzzles": "Puzzle-uri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -22659,7 +22677,7 @@
     "fullScreenTitle": "LiChess Tools - весь экран",
     "options.oneClickMove": "Ход одним кликом",
     "oneClickMove.analysis": "Анализ/Студии",
-    "oneClickMove.play": "Игра/Задачи",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Только для вашего цвета ",
     "oneClickMove.moveFromPgn": "Ход из PGN",
     "options.commonTeams": "Показать общие команды игроков",
@@ -23291,7 +23309,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -23885,7 +23904,7 @@
     "fullScreenTitle": "LiChess Tools - pantalla completa",
     "options.oneClickMove": "Movimiento de un click",
     "oneClickMove.analysis": "Análisis/Estudio",
-    "oneClickMove.play": "Reproducir/rompecabezas",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Sólo lado de orientación",
     "oneClickMove.moveFromPgn": "Mover desde PGN",
     "options.commonTeams": "Mostrar equipos comunes",
@@ -24517,7 +24536,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25111,7 +25131,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "பகுப்பாய்வு/ஆய்வு",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -25743,7 +25763,8 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26337,7 +26358,7 @@
     "fullScreenTitle": "LiChess Tools - Tam ekran",
     "options.oneClickMove": "Tek tık hamle",
     "oneClickMove.analysis": "Analiz/Çalışma",
-    "oneClickMove.play": "Oyna/Bulmaca",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Sadece bu yöndeki taraf",
     "oneClickMove.moveFromPgn": "PGN'den hamle",
     "options.commonTeams": "Ortak takımları göster",
@@ -26969,7 +26990,8 @@
     "repertoireColor.white": "Beyaz",
     "repertoireColor.black": "Siyah",
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
-    "profileSlider.minmax": "Puan aralığı belirtin"
+    "profileSlider.minmax": "Puan aralığı belirtin",
+    "oneClickMove.puzzles": "Puzzles"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -27563,7 +27585,7 @@
     "fullScreenTitle": "LiChess Tools - full screen",
     "options.oneClickMove": "One click move",
     "oneClickMove.analysis": "Analysis/Study",
-    "oneClickMove.play": "Play/Puzzles",
+    "oneClickMove.play": "Game play",
     "oneClickMove.onlyOrientation": "Only orientation side",
     "oneClickMove.moveFromPgn": "Move from PGN",
     "options.commonTeams": "Show common teams",
@@ -28195,6 +28217,7 @@
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Specify rating interval",
+    "oneClickMove.puzzles": "Puzzles"
   }
 }
