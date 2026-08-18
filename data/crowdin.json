@@ -8579,7 +8579,7 @@
     "repertoireColor.white": "Blancs",
     "repertoireColor.black": "Noirs",
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Spécifier l'intervalle de classement"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -26969,7 +26969,7 @@
     "repertoireColor.white": "Beyaz",
     "repertoireColor.black": "Siyah",
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
-    "profileSlider.minmax": "Specify rating interval"
+    "profileSlider.minmax": "Puan aralığı belirtin"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
