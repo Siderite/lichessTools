@@ -283,6 +283,7 @@
             .attr('title',trans.pluralSame('pieceSetTitle',title))
             .attr('data-setName',pieceSet.name)
             .addClass('lichessTools-extraPieceSets')
+            .toggleClass('lichessTools-duplicate',!!pieceSet.duplicate)
             .addClass(category)
             .addClass('i'+(index%5+1))
             .on('click',()=>this.setPieceSet(pieceSet.name))
@@ -320,7 +321,7 @@
 
       const impl = mode == 'grid' ? PieceSetGrid : PieceSetTree;
       const graph = new impl(
-        this.pieceSets.filter(ps=>!ps.duplicate),
+        this.pieceSets,//.filter(ps=>!ps.duplicate),
         ps => this.getUrl(ps, 'knight', 'white'),
         await lt.d3(),
         ps=>{
@@ -409,7 +410,7 @@
           if (!data) {
             lt.global.console.warn('Could not load piece sets!');
           }
-          self.pieceSets = (data?.pieceSets || []).filter(ps=>!ps.duplicate);
+          self.pieceSets = data?.pieceSets || [];
           for (const pieceSet of self.pieceSets) {
             if (pieceSet.category == 'chesscom') continue;
             pieceSet.name+='_'+pieceSet.category;

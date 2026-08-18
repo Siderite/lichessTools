@@ -11,6 +11,15 @@ body.lichessTools #dasher_app .lichessTools-filteredPieces {
   display: none;
 }
 
+body.lichessTools #dasher_app .lichessTools-duplicate {
+  display: none;
+}
+
+body.lichessTools #dasher_app:has(.lichessTools-filteredPieces) .lichessTools-duplicate:not(.lichessTools-filteredPieces) {
+  display: block;
+}
+
+
 body.lichessTools #dasher_app button.lichessTools-extraPieceSets {
   border-radius:33%;
   border-width: 1px;
