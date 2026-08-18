@@ -1,12 +1,14 @@
 (() => {
   class ProfileSliderTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['NoUiSlider'];
+
     preferences = [
       {
         name: 'profileSlider',
         category: 'appearance',
         type: 'multiple',
-        possibleValues: ['showText', 'add1w', 'fixSize'],
+        possibleValues: ['showText', 'add1w', 'fixSize','minmax'],
         defaultValue: 'showText,add1w,fixSize',
         advanced: true
       }
@@ -19,6 +21,7 @@
         'profileSlider.showText': 'Show dates',
         'profileSlider.add1w': 'Add 1W filter',
         'profileSlider.fixSize': 'Fix small intervals',
+        'profileSlider.minmax': 'Specify rating interval',
         'sliderLabelTitle': 'LiChess Tools - Profile slider options',
         'button1wTitle': 'LiChess Tools - one week'
       },
@@ -28,6 +31,7 @@
         'profileSlider.showText': 'Arat\u0103 datele',
         'profileSlider.add1w': 'Adaug\u0103 filtru 1W',
         'profileSlider.fixSize': 'Repar\u0103 intervale mici',
+        'profileSlider.minmax': 'Specific\u0103 interval rating',
         'sliderLabelTitle': 'LiChess Tools - op\u0163iuni pentru slider-ul din Profil',
         'button1wTitle': 'LiChess Tools - o s\u0103pt\u0103m\u00e2n\u0103'
       }
@@ -99,16 +103,41 @@
         .toggleClassSafe('active', isActive);
     };
 
+    ratingRangeUpdate = ([minValue, maxValue],...rest)=>{
+      const lt = this.lichessTools;
+      if (!this.chart) return;
+      let yScale = this.chart.options.scales.y;
+      yScale.suggestedMin=minValue;
+      yScale.suggestedMax=maxValue;
+
+      const findPlugin = (id)=>this.chart._plugins._init.find(p=>p.plugin.id==id);
+
+      this.chart.options.plugins.datalabels = findPlugin('datalabels')?.options || false;
+      this.chart.options.plugins.tooltip = findPlugin('tooltip')?.options || false;
+      this.chart.update('none');
+    };
+
+    ratingRangeChange = ([minValue, maxValue],...rest)=>{
+      const lt = this.lichessTools;
+      if (!this.chart) return;
+      const slider = rest.at(-1);
+      let yScale = this.chart.scales.y;
+      const newValues = [yScale.min, yScale.max];
+      slider.set(newValues);
+      lt.storage.set('LiChessTools.ratingRange',newValues);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('profileSlider');
-      this.logOption('Slider dates', value);
+      this.logOption('Profile slider', value);
       this.options = {
         showText: lt.isOptionSet(value, 'showText'),
         add1w: lt.isOptionSet(value, 'add1w'),
-        fixSize: lt.isOptionSet(value, 'fixSize')
+        fixSize: lt.isOptionSet(value, 'fixSize'),
+        minmax: lt.isOptionSet(value, 'minmax')
       };
       const slider = $('#time-range-slider');
       const uiSlider = $('#time-range-slider')[0]?.noUiSlider;
@@ -134,6 +163,34 @@
         this.setSlider();
         $('.time-selector-buttons button:not(.lichessTools-1w)')
           .on('mousedown', this.restoreFullRange);
+      }
+      if (this.options.minmax) {
+        const canvas = $('canvas.rating-history');
+        if (!this.chart && canvas.length) {
+          lt.getChart(canvas[0]).then(async (c)=>{
+            this.chart=c;
+            const parent = canvas.parent();
+            let elem = $('#rating-range-slider');
+            if (!elem.length) {
+              elem = $('<div id="rating-range-slider">')
+                .appendTo(parent);
+              const noUiSlider = await lt.noUiSlider();
+              const values = lt.storage.get('LiChessTools.ratingRange') || [c.scales.y.min,c.scales.y.max];
+              const slider = noUiSlider.create(elem[0],{
+                start: values,
+                connect: true,
+                range: { min: 0, max: 3000 },
+                orientation: 'vertical',
+                direction: 'rtl',
+                step: 1
+              });
+              slider.on('change',this.ratingRangeChange);
+              slider.on('update',this.ratingRangeUpdate);
+            }
+          });
+        }
+      } else {
+        lt.storage.remove('LiChessTools.ratingRange');
       }
       if (this.options.add1w && $('.time-selector-buttons .btn-rack__btn').length>1) {
         $('<button class="btn-rack__btn lichessTools-1w">')

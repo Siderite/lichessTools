@@ -1440,15 +1440,6 @@
       chart.update('none');
     };
 
-    getChartModule = async () => {
-      if (!this._module) {
-        const lt = this.lichessTools;
-        const lichess = lt.lichess;
-        this._module = await lichess.asset.loadEsm('chart.game');
-      }
-      return this._module;
-    };
-
     clearCharts = () => {
       const chart = this._chart;
       if (!chart) return;
@@ -1538,8 +1529,7 @@
           const canvas = $('canvas#acpl-chart', container)[0];
           if (canvas) {
             if (canvas.$chartjs) {
-              const mod = await this.getChartModule();
-              chart = await mod.acpl(canvas);
+              chart = await lt.getChart(canvas);
             } else {
               lt.global.setTimeout(() => this.generateCharts(forced), 100);
               return;

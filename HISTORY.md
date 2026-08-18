@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Aug
+
+- noUiSlider tool
+- specify rating charts interval
+
 16 Aug
 
 - Mad_Amateur shadow piece set

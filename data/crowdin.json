@@ -1222,7 +1222,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2447,7 +2448,8 @@
     "repertoireParseError": "无法解析 %s 开局库 PGN",
     "repertoireColor.white": "白方",
     "repertoireColor.black": "黑方",
-    "repertoireDisplay.matches": "标记开局库中的着法"
+    "repertoireDisplay.matches": "标记开局库中的着法",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3672,7 +3674,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4897,7 +4900,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6122,7 +6126,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7347,7 +7352,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8572,7 +8578,8 @@
     "repertoireParseError": "Impossible de traiter le PGN du repertoire %s",
     "repertoireColor.white": "Blancs",
     "repertoireColor.black": "Noirs",
-    "repertoireDisplay.matches": "Indiquer les coups du répertoire"
+    "repertoireDisplay.matches": "Indiquer les coups du répertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9797,7 +9804,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11022,7 +11030,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12247,7 +12256,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13472,7 +13482,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14697,7 +14708,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15922,7 +15934,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17147,7 +17160,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18372,7 +18386,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19597,7 +19612,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20822,7 +20838,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22047,7 +22064,8 @@
     "repertoireParseError": "Nu am putut interpreta PGN-ul repertoriului cu %s",
     "repertoireColor.white": "albele",
     "repertoireColor.black": "negrele",
-    "repertoireDisplay.matches": "Marcare mutări din repertoriu"
+    "repertoireDisplay.matches": "Marcare mutări din repertoriu",
+    "profileSlider.minmax": "Specifică interval rating"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23272,7 +23290,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24497,7 +24516,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25722,7 +25742,8 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26947,7 +26968,8 @@
     "repertoireParseError": "%s repertuar PGN'i ayrıştırılamadı",
     "repertoireColor.white": "Beyaz",
     "repertoireColor.black": "Siyah",
-    "repertoireDisplay.matches": "Repertuarda hamleleri işaretle"
+    "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
+    "profileSlider.minmax": "Specify rating interval"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28172,6 +28194,7 @@
     "repertoireParseError": "Could not parse the %s repertoire PGN",
     "repertoireColor.white": "White",
     "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire"
+    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "profileSlider.minmax": "Specify rating interval"
   }
 }

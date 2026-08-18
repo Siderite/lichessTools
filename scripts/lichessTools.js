@@ -512,6 +512,28 @@
       announce(announcement);
     }
 
+    getChart = async (canvas) => {
+      const lt = this;
+      if (!canvas) canvas = lt.global.document.createElement('canvas');
+      let chart = canvas.chart;
+      if (chart) return chart;
+
+      const lichess = lt.lichess;
+      const mod = await lichess.asset.loadEsm('chart.game');
+      chart = await mod.acpl(canvas, {}, []); 
+      if (!chart.$datalabels) {
+        chart.$datalabels = {
+          _actives: [],
+          _listened: false,
+          _listeners: {},
+          _labels: [],
+        };
+      }
+      lt.Chart = chart.constructor;
+      canvas.chart = chart;
+      return chart;
+    };
+
     htmlEncode = (text) => {
       const document = this.global.document;
       return document.createElement('div')
