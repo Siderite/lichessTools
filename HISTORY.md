@@ -1,5 +1,22 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Aug
+
+- noUiSlider tool
+- specify rating charts interval
+- solve the Orion issues for iPhone
+
+16 Aug
+
+- Mad_Amateur shadow piece set
+- Frog Software Foundation msfrogpieces piece set
+- One click move for game play and puzzles
+
+06 Aug
+
+- Repertoire tool
+- new boards and pieces
+
 16 Jul
 
 - image pasting in team/game/study chat

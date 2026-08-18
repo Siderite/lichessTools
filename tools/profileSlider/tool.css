@@ -35,3 +35,27 @@ body.lichessTools .rating-history-container:has(.lichessTools-moreToTheLeft) .li
 body.lichessTools .rating-history-container:has(.lichessTools-moreToTheRight) .lichessTools-profileSliderText span:last-child {
   color: orange;
 }
+
+body.lichessTools .rating-history-container .chart-container {
+  display: flex;
+  flex-direction: row;
+}
+
+body.lichessTools .rating-history-container .chart-container:has(#rating-range-slider) canvas {
+  max-width: calc(100% - 14px);
+}
+
+body.lichessTools .rating-history-container #rating-range-slider {
+  flex-grow: 1;
+  padding: 0 2px;
+}
+
+body.lichessTools .rating-history-container #rating-range-slider .noUi-handle {
+  width: 14px;
+  height: 8px;
+  left: -2px;
+}
+
+body.lichessTools .rating-history-container #rating-range-slider .noUi-handle .noUi-touch-area {
+  cursor: ns-resize;
+}

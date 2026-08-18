@@ -343,7 +343,6 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gea
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"] {
   --analyse-toggle-size: 18px;
   height: var(--analyse-toggle-size);
-  border-radius: var(--analyse-toggle-size);
   width: calc(var(--analyse-toggle-size) * 1.66)
 }
 

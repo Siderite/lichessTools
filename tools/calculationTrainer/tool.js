@@ -167,14 +167,16 @@
           moves: moves?.length ? moves : undefined
         };
         info = await lt.stockfish.evaluate(fen,settings.sfOptions);
-        const order = info.map((_,idx)=>idx);
-        lt.arrayShuffle(order);
-        for (let i=0; i<info.length; i++) info[i].order=order[i];
-        historyItem.info = [...info];
-        if (settings.delay) {
-          const delay = Math.max(0,settings.delay-(lt.global.performance.now()-start));
-          if (delay) await lt.timeout(delay);
-          settings.delay = 0;
+        if (info) {
+          const order = info.map((_,idx)=>idx);
+          lt.arrayShuffle(order);
+          for (let i=0; i<info.length; i++) info[i].order=order[i];
+          historyItem.info = [...info];
+          if (settings.delay) {
+            const delay = Math.max(0,settings.delay-(lt.global.performance.now()-start));
+            if (delay) await lt.timeout(delay);
+            settings.delay = 0;
+          }
         }
       }
       container.empty();

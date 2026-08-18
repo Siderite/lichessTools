@@ -44,10 +44,12 @@
         'defaultValueLegend': '*Blue bordered preferences are the ones enabled by default',
         'noDirectoryPickerWarning': 'This browser does not support this functionality',
         'folderButtonTitle': 'Pick a folder',
+        'removeFolderButtonTitle': 'Clear folder',
         'fileButtonTitle': 'Pick a file',
         'userManualLinkTitle': 'User manual (EN)',
         'preferenceFilterPlaceholder': 'Filter preferences',
         'expandAllButtonText': 'Expand/collapse all',
+        'expandAllButtonTitle': 'Expand/collapse all preferences',
         'toggleLiChessToolsTitle': 'Enable/disable LiChess Tools',
         'disableLiChessToolsForTodayQuestion': 'Disable LiChess Tools for today?'
       },
@@ -79,10 +81,12 @@
         'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite',
         'noDirectoryPickerWarning': 'Acest browser nu suport\u0103 aceast\u0103 func\u0163ionalitate',
         'folderButtonTitle': 'Alege un director de fi\u015fiere',
+        'removeFolderButtonTitle': 'Cur\u0103\u016f\u0103 director',
         'fileButtonTitle': 'Alege un fi\u015fier',
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'preferenceFilterPlaceholder': 'Filtru preferin\u0163e',
         'expandAllButtonText': 'Extinde/restr\u00e2nge toate',
+        'expandAllButtonTitle': 'Extinde/restr\u00e2nge toate preferin\u016fele',
         'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools',
         'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?'
       }
@@ -279,8 +283,8 @@
               html += `<group>
                 <div class="folder">
                   <input class="form-control" type="text" name="${pref.name}" readonly/>
-                  <button class="form-control button picker" type="button" name=${pref.name}-picker" title="$trans(folderButtonTitle)">&#x1F4C1;</button>
-                  <button class="form-control button delete" type="button" name=${pref.name}-delete" title="$trans(folderButtonTitle)">&#x2716;</button>
+                  <button class="form-control button picker" type="button" name="${pref.name}-picker" title="$trans(folderButtonTitle)">&#x1F4C1;</button>
+                  <button class="form-control button delete" type="button" name="${pref.name}-delete" title="$trans(removeFolderButtonTitle)">&#x2716;</button>
                 </div></group>`;
             }
               break;
@@ -288,9 +292,9 @@
               html += `<group>
                 <div class="file">
                   <input class="form-control" type="text" name="${pref.name}" readonly/>
-                  <button class="form-control button picker" type="button" name=${pref.name}-picker" title="$trans(folderButtonTitle)" 
+                  <button class="form-control button picker" type="button" name="${pref.name}-picker" title="$trans(folderButtonTitle)" 
                      data-filedescription="${pref.fileDescription||''}" data-fileextension="${pref.fileExtension||''}">&#x1F4C1;</button>
-                  <button class="form-control button delete" type="button" name=${pref.name}-delete" title="$trans(folderButtonTitle)">&#x2716;</button>
+                  <button class="form-control button delete" type="button" name="${pref.name}-delete" title="$trans(removeFolderButtonTitle)">&#x2716;</button>
                 </div></group>`;
             }
               break;

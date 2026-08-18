@@ -1,14 +1,14 @@
 (() => {
   class OneClickMoveTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['ExtendedInteractiveLesson','InterceptEventHandlers'];
+    dependencies = ['ExtendedInteractiveLesson','InterceptEventHandlers','ChessOps'];
 
     preferences = [
       {
         name: 'oneClickMove',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: [/*'play',*/'analysis', 'onlyOrientation', 'moveFromPgn'],
+        possibleValues: ['play','analysis', 'onlyOrientation', 'moveFromPgn'],
         defaultValue: false,
         advanced: true
       }
@@ -37,11 +37,19 @@
     getDests = async (board, fen, variant) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      const $ = lt.$;
+
       const analysis = lichess.analysis;
       const cg = lt.getChessground();
       const key = fen + '/' + variant;
-      let destMan = analysis.node.dests() || cg?.state?.movable?.dests || this._cache.get(key);
+      let destMan = analysis?.node?.dests() || cg?.state?.movable?.dests || this._cache.get(key);
+      if (!destMan) {
+        const co = await lt.chessops();
+        const setup = co.fen.parseFen(fen).unwrap();
+        const pos = co.Chess.fromSetup(setup).unwrap();
+
+        destMan = co.compat.chessgroundDests(pos);
+        this._cache.set(key,destMan);
+      }
       return destMan;
     };
 
@@ -224,18 +232,6 @@
       if (!board.lichessTools_oneClickMove) {
         board.addEventListener('mousedown', this.boardClick, { capture: true });
         board.lichessTools_oneClickMove = true;
-      }
-      if (lichess.socket?.handle && !lt.isWrappedFunction(lichess.socket.handle, 'oneClickMove')) {
-        lichess.socket.handle = lt.wrapFunction(lichess.socket.handle, {
-          id: 'oneClickMove',
-          before: ($this, e) => {
-            if (e.t == 'dests') {
-              const dests = this.unpackDests(e.d.dests);
-              const fen = e.d.path;
-              this._cache.set(fen, dests);
-            }
-          }
-        });
       }
     };
 

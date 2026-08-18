@@ -28,6 +28,7 @@ body.lichessTools dialog.lichessTools-forkBehavior-chessbase .lichessTools-infoI
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase select {
   min-width: 20em;
   background: var(--c-bg-box);
+  height: stretch;
 }
 
 body.lichessTools dialog.lichessTools-forkBehavior-chessbase option {

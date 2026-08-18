@@ -11,7 +11,7 @@
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
           'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27','BrayanGuti',
-          'code-and-chill','mannubhai1','lukasmonk'
+          'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
@@ -55,7 +55,10 @@
         'extraPieceSets.BrayanGuti': 'BrayanGuti',
         'extraPieceSets.code-and-chill': 'code-and-chill',
         'extraPieceSets.mannubhai1': 'mannubhai1',
-        'extraPieceSets.lukasmonk': 'lukasmonk'
+        'extraPieceSets.lukasmonk': 'lukasmonk',
+        'extraPieceSets.chessskins': 'ChessSkins',
+        'extraPieceSets.Mad_Amateur': 'Mad Amateur',
+        'extraPieceSets.FrogSF': 'Frog Software Foundation'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -280,6 +283,7 @@
             .attr('title',trans.pluralSame('pieceSetTitle',title))
             .attr('data-setName',pieceSet.name)
             .addClass('lichessTools-extraPieceSets')
+            .toggleClass('lichessTools-duplicate',!!pieceSet.duplicate)
             .addClass(category)
             .addClass('i'+(index%5+1))
             .on('click',()=>this.setPieceSet(pieceSet.name))
@@ -317,7 +321,7 @@
 
       const impl = mode == 'grid' ? PieceSetGrid : PieceSetTree;
       const graph = new impl(
-        this.pieceSets.filter(ps=>!ps.duplicate),
+        this.pieceSets,//.filter(ps=>!ps.duplicate),
         ps => this.getUrl(ps, 'knight', 'white'),
         await lt.d3(),
         ps=>{
@@ -406,7 +410,7 @@
           if (!data) {
             lt.global.console.warn('Could not load piece sets!');
           }
-          self.pieceSets = (data?.pieceSets || []).filter(ps=>!ps.duplicate);
+          self.pieceSets = data?.pieceSets || [];
           for (const pieceSet of self.pieceSets) {
             if (pieceSet.category == 'chesscom') continue;
             pieceSet.name+='_'+pieceSet.category;
@@ -472,7 +476,7 @@ class PieceSetTree {
         let total = 0, count = 0;
 
         for (let p in a.hashes) {
-            if (b.hashes[p] !== undefined) {
+            if (b.hashes?.[p] !== undefined) {
                 total += this.hammingDistance(a.hashes[p], b.hashes[p]);
                 count++;
             }

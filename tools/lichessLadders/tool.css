@@ -321,3 +321,8 @@ body.lichessTools main.lichessTools-lichessLadders article a.mini-game {
 body.lichessTools main.lichessTools-lichessLadders article a.mini-game .cg-wrap {
   margin-top: 1em;
 }
+
+body.lichessTools main.lichessTools-lichessLadders .help-button {
+  position: absolute;
+  right: 2em;
+}

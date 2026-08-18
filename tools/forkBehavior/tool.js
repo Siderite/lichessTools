@@ -167,13 +167,13 @@
         const val = selectElem.val() || $(ev?.target).attr('value');
         if (!val) return;
         const [uci, path] = val.split(' ');
-        lichess.analysis.explorer.setHovering(lichess.analysis.node.fen, uci);
-        const fork = lichess.analysis.fork;
+        analysis.explorer.setHovering(analysis.node.fen, uci);
+        const fork = analysis.fork;
         if (!fork?.forks?.length) return;
         const index = fork.forks.findIndex(c => c.uci == uci);
         if (index < 0 || fork.selectedIndex == index) return;
         fork.selectedIndex = index;
-        lichess.analysis.setAutoShapes();
+        analysis.setAutoShapes();
         lt.analysisRedraw();
       };
 
@@ -209,6 +209,7 @@
           const e = ev.currentTarget;
           e.selectedIndex = (e.selectedIndex + e.options.length + dir) % e.options.length;
           highlight();
+          $(e).find('option').eq(e.selectedIndex)[0]?.focus();
           e.focus();
           return;
         }
@@ -232,9 +233,22 @@
           e.selectedIndex = selectedIndex;
         }
         if (lt.global.document.activeElement != e) {
-          lt.global.setTimeout(()=>e.focus(),1);
+          lt.requestAF(()=>{
+            $(e).find('option').eq(selectedIndex)[0]?.focus();
+            e.focus();
+          },'forkBehavior');
         }
         e.addEventListener('keydown', keyHandler, { capture: true });
+        e.addEventListener('focusin',()=>{
+          const activeElement = lt.global.document.activeElement;
+          if (activeElement.parentElement == e) {
+            const index = activeElement.index;
+            if (Number.isInteger(index)) {
+              e.selectedIndex = index;
+              selectElem.trigger('change');
+            }
+          }
+        });
       });
       highlight();
     };
@@ -309,7 +323,8 @@
           analysis.fork.proceed = lt.wrapFunction(analysis.fork.proceed, {
             id: 'forkBehavior',
             before: ($this, ...args) => {
-              if (this.mousewheelOn || this.pointermoveOn || analysis.gamebookPlay()) {
+              const inHscrub = !!lt.tools.MobileExperienceTool?.g?.lastMove;
+              if (this.mousewheelOn || this.pointermoveOn || analysis.gamebookPlay() || inHscrub) {
                 this.nextResult = undefined;
                 return;
               }

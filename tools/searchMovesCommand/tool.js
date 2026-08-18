@@ -204,10 +204,12 @@
 
     canSearch = () => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (lt.isGamePlaying()) return;
       if (analysis.gamebookPlay()) return;
+      if ($('dialog.lichessTools-pgnEditor').length) return;
       return true;
     };
 

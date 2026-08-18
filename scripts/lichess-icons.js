@@ -110,7 +110,6 @@ lichessIcons = {
   Disc: '\uE06B',
   Wings: '\uE06C',
   DiscOutline: '\uE06D',
-  Handset: '\uE06E',
   ArrowThruApple: '\uE06F',
   Clipboard: '\uE070',
   Move: '\uE071',

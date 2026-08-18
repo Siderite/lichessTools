@@ -86,7 +86,7 @@
             $(targetElem).addClass('lichessTools-highlight');
             analysis.explorer.setHovering(lichess.analysis.node.fen, child.uci);
           }).on('mouseout', function () {
-            $(targetElem).removeClass('lichessTools-highlight');
+            $('.lichessTools-highlight').removeClass('lichessTools-highlight');
             analysis.explorer.setHovering(null, null);
           }).on('click', function (ev) {
             ev.preventDefault();

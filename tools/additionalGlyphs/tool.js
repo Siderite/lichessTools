@@ -60,6 +60,7 @@
       }
       if (redraw) {
         chessground?.state?.dom?.redrawNow();
+        this.restackGlyphs();
       }
     };
 
@@ -236,8 +237,10 @@
         const existing = autoShapes?.filter(s => s.type !== 'glyph') || [];
         if (shapes?.length) existing.push(...shapes);
         if (lt.global.JSON.stringify(autoShapes)!=lt.global.JSON.stringify(existing)) {
-          chessground.setAutoShapes(existing);
-          chessground.state.dom.redrawNow();
+          lt.requestAF(()=>{
+            chessground.setAutoShapes(existing);
+            chessground.state.dom.redrawNow();
+          },'additionalGlyphs');
         }
       };
 
@@ -420,24 +423,30 @@
       lt.pubsub.on('lichessTools.redraw', this.drawGlyphs);
       if (lt.getChessground()?.state.drawable) {
         this.interval = lt.global.setInterval(() => {
-          const chessground = lt.getChessground();
-          const drawable = chessground?.state.drawable;
-          let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
-          if (same && this.prevAutoShapes?.length) {
-            for (let i=0; i<this.prevAutoShapes?.length; i++) {
-              if (this.prevAutoShapes[i] !== drawable.autoShapes[i]) {
-                same = false;
-                break;
+          try {
+            if (this._inInterval) return;
+            this._inInterval = true;
+            const chessground = lt.getChessground();
+            const drawable = chessground?.state.drawable;
+            let same = drawable.autoShapes?.length === this.prevAutoShapes?.length;
+            if (same && this.prevAutoShapes?.length) {
+              for (let i=0; i<this.prevAutoShapes?.length; i++) {
+                if (this.prevAutoShapes[i] !== drawable.autoShapes[i]) {
+                  same = false;
+                  break;
+                }
+              }
+              if (!same) {
+                same = lt.global.JSON.stringify(drawable.autoShapes) == lt.global.JSON.stringify(this.prevAutoShapes);
               }
             }
             if (!same) {
-              same = lt.global.JSON.stringify(drawable.autoShapes) == lt.global.JSON.stringify(this.prevAutoShapes);
+              this.prevAutoShapes = [ ...drawable.autoShapes ];
+              this.drawGlyphs();
+              this.restackGlyphs();
             }
-          }
-          if (!same) {
-            this.prevAutoShapes = [ ...drawable.autoShapes ];
-            this.drawGlyphs();
-            this.restackGlyphs();
+          } finally {
+            this._inInterval = false;
           }
         }, 250);
       }

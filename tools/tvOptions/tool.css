@@ -205,7 +205,7 @@ body.lichessTools .lichessTools-teamTv div.spinner {
   display: none;
 }
 
-body.lichessTools.lichessTools-apiLoading .lichessTools-teamTv div.spinner {
+body.lichessTools:has(> .lichessTools-apiLoading) .lichessTools-teamTv div.spinner {
   display: block;
 }
 

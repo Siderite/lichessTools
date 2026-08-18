@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LiChess Tools, by Siderite",
   "short_name": "LiChessTools",
-  "version": "2.4.224",
+  "version": "2.4.230",
   "description": "Turbocharge lichess.org with a ton of features",
   "homepage_url": "https://siderite.dev/LiChessTools/",
   "minimum_chrome_version": "111",
@@ -26,7 +26,17 @@
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
         "scripts/lichess-icons.js",
-        "scripts/lichessTools.js"
+        "scripts/lichessTools.js",
+        "scripts/lichessTools-translator.js",
+        "scripts/lichessTools-network.js",
+        "scripts/lichessTools-storage.js",
+        "scripts/lichessTools-comm.js",
+        "scripts/lichessTools-cache.js",
+        "scripts/lichessTools-api.js",
+        "scripts/lichessTools-toolBase.js",
+        "scripts/lichessTools-indexedDbStorage.js",
+        "scripts/lichessTools-apiSemaphore.js",
+        "scripts/lichessTools-maxSizedMap.js"
       ],
       "matches": [
         "*://lichess.org/*",
@@ -66,6 +76,7 @@
         "tools/cliCommands/tool.js",
         "tools/chessops/tool.js",
         "tools/d3/tool.js",
+        "tools/nouislider/tool.js",
         "tools/exportPgn/tool.js",
         "tools/stockfish/tool.js",
         "tools/addNotifications/tool.js",
@@ -97,6 +108,7 @@
         "tools/stickyAnalysis/tool.js",
         "tools/chapterNameFromTags/tool.js",
         "tools/enhancedPgnImport/tool.js",
+        "tools/repertoire/tool.js",
         "tools/commentStyling/tool.js",
         "tools/analysisContextActions/tool.js",
         "tools/movesFromTranspositions/tool.js",
@@ -263,6 +275,7 @@
         "tools/openingExplorerUsers/tool.css",
         "tools/chapterNavigation/tool.css",
         "tools/chapterNameFromTags/tool.css",
+        "tools/repertoire/tool.css",
         "tools/commentStyling/tool.css",
         "tools/analysisContextActions/tool.css",
         "tools/movesFromTranspositions/tool.css",
@@ -407,7 +420,8 @@
     {
       "resources": [
         "tools/chessops/chessops.bundle.mjs",
-        "tools/d3/d3.bundle.mjs"
+        "tools/d3/d3.bundle.mjs",
+        "tools/nouislider/nouislider.bundle.mjs"
       ],
       "matches": [
         "*://lichess.org/*",

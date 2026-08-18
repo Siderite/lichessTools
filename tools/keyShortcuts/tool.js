@@ -340,19 +340,24 @@
 
     search = ()=>{
       const lt = this.lichessTools;
+      const $ = lt.$;
       const tool = lt.tools.SearchMovesCommandTool;
-      if (!tool?.canSearch()) return;
-      const bar = tool.showBar();
-      if (bar.prop('_restrictCtrlF')) return;
-      bar
-        .prop('_restrictCtrlF', true)
-        .find('input.search')
-        .on('keydown',ev=>{
-          if (ev.key==='f' && (ev.ctrlKey || ev.metaKey)) {
-            ev.preventDefault();
-            ev.currentTarget.select();
-          }
-        });
+      if (tool?.canSearch()) {
+        const bar = tool.showBar();
+        if (bar.prop('_restrictCtrlF')) return;
+        bar
+          .prop('_restrictCtrlF', true)
+          .find('input.search')
+          .on('keydown',ev=>{
+            if (ev.key==='f' && (ev.ctrlKey || ev.metaKey)) {
+              ev.preventDefault();
+              ev.currentTarget.select();
+            }
+          });
+      } else
+      if ($('button[data-role="search"]').length) {
+        $('button[data-role="search"]').trigger('click');
+      }
     };
 
     handleEditorDigit = (index, mySide) => {

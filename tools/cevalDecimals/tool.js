@@ -80,6 +80,7 @@
         const analysis = lichess?.analysis;
         const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
         if (!showStaticAnalysis) return;
+        const replacements = [];
         const traverse = (node, path) => {
           let evl = node.eval;
           const ceval = node.ceval;
@@ -94,7 +95,7 @@
                 $('.lichessTools-cevalDecimals',elem).remove();
               }
               const text = this.renderEval(evl.cp, evl.mate);
-              evalElem.replaceText(text);
+              replacements.push({ evalElem, text});
             }
           }
           for (const child of node.children || []) {
@@ -102,6 +103,11 @@
           }
         };
         traverse(analysis.tree.root, '');
+        if (replacements.length) {
+          lt.requestAF(()=>{
+            replacements.forEach(r=>r.evalElem.replaceText(r.text));
+          },'cevalDecimals');
+        }
       } finally {
         this._inShowDecimalsMoves=false;
       }
