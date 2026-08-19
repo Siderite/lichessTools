@@ -1483,6 +1483,15 @@
       }
     };
 
+    getChartModule = async () => {
+      if (!this._module) {
+        const lt = this.lichessTools;
+        const lichess = lt.lichess;
+        this._module = await lichess.asset.loadEsm('chart.game');
+      }
+      return this._module;
+    };
+
     prevBrilliant = null;
     generateCharts = async (forced) => {
       const lt = this.lichessTools;

@@ -359,6 +359,10 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-a
   height: calc(var(--analyse-toggle-size) - 2px);
 }
 
+body.lichessTools .action-menu .cmn-toggle-wrap {
+  padding: 4px;
+}
+
 body.lichessTools div.lichessTools-moveListOptions-header {
   display: flex;
   justify-content: flex-end;
