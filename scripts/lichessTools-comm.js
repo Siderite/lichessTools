@@ -5,7 +5,7 @@
     }
 
       timeout = 10000;
-      sendResponses = [];
+      sendResponses = new Map();
 
       init() {
         const lt = this.lichessTools;
@@ -19,9 +19,9 @@
             lt.global.console.warn('Could not parse extension response',e);
             return;
           }
-          const sendResponse = this.sendResponses[detail?.uid];
+          const sendResponse = this.sendResponses.get(detail?.uid);
           if (sendResponse) {
-            delete this.sendResponses[detail.uid];
+            this.sendResponses.delete(detail.uid);
             sendResponse(detail);
           }
         });
@@ -33,16 +33,16 @@
         const uid = crypto.randomUUID();
         return new Promise((resolve, reject) => {
           const pointer = setTimeout(() => {
-            delete this.sendResponses[uid];
+            this.sendResponses.delete(uid);
             reject(new Error('Send timeout'));
           }, timeout || this.timeout);
           const f = (rdata) => {
             clearTimeout(pointer);
-            delete this.sendResponses[uid];
+            this.sendResponses.delete(uid);
             if (sendResponse) sendResponse(rdata);
             resolve(rdata);
           };
-          this.sendResponses[uid] = f;
+          this.sendResponses.set(uid,f);
           const customEvent = new CustomEvent("LichessTools.send", {
             // Strings can safely cross Firefox's page/content-script boundary.
             detail: JSON.stringify({ ...data, uid: uid }),
