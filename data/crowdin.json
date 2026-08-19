@@ -1818,7 +1818,7 @@
     "fullScreenTitle": "LiChess Tools - 全屏",
     "options.oneClickMove": "一键走子",
     "oneClickMove.analysis": "分析/研习",
-    "oneClickMove.play": "Game play",
+    "oneClickMove.play": "对局",
     "oneClickMove.onlyOrientation": "仅限朝向方",
     "oneClickMove.moveFromPgn": "从 PGN 走子",
     "options.commonTeams": "显示共同团队",
@@ -2450,8 +2450,8 @@
     "repertoireColor.white": "白方",
     "repertoireColor.black": "黑方",
     "repertoireDisplay.matches": "标记开局库中的着法",
-    "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "profileSlider.minmax": "指定等级分区间",
+    "oneClickMove.puzzles": "谜题"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
