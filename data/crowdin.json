@@ -7953,7 +7953,7 @@
     "fullScreenTitle": "LiChess Tools - plein écran",
     "options.oneClickMove": "Coup en un clic",
     "oneClickMove.analysis": "Analyse/Étude",
-    "oneClickMove.play": "Game play",
+    "oneClickMove.play": "Parties jouées",
     "oneClickMove.onlyOrientation": "Uniquement le côté orienté",
     "oneClickMove.moveFromPgn": "Coup depuis PGN",
     "options.commonTeams": "Afficher les équipes communes",
@@ -8586,7 +8586,7 @@
     "repertoireColor.black": "Noirs",
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
     "profileSlider.minmax": "Spécifier l'intervalle de classement",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Problèmes"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -26358,7 +26358,7 @@
     "fullScreenTitle": "LiChess Tools - Tam ekran",
     "options.oneClickMove": "Tek tık hamle",
     "oneClickMove.analysis": "Analiz/Çalışma",
-    "oneClickMove.play": "Game play",
+    "oneClickMove.play": "Oynarken",
     "oneClickMove.onlyOrientation": "Sadece bu yöndeki taraf",
     "oneClickMove.moveFromPgn": "PGN'den hamle",
     "options.commonTeams": "Ortak takımları göster",
@@ -26991,7 +26991,7 @@
     "repertoireColor.black": "Siyah",
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
     "profileSlider.minmax": "Puan aralığı belirtin",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Bulmacalar"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
