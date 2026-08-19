@@ -57,16 +57,20 @@
               .on('click', ev => {
                 ev.preventDefault();
                 const close = () => flairPicker.removeClass('emoji-done').empty();
-                lichess.asset.loadEsm("bits.flairPicker", {
-                  init: {
-                    element: flairPicker[0],
-                    close: close,
-                    onEmojiSelect: e => {
-                      tagify.addTags('flair.' + e.id);
-                      close();
+                if (flairPicker.find('em-emoji-picker').length) {
+                   close();
+                } else {
+                  lichess.asset.loadEsm("bits.flairPicker", {
+                    init: {
+                      element: flairPicker[0],
+                      close: close,
+                      onEmojiSelect: e => {
+                        tagify.addTags('flair.' + e.id);
+                        close();
+                      }
                     }
-                  }
-                });
+                  });
+                }
               })
               .appendTo(form);
             flairPicker
