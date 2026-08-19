@@ -110,14 +110,14 @@
       };
     }
 
-    refreshWarning = () => {
+    refreshWarning = async () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.isPlayingGame()) return;
       const userId = lt.getUserId();
-      $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
-        .each(async (i, e) => {
+      await $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
+        .eachAsync(async (i, e) => {
           if (e.checkedPlayerWarning) return;
           e.checkedPlayerWarning = true;
           const href = $(e).attr('href');

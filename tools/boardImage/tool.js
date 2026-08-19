@@ -221,10 +221,11 @@
       }
 
       const svgs = board.parent().children('svg').get();
-      svgs.forEach(async (e) => {
+      const draws = svgs.map(async (e) => {
         const img = await this.drawSvg(e);
         ctx.drawImage(img, 0, 0, $(e).width()*q, $(e).height()*q);
       });
+      await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
       lichess.asset.loadCssPath('bits.dialog');
       const dialog = $('<dialog class="lichessTools-boardImage">')

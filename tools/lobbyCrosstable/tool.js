@@ -25,12 +25,12 @@
       }
     }
 
-    showCrosstable = () => {
+    showCrosstable = async () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
       const $ = lt.$;
-      $('table.hooks__list td:nth-child(1):not([data-crosstable])')
-        .each(async (i,e)=>{
+      await $('table.hooks__list td:nth-child(1):not([data-crosstable])')
+        .eachAsync(async (i,e)=>{
           const href = $('span[data-href]',e).attr('data-href');
           const userId = /@\/(?<user>[^\?\/&#]+)/.exec(href)?.groups?.user?.toLowerCase();
           if (!userId) return;

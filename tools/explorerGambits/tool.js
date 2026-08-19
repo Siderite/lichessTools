@@ -115,7 +115,7 @@
       const side = analysis.getOrientation();
       const fen = analysis.node.fen;
       let sum = 0;
-      $('tr[data-uci]', container).each(async (i, e) => {
+      await $('tr[data-uci]', container).eachAsync(async (i, e) => {
         if ($('td:has(div.bar)', e).addClass('lichessTools-bar').length) {
           if (!$('td.lichessTools-explorerGambits', e).length) {
             $('<td>')
