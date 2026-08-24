@@ -11,14 +11,6 @@ body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons butt
   display: block;
 }
 
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
-    color: #bababa;
-    background: #3c3934;
-  }
-}
-
 html.dark body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview::after {
   color: #bababa;
   background: #3c3934;

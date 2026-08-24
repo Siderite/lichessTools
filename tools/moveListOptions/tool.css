@@ -262,14 +262,6 @@ html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-rel
   background: #101010;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-
-  html:not(.dark, .light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-  html:not(.dark, .light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
-    background: #101010;
-  }
-}
-
 @media print {
 
   body.lichessTools.lichessTools-analysisPopup {

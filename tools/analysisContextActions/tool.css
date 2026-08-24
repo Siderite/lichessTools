@@ -27,12 +27,6 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   background: lawngreen;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
-    background: darkgreen;
-  }
-}
-
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   background: darkgreen;
 }

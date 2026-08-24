@@ -50,12 +50,6 @@ html.dark body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #168226;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools div.symbol.lichessTools-goodMoves {
-    color: #168226;
-  }
-}
-
 body.lichessTools span.lichessTools-christmas {
   z-index: 100;
   position: absolute;
@@ -217,15 +211,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::befo
   background-size: 5px 2px;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
-    background-image: linear-gradient(90deg,
-      #FF00FF 0 2px,
-      transparent 2px 5px
-    );
-  }
-}
-
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
   background-image: linear-gradient(90deg,
     #FF00FF 0 2px,
@@ -239,15 +224,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before 
     transparent 6px 6px
   );
   background-size: 6px 2px;
-}
-             
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
-    background-image: linear-gradient(90deg,
-      #EFEF00A0 0 6px,
-      transparent 6px 6px
-    );
-  }
 }
 
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
@@ -263,15 +239,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::bef
     transparent 3px 7px
   );
   background-size: 7px 2px;
-}
-             
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
-    background-image: linear-gradient(90deg,
-      #FFA0A0 0 3px,
-      transparent 3px 7px
-    );
-  }
 }
 
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
@@ -315,12 +282,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="potential"]::bef
 
 body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
   color: #009914;
-}
-             
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
-    color: #ea45d8;
-  }
 }
 
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
