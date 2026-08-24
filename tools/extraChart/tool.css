@@ -46,14 +46,12 @@ body.lichessTools div.symbol.lichessTools-goodMoves {
   user-select: none;
 }
 
-html.dark body.lichessTools div.symbol.lichessTools-goodMoves,
-html.darkBoard body.lichessTools div.symbol.lichessTools-goodMoves,
-html.transp body.lichessTools div.symbol.lichessTools-goodMoves {
+html.dark body.lichessTools div.symbol.lichessTools-goodMoves {
   color: #168226;
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools div.symbol.lichessTools-goodMoves {
+  html:not(.dark, .light) body.lichessTools div.symbol.lichessTools-goodMoves {
     color: #168226;
   }
 }
@@ -220,7 +218,7 @@ body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::befo
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
+  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
     background-image: linear-gradient(90deg,
       #FF00FF 0 2px,
       transparent 2px 5px
@@ -228,8 +226,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::befo
   }
 }
 
-html.transp body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before,
-html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before,
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="accuracy"]::before {
   background-image: linear-gradient(90deg,
     #FF00FF 0 2px,
@@ -246,7 +242,7 @@ body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before 
 }
              
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
+  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
     background-image: linear-gradient(90deg,
       #EFEF00A0 0 6px,
       transparent 6px 6px
@@ -254,8 +250,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before 
   }
 }
 
-html.transp body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before,
-html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before,
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="local"]::before {
   background-image: linear-gradient(90deg,
     #EFEF00A0 0 6px,
@@ -272,7 +266,7 @@ body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::bef
 }
              
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
+  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
     background-image: linear-gradient(90deg,
       #FFA0A0 0 3px,
       transparent 3px 7px
@@ -280,8 +274,6 @@ body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::bef
   }
 }
 
-html.transp body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before,
-html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before,
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="sharpness"]::before {
   background-image: linear-gradient(90deg,
     #FFA0A0 0 3px,
@@ -326,13 +318,11 @@ body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
 }
              
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
+  html:not(.dark, .light) body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
     color: #ea45d8;
   }
 }
 
-html.transp body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"],
-html.darkBoard body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"],
 html.dark body.lichessTools .lichessTools-chartLegend button[data-option="moveTypes"] {
   color: #ea45d8;
 }

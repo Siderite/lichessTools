@@ -82,14 +82,12 @@ body.lichessTools dialog.lichessTools-extraPieceSets svg {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg {
+  html:not(.dark, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg {
     background: #111;
   }
 }
 
-html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg,
-html.darkBoard body.lichessTools dialog.lichessTools-extraPieceSets svg,
-html.transp body.lichessTools dialog.lichessTools-extraPieceSets svg {
+html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg {
   background: #111;
 }
 
@@ -107,14 +105,12 @@ body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
+  html:not(.dark, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
     fill: #444;
   }
 }
 
-html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
-html.darkBoard body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
-html.transp body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
+html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
   fill: #444;
 }
 

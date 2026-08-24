@@ -44,13 +44,12 @@ body.lichessTools .lichessTools-chapterControls:has(div[role="footer"]:hover) .p
 
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
+  html:not(.dark, .light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
     background: #2D2B29;
   }
 }
 
-html.dark body.lichessTools .lichessTools-chapterControls div[role="footer"],
-html.darkBoard body.lichessTools .lichessTools-chapterControls div[role="footer"] {
+html.dark body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   background: #2D2B29;
 }
 

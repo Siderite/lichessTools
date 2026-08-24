@@ -28,13 +28,11 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
 }
 
 @media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
+  html:not(.dark, .light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
     background: darkgreen;
   }
 }
 
-html.transp body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
-html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   background: darkgreen;
 }
