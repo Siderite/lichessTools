@@ -128,11 +128,16 @@
       const match = /"(.*?)"(?:[^"]*"(.*?)")*/.exec(backgroundText);
       let url = match?.[match.length-1];
       const assetsUrl = [...match].slice(1).find(m=>/\/assets\//.test(m));
+      let img = null;
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
-        url = lt.assetUrl('images/board/' + theme + '.jpg');
+        img = (await this.getImage(lt.assetUrl('images/board/' + theme + '.jpg')))
+           || (await this.getImage(lt.assetUrl('images/board/' + theme + '.webp')));
       }
-      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl)) || (await this.getImage(lt.assetUrl('images/board/maple.jpg')));
+      img ||= (await this.getImage(url))
+             || (assetsUrl && await this.getImage(assetsUrl))
+             || (await this.getImage(lt.assetUrl('images/board/maple.jpg')))
+             || (await this.getImage(lt.assetUrl('images/board/maple.webp')));
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
