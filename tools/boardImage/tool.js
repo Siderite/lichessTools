@@ -132,6 +132,7 @@
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
         img = (await this.getImage(lt.assetUrl('images/board/' + theme + '.jpg')))
+           || (await this.getImage(lt.assetUrl('images/board/' + theme + '.png')))
            || (await this.getImage(lt.assetUrl('images/board/' + theme + '.webp')));
       }
       img ||= (await this.getImage(url))

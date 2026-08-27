@@ -142,14 +142,14 @@
       } else {
         container = $('html');
       }
-      const preloadedImages = $('link[rel=preload][as=image]',container)
-                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+      const preloadedImages = $('link[rel=preload][as=image][fetchpriority="high"]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg|webp)$/i.test($(e).attr('href')))
                                 .get();
       const boardUrls = [];
       for (const image of preloadedImages) {
         const url = $(image).attr('href');
         const size = await this.getImageSizeFromUrl(url);
-        if (size?.width>100) boardUrls.push(url);
+        if (size?.width>150) boardUrls.push(url);
       }
 
       const index = is3d ? Math.min(1,boardUrls.length-1) : 0;

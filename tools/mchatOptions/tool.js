@@ -71,7 +71,8 @@
         'image/gif',
         'image/png',
         'image/apng',
-        'image/tiff'
+        'image/tiff',
+        'image/webp'
       ].includes(file?.type);
     };
 
@@ -102,7 +103,7 @@
         return;
       }
       const imageData = lt.storage.get('LiChessTools.imageData')||[];
-      const key = res.link.replace(/\.(?:png|jpg|jpeg)$/,'');
+      const key = res.link.replace(/\.(?:png|jpg|jpeg|webp)$/,'');
       imageData.push([key,res]);
       lt.storage.set('LiChessTools.imageData', imageData, { zip:true });
       return res.link;
@@ -172,7 +173,7 @@
       if (this.options.images) {
         $('a.lichessTools-chat-url:not(:has(img))', container).each((i, e) => {
           const url = new URL($(e).attr('href'));
-          if (!/\.(jpeg|jpg|gif|png|apng|tiff)$/.test(url.pathname)) return;
+          if (!/\.(jpeg|jpg|gif|png|apng|tiff|webp)$/.test(url.pathname)) return;
           $('<img>')
             .attr('src', url.toString())
             .appendTo($(e).empty());

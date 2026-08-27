@@ -58,7 +58,8 @@
         'image/gif',
         'image/png',
         'image/apng',
-        'image/tiff'
+        'image/tiff',
+        'image/webp'
       ].includes(file?.type);
     };
 
@@ -96,7 +97,7 @@
         return;
       }
       const imageData = lt.storage.get('LiChessTools.imageData')||[];
-      const key = res.link.replace(/\.(?:png|jpg|jpeg)$/,'');
+      const key = res.link.replace(/\.(?:png|jpg|jpeg|webp)$/,'');
       imageData.push([key,res]);
       lt.storage.set('LiChessTools.imageData', imageData, { zip:true });
       return res.link;
@@ -160,7 +161,7 @@
           const url = $(e).attr('src') || $(e).attr('href');
           if (url?.match(/imgur\.com\/[^\/\.]+\.|ibb\.co\/[^\/]+\/[^\/\.]+\./)) {
             imageData ||= new Map(lt.storage.get('LiChessTools.imageData')||[]);
-            const key = url.replace(/\.(?:png|jpg|jpeg)$/,'');
+            const key = url.replace(/\.(?:png|jpg|jpeg|webp)$/,'');
             const data = imageData.get(key);
             if (data) {
               $('<button type="button" class="lichessTools-deleteImage"/>')
