@@ -759,6 +759,11 @@
       this.wakeLockTimeout = lt.global.setTimeout(this.requestWakeLock, 1000);
     };
 
+    isPuzzlePage = ()=>{
+      const lt = this.lichessTools;
+      return /^\/(training|streak|storm|racer)/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
+    };
+
     isTvPage = () => {
       const lt = this.lichessTools;
       return /\/tv\b/i.test(lt.global.location.pathname);
@@ -878,7 +883,7 @@
 
       lt.pubsub.off('lichessTools.redraw',this.handleWakeLock);
       lt.pubsub.off('lichessTools.puzzleStart',this.handleWakeLock);
-      if (isMobile && this.options.wakeLockPuzzle && this.isTrainingPage()) {
+      if (isMobile && this.options.wakeLockPuzzle && this.isPuzzlePage()) {
         lt.pubsub.on('lichessTools.redraw',this.handleWakeLock);
         lt.pubsub.on('lichessTools.puzzleStart',this.handleWakeLock);
         await this.handleWakeLock();
