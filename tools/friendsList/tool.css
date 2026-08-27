@@ -32,7 +32,7 @@ body.lichessTools #topnav section.lichessTools-onlineFriends>a {
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
-  color: #1b78d0;
+  color: #1b58d0;
 }
 
 html.dark body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
