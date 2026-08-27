@@ -1224,7 +1224,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2451,7 +2452,8 @@
     "repertoireColor.black": "黑方",
     "repertoireDisplay.matches": "标记开局库中的着法",
     "profileSlider.minmax": "指定等级分区间",
-    "oneClickMove.puzzles": "谜题"
+    "oneClickMove.puzzles": "谜题",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3678,7 +3680,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4905,7 +4908,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6132,7 +6136,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7359,7 +7364,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8586,7 +8592,8 @@
     "repertoireColor.black": "Noirs",
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
     "profileSlider.minmax": "Spécifier l'intervalle de classement",
-    "oneClickMove.puzzles": "Problèmes"
+    "oneClickMove.puzzles": "Problèmes",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9813,7 +9820,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11036,11 +11044,12 @@
     "repertoireEndTitle": "LiChess Tools - end of your %s repertoire",
     "repertoireReadError": "Could not read the %s repertoire PGN",
     "repertoireParseError": "Could not parse the %s repertoire PGN",
-    "repertoireColor.white": "White",
-    "repertoireColor.black": "Black",
-    "repertoireDisplay.matches": "Mark moves in repertoire",
+    "repertoireColor.white": "Λευκά",
+    "repertoireColor.black": "Μαύρα",
+    "repertoireDisplay.matches": "Σημειώστε κινήσεις στο ρεπερτόριο",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Γρίφοι",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12267,7 +12276,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13494,7 +13504,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14721,7 +14732,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15948,7 +15960,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17175,7 +17188,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18402,7 +18416,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19629,7 +19644,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20856,7 +20872,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22083,7 +22100,8 @@
     "repertoireColor.black": "negrele",
     "repertoireDisplay.matches": "Marcare mutări din repertoriu",
     "profileSlider.minmax": "Specifică interval rating",
-    "oneClickMove.puzzles": "Puzzle-uri"
+    "oneClickMove.puzzles": "Puzzle-uri",
+    "countersPieTitle": "Controale timp luna trecută:\n  Bullet: $bullet%\n  Rapide: $fast%\n  Încete: $slow%"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23310,7 +23328,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24537,7 +24556,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25764,7 +25784,8 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -26991,7 +27012,8 @@
     "repertoireColor.black": "Siyah",
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
     "profileSlider.minmax": "Puan aralığı belirtin",
-    "oneClickMove.puzzles": "Bulmacalar"
+    "oneClickMove.puzzles": "Bulmacalar",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28218,6 +28240,7 @@
     "repertoireColor.black": "Black",
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
-    "oneClickMove.puzzles": "Puzzles"
+    "oneClickMove.puzzles": "Puzzles",
+    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
   }
 }

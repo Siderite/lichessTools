@@ -50,7 +50,11 @@
         'dayGamesPlayed': 'Games today: %s',
         'recentGamesHeaderText': 'Recent games',
         'moreGamesText': 'More >',
-        'AiGameText': 'Computer level %s'
+        'AiGameText': 'Computer level %s',
+        'countersPieTitle': `Time controls last month:
+  Bullet: $bullet%
+  Fast: $fast%
+  Slow: $slow%`
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -80,7 +84,11 @@
         'dayGamesPlayed': 'Jocuri azi: %s',
         'recentGamesHeaderText': 'Jocuri recente',
         'moreGamesText': 'Mai mult >',
-        'AiGameText': 'Calculator de nivel %s'
+        'AiGameText': 'Calculator de nivel %s',
+        'countersPieTitle': `Controale timp luna trecut\u0103:
+  Bullet: $bullet%
+  Rapide: $fast%
+  \u00e2ncete: $slow%`
       }
     }
 
@@ -151,8 +159,7 @@
           }
           $('button.lobby__start__button--ai').attr('title',playAgainstComputerTitle);
           const container = $('<div class="lichessTools-recentGames">')
-            .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')))
-            .insertAfter('.lobby__start');
+            .append($('<div class="header">').text(trans.noarg('recentGamesHeaderText')));
 
           const results = [];
           const games = await lt.api.game.getUserGamesJson(userId,{ moves: false, max: 8 });
@@ -220,9 +227,41 @@
             .attr('href',`https://lichess.org/@/${userId}/search#games`)
             .text(trans.noarg('moreGamesText'))
             .appendTo(container);
+
+          container
+            .insertAfter('.lobby__start')
         }
       }
     };
+
+    addPieChart = async (container)=>{
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+
+      const data = this.explorerInfo;
+      if (!data?.bulletGames) return;
+
+      const total = data.bulletGames + data.fastGames + data.slowGames;
+      if (total === 0) return;
+
+      const bulletPerc = Math.round((data.bulletGames / total) * 10000)/100;
+      const fastPerc = Math.round((data.fastGames / total) * 10000)/100;
+      const slowPerc = Math.round(10000 - (bulletPerc + fastPerc)*100)/100;
+
+      const pie = $('<div class="lichessTools-countersPie">')
+        .css('--p1',bulletPerc + '%')
+        .css('--p2',(bulletPerc+fastPerc) + '%')
+        .appendTo(container);
+
+      const formatter = new Intl.NumberFormat('en-US');
+      const tooltip = trans.noarg('countersPieTitle')
+                        .replace('$bullet',formatter.format(bulletPerc))
+                        .replace('$fast',formatter.format(fastPerc))
+                        .replace('$slow',formatter.format(slowPerc));
+      pie.attr('title',tooltip);
+    }
 
     updateCounters = async ()=>{
       const lt = this.lichessTools;
@@ -250,6 +289,7 @@
           .append('<span class="month">')
           .append('<span class="day">')
           .appendTo(countersElem);
+        this.addPieChart(countersElem);
       }
       const gamesInPlay = +(countersElem.find('a[href="/games"] strong').text().replaceAll(/,/g,'')) || 0;
       const currentDate = new Date();
@@ -281,6 +321,7 @@
       container.find('.year').text(trans.pluralSame('yearGamesPlayed',formatter.format(yearGames)));
       container.find('.month').text(trans.pluralSame('monthGamesPlayed',formatter.format(monthGames)));
       container.find('.day').text(trans.pluralSame('dayGamesPlayed',formatter.format(dayGames)));
+
       this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,lt.random()*1500);
     };
 

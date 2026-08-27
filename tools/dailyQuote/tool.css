@@ -14,7 +14,8 @@
 
 body.lichessTools .lichessTools-dailyQuote {
   position: relative;
-  background: #80808020;
+  border-radius: var(--ui-roundness, 7px);
+  background: var(--c-bg-box);
   padding: 0.5em;
   padding-right:1.5em;
   height: fit-content;

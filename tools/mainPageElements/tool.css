@@ -111,11 +111,13 @@ body.lichessTools .lobby__table .lichessTools-recentGames {
   align-items: stretch;
   margin-top: 1em;
   max-width: 100%;
+  border-radius: var(--ui-roundness, 7px);
+  background: var(--c-bg-box);
 }
 
 @media (min-width: 799.3px) {
   body.lichessTools .lobby__table .lichessTools-recentGames {
-    max-width: 25vw;
+    max-width: fit-content;
   }
 }
 
@@ -250,4 +252,23 @@ body.lichessTools .lobby__table .lichessTools-recentGames a.game.win:after {
 body.lichessTools .lobby__table .lichessTools-recentGames a.game.loss:after {
   content: var(--icon-X);
   color: var(--c-bad);
+}
+
+
+body.lichessTools .lichessTools-countersPie {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: conic-gradient(
+    from -90deg,
+    #e53935 0%,
+    #e53935 calc(var(--p1) - 1%),
+    #fdd835 calc(var(--p1) + 1%),
+    #fdd835 calc(var(--p2) - 1%),
+    #43a047 calc(var(--p2) + 1%),
+    #43a047 100%
+  );
 }

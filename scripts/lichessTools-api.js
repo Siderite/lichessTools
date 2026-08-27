@@ -11,13 +11,13 @@
       init() {
         const lt = this.lichessTools;
         lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserPgns', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserGamesJson', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserGamesJson', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_', minTime: 1 });
-        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 10 * 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
         lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
@@ -26,7 +26,7 @@
           return result;
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
-        lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 10 * 86400 * 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
 
@@ -455,14 +455,23 @@
             data = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
             if (!data) throw new Error('could not get Explorer last month games');
             explorerInfo.monthGames = (+data.white || 0)+(+data.draws || 0)+(+data.black || 0);
+            const bulletData = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis&speeds=ultraBullet%2Cbullet`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            const fastData = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis&speeds=blitz%2Crapid`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            const slowData = await lt.net.json(`https://explorer.lichess.org/lichess?fen=${startFen}&since=${explorerInfo.monthText}&until=${explorerInfo.monthText}&source=analysis&speeds=classical%2Ccorrespondence`,{ noUserAgent:true, credentials: 'include', noRequestedWithHeader: true });
+            explorerInfo.bulletGames = (+bulletData.white || 0)+(+bulletData.draws || 0)+(+bulletData.black || 0);
+            explorerInfo.fastGames = (+fastData.white || 0)+(+fastData.draws || 0)+(+fastData.black || 0);
+            explorerInfo.slowGames = (+slowData.white || 0)+(+slowData.draws || 0)+(+slowData.black || 0);
           } catch(e) {
             lt.global.console.warn('Error getting Lichess game data... estimating it anyway');
             explorerInfo = {
-              "totalGames": 7473850577,
+              "totalGames": 7826583724,
+              "bulletGames": 2852852148,
+              "fastGames": 4880218376,
+              "slowGames": 93513200,
               "dbYear": 2026,
-              "dbMonth": 1,
-              "monthText": "2026-01",
-              "monthGames": 93569988
+              "dbMonth": 7,
+              "monthText": "2026-07",
+              "monthGames": 90380984
             };
           }
           return explorerInfo;

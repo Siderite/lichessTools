@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+27 Aug
+
+- time control pie chart in extra counters
+
 18 Aug
 
 - noUiSlider tool
