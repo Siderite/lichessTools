@@ -106,6 +106,15 @@ body.lichessTools main.lichessTools-hideNextButton.lichessTools-hasNextButton .g
   display: inline;
 }
 
+@keyframes brighten {
+  0%, 100% { filter: contrast(1) brightness(1); }
+  50% { filter: contrast(2) brightness(3); }
+}
+
+body.lichessTools .lichessTools-nextChapter {
+  animation: brighten 1s ease-in-out;
+}
+
 /* Lichess Helper */
 
 body.lichessTools.lichessTools-lichessHelper .study__chapters div.lichessTools-expander {
