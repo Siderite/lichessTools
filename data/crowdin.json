@@ -2453,7 +2453,7 @@
     "repertoireDisplay.matches": "标记开局库中的着法",
     "profileSlider.minmax": "指定等级分区间",
     "oneClickMove.puzzles": "谜题",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "上月时限：\n  子弹棋：$bullet%\n  快棋：$fast%\n  慢棋：$slow%"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8593,7 +8593,7 @@
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
     "profileSlider.minmax": "Spécifier l'intervalle de classement",
     "oneClickMove.puzzles": "Problèmes",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Cadences de jeu du mois dernier :\n  Bullet : $bullet%\n  Rapide : $fast%\n  Classique : $slow%"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",

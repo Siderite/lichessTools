@@ -367,15 +367,7 @@ body.lichessTools main.lichessTools-friendsPage table.slist tr td {
 }
 
 body.lichessTools main.lichessTools-friendsPage table.slist tbody {
-  background-image: repeating-linear-gradient(#f7f6f5 0 5rem, transparent 5rem 10rem);
-}
-
-html.dark.transp body.lichessTools main.lichessTools-friendsPage table.slist tbody {
-  background-image: repeating-linear-gradient(#181614 0 5rem, transparent 5rem 10rem);
-}
-
-html.dark body.lichessTools main.lichessTools-friendsPage table.slist tbody {
-  background-image: repeating-linear-gradient(#302e2c 0 5rem, transparent 5rem 10rem);
+  background-image: repeating-linear-gradient(var(--c-bg-zebra2) 0 5rem, var(--c-bg-zebra) 5rem 10rem);
 }
 
 body.lichessTools .lichessTools-friendsPage td:has(span.lichessTools-seenAt) {
