@@ -94,7 +94,7 @@
 
     hashChange = () => {
       const lt = this.lichessTools;
-      lt.global.location.reload();
+      lt.location.reload();
     }
 
     applyLobbyElements = async ()=>{
@@ -108,7 +108,7 @@
       $('main')
         .toggleClass('lichessTools-lobbyPlay', this.isPlay);
       if (this.isPlay) {
-        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.global.location.hostname;
+        lt.global.document.title = $('#topnav > section:first-child span.play').text() + ' ' + lt.icon.BulletPoint + ' ' + lt.location.hostname;
       } else {
         const grid = this.initialGrid.replace(/[a-z]+/g, t => {
           const ft = t === 'timeline' ? 'side' : t;
@@ -400,7 +400,7 @@
         if (!lt.isMobile()) {
           $('#topnav > section:first-child > a').attr('href', '/#play');
         }
-        this.isPlay = lt.global.location.hash == '#play';
+        this.isPlay = lt.location.hash == '#play';
       } else {
         $('#topnav > section:first-child > a').attr('href', '/');
       }

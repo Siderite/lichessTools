@@ -102,19 +102,9 @@
       }
     };
 
-    isForumPage = () => {
-      const lt = this.lichessTools;
-      return lt.global.location.pathname == '/forum';
-    };
-
-    isTeamPage = () => {
-      const lt = this.lichessTools;
-      return new lt.global.RegExp('\/' + lt.escapeRegex(this.teamId), 'i').test(lt.global.location.pathname);
-    };
-
     updateForumPage = async () => {
-      if (!this.isForumPage()) return;
       const lt = this.lichessTools;
+      if (!lt.location.isForumPage()) return;
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('main.forum table.categs').eq(0);
@@ -131,7 +121,7 @@
             .addClass('lichessTools-addToTeam');
         } else {
           if (this.inTeam) {
-            lt.global.location.reload()
+            lt.location.reload();
           }
           row = $(`<tr class="lichessTools-addToTeam">
 <td class="subject">
@@ -160,13 +150,13 @@
               ev.preventDefault();
               const joined = await this.joinLichessTeam();
               if (joined) {
-                lt.global.setTimeout(() => lt.global.location.reload(), 5000);
+                lt.global.setTimeout(() => lt.location.reload(), 5000);
               }
             });
         }
       } else {
         if (!this.inTeam && existingRow.length) {
-          lt.global.location.reload()
+          lt.location.reload()
         }
       }
       const lastForum = $('tr:not(.lichessTools-addToTeam)', container).last();
@@ -210,14 +200,14 @@
     removeWarningFromTeamForum = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (lt.global.location.pathname!='/forum/team-l1chess-tools-users-team/form') return;
+      if (!lt.location.isTeamPageFormOf('team-l1chess-tools-users-team')) return;
       $('main.topic-form section.warning').remove();
       $('body').trigger('resize');
     };
 
     async start() {
       const lt = this.lichessTools;
-      if (lt.isDev()) return;
+      if (lt.location.isDevPage()) return;
       const value = lt.currentOptions.getValue('addToTeam');
       this.logOption('Add to team', value);
       if (!lt.getUserId()) {
@@ -230,8 +220,8 @@
         forumBottom: lt.isOptionSet(value, 'forumBottom'),
         noNotifications: lt.isOptionSet(value, 'noNotifications')
       };
-      if (this.isTeamPage()) this.setVisitedTeamPage();
-      await this.refreshTeam(this.isForumPage());
+      if (lt.location.isTeamPageOf(this.teamId)) this.setVisitedTeamPage();
+      await this.refreshTeam(lt.location.isForumPage());
       if (!this.inTeam) {
         this.notifyToJoin();
       }

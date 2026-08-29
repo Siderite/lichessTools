@@ -722,7 +722,6 @@
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
       const $ = lt.$;
-      const location = lt.global.location;
       const trans = lt.translator;
       this.options = {
         enabled: true,
@@ -732,14 +731,9 @@
       this.logOption(' ... show advanced', this.options.advanced);
       if (!this.options.enabled) return;
 
-      if (/^\/account\/preferences\/display#lichessTools/.test(lt.global.location.pathname+lt.global.location.hash)) {
-        lt.global.location = '/team/all'+lt.global.location.hash;
-        return;
-      }
-
       this.checkGlobalSwitch();
 
-      const isTeams = location.pathname == '/team/all';
+      const isTeams = lt.location.isAllTeamsListPage()
       lt.global.clearInterval(this.interval);
       this.interval = lt.global.setInterval(this.addPreferencesMenu,500);
 
@@ -748,11 +742,11 @@
 
       let $this = this;
       const f = function () {
-        if (location.hash?.startsWith('#lichessTools')) {
+        if (lt.location.hash?.startsWith('#lichessTools')) {
           lichess.asset.loadCssPath('user.account');
           openPreferences();
           const fc = () => {
-            const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(location.hash);
+            const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(lt.location.hash);
             const pref = m?.groups?.pref;
             const filter = m?.groups?.filter;
             if (filter) {
@@ -776,7 +770,7 @@
           fc();
         } else {
           if ($('.lichessTools-preferences').length) {
-            location.reload();
+            lt.location.reload();
           }
         }
       };

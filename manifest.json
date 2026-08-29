@@ -28,6 +28,7 @@
         "scripts/cash.extra.js",
         "scripts/lichess-icons.js",
         "scripts/lichessTools.js",
+        "scripts/lichessTools-location.js",
         "scripts/lichessTools-translator.js",
         "scripts/lichessTools-network.js",
         "scripts/lichessTools-storage.js",

@@ -64,36 +64,21 @@
       }
     };
 
-    isTvPage = () => {
-      const lt = this.lichessTools;
-      return /\/tv\b/i.test(lt.global.location.pathname);
-    };
-
-    isGamesPage = () => {
-      const lt = this.lichessTools;
-      return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
-    };
-
-    isBestTvPage = () => {
-      const lt = this.lichessTools;
-      return /^\/games(\/best)?\/?$/i.test(lt.global.location.pathname) && !location.hash;
-    };
-
     isStreamerTvPage = () => {
       if (!this.options.streamerTv) return false;
       const lt = this.lichessTools;
-      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#streamers';
+      return lt.location.isCurrentGamesPage() && lt.location.hash == '#streamers';
     };
 
     isFriendsTvPage = () => {
       if (!this.options.friendsTv) return false;
       const lt = this.lichessTools;
-      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#friends';
+      return lt.location.isCurrentGamesPage() && lt.location.hash == '#friends';
     };
 
     isTeamTvPage = () => {
       const lt = this.lichessTools;
-      return /^\/games\/?$/i.test(lt.global.location.pathname) && location.hash == '#team';
+      return lt.location.isCurrentGamesPage() && lt.location.hash == '#team';
     };
 
     updateTvOptionsButton = () => {
@@ -101,7 +86,7 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!this.isGamesPage()) return;
+      if (!lt.location.isCurrentGamesPage()) return;
 
       if (this.options.streamerTv || this.options.friendsTv || this.options.teamTv) {
         if (lt.uiApi.overrides?.tvGamesOnFinish) {
@@ -302,7 +287,7 @@
       const userId = lt.getUserId();
       const container = $('main.tv-games div.page-menu__content.now-playing');
       if (!container.length) return;
-      if (this.isBestTvPage()) {
+      if (lt.location.isBestTvPage()) {
         container.toggleClass('lichessTools-bestTv', this.options.streamerTv || this.options.friendsTv || this.options.teamTv);
       } else {
         container.removeClass('lichessTools-bestTv');
@@ -536,17 +521,14 @@
         $('div.tv-history.lichessTools-userHistory').remove();
       }
 
-      if (this.options.stickyCategory && this.isTvPage()) {
-        const m = /^\/tv\b(?:\/(?<channel>[^\/]+))?/i.exec(lt.global.location.pathname);
-        if (m) {
-          let channel = m.groups?.channel;
+      if (this.options.stickyCategory && lt.location.isTvPage()) {
+        let channel = lt.location.getTvChannel();
+        if (channel) {
+          lt.storage.set('LiChessTools.TvChannel',channel);
+        } else {
+          channel = lt.storage.get('LiChessTools.TvChannel',channel);
           if (channel) {
-            lt.storage.set('LiChessTools.TvChannel',channel);
-          } else {
-            channel = lt.storage.get('LiChessTools.TvChannel',channel);
-            if (channel) {
-              lt.global.location='/tv/'+channel;
-            }
+            lt.location.set('/tv/'+channel);
           }
         }
       }

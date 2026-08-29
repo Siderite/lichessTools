@@ -62,10 +62,10 @@
     processVisited = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const m = /^\/@\/(?<userId>[^\/]+)\/blog\/(?<slug>[^\/]+)\/(?<postId>[^\/]+)/.exec(lt.global.location.pathname);
-      if (!m) return;
+      const info = lt.location.getBlogPostInfo();
+      if (!info) return;
       const isLiked = !!$('button.ublog-post__like.ublog-post__like--liked').length;
-      this.logVisit(m.groups.userId,m.groups.slug,m.groups.postId,isLiked);
+      this.logVisit(info.userId,info.slug,info.postId,isLiked);
 
       // show percentage of likes over views
       const viewsEl = $('.ublog-post__views');
@@ -138,10 +138,8 @@
         this.processBlogCards();
       }
       if (this.options.persistView) {
-        const isBlogUrl = /^\/blog(?!\/search\b)(?:\/|$)?/i.test(lt.global.location.pathname);
-        if (isBlogUrl) {
-          const href = lt.global.location.href;
-          lt.storage.set('LiChessTools.blogHistory-view',href);
+        if (lt.location.isBlogViewPage()) {
+          lt.storage.set('LiChessTools.blogHistory-view',lt.location.href);
         }
         const blogViewUrl = lt.storage.get('LiChessTools.blogHistory-view');
         if (blogViewUrl) {

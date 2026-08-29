@@ -70,21 +70,22 @@
         .text(translatedText)
         .attr('title', translatedTitle);
 
-      const m = /^\/([^\/]+)/.exec(location.pathname);
-      const possibleGameId = m && m[1];
-      let index = games.findIndex(g => g.id == possibleGameId);
-      if (index <= 0) index = games.length;
-      const game = games[index - 1];
-      if (game) {
-        item.attr('href', '/' + game.id + '/' + game.orientation);
-        const f = ()=>{
-          lichess.powertip?.manualGame(item[0]);
-          item
-            .off('mouseover',f)
-            .trigger('mouseover');
-        };
-        item.on('mouseover',f);
-        container.append(item);
+      const gameId = lt.location.getUrlGameId();
+      if (gameId) {
+        let index = games.findIndex(g => g.id == gameId);
+        if (index <= 0) index = games.length;
+        const game = games[index - 1];
+        if (game) {
+          item.attr('href', '/' + game.id + '/' + game.orientation);
+          const f = ()=>{
+            lichess.powertip?.manualGame(item[0]);
+            item
+              .off('mouseover',f)
+              .trigger('mouseover');
+          };
+          item.on('mouseover',f);
+          container.append(item);
+        }
       }
     }
 

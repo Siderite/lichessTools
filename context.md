@@ -34,6 +34,7 @@ The extension uses a layered architecture:
 | **APISemaphore** | `lichessTools-apiSemaphore.js` | API rate limiting semaphore to prevent flooding lichess APIs. |
 | **MaxSizedMap** | `lichessTools-maxSizedMap.js` | Map with size limit enforcement. |
 | **Translator** | `lichessTools-translator.js` | Internationalization (en-US, ro-RO primary; Dutch, Arabic, Chinese Simplified added later). |
+| **Location** | `lichessTools-location.js` | Location (page URL) services. |
 | **Service Worker** | `service_worker.js` | Handles service-worker-level operations: OBS WebSocket integration, image upload to imgur/imgbb, file fetching from extension assets, window creation, data URL conversion. |
 
 ### Tool Loading Order (`lichessTools-init.js`)

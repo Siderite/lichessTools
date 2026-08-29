@@ -46,9 +46,9 @@
       }
     }
 
-    isInboxOrForumOrProfilePage = () => {
+    isInboxOrForumOrProfileOrTeamEdit = () => {
       const lt = this.lichessTools;
-      return /\/(inbox|forum|profile|team\/.*?\/edit)(\/\w+|$)/i.test(lt.global.location.pathname);
+      return lt.location.isInboxPage() || lt.location.isForumPage() || lt.location.isProfileEdit() || lt.location.isTeamEdit();
     };
 
     isImage = (file) => {
@@ -237,7 +237,7 @@
         reactionsTooltip: lt.isOptionSet(value, 'reactionsTooltip'),
         get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip },
       };
-      if (!this.isInboxOrForumOrProfilePage()) return;
+      if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       lt.global.clearInterval(this.interval);
       this.getImagePastingElements()
         .each((i, e) => {

@@ -319,7 +319,7 @@
       if (lt.debug && watcherCount > 1) {
         lt.global.console.debug(new Date().toLocaleString(lt.intl.lang), ' Someone is in the ' + teamId + ' page', data.users);
       }
-      if (!team || !this.isTeamsListPage()) return;
+      if (!team || !lt.location.isMyTeamsListPage()) return;
       const row = $('table.slist tr.paginated')
         .filter((i, e) => {
           const href = $('td.subject a', e).attr('href');
@@ -389,11 +389,6 @@
     };
     handleNotifications = this.lichessTools.debounce(this.handleNotificationsDirect, 5000);
 
-    isTeamsListPage = () => {
-      const lt = this.lichessTools;
-      return ['/team/me', '/team/leader'].includes(lt.global.location.pathname);
-    };
-
     toggleNotify = (teamId) => {
       const lt = this.lichessTools;
       const trans = lt.translator;
@@ -436,8 +431,8 @@
     };
 
     notificationButtonInTeamsDirect = () => {
-      if (!this.isTeamsListPage()) return;
       const lt = this.lichessTools;
+      if (!lt.location.isMyTeamsListPage()) return;
       const $ = lt.$;
       const trans = lt.translator;
       $('table.slist tr.paginated').each((i, e) => {
@@ -716,7 +711,7 @@
             socket: this.createSocket(t.teamId)
           }));
         }
-        if (this.isTeamsListPage()) {
+        if (lt.location.isMyTeamsListPage()) {
           this.notificationButtonInTeams();
           lt.pubsub.on('lichessTools.contentLoaded', this.notificationButtonInTeams);
         }

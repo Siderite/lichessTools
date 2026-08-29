@@ -161,7 +161,7 @@
           },
           getHelp: () => trans.noarg('readGameCommand.helpText')
         });
-        if (lt.global.location.hash == '#readgame') {
+        if (lt.location.hash == '#readgame') {
           lt.global.history.replaceState(null, null, ' ');
           analysis.jumpToIndex();
           this.readGame(this.defaultSpeed, 0, 0);

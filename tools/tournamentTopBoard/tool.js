@@ -26,7 +26,7 @@
 
     findNextBoard = async () => {
       const lt = this.lichessTools;
-      const currentId = /^\/(?<gameId>\w{8})(?:\/|$)/.exec(lt.global.location.pathname)?.groups?.gameId;
+      const currentId = lt.location.getUrlGameId();
       //if (!currentId) return;
       const data = await lt.api.tournament.getInfo(this.tourId);
       const isFinished = data?.isFinished;
@@ -38,7 +38,7 @@
       }
       const orientation = data.featured.orientation || 'white';
       const newLocation = `/${gameId}/${orientation}#tournament=${this.tourId}`;
-      lt.global.location = newLocation;
+      lt.location.set(newLocation);
     };
 
     async start() {
@@ -64,7 +64,8 @@
           a.attr('href',href+hash);
         }
       }
-      this.tourId = /^#tournament=(?<tourId>[\w]{8})/.exec(lt.global.location.hash)?.groups?.tourId;
+      const m = /^#tournament=(?<tourId>[\w]{8})/i.exec(lt.location.hash);
+      this.tourId = m?.groups?.tourId;
       if (!this.tourId) return;
       lt.uiApi.socket.events.on('endData', this.findNextBoard);
       await this.findNextBoard();

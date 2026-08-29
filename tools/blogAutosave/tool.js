@@ -74,9 +74,8 @@
         autosave: lt.isOptionSet(value, 'autosave'),
         savebutton: lt.isOptionSet(value, 'savebutton'),
       };
-      const isBlogEdit = /^\/ublog\/(?<blogId>[^\/]+)\/edit/.exec(lt.global.location.pathname);
-      if (!isBlogEdit) return;
-      this.blogId = isBlogEdit.groups.blogId;
+      if (!lt.location.isBlogEdit()) return;
+      this.blogId = this.location.getBlogId();
       const $ = lt.$;
       const trans = lt.translator;
       lt.global.clearTimeout(this.interval);

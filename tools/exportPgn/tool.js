@@ -367,7 +367,7 @@
           if (options.exportTags)addTag(tags, 'SetUp', '1');
         }
         if (options.exportTags) {
-          addTag(tags, 'Site', lt.global.location.href, true);
+          addTag(tags, 'Site', lt.location.href, true);
           const now = new Date().toISOString();
           addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
           addTag(tags, 'UTCTime', now.substr(11, 8), true);

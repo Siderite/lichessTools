@@ -80,7 +80,7 @@
   class Stockfish {
     constructor(lichessTools) {
       this.lt = lichessTools;
-      this.origin = this.lt.global.location.origin;
+      this.origin = this.lt.location.origin;
       this.restartDebounced = this.lt.debounce(this.restart, 500);
     }
 

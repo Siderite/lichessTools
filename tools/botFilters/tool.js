@@ -39,11 +39,6 @@
       }
     }
 
-    isBotsPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/player\/bots/i.test(lt.global.location.pathname);
-    };
-
     filterBots = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -89,7 +84,7 @@
       const lichess = lt.lichess;
       const value = lt.currentOptions.getValue('botFilters');
       this.logOption('Bot filters', value);
-      if (!this.isBotsPage()) return;
+      if (!lt.location.isBotsPage()) return;
       $('.lichessTools-botFilters').remove();
       if (!value) return;
       const container = $(`<div class="lichessTools-botFilters">

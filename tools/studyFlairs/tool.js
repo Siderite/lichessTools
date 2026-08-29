@@ -168,8 +168,7 @@
       const $ = lt.$;
       //if (lichess.analysis?.gamebookPlay()) return;
       const href = $('.infinite-scroll .pager > a').attr('href');
-      const modeMatch = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(lt.global.location.pathname);
-      const mode = modeMatch?.groups?.mode || 'hot';
+      const mode = lt.location.getStudyListMode();
       let page = 1;
       if (href) {
         const m = /page=(\d+)/.exec(href);
@@ -182,7 +181,7 @@
         page = this._nextPage;
       }
       if (page > 40) page = 40; // Lichess API limitation
-      const baseUrl = lt.global.location.href;
+      const baseUrl = lt.location.href;
       if (!this._currentPage) {
         const url = new URL(baseUrl);
         const hrefPage = +url.searchParams.get('page');
@@ -249,7 +248,7 @@
             elem
               .on('contextmenu', ev => {
                 ev.preventDefault();
-                lt.global.location = '/study/topic/flair.' + flairs[0].title + '/' + mode;
+                lt.location.set('/study/topic/flair.' + flairs[0].title + '/' + mode);
               });
           }
           if (flairs.length > 1) {
@@ -271,7 +270,7 @@
                 elem
                   .on('contextmenu', ev => {
                     ev.preventDefault();
-                    lt.global.location = '/study/topic/flair.' + flairs[i].title + '/' + mode;
+                    lt.location.set('/study/topic/flair.' + flairs[i].title + '/' + mode);
                   });
               }
             }
@@ -329,7 +328,7 @@
         this.interval = lt.global.setInterval(this.processStudy, 500);
         this.processStudy();
       }
-      if (/^\/study\b/.test(lt.global.location.pathname) && $('.studies.list').length) {
+      if (lt.location.isStudyList()) {
         lt.pubsub.on('lichessTools.contentLoaded', this.processStudyListDebounced);
         this.processStudyList();
       }

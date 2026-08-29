@@ -12,6 +12,7 @@
       this.comm = new LiChessTools.Comm(this);
       this.cache = new LiChessTools.Cache(this);
       this.api = new LiChessTools.Api(this);
+      this.location = new LiChessTools.Location(this);
       this.comm.init();
     }
 
@@ -203,10 +204,6 @@
     get uiApi() {
       return this.global.lichess;
     }
-
-    isDev = () => {
-      return /lichess\.dev/.test(this.global.location.origin);
-    };
 
     get debug() {
       if (this._debug === undefined) {
@@ -680,20 +677,20 @@
 
     getTvOptions = () => {
       const $ = this.$;
-      const inAnalysisMode = !!this.lichess.analysis;
-      const mTv = !inAnalysisMode && /\/tv(\/([^\/]+))?/.exec(this.global.location.pathname);
-      const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
+      const isTv = this.location.isTvPage();
+      const tvChannel = isTv && this.location.getTvChannel();
+      const urlUser = this.location.getUrlUser();
       const analysisUrl = $('div.buttons a.analysis,bo3 a.analysis').attr('href') || '';
-      const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
+      const mAnalysis = /^\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
       const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
-        isTv: !!mTv,
-        isUserTv: !!mTv && !!mUser,
-        user: !!mTv && mUser && mUser[1],
-        channel: mTv && !mUser && (mTv[2] || 'best'),
-        gameId: !!mAnalysis && mAnalysis[1],
+        isTv: isTv,
+        isUserTv: isTv && !!urlUser,
+        user: isTv && urlUser,
+        channel: !urlUser && this.location.getTvChannel(),
+        gameId: mAnalysis?.groups?.gameId,
         orientation: orientation,
-        isBlack: !!mAnalysis && mAnalysis[2]
+        isBlack: mAnalysis?.groups?.isBlack
       };
     };
 
@@ -898,7 +895,7 @@
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.global.location.href);
+          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.loc.href);
         }
       }
       return elem;
@@ -991,18 +988,6 @@
 
     getUserId = () => {
       return this.global.document.body?.dataset?.user;
-    };
-
-    isFriendsPage = () => {
-      return /\/following([\?#].*)?$/.test(this.global.location.pathname);
-    };
-
-    isFavoriteOpponentsPage = () => {
-      return /\/player\/opponents\b/.test(this.global.location.pathname);
-    };
-
-    isBlockedPlayersPage = () => {
-      return /\/rel\/blocks\b/.test(this.global.location.pathname);
     };
 
     findGlyphNode = (color, symbols) => {
@@ -1736,7 +1721,7 @@
 
     async init() {
       const $ = this.$;
-      $('html').attr('data-page-href',this.global.location.href);
+      $('html').attr('data-page-href',this.location.href);
       this.api.init();
       const setTimeout = this.global.setTimeout;
       const console = this.global.console;

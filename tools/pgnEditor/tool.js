@@ -541,13 +541,13 @@
           ev.preventDefault();
           this.stopOperations();
           dialog.trigger('close').remove();
-          if (lt.global.location.hash = '#pgnEditor') {
+          if (lt.location.hash == '#pgnEditor') {
             lt.global.history.pushState(null, null, ' ');
           }
         });
       this._label = $('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
-      if (lt.global.location.hash != '#pgnEditor') {
+      if (lt.location.hash != '#pgnEditor') {
         lt.global.history.pushState(null, null, '#pgnEditor');
       }
       if (!this.history) {
@@ -558,7 +558,7 @@
         this.addTextToHistory(showPgnText);
       }
       if (!lichess.analysis) {
-        lt.global.location.href = '/analysis#pgnEditor';
+        lt.location.set('/analysis#pgnEditor');
         return;
       }
       const text = this.history[this.historyIndex] || '';
@@ -2409,9 +2409,8 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
-      const location = lt.global.location;
       const dialog = $('dialog.lichessTools-pgnEditor');
-      if (location.hash == '#pgnEditor') {
+      if (lt.location.hash == '#pgnEditor') {
         if (!dialog.length) {
           this.showPgnEditor();
         }

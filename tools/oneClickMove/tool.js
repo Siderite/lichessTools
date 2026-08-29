@@ -85,12 +85,6 @@
       return $.cached('body').is('.playing') && !$('.puzzle__feedback').is('.after');
     };
 
-    isPuzzlePage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/(training|streak|storm|racer)/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
-    };
-
-
     boardClick = async (ev) => {
       if (ev.which > 1 || ev.shiftKey) return;
       const lt = this.lichessTools;
@@ -98,8 +92,9 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (!this.options.analysis && analysis) return;
-      if (!this.options.play && this.isPlaying() && !this.isPuzzlePage()) return;
-      if (!this.options.puzzles && this.isPuzzlePage()) return;
+      const isPuzzlePage = lt.location.isPuzzlePage();
+      if (!this.options.play && this.isPlaying() && !isPuzzlePage) return;
+      if (!this.options.puzzles && isPuzzlePage) return;
 
       if (!ev.x && !ev.y) return;
       const board = $('div.main-board cg-board');

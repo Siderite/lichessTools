@@ -52,7 +52,7 @@
           pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
         }
         pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');
-        url = lt.global.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
+        url = lt.location.origin+'/analysis/pgn/'+lt.global.encodeURIComponent(pgn);
         url+=' '; // Lichess removes trailing closing parentheses (https://github.com/lichess-org/lila/issues/17508)
         url = url.replaceAll('%20','+');
         this._links.set(initialPgn,url);
@@ -72,7 +72,8 @@
     generateLink = lichessTools.debounce(this.generateLinkDirect,500);
 
     async init() {
-      this.initialHash = location.hash;
+      const lt = this.lichessTools;
+      this.initialHash = lt.location.hash;
     }
 
     async start() {

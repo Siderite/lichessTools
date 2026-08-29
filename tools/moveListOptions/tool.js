@@ -380,8 +380,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const lichess = lt.lichess;
-      if (this.hash == lt.global.location.hash) return;
-      this.hash = lt.global.location.hash;
+      if (this.hash == lt.location.hash) return;
+      this.hash = lt.location.hash;
       if (!this.hash) return;
       let destinationNode = null;
       const hash = lt.global.decodeURIComponent(this.hash?.slice(1)?.toLowerCase());
@@ -465,7 +465,7 @@
         lt.global.console.warn('Could not determine chapterId');
         return;
       }
-      const url = lt.global.location.origin + '/study/' + study.data.id + '/' + chapterId + '#' + lt.global.encodeURIComponent(label);
+      const url = lt.location.origin + '/study/' + study.data.id + '/' + chapterId + '#' + lt.global.encodeURIComponent(label);
       await lt.writeToClipboard(url, trans.noarg('URLCopiedToClipboard'), trans.noarg('clipboardDenied'));
     };
 
@@ -522,7 +522,7 @@
         await lt.timeout(50);
       }
 
-      const chapterUrl = lt.global.location.origin + '/study/' + study.data.id + '/' + newChapterId;
+      const chapterUrl = lt.location.origin + '/study/' + study.data.id + '/' + newChapterId;
       let commentText = lt.getNodeComment(node) || '';
       if (commentText) commentText += '\r\n';
       commentText += trans.pluralSame('chapterLink', chapterUrl);
@@ -652,7 +652,7 @@
             .on('click', ev => {
               ev.preventDefault();
               this.popup?.close();
-              this.popup = lt.global.open(lt.global.location.href, 'lichessTools-moves', 'fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
+              this.popup = lt.global.open(lt.location.href, 'lichessTools-moves', 'fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
               this.popup.addEventListener('DOMContentLoaded', () => $('body', this.popup.document).addClass('lichessTools-analysisPopup'));
               lt.global.addEventListener('unload', () => {
                 this.popup.close();

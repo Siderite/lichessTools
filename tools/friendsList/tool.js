@@ -344,11 +344,6 @@
       }
     };
 
-    isFollowersPage = ()=>{
-      const lt = this.lichessTools;
-      return lt.global.location.hash == '#followers';
-    };
-
     filterFriendsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -377,7 +372,7 @@
       if (!this.options.liveFriendsPage) return;
       if (!this.isLivePage) return;
       const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
-      const isBlocks = lt.isBlockedPlayersPage();
+      const isBlocks = lt.location.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
         lt.global.clearTimeout(this._updateFriendsPageTimeout);
         this._updateFriendsPageTimeout = lt.global.setTimeout(this.updateFriendsPageDirect, 500);
@@ -408,7 +403,7 @@
                     .text(trans.noarg('opponentsText')))
           .prependTo(header);
       }
-      if (lt.isFavoriteOpponentsPage()) {
+      if (lt.location.isFavoriteOpponentsPage()) {
         const backLink = $('.box__top h1 a');
         const referrer = lt.global.document.referrer;
         if (backLink.attr('href')!=referrer) {
@@ -567,7 +562,7 @@
           .toggleClassSafe('online', isOnline)
           .toggleClassSafe('offline', !isOnline);
       }
-      if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
+      if (!this._opponentsInit && lt.location.isFavoriteOpponentsPage()) {
         this._opponentsInit = true;
         lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]),crossTable=> {
           const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
@@ -791,7 +786,7 @@
       const table = $('table.slist');
       if (!table.length) return;
       const userId = lt.getUserId();
-      if (this.isFollowersPage()) {
+      if (lt.location.isFollowersPage()) {
         if (!table[0]._followersPage) {
           if (ev) {
             lt.global.location.reload();
@@ -856,7 +851,8 @@
     menuParent = '#topnav';
 
     async init() {
-      if (this.isFollowersPage()) {
+      const lt = this.lichessTools;
+      if (lt.location.isFollowersPage()) {
         history.scrollRestoration = "manual";
       }
     }
@@ -889,8 +885,8 @@
 
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
-      this.isFriendsPage = lt.isFriendsPage() && !this.isFollowersPage();
-      this.isLivePage = lt.isFriendsPage() || lt.isFavoriteOpponentsPage() || lt.isBlockedPlayersPage() || this.isFollowersPage();
+      this.isFriendsPage = lt.location.isFriendsPage();
+      this.isLivePage = this.isFriendsPage || lt.location.isFavoriteOpponentsPage() || lt.location.isBlockedPlayersPage() || lt.location.isFollowersPage();
 
       lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
       lt.uiApi.onlineFriends.events.off('enters', this.enters);

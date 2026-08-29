@@ -53,7 +53,7 @@
       if (!studyData?.length) {
         studyData = [];
       }
-      if (study && !lt.global.location.pathname.match(/^\/(practice|learn)\b/)) {
+      if (study && !lt.location.isLearningPage()) {
         const tourName = study.relayData?.tour?.name;
         const studyName = (tourName ? tourName + ' ' : '') + study.data.name;
         const data = {
