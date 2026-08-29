@@ -27013,7 +27013,7 @@
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
     "profileSlider.minmax": "Puan aralığı belirtin",
     "oneClickMove.puzzles": "Bulmacalar",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Geçen ayki zaman kontrolleri:\n  Bullet: $bullet%\n  Hızlı: $fast%\n  Yavaş: $slow%"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
