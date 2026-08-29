@@ -264,11 +264,11 @@ body.lichessTools .lichessTools-countersPie {
   bottom: 0;
   background: conic-gradient(
     from -90deg,
-    #e53935 0%,
-    #e53935 calc(var(--p1)),
-    #fdd835 calc(var(--p1)),
-    #fdd835 calc(var(--p2)),
-    #43a047 calc(var(--p2)),
-    #43a047 100%
+    #a53935 0%,
+    #a53935 calc(var(--p1)),
+    #bd9835 calc(var(--p1)),
+    #bd9835 calc(var(--p2)),
+    #437047 calc(var(--p2)),
+    #437047 100%
   );
 }
