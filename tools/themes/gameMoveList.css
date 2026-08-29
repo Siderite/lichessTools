@@ -30,4 +30,7 @@
     min-height: 10em;
   }
 
+  body.lichessTools.lichessTools-theme_gameMoveList .material {
+    align-self: end;
+  }
 }
