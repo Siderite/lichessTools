@@ -339,6 +339,8 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-a
   line-height: calc(var(--analyse-toggle-size) - 2px);
   width: calc(var(--analyse-toggle-size) - 2px);
   height: calc(var(--analyse-toggle-size) - 2px);
+  inset: unset;
+  mask-size: 50%;
 }
 
 

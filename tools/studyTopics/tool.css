@@ -11,7 +11,7 @@ body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander {
 
 body.lichessTools nav.subnav__inner > a .lichessTools-topicExpander:before {
   content: var(--icon-PlusButton);
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools nav.subnav__inner > a.lichessTools-expandedTopic .lichessTools-topicExpander:before {

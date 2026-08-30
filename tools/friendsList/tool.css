@@ -41,7 +41,7 @@ html.dark body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichess
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a icon {
   margin-right: 0.5em;
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a icon:before {
@@ -385,6 +385,8 @@ body.lichessTools .slist-pad td:last-child:has(.relation-actions) {
 body.lichessTools table.slist .relation-actions {
   text-wrap: nowrap;
   border: none;
+  display: flex;
+  gap: 0.3em;
 }
 
 body.lichessTools table.slist .relation-actions a[data-icon]:before {

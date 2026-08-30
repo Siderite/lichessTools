@@ -32,6 +32,7 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
   position: relative;
   text-align: left;
+  display: block;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span {

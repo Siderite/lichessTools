@@ -1,6 +1,7 @@
 /* Fewer icons */
 
-body.lichessTools.lichessTools-theme_lessIcons #user_tag:after {
+body.lichessTools.lichessTools-theme_lessIcons #user_tag:after,
+body.lichessTools.lichessTools-theme_lessIcons #user_tag .icon-account-circle {
   display: none;
 }
 

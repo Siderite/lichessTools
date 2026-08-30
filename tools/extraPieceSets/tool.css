@@ -60,7 +60,7 @@ body.lichessTools div.lichessTools-extraPieceSets .tree {
 }
 
 body.lichessTools div.lichessTools-extraPieceSets .grid {
-  font-family: lichess;
+  font-family: lichess, lichessTools;
   font-size: 1.5em;
   padding: 0;
   min-width: 30px;

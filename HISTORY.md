@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Aug
+
+- font icons tool to cover possible icon changes in Lichess
+
 27 Aug
 
 - time control pie chart in extra counters

@@ -27,6 +27,7 @@ a.lichessTools-preferences:hover .lichessTools-toggleExtension {
 
 
 a + a.lichessTools-preferences:before {
+  position: relative;
   padding-left: 0.5em;
   left: -0.25em;
   top: -0.5em;

@@ -37,7 +37,7 @@ body.lichessTools button.lichessTools-deleteImage {
 }
 
 body.lichessTools button.lichessTools-deleteImage:before {
-  font-family: lichess;
+  font-family: lichess, lichessTools;
   content: var(--icon-X);
   color: red;
 }

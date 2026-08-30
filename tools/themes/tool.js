@@ -245,6 +245,7 @@
         .toggleClassSafe('sound', false)
         .toggleClassSafe('lichessTools-themes', true);
       container.find('button.head')
+        .attr('data-icon',lt.icon.LessThan)
         .text(trans.noarg('themesMenuHeaderText'))
         .append($('<a class="lichessTools-infoIcon" target="_blank">')
           .attr('title',trans.noarg('userManualLinkTitle'))

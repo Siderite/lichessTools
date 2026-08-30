@@ -1,0 +1,17 @@
+body.lichessTools.lichessTools-fontIcons [data-icon]:before {
+  font-family: lichess, lichessTools;
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  content: attr(data-icon);
+  opacity: .9;
+  unicode-bidi: isolate;
+}
+
+body.lichessTools.lichessTools-fontIcons :is(.is.text, .text[data-icon])::before {
+  margin-inline: 0 .4em;
+  line-height: 1;
+}
