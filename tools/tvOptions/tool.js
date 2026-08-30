@@ -521,7 +521,7 @@
         $('div.tv-history.lichessTools-userHistory').remove();
       }
 
-      if (this.options.stickyCategory && lt.location.isTvPage()) {
+      if (this.options.stickyCategory && lt.location.isTvPage(true)) {
         let channel = lt.location.getTvChannel();
         if (channel) {
           lt.storage.set('LiChessTools.TvChannel',channel);

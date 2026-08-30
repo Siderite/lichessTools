@@ -31,10 +31,13 @@
       return !!/\.dev\b/.test(this.loc.origin);
     }
 
-    isTvPage() {
+    isTvPage(strict) {
       const lt = this.lichessTools;
       const isAnalysis = !!lt.lichess?.analysis;
-      return !isAnalysis && /\/tv\b/i.test(this.loc.pathname);
+      const reg = strict
+        ? /^\/tv\b/i
+        : /\/tv\b/i;
+      return !isAnalysis && reg.test(this.loc.pathname);
     }
 
     isFriendsPage() {
@@ -184,7 +187,7 @@
     // get location information
 
     getTvChannel() {
-      const m = /\/tv(\/(?<channel>[^\/]+))/i.exec(this.loc.pathname);
+      const m = /^\/tv\/(?<channel>[^\/]+)/i.exec(this.loc.pathname);
       return m?.groups?.channel;
     }
 
