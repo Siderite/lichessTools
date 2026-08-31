@@ -75,7 +75,7 @@
         savebutton: lt.isOptionSet(value, 'savebutton'),
       };
       if (!lt.location.isBlogEdit()) return;
-      this.blogId = this.location.getBlogId();
+      this.blogId = lt.location.getBlogId();
       const $ = lt.$;
       const trans = lt.translator;
       lt.global.clearTimeout(this.interval);

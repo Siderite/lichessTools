@@ -112,7 +112,7 @@
     }
 
     isBlogEdit() {
-      return /^\/ublog\/[^\/]\/edit/i.test(this.loc.pathname);
+      return /^\/ublog\/[^\/]+\/edit/i.test(this.loc.pathname);
     }
 
     isBotsPage() {
