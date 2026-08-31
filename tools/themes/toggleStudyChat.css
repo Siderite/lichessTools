@@ -3,7 +3,7 @@
 @media (min-width: 1259.3px) {
 
   body.lichessTools.lichessTools-theme_toggleStudyChat main.analyse:has(.mchat__tab input[type="checkbox"]:not(:checked)):not(.is-relay) .chat__members {
-    height: 8em;
+    height: 10em;
     max-width: var(--left-side-width);
   }
 
