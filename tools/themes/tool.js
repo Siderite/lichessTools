@@ -98,13 +98,26 @@
     checkBodyDirect = async ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const board = $('body #main-wrap div.cg-wrap cg-board')[0];
-      const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
-      if (boardChanged || this.board != board || (board && !$('html').css('--board-background'))) {
+      const html = $('html');
+      const body = $('body');
+      const board = body.find('#main-wrap div.cg-wrap cg-board')[0];
+      const boardChanged = this.dataBoard != body.attr('data-board') || this.dataBoard3d != body.attr('data-board3d');
+      if (boardChanged || this.board != board || (board && !html.css('--board-background'))) {
         await this.applyThemes(boardChanged);
-        this.dataBoard = $('body').attr('data-board');
-        this.dataBoard3d = $('body').attr('data-board3d');
+        this.dataBoard = body.attr('data-board');
+        this.dataBoard3d = body.attr('data-board3d');
         this.board = board;
+      }
+      const dataTheme = lt.global.document.body.dataset.theme;
+      if (!html.is('.dark,.light') || dataTheme != this.dataTheme) {
+        this.dataTheme = dataTheme;
+        if (dataTheme == 'system') {
+          dataTheme = window.matchMedia('(prefers-color-scheme: light)') ? 'light' : 'dark';
+        }
+        const isLight = dataTheme.includes('light');
+        html
+          .toggleClassSafe('dark',!isLight)
+          .toggleClassSafe('light',isLight);
       }
     };
     checkBody = lichessTools.debounce(this.checkBodyDirect,1000);
@@ -425,6 +438,7 @@
             attributeFilter: ['data-board','data-board3d','class']
           });
         $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+        this.checkBodyDirect();
       }
       await this.applyThemes();
       $('#dasher_app')
