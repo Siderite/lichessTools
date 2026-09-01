@@ -20,11 +20,11 @@ body.lichessTools #puzzlePopup img {
 }
 
 body.lichessTools button.lichessTools-puzzles {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
 }
 
 /* Lichess Helper CSS */
 
 body.lichessTools.lichessTools-lichessHelper button.lichessTools-puzzles {
-  font-family: 'lichess' !important;
+  font-family: lichess, lichessTools !important;
 }

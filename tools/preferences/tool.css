@@ -208,7 +208,7 @@ div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label:after {
   content: var(--icon-BlackRightPointingSmallTriangle);
-  font-family: "lichess";
+  font-family: lichess, lichessTools;
   margin-left: 0.25em;
 }
 

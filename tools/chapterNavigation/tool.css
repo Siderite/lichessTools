@@ -76,7 +76,7 @@ body.lichessTools .study__chapters button.lichessTools-collapsedChapter {
 }
 
 body.lichessTools .study__chapters div.lichessTools-expander {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
   align-self: center;
   margin-right:0.25em;
 }
@@ -118,5 +118,5 @@ body.lichessTools .lichessTools-nextChapter {
 /* Lichess Helper */
 
 body.lichessTools.lichessTools-lichessHelper .study__chapters div.lichessTools-expander {
-  font-family: 'lichess' !important;
+  font-family: lichess, lichessTools !important;
 }

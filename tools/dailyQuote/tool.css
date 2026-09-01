@@ -56,7 +56,7 @@ body.lichessTools .lichessTools-dailyQuote button.close:after {
   content: var(--icon-X);
 
   vertical-align: middle;
-  font-family: "lichess";
+  font-family: lichess, lichessTools;
   font-style: normal;
   font-weight: normal;
   text-transform: none;

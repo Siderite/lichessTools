@@ -95,7 +95,7 @@ body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.blitz span.cg-
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.rapid span.cg-wrap:after,
 body.lichessTools div.now-playing.lichessTools-bestTv a.mini-game.classical span.cg-wrap:after {
   position: absolute;
-  font-family: "lichess";
+  font-family: lichess, lichessTools;
   speak: none;
   unicode-bidi: isolate;
   top: -1.2em;

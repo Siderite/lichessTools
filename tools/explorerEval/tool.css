@@ -1,5 +1,5 @@
 body.lichessTools th.lichessTools-explorerEval {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
   text-align: center;
   max-width:6em;
 }

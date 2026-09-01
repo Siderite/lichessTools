@@ -237,7 +237,7 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a icon:before {
   content: var(--icon-Disc);
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a:hover icon:before {
