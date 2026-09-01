@@ -24,6 +24,15 @@
       }
     }
 
+    loadLtFont = async ()=> {
+      const lt = this.lichessTools;
+      const fontUrl = await lt.comm.getChromeUrl("tools/fontIcons/lichessTools.woff2");
+      const face = new FontFace("lichessTools", `url(${fontUrl})`,{ display: 'block' });
+
+      const loaded = await face.load();
+      lt.global.document.fonts.add(loaded);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('fontIcons');
@@ -31,21 +40,9 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       if (value) {
-        const fontExists = [...lt.global.document.fonts].find(f=>f.family=='lichess');
+        const fontExists = [...lt.global.document.fonts].find(f=>['lichess','lichessTools'].includes(f.family));
         if (!fontExists) {
-          const url = lichess.asset.url('font/lichess.woff2');
-          $('<style id="fontIcons">').text(`
-              @font-face {
-                  font-family: 'lichessTools';
-                  font-display: block;
-                  src: url('${url}') format('woff2');
-              }
-              @font-face {
-                  font-family: 'lichess';
-                  font-display: block;
-                  src: url('${url}') format('woff2');
-              }
-          `).appendTo('head');
+          await this.loadLtFont();
         }
       } else {
         $('#fontIcons').remove();

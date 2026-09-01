@@ -423,6 +423,7 @@
   "web_accessible_resources": [
     "tools/chessops/chessops.bundle.mjs",
     "tools/d3/d3.bundle.mjs",
-    "tools/nouislider/nouislider.bundle.mjs"
+    "tools/nouislider/nouislider.bundle.mjs",
+    "tools/fontIcons/lichessTools.woff2"
   ]
 }

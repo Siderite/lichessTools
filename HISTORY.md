@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Sep
+
+- embed own font in font icons
+
 30 Aug
 
 - font icons tool to cover possible icon changes in Lichess
