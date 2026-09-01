@@ -86,3 +86,39 @@ body.lichessTools.lichessTools-theme_noBullet .sub-ratings a[href$="bullet"], /*
 body.lichessTools.lichessTools-theme_noBullet .sub-ratings a[href$="ultrabullet"]  /* Ultrabullet */ {
   display: none;
 }
+
+/*  show a disabled kind of pattern on the extra counter pie chart slice for bullet */
+body.lichessTools.lichessTools-theme_noBullet .lichessTools-countersPie::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 1.5px,
+      rgba(0, 0, 0, 0.55) 1.5px,
+      rgba(0, 0, 0, 0.55) 3px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 1.5px,
+      rgba(255, 255, 255, 0.25) 1.5px,
+      rgba(255, 255, 255, 0.25) 3px
+    );
+  -webkit-mask-image: conic-gradient(
+    from -90deg,
+    #000 0%,
+    #000 calc(var(--p1)),
+    transparent calc(var(--p1))
+  );
+  mask-image: conic-gradient(
+    from -90deg,
+    #000 0%,
+    #000 calc(var(--p1)),
+    transparent calc(var(--p1))
+  );
+}
