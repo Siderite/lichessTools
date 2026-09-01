@@ -294,6 +294,13 @@
               analysis.node.ceval.depth = 100;
               analysis.practice.onCeval();
               analysis.node.ceval.depth = depth;
+            } else if (analysis.retro) {
+              const doResetEval = analysis.node.ceval == null;
+              const resetNodes = doResetEval?.nodes;
+              const fakeNodesMakeLichessAcceptCurrentEvaluation = 1000000;
+              analysis.node.ceval.nodes = fakeNodesMakeLichessAcceptCurrentEvaluation;
+              analysis.retro.onCeval();
+              if (doResetEval) analysis.node.ceval.nodes = resetNodes;
             } else {
               if (curDepth>depth) {
                 analysis.node.ceval.depth = curDepth;
