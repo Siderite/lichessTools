@@ -21,7 +21,6 @@
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
-        "scripts/lichess-icons.js",
         "scripts/lichessTools.js",
         "scripts/lichessTools-location.js",
         "scripts/lichessTools-translator.js",
@@ -224,7 +223,6 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
-        "styles/lichess-icons.css",
         "styles/icons.css",
         "tools/fontIcons/tool.css",
         "tools/fixMoveListLoad/tool.css",
