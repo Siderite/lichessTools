@@ -1225,7 +1225,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2453,7 +2455,9 @@
     "repertoireDisplay.matches": "标记开局库中的着法",
     "profileSlider.minmax": "指定等级分区间",
     "oneClickMove.puzzles": "谜题",
-    "countersPieTitle": "上月时限：\n  子弹棋：$bullet%\n  快棋：$fast%\n  慢棋：$slow%"
+    "countersPieTitle": "上月时限 ($mode)：\n  子弹棋：$bullet%\n  快棋：$fast%\n  慢棋：$slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3681,7 +3685,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4909,7 +4915,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6137,7 +6145,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7365,7 +7375,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8593,7 +8605,9 @@
     "repertoireDisplay.matches": "Indiquer les coups du répertoire",
     "profileSlider.minmax": "Spécifier l'intervalle de classement",
     "oneClickMove.puzzles": "Problèmes",
-    "countersPieTitle": "Cadences de jeu du mois dernier :\n  Bullet : $bullet%\n  Rapide : $fast%\n  Classique : $slow%"
+    "countersPieTitle": "Cadences de jeu du mois dernier ($mode) :\n  Bullet : $bullet%\n  Rapide : $fast%\n  Classique : $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9821,7 +9835,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11049,7 +11065,9 @@
     "repertoireDisplay.matches": "Σημειώστε κινήσεις στο ρεπερτόριο",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Γρίφοι",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12277,7 +12295,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13505,7 +13525,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14733,7 +14755,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15961,7 +15985,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17189,7 +17215,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18417,7 +18445,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19645,7 +19675,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20873,7 +20905,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22101,7 +22135,9 @@
     "repertoireDisplay.matches": "Marcare mutări din repertoriu",
     "profileSlider.minmax": "Specifică interval rating",
     "oneClickMove.puzzles": "Puzzle-uri",
-    "countersPieTitle": "Controale timp luna trecută:\n  Bullet: $bullet%\n  Rapide: $fast%\n  Încete: $slow%"
+    "countersPieTitle": "Controale timp luna trecută ($mode):\n  Bullet: $bullet%\n  Rapide: $fast%\n  Încete: $slow%",
+    "counterPieTimeMode": "timp",
+    "counterPieCountMode": "număr"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23329,7 +23365,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24557,7 +24595,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25785,7 +25825,9 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27013,7 +27055,9 @@
     "repertoireDisplay.matches": "Repertuarda hamleleri işaretle",
     "profileSlider.minmax": "Puan aralığı belirtin",
     "oneClickMove.puzzles": "Bulmacalar",
-    "countersPieTitle": "Geçen ayki zaman kontrolleri:\n  Bullet: $bullet%\n  Hızlı: $fast%\n  Yavaş: $slow%"
+    "countersPieTitle": "Geçen ayki zaman kontrolleri ($mode):\n  Bullet: $bullet%\n  Hızlı: $fast%\n  Yavaş: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28241,6 +28285,8 @@
     "repertoireDisplay.matches": "Mark moves in repertoire",
     "profileSlider.minmax": "Specify rating interval",
     "oneClickMove.puzzles": "Puzzles",
-    "countersPieTitle": "Time controls last month:\r\n  Bullet: $bullet%\r\n  Fast: $fast%\r\n  Slow: $slow%"
+    "countersPieTitle": "Time controls last month ($mode):\n  Bullet: $bullet%\n  Fast: $fast%\n  Slow: $slow%",
+    "counterPieTimeMode": "time",
+    "counterPieCountMode": "count"
   }
 }

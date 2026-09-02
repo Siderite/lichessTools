@@ -51,7 +51,9 @@
         'recentGamesHeaderText': 'Recent games',
         'moreGamesText': 'More >',
         'AiGameText': 'Computer level %s',
-        'countersPieTitle': `Time controls last month:
+        'counterPieTimeMode': 'time',
+        'counterPieCountMode': 'count',
+        'countersPieTitle': `Time controls last month ($mode):
   Bullet: $bullet%
   Fast: $fast%
   Slow: $slow%`
@@ -85,7 +87,9 @@
         'recentGamesHeaderText': 'Jocuri recente',
         'moreGamesText': 'Mai mult >',
         'AiGameText': 'Calculator de nivel %s',
-        'countersPieTitle': `Controale timp luna trecut\u0103:
+        'counterPieTimeMode': 'timp',
+        'counterPieCountMode': 'num\u0103r',
+        'countersPieTitle': `Controale timp luna trecut\u0103 ($mode):
   Bullet: $bullet%
   Rapide: $fast%
   \u00e2ncete: $slow%`
@@ -243,20 +247,34 @@
       const data = this.explorerInfo;
       if (!data?.bulletGames) return;
 
-      const total = data.bulletGames + data.fastGames + data.slowGames;
+      const bullet = data.bulletGames * (this.pieTime ? 2 : 1);
+      const fast = data.fastGames * (this.pieTime ? 8 : 1);
+      const slow = data.slowGames * (this.pieTime ? 40 : 1);
+
+      const total = bullet + fast + slow;
       if (total === 0) return;
 
-      const bulletPerc = Math.round((data.bulletGames / total) * 10000)/100;
-      const fastPerc = Math.round((data.fastGames / total) * 10000)/100;
+      const bulletPerc = Math.round((bullet / total) * 10000)/100;
+      const fastPerc = Math.round((fast / total) * 10000)/100;
       const slowPerc = Math.round(10000 - (bulletPerc + fastPerc)*100)/100;
 
+      container.find('.lichessTools-countersPie').remove();
       const pie = $('<div class="lichessTools-countersPie">')
         .css('--p1',bulletPerc + '%')
         .css('--p2',(bulletPerc+fastPerc) + '%')
+        .on('click',(ev)=>{
+          ev.preventDefault();
+          this.pieTime = !this.pieTime;
+          this.addPieChart(container);
+        })
         .appendTo(container);
 
       const formatter = new Intl.NumberFormat('en-US');
       const tooltip = trans.noarg('countersPieTitle')
+                        .replace('$mode',this.pieTime
+                                           ? trans.noarg('counterPieTimeMode')
+                                           : trans.noarg('counterPieCountMode')
+                        )
                         .replace('$bullet',formatter.format(bulletPerc))
                         .replace('$fast',formatter.format(fastPerc))
                         .replace('$slow',formatter.format(slowPerc));
