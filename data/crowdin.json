@@ -2456,8 +2456,8 @@
     "profileSlider.minmax": "指定等级分区间",
     "oneClickMove.puzzles": "谜题",
     "countersPieTitle": "上月时限 ($mode)：\n  子弹棋：$bullet%\n  快棋：$fast%\n  慢棋：$slow%",
-    "counterPieTimeMode": "time",
-    "counterPieCountMode": "count"
+    "counterPieTimeMode": "时间",
+    "counterPieCountMode": "统计"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -27056,8 +27056,8 @@
     "profileSlider.minmax": "Puan aralığı belirtin",
     "oneClickMove.puzzles": "Bulmacalar",
     "countersPieTitle": "Geçen ayki zaman kontrolleri ($mode):\n  Bullet: $bullet%\n  Hızlı: $fast%\n  Yavaş: $slow%",
-    "counterPieTimeMode": "time",
-    "counterPieCountMode": "count"
+    "counterPieTimeMode": "süre",
+    "counterPieCountMode": "sayı"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
