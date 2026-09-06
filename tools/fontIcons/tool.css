@@ -15,3 +15,20 @@ body.lichessTools.lichessTools-fontIcons :is(.is.text, .text[data-icon])::before
   margin-inline: 0 .4em;
   line-height: 1;
 }
+
+body.lichessTools.lichessTools-fontIcons icon {
+  opacity: 0.9;
+  width: 1.2em;
+  aspect-ratio: 1;
+}
+
+body.lichessTools.lichessTools-fontIcons .lichessTools-pin icon,
+body.lichessTools.lichessTools-fontIcons .site_notification icon {
+  opacity: 0.5;
+  width: 2em;
+  margin-inline-end: 1rem;
+}
+
+body.lichessTools.lichessTools-fontIcons #analyse-cm a[data-icon]:before {
+  margin: .1em .5em;
+}

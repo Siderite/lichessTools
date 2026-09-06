@@ -47,7 +47,7 @@
       const maxRating = $('#chk_max_rating').val() || 3000;
       const minGames = $('#chk_min_games').val() || 0;
       const maxGames = $('#chk_max_games').val() || 10000000000;
-      const icons = $('.types input[data-icon]:checked').get().map(e=>$(e).attr('data-icon'));
+      const icons = new Set($('.types input[data-icon]:checked').get().map(e=>$(e).attr('data-icon')));
       $('.bots__list__entry')
         .each((i,e)=>{
           const found = $('.bots__list__entry__rating',e)
@@ -55,11 +55,16 @@
               const span = $(e2).find('span');
               if (!span.length) return showUnrated;
               const games = +(span.attr('title').replace(/[^\d]/g,''));
-              const icon = span.attr('data-icon');
+              const botIcons = span.find('span.svg-icon')
+                               .get()
+                               .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
+                               .map(lt.iconClassToIcon)
+                               .map(n=>lt.icon[n]);
               const rating = +(span.text().replace(/[^\d]/g,''));
-              return icons.indexOf(icon)>=0 && (rating 
-                                                  ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
-                                                  : showUnrated);
+              const typeFilter = new Set(botIcons).intersection(icons).size;
+              return typeFilter && (rating 
+                                      ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
+                                      : showUnrated);
             });
           $(e).toggleClassSafe('filteredOut',!found.length);
         });
@@ -142,14 +147,19 @@
         lt.icon.KeyPad,
         lt.icon.FlagRacingKings
       ];
-      const icons = [...new Set($('.bots__list__entry__rating')
-        .find('span').get().map(e=>$(e).attr('data-icon')))];
+      const icons = [...new Set(
+        $('.bots__list__entry__rating')
+          .find('span.svg-icon')
+          .get()
+          .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
+          .map(lt.iconClassToIcon)
+      )];
       const findex = (x)=>{ const i=order.indexOf(x); return i<0?1000:i; };
       icons.sort((a,b)=>findex(a)-findex(b));
       const div = container.find('.types');
       for (const icon of icons) {
         div.append($('<input type="checkbox" checked>')
-          .attr('data-icon',icon)
+          .attr('data-icon',lt.icon[icon])
         );
       };
       $('input',container)

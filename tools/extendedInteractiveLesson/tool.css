@@ -1,10 +1,20 @@
-body.lichessTools.lichessTools-extendedInteractiveLesson button.preview::before {
+body.lichessTools.lichessTools-extendedInteractiveLesson button.preview .icon-eye {
+  background-color: transparent;
+  mask: unset;
+  -webkit-mask: unset;
+}
+
+body.lichessTools.lichessTools-extendedInteractiveLesson button.preview .icon-eye:before {
+  font-family: lichess, lichessTools;
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
   content: var(--icon-Storm);
-  position: relative;
-  display: block;
-  transform: scale(1.5);
-  float: left;
-  top: -2px;
+  opacity: 0.9;
+  unicode-bidi: isolate;
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson div.study__buttons button.preview:hover::after {

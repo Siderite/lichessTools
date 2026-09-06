@@ -33,9 +33,9 @@
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 20) {
         const icon = ev.deltaY > 0
-          ? lt.icon.JumpNext
-          : lt.icon.JumpPrev;
-        const button = $.cached('.round__app .buttons button.fbt[data-icon="'+icon+'"], .round__app bo3 button.fbt[data-icon="'+icon+'"]');
+          ? 'jumpNext'
+          : 'jumpPrev';
+        const button = $.cached('.round__app :is(.buttons,bo3) button.fbt:has(.icon-'+icon+')');
         if (!button.prop('disabled')) {
           button
             .trigger('pointerdown')

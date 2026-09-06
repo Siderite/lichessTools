@@ -72,7 +72,7 @@
       const entries = Object.values(totalEntries);
       for (const entry of entries) {
         if (!notifications.length) {
-          const emptyDiv = $('div.empty', app).removeAttr('data-icon').empty();
+          const emptyDiv = $('div.empty', app).empty();
           notifications = $('<div class="notifications">')
             .appendTo(emptyDiv);
         }
@@ -80,8 +80,7 @@
           .filter((i, e) => $(e).attr('data-id') == entry.id);
         if (!elem.length) {
           const handler = entry.handler;
-          elem = $(`<a class="site_notification lichessTools-addNotifications">
-            </a>`)
+          elem = $('<a class="site_notification lichessTools-addNotifications">')
             .append($('<icon>').attr('data-icon', entry.icon))
             .append($('<span class="content">').append(entry.content))
             .attr('data-id', entry.id)

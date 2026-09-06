@@ -226,6 +226,14 @@
       }
     };
 
+    iconClassToIcon = (cls)=>{
+      const lt = this;
+      const m = /^\.?icon-(?<name>.*)/.exec(cls);
+      if (!m) throw new Error('unknown icon class '+cls);
+      const name = m.groups.name;
+      return name[0].toUpperCase()+name.substr(1);
+    };
+
     getTimeText = (value) => {
       const trans = this.translator;
       let result;

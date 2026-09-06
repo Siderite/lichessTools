@@ -57,7 +57,7 @@
             })
             .prependTo(e);
         });
-      $('.study__comment a[data-icon="'+lt.icon.Trash+'"]')
+      $('.study__comment a:has(.icon-trash)')
         .each((i,e)=>{
           if (e._initTrash) return;
           e._initTrash = true;
