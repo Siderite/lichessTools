@@ -41,7 +41,6 @@ html.dark body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichess
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a icon {
   margin-right: 0.5em;
-  font-family: lichess, lichessTools;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a icon:before {
@@ -53,27 +52,40 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a:hover icon:before
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing icon:before {
-  content: var(--icon-AnalogTv) !important;
+  font-family: lichess, lichessTools;
+  font-size: 1.2em;
+  vertical-align: middle;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  speak: none;
+  opacity: 0.9;
+  unicode-bidi: isolate;
+
+  mark: unset;
+  -webkit-mask: unset;
+  background: transparent;
+  content: var(--icon-AnalogTv);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-ultrabullet icon:before {
-  content: var(--icon-UltraBullet) !important;
+  content: var(--icon-UltraBullet);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-bullet icon:before {
-  content: var(--icon-Bullet) !important;
+  content: var(--icon-Bullet);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-blitz icon:before {
-  content: var(--icon-FlameBlitz) !important;
+  content: var(--icon-FlameBlitz);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-rapid icon:before {
-  content: var(--icon-Rabbit) !important;
+  content: var(--icon-Rabbit);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-classical icon:before {
-  content: var(--icon-Turtle) !important;
+  content: var(--icon-Turtle);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover icon:hover {
@@ -245,27 +257,27 @@ body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notificatio
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing icon:before {
-  content: var(--icon-AnalogTv) !important;
+  content: var(--icon-AnalogTv);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-ultrabullet icon:before {
-  content: var(--icon-UltraBullet) !important;
+  content: var(--icon-UltraBullet);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-bullet icon:before {
-  content: var(--icon-Bullet) !important;
+  content: var(--icon-Bullet);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-blitz icon:before {
-  content: var(--icon-FlameBlitz) !important;
+  content: var(--icon-FlameBlitz);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-rapid icon:before {
-  content: var(--icon-Rabbit) !important;
+  content: var(--icon-Rabbit);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a.lichessTools-playing-classical icon:before {
-  content: var(--icon-Turtle) !important;
+  content: var(--icon-Turtle);
 }
 
 body.lichessTools .lichessTools-onlineFriends div.links.dropdown div.notifications>a:hover {

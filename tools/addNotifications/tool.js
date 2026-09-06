@@ -72,7 +72,9 @@
       const entries = Object.values(totalEntries);
       for (const entry of entries) {
         if (!notifications.length) {
-          const emptyDiv = $('div.empty', app).empty();
+          const emptyDiv = $('div.empty', app)
+                             .css('padding','0')
+                             .empty();
           notifications = $('<div class="notifications">')
             .appendTo(emptyDiv);
         }

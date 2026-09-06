@@ -4,6 +4,9 @@
   display: flex;
   overflow: visible;
   align-items: center;
+  padding-left: 0.75em;
+  padding-right: 0;
+  gap: 0;
 }
 
 a.lichessTools-preferences .lichessTools-toggleExtension {

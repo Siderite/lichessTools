@@ -214,3 +214,20 @@ body.lichessTools .lichessTools-teamTv select.lichessTools-teams {
   position: absolute;
   max-width: max-content;
 }
+
+body.lichessTools a.tv-channel:is(.lichessTools-friends,.lichessTools-streamers,.lichessTools-team) span[data-icon] {
+  order: 2;
+  font-size: 2em;
+  text-shadow: 0 1px 0 var(--c-font-shadow);
+  color: color-mix(in oklab, var(--c-brag) 60%, var(--c-bg-page));
+  width: auto;
+  margin-inline-start: .8rem;
+}
+
+body.lichessTools a.tv-channel.lichessTools-friends > span {
+  width: 100%;
+  justify-content: flex-end;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}

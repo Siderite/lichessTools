@@ -115,7 +115,15 @@
         if (elem.length) {
           elem.toggleClass('active', this.isStreamerTvPage());
         } else {
-          $(`<a href="/games#streamers" class="tv-channel lichessTools-streamers"><span data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#streamers" class="tv-channel lichessTools-streamers">
+  <span>
+    <span data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></span>
+    <span>
+      <strong></strong>
+      <span></span>
+    </span>
+  </span>
+</a>`)
             .attr('title', trans.noarg('streamersButtonTitle'))
             .insertAfter($('a.lichessTools-friends', container)[0] || $('a.best', container)[0])
             .toggleClass('active', this.isStreamerTvPage())
@@ -135,7 +143,15 @@
         if (elem.length) {
           elem.toggleClass('active', this.isFriendsTvPage());
         } else {
-          $(`<a href="/games#friends" class="tv-channel lichessTools-friends"><span data-icon="${lt.icon.toEntity(lt.icon.User)}"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#friends" class="tv-channel lichessTools-friends">
+  <span>
+    <span data-icon="${lt.icon.toEntity(lt.icon.User)}"></span>
+    <span>
+      <strong></strong>
+      <span></span>
+    </span>
+  </span>
+</a>`)
             .attr('title', trans.noarg('friendsButtonTitle'))
             .insertAfter($('a.best', container))
             .toggleClass('active', this.isFriendsTvPage())
@@ -155,7 +171,15 @@
         if (elem.length) {
           elem.toggleClass('active', this.isTeamTvPage());
         } else {
-          $(`<a href="/games#team" class="tv-channel lichessTools-team"><span data-icon="${lt.icon.toEntity(lt.icon.Group)}"><span><strong></strong></span></span></a>`)
+          $(`<a href="/games#team" class="tv-channel lichessTools-team">
+  <span>
+    <span data-icon="${lt.icon.toEntity(lt.icon.Group)}"></span>
+    <span>
+      <strong></strong>
+      <span></span>
+    </span>
+  </span>
+</a>`)
             .attr('title', trans.noarg('teamButtonTitle'))
             .insertAfter($('a.best', container))
             .toggleClass('active', this.isTeamTvPage())
