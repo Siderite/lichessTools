@@ -604,8 +604,10 @@ Varia\u0163ii urm\u0103toare: $branches`,
 
       menu.toggleClassSafe('lichessTools-removeSuperfluous',this.options.removeSuperfluous);
       if (this.options.removeSuperfluous) {
+		$('a[data-icon="'+lt.icon.BubbleSpeech+'"],a.glyph-icon', menu).remove(); //TODO remove when font icons are removed from Lichess
         $('a:has(.icon-bubbleSpeech),a:has(.glyph-icon)', menu).remove();
         if (this.options.copyPgn) {
+		  $('a[data-icon="'+lt.icon.Clipboard+'"]', menu).remove(); //TODO remove when font icons are removed from Lichess
           $('a:has(.icon-clipboard)', menu).remove();
         }
       }

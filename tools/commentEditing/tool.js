@@ -57,7 +57,8 @@
             })
             .prependTo(e);
         });
-      $('.study__comment a:has(.icon-trash)')
+      $(`.study__comment a[data-icon="${lt.icon.Trash}"],
+	    .study__comment a:has(.icon-trash)`)  //TODO remove data-icon part when font icons are removed from Lichess
         .each((i,e)=>{
           if (e._initTrash) return;
           e._initTrash = true;

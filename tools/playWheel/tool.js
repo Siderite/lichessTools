@@ -32,15 +32,18 @@
       if (!target.is('cg-board') && !target.closest('cg-board').length) return;
       this.scrollTotal += ev.deltaY * (ev.deltaMode ? 40 : 1);
       if (Math.abs(this.scrollTotal) >= 20) {
-        const icon = ev.deltaY > 0
+        const iconName = ev.deltaY > 0
           ? 'jumpNext'
           : 'jumpPrev';
-        const button = $.cached('.round__app :is(.buttons,bo3) button.fbt:has(.icon-'+icon+')');
+		 const icon = ev.deltaY > 0 // TODO remove the data-icon part when font icons are removed from Lichess
+          ? lt.icon.JumpNext
+          : lt.icon.JumpPrev;
+        const button = $('.round__app :is(.buttons,bo3)')
+		                 .find('button.fbt:has(.icon-'+iconName+'),button.fbt[data-icon="'+icon+'"]'); // TODO remove the data-icon part when font icons are removed from Lichess
         if (!button.prop('disabled')) {
           button
             .trigger('pointerdown')
             .trigger('pointerup');
-            //.prop('disabled',true);
         }
         this.scrollTotal = 0;
       }

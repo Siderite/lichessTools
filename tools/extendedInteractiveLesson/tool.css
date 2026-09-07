@@ -1,7 +1,18 @@
+
 body.lichessTools.lichessTools-extendedInteractiveLesson button.preview .icon-eye {
   background-color: transparent;
   mask: unset;
   -webkit-mask: unset;
+}
+
+/* TODO remove when font icons are removed from Lichess */
+body.lichessTools.lichessTools-extendedInteractiveLesson:not(.lichessTools-fontIcons) button.preview::before {
+  position: relative;
+  display: block;
+  transform: scale(1.5);
+  float: left;
+  top: -2px;
+  content: var(--icon-Storm);
 }
 
 body.lichessTools.lichessTools-extendedInteractiveLesson button.preview .icon-eye:before {
