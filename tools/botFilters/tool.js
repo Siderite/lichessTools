@@ -160,19 +160,22 @@
         lt.icon.KeyPad,
         lt.icon.FlagRacingKings
       ];
-      const icons = [...new Set(
+	  const oldIcons = [...new Set($('.bots__list__entry__rating') // TODO remove oldIcons when Lichess removes font icons
+        .find('span').get().map(e=>$(e).attr('data-icon')))];
+      const newIcons = [...new Set(
         $('.bots__list__entry__rating')
           .find('span.svg-icon')
           .get()
           .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
           .map(lt.iconClassToIcon)
       )];
+	  const icons = oldIcons.concat(newIcons);
       const findex = (x)=>{ const i=order.indexOf(x); return i<0?1000:i; };
       icons.sort((a,b)=>findex(a)-findex(b));
       const div = container.find('.types');
       for (const icon of icons) {
         div.append($('<input type="checkbox" checked>')
-          .attr('data-icon',lt.icon[icon])
+          .attr('data-icon',icon)
         );
       };
       $('input',container)
