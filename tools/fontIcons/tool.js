@@ -45,7 +45,7 @@
       const $ = lt.$;
       $('body').toggleClassSafe('lichessTools-fontIcons',false);
       if (value) {
-        const fontExists = [...lt.global.document.fonts].find(f=>['lichess','lichessTools'].includes(f.family));
+        const fontExists = [...lt.global.document.fonts].find(f=>['lichess','lichessTools'].includes(f.family.replaceAll('"','')));
         if (!fontExists) {
           await this.loadLtFont();
         }
