@@ -1,0 +1,131 @@
+body.lichessTools .lobby__app-seeks .hooks__list tr.lichessTools-filteredOut,
+body.lichessTools .lseeks.lichessTools-filterActive .hooks__list tr.seek:not(.lichessTools-seekShown) {
+  display: none;
+}
+
+body.lichessTools .lseeks.lichessTools-filterOpen > .hooks__list,
+body.lichessTools .lseeks.lichessTools-filterOpen > .create {
+  display: none;
+}
+
+body.lichessTools .lichessTools-rangePair {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  --lt-thumb: 1.5em;
+  --lt-inset: calc(3em + 1ch);
+  --lt-on: var(--c-shade, #ccc);
+  --lt-selected: var(--c-secondary-dimmer, var(--c-secondary, #7cb342));
+  --lt-off: color-mix(in srgb, var(--c-shade, #ccc) 30%, var(--c-bg-box, #fff));
+}
+
+body.lichessTools .lichessTools-rangePair label.range {
+  margin-bottom: 4px;
+}
+
+/* both sliders on the same value: show it once, centered */
+body.lichessTools .lichessTools-rangePair label.range.lichessTools-single {
+  grid-template-columns: 1fr;
+}
+
+body.lichessTools .lichessTools-rangePair label.range.lichessTools-single span {
+  text-align: center;
+}
+
+body.lichessTools .lichessTools-rangeRow {
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+}
+
+body.lichessTools .lichessTools-rangeCaption {
+  flex: 0 0 3em;
+  color: var(--c-font-dim);
+  font-size: 0.85em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+body.lichessTools .lichessTools-rangeRow input.range {
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0.4em 0;
+}
+
+/* stacked pair (timeframe): highlight the selected span on both tracks, gray out what the other knob makes unreachable */
+body.lichessTools input.range.lichessTools-rangeMin::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--lt-on) var(--lt-lo-pos), var(--lt-selected) var(--lt-lo-pos) var(--lt-hi-pos), var(--lt-off) var(--lt-hi-pos));
+}
+
+body.lichessTools input.range.lichessTools-rangeMax::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--lt-off) var(--lt-lo-pos), var(--lt-selected) var(--lt-lo-pos) var(--lt-hi-pos), var(--lt-on) var(--lt-hi-pos));
+}
+
+body.lichessTools input.range.lichessTools-rangeMin::-moz-range-track {
+  background: linear-gradient(to right, var(--lt-on) var(--lt-lo-pos), var(--lt-selected) var(--lt-lo-pos) var(--lt-hi-pos), var(--lt-off) var(--lt-hi-pos));
+}
+
+body.lichessTools input.range.lichessTools-rangeMax::-moz-range-track {
+  background: linear-gradient(to right, var(--lt-off) var(--lt-lo-pos), var(--lt-selected) var(--lt-lo-pos) var(--lt-hi-pos), var(--lt-on) var(--lt-hi-pos));
+}
+
+/* shared track for rating range slider */
+body.lichessTools .lichessTools-rangeDual {
+  --lt-inset: 0px;
+}
+
+body.lichessTools .lichessTools-rangeDual .lichessTools-rangeRow {
+  position: relative;
+  height: 1.8em; /* the inputs' height: a 1em track plus 0.4em padding above and below */
+}
+
+body.lichessTools .lichessTools-rangeDual .lichessTools-rangeTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.4em; /* same offset as the inputs' own (transparent) tracks, so the knobs sit on it */
+  height: 1em;
+  border-radius: var(---ui-roundness, 7px);
+  background: linear-gradient(to right, var(--lt-on) var(--lt-lo-pos), var(--lt-selected) var(--lt-lo-pos) var(--lt-hi-pos), var(--lt-on) var(--lt-hi-pos));
+}
+
+body.lichessTools .lichessTools-rangeDual input.range {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+body.lichessTools .lichessTools-rangeDual input.range::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+body.lichessTools .lichessTools-rangeDual input.range::-moz-range-track {
+  background: transparent;
+}
+
+body.lichessTools .lichessTools-rangeDual input.range::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+body.lichessTools .lichessTools-rangeDual input.range::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+body.lichessTools .lichessTools-rangeTicks {
+  display: flex;
+  justify-content: space-between;
+  margin-left: calc(var(--lt-inset) + var(--lt-thumb) / 2);
+  margin-right: calc(var(--lt-thumb) / 2);
+  color: var(--c-font-dim);
+  font-size: 0.8em;
+  line-height: 1;
+}
+
+body.lichessTools .lichessTools-rangeTicks span {
+  display: inline-flex;
+  justify-content: center;
+  width: 0;
+  white-space: nowrap;
+}
