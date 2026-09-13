@@ -229,6 +229,7 @@
       lt.unbindKeyHandler('i');
       lt.unbindKeyHandler('m');
       lt.unbindKeyHandler('b');
+      lt.unbindKeyHandler('shift+b');
       lt.unbindKeyHandler('g');
       lt.unbindKeyHandler('alt+i', true);
       lt.unbindKeyHandler('alt+m', true);
@@ -264,6 +265,9 @@
           }
           lt.jumpToGlyphSymbols('?');
         });
+        if (this.oldHandlers['b']) {
+          lt.bindKeyHandler('shift+b', this.oldHandlers['b']);
+        }
         lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
         lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
         lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));

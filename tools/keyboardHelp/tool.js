@@ -131,6 +131,7 @@
           .addClass('lichessTools-disabled')
           .attr('title', trans.noarg('seeLichessTools'));
 
+        row(['shift','b'], 'boardEditor');
         row(['b'], 'nextBlunder');
         if (!analysis?.retro) {
           row(['m'], 'nextMistake');
