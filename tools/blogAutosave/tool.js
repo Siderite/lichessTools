@@ -20,7 +20,8 @@
         'blogAutosave.autosave': 'Auto save',
         'blogAutosave.savebutton': 'Save button',
         'blogSaved': 'Blog saved',
-        'blogSave': 'Save'
+        'blogSave': 'Save',
+        'errorSavingBlogMessage': 'Error saving - check content and captcha'
       },
       'ro-RO': {
         'options.comm': 'Chat, forumuri, blog-uri',
@@ -28,13 +29,15 @@
         'blogAutosave.autosave': 'Salvare automat\u0103',
         'blogAutosave.savebutton': 'Buton salvare',
         'blogSaved': 'Blog salvat',
-        'blogSave': 'Salveaz\u0103'
+        'blogSave': 'Salveaz\u0103',
+        'errorSavingBlogMessage': 'Eroare la salvare - verific\u0103 con\u0163inutul \u015fi captcha'
       }
     }
 
     saveBlog = async (forced) => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       const form = $('form.ublog-post-form__main');
       if (!form.length) return;
       if (!forced && form.find('[name="live"]').is(':checked')) return;
@@ -56,6 +59,10 @@
       try {
         $('body').addClass('lichessTools-blogAutosave');
         await lt.api.blog.save(this.blogId, arr);
+      } catch(e) {
+        if (forced) {
+          lt.announce(trans.noarg('errorSavingBlogMessage'));
+        }
       } finally {
         lt.global.setTimeout(() => $('body').removeClass('lichessTools-blogAutosave'), 2000);
       }
