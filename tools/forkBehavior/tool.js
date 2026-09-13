@@ -123,7 +123,7 @@
           }
         }
         dlg = await lt.dialog({
-          htmlText: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('OK') + '</button></span>'
+          htmlText: selectElem[0].outerHTML + '<span class="dialog-actions"><button class="button submit">' + trans.noarg('ok') + '</button></span>'
         });
       }
       $('dialog.lichessTools-forkBehavior-chessbase')

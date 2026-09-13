@@ -1231,7 +1231,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2465,7 +2466,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3699,7 +3701,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4933,7 +4936,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6167,7 +6171,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7401,7 +7406,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8635,7 +8641,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9869,7 +9876,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11103,7 +11111,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12337,7 +12346,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13571,7 +13581,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14805,7 +14816,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16039,7 +16051,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17273,7 +17286,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18507,7 +18521,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19741,7 +19756,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20975,7 +20991,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22209,7 +22226,8 @@
     "options.correspondenceLobbyFilters": "Filtre jocuri corespondență în lobby",
     "filterToggleTitle": "LiChess Tools - filtrează jocurile prin corespondență",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23443,7 +23461,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24677,7 +24696,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25911,7 +25931,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27145,7 +27166,8 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28379,6 +28401,7 @@
     "options.correspondenceLobbyFilters": "Correspondence lobby filters",
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
-    "maxCaption": "max"
+    "maxCaption": "max",
+    "then": "then"
   }
 }

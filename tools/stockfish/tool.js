@@ -278,7 +278,7 @@
       this.postMessage('setoption name UCI_Elo value 3190');
       this.postMessage('setoption name UCI_ShowWDL value true');
       this.postMessage('position fen ' + this._fen);
-      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : ' infinite') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
+      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : '') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
       this._isStarted = true;
       this.lt.debug && this.lt.global.console.debug('SF', 'Engine started');
     }

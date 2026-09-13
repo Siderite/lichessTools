@@ -49,7 +49,8 @@
         'copyFenToClipboard': 'Copy FEN to clipboard',
         'searchMoves': 'Search in move list',
         'deeperPlus': 'Analyse deeper',
-        'keyRequestComputerAnalysis': 'Request computer analysis, Learn from your mistakes'
+        'keyRequestComputerAnalysis': 'Request computer analysis, Learn from your mistakes',
+        'then': 'then'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -83,7 +84,8 @@
         'copyFenToClipboard': 'Copiaz\u0103 FEN \u00een clipboard',
         'searchMoves': 'Caut\u0103 \u00een lista de mut\u0103ri',
         'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103',
-        'keyRequestComputerAnalysis': 'Solicit\u0103 analiza calculatorului, \u00CEnva\u0163\u0103 din gre\u015felile tale'
+        'keyRequestComputerAnalysis': 'Solicit\u0103 analiza calculatorului, \u00CEnva\u0163\u0103 din gre\u015felile tale',
+        'then': 'pe urm\u0103'
       }
     }
 
