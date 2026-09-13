@@ -153,6 +153,7 @@ lichessTools.loadTool(LiChessTools.Tools.ShowFps);
 lichessTools.loadTool(LiChessTools.Tools.ShowOpponentMoves);
 lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
 lichessTools.loadTool(LiChessTools.Tools.BoardSaturate);
+lichessTools.loadTool(LiChessTools.Tools.CorrespondenceLobbyFilters);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
