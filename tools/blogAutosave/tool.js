@@ -65,6 +65,7 @@
       if (!form.length) return;
       if (!this.checkValidityDirect()) {
         $('body').toggleClassSafe('lichessTools-blogSaveError',true);
+        return;
       }
       if (!forced && form.find('[name="live"]').is(':checked')) return;
       const content = $('#form3-markdown').val();
