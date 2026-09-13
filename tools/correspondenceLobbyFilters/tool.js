@@ -228,8 +228,9 @@
           const f = (v - min) / (max - min);
           return f <= 0 ? '0%' : f >= 1 ? '100%' : `calc(var(--lt-thumb) / 2 + (100% - var(--lt-thumb)) * ${f})`;
         };
-        wrap[0].style.setProperty('--lt-lo-pos', pos(lo));
-        wrap[0].style.setProperty('--lt-hi-pos', pos(hi));
+        wrap
+          .css('--lt-lo-pos', pos(lo))
+          .css('--lt-hi-pos', pos(hi));
         minInput.attr('aria-valuetext', format(lo));
         maxInput.attr('aria-valuetext', format(hi));
         label.empty().toggleClassSafe('lichessTools-single', lo === hi);
@@ -354,12 +355,12 @@
       let toggle = content.children('.lichessTools-filterToggle');
       if (!toggle.length) {
         toggle = $('<button class="toggle toggle-filter lichessTools-filterToggle">')
-          .attr('title', trans.noarg('filterToggleTitle'))
           .on('click', this.togglePanel)
           .prependTo(content);
       }
       toggle
         .toggleClassSafe('active', this.isOpen)
+        .attr('title', trans.noarg(this.isOpen ? 'close' : 'filterToggleTitle'))
         .attr('data-icon', this.isOpen ? lt.icon.X : lt.icon.Gear)
         .attr('aria-label', this.siteText(this.isOpen ? 'close' : 'filterGames'));
       const panel = content.children('.lichessTools-corrFilters');
