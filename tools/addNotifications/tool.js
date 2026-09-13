@@ -73,6 +73,7 @@
       for (const entry of entries) {
         if (!notifications.length) {
           const emptyDiv = $('div.empty', app)
+		                     .removeAttr('data-icon') // TODO remove when font icons are completely removed from Lichess
                              .css('padding','0')
                              .empty();
           notifications = $('<div class="notifications">')

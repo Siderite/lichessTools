@@ -66,6 +66,7 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-c
 }
 
 /* icon-Trash */
+body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before,
 body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a span.icon-trash {
   color: var(--c-accent);
 }

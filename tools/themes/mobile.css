@@ -169,12 +169,21 @@ body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__board {
   margin-bottom: 1em;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__board:has(.analyse__player_strip.bottom .material mpiece) {
+  margin-bottom: 2em;
+}
+
+
 body.lichessTools.lichessTools-theme_mobile.mobile div.eval-gauge {
   margin-top: 1em;
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile div.analyse__player_strip {
   display: flex;
+}
+
+body.lichessTools.lichessTools-theme_mobile.mobile.coords-out .is2d .analyse__player_strip.bottom {
+    top: var(---cg-height, 100%);
 }
 
 body.lichessTools.lichessTools-theme_mobile.mobile aside.analyse__side div.game__meta__players {

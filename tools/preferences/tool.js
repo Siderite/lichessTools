@@ -454,7 +454,10 @@
           checkAdvanced();
           showSaved();
         }, 500));
-      lichess.powertip?.manualUser($('div.feedback a', container)[0]);
+      const feedbackLink = $('div.feedback a', container)[0];
+	  if (feedbackLink) {
+        lichess.powertip?.manualUser(feedbackLink);
+	  }
       $('.folder button.picker', container)
         .on('click', async ev => {
           ev.preventDefault();

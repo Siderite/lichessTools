@@ -108,11 +108,11 @@
         this.dataBoard3d = body.attr('data-board3d');
         this.board = board;
       }
-      const dataTheme = lt.global.document.body.dataset.theme;
+      let dataTheme = lt.global.document.body.dataset.theme;
       if (!html.is('.dark,.light') || dataTheme != this.dataTheme) {
         this.dataTheme = dataTheme;
         if (dataTheme == 'system') {
-          dataTheme = window.matchMedia('(prefers-color-scheme: light)') ? 'light' : 'dark';
+          dataTheme = window.matchMedia('(prefers-color-scheme: light)')?.matches ? 'light' : 'dark';
         }
         const isLight = dataTheme.includes('light');
         html

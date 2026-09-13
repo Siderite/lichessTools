@@ -47,26 +47,39 @@
       const maxRating = $('#chk_max_rating').val() || 3000;
       const minGames = $('#chk_min_games').val() || 0;
       const maxGames = $('#chk_max_games').val() || 10000000000;
-      const icons = new Set($('.types input[data-icon]:checked').get().map(e=>$(e).attr('data-icon')));
+      const icons = $('.types input[data-icon]:checked').get().map(e=>$(e).attr('data-icon'));
       $('.bots__list__entry')
         .each((i,e)=>{
           const found = $('.bots__list__entry__rating',e)
             .filter((i2,e2)=>{
-              const span = $(e2).find('span');
-              if (!span.length) return showUnrated;
-              const games = +(span.attr('title').replace(/[^\d]/g,''));
-              const botIcons = span.find('span.svg-icon')
+              const spans = $(e2).children('span');
+              if (!spans.length) return showUnrated;
+			  return !!spans.filter((i3,e3)=>{
+				const span = $(e3);
+                const games = +(span.attr('title').replace(/[^\d]/g,''));
+                const botIcon = span.find('span.svg-icon')
                                .get()
                                .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
                                .map(lt.iconClassToIcon)
-                               .map(n=>lt.icon[n]);
-              const rating = +(span.text().replace(/[^\d]/g,''));
-              const typeFilter = new Set(botIcons).intersection(icons).size;
-              return typeFilter && (rating 
-                                      ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
-                                      : showUnrated);
+                               .map(n=>lt.icon[n])[0];
+                const rating = +(span.text().replace(/[^\d]/g,''));
+                return icons.indexOf(botIcon)>=0 && (rating 
+                                                  ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
+                                                  : showUnrated);
+              }).length;
             });
-          $(e).toggleClassSafe('filteredOut',!found.length);
+          const foundOld = $('.bots__list__entry__rating',e)
+            .filter((i2,e2)=>{
+              const span = $(e2).find('span');
+              if (!span.length) return showUnrated;
+              const games = +(span.attr('title').replace(/[^\d]/g,''));
+              const icon = span.attr('data-icon');
+              const rating = +(span.text().replace(/[^\d]/g,''));
+              return icons.indexOf(icon)>=0 && (rating 
+                                                  ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
+                                                  : showUnrated);
+            });
+          $(e).toggleClassSafe('filteredOut',!found.length&&!foundOld.length);
         });
       this.refreshAllTypesButton();
     };
@@ -147,19 +160,22 @@
         lt.icon.KeyPad,
         lt.icon.FlagRacingKings
       ];
-      const icons = [...new Set(
+	  const oldIcons = [...new Set($('.bots__list__entry__rating') // TODO remove oldIcons when Lichess removes font icons
+        .find('span').get().map(e=>$(e).attr('data-icon')))];
+      const newIcons = [...new Set(
         $('.bots__list__entry__rating')
           .find('span.svg-icon')
           .get()
           .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
           .map(lt.iconClassToIcon)
       )];
+	  const icons = oldIcons.concat(newIcons);
       const findex = (x)=>{ const i=order.indexOf(x); return i<0?1000:i; };
       icons.sort((a,b)=>findex(a)-findex(b));
       const div = container.find('.types');
       for (const icon of icons) {
         div.append($('<input type="checkbox" checked>')
-          .attr('data-icon',lt.icon[icon])
+          .attr('data-icon',icon)
         );
       };
       $('input',container)
