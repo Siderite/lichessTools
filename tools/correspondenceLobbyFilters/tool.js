@@ -18,39 +18,15 @@
         'options.appearance': 'Appearance',
         'options.correspondenceLobbyFilters': 'Correspondence lobby filters',
         'filterToggleTitle': 'LiChess Tools - filter correspondence games',
-        'filterGames': 'Filter games',
-        'close': 'Close',
-        'variant': 'Variant',
-        'daysPerTurn': 'Days per turn',
-        'mode': 'Mode',
-        'ratingFilter': 'Rating filter',
-        'casual': 'Casual',
-        'rated': 'Rated',
-        'reset': 'Reset',
-        'apply': 'Apply',
         'minCaption': 'min',
-        'maxCaption': 'max',
-        'nbDays': '%s days',
-        'nbDays:one': 'One day'
+        'maxCaption': 'max'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
         'options.correspondenceLobbyFilters': 'Filtre pentru lobby-ul de coresponden\u0163\u0103',
         'filterToggleTitle': 'LiChess Tools - filtreaz\u0103 jocurile prin coresponden\u0163\u0103',
-        'filterGames': 'Filtreaz\u0103 jocurile',
-        'close': '\u00cenchide',
-        'variant': 'Variant\u0103',
-        'daysPerTurn': 'Zile pe mutare',
-        'mode': 'Mod',
-        'ratingFilter': 'Filtru rating',
-        'casual': 'Amical',
-        'rated': 'Oficial',
-        'reset': 'Reseteaz\u0103',
-        'apply': 'Aplic\u0103',
         'minCaption': 'min',
-        'maxCaption': 'max',
-        'nbDays': '%s zile',
-        'nbDays:one': 'O zi'
+        'maxCaption': 'max'
       }
     }
 
@@ -120,12 +96,6 @@
       lt.storage.set(this.storageKey, f && !this.isDefaultFilter(f) ? f : undefined);
     };
 
-    siteText = (key) => {
-      const lt = this.lichessTools;
-      const value = lt.global.i18n?.site?.[key];
-      return typeof value === 'string' ? value : lt.translator.noarg(key);
-    };
-
     variantText = (key, fallback = key) => {
       const value = this.lichessTools.global.i18n?.variant?.[key];
       return typeof value === 'string' ? value : fallback;
@@ -146,6 +116,7 @@
     parseSeek = (tr) => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       const tds = $(tr).children('td');
       const icon = tds.eq(3).find('[data-icon],.svg-icon');
       const iconKey = icon.attr('data-icon') || (icon.attr('class') || '').match(/\bicon-(\w+)/)?.[1]?.toLowerCase();
@@ -154,7 +125,11 @@
         rating: +tds.eq(1).text().replace(/\D/g, ''),
         days: +(/\d+/.exec(tds.eq(2).text())?.[0]) || Infinity,
         variant: this.variantByIcon[iconKey],
-        rated: modeText === this.siteText('rated') ? true : modeText === this.siteText('casual') ? false : undefined
+        rated: modeText === trans.noarg('rated')
+                 ? true 
+                 : modeText === trans.noarg('casual')
+                     ? false
+                     : undefined
       };
     };
 
@@ -275,12 +250,13 @@
     buildPanel = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       const f = this.getFilter();
       const panel = $('<div class="hook__filters lichessTools-corrFilters">');
       const form = $('<form novalidate>').appendTo(panel);
       const tbody = $('<tbody>').appendTo($('<table>').appendTo(form));
       const row = (cls, labelKey, ...content) => $('<tr>').addClass(cls)
-        .append($('<td>').text(this.siteText(labelKey)))
+        .append($('<td>').text(trans.noarg(labelKey)))
         .append($('<td>').append(...content))
         .appendTo(tbody);
 
@@ -298,7 +274,7 @@
       }));
 
       row('inline', 'mode', ...['casual', 'rated'].map((m, i) =>
-        this.checkable('mode', i, m, this.siteText(m), null, f.mode.includes(m))));
+        this.checkable('mode', i, m, trans.noarg(m), null, f.mode.includes(m))));
 
       const ratingTicks = [];
       for (let r = this.ratingRange.min; r <= this.ratingRange.max; r += 500) ratingTicks.push(r);
@@ -314,10 +290,10 @@
       $('<div class="actions">')
         .append($('<button type="reset" class="button button-empty button-red text reset">')
           .attr('data-icon', lt.icon.NotAllowed)
-          .text(this.siteText('reset')))
+          .text(trans.noarg('reset')))
         .append($('<button type="submit" class="button button-green text apply">')
           .attr('data-icon', lt.icon.Checkmark)
-          .text(this.siteText('apply')))
+          .text(trans.noarg('apply')))
         .appendTo(form);
 
       form
@@ -361,8 +337,7 @@
       toggle
         .toggleClassSafe('active', this.isOpen)
         .attr('title', trans.noarg(this.isOpen ? 'close' : 'filterToggleTitle'))
-        .attr('data-icon', this.isOpen ? lt.icon.X : lt.icon.Gear)
-        .attr('aria-label', this.siteText(this.isOpen ? 'close' : 'filterGames'));
+        .attr('data-icon', this.isOpen ? lt.icon.X : lt.icon.Gear);
       const panel = content.children('.lichessTools-corrFilters');
       if (this.isOpen && !panel.length) {
         this.buildPanel().insertAfter(toggle);

@@ -92,8 +92,11 @@
       noarg(key) {
         const lt = this.lichessTools;
         const dict = lt.intl.siteI18n;
-        const result =  dict[key] || lt.global?.i18n(key);
+        const result = dict[key];
         if (result) return result;
+        const i18n = lt.global?.i18n || {};
+        const section = Object.values(i18n).find(v=>typeof v[key] === 'string');
+        if (section) return section[key];
         lt.global.console.warn('Translation not found for key ',key);
         return key;
       }
