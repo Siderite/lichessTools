@@ -31,7 +31,7 @@
         'minCaption': 'min',
         'maxCaption': 'max',
         'nbDays': '%s days',
-        'nbDays:one': '1 day'
+        'nbDays:one': 'One day'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -44,13 +44,13 @@
         'mode': 'Mod',
         'ratingFilter': 'Filtru rating',
         'casual': 'Amical',
-        'rated': 'Cotat',
+        'rated': 'Oficial',
         'reset': 'Reseteaz\u0103',
         'apply': 'Aplic\u0103',
         'minCaption': 'min',
         'maxCaption': 'max',
         'nbDays': '%s zile',
-        'nbDays:one': '1 zi'
+        'nbDays:one': 'O zi'
       }
     }
 
