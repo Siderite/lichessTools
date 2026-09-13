@@ -23,7 +23,7 @@
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
-        'options.correspondenceLobbyFilters': 'Filtre pentru lobby-ul de coresponden\u0163\u0103',
+        'options.correspondenceLobbyFilters': 'Filtre jocuri coresponden\u0163\u0103 \u00een lobby',
         'filterToggleTitle': 'LiChess Tools - filtreaz\u0103 jocurile prin coresponden\u0163\u0103',
         'minCaption': 'min',
         'maxCaption': 'max'
