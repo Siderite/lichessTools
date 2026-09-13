@@ -1232,7 +1232,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2467,7 +2468,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3702,7 +3704,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4937,7 +4940,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6172,7 +6176,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7407,7 +7412,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8642,7 +8648,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9877,7 +9884,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11112,7 +11120,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12347,7 +12356,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13582,7 +13592,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14817,7 +14828,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16052,7 +16064,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17287,7 +17300,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18522,7 +18536,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19757,7 +19772,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20992,7 +21008,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22227,7 +22244,8 @@
     "filterToggleTitle": "LiChess Tools - filtrează jocurile prin corespondență",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "pe urmă",
+    "errorSavingBlogMessage": "Eroare la salvare - verifică conținutul și captcha"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23462,7 +23480,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24697,7 +24716,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25932,7 +25952,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27167,7 +27188,8 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28402,6 +28424,7 @@
     "filterToggleTitle": "LiChess Tools - filter correspondence games",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then"
+    "then": "then",
+    "errorSavingBlogMessage": "Error saving - check content and captcha"
   }
 }
