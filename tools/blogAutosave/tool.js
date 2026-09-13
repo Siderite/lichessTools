@@ -34,12 +34,38 @@
       }
     }
 
+    checkValidityDirect = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const titleElem = $('#form3-title');
+      const title = titleElem.val();
+      const titleValid = title && title.length>=3 && title.length<=80;
+      titleElem.toggleClassSafe('lichessTools-invalid',!titleValid);
+      const introElem = $('#form3-intro');
+      const intro = introElem.val();
+      const introValid = intro && intro.length<=1000;
+      introElem.toggleClassSafe('lichessTools-invalid',!introValid);
+      const contentElem = $('.toastui-editor');
+      const content = $('#form3-markdown').val();
+      const contentValid = !!content;
+      contentElem.toggleClassSafe('lichessTools-invalid',!contentValid);
+      const captchaElem = $('.captcha cg-board');
+      const captcha = $('input[name="move"]').val();
+      const captchaValid = captcha && !$('.captcha').is('.failure');
+      captchaElem.toggleClassSafe('lichessTools-invalid',!captchaValid);
+      return titleValid && introValid && contentValid && captchaValid;
+    }
+    checkValidity = this.lichessTools.debounce(this.checkValidityDirect,500);
+
     saveBlog = async (forced) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       const form = $('form.ublog-post-form__main');
       if (!form.length) return;
+      if (!this.checkValidityDirect()) {
+        $('body').toggleClassSafe('lichessTools-blogSaveError',true);
+      }
       if (!forced && form.find('[name="live"]').is(':checked')) return;
       const content = $('#form3-markdown').val();
       if (!content) return;
@@ -59,9 +85,12 @@
       try {
         $('body').addClass('lichessTools-blogAutosave');
         await lt.api.blog.save(this.blogId, arr);
+        $('body').toggleClassSafe('lichessTools-blogSaveError',false);
       } catch(e) {
         if (forced) {
           lt.announce(trans.noarg('errorSavingBlogMessage'));
+        } else {
+          $('body').toggleClassSafe('lichessTools-blogSaveError',true);
         }
       } finally {
         lt.global.setTimeout(() => $('body').removeClass('lichessTools-blogAutosave'), 2000);
@@ -102,6 +131,10 @@
             this.saveBlog(true);
           })
           .insertBefore('form.ublog-post-form__main div.form-actions button[type=submit]');
+      }
+      $('input, textarea, [contenteditable="true"]').off('input change',this.checkValidity);
+      if (this.options.autosave || this.options.savebutton) {
+        $('input, textarea, [contenteditable="true"]').on('input change',this.checkValidity);
       }
       if (value) {
         $('<p class="lichessTools-saved">')
