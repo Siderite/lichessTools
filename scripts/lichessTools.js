@@ -1786,6 +1786,7 @@
     }
 
     addRetries = (obj, key, maxRetries) => {
+      const lt = this;
       const original = obj[key];
       if (typeof original !== "function") {
         throw new Error("Key must point to a function");
