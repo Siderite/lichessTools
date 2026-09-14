@@ -2464,12 +2464,12 @@
     "countersPieTitle": "上月时限 ($mode)：\n  子弹棋：$bullet%\n  快棋：$fast%\n  慢棋：$slow%",
     "counterPieTimeMode": "时间",
     "counterPieCountMode": "统计",
-    "options.correspondenceLobbyFilters": "Correspondence lobby filters",
-    "filterToggleTitle": "LiChess Tools - filter correspondence games",
-    "minCaption": "min",
-    "maxCaption": "max",
-    "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "options.correspondenceLobbyFilters": "通讯棋大厅筛选器",
+    "filterToggleTitle": "LiChess Tools - 筛选通讯棋对局",
+    "minCaption": "最小",
+    "maxCaption": "最大",
+    "then": "然后",
+    "errorSavingBlogMessage": "保存出错 - 请检查内容和验证码"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -8644,12 +8644,12 @@
     "countersPieTitle": "Cadences de jeu du mois dernier ($mode) :\n  Bullet : $bullet%\n  Rapide : $fast%\n  Classique : $slow%",
     "counterPieTimeMode": "durée",
     "counterPieCountMode": "nombre",
-    "options.correspondenceLobbyFilters": "Correspondence lobby filters",
-    "filterToggleTitle": "LiChess Tools - filter correspondence games",
+    "options.correspondenceLobbyFilters": "Filtres parties par correspondance du salon",
+    "filterToggleTitle": "LiChess Tools - filtrer les parties par correspondance",
     "minCaption": "min",
     "maxCaption": "max",
-    "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "then": "puis",
+    "errorSavingBlogMessage": "Erreur lors de l'enregistrement : vérifiez le contenu et le captcha"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -27184,12 +27184,12 @@
     "countersPieTitle": "Geçen ayki zaman kontrolleri ($mode):\n  Bullet: $bullet%\n  Hızlı: $fast%\n  Yavaş: $slow%",
     "counterPieTimeMode": "süre",
     "counterPieCountMode": "sayı",
-    "options.correspondenceLobbyFilters": "Correspondence lobby filters",
-    "filterToggleTitle": "LiChess Tools - filter correspondence games",
-    "minCaption": "min",
-    "maxCaption": "max",
-    "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "options.correspondenceLobbyFilters": "Yazışma lobisi filtreleri",
+    "filterToggleTitle": "LiChess Tools - yazışma oyunlarını filtrele",
+    "minCaption": "en az",
+    "maxCaption": "en çok",
+    "then": "ve sonra",
+    "errorSavingBlogMessage": "Kaydetme hatası - içeriği ve captcha'yı kontrol edin"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",

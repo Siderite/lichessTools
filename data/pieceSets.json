@@ -627,6 +627,13 @@
     },
     {
       "category": "lichess",
+      "name": "minimal-warmth",
+      "url": "https://raw.githubusercontent.com/lichess-org/lila/refs/heads/master/public/piece/minimal-warmth/",
+      "type": "webp",
+      "cap": "wN"
+    },
+    {
+      "category": "lichess",
       "name": "monarchy",
       "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/monarchy/",
       "type": "webp",
@@ -674,6 +681,13 @@
         "x": 3,
         "y": 8
       }
+    },
+    {
+      "category": "lichess",
+      "name": "papercut",
+      "url": "https://raw.githubusercontent.com/lichess-org/lila/refs/heads/master/public/piece/papercut/",
+      "type": "svg",
+      "cap": "wN"
     },
     {
       "category": "lichess",
