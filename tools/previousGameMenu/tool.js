@@ -65,30 +65,32 @@
       const translatedText = trans.noarg('lastViewedGame');
       const translatedTitle = trans.noarg('lastViewedGameTitle');
       const games = lt.currentOptions.getValue('prevGames') || [];
+      if (!games?.length) return;
+
       const item = $('<a/>')
         .addClass('lichessTools-previousGame')
         .text(translatedText)
         .attr('title', translatedTitle);
 
       const gameId = lt.location.getUrlGameId();
+      let index = games.length;
       if (gameId) {
-        let index = games.findIndex(g => g.id == gameId);
+        index = games.findIndex(g => g.id == gameId);
         if (index <= 0) index = games.length;
-        const game = games[index - 1];
-        if (game) {
-          item.attr('href', '/' + game.id + '/' + game.orientation);
-          const f = ()=>{
-            lichess.powertip?.manualGame(item[0]);
-            item
-              .off('mouseover',f)
-              .trigger('mouseover');
-          };
-          item.on('mouseover',f);
-          container.append(item);
-        }
+      }
+      const game = games[index - 1];
+      if (game) {
+        item.attr('href', '/' + game.id + '/' + game.orientation);
+        const f = ()=>{
+          lichess.powertip?.manualGame(item[0]);
+          item
+            .off('mouseover',f)
+            .trigger('mouseover');
+        };
+        item.on('mouseover',f);
+        container.append(item);
       }
     }
-
   }
   LiChessTools.Tools.PreviousGameMenu = PreviousGameMenuTool;
 })();
