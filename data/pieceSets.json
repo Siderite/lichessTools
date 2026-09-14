@@ -628,7 +628,7 @@
     {
       "category": "lichess",
       "name": "minimal-warmth",
-      "url": "https://raw.githubusercontent.com/lichess-org/lila/refs/heads/master/public/piece/minimal-warmth/",
+      "url": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/minimal-warmth/",
       "type": "webp",
       "cap": "wN"
     },
@@ -685,9 +685,27 @@
     {
       "category": "lichess",
       "name": "papercut",
-      "url": "https://raw.githubusercontent.com/lichess-org/lila/refs/heads/master/public/piece/papercut/",
+      "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/papercut/",
       "type": "svg",
-      "cap": "wN"
+      "cap": "wN",
+      "hashes": {
+        "wp": "pnnZNCaJifaWshaWlhRMKA==",
+        "bp": "WYYmy8l2dolpTWlpaSgyFA==",
+        "wn": "zC0yhczEM/srI6ayGyqWHA==",
+        "bn": "M9LNejMbzITE3FlM5NVpYg==",
+        "wb": "SWmWnWnGgvojI6Yqqg5MDA==",
+        "bb": "lpZpYpY5fYXE3ElUVXAyMg==",
+        "wr": "eSWGkWnglt8TI6KyticTCg==",
+        "br": "htppbpYfaaDE3F1NSdjs1A==",
+        "wq": "aeGWhGnMlrsLMTNVF2kpKw==",
+        "bq": "lh5Je5YzacTAzMyq6JbU0A==",
+        "wk": "Sc2Wh0nQlvoDIyMrK2EXTA==",
+        "bk": "thJpeLYvaYXgnNzU1IboMw=="
+      },
+      "coordinates": {
+        "x": 5,
+        "y": 23
+      }
     },
     {
       "category": "lichess",
@@ -987,31 +1005,6 @@
       "coordinates": {
         "x": 9,
         "y": 13
-      }
-    },
-    {
-      "category": "lichess",
-      "name": "papercut",
-      "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/papercut/",
-      "type": "svg",
-      "cap": "wN",
-      "hashes": {
-        "wp": "pnnZNCaJifaWshaWlhRMKA==",
-        "bp": "WYYmy8l2dolpTWlpaSgyFA==",
-        "wn": "zC0yhczEM/srI6ayGyqWHA==",
-        "bn": "M9LNejMbzITE3FlM5NVpYg==",
-        "wb": "SWmWnWnGgvojI6Yqqg5MDA==",
-        "bb": "lpZpYpY5fYXE3ElUVXAyMg==",
-        "wr": "eSWGkWnglt8TI6KyticTCg==",
-        "br": "htppbpYfaaDE3F1NSdjs1A==",
-        "wq": "aeGWhGnMlrsLMTNVF2kpKw==",
-        "bq": "lh5Je5YzacTAzMyq6JbU0A==",
-        "wk": "Sc2Wh0nQlvoDIyMrK2EXTA==",
-        "bk": "thJpeLYvaYXgnNzU1IboMw=="
-      },
-      "coordinates": {
-        "x": 5,
-        "y": 23
       }
     },
     {
