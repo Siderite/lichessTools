@@ -246,12 +246,13 @@ body.lichessTools div.lichessTools-shapeDrawing-tooltip.show {
   display: flex;
 }
 
-body.lichessTools div.lichessTools-shapeDrawing-tooltip button {
+body.lichessTools .analyse__controls div.lichessTools-shapeDrawing-tooltip button {
   font-size: 1.3rem;
   min-height: 2.5em;
   border: none;
   min-width: 2.5em;
   border-radius:50%;
+  line-height: 0;
 }
 
 body.lichessTools button.lichessTools-redBrush + div.lichessTools-shapeDrawing-tooltip button.lichessTools-redBrush,
@@ -263,7 +264,18 @@ body.lichessTools button.lichessTools-shapeDrawing:not(.lichessTools-redBrush,.l
 }
 
 body.lichessTools div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush {
-  border: 1px solid gray;
+  border: none;
+  background: #80808040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.lichessTools div.lichessTools-shapeDrawing-tooltip button.lichessTools-emptyBrush:after {
+  content: var(--icon-Cancel);
+  color: var(--c-font);
+  font-size: 2em;
+  font-family: lichess, lichessTools;
 }
 
 /* LichessHelper CSS */
