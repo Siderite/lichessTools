@@ -629,7 +629,7 @@
       "category": "lichess",
       "name": "minimal-warmth",
       "url": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/minimal-warmth/",
-      "type": "webp",
+      "type": "svg",
       "cap": "wN"
     },
     {
