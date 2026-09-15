@@ -56,9 +56,14 @@
       return /\/rel\/blocks\b/.test(this.loc.pathname);
     };
 
-    isForumPage() {
+    isForumListPage() {
       const lt = this.lichessTools;
       return /^\/forum\/?$/i.test(this.loc.pathname);
+    };
+
+    isForumPage() {
+      const lt = this.lichessTools;
+      return /^\/forum\//i.test(this.loc.pathname);
     };
 
     isTeamPageOf(teamId) {

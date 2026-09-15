@@ -104,7 +104,7 @@
 
     updateForumPage = async () => {
       const lt = this.lichessTools;
-      if (!lt.location.isForumPage()) return;
+      if (!lt.location.isForumListPage()) return;
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('main.forum table.categs').eq(0);
