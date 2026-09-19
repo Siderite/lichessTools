@@ -1233,7 +1233,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2469,7 +2475,13 @@
     "minCaption": "最小",
     "maxCaption": "最大",
     "then": "然后",
-    "errorSavingBlogMessage": "保存出错 - 请检查内容和验证码"
+    "errorSavingBlogMessage": "保存出错 - 请检查内容和验证码",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3705,7 +3717,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4941,7 +4959,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6177,7 +6201,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7413,7 +7443,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8649,7 +8685,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "puis",
-    "errorSavingBlogMessage": "Erreur lors de l'enregistrement : vérifiez le contenu et le captcha"
+    "errorSavingBlogMessage": "Erreur lors de l'enregistrement : vérifiez le contenu et le captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9885,7 +9927,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11121,7 +11169,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12357,7 +12411,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13593,7 +13653,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14829,7 +14895,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16065,7 +16137,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17301,7 +17379,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18537,7 +18621,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19773,7 +19863,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21009,7 +21105,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22245,7 +22347,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "pe urmă",
-    "errorSavingBlogMessage": "Eroare la salvare - verifică conținutul și captcha"
+    "errorSavingBlogMessage": "Eroare la salvare - verifică conținutul și captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Clasic",
+    "friendsPlaying.standard": "Doar Standard"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23481,7 +23589,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24717,7 +24831,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25953,7 +26073,13 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27189,7 +27315,13 @@
     "minCaption": "en az",
     "maxCaption": "en çok",
     "then": "ve sonra",
-    "errorSavingBlogMessage": "Kaydetme hatası - içeriği ve captcha'yı kontrol edin"
+    "errorSavingBlogMessage": "Kaydetme hatası - içeriği ve captcha'yı kontrol edin",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28425,6 +28557,12 @@
     "minCaption": "min",
     "maxCaption": "max",
     "then": "then",
-    "errorSavingBlogMessage": "Error saving - check content and captcha"
+    "errorSavingBlogMessage": "Error saving - check content and captcha",
+    "friendsPlaying.ultrabullet": "Ultrabullet",
+    "friendsPlaying.bullet": "Bullet",
+    "friendsPlaying.blitz": "Blitz",
+    "friendsPlaying.rapid": "Rapid",
+    "friendsPlaying.classical": "Classical",
+    "friendsPlaying.standard": "Standard only"
   }
 }

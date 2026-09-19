@@ -27,19 +27,31 @@
         'gameType-ultrabullet': 'Ultrabullet',
         'gameType-standard': 'Standard only',
         'options.friendsPlaying': 'Sound and voice alert when friends start playing',
+        'friendsPlaying.ultrabullet': 'Ultrabullet',
+        'friendsPlaying.bullet': 'Bullet',
+        'friendsPlaying.blitz': 'Blitz',
+        'friendsPlaying.rapid': 'Rapid',
+        'friendsPlaying.classical': 'Classical',
+        'friendsPlaying.standard': 'Standard only',
         'audioNotAllowedTitle': 'LiChess Tools - Audio allowed only after user action'
       },
       'ro-RO': {
         'options.friends': 'Prieteni',
         'playing': 'Joac\u0103 %s',
         'gameType-unknown': ',',
-        'gameType-classical': 'Classical',
+        'gameType-classical': 'Clasic',
         'gameType-rapid': 'Rapid',
         'gameType-blitz': 'Blitz',
         'gameType-bullet': 'Bullet',
         'gameType-ultrabullet': 'Ultrabullet',
         'gameType-standard': 'Doar Standard',
         'options.friendsPlaying': 'Alert\u0103 sonor\u0103 \u015Fi vocal\u0103 c\u00E2nd joac\u0103 prieteni',
+        'friendsPlaying.ultrabullet': 'Ultrabullet',
+        'friendsPlaying.bullet': 'Bullet',
+        'friendsPlaying.blitz': 'Blitz',
+        'friendsPlaying.rapid': 'Rapid',
+        'friendsPlaying.classical': 'Clasic',
+        'friendsPlaying.standard': 'Doar Standard',
         'audioNotAllowedTitle': 'LiChess Tools - Sunete permise doar dup\u0103 ac\u0163iune utilizator'
       }
     }

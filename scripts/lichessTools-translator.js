@@ -97,7 +97,9 @@
         const i18n = lt.global?.i18n || {};
         const section = Object.values(i18n).find(v=>typeof v[key] === 'string');
         if (section) return section[key];
-        lt.global.console.warn('Translation not found for key ',key);
+        if (!['soundVoice.'].find(v=>key.startsWith(v))) { // dynamic values
+          lt.global.console.warn('Translation not found for key ',key);
+        }
         return key;
       }
 

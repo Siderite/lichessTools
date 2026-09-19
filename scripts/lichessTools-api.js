@@ -34,6 +34,7 @@
         lt.addRetries(lt.api.lichessladders, 'getLadders', 3);
         lt.addRetries(lt.api.lichessladders, 'getSummary', 3);
         lt.addRetries(lt.api.lichessladders, 'getUserLadder', 3);
+        lt.addRetries(lt.api.chessagine, 'analyseFen', 3);
 
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
