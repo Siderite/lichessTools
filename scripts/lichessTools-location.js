@@ -85,7 +85,7 @@
     isTeamPageFormOf(teamId) {
       if (!teamId) throw new Error('teamId not specified');
       const lt = this.lichessTools;
-      return new lt.global.RegExp('^/' + lt.escapeRegex(teamId)+'/form\\b', 'i').test(this.loc.pathname);
+      return new lt.global.RegExp('^/forum/' + lt.escapeRegex(teamId)+'/form\\b', 'i').test(this.loc.pathname);
     };
 
     isAllTeamsListPage = () => {
