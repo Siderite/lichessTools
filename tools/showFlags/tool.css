@@ -2,7 +2,7 @@ body.lichessTools img.flag {
   max-height: 1.25em;
   align-self: center;
   /*justify-self: end;/* conflict with LiTags extension */
-  vertical-align: baseline;
+  vertical-align: middle;
   margin-left: 5px;
   margin-right: 5px; /* auto */
   display:inline;
