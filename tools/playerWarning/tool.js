@@ -44,13 +44,22 @@
       return $.cached('body').is('.playing');
     };
 
+    ensureTimeControlMap = ()=>{
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      if (this.timeControlMap) return;
+      this.timeControlMap = new Map(['ultraBullet','bullet','blitz','rapid','classical','correspondence'].map(x=>[trans.noarg(x+'Desc'),x.toLowerCase()]));
+    };
+
     getTimeControl = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const text = $('div.game__meta div.setup').text();
-      const m = /(\d+)\+(\d+)/.exec(text);
-      if (!m) return;
-      return lt.getGameTime(m[0], true);
+      const labels = $('div.game__meta div.setup > *[title]')
+                       .map((i,e)=>$(e).attr('title'))
+                       .get();
+      this.ensureTimeControlMap();
+      const timeControl = labels.map(label=>this.timeControlMap.get(label)).find(tc=>!!tc);
+      return timeControl;
     };
 
     timeControlSuspicion = (data, options = {}) => {
