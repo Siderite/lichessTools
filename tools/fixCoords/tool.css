@@ -63,6 +63,10 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) :is(coords.r
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords {
+  text-shadow: none;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords coord {
   text-shadow: 0 0 4px hsl(from var(--c-font) calc(h + 180) s calc(100 - l));
 }
 
@@ -73,7 +77,8 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks coord {
-  transform: translateY(42%);
+  display: flex;
+  align-items: center;
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.files {
