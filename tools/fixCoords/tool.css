@@ -79,6 +79,7 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks coord {
   display: flex;
   align-items: center;
+  transform: none;
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.files {
@@ -95,6 +96,21 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main div.ana
   left: -1.2em;
 }
 
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main :is(aside.analyse__side,div.study__side,aside.relay-tour__side) {
+  margin-right: 1.2em;
+}
+
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) div.relay-board-player-bot {
+  top: unset;
+  bottom: -60px;
+}
+
+@media (width >= 799.3px), (orientation: landscape) {
+  body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main.analyse.is-relay:not(.has-relay-tour) .analyse__underboard {
+    margin-top: 15px;
+  }
+}
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) div.study__player-bot {
   margin-top: 1.5em;
@@ -105,6 +121,10 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) div.analyse_
 }
 
 @media (width < 799.3px) {
+  body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main.analyse.is-relay:not(.has-relay-tour) {
+    margin-left: 1.5em;
+  }
+
   body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) :is(.round__app__board,.puzzle__board) cg-container {
     margin-right: 12px;
   }
