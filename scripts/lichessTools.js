@@ -1440,7 +1440,7 @@
     };
 
     speechVolume = 0.7;
-    speechRate = 1;
+    speechRate = null;
     speechVoiceIndex = undefined;
     speak = async (text, options) => {
       let volume = +options?.volume;
@@ -1453,7 +1453,7 @@
         volume: volume,
         voiceIndex: options?.voiceIndex === undefined ? this.speechVoiceIndex : options.voiceIndex,
         translated: !!options?.translated,
-        rate: options?.rate || this.speechRate
+        rate: options?.rate || this.speechRate || +this.storage.get('speech.rate') || 1;
       };
       const console = this.global.console;
       try {
