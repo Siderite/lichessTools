@@ -10,20 +10,6 @@ body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv
   bottom: -1.3em;
 }
 
-@media (min-width: 1259.3px) {
-  body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) main div.analyse__board {
-    left: -1.2em;
-  }
-}
-
-body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.study__player-bot {
-  margin-top: 1.5em;
-}
-
-body.lichessTools.lichessTools-fixCoords-fix.coords-out:not(.mobile,:has(.lpv__board)) div.analyse__board {
-  margin-bottom: 1.5em;
-}
-
 coords.lichessTools-fixCoords {
   display: none;
 }
@@ -70,3 +56,56 @@ body.lichessTools.lichessTools-fixCoords-square cg-container coords.ranks,
 body.lichessTools.lichessTools-fixCoords-square cg-container coords.files {
   display: none;
 }
+
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) :is(coords.ranks coord, .is2d coords.files coord) {
+  color: var(--c-font-page);
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords {
+  text-shadow: 0 0 4px hsl(from var(--c-font) calc(h + 180) s calc(100 - l));
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks {
+  width: 12px;
+  top: 0;
+  right: -15px;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.ranks coord {
+  transform: translateY(42%);
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) coords.files {
+  text-align: center;
+  bottom: -15px;
+  left: 0;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) .main-board {
+  margin-bottom: 12px;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main div.analyse__board {
+  left: -1.2em;
+}
+
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) div.study__player-bot {
+  margin-top: 1.5em;
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) div.analyse__board {
+  margin-bottom: 1.5em;
+}
+
+@media (width < 799.3px) {
+  body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) :is(.round__app__board,.puzzle__board) cg-container {
+    margin-right: 12px;
+  }
+}
+
+body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) is:(.is2d .analyse__player_strip.bottom, .is3d .analyse__player_strip.bottom) {
+  top: calc(var(---cg-height, 100%) + 15px);
+}
+
