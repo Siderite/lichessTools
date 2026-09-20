@@ -27318,10 +27318,10 @@
     "errorSavingBlogMessage": "Kaydetme hatası - içeriği ve captcha'yı kontrol edin",
     "friendsPlaying.ultrabullet": "Ultrabullet",
     "friendsPlaying.bullet": "Bullet",
-    "friendsPlaying.blitz": "Blitz",
-    "friendsPlaying.rapid": "Rapid",
-    "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.blitz": "Yıldırım",
+    "friendsPlaying.rapid": "Hızlı",
+    "friendsPlaying.classical": "Klasik",
+    "friendsPlaying.standard": "Sadece standart"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
