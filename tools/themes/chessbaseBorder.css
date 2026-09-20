@@ -25,7 +25,6 @@ body.lichessTools.lichessTools-theme_chessbaseBorder .study__player {
     box-shadow: none;
 }
 
-
 @media (width >= 799.3px), (orientation: landscape) {
   body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) main.analyse.is-relay:not(.has-relay-tour) .analyse__underboard {
     margin-top: calc( var(---chessbase-margin) + 45px );
@@ -74,6 +73,16 @@ body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) coo
     justify-content: center;
     transform: none;
     color: #FEFEAD !important;
+}
+
+body.lichessTools.lichessTools-theme_chessbaseBorder .material {
+    color: #FEFEAD;
+    filter: brightness(2);
+}
+
+body.lichessTools.lichessTools-theme_chessbaseBorder .analyse__player_strip.bottom {
+    top: unset;
+    bottom: 20px;
 }
 
 body.lichessTools.lichessTools-theme_chessbaseBorder .study__player {
