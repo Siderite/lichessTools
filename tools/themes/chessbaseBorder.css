@@ -27,7 +27,7 @@ body.lichessTools.lichessTools-theme_chessbaseBorder .study__player {
 
 
 @media (width >= 799.3px), (orientation: landscape) {
-  body.lichessTools.lichessTools-theme_chessbaseBorder #main-wrap main.analyse.is-relay:not(.has-relay-tour) .analyse__underboard {
+  body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) main.analyse.is-relay:not(.has-relay-tour) .analyse__underboard {
     margin-top: calc( var(---chessbase-margin) + 45px );
   }
 }
@@ -49,30 +49,30 @@ body.lichessTools.lichessTools-theme_chessbaseBorder .relay-board-player-top {
     top: calc( var(---chessbase-margin) * -1 - 45px);
 }
 
-body.lichessTools.lichessTools-theme_chessbaseBorder #main-wrap coords.files {
+body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) coords.files {
     height: var(---chessbase-margin);
     bottom: calc(var(---chessbase-margin) * -1);
     font-size: var(---chessbase-margin-font);
 }
 
-body.lichessTools.lichessTools-theme_chessbaseBorder #main-wrap coords.ranks {
+body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) coords.ranks {
     width: var(---chessbase-margin);
     right: calc(var(---chessbase-margin) * -1);
     font-size:  var(---chessbase-margin-font);
 }
 
-body.lichessTools.lichessTools-theme_chessbaseBorder #main-wrap coords.files coord {
+body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) coords.files coord {
     display: flex;
     align-items: center;
     justify-content: center;
     color: #FEFEAD !important;
 }
 
-body.lichessTools.lichessTools-theme_chessbaseBorder #main-wrap coords.ranks coord {
+body.lichessTools.lichessTools-theme_chessbaseBorder main:not(#board-editor) coords.ranks coord {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translateY(0);
+    transform: none;
     color: #FEFEAD !important;
 }
 
