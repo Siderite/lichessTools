@@ -1239,7 +1239,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2481,7 +2482,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3723,7 +3725,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4965,7 +4968,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6207,7 +6211,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7449,7 +7454,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8691,7 +8697,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9933,7 +9940,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11175,7 +11183,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12417,7 +12426,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13659,7 +13669,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14901,7 +14912,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16143,7 +16155,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17385,7 +17398,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18627,7 +18641,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19869,7 +19884,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21111,7 +21127,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22353,7 +22370,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Clasic",
-    "friendsPlaying.standard": "Doar Standard"
+    "friendsPlaying.standard": "Doar Standard",
+    "themes.chessbaseBorder": "Margine de tablă ChessBase"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23595,7 +23613,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24837,7 +24856,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26079,7 +26099,8 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27321,7 +27342,8 @@
     "friendsPlaying.blitz": "Yıldırım",
     "friendsPlaying.rapid": "Hızlı",
     "friendsPlaying.classical": "Klasik",
-    "friendsPlaying.standard": "Sadece standart"
+    "friendsPlaying.standard": "Sadece standart",
+    "themes.chessbaseBorder": "ChessBase board margin"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28563,6 +28585,7 @@
     "friendsPlaying.blitz": "Blitz",
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only"
+    "friendsPlaying.standard": "Standard only",
+    "themes.chessbaseBorder": "ChessBase board margin"
   }
 }

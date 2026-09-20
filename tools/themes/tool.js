@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants','noBullet','squares','experimental'],
+                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -58,6 +58,7 @@
         'themes.noBullet': 'Hide Bullet chess',
         'themes.squares': 'Squares for circles',
         'themes.experimental': 'Experimental',
+        'themes.chessbaseBorder': 'ChessBase board margin',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -91,6 +92,7 @@
         'themes.noBullet': 'Ascunde \u015fah Bullet',
         'themes.squares': 'P\u0103trate \u00een loc de cercuri',
         'themes.experimental': 'Experimental\u0103',
+        'themes.chessbaseBorder': 'Margine de tabl\u0103 ChessBase',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }

@@ -253,6 +253,7 @@
         "tools/themes/noBullet.css",
         "tools/themes/squares.css",
         "tools/themes/experimental.css",
+        "tools/themes/chessbaseBorder.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

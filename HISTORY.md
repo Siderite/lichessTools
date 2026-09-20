@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Sep
+
+- rewrote Fix outside coordinates tool
+- ChessBase board margin theme
+
 13 Sep
 
 - correspondence games filters
