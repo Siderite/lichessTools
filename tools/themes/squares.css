@@ -12,18 +12,18 @@ body.lichessTools.lichessTools-theme_squares svg.cg-shapes circle {
   r:0.7;
 }
 
-body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",green"] circle {
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash*=",green"] circle {
   fill: #15781B;
 }
 
-body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",red"] circle {
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash*=",red"] circle {
   fill: #882020;
 }
 
-body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",blue"] circle {
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash*=",blue"] circle {
   fill: #003088;
 }
 
-body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash$=",yellow"] circle {
+body.lichessTools.lichessTools-theme_squares svg.cg-shapes g[cgHash*=",yellow"] circle {
   fill: #e68f00;
 }
