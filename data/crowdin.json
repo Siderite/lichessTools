@@ -2477,13 +2477,13 @@
     "maxCaption": "最大",
     "then": "然后",
     "errorSavingBlogMessage": "保存出错 - 请检查内容和验证码",
-    "friendsPlaying.ultrabullet": "Ultrabullet",
-    "friendsPlaying.bullet": "Bullet",
-    "friendsPlaying.blitz": "Blitz",
-    "friendsPlaying.rapid": "Rapid",
-    "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "friendsPlaying.ultrabullet": "超子弹棋",
+    "friendsPlaying.bullet": "子弹棋",
+    "friendsPlaying.blitz": "超快棋",
+    "friendsPlaying.rapid": "快棋",
+    "friendsPlaying.classical": "慢棋",
+    "friendsPlaying.standard": "仅标准",
+    "themes.chessbaseBorder": "ChessBase 棋盘边距"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
