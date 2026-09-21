@@ -246,7 +246,7 @@ body.lichessTools div.lichessTools-shapeDrawing-tooltip.show {
   display: flex;
 }
 
-body.lichessTools .analyse__controls div.lichessTools-shapeDrawing-tooltip button {
+body.lichessTools :is(.analyse__controls,.puzzle__controls) div.lichessTools-shapeDrawing-tooltip button {
   font-size: 1.3rem;
   min-height: 2.5em;
   border: none;
