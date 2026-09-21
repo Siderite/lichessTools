@@ -26,12 +26,6 @@
     }
 
 
-    clearRankShapes = (shapes) => {
-      const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(shapes, s => s.type === 'rank');
-      return !!removed.length;
-    };
-
     shouldNotBeRanked = (shape)=>{
       const circles = shape.customSvg?.html?.matchAll(/circle/g);
       const isGooglyHorsey = circles && [...circles].length==6;
@@ -53,25 +47,14 @@
         Object.defineProperty(drawable, 'shapes', {
           configurable: true,
           get: function () {
-            if (!tool.options.enabled) return this._shapes;
-            const shapes = this._shapes?.filter(s => s.type != 'rank');
-            if (shapes) {
-              const dict = {}
-              const drawnShapes = [];
-              let rank = 0;
-              for (const shape of shapes.filter(tool.shouldNotBeRanked)) {
-                if (dict[shape.orig]) continue;
-                rank++;
-                const rankShape = {
-                  type: 'rank',
-                  orig: shape.orig,
-                  dest: false, // fix lichess bug where this is found as the shape to erase
-                  customSvg: lt.makeSvg('<text x="10%" y="50%" font-size="200%" fill="black" stroke="' + shape.brush + '">' + rank + '</text>', this.chessground)
-                };
-                dict[rankShape.orig] = true;
-                drawnShapes.push(rankShape);
+            let label=1;
+            for (const shape of this._shapes.filter(tool.shouldNotBeRanked)) {
+              if (tool.options.enabled) {
+                shape.label={ text: String(label) };
+                label++;
+              } else {
+                shape.label=undefined;
               }
-              this._shapes = drawnShapes.concat(shapes);
             }
             return this._shapes;
           },
@@ -94,29 +77,8 @@
         lt.global.setTimeout(this.waitForChessground, 500);
         return;
       }
-      const isWrapped = lt.isWrappedFunction(this.chessground.state.drawable.onChange, 'shapeRank');
       if (this.options.enabled) {
-        if (!isWrapped && this.chessground.state.drawable.onChange) {
-          this.chessground.state.drawable.onChange = lt.wrapFunction(this.chessground.state.drawable.onChange, {
-            id: 'shapeRank',
-            before: ($this, ...args) => {
-              const originalFunction = this.chessground.state.drawable.onChange.__originalFunction.bind($this);
-              if (args[0]?.length) {
-                this.clearRankShapes(args[0]);
-              }
-              originalFunction(...args);
-              return false;
-            }
-          });
-        }
-        lt.global.setTimeout(this.ensureShapeRank, 500); //TODO without the timeout something clears the shapes in about 250ms at first page load (probably a web socket event)
-      } else {
-        if (isWrapped) {
-          this.chessground.state.drawable.onChange = lt.unwrapFunction(this.chessground.state.drawable.onChange, 'shapeRank');
-        }
-        if (this.clearRankShapes(this.chessground.state.drawable.shapes)) {
-          this.chessground.redrawAll();
-        }
+        this.ensureShapeRank();
       }
     };
 

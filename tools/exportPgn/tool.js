@@ -133,7 +133,7 @@
         const groups = [];
         if (options.exportShapes) {
           for (const shape of node.shapes || []) {
-            if (shape.type == 'rank' || shape.customSvg) continue;
+            if (shape.customSvg) continue;
             const type = shape.dest ? 'cal' : 'csl';
             let group = groups.at(-1);
             if (group?.type != type) {
