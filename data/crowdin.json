@@ -8695,10 +8695,10 @@
     "friendsPlaying.ultrabullet": "Ultrabullet",
     "friendsPlaying.bullet": "Bullet",
     "friendsPlaying.blitz": "Blitz",
-    "friendsPlaying.rapid": "Rapid",
-    "friendsPlaying.classical": "Classical",
-    "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "friendsPlaying.rapid": "Rapide",
+    "friendsPlaying.classical": "Classique",
+    "friendsPlaying.standard": "Standard seulement",
+    "themes.chessbaseBorder": "Bordure de l'échiquier ChessBase"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
