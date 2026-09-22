@@ -29,8 +29,6 @@ body.lichessTools #topnav.hover section.lichessTools-onlineFriends div[role="gro
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a {
   white-space: nowrap;
-  display: flex;
-  align-items: center;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {
