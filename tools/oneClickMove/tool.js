@@ -262,10 +262,9 @@
         board.lichessTools_oneClickMove = false;
       }
       lt.global.clearInterval(this.interval);
-      if (lichess.socket?.handle) {
-        lichess.socket.handle = lt.unwrapFunction(lichess.socket.handle, 'oneClickMove');
-      }
-      if ((analysis && this.options.analysis) || ($('main.round').length && this.options.play) || ($('main.puzzle').length && this.options.puzzles)) {
+      if ((analysis && this.options.analysis) 
+             || ($('main.round').length && this.options.play)
+             || ($('main.puzzle,main > div.storm,main > div.racer').length && this.options.puzzles)) {
         this.interval = lt.global.setInterval(this.handleBoard, 1000);
         this.handleBoard();
       }

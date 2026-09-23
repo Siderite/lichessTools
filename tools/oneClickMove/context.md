@@ -29,8 +29,7 @@ Allows clicking on the board to play a move: click on destination square → if 
 
 ## Function Wrapping
 
-- **handleBoard()**: Board mousedown listener (capture:true) if not already board.lichessTools_oneClickMove=true; wraps lichess.socket.handle with oneClickMove before function: if e.t='dests' → unpackDests(e.d.dests), cache.set(fen,dests).
-
+- **handleBoard()**: Board mousedown listener (capture:true) if not already board.lichessTools_oneClickMove=true; 
 ## Events/Interval
 
 - setInterval 1000ms handleBoard on enabled (analysis+options.analysis OR main.round/main.puzzle exists+options.play).

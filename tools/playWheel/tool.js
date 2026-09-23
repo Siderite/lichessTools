@@ -59,7 +59,7 @@
       this.options = {
         enabled: value
       };
-      const isRound = !!$('main.round,main.puzzle').length;
+      const isRound = !!$('main.round,main.puzzle,main > div.storm,main > div.racer').length;
       if (!isRound) return;
       $('body')[0]?.removeEventListener('wheel', this.wheel, { passive: false });
       this._oldReleasePC ||= Element.prototype.releasePointerCapture;
