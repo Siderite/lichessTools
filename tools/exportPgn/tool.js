@@ -358,13 +358,19 @@
         const varNodes = getVarNodes(varNode, options.separateLines);
         const pgns = [];
         const tags = (options.exportTags && lt.clone(analysis.study?.data?.chapter?.tags)) || [];
+        const variant = analysis.variantKey;
+        if (!['standard','fromPosition','chess960'].includes(variant)) {
+          addTag(tags,'Variant', trans.noarg(variant));
+        }
         if (options.exportTags && analysis.getOrientation() != 'white') {
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
         if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
-          if (options.exportTags)addTag(tags, 'SetUp', '1');
+          if (options.exportTags) {
+            addTag(tags, 'SetUp', '1');
+          }
         }
         if (options.exportTags) {
           addTag(tags, 'Site', lt.location.href, true);

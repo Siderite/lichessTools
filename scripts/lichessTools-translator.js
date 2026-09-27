@@ -20,7 +20,18 @@
           'daysText': '%s days',
           'hoursText': '%s hrs',
           'minutesText': '%s mins',
-          'timeText': '%s ago'
+          'timeText': '%s ago',
+
+          'standard': 'Standard', // variant names, not to be translated
+          'chess960': 'Chess960',
+          'kingOfTheHill': 'King of the Hill',
+          'threeCheck': 'Three-check',
+          'antichess': 'Antichess',
+          'atomic': 'Atomic',
+          'horde': 'Horde',
+          'racingKings': 'Racing Kings',
+          'crazyhouse': 'Crazyhouse',
+          'fromPosition': 'From Position'
         },
         'ro-RO': {
           serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
