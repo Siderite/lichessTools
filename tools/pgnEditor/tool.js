@@ -778,6 +778,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
     warnVariants = (games)=>{
       const lt = this.lichessTools;
       const trans = lt.translator;
+      if (!games?.map) return;
       const variants = games.map(g=>g?.headers?.get('Variant')?.toLowerCase())
                             .map(v=>!v || ['from position', 'chess960', 'standard'].includes(v)
                                       ? 'standard'
@@ -2367,7 +2368,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const co = await lt.chessops();
       const { makePgn } = co.pgn;
 
-      games = games.filter(g => g.moves?.children?.length || g.headers?.size);
+      games = (games||[]).filter(g => g.moves?.children?.length || g.headers?.size);
       games.forEach(game => {
         if (games.length > 1 && game.moves?.children?.length && ![...game.headers.entries()].find(e => !/^[\?\.\*\s]*$/.test(e[1]))) {
           game.headers.set('Event', 'exported by LiChess Tools');
