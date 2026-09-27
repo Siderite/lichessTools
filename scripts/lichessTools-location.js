@@ -34,10 +34,9 @@
     isTvPage(strict) {
       const lt = this.lichessTools;
       const isAnalysis = !!lt.lichess?.analysis;
-      const reg = strict
-        ? /^\/tv\b/i
-        : /\/tv\b/i;
-      return !isAnalysis && reg.test(this.loc.pathname);
+      return strict
+        ? !isAnalysis && /^\/tv\b/i.test(this.loc.pathname)
+        : /\/tv\b/i.test(this.loc.pathname);
     }
 
     isFriendsPage() {
