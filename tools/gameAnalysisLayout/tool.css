@@ -12,7 +12,7 @@
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .eval-gauge {
-    max-height: var(--board-size);
+    max-height: var(---cg-height);
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .analyse__underboard .analyse__underboard__menu {

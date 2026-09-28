@@ -1,16 +1,11 @@
 /* Piece Dragging */
 
-body.lichessTools.lichessTools-theme_pieceDrag:not(.lichessTools-hasBoardSize) piece.dragging {
-  background-size: 115%;
-  background-position: center;
-}
-
-body.lichessTools.lichessTools-theme_pieceDrag.lichessTools-hasBoardSize .cg-wrap piece.dragging {
+body.lichessTools.lichessTools-theme_pieceDrag .cg-wrap piece.dragging {
   --drag-scale: 1.25;
-  width: calc(var(--board-size) / 8 * var(--drag-scale));
-  height: calc(var(--board-size) / 8 * var(--drag-scale));
-  left: calc(var(--board-size) / 8 * (1 - var(--drag-scale)) / 2);
-  top: calc(var(--board-size) / 8 * (1 - var(--drag-scale)) / 2);
+  width: calc(var(---cg-width) / 8 * var(--drag-scale));
+  height: calc(var(---cg-height) / 8 * var(--drag-scale));
+  left: calc(var(---cg-width) / 8 * (1 - var(--drag-scale)) / 2);
+  top: calc(var(---cg-height) / 8 * (1 - var(--drag-scale)) / 2);
 }
 
 body.lichessTools.lichessTools-theme_pieceDrag piece.white.dragging {
@@ -43,10 +38,6 @@ body.lichessTools.lichessTools-theme_pieceDrag .cg-wrap .is3d piece {
 body.lichessTools.lichessTools-theme_pieceDrag .cg-wrap .is3d piece.pawn {
   clip-path: ellipse(40% 30% at 50% 55%);
 }
-
-/*body.lichessTools.lichessTools-theme_pieceDrag .manipulable cg-board {
-  cursor: pointer;
-}*/
 
 body.lichessTools.lichessTools-theme_pieceDrag .manipulable cg-board:has(piece.dragging) {
   cursor: grabbing;

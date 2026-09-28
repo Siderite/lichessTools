@@ -369,7 +369,7 @@ body.lichessTools.mobile div.lichessTools-moveListOptions-header {
 @media (min-width: 799.4px) {
 
   body.lichessTools .analyse__tools .action-menu {
-    max-height: var(--board-size);
+    max-height: var(---cg-height);
     min-height: 100%;
   }
 

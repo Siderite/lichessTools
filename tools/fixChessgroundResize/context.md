@@ -14,9 +14,7 @@ Detects and reports chessboard resize events when the board size or position cha
 ### Event Detection
 
 When size or position changes are detected:
-- Updates CSS custom property `--board-size` on `<html>`
-- Toggles body class `lichessTools-hasBoardSize`
-- Triggers a `resize` event on `.main-board cg-container` if a previous value existed (indicating an actual change)
+- Triggers a `resize` event on `.main-board cg-container` a previous value existed, indicating an actual change
 
 ### Periodic Check
 

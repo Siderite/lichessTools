@@ -80,14 +80,10 @@
       const $ = lt.$;
       const container = $('.main-board cg-container');
       const boardSize = container.css('width') || container.width()+'px';
-      const prevSize = $('html').css('--board-size');
       let fireEvent = false;
-      if (prevSize != boardSize) {
-        const size = parseInt(boardSize);
-        $('html').css('--board-size', size ? boardSize : null);
-        $('body')
-            .toggleClassSafe('lichessTools-hasBoardSize',!!size);
-        fireEvent = !!prevSize;
+      if (this._prevSize != boardSize) {
+        fireEvent = !!this._prevSize;
+        this._prevSize = boardSize;
       }
       if ((!fireEvent || !this._prevPos) && ev?.type=='position') {
         const position = JSON.stringify(container.offset());
