@@ -176,7 +176,7 @@
     isStudyList() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      return /^\/study/i.test(this.loc.pathname) && $('.studies').length;
+      return /^\/study\b(?!\/as\b)/i.test(this.loc.pathname) && $('.studies').length;
     };
 
     isTimelinePage() {
