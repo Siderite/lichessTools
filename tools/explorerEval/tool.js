@@ -8,7 +8,7 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'hidden'],
         defaultValue: 'ceval,db,highlightList',
         advanced: true
       }
@@ -26,6 +26,7 @@
         'explorerEval.highlightList': 'Highlight list moves',
         'explorerEval.bardp': 'Bar precision',
         'explorerEval.spoa': 'Stronger Player Outcome Average',
+        'explorerEval.sharpness': 'Sharpness column',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -33,7 +34,9 @@
         'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention',
+        'sharpnessText': '%s',
         'sharpnessTitle': 'Sharpness: %s',
+        'sharpnessHeaderTitle': 'LiChess Tools - Move sharpness',
         'winMarginTitle': 'Win margin: %s%',
         'spoaTitle': 'LiChess Tools - Stronger Player Outcome Average'
       },
@@ -46,6 +49,7 @@
         'explorerEval.lichess': 'De la Lichess',
         'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.spoa': 'Media Rezultatelor Juc\u0103torilor mai Buni',
+        'explorerEval.sharpness': 'Coloan\u0103 periculozitate',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.highlightList': 'Eviden\u0163iaz\u0103 mut\u0103ri din list\u0103',
         'explorerEval.hidden': 'Ascunde',
@@ -55,7 +59,9 @@
         'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie',
+        'sharpnessText': '%s',
         'sharpnessTitle': 'Periculozitate: %s',
+        'sharpnessHeaderTitle': 'LiChess Tools - Periculozitatea mut\u0103rii',
         'winMarginTitle': 'Marj\u0103 victorie: %s%',
         'spoaTitle': 'LiChess Tools - Media Rezultatelor Juc\u0103torilor mai Buni'
       }
@@ -212,7 +218,7 @@
 
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
 
           const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
           const wilson = (x,n)=>{
@@ -237,7 +243,7 @@
           const tdBar = $('td:has(div.bar)', e);
           if (tdBar.length) {
             let arr = (tdBar.attr('title')||'').split(' / ');
-            if (sharpness && Number.isFinite(sharpness)) {
+            if (sharpness && Number.isFinite(sharpness) && !this.options.sharpness) {
               const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
               arr[1] = sharpnessTitle;
             }
@@ -598,6 +604,76 @@
       }
     };
 
+    showSharpness = async () => {
+      if (!this.options.sharpness) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const analysis = lichess?.analysis;
+      if (!analysis.explorer?.enabled()) return;
+      if (lt.isGamePlaying()) return;
+      const explorerMoves = analysis.explorer?.current()?.moves;
+      if (!explorerMoves?.length) return;
+      const trans = lt.translator;
+      const container = $('section.explorer-box table.moves');
+      if (!container.length) return;
+      if (lt.isGamePlaying()) return;
+      if (!$('th.lichessTools-showSharpness', container).length) {
+        $('<th>')
+          .addClass('lichessTools-showSharpness')
+          .text(lt.icon.WhiteFourPointedStar)
+          .attr('title', trans.noarg('sharpnessHeaderTitle'))
+          .appendTo($('thead tr', container));
+      }
+      let max = null;
+      let min = null;
+      $('tr[data-uci]', container).each((i, e) => {
+        if ($('td:has(div.bar)', e).toggleClassSafe('lichessTools-bar',true).length) {
+          if (!$('td.lichessTools-showSharpness', e).length) {
+            $('<td>')
+              .addClass('lichessTools-showSharpness')
+              .appendTo(e);
+          }
+        }
+        const uci = $(e).attr('data-uci');
+        const explorerItem = (analysis.explorer.current()?.moves || []).find(i => i.uci == uci);
+        let text = '';
+        let title = undefined;
+        if (!explorerItem) return;
+
+        const total = explorerItem.white + explorerItem.draws + explorerItem.black;
+        if (!Number.isNaN(total)) {
+          const q = 1000 / total;
+          const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
+          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          if (sharpness && Number.isFinite(sharpness)) {
+            const sharpnessText = trans.pluralSame('sharpnessText', sharpness);
+            const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);
+
+            const elem = $('td.lichessTools-showSharpness', e)
+              .text(sharpnessText)
+              .attr('title', sharpnessTitle);
+            if (!max || sharpness>max.sharpness) {
+              max = { sharpness: sharpness, elem: elem };
+            }
+            if (!min || sharpness<min.sharpness) {
+              min = { sharpness: sharpness, elem: elem };
+            }
+          }
+        }
+      });
+      if (max) {
+        container.find('.lichessTools-maxSharpness').removeClass('lichessTools-maxSharpness');
+        $(max.elem).addClass('lichessTools-maxSharpness');
+      }
+      if (min) {
+        container.find('.lichessTools-minSharpness').removeClass('lichessTools-minSharpness');
+        $(min.elem).addClass('lichessTools-minSharpness');
+      }
+    };
+    showSharpnessDebounced = this.lichessTools.debounce(this.showSharpness, 100);
+
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('explorerEval');
@@ -616,6 +692,7 @@
         highlightList: lt.isOptionSet(value, 'highlightList'),
         bardp: lt.isOptionSet(value, 'bardp'),
         spoa: lt.isOptionSet(value, 'spoa'),
+        sharpness: lt.isOptionSet(value, 'sharpness'),
         hidden: lt.isOptionSet(value, 'hidden'),
         get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp || this.spoa); }
       };
@@ -634,6 +711,13 @@
       if (!this.options.bardp && prevBardp && explorer.enabled()) {
         explorer.destroy();
         explorer.reload();
+      }
+      lt.pubsub.off('lichessTools.redraw', this.showSharpnessDebounced);
+      $('th.lichessTools-showSharpness,td.lichessTools-showSharpness').remove();
+      explorer.setNode = lt.unwrapFunction(explorer.setNode, 'showSharpness');
+      if (this.options.sharpness) {
+        lt.pubsub.on('lichessTools.redraw', this.showSharpnessDebounced);
+        this.showSharpness();
       }
     }
 

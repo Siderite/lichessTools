@@ -72,7 +72,7 @@
           .appendTo($('thead tr', container));
       }
       $('tr[data-uci]', container).each((i, e) => {
-        if ($('td:has(div.bar)', e).addClass('lichessTools-bar').length) {
+        if ($('td:has(div.bar)', e).toggleClassSafe('lichessTools-bar',true).length) {
           if (!$('td.lichessTools-explorerGambits', e).length) {
             $('<td>')
               .addClass('lichessTools-explorerGambits')
@@ -81,7 +81,7 @@
         }
       });
       $('tr.sum', container).each((i, e) => {
-        $('td:has(div.bar)', e).addClass('lichessTools-bar');
+        $('td:has(div.bar)', e).toggleClassSafe('lichessTools-bar',true);
         if (!$('td.lichessTools-explorerGambits', e).length) {
           $('<td>')
             .addClass('lichessTools-explorerGambits')

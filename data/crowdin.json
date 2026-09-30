@@ -1241,7 +1241,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2485,7 +2488,10 @@
     "friendsPlaying.classical": "慢棋",
     "friendsPlaying.standard": "仅标准",
     "themes.chessbaseBorder": "ChessBase 棋盘边距",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3729,7 +3735,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4973,7 +4982,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6217,7 +6229,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7461,7 +7476,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8705,7 +8723,10 @@
     "friendsPlaying.classical": "Classique",
     "friendsPlaying.standard": "Standard seulement",
     "themes.chessbaseBorder": "Bordure de l'échiquier ChessBase",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9949,7 +9970,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11193,7 +11217,10 @@
     "friendsPlaying.classical": "Κλασικό",
     "friendsPlaying.standard": "Standard μόνο",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12437,7 +12464,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13681,7 +13711,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14925,7 +14958,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16169,7 +16205,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17413,7 +17452,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18657,7 +18699,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19901,7 +19946,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21145,7 +21193,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22389,7 +22440,10 @@
     "friendsPlaying.classical": "Clasic",
     "friendsPlaying.standard": "Doar Standard",
     "themes.chessbaseBorder": "Margine de tablă ChessBase",
-    "highlight.branching": "Evidențiază pozițiile divergente"
+    "highlight.branching": "Evidențiază pozițiile divergente",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Periculozitatea mutării",
+    "explorerEval.sharpness": "Coloană periculozitate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23633,7 +23687,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24877,7 +24934,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26121,7 +26181,10 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27365,7 +27428,10 @@
     "friendsPlaying.classical": "Klasik",
     "friendsPlaying.standard": "Sadece standart",
     "themes.chessbaseBorder": "ChessBase tahta kenarı",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28609,6 +28675,9 @@
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
     "themes.chessbaseBorder": "ChessBase board margin",
-    "highlight.branching": "Highlight branching positions"
+    "highlight.branching": "Highlight branching positions",
+    "sharpnessText": "%s",
+    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
+    "explorerEval.sharpness": "Sharpness column"
   }
 }

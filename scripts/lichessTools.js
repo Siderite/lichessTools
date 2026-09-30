@@ -216,6 +216,7 @@
       Hourglass: '\u231B',
       CyrillicCapitalLetterI: '\u0418',
       Ladder: '\uD83E\uDE9C',
+      WhiteFourPointedStar: '\u2727',
 
 
       toEntity: function(s) {

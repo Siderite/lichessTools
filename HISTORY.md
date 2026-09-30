@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 30 Sep
 
 - highlight branching positions
+- Explorer sharpness column
 
 20 Sep
 
