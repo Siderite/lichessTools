@@ -1240,7 +1240,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2483,7 +2484,8 @@
     "friendsPlaying.rapid": "快棋",
     "friendsPlaying.classical": "慢棋",
     "friendsPlaying.standard": "仅标准",
-    "themes.chessbaseBorder": "ChessBase 棋盘边距"
+    "themes.chessbaseBorder": "ChessBase 棋盘边距",
+    "highlight.branching": "Highlight branching positions"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3726,7 +3728,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4969,7 +4972,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6212,7 +6216,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7455,7 +7460,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8698,7 +8704,8 @@
     "friendsPlaying.rapid": "Rapide",
     "friendsPlaying.classical": "Classique",
     "friendsPlaying.standard": "Standard seulement",
-    "themes.chessbaseBorder": "Bordure de l'échiquier ChessBase"
+    "themes.chessbaseBorder": "Bordure de l'échiquier ChessBase",
+    "highlight.branching": "Highlight branching positions"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9941,7 +9948,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11184,7 +11192,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Κλασικό",
     "friendsPlaying.standard": "Standard μόνο",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12427,7 +12436,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13670,7 +13680,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14913,7 +14924,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16156,7 +16168,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17399,7 +17412,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18642,7 +18656,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19885,7 +19900,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21128,7 +21144,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22371,7 +22388,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Clasic",
     "friendsPlaying.standard": "Doar Standard",
-    "themes.chessbaseBorder": "Margine de tablă ChessBase"
+    "themes.chessbaseBorder": "Margine de tablă ChessBase",
+    "highlight.branching": "Evidențiază pozițiile divergente"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23614,7 +23632,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24857,7 +24876,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26100,7 +26120,8 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27343,7 +27364,8 @@
     "friendsPlaying.rapid": "Hızlı",
     "friendsPlaying.classical": "Klasik",
     "friendsPlaying.standard": "Sadece standart",
-    "themes.chessbaseBorder": "ChessBase tahta kenarı"
+    "themes.chessbaseBorder": "ChessBase tahta kenarı",
+    "highlight.branching": "Highlight branching positions"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28586,6 +28608,7 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin"
+    "themes.chessbaseBorder": "ChessBase board margin",
+    "highlight.branching": "Highlight branching positions"
   }
 }

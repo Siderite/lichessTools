@@ -1058,6 +1058,7 @@
         checks: [],
         positions: {},
         glyphs: {},
+        branching: [],
         nodeIndex: +(snode?.nodeIndex) || 0
       };
       lt.traverseState = state;
@@ -1107,11 +1108,16 @@
 
         if (func) func(node, state);
         let first = true;
+        let count = 0;
         for (const child of node.children) {
           child.depth = first ? node.depth : node.depth + 1;
           child.ltComp = node.ltComp;
           first = false;
           nodes.push({ node: child, path: path });
+          if (!child.ltComp && !child.comp) count++;
+        }
+        if (count>1) {
+          state.branching.push(node);
         }
       }
       return state;

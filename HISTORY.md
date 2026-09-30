@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Sep
+
+- highlight branching positions
+
 20 Sep
 
 - rewrote Fix outside coordinates tool
