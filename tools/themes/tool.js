@@ -419,7 +419,7 @@
     };
 
     // temporary? fix for https://github.com/lichess-org/lila/issues/21905
-    addSizeToMiniboards = () => {
+    addSizeToMiniboardsDirect = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       $(':is(.mini-game,.captcha) cg-container').each((i,e)=>{
@@ -436,6 +436,7 @@
         }
       });
     };
+    addSizeToMiniboards = this.lichessTools.debounce(this.addSizeToMiniboardsDirect, 500);
 
     async start() {
       const lt = this.lichessTools;
@@ -451,7 +452,7 @@
         return;
       }
       $('body').observer()
-        .off(':is(.mini-game,.captcha) cg-container',this.addSizeToMiniboards);
+        .off('cg-container',this.addSizeToMiniboards);
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()
@@ -464,13 +465,7 @@
         $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
         this.checkBodyDirect();
         $('body').observer()
-          .on(':is(.mini-game,.captcha) cg-container',this.addSizeToMiniboards,{ 
-                                                        subtree: false,
-                                                        childList: false, 
-                                                        attributes: true, 
-                                                        attributeFilter: [ 'style' ],
-                                                        characterData: true
-                                                      });
+          .on('cg-container',this.addSizeToMiniboards, { attributes: true });
         this.addSizeToMiniboards();
       }
       await this.applyThemes();
