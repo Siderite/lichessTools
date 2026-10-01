@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+01 Oct
+
+- grab highlight theme
+
 30 Sep
 
 - highlight branching positions

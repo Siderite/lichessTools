@@ -1244,7 +1244,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2488,10 +2489,11 @@
     "friendsPlaying.classical": "慢棋",
     "friendsPlaying.standard": "仅标准",
     "themes.chessbaseBorder": "ChessBase 棋盘边距",
-    "highlight.branching": "Highlight branching positions",
+    "highlight.branching": "高亮分支局面",
     "sharpnessText": "%s",
-    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "sharpnessHeaderTitle": "LiChess Tools - 着法尖锐度",
+    "explorerEval.sharpness": "尖锐度列",
+    "themes.grabHighlight": "Grab highlight"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3738,7 +3740,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4985,7 +4988,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6232,7 +6236,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7479,7 +7484,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8726,7 +8732,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9973,7 +9980,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11220,7 +11228,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12467,7 +12476,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13714,7 +13724,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14961,7 +14972,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16208,7 +16220,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17455,7 +17468,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18702,7 +18716,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19949,7 +19964,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21196,7 +21212,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22443,7 +22460,8 @@
     "highlight.branching": "Evidențiază pozițiile divergente",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Periculozitatea mutării",
-    "explorerEval.sharpness": "Coloană periculozitate"
+    "explorerEval.sharpness": "Coloană periculozitate",
+    "themes.grabHighlight": "Evidenţiere apucare"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23690,7 +23708,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24937,7 +24956,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26184,7 +26204,8 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27428,10 +27449,11 @@
     "friendsPlaying.classical": "Klasik",
     "friendsPlaying.standard": "Sadece standart",
     "themes.chessbaseBorder": "ChessBase tahta kenarı",
-    "highlight.branching": "Highlight branching positions",
+    "highlight.branching": "Dallanan pozisyonları vurgula",
     "sharpnessText": "%s",
-    "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "sharpnessHeaderTitle": "LiChess Tools - Hamle keskinliği",
+    "explorerEval.sharpness": "Keskinlik sütunu",
+    "themes.grabHighlight": "Grab highlight"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28678,6 +28700,7 @@
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
-    "explorerEval.sharpness": "Sharpness column"
+    "explorerEval.sharpness": "Sharpness column",
+    "themes.grabHighlight": "Grab highlight"
   }
 }
