@@ -168,6 +168,7 @@
 
       if (!isLeader) {
         if (teamData) {
+          console.warn('Deleting data for team name',teamName);
           this.leaderTeams.delete(teamName);
           this.saveLeaderTeams();
         }
@@ -205,6 +206,7 @@
         if (!existingData.get(timeKey)) {
           const teamData = await lt.api.team.getTeam(team);
           if (!teamData) {
+            console.warn('Deleting data for team ',team);
             this.leaderTeams.delete(team);
             save = true;
             continue;
