@@ -109,6 +109,9 @@
       if (!afterAnchor.length) {
         afterAnchor = $('main.analyse .copyables div.pgn');
       }
+      if (!afterAnchor.length) {
+        afterAnchor = $('.analyse__underboard__panels .fen-pgn > div').eq(0);
+      }
       const containerAnchor = $('main.analyse .study__share .downloads');
       if (afterAnchor.length || containerAnchor.length) {
         let videoSearchLink = $('a.lichessTools-videoSearch');
