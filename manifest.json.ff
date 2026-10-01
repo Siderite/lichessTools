@@ -15,7 +15,8 @@
     "https://lichess.org/*",
     "https://lichess.dev/*",
     "https://testy.lichess.dev/*",
-    "https://*.lichessladders.com/*"
+    "https://*.lichessladders.com/*",
+    "https://api.chess-insights.app/*"
   ],
   "content_scripts": [{
       "js": [
@@ -204,6 +205,7 @@
         "tools/showOpponentMoves/tool.js",
         "tools/lichessLadders/tool.js",
         "tools/boardSaturate/tool.js",
+        "tools/videoSearch/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -366,6 +368,7 @@
         "tools/showOpponentMoves/tool.css",
         "tools/lichessLadders/tool.css",
         "tools/boardSaturate/tool.css",
+        "tools/videoSearch/tool.css",
 
         "tools/tvOptions/tool.css",
 

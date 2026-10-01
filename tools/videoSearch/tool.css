@@ -1,0 +1,53 @@
+body.lichessTools dialog.lichessTools-videoSearch {
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch .dialog-content {
+  text-align: left;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch canvas {
+  max-width:100%;
+  max-height:100%;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch button.close-button {
+  transform: none;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch a.help-button {
+  position: absolute;
+  top: 4px;
+  right: 2em;
+  width: 40px;
+  height: 40px;
+  z-index: 111;
+  color: #ccc;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch a.help-button:hover {
+  color: #1b78d0;
+}
+
+body.lichessTools a.lichessTools-videoSearch {
+  margin-left: 0.5em;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch div.noVideos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  font-size: xx-large;
+}
+
+body.lichessTools dialog.lichessTools-videoSearch .blurb {
+  font-size: larger;
+  text-transform: uppercase;
+}

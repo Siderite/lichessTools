@@ -29,12 +29,14 @@
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
+        lt.cache.memoizeAsyncFunction(lt.api.chessinsights, 'getVideos', { persist: 'local', interval: 3600 * 1000, minTime: 10000 });
 
         lt.addRetries(lt.api.lichessladders, 'getLaddersId', 3);
         lt.addRetries(lt.api.lichessladders, 'getLadders', 3);
         lt.addRetries(lt.api.lichessladders, 'getSummary', 3);
         lt.addRetries(lt.api.lichessladders, 'getUserLadder', 3);
         lt.addRetries(lt.api.chessagine, 'analyseFen', 3);
+        lt.addRetries(lt.api.chessinsights, 'getVideos', 3);
 
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLaddersId', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r });
         lt.cache.memoizeAsyncFunction(lt.api.lichessladders, 'getLadders', { persist: 'local', interval: 1 * 86400 * 1000, minTime: 1100, resultFilter: (r)=>!!r?.length });
@@ -907,6 +909,17 @@
           const result = lt.global.JSON.parse(json);
           return result || null;
         },
+      };
+
+      chessinsights = {
+        async getVideos(fen) {
+          const lt = this.lichessTools;
+          const data = await lichessTools.comm.getDataUrl('https://api.chess-insights.app/search?fen='+encodeURIComponent(fen)+'&limit=10&offset=0');
+          if (!data.dataUrl) {
+            throw new Error('Could not get the data URL for '+fen);
+          }
+          return lt.net.json(data.dataUrl);
+        }
       };
 
   }

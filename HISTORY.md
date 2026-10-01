@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 01 Oct
 
 - grab highlight theme
+- video search tool
 
 30 Sep
 

@@ -810,7 +810,6 @@
     "extraChart.accuracyPlus": "المزيد من المعلومات حول الدقة",
     "themes.toggleStudyChat": "تبديل دردشة الدراسة",
     "additionalGlyphs.enabled": "تمكين",
-    "additionalGlyphs.mate": "ماتيه",
     "additionalGlyphs.book": "كتاب",
     "customEngineOptions.infiniteExternal": "تحليل لا نهائي للمحركات الخارجية",
     "addHintText": "تلميح عند الطلب للاعب",
@@ -1245,7 +1244,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2058,7 +2063,6 @@
     "extraChart.accuracyPlus": "关于准确度的更多信息",
     "themes.toggleStudyChat": "切换研习聊天",
     "additionalGlyphs.enabled": "已启用",
-    "additionalGlyphs.mate": "将杀",
     "additionalGlyphs.book": "棋谱",
     "customEngineOptions.infiniteExternal": "外部引擎的无限分析",
     "addHintText": "玩家按需提示",
@@ -2493,7 +2497,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - 着法尖锐度",
     "explorerEval.sharpness": "尖锐度列",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3306,7 +3316,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -3741,7 +3750,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -4554,7 +4569,6 @@
     "extraChart.accuracyPlus": "Více informací o přesnosti",
     "themes.toggleStudyChat": "Přepnout studijní chat",
     "additionalGlyphs.enabled": "Povoleno",
-    "additionalGlyphs.mate": "Med",
     "additionalGlyphs.book": "Kniha",
     "customEngineOptions.infiniteExternal": "Nekonečná analýza externích enginů",
     "addHintText": "Na vyžádání nápověda pro hráče",
@@ -4989,7 +5003,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -5802,7 +5822,6 @@
     "extraChart.accuracyPlus": "Meer informatie over Nauwkeurigheid",
     "themes.toggleStudyChat": "Studiechat aan-/uitzetten",
     "additionalGlyphs.enabled": "Ingeschakeld",
-    "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Boek",
     "customEngineOptions.infiniteExternal": "Oneindige analyse voor externe motoren",
     "addHintText": "On-demand hint voor de speler",
@@ -6237,7 +6256,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7050,7 +7075,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -7485,7 +7509,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8298,7 +8328,6 @@
     "extraChart.accuracyPlus": "Plus d'infos sur la précision",
     "themes.toggleStudyChat": "Oui/non chat dans études",
     "additionalGlyphs.enabled": "Activé",
-    "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Coup théorique",
     "customEngineOptions.infiniteExternal": "Analyse infinie pour les moteurs externes",
     "addHintText": "Indice à la demande pour le joueur",
@@ -8733,7 +8762,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -9546,7 +9581,6 @@
     "extraChart.accuracyPlus": "Weitere Informationen zur Genauigkeit",
     "themes.toggleStudyChat": "Studienchat umschalten",
     "additionalGlyphs.enabled": "Aktiviert",
-    "additionalGlyphs.mate": "Matt",
     "additionalGlyphs.book": "Buch",
     "customEngineOptions.infiniteExternal": "Endlose Analyse für externe Engines",
     "addHintText": "Hinweis auf Nachfrage für den Spieler",
@@ -9981,7 +10015,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -10794,7 +10834,6 @@
     "extraChart.accuracyPlus": "Περισσότερες πληροφορίες για την Ακρίβεια",
     "themes.toggleStudyChat": "Εναλλαγή συνομιλίας μελέτης",
     "additionalGlyphs.enabled": "Ενεργοποιημένο",
-    "additionalGlyphs.mate": "Ματ",
     "additionalGlyphs.book": "Βιβλίο",
     "customEngineOptions.infiniteExternal": "Άπειρη ανάλυση για εξωτερικούς κινητήρες",
     "addHintText": "Υπόδειξη κατόπιν ζήτησης για τον παίκτη",
@@ -11229,7 +11268,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12042,7 +12087,6 @@
     "extraChart.accuracyPlus": "Maggiori informazioni sulla Precisione",
     "themes.toggleStudyChat": "Attiva/Disattiva chat di studio",
     "additionalGlyphs.enabled": "Abilitato",
-    "additionalGlyphs.mate": "Scaccomatto",
     "additionalGlyphs.book": "Libro",
     "customEngineOptions.infiniteExternal": "Analisi infinita per motori esterni",
     "addHintText": "Suggerimento su richiesta per il giocatore",
@@ -12477,7 +12521,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13290,7 +13340,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -13725,7 +13774,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -14538,7 +14593,6 @@
     "extraChart.accuracyPlus": "Mer info om Nøyaktighet",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Påskrudd",
-    "additionalGlyphs.mate": "Matt",
     "additionalGlyphs.book": "Bok",
     "customEngineOptions.infiniteExternal": "Uendelig analyse for eksterne maskiner",
     "addHintText": "Ledetråd ved behov for spiller",
@@ -14973,7 +15027,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15786,7 +15846,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -16221,7 +16280,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17034,7 +17099,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -17469,7 +17533,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18282,7 +18352,6 @@
     "extraChart.accuracyPlus": "Więcej informacji na temat dokładności",
     "themes.toggleStudyChat": "Przełącz czat opracowania",
     "additionalGlyphs.enabled": "Włączone",
-    "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Ruch książkowy",
     "customEngineOptions.infiniteExternal": "Nieskończona głębokość analizy dla silników zewnętrznych",
     "addHintText": "Wskazówka dla gracza na żądanie",
@@ -18717,7 +18786,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -19530,7 +19605,6 @@
     "extraChart.accuracyPlus": "Mais informações sobre precisão",
     "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
     "additionalGlyphs.enabled": "Ativado",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
     "addHintText": "Dica sob demanda para o jogador",
@@ -19965,7 +20039,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -20778,7 +20858,6 @@
     "extraChart.accuracyPlus": "Mais informações sobre precisão",
     "themes.toggleStudyChat": "Ativar/desativar chat do estudo",
     "additionalGlyphs.enabled": "Ativado",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análise infinita para motores externos",
     "addHintText": "Dica sob demanda para o jogador",
@@ -21213,7 +21292,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22026,7 +22111,6 @@
     "extraChart.accuracyPlus": "Informații în plus pe Acuratețe",
     "themes.toggleStudyChat": "Comută chat în studii",
     "additionalGlyphs.enabled": "Activate",
-    "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Deschidere",
     "customEngineOptions.infiniteExternal": "Analiză infinită pentru motoare externe",
     "addHintText": "Indiciu la cerere pentru jucător",
@@ -22461,7 +22545,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Periculozitatea mutării",
     "explorerEval.sharpness": "Coloană periculozitate",
-    "themes.grabHighlight": "Evidenţiere apucare"
+    "themes.grabHighlight": "Evidenţiere apucare",
+    "options.videoSearch": "Căutare poziție în video-uri",
+    "videoSearchButtonText": "Video-uri",
+    "videoSearchButtonTitle": "LiChess Tools - caută video-uri cu poziția curentă",
+    "videoSearchHeader": "Căutare video",
+    "chessInsightsLinkText": "Vezi mai mult la ChessInsights.ai",
+    "noVideosFoundText": "Nu s-au găsit video-uri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23274,7 +23364,6 @@
     "extraChart.accuracyPlus": "Подробнее о точности",
     "themes.toggleStudyChat": "Отключить чат студии",
     "additionalGlyphs.enabled": "Включено",
-    "additionalGlyphs.mate": "Мат",
     "additionalGlyphs.book": "Книга",
     "customEngineOptions.infiniteExternal": "Бесконечный анализ для внешних движков",
     "addHintText": "Подсказка по требованию для игрока",
@@ -23709,7 +23798,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -24522,7 +24617,6 @@
     "extraChart.accuracyPlus": "Más información sobre precisión",
     "themes.toggleStudyChat": "Alternar chat de estudio",
     "additionalGlyphs.enabled": "Activado",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Reservar",
     "customEngineOptions.infiniteExternal": "Análisis infinito para motores externos",
     "addHintText": "Sugerencia a petición para el jugador",
@@ -24957,7 +25051,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -25770,7 +25870,6 @@
     "extraChart.accuracyPlus": "துல்லியம் பற்றிய கூடுதல் தகவல்",
     "themes.toggleStudyChat": "படிப்பு அரட்டையை நிலைமாற்று",
     "additionalGlyphs.enabled": "இயக்கப்பட்டது",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "புத்தகம்",
     "customEngineOptions.infiniteExternal": "வெளிப்புற இயந்திரங்களுக்கான எல்லையற்ற பகுப்பாய்வு",
     "addHintText": "வீரருக்கான தேவைக்கு ஏற்ற குறிப்பு",
@@ -26205,7 +26304,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27018,7 +27123,6 @@
     "extraChart.accuracyPlus": "Doğruluk hakkında daha fazla bilgi",
     "themes.toggleStudyChat": "Çalışma sohbetini aç/kapat",
     "additionalGlyphs.enabled": "Etkinleştirildi",
-    "additionalGlyphs.mate": "Mat",
     "additionalGlyphs.book": "Kitap",
     "customEngineOptions.infiniteExternal": "Dış motorlar için sonsuz analiz",
     "addHintText": "Oyuncu için isteğe bağlı ipucu",
@@ -27453,7 +27557,13 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Hamle keskinliği",
     "explorerEval.sharpness": "Keskinlik sütunu",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28266,7 +28376,6 @@
     "extraChart.accuracyPlus": "More info on Accuracy",
     "themes.toggleStudyChat": "Toggle study chat",
     "additionalGlyphs.enabled": "Enabled",
-    "additionalGlyphs.mate": "Mate",
     "additionalGlyphs.book": "Book",
     "customEngineOptions.infiniteExternal": "Infinite analysis for external engines",
     "addHintText": "On-demand hint for the player",
@@ -28701,6 +28810,12 @@
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
     "explorerEval.sharpness": "Sharpness column",
-    "themes.grabHighlight": "Grab highlight"
+    "themes.grabHighlight": "Grab highlight",
+    "options.videoSearch": "Search position in videos",
+    "videoSearchButtonText": "Videos",
+    "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
+    "videoSearchHeader": "Video search",
+    "chessInsightsLinkText": "See more at ChessInsights.ai",
+    "noVideosFoundText": "No videos found"
   }
 }
