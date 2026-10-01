@@ -8,8 +8,8 @@
         name: 'additionalGlyphs',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['enabled', 'mate', 'book', 'miss', 'slow', 'novelty'],
-        defaultValue: 'enabled,mate,book,miss,slow',
+        possibleValues: ['enabled', 'book', 'miss', 'slow', 'novelty'],
+        defaultValue: 'enabled,book,miss,slow',
         advanced: true
       }
     ];
@@ -24,7 +24,6 @@
         'options.analysis': 'Analysis',
         'options.additionalGlyphs': 'Additional glyphs',
         'additionalGlyphs.enabled': 'Enabled',
-        'additionalGlyphs.mate': 'Mate',
         'additionalGlyphs.book': 'Book',
         'additionalGlyphs.miss': 'Miss',
         'additionalGlyphs.slow': 'Slow',
@@ -34,7 +33,6 @@
         'options.analysis': 'Analiz\u0103',
         'options.additionalGlyphs': 'Simboluri \u00een plus',
         'additionalGlyphs.enabled': 'Activate',
-        'additionalGlyphs.mate': 'Mat',
         'additionalGlyphs.book': 'Deschidere',
         'additionalGlyphs.miss': 'Rateu',
         'additionalGlyphs.slow': 'Lent',
@@ -176,14 +174,7 @@
       const glyphs = node.glyphs || (node.glyphs = []);
       const symbols = glyphs.map(g=>g.symbol).filter(s=>!!s);
       const newGlyphs = [];
-      const isMate = lt.isMate(node);
       let name = undefined;
-      if (this.options.mate && isMate && !symbols.find(s=>s==lt.icon.Mate)) {
-        newGlyphs.push({
-          glyph: lt.icon.Mate,
-          fill: '#557766B0'
-        });
-      }
       if (this.options.book && node.opening && !symbols.find(s=>s==lt.icon.OpenBook)) {
         newGlyphs.push({
           glyph: lt.icon.OpenBook,
@@ -251,9 +242,7 @@
       const shapes = [];
       let redraw = false;
       for (const newGlyph of newGlyphs) {
-        let orig = newGlyph.glyph == lt.icon.Mate
-                   ? this.getSquareOfCheckedKing()
-                   : node.uci?.slice(2, 4);
+        let orig = node.uci?.slice(2, 4);
         if (!orig) continue;
         if (node.san?.startsWith('O-O')) {
           switch (orig) {
@@ -272,7 +261,6 @@
           }
         });
  
-        // mate is a special one, no ceval running and already on the move list
         if (newGlyph.name) {
           glyphs.push({
             symbol: newGlyph.glyph,
@@ -383,7 +371,6 @@
       if (!analysis) return;
       this.options = {
         enabled: lt.isOptionSet(value, 'enabled'),
-        mate: lt.isOptionSet(value, 'mate'),
         book: lt.isOptionSet(value, 'book'),
         miss: lt.isOptionSet(value, 'miss'),
         slow: lt.isOptionSet(value, 'slow'),
