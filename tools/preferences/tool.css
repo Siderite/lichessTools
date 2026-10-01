@@ -328,3 +328,8 @@ div.lichessTools-preferences div.file button {
   align-items: center;
   display: flex;
 }
+
+/* the user.account CSS breaks the wiki box */
+body.lichessTools fieldset.analyse__wiki {
+  padding: 1rem 1rem 0;
+}
