@@ -418,6 +418,25 @@
       this.setTimeControlLabels();
     };
 
+    // temporary? fix for https://github.com/lichess-org/lila/issues/21905
+    addSizeToMiniboards = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $(':is(.mini-game,.captcha) cg-container').each((i,e)=>{
+        const $e = $(e);
+        const existingWidth = $e.css('---cg-width');
+        const existingHeight = $e.css('---cg-height');
+        const width = $e.css('width');
+        const height = $e.css('height');
+        if (width && existingWidth!=width) {
+          $e.css('---cg-width',width);
+        }
+        if (height && existingHeight!=height) {
+          $e.css('---cg-height',height);
+        }
+      });
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('themes');
@@ -431,7 +450,8 @@
       if (!value && !this.ranStart) {
         return;
       }
-
+      $('body').observer()
+        .off(':is(.mini-game,.captcha) cg-container',this.addSizeToMiniboards);
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()
@@ -443,6 +463,15 @@
           });
         $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
         this.checkBodyDirect();
+        $('body').observer()
+          .on(':is(.mini-game,.captcha) cg-container',this.addSizeToMiniboards,{ 
+                                                        subtree: false,
+                                                        childList: false, 
+                                                        attributes: true, 
+                                                        attributeFilter: [ 'style' ],
+                                                        characterData: true
+                                                      });
+        this.addSizeToMiniboards();
       }
       await this.applyThemes();
       $('#dasher_app')
