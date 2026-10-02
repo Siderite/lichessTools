@@ -722,6 +722,22 @@
       this.updateFriendsButton();
     };
 
+    ensureFriendsRequest = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (this._friendsRequest) return;
+      const elem = $('.friend_box_title,.friend_box_button')[0];
+      this._friendsRequest = lt.getEventHandlers(elem, 'click')[0];
+      if (!this._friendsRequest) {
+        this._friendsRequest = ()=> {
+          if (!$('dialog[open]').length) {
+            $('.friend_box_title,.friend_box_button').trigger('click');
+          }
+        };
+      }
+      this._friendsRequest.apply(elem);
+    };
+
     onFirstFollowingOnlines = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -733,17 +749,7 @@
         case 'open':
         case 'button':
         case 'menu': {
-          if ($('#friend_box .content_wrap').is('.none')) {
-            const elem = $('.friend_box_title')[0];
-            const handler = lt.getEventHandlers(elem, 'click')[0];
-            if (handler) {
-              handler.apply(elem);
-            } else {
-              if (!$('dialog[open]').length) {
-                $('.friend_box_title').trigger('click');
-              }
-            }
-          }
+          this.ensureFriendsRequest();
         }
           break;
         case 'hidden':
@@ -947,9 +953,7 @@
         case 'true':
         case 'open': {
           $('#friend_box').css('display', '');
-          if ($('#friend_box .content_wrap').is('.none')) {
-            $('#friend_box .friend_box_title').trigger('click');
-          }
+          this.ensureFriendsRequest();
           $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
         }
@@ -967,7 +971,6 @@
           }
           break;
         case 'hidden': {
-          $('#friend_box .content_wrap').addClass('none');
           $('#friend_box').css('display', 'none');
           $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
@@ -975,9 +978,7 @@
           break;
         default: {
           $('#friend_box').css('display', '');
-          if (!$('#friend_box .content_wrap').is('.none')) {
-            $('#friend_box .friend_box_title').trigger('click');
-          }
+          this.ensureFriendsRequest();
           $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
           $('.site-buttons .lichessTools-onlineFriends').remove();
         }
