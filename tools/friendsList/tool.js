@@ -99,14 +99,16 @@
     buttonPageSize = 7;
     updateFriendsButton = () => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = this.options.openFriends;
       if (value !== 'menu' && value !== 'button') return;
+      const isNewFriends = !!$('#friend_box .friend_box_button').length;
+      if (isNewFriends) return;
       if (lt.global.document.hidden) {
         lt.global.clearTimeout(this._updateFriendsButtonTimeout);
         this._updateFriendsButtonTimeout = lt.global.setTimeout(this.updateFriendsButton, 500);
         return;
       }
-      const $ = lt.$;
       const trans = lt.translator;
       const myName = lt.getUserId();
       if (!myName) return;
@@ -899,7 +901,7 @@
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (this.options.openFriends == 'menu' || this.options.openFriends == 'button' || (this.options.liveFriendsPage && this.isFriendsPage)) {
+      if (['menu', 'button'].includes(this.options.openFriends) || (this.options.liveFriendsPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
@@ -951,12 +953,13 @@
       switch (this.options.openFriends) {
         case true:
         case 'true':
-        case 'open': {
-          $('#friend_box').css('display', '');
-          this.ensureFriendsRequest();
-          $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
-          $('.site-buttons .lichessTools-onlineFriends').remove();
-        }
+        case 'open':
+          {
+            $('#friend_box').css('display', '');
+            this.ensureFriendsRequest();
+            $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
+            $('.site-buttons .lichessTools-onlineFriends').remove();
+          }
           break;
         case 'menu':
           {
