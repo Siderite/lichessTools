@@ -377,6 +377,18 @@
           const now = new Date().toISOString();
           addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
           addTag(tags, 'UTCTime', now.substr(11, 8), true);
+          const timeControlTag = analysis.study?.data?.chapter?.tags?.find(p=>p[0]=='TimeControl')?.[1];
+          if (timeControlTag) {
+            addTag(tags, 'TimeControl', timeControlTag);
+          } else
+          if (analysis.data?.correspondence) {
+            addTag(tags, 'TimeControl', '-');
+          } else
+          if (analysis.data?.clock) {
+            const initial = +analysis.data.clock.initial || 0;
+            const increment = +analysis.data.clock.increment || 0;
+            addTag(tags, 'TimeControl', initial+'+'+increment);
+          }
         }
         const tagString = !options.print && tags.length 
           ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' 
