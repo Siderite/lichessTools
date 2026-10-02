@@ -146,6 +146,7 @@
       Switch: '\uE07B',
       Cpu: '\uE07E',
       Prune: '\uE07F',
+      Friends: '\uE080',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
