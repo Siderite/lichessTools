@@ -27606,8 +27606,8 @@
     "videoSearchHeader": "Video arama",
     "chessInsightsLinkText": "Daha fazlası için ChessInsights.ai",
     "noVideosFoundText": "Video bulunamadı",
-    "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "practiceDepthLabel": "Derinlik: %s",
+    "goToPlayedMoveText": "Son oynanan hamleye dön"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
