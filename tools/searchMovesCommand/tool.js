@@ -207,6 +207,7 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      if (!analysis) return;
       if (lt.isGamePlaying()) return;
       if (analysis.gamebookPlay()) return;
       if ($('dialog.lichessTools-pgnEditor').length) return;

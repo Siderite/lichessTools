@@ -6,7 +6,7 @@
     preferences = [
       {
         name: 'keyboardHelp',
-        category: 'analysis',
+        category: 'general',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -18,7 +18,7 @@
 
     intl = {
       'en-US': {
-        'options.analysis': 'Analysis',
+        'options.general': 'General',
         'options.keyboardHelp': 'LiChess Tools section in keyboard help',
         'lichessTools': 'LiChess Tools',
         'nextBlunder': 'Next blunder (all lines)',
@@ -54,7 +54,7 @@
         'goToPlayedMoveText': 'Return to last played move'
       },
       'ro-RO': {
-        'options.analysis': 'Analiz\u0103',
+        'options.general': 'General',
         'options.keyboardHelp': 'Sec\u0163iune LiChess Tools \u00een dialogul ajutor pentru taste',
         'lichessTools': 'LiChess Tools',
         'nextBlunder': 'Urm\u0103toarea gaf\u0103 (toate liniile)',
@@ -113,8 +113,12 @@
       const table = $('div.keyboard-help > table tbody');
       if (!table.length) return;
       $('.keyboard-help .lichessTools-disabled').removeClass('lichessTools-disabled');
+      const $title = $('tr.lichessTools-title', table);
+      const $kbds = $('td.keys kbd', table).filter((_, el) => {
+        return $(el).closest('tr')[0].compareDocumentPosition($title[0]) & Node.DOCUMENT_POSITION_FOLLOWING;
+      });
       if (lt.currentOptions.getValue('keyShortcuts')) {
-        $('td.keys kbd', table)
+        $kbds
           .filter((i, e) => {
             const text = $(e).text();
             return ['b', 'm', 'i'].includes(text) && !lt.isBindingDisabled?.([text]);
@@ -126,7 +130,7 @@
           .attr('title', trans.noarg('seeLichessTools'));
       }
       if (lt.currentOptions.getValue('spaceDisabled') && !lt.isBindingDisabled?.(['ctrl','space'])) {
-        $('td.keys kbd', table)
+        $kbds
           .filter((i, e) => $(e).text() == 'space')
           .parent()
           .filter((i, e) => $('kbd', e).length == 1)
@@ -134,18 +138,15 @@
           .addClass('lichessTools-disabled')
           .attr('title', trans.noarg('seeLichessTools'));
       }
-      if (lt.currentOptions.getValue('explorerPractice') && analysis?.explorer?.enabled()) {
-        if (!lt.isBindingDisabled?.(['h']))         
-        if (lt.tools.ExplorerPracticeTool.isRunning) {
-          row(['h'], 'explorerPracticeHideMoves');
-          $('td.keys kbd', table)
-            .filter((i, e) => $(e).text() == 'h')
-            .parent()
-            .filter((i, e) => $('kbd', e).length == 1)
-            .closest('tr')
-            .addClass('lichessTools-disabled')
-            .attr('title', trans.noarg('seeLichessTools'));
-        }
+      if (lt.currentOptions.getValue('explorerPractice') && analysis?.explorer?.enabled()
+          && !lt.isBindingDisabled?.(['h']) && lt.tools.ExplorerPracticeTool.isRunning) {
+        $kbds
+          .filter((i, e) => $(e).text() == 'h')
+          .parent()
+          .filter((i, e) => $('kbd', e).length == 1)
+          .closest('tr')
+          .addClass('lichessTools-disabled')
+           .attr('title', trans.noarg('seeLichessTools'));
       }
     };
 
@@ -157,7 +158,7 @@
       const study = analysis?.study;
       const trans = lt.translator;
       const $ = lt.$;
-      const table = $('div.keyboard-help > table tbody');
+      const table = $('div.keyboard-help > table tbody, .dialog-content.help > table');
       if (!table.length) return;
       if (table[0].hasLichessTools) return;
       table[0].hasLichessTools = true;
@@ -200,71 +201,83 @@
       };
 
       title('lichessTools', 'lichessTools-title');
+      if (analysis) {
+        if (lt.currentOptions.getValue('keyShortcuts')) {
+          row(['shift','b'], 'boardEditor');
+          row(['b'], 'nextBlunder');
+          if (!analysis?.retro) {
+            row(['m'], 'nextMistake');
+          }
+          row(['i'], 'nextInaccuracy');
+          row(['g'], 'nextGood');
+          row(['alt', 'b'], 'nextOpponentBlunder');
+          row(['alt', 'm'], 'nextOpponentMistake');
+          row(['alt', 'i'], 'nextOpponentInaccuracy');
+          row(['alt', 'g'], 'nextOpponentGood');
+
+          const isCorrespondence = analysis?.data?.game?.speed == 'correspondence';
+          if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis && !isCorrespondence) {
+            row(['o'], 'nextSlow');
+            row(['alt', 'o'], 'nextOpponentSlow');
+          }
+
+          row(['.', '!then', '1-9'], 'variationLine');
+          row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
+          row(['shift', '.', '!then', '1-9'], 'explorerLine');
+          row(['`', '!then', 'f'], 'freezeBoard');
+          if ($('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button').length) {
+            row(['r'], 'keyRequestComputerAnalysis');
+          }
+          if (lt.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
+            row(['`', '!then', 'r'], 'randomChapter');
+          }
+          if (analysis?.ongoing) {
+            row(['backspace'], 'jumpToCurrent');
+          }
+          if (analysis?.explorer?.enabled()) {
+            row(['shift', 't'], 'switchExplorerTabs');
+          }
+        }
+        if (lt.currentOptions.getValue('ctrlArrows')) {
+          row(['ctrl', '&rarr;'], 'randomMove');
+          row(['ctrl', '&larr;'], 'previousPosition');
+        }
+        if (lt.currentOptions.getValue('spaceDisabled')) {
+          row(['ctrl', 'space'], 'bestCevalLine');
+        }
+        if (lt.currentOptions.getValue('explorerPractice') && analysis?.explorer?.enabled()) {
+          row(['shift', 'l'], 'explorerPractice');
+        }
+        if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
+          row(['o'], 'obsIntegration');
+        }
+        const customEngineOptions = lt.currentOptions.getValue('customEngineOptions');
+        if (analysis?.cevalEnabled() && lt.isOptionSet(customEngineOptions,'plus')) {
+          row(['plus'], 'deeperPlus');
+        }
+        if (analysis?.ongoing) {
+          if (!lt.isBindingDisabled?.(['backspace']))
+          row(['backspace'], 'goToPlayedMoveText');
+        }
+        if (lt.currentOptions.getValue('explorerPractice') && analysis?.explorer?.enabled() 
+            && lt.tools.ExplorerPracticeTool.isRunning) {
+            row(['h'], 'explorerPracticeHideMoves');
+        }
+
+        this.alterLichessKeys();
+      }
+      
       if (lt.currentOptions.getValue('keyShortcuts')) {
-        row(['shift','b'], 'boardEditor');
-        row(['b'], 'nextBlunder');
-        if (!analysis?.retro) {
-          row(['m'], 'nextMistake');
-        }
-        row(['i'], 'nextInaccuracy');
-        row(['g'], 'nextGood');
-        row(['alt', 'b'], 'nextOpponentBlunder');
-        row(['alt', 'm'], 'nextOpponentMistake');
-        row(['alt', 'i'], 'nextOpponentInaccuracy');
-        row(['alt', 'g'], 'nextOpponentGood');
-
-        const isCorrespondence = analysis.data?.game?.speed == 'correspondence';
-        if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length && analysis.data?.game?.moveCentis && !isCorrespondence) {
-          row(['o'], 'nextSlow');
-          row(['alt', 'o'], 'nextOpponentSlow');
-        }
-
-        row(['.', '!then', '1-9'], 'variationLine');
-        row(['ctrl', '.', '!then', '1-9'], 'cevalLine');
-        row(['shift', '.', '!then', '1-9'], 'explorerLine');
-        row(['`', '!then', 'f'], 'freezeBoard');
-        if ($('.analyse__underboard__panels .computer-analysis button, .analyse__round-training .advice-summary a.button').length) {
-          row(['r'], 'keyRequestComputerAnalysis');
-        }
-        if (lt.currentOptions.getValue('chapterNavigation') && $('div.lichessTools-chapterControls button[data-act="random"]').length) {
-          row(['`', '!then', 'r'], 'randomChapter');
-        }
         row(['`', '!then', 'h'], 'toggleSiteHeader');
-        if (analysis.ongoing) {
-          row(['backspace'], 'jumpToCurrent');
+        const shortcutsTool = lt.tools.KeyShortcutsTool;
+        if (shortcutsTool?.canCopy()) {
+          row(['ctrl', 'c'], 'copyFenToClipboard');
         }
-        if (analysis.explorer.enabled()) {
-          row(['shift', 't'], 'switchExplorerTabs');
-        }
-        row(['ctrl', 'c'], 'copyFenToClipboard');
       }
-      if (lt.currentOptions.getValue('ctrlArrows')) {
-        row(['ctrl', '&rarr;'], 'randomMove');
-        row(['ctrl', '&larr;'], 'previousPosition');
-      }
-      if (lt.currentOptions.getValue('spaceDisabled')) {
-        row(['ctrl', 'space'], 'bestCevalLine');
-      }
-      if (lt.currentOptions.getValue('explorerPractice') && analysis.explorer?.enabled()) {
-        row(['shift', 'l'], 'explorerPractice');
-      }
-      if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
-        row(['o'], 'obsIntegration');
-      }
-      const tool = lt.tools.SearchMovesCommandTool;
-      if (tool?.canSearch()) {
+      const searchTool = lt.tools.SearchMovesCommandTool;
+      if (searchTool?.canSearch()) {
         row(['ctrl', 'f'], 'searchMoves');
       }
-      const customEngineOptions = lt.currentOptions.getValue('customEngineOptions');
-      if (analysis.cevalEnabled() && lt.isOptionSet(customEngineOptions,'plus')) {
-        row(['plus'], 'deeperPlus');
-      }
-      if (analysis.ongoing) {
-        if (!lt.isBindingDisabled?.(['backspace']))
-        row(['backspace'], 'goToPlayedMoveText');
-      }
-
-      this.alterLichessKeys();
     };
 
     async init() {
@@ -274,15 +287,18 @@
 
     async start() {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const lichess = lt.lichess;
       if (!lichess || !lt.uiApi) return;
       const value = lt.currentOptions.getValue('keyboardHelp');
       this.logOption('Keyboard help', value);
-      const analysis = lichess?.analysis;
-      if (!analysis) return;
       lt.uiApi.events.off('analysis.closeAll', this.processHelp);
+      $('body').observer()
+        .off('.snab-modal-mask',this.processHelp);
       if (!value) return;
       lt.uiApi.events.on('analysis.closeAll', this.processHelp);
+      $('body').observer()
+        .on('.snab-modal-mask',this.processHelp);
     }
 
   }
