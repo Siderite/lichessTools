@@ -158,7 +158,7 @@
       const study = analysis?.study;
       const trans = lt.translator;
       const $ = lt.$;
-      const table = $('div.keyboard-help > table tbody, .dialog-content.help > table');
+      const table = $('.dialog-content.help > table tbody:has(kbd)');
       if (!table.length) return;
       if (table[0].hasLichessTools) return;
       table[0].hasLichessTools = true;
