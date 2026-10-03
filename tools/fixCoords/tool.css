@@ -4,10 +4,12 @@ body.lichessTools.lichessTools-fixCoords-larger cg-container coords {
 
 body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.ranks {
   right: -0.8em;
+  z-index: 1;
 }
 
 body.lichessTools.lichessTools-fixCoords-larger.coords-out:not(.mobile,:has(.lpv__board)) cg-container coords.files {
   bottom: -1.3em;
+  z-index: 1;
 }
 
 coords.lichessTools-fixCoords {

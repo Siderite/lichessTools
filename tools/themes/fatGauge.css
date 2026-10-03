@@ -4,9 +4,9 @@ body.lichessTools.lichessTools-theme_fatGauge {
   ---analysis-gauge-width: 50px;
 }
 
-body.lichessTools.lichessTools-theme_fatGauge main.puzzle:has(.eval-gauge),
-body.lichessTools.lichessTools-theme_fatGauge main.analyse:has(.eval-gauge) {
+body.lichessTools.lichessTools-theme_fatGauge main:is(.puzzle,.analyse):has(.eval-gauge) {
   ---block-gap: var(---analysis-gauge-width);
+  ---puzzle-gauge-col: var(---analysis-gauge-width);
 }
 
 body.lichessTools.lichessTools-theme_fatGauge .mini-game__gauge {
@@ -15,7 +15,7 @@ body.lichessTools.lichessTools-theme_fatGauge .mini-game__gauge {
 }
 
 @media (max-width: 799.3px) {
-  body.lichessTools.lichessTools-theme_fatGauge main.analyse.gauge-on.lichessTools-gaugeOnMobile div.eval-gauge {
+  body.lichessTools.lichessTools-theme_fatGauge main.gauge-on.lichessTools-gaugeOnMobile:is(.puzzle,.analyse) div.eval-gauge {
     width: 1.5em;
   }
 }
