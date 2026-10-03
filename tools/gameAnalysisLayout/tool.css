@@ -92,14 +92,6 @@
     height: 75px;
   }
 
-  /* remove when https://github.com/lichess-org/lila/issues/21845 is solved */
-  body.lichessTools.lichessTools-gameAnalysisLayout #movetimes-chart-container .game-duration {
-    background: #808080A0;
-    text-shadow: 0 0 5px #FFFFFF;
-    border-radius: var(---ui-roundness);
-    padding: 2px;
-  }
-
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .fen-pgn {
     height: auto;
   }

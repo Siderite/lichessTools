@@ -257,7 +257,6 @@
       const analysis = lt.lichess.analysis;
       lt.unbindKeyHandler('i');
       lt.unbindKeyHandler('m');
-      if (!lt.isBindingDisabled?.(['b']))
       lt.unbindKeyHandler('b');
       lt.unbindKeyHandler('shift+b');
       lt.unbindKeyHandler('g');
@@ -286,21 +285,25 @@
       if (this.options.enabled) {
         if (!lt.isBindingDisabled?.(['i']))
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
-        if (!lt.isBindingDisabled?.(['m']))
         lt.bindKeyHandler('m', () => {
-          if (analysis.retro) {
+          if (analysis?.retro || lt.isBindingDisabled?.(['m']) || analysis?.keyboardMove) {
             const oldHandler = this.oldHandlers.m;
             if (oldHandler) oldHandler();
             return;
           }
           lt.jumpToGlyphSymbols('?');
         });
-        if (!lt.isBindingDisabled?.(['shift','b']))
-        if (this.oldHandlers['b']) {
-          lt.bindKeyHandler('shift+b', this.oldHandlers['b']);
+        if (!lt.isBindingDisabled?.(['b'])) {
+          if (!lt.isBindingDisabled?.(['shift','b']))
+          if (this.oldHandlers['b']) {
+            lt.bindKeyHandler('shift+b', this.oldHandlers['b']);
+          }
+          lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
+        } else {
+          if (this.oldHandlers['b']) {
+            lt.bindKeyHandler('b', this.oldHandlers['b']);
+          }
         }
-        if (!lt.isBindingDisabled?.(['b']))
-        lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
         if (!lt.isBindingDisabled?.(['g']))
         lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
         if (!lt.isBindingDisabled?.(['alt','i']))

@@ -121,7 +121,7 @@
         $kbds
           .filter((i, e) => {
             const text = $(e).text();
-            return ['b', 'm', 'i'].includes(text) && !lt.isBindingDisabled?.([text]);
+            return ['b', 'm', 'i'].includes(text) && (!lt.isBindingDisabled?.([text]) && (text!='m' || !analysis?.keyboardMove));
           })
           .parent()
           .filter((i, e) => $('kbd', e).length == 1)
@@ -205,7 +205,7 @@
         if (lt.currentOptions.getValue('keyShortcuts')) {
           row(['shift','b'], 'boardEditor');
           row(['b'], 'nextBlunder');
-          if (!analysis?.retro) {
+          if (!analysis?.retro && !analysis?.keyboardMove) {
             row(['m'], 'nextMistake');
           }
           row(['i'], 'nextInaccuracy');
