@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - custom practice engine level up to 50
 - key shortcuts toggles
+- search moves everywhere
 
 01 Oct
 
