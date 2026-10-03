@@ -46,20 +46,32 @@
       const g = lt.global;
       this.clearMoveMode();
       switch (mode) {
-        case 'pgn': {
-          const moves = $('div.analyse__tools div.analyse__fork move');
-          if (!moves.length) return;
-        }
+        case 'pgn':
+          {
+            if (lt.isBindingDisabled?.(['.','!then','1-9'])) {
+              return;
+            }
+            const moves = $('div.analyse__tools div.analyse__fork move');
+            if (!moves.length) return;
+          }
           break;
-        case 'ceval': {
-          const analysis = lt.lichess.analysis;
-          if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
-        }
+        case 'ceval':
+          {
+            if (lt.isBindingDisabled?.(['ctrl','.','!then','1-9'])) {
+              return;
+            }
+            const analysis = lt.lichess.analysis;
+            if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
+          }
           break;
-        case 'explorer': {
-          const moves = $('.explorer-box:not(.loading) .moves tbody tr');
-          if (!moves.length) return;
-        }
+        case 'explorer':
+          {
+            if (lt.isBindingDisabled?.(['shift','.','!then','1-9'])) {
+              return;
+            }
+            const moves = $('.explorer-box:not(.loading) .moves tbody tr');
+            if (!moves.length) return;
+          }
           break;
         case 'general':
           break;
@@ -79,33 +91,49 @@
       let index = +combo;
       if (!index) return;
       index--;
-      if (!this.makeMoveMode && this.oldHandlers[combo]) {
-        this.oldHandlers[combo]();
+      const defaultHandler = this.oldHandlers[combo];
+      if (!this.makeMoveMode && defaultHandler) {
+        defaultHandler();
         return;
       }
       switch (this.makeMoveMode) {
-        case 'pgn': {
-          const moves = $('div.analyse__tools div.analyse__fork move');
-          const move = moves[index];
-          move?.click();
-        }
+        case 'pgn':
+          {
+            if (lt.isBindingDisabled?.(['.','!then','1-9'])) {
+              defaultHandler?.();
+              return;
+            }
+            const moves = $('div.analyse__tools div.analyse__fork move');
+            const move = moves[index];
+            move?.click();
+          }
           break;
-        case 'ceval': {
-          const analysis = lt.lichess.analysis;
-          if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
-          const pvs = analysis?.node?.ceval?.pvs;
-          if (!pvs || !pvs[index]) return;
-          const uci = pvs[index].moves[0];
-          if (uci) analysis.playUci(uci);
-        }
+        case 'ceval':
+          {
+            if (lt.isBindingDisabled?.(['ctrl','.','!then','1-9'])) {
+              defaultHandler?.();
+              return;
+            }
+            const analysis = lt.lichess.analysis;
+            if (!analysis?.ceval || !analysis?.cevalEnabled()) return;
+            const pvs = analysis?.node?.ceval?.pvs;
+            if (!pvs || !pvs[index]) return;
+            const uci = pvs[index].moves[0];
+            if (uci) analysis.playUci(uci);
+          }
           break;
-        case 'explorer': {
-          const analysis = lt.lichess.analysis;
-          if (!analysis) return;
-          const moves = $('.explorer-box:not(.loading) .moves tbody tr');
-          const uci = moves.eq(index).attr('data-uci');
-          if (uci) analysis.playUci(uci);
-        }
+        case 'explorer':
+          {
+            if (lt.isBindingDisabled?.(['shift','.','!then','1-9'])) {
+              defaultHandler?.();
+              return;
+            }
+            const analysis = lt.lichess.analysis;
+            if (!analysis) return;
+            const moves = $('.explorer-box:not(.loading) .moves tbody tr');
+            const uci = moves.eq(index).attr('data-uci');
+            if (uci) analysis.playUci(uci);
+          }
           break;
         default:
           if (this.makeMoveMode) {
@@ -119,7 +147,7 @@
     boardFrozen = false;
     freezeBoard = () => {
       const lt = this.lichessTools;
-      if (this.makeMoveMode != 'general') {
+      if (this.makeMoveMode != 'general' || lt.isBindingDisabled?.(['`','!then','f'])) {
         this.oldHandlers['f']();
         return;
       }
@@ -151,7 +179,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (this.makeMoveMode != 'general') {
-        if (lt.tools.ExplorerPracticeTool.isRunning) {
+        if (lt.tools.ExplorerPracticeTool.isRunning && !lt.isBindingDisabled?.(['h'])) {
           $('.lichessTools-hideExplorerMovesButton').trigger('click');
         } else {
           const f = this.oldHandlers['h'];
@@ -160,6 +188,7 @@
         return;
       }
       this.clearMoveMode();
+      if (!lt.isBindingDisabled?.(['`','!then','h']))
       $('body')
         .toggleClass('lichessTools-hideSiteHeader');
     };
@@ -228,6 +257,7 @@
       const analysis = lt.lichess.analysis;
       lt.unbindKeyHandler('i');
       lt.unbindKeyHandler('m');
+      if (!lt.isBindingDisabled?.(['b']))
       lt.unbindKeyHandler('b');
       lt.unbindKeyHandler('shift+b');
       lt.unbindKeyHandler('g');
@@ -256,7 +286,9 @@
       lt.unbindKeyHandler('shift+t', true);
 
       if (this.options.enabled) {
+        if (!lt.isBindingDisabled?.(['i']))
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
+        if (!lt.isBindingDisabled?.(['m']))
         lt.bindKeyHandler('m', () => {
           if (analysis.retro) {
             const oldHandler = this.oldHandlers.m;
@@ -265,17 +297,26 @@
           }
           lt.jumpToGlyphSymbols('?');
         });
+        if (!lt.isBindingDisabled?.(['shift','b']))
         if (this.oldHandlers['b']) {
           lt.bindKeyHandler('shift+b', this.oldHandlers['b']);
         }
+        if (!lt.isBindingDisabled?.(['b']))
         lt.bindKeyHandler('b', () => lt.jumpToGlyphSymbols('??'));
+        if (!lt.isBindingDisabled?.(['g']))
         lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
+        if (!lt.isBindingDisabled?.(['alt','i']))
         lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));
+        if (!lt.isBindingDisabled?.(['alt','m']))
         lt.bindKeyHandler('alt+m', () => lt.jumpToGlyphSymbols('?', true));
+        if (!lt.isBindingDisabled?.(['alt','b']))
         lt.bindKeyHandler('alt+b', () => lt.jumpToGlyphSymbols('??', true));
+        if (!lt.isBindingDisabled?.(['alt','g']))
         lt.bindKeyHandler('alt+g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar], true));
         if (lt.tools.AdditionalGlyphsTool?.options?.slow && !$('span.lichessTools-obsSetup').length) {
+          if (!lt.isBindingDisabled?.(['o']))
           lt.bindKeyHandler('o', () => this.jumpToSlowMoves(false));
+          if (!lt.isBindingDisabled?.(['alt','o']))
           lt.bindKeyHandler('alt+o', () => this.jumpToSlowMoves(true));
         }
 
@@ -288,11 +329,15 @@
         }
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('f', this.freezeBoard);
+        if (!lt.isBindingDisabled?.(['r']))
         lt.bindKeyHandler('r', this.handleRKey);
         if (analysis.ongoing) {
+          if (!lt.isBindingDisabled?.(['backspace']))
           lt.bindKeyHandler('backspace', this.jumpToCurrentMove);
         }
+        if (!lt.isBindingDisabled?.(['shift','t']))
         lt.bindKeyHandler('shift+t', this.switchExplorerTabs);
+        if (!lt.isBindingDisabled?.(['ctrl','f']))
         lt.bindKeyHandler('ctrl+f',this.search);
       } else {
         if (this.oldHandlers) {
@@ -437,6 +482,7 @@
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('h', this.handleHKey);
+        if (!lt.isBindingDisabled?.(['ctrl','c']))         
         $(document).on('copy', this.copyFenOrImage);
       } else {
       }
@@ -456,24 +502,29 @@
       }
     };
 
-    async start() {
+    bindKeys = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const value = lt.currentOptions.getValue('keyShortcuts');
-      this.logOption('Extra analysis key shortcuts', value);
-      this.options = { enabled: !!value };
-      if (!value && !this.loaded) return;
-      this.loaded = true;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const isEditorBoard = $('main').is('#board-editor');
-      this.preserveOriginalHandlers();
       if (analysis) {
         this.bindKeysForAnalysis();
       } else if (isEditorBoard) {
         this.bindKeysForEditor();
       }
       this.bindKeysForGeneral();
+    }
+
+    async start() {
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('keyShortcuts');
+      this.logOption('Extra analysis key shortcuts', value);
+      this.options = { enabled: !!value };
+      if (!value && !this.loaded) return;
+      this.loaded = true;
+      this.preserveOriginalHandlers();
+      this.bindKeys();
       if (!value) this.clearMoveMode();
     }
   }

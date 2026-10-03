@@ -65,17 +65,26 @@
       lt.analysisRedraw();
     };
 
+    bindKeys = () => {
+      const lt = this.lichessTools;
+      lt.unbindKeyHandler('ctrl+right', true);
+      lt.unbindKeyHandler('ctrl+left', true);
+      if (this.options.enabled) {
+        if (!lt.isBindingDisabled?.(['ctrl', '&rarr;'])) {
+          lt.bindKeyHandler('ctrl+right', this.playRandomVariation);
+        }
+        if (!lt.isBindingDisabled?.(['ctrl', '&larr;'])) {
+          lt.bindKeyHandler('ctrl+left', this.backOneMove);
+        }
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('ctrlArrows');
+      this.options = { enabled: !!value };
       this.logOption('Ctrl-arrows for random variation', value);
-      const handler = lt.getKeyHandler('ctrl+right');
-      lt.unbindKeyHandler('ctrl+right', true);
-      lt.unbindKeyHandler('ctrl+left', true);
-      if (value) {
-        lt.bindKeyHandler('ctrl+right', this.playRandomVariation);
-        lt.bindKeyHandler('ctrl+left', this.backOneMove);
-      }
+      this.bindKeys();
     }
   }
   LiChessTools.Tools.CtrlArrowsRandomVariation = CtrlArrowsRandomVariationTool;

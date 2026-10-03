@@ -1251,7 +1251,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2505,7 +2506,8 @@
     "videoSearchHeader": "视频搜索",
     "chessInsightsLinkText": "在 ChessInsights.ai 查看更多",
     "noVideosFoundText": "未找到视频",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3759,7 +3761,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5013,7 +5016,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6267,7 +6271,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7521,7 +7526,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8775,7 +8781,8 @@
     "videoSearchHeader": "Recherche de vidéos",
     "chessInsightsLinkText": "En savoir plus sur ChessInsights.ai",
     "noVideosFoundText": "Aucune vidéo trouvée",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10029,7 +10036,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11283,7 +11291,8 @@
     "videoSearchHeader": "Αναζήτηση βίντεο",
     "chessInsightsLinkText": "Δείτε περισσότερα στο ChessInsights.ai",
     "noVideosFoundText": "Δεν βρέθηκαν βίντεο",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12537,7 +12546,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13791,7 +13801,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15045,7 +15056,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16299,7 +16311,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17553,7 +17566,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18807,7 +18821,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20061,7 +20076,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21315,7 +21331,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22569,7 +22586,8 @@
     "videoSearchHeader": "Căutare video",
     "chessInsightsLinkText": "Vezi mai mult la ChessInsights.ai",
     "noVideosFoundText": "Nu s-au găsit video-uri",
-    "practiceDepthLabel": "Adâncime: %s"
+    "practiceDepthLabel": "Adâncime: %s",
+    "goToPlayedMoveText": "Revino la ultima mutare jucată"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23823,7 +23841,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25077,7 +25096,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26331,7 +26351,8 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27585,7 +27606,8 @@
     "videoSearchHeader": "Video arama",
     "chessInsightsLinkText": "Daha fazlası için ChessInsights.ai",
     "noVideosFoundText": "Video bulunamadı",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28839,6 +28861,7 @@
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
-    "practiceDepthLabel": "Depth: %s"
+    "practiceDepthLabel": "Depth: %s",
+    "goToPlayedMoveText": "Return to last played move"
   }
 }

@@ -454,6 +454,14 @@
       lt.analysisRedraw();
     };
 
+    bindKeys = ()=>{
+      const lt = this.lichessTools;
+      lt.unbindKeyHandler('+', true);
+      if (this.options.plus && !lt.isBindingDisabled?.(['+'])) {
+        lt.bindKeyHandler('+', this.goDeeper);
+      }
+    };
+
     async start() {
       const lt = this.lichessTools;
       const value = +(lt.currentOptions.getValue('customEngineLevel')) || 0;
@@ -483,10 +491,7 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
 
-      lt.unbindKeyHandler('+', true);
-      if (this.options.plus) {
-        lt.bindKeyHandler('+', this.goDeeper);
-      }
+      this.bindKeys();
       lt.pubsub.off('lichessTools.redraw', this.analysisControls);
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
       lt.global.clearInterval(this.interval);

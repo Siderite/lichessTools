@@ -50,7 +50,8 @@
         'searchMoves': 'Search in move list',
         'deeperPlus': 'Analyse deeper',
         'keyRequestComputerAnalysis': 'Request computer analysis, Learn from your mistakes',
-        'then': 'then'
+        'then': 'then',
+        'goToPlayedMoveText': 'Return to last played move'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -85,9 +86,68 @@
         'searchMoves': 'Caut\u0103 \u00een lista de mut\u0103ri',
         'deeperPlus': 'Analiz\u0103 mai ad\u00e2nc\u0103',
         'keyRequestComputerAnalysis': 'Solicit\u0103 analiza calculatorului, \u00CEnva\u0163\u0103 din gre\u015felile tale',
-        'then': 'pe urm\u0103'
+        'then': 'pe urm\u0103',
+        'goToPlayedMoveText': 'Revino la ultima mutare jucat\u0103'
       }
     }
+
+    arrToId = (arr)=>{
+      const bytes = new TextEncoder().encode(arr.join('-'));
+      const hex = Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
+      return "id" + hex;
+    }
+
+    isBindingDisabled = (keys)=>{
+      const lt = this.lichessTools;
+      const keyOverrides = lt.storage.get('LiChessTools.keyOverrides')||{};
+      const id = this.arrToId(keys);
+      return !!keyOverrides[id];
+    };
+
+    alterLichessKeys = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const trans = lt.translator;
+      const table = $('div.keyboard-help > table tbody');
+      if (!table.length) return;
+      $('.keyboard-help .lichessTools-disabled').removeClass('lichessTools-disabled');
+      if (lt.currentOptions.getValue('keyShortcuts')) {
+        $('td.keys kbd', table)
+          .filter((i, e) => {
+            const text = $(e).text();
+            return ['b', 'm', 'i'].includes(text) && !lt.isBindingDisabled?.([text]);
+          })
+          .parent()
+          .filter((i, e) => $('kbd', e).length == 1)
+          .closest('tr')
+          .addClass('lichessTools-disabled')
+          .attr('title', trans.noarg('seeLichessTools'));
+      }
+      if (lt.currentOptions.getValue('spaceDisabled') && !lt.isBindingDisabled?.(['ctrl','space'])) {
+        $('td.keys kbd', table)
+          .filter((i, e) => $(e).text() == 'space')
+          .parent()
+          .filter((i, e) => $('kbd', e).length == 1)
+          .closest('tr')
+          .addClass('lichessTools-disabled')
+          .attr('title', trans.noarg('seeLichessTools'));
+      }
+      if (lt.currentOptions.getValue('explorerPractice') && analysis?.explorer?.enabled()) {
+        if (!lt.isBindingDisabled?.(['h']))         
+        if (lt.tools.ExplorerPracticeTool.isRunning) {
+          row(['h'], 'explorerPracticeHideMoves');
+          $('td.keys kbd', table)
+            .filter((i, e) => $(e).text() == 'h')
+            .parent()
+            .filter((i, e) => $('kbd', e).length == 1)
+            .closest('tr')
+            .addClass('lichessTools-disabled')
+            .attr('title', trans.noarg('seeLichessTools'));
+        }
+      }
+    };
 
     processHelp = async () => {
       const lt = this.lichessTools;
@@ -108,9 +168,27 @@
           .appendTo(table);
         $('p', row).text(trans.noarg(text));
       };
+      const keyOverrides = lt.storage.get('LiChessTools.keyOverrides')||{};
       const row = (keys, text) => {
         const row = $('<tr><td class="keys"></td><td class="desc"></td></tr>').appendTo(table);
         const tdKeys = $('td.keys', row);
+        const id = this.arrToId(keys);
+        const checked = !keyOverrides[id];
+        $.createToggle('toggle_'+id,'')
+          .addClass('lichessTools-toggle')
+          .on('change',(ev)=>{
+            keyOverrides[id]=!$('[type="checkbox"]',ev.currentTarget).is(':checked');
+            lt.storage.set('LiChessTools.keyOverrides',keyOverrides);
+            lt.tools.KeyShortcutsTool?.bindKeys();
+            lt.tools.CtrlSpaceForBestComputerMoveTool?.bindKeys();
+            lt.tools.CtrlArrowsRandomVariationTool?.bindKeys();
+            lt.tools.CustomEngineLevelTool?.bindKeys();
+            lt.tools.ExplorerPracticeTool?.bindKeys();
+            this.alterLichessKeys();
+          })
+          .appendTo(tdKeys)
+          .find('[type="checkbox"]')
+            .prop('checked',checked);
         for (const key of keys) {
           if (key.startsWith('!')) {
             tdKeys.append($('<then>').text(trans.noarg(key.substr(1))));
@@ -123,14 +201,6 @@
 
       title('lichessTools', 'lichessTools-title');
       if (lt.currentOptions.getValue('keyShortcuts')) {
-        $('td.keys kbd', table)
-          .filter((i, e) => ['b', 'm', 'i'].includes($(e).text()))
-          .parent()
-          .filter((i, e) => $('kbd', e).length == 1)
-          .closest('tr')
-          .addClass('lichessTools-disabled')
-          .attr('title', trans.noarg('seeLichessTools'));
-
         row(['shift','b'], 'boardEditor');
         row(['b'], 'nextBlunder');
         if (!analysis?.retro) {
@@ -173,28 +243,10 @@
         row(['ctrl', '&larr;'], 'previousPosition');
       }
       if (lt.currentOptions.getValue('spaceDisabled')) {
-        $('td.keys kbd', table)
-          .filter((i, e) => $(e).text() == 'space')
-          .parent()
-          .filter((i, e) => $('kbd', e).length == 1)
-          .closest('tr')
-          .addClass('lichessTools-disabled')
-          .attr('title', trans.noarg('seeLichessTools'));
-
         row(['ctrl', 'space'], 'bestCevalLine');
       }
-      if (lt.currentOptions.getValue('explorerPractice') && analysis.explorer.enabled()) {
+      if (lt.currentOptions.getValue('explorerPractice') && analysis.explorer?.enabled()) {
         row(['shift', 'l'], 'explorerPractice');
-        if (lt.tools.ExplorerPracticeTool.isRunning) {
-          row(['h'], 'explorerPracticeHideMoves');
-          $('td.keys kbd', table)
-            .filter((i, e) => $(e).text() == 'h')
-            .parent()
-            .filter((i, e) => $('kbd', e).length == 1)
-            .closest('tr')
-            .addClass('lichessTools-disabled')
-            .attr('title', trans.noarg('seeLichessTools'));
-        }
       }
       if (lt.currentOptions.getValue('obsIntegration') && $('span.lichessTools-obsSetup').length) {
         row(['o'], 'obsIntegration');
@@ -207,7 +259,18 @@
       if (analysis.cevalEnabled() && lt.isOptionSet(customEngineOptions,'plus')) {
         row(['plus'], 'deeperPlus');
       }
+      if (analysis.ongoing) {
+        if (!lt.isBindingDisabled?.(['backspace']))
+        row(['backspace'], 'goToPlayedMoveText');
+      }
+
+      this.alterLichessKeys();
     };
+
+    async init() {
+      const lt = this.lichessTools;
+      lt.isBindingDisabled = this.isBindingDisabled;
+    }
 
     async start() {
       const lt = this.lichessTools;

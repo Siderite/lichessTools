@@ -328,6 +328,17 @@
     };
     processDebounced = this.lichessTools.debounce(this.process, 500);
 
+    bindKeys = ()=> {
+      const lt = this.lichessTools;
+      lt.unbindKeyHandler('shift+l');
+      if (!this.options.enabled || lt.isBindingDisabled?.(['shift', 'l'])) return;
+      lt.bindKeyHandler('shift+l', () => {
+        this.setRunning(!this.isRunning);
+        this.process();
+        lt.emitRedraw();
+      });
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -335,6 +346,7 @@
       const value = lt.currentOptions.getValue('explorerPractice');
       const options = lt.currentOptions.getValue('explorerPracticeOptions');
       this.options = {
+        enabled: !!value,
         showSmileys: lt.isOptionSet(options, 'showSmileys'),
         showNames: lt.isOptionSet(options, 'showNames'),
         showInfoStudy: lt.isOptionSet(options, 'showInfoStudy'),
@@ -355,17 +367,12 @@
       lt.pubsub.off('lichessTools.redraw', this.processDebounced);
       lt.uiApi.events.off('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').off('click touchend', this.process);
-      lt.unbindKeyHandler('shift+l');
+      this.bindKeys();
       analysis.userJump = lt.unwrapFunction(analysis.userJump, 'explorerPractice');
       if (!value) {
         $('section.explorer-box button.lichessTools-explorerPractice').remove();
         return;
       }
-      lt.bindKeyHandler('shift+l', () => {
-        this.setRunning(!this.isRunning);
-        this.process();
-        lt.emitRedraw();
-      });
       lt.pubsub.on('lichessTools.redraw', this.processDebounced);
       lt.uiApi.events.on('ply', this.writePlayerName);
       $('main.analyse div.analyse__controls').on('click touchend', this.process);

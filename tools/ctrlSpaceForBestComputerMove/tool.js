@@ -23,23 +23,30 @@
       }
     }
 
-    oldSpaceHandler = null;
-    async start() {
+    bindKeys = ()=>{
+      if (!this.oldSpaceHandler) return;
       const lt = this.lichessTools;
-      const value = lt.currentOptions.getValue('spaceDisabled');
-      this.logOption('Ctrl-Space to play best computer move', value);
-      if (!this.oldSpaceHandler) {
-        this.oldSpaceHandler = lt.getKeyHandler('space');
-        if (!this.oldSpaceHandler) return;
-      }
       lt.unbindKeyHandler('space');
       lt.unbindKeyHandler('ctrl+space', true);
-      if (value) {
+      if (this.options.enabled && !lt.isBindingDisabled?.(['ctrl', 'space'])) {
         lt.bindKeyHandler('ctrl+space', this.oldSpaceHandler);
         lt.bindKeyHandler('space', this.spaceForGamebookPlay);
       } else {
         lt.bindKeyHandler('space', this.oldSpaceHandler, false);
       }
+    };
+
+    oldSpaceHandler = null;
+    async start() {
+      const lt = this.lichessTools;
+      const value = lt.currentOptions.getValue('spaceDisabled');
+      this.options = { enabled: !!value };
+      this.logOption('Ctrl-Space to play best computer move', value);
+      if (!this.oldSpaceHandler) {
+        this.oldSpaceHandler = lt.getKeyHandler('space');
+        if (!this.oldSpaceHandler) return;
+      }
+      this.bindKeys();
     }
 
     spaceForGamebookPlay = () => {

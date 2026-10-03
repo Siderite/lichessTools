@@ -16,3 +16,13 @@ body.lichessTools td.keys then {
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
+
+body.lichessTools .lichessTools-toggle {
+  float: left;
+}
+
+
+body.lichessTools .keyboard-help tr:has([type="checkbox"]:not(:checked)) td.desc {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
