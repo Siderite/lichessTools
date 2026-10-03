@@ -48,7 +48,8 @@
         'practiceDepthTitle': 'LiChess Tools - custom practice engine depth',
         'practiceDepthText': 'Practice engine depth: %s',
         'engineDepthTitle': 'LiChess Tools - custom engine depth',
-        'engineDepthText': 'Custom engine depth: %s'
+        'engineDepthText': 'Custom engine depth: %s',
+        'practiceDepthLabel': 'Depth: %s'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -65,7 +66,8 @@
         'practiceDepthTitle': 'LiChess Tools - nivel pentru motorul de analiz\u0103 \u00een mod Practic\u0103',
         'practiceDepthText': 'Nivel motor \u00een mod Practic\u0103: %s',
         'engineDepthTitle': 'LiChess Tools - nivel personalizat pentru motorul de analiz\u0103',
-        'engineDepthText': 'Nivel motor analiz\u0103: %s'
+        'engineDepthText': 'Nivel motor analiz\u0103: %s',
+        'practiceDepthLabel': 'Ad\u00e2ncime: %s'
       }
     }
 
@@ -182,6 +184,7 @@
             $('label[for="abset-engine-depth"]',container)
               .textSafe(trans.pluralSame('engineDepthText',depth));
             saveEngineDepth();
+            this.setupPracticeDepth();
           });
       }
       const engineDepth = this.options.depth || '';
@@ -202,6 +205,7 @@
               this.options.noCloudExternal ? 'noCloudExternal' : '',
               $('#abset-practice').is(':checked') ? 'practice' : ''
             ].filter(o => o).join(',');
+            this.setupPracticeDepth();
             await lt.applyOptions(options);
             lt.fireReloadOptions();
           });
@@ -212,7 +216,7 @@
       if (!$('.abset-practice-depth', container).length) {
         const html = `<div class="cmn-toggle-wrap abset-practice-depth">
           <label for="abset-practice-depth"></label>
-          <input id="abset-practice-depth" type="range" class="range" min="0" max="15"><!-- Lichess limitation -->
+          <input id="abset-practice-depth" type="range" class="range" min="0" max="50">
         </div>`;
         $(html).insertAfter($('.abset-practice', container).eq(0));
         $('div.abset-practice-depth',container)
@@ -221,20 +225,19 @@
         const savePracticeDepth = lt.debounce(async ()=>{
             const options = lt.currentOptions;
             options.customEnginePracticeLevel = +input.val() || undefined;
+            this.setupPracticeDepth();
             await lt.applyOptions(options);
             lt.fireReloadOptions();
           },1000);
         input
           .on('input',()=>{
             let depth = +input.val() || this.options.depth || '';
-            if (depth>15) depth = 15; // Lichess limitation
             $('label[for="abset-practice-depth"]',container)
               .textSafe(trans.pluralSame('practiceDepthText',depth));
             savePracticeDepth();
           });
       }
       let practiceDepth = (this.options.practice && (this.options.practiceDepth || this.options.depth)) || '';
-      if (practiceDepth>15) practiceDepth = 15; // Lichess limitation
       $('label[for="abset-practice-depth"]',container)
         .textSafe(trans.pluralSame('practiceDepthText',practiceDepth));
       $('#abset-practice-depth')
@@ -244,6 +247,30 @@
         .prop('disabled',!this.options.practice);
     };
 
+    setupPracticeDepth = ()=>{
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      if (this.options.practice) {
+        const confDepth = this.options.practiceDepth || this.options.depth;
+        if (confDepth) {
+          const label = trans.pluralSame('practiceDepthLabel',confDepth);
+          lt.uiApi.overrides.practiceStrengthLabel = ()=> label;
+          lt.uiApi.overrides.practiceSearch = ()=> ({ multiPv:1, indeterminate:true, nodes:1_000_000_000_000_000, by: { depth: confDepth } });
+          lt.uiApi.overrides.practiceEvalReady = (ceval)=> {
+            const { depth, bestmove, nodes, millis, cloud } = ceval;
+            if (cloud) {
+              this.goDeeper(confDepth);
+              return false;
+            }
+            return Boolean(bestmove || depth > confDepth);
+          };
+        }
+      } else {
+        lt.uiApi.overrides.practiceStrengthLabel = null;
+        lt.uiApi.overrides.practiceSearch = null;
+        lt.uiApi.overrides.practiceEvalReady = null;
+      }
+    };
 
     determineCevalState = (evl, work) => {
       const lt = this.lichessTools;
@@ -291,9 +318,10 @@
           if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
             if (analysis.practice?.running()) {
-              analysis.node.ceval.depth = 100;
+              const nodeCeval = analysis.node.ceval;
+              if (nodeCeval) nodeCeval.depth = 100;
               analysis.practice.onCeval();
-              analysis.node.ceval.depth = depth;
+              if (nodeCeval) nodeCeval.depth = depth;
             } else if (analysis.retro) {
               const doResetEval = analysis.node.ceval == null;
               const resetNodes = doResetEval?.nodes;
@@ -411,7 +439,7 @@
       }
     };
 
-    goDeeper = ()=>{
+    goDeeper = (maxDepth)=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -422,7 +450,7 @@
       } else {
         ceval.isDeeper(true);
       }
-      analysis.node.autoDeeper = 99;
+      analysis.node.autoDeeper = maxDepth || 99;
       lt.analysisRedraw();
     };
 
@@ -484,6 +512,7 @@
       });
 
       this.determineCevalState();
+      this.setupPracticeDepth();
     }
 
   }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Oct
+
+- custom practice engine level up to 50
+
 01 Oct
 
 - grab highlight theme

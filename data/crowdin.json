@@ -1250,7 +1250,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2503,7 +2504,8 @@
     "videoSearchButtonTitle": "LiChess Tools - 搜索包含当前局面的视频",
     "videoSearchHeader": "视频搜索",
     "chessInsightsLinkText": "在 ChessInsights.ai 查看更多",
-    "noVideosFoundText": "未找到视频"
+    "noVideosFoundText": "未找到视频",
+    "practiceDepthLabel": "Depth: %s"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3756,7 +3758,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5009,7 +5012,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6262,7 +6266,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7515,7 +7520,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8768,7 +8774,8 @@
     "videoSearchButtonTitle": "LiChess Tools - rechercher des vidéos avec la position actuelle",
     "videoSearchHeader": "Recherche de vidéos",
     "chessInsightsLinkText": "En savoir plus sur ChessInsights.ai",
-    "noVideosFoundText": "Aucune vidéo trouvée"
+    "noVideosFoundText": "Aucune vidéo trouvée",
+    "practiceDepthLabel": "Depth: %s"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10021,7 +10028,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11274,7 +11282,8 @@
     "videoSearchButtonTitle": "LiChess Tools - αναζήτηση βίντεο με την τρέχουσα θέση",
     "videoSearchHeader": "Αναζήτηση βίντεο",
     "chessInsightsLinkText": "Δείτε περισσότερα στο ChessInsights.ai",
-    "noVideosFoundText": "Δεν βρέθηκαν βίντεο"
+    "noVideosFoundText": "Δεν βρέθηκαν βίντεο",
+    "practiceDepthLabel": "Depth: %s"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12527,7 +12536,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13780,7 +13790,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15033,7 +15044,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16286,7 +16298,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17539,7 +17552,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18792,7 +18806,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20045,7 +20060,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21298,7 +21314,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22551,7 +22568,8 @@
     "videoSearchButtonTitle": "LiChess Tools - caută video-uri cu poziția curentă",
     "videoSearchHeader": "Căutare video",
     "chessInsightsLinkText": "Vezi mai mult la ChessInsights.ai",
-    "noVideosFoundText": "Nu s-au găsit video-uri"
+    "noVideosFoundText": "Nu s-au găsit video-uri",
+    "practiceDepthLabel": "Adâncime: %s"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23804,7 +23822,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25057,7 +25076,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26310,7 +26330,8 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27563,7 +27584,8 @@
     "videoSearchButtonTitle": "LiChess Tools - şuanki pozisyon ile videoları ara",
     "videoSearchHeader": "Video arama",
     "chessInsightsLinkText": "Daha fazlası için ChessInsights.ai",
-    "noVideosFoundText": "Video bulunamadı"
+    "noVideosFoundText": "Video bulunamadı",
+    "practiceDepthLabel": "Depth: %s"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28816,6 +28838,7 @@
     "videoSearchButtonTitle": "LiChess Tools - search videos with current position",
     "videoSearchHeader": "Video search",
     "chessInsightsLinkText": "See more at ChessInsights.ai",
-    "noVideosFoundText": "No videos found"
+    "noVideosFoundText": "No videos found",
+    "practiceDepthLabel": "Depth: %s"
   }
 }
