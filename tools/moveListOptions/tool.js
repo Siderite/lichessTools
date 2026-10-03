@@ -654,7 +654,7 @@
               this.popup?.close();
               this.popup = lt.global.open(lt.location.href, 'lichessTools-moves', 'fullscreen=yes,menubar=no,location=no,status=no,titlebar=no,toolbar=no,');
               this.popup.addEventListener('DOMContentLoaded', () => $('body', this.popup.document).addClass('lichessTools-analysisPopup'));
-              lt.global.addEventListener('unload', () => {
+              lt.global.addEventListener('pagehide', () => {
                 this.popup.close();
               });
             });
