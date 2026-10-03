@@ -271,11 +271,9 @@
       lt.unbindKeyHandler('.', true);
       lt.unbindKeyHandler('ctrl+.', true);
       lt.unbindKeyHandler('shift+.', true);
-      lt.unbindKeyHandler('`', true);
       lt.unbindKeyHandler('f');
       lt.unbindKeyHandler('r');
       lt.unbindKeyHandler('backspace', true);
-      lt.unbindKeyHandler('ctrl+f', true);
 
       for (let i = 1; i <= 9; i++) {
         const combo = i.toString();
@@ -327,7 +325,6 @@
           const combo = i.toString();
           lt.bindKeyHandler(combo, () => this.handleDigitKey(combo));
         }
-        lt.bindKeyHandler('`', () => this.prepareMove('general'));
         lt.bindKeyHandler('f', this.freezeBoard);
         if (!lt.isBindingDisabled?.(['r']))
         lt.bindKeyHandler('r', this.handleRKey);
@@ -337,8 +334,6 @@
         }
         if (!lt.isBindingDisabled?.(['shift','t']))
         lt.bindKeyHandler('shift+t', this.switchExplorerTabs);
-        if (!lt.isBindingDisabled?.(['ctrl','f']))
-        lt.bindKeyHandler('ctrl+f',this.search);
       } else {
         if (this.oldHandlers) {
           lt.bindKeyHandler('i', this.oldHandlers['i'], true);
@@ -485,10 +480,13 @@
       lt.unbindKeyHandler('`', true);
       const document = lt.global.document;
       $(document).off('copy', this.copyFenOrImage);
+      lt.unbindKeyHandler('ctrl+f', true);
       if (this.options.enabled) {
         lt.bindKeyHandler('`', () => this.prepareMove('general'));
         if (!lt.isBindingDisabled?.(['ctrl','c']))         
         $(document).on('copy', this.copyFenOrImage);
+        if (!lt.isBindingDisabled?.(['ctrl','f']))
+        lt.bindKeyHandler('ctrl+f',this.search);
       }
       this.bindHKeyForGeneral();
     };
