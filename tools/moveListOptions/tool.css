@@ -317,11 +317,11 @@ html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-rel
   }
 }
 
-
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval span.cmn-toggle {
   order: 1;
   margin-left: 0;
   margin-right: 0.5em;
+  --analyse-toggle-size: 18px;
 }
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gear {
@@ -329,7 +329,6 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gea
 }
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"] {
-  --analyse-toggle-size: 18px;
   height: var(--analyse-toggle-size);
   width: calc(var(--analyse-toggle-size) * 1.66)
 }

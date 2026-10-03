@@ -110,9 +110,9 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const trans = lt.translator;
-      const table = $('div.keyboard-help > table tbody');
+      const table = $('.dialog-content.help > table tbody');
       if (!table.length) return;
-      $('.keyboard-help .lichessTools-disabled').removeClass('lichessTools-disabled');
+      $('.dialog-content.help .lichessTools-disabled').removeClass('lichessTools-disabled');
       const $title = $('tr.lichessTools-title', table);
       const $kbds = $('td.keys kbd', table).filter((_, el) => {
         return $(el).closest('tr')[0].compareDocumentPosition($title[0]) & Node.DOCUMENT_POSITION_FOLLOWING;
