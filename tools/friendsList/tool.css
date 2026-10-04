@@ -87,23 +87,32 @@ body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-play
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-ultrabullet icon:before {
-  content: var(--icon-UltraBullet);
+  content: var(--icon-UltraBullet) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-bullet icon:before {
-  content: var(--icon-Bullet);
+  content: var(--icon-Bullet) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-blitz icon:before {
-  content: var(--icon-FlameBlitz);
+  content: var(--icon-FlameBlitz) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-rapid icon:before {
-  content: var(--icon-Rabbit);
+  content: var(--icon-Rabbit) !important;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing-classical icon:before {
-  content: var(--icon-Turtle);
+  content: var(--icon-Turtle) !important;
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a.user-link {
+  display: flex;
+  align-items: center;
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:not(:hover) {
+  color: var(--c-accent);
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a.lichessTools-playing:hover icon:hover {
@@ -248,6 +257,10 @@ body.lichessTools #friend_box .lichessTools-playing-classical a[data-icon]:befor
   content: var(--icon-Turtle);
 }
 
+body.lichessTools #friend_box .lichessTools-playing a[data-icon] {
+  color: var(--c-accent);
+}
+
 body.lichessTools main.lichessTools-friendsPage {
   overflow: auto;
 }
@@ -319,6 +332,10 @@ body.lichessTools .lichessTools-crossTable.bad {
 
 body.lichessTools .lichessTools-crossTable.good {
   color: var(--c-good);
+}
+
+body.lichessTools #friend_box .friend_box_count {
+  color: var(--c-link);
 }
 
 /* Unrated CSS */

@@ -104,12 +104,8 @@
         return;
       }
       const trans = lt.translator;
-      const myName = lt.getUserId()?.toLowerCase();
-      if (!myName) return;
 
-      $('#friend_box')
-        .off('click',this.requestOnlines)
-        .on('click',this.requestOnlines);
+      $('#friend_box .friend_box_count').wrap($('<a href="/@/me/following">'));
 
       $('#friend_box')
         .attr('data-count', this.user_data.online.length || null);
@@ -560,11 +556,6 @@
       timeControls: {}
     };
     following_onlines = (friends, data) => {
-      if (this.onlinesInterval) {
-        clearInterval(this.onlinesInterval);
-        this.onlinesInterval = 0;
-        this.onFirstFollowingOnlines(friends);
-      }
       const lt = this.lichessTools;
       const $ = lt.$;
       this.user_data.names = {};
@@ -580,6 +571,7 @@
       this.user_data.online = data?.d?.map(this.getUserId) || [];
       this.user_data.playing = data?.playing?.map(this.getUserId) || [];
       this.user_data.timeControls = {};
+      this.refreshTimeControls();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -592,6 +584,7 @@
       const isPlaying = data?.playing;
       if (isPlaying) {
         if (!this.user_data.playing.includes(userId)) this.user_data.playing.push(userId);
+        this.refreshTimeControls();
       } else {
         lt.arrayRemoveAll(this.user_data.playing, u => u === userId);
         this.user_data.timeControls[userId] = undefined;
@@ -625,6 +618,7 @@
       user = this.getUserId(user);
       if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
       if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+      this.refreshTimeControls();
       let friend = this.friends[user];
       if (!friend) {
         friend = { userId: user };
@@ -649,56 +643,18 @@
       this.updateFriendsButton();
     };
 
-    ensureFriendsRequest = ()=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      if (this._friendsRequest) return;
-      const elem = $('.friend_box_button')[0];
-      this._friendsRequest = lt.getEventHandlers(elem, 'click')[0];
-      if (!this._friendsRequest) {
-        const handler = lt.getEventHandlers(elem,'click')[0];
-        if (!handler) {
-          lt.global.setTimeout(this.ensureFriendsRequest,100);
-          return;
-        }
-        this._friendsRequest = ()=> {
-          if (!$('dialog[open]').length) {
-            $('.friend_box_button').trigger('click');
-          }
-        };
-      }
-      this._friendsRequest.apply(elem);
-    };
-
-    onFirstFollowingOnlines = (friends) => {
-      this.user_data.playing=friends.map(this.getUserId);
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const friendsBoxMode = this.options.openFriends;
-      if (friendsBoxMode != 'hidden ') {
-        this.ensureFriendsRequest();
-      }
-      this.requestOnlines();
-    };
-
-    getFollowingOnlinesByApi = async () => {
-      const lt = this.lichessTools;
-      //const json=await lt.net.json('/api/rel/following');
-      // TODO use this if made to work with logged in user https://github.com/lichess-org/lila/issues/14906
-      lt.global.console.debug('Sent following-onlines too many times. Giving up.');
-    };
-
     requestOnlines = () => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) return;
       lt.uiApi.onlineFriends.request();
-      this.requestOnlinesApi();
     };
-    requestOnlinesApi = async () => {
-      const lt = this.lichessTools;
-      if (!this.user_data.playing.length) return;
 
-      const arr = await lt.api.user.getUserStatus(this.user_data.playing, { withGameMetas: true });
+    refreshTimeControls = async () => {
+      const lt = this.lichessTools;
+      const playing = this.user_data.playing;
+      if (!playing.length) return;
+
+      const arr = await lt.api.user.getUserStatus(playing, { withGameMetas: true });
       for (const data of arr.filter(i => i.playing)) {
         const timeControl = lt.getGameTime(data.playing.clock, true);
         this.user_data.timeControls[data.id] = timeControl;
@@ -785,7 +741,6 @@
       }
     }
 
-    followingOnlinesRequests = 0;
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -820,12 +775,13 @@
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (['menu', 'default'].includes(this.options.openFriends) || (this.options.liveFriendsPage && this.isFriendsPage)) {
+      if (this.options.openFriends!='hidden' || (this.options.liveFriendsPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
         lt.uiApi.onlineFriends.events.on('playing', this.playing);
         lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
+        this.requestOnlines();
       }
       
       $(lt.global).off('hashchange', this.hashchange);
@@ -848,25 +804,6 @@
         $(lt.global).on('hashchange', this.hashchange);
         this.hashchange();
         $(lt.global).on('scroll scrollend',this.onScroll);
-      }
-
-      this.followingOnlinesRequests = 0;
-      clearInterval(this.onlinesInterval);
-      if (this.options.openFriends || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
-        const checkOnlineFriends = () => {
-          if (!this.onlinesInterval) return;
-          if (lt.global.document.hidden) return;
-          this.requestOnlines();
-          this.followingOnlinesRequests++;
-          if (this.followingOnlinesRequests > 5) {
-            clearInterval(this.onlinesInterval);
-            this.getFollowingOnlinesByApi();
-          }
-        };
-        this.onlinesInterval = setInterval(checkOnlineFriends, 5000);
-        if (!this.ranStart) {
-          checkOnlineFriends();
-        }
       }
 
       switch (this.options.openFriends) {
