@@ -2,7 +2,6 @@ body.lichessTools header.lichessTools-friends-hidden :is(.lichessTools-onlineFri
   display: none;
 }
 
-
 @media (max-width: 979.29px) {
   body.lichessTools #topnav .lichessTools-onlineFriends {
     display: none;
@@ -13,6 +12,15 @@ body.lichessTools header.lichessTools-friends-hidden :is(.lichessTools-onlineFri
   body.lichessTools header.lichessTools-friends-menu .site-buttons #friend_box {
     display: none;
   }
+}
+
+body.lichessTools #friend_box:after {
+  top:7px;
+  background-color: var(--c-accent-faint);
+}
+
+body.lichessTools #friend_box .friend_box_count {
+  color: var(--c-link);
 }
 
 
@@ -332,10 +340,6 @@ body.lichessTools .lichessTools-crossTable.bad {
 
 body.lichessTools .lichessTools-crossTable.good {
   color: var(--c-good);
-}
-
-body.lichessTools #friend_box .friend_box_count {
-  color: var(--c-link);
 }
 
 /* Unrated CSS */

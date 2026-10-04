@@ -108,6 +108,7 @@
       $('#friend_box .friend_box_count').wrap($('<a href="/@/me/following">'));
 
       $('#friend_box')
+        .toggleClassSafe('data-count',true)
         .attr('data-count', this.user_data.online.length || null);
       for (const userId of this.user_data.online) {
         const isPlaying = this.user_data.playing.includes(userId);
