@@ -67,11 +67,7 @@
           analysis.jump(path);
           lt.analysisRedraw();
         } else {
-          node.dispatchEvent(new MouseEvent('mousedown', {
-                                                           bubbles: true,
-                                                           cancelable: true,
-                                                           view: window
-                                                         }));
+          $(node).trigger('mousedown');
         }
       }
     };
