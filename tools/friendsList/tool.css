@@ -2,13 +2,13 @@ body.lichessTools header.lichessTools-friends-hidden :is(.lichessTools-onlineFri
   display: none;
 }
 
-@media (max-width: 979.29px) {
+@media (max-width: 1019.29px) {
   body.lichessTools #topnav .lichessTools-onlineFriends {
     display: none;
   }
 }
 
-@media (min-width: 979.30px) {
+@media (min-width: 1019.30px) {
   body.lichessTools header.lichessTools-friends-menu .site-buttons #friend_box {
     display: none;
   }
