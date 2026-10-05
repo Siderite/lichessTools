@@ -274,7 +274,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      if (lt.global.location.pathname!="/page/lichessLadders") return;
+      if (!lt.location.isLichessLaddersSummary()) return;
 
       lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
       const main = $('#main-wrap main')

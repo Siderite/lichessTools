@@ -27,14 +27,6 @@ body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   background: lawngreen;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
-    background: darkgreen;
-  }
-}
-
-html.transp body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
-html.darkBoard body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll,
 html.dark body.lichessTools .analyse .tview2 move.lichessTools-transpositionAll {
   background: darkgreen;
 }
@@ -74,6 +66,7 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-c
 }
 
 /* icon-Trash */
-body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before {
+body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before,
+body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a span.icon-trash {
   color: var(--c-accent);
 }

@@ -23,6 +23,7 @@ body.lichessTools button.msg-app__convo__post__submit:not(.active) + div.lichess
 }
 
 body.lichessTools div.lichessTools-quickActions-tooltip button.fbt:hover {
+  color: var(--c-font);
   background-color: var(--c-bg-zebra2);
 }
 

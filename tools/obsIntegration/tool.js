@@ -56,7 +56,7 @@
     closeDialog = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      if (lt.global.location.hash = '#obsSetup') {
+      if (lt.location.hash == '#obsSetup') {
         lt.global.history.replaceState(null, null, ' ');
       }
       $('dialog.lichessTools-obsSetup').remove();
@@ -71,7 +71,7 @@
       const trans = lt.translator;
       $('dialog.lichessTools-obsSetup').remove();
 
-      if (lt.global.location.hash != '#obsSetup') {
+      if (lt.location.hash != '#obsSetup') {
         lt.global.history.replaceState(null, null, '#obsSetup');
       }
       lichess.asset.loadCssPath('bits.dialog');
@@ -328,9 +328,8 @@
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
-      const location = lt.global.location;
       const dialog = $('dialog.lichessTools-obsSetup');
-      if (location.hash == '#obsSetup') {
+      if (lt.location.hash == '#obsSetup') {
         if (!dialog.length) {
           this.showObsSetup();
         }

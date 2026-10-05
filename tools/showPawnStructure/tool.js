@@ -32,11 +32,6 @@
       }
     }
 
-    isGamesPage = () => {
-      const lt = this.lichessTools;
-      return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
-    };
-
     getStructure = (board, blackOrientation) => {
       if (!board) return null;
       const lt = this.lichessTools;
@@ -344,7 +339,7 @@
       const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if (this.isGamesPage()) {
+      if (lt.location.isGamesPage()) {
         return;
       }
       const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
@@ -407,7 +402,7 @@
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-structure').remove();
       }
-      if (this.isGamesPage()) {
+      if (lt.location.isGamesPage()) {
         $.cached('body').toggleClass('lichessTools-structureMiniGames', this.options.enabled);
       }
     }

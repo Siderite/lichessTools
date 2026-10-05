@@ -3,15 +3,6 @@ body.lichessTools canvas.lichessTools-memberCount {
   padding-left: 2.5em;
 }
 
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools canvas.lichessTools-memberCount {
-    filter: invert(1);
-  }
-}
-
-html.dark body.lichessTools canvas.lichessTools-memberCount,
-html.darkBoard body.lichessTools canvas.lichessTools-memberCount,
-html.transp body.lichessTools canvas.lichessTools-memberCount {
+html.dark body.lichessTools canvas.lichessTools-memberCount {
   filter: invert(1);
 }

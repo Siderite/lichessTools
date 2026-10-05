@@ -156,8 +156,8 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      const m = /^\/team\/(?<team>[^\/\?&#]+)/.exec(lt.global.location.pathname);
-      const teamName = m?.groups?.team;
+      const info = lt.location.getTeamInfo();
+      const teamName = info?.teamId;
       if (!teamName || teamName=='me') return;
 
       const userId = lt.getUserId().toLowerCase();
@@ -168,6 +168,7 @@
 
       if (!isLeader) {
         if (teamData) {
+          console.warn('Deleting data for team name',teamName);
           this.leaderTeams.delete(teamName);
           this.saveLeaderTeams();
         }
@@ -205,6 +206,7 @@
         if (!existingData.get(timeKey)) {
           const teamData = await lt.api.team.getTeam(team);
           if (!teamData) {
+            console.warn('Deleting data for team ',team);
             this.leaderTeams.delete(team);
             save = true;
             continue;
@@ -280,7 +282,7 @@
 
     async start() {
       const lt = this.lichessTools;
-      if (lt.isDev()) return;
+      if (lt.location.isDevPage()) return;
       const value = lt.currentOptions.getValue('teamStats');
       this.logOption('Team stats', value);
       if (!lt.getUserId()) {

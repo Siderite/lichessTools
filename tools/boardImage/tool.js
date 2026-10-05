@@ -128,11 +128,17 @@
       const match = /"(.*?)"(?:[^"]*"(.*?)")*/.exec(backgroundText);
       let url = match?.[match.length-1];
       const assetsUrl = [...match].slice(1).find(m=>/\/assets\//.test(m));
+      let img = null;
       if (!url) {
         const theme = lt.global.document.dataset?.board || 'maple';
-        url = lt.assetUrl('images/board/' + theme + '.jpg');
+        img = (await this.getImage(lt.assetUrl('images/board/' + theme + '.jpg')))
+           || (await this.getImage(lt.assetUrl('images/board/' + theme + '.png')))
+           || (await this.getImage(lt.assetUrl('images/board/' + theme + '.webp')));
       }
-      let img = (await this.getImage(url)) || (assetsUrl && await this.getImage(assetsUrl)) || (await this.getImage(lt.assetUrl('images/board/maple.jpg')));
+      img ||= (await this.getImage(url))
+             || (assetsUrl && await this.getImage(assetsUrl))
+             || (await this.getImage(lt.assetUrl('images/board/maple.jpg')))
+             || (await this.getImage(lt.assetUrl('images/board/maple.webp')));
       
       ctx.drawImage(img, 0, 0, 800, 800);
       const q = 800 / board.width();
@@ -221,10 +227,11 @@
       }
 
       const svgs = board.parent().children('svg').get();
-      svgs.forEach(async (e) => {
+      const draws = svgs.map(async (e) => {
         const img = await this.drawSvg(e);
         ctx.drawImage(img, 0, 0, $(e).width()*q, $(e).height()*q);
       });
+      await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
       lichess.asset.loadCssPath('bits.dialog');
       const dialog = $('<dialog class="lichessTools-boardImage">')

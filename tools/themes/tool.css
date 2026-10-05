@@ -19,9 +19,23 @@ body.lichessTools #dasher_app .lichessTools-themes .selector button {
   text-overflow: ellipsis;
 }
 
+body.lichessTools #dasher_app .lichessTools-themes .selector button:before {
+  margin-inline: 0 8px;
+  font-size: 19px;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
 body.lichessTools #dasher_app .lichessTools-themes .selector button.default:before {
   opacity: 1;
   color: var(--c-font);
+}
+
+body.lichessTools #dasher_app .lichessTools-themes .selector button.active:before {
+  opacity: 1;
+  color: var(--c-over);
 }
 
 body.lichessTools div.lichessTools-themes .content {
@@ -31,7 +45,7 @@ body.lichessTools div.lichessTools-themes .content {
 
 body.lichessTools div.lichessTools-themes .selector:after,
 body.lichessTools div.lichessTools-themes .selector:before {
-  font-family: lichess;
+  font-family: lichess, lichessTools;
   position: absolute;
   left: 0;
   right: 0;
@@ -69,4 +83,19 @@ body.lichessTools div.lichessTools-themes .selector:after {
 body.lichessTools div.lichessTools-themes .selector.can-scroll-up:before,
 body.lichessTools div.lichessTools-themes .selector.can-scroll-down:after {
   opacity: 1;
+}
+
+body.lichessTools button.lichessTools-themesMenu:before {
+  margin: 0;
+  margin-inline-end: .4em;
+  font-size: 1.2em;
+  color: var(--c-dasher);
+}
+
+body.lichessTools #dasher_app div.lichessTools-themes button.head {
+  display: block;
+}
+
+body.lichessTools #dasher_app div.lichessTools-themes button.head:before {
+  color: var(--c-dasher);
 }

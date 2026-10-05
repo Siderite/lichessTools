@@ -20,7 +20,18 @@
           'daysText': '%s days',
           'hoursText': '%s hrs',
           'minutesText': '%s mins',
-          'timeText': '%s ago'
+          'timeText': '%s ago',
+
+          'standard': 'Standard', // variant names, not to be translated
+          'chess960': 'Chess960',
+          'kingOfTheHill': 'King of the Hill',
+          'threeCheck': 'Three-check',
+          'antichess': 'Antichess',
+          'atomic': 'Atomic',
+          'horde': 'Horde',
+          'racingKings': 'Racing Kings',
+          'crazyhouse': 'Crazyhouse',
+          'fromPosition': 'From Position'
         },
         'ro-RO': {
           serverOverload: 'Lichess crede c\u0103 le supra\u00eenc\u0103rc\u0103m sistemul!',
@@ -92,9 +103,14 @@
       noarg(key) {
         const lt = this.lichessTools;
         const dict = lt.intl.siteI18n;
-        const result =  dict[key] || lt.global?.i18n(key);
+        const result = dict[key];
         if (result) return result;
-        lt.global.console.warn('Translation not found for key ',key);
+        const i18n = lt.global?.i18n || {};
+        const section = Object.values(i18n).find(v=>typeof v[key] === 'string');
+        if (section) return section[key];
+        if (!['soundVoice.'].find(v=>key.startsWith(v))) { // dynamic values
+          lt.global.console.warn('Translation not found for key ',key);
+        }
         return key;
       }
 

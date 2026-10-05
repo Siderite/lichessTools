@@ -42,11 +42,6 @@
       return $.cached('body').is('.playing') && !$('.puzzle__feedback').is('.after');
     };
 
-    isTrainingPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/training/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
-    };
-
     showTotal = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -113,13 +108,14 @@
         endTimer: lt.isOptionSet(value, 'endTimer'),
         showSessionTotal: lt.isOptionSet(value, 'showSessionTotal')
       };
+      const isTrainingPage = lt.location.isPuzzleTrainingPage();
       lt.pubsub.off('lichessTools.puzzleStart',this.startTimer);
       lt.pubsub.off('lichessTools.puzzleEnd',this.endTimer);
-      if (this.options.endTimer && this.isTrainingPage()) {
+      if (this.options.endTimer && isTrainingPage) {
         lt.pubsub.on('lichessTools.puzzleStart',this.startTimer);
         lt.pubsub.on('lichessTools.puzzleEnd',this.endTimer);
       }
-      if (this.isTrainingPage()) {
+      if (isTrainingPage) {
         $('body')
           .observer()
           .off('.puzzle__session',this.showTotal);

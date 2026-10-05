@@ -78,7 +78,8 @@
     };
 
     async init() {
-      this._lastHashTime = location.hash ? Date.now() : 0;
+      const lt = this.lichessTools;
+      this._lastHashTime = lt.location.hash ? Date.now() : 0;
     }
 
     _pageLoaded = false;
@@ -128,7 +129,7 @@
           }
         });
         lt.global.addEventListener('beforeunload', this.saveStudyPositions);
-        const fromHash = lt.global.location.hash || Date.now()-this._lastHashTime<1000;
+        const fromHash = lt.location.hash || Date.now()-this._lastHashTime<1000;
         if (!this._pageLoaded && !lichess.analysis.study.gamebookPlay && !lt.isGamePlaying() && !fromHash) {
           const studyId = study.data.id;
           const chapterId = study.vm.chapterId;

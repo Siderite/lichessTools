@@ -67,14 +67,14 @@
       return $.cached('body').is('.playing');
     };
 
-    refreshPlayers = () => {
+    refreshPlayers = async () => {
       const lt = this.lichessTools;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       if (!this.isPlayingGame()) return;
       const userId = lt.getUserId();
-      $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
-        .each(async (i, e) => {
+      await $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
+        .eachAsync(async (i, e) => {
           const href = $(e).attr('href');
           if (!href) return;
           const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();

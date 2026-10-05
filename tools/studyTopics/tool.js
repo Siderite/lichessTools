@@ -42,7 +42,7 @@
                        .get()
                        .map(this.getTopicFromAnchor);
       await lt.api.study.setTopics(topics);
-      lt.global.location.reload();
+      lt.location.reload();
     };
 
     sortTags = async (tagify)=>{

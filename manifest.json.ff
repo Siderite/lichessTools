@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.230",
+  "version": "2.4.253",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/LiChessTools/",
@@ -15,14 +15,15 @@
     "https://lichess.org/*",
     "https://lichess.dev/*",
     "https://testy.lichess.dev/*",
-    "https://*.lichessladders.com/*"
+    "https://*.lichessladders.com/*",
+    "https://api.chess-insights.app/*"
   ],
   "content_scripts": [{
       "js": [
         "scripts/cash.min.js",
         "scripts/cash.extra.js",
-        "scripts/lichess-icons.js",
         "scripts/lichessTools.js",
+        "scripts/lichessTools-location.js",
         "scripts/lichessTools-translator.js",
         "scripts/lichessTools-network.js",
         "scripts/lichessTools-storage.js",
@@ -48,6 +49,7 @@
         "scripts/URLpolyfill.js",
         "tools/pageInitData/tool.js",
         "tools/crowdin/tool.js",
+        "tools/fontIcons/tool.js",
         "tools/emitEsmLoaded/tool.js",
         "tools/interceptEventHandlers/tool.js",
         "tools/interceptTimeouts/tool.js",
@@ -193,6 +195,7 @@
         "tools/chessPursuit/tool.js",
         "tools/lobbyRatingDiff/tool.js",
         "tools/lobbyCrosstable/tool.js",
+        "tools/correspondenceLobbyFilters/tool.js",
         "tools/voiceInput/tool.js",
         "tools/botsMenuItem/tool.js",
         "tools/teamStats/tool.js",
@@ -202,6 +205,7 @@
         "tools/showOpponentMoves/tool.js",
         "tools/lichessLadders/tool.js",
         "tools/boardSaturate/tool.js",
+        "tools/videoSearch/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -222,8 +226,8 @@
         "scripts/lichessTools-init.js"
       ],
       "css": [
-        "styles/lichess-icons.css",
         "styles/icons.css",
+        "tools/fontIcons/tool.css",
         "tools/fixMoveListLoad/tool.css",
         "tools/themes/tool.css",
 
@@ -251,6 +255,8 @@
         "tools/themes/noBullet.css",
         "tools/themes/squares.css",
         "tools/themes/experimental.css",
+        "tools/themes/chessbaseBorder.css",
+        "tools/themes/grabHighlight.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
@@ -353,6 +359,7 @@
         "tools/chessPursuit/tool.css",
         "tools/lobbyRatingDiff/tool.css",
         "tools/lobbyCrosstable/tool.css",
+        "tools/correspondenceLobbyFilters/tool.css",
         "tools/voiceInput/tool.css",
         "tools/teamStats/tool.css",
         "tools/calculationTrainer/tool.css",
@@ -361,6 +368,7 @@
         "tools/showOpponentMoves/tool.css",
         "tools/lichessLadders/tool.css",
         "tools/boardSaturate/tool.css",
+        "tools/videoSearch/tool.css",
 
         "tools/tvOptions/tool.css",
 
@@ -420,6 +428,7 @@
   "web_accessible_resources": [
     "tools/chessops/chessops.bundle.mjs",
     "tools/d3/d3.bundle.mjs",
-    "tools/nouislider/nouislider.bundle.mjs"
+    "tools/nouislider/nouislider.bundle.mjs",
+    "tools/fontIcons/lichessTools.woff2"
   ]
 }

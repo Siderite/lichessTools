@@ -319,7 +319,7 @@
         }
         metaSection.find('span.lichessTools-opening').textSafe(result.opening);
       }
-      if (this.options.showInAnalysisTitle || lt.global.location.pathname=='/analysis') {
+      if (this.options.showInAnalysisTitle || lt.location.isAnalysisBoard()) {
         if (!this.originalTitle) {
           this.originalTitle = lt.global.document.title;
         }

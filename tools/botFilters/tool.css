@@ -39,7 +39,7 @@ body.lichessTools .lichessTools-botFilters input[type="number"] {
 }
 
 body.lichessTools .lichessTools-allTypes {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
   margin-right: 0.5em;
 }
 

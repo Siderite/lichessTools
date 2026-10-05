@@ -7,6 +7,7 @@ body.lichessTools div.lichessTools-searchMovesCommand .search {
   padding-left: 1em;
   flex-grow: 1;
   border: none;
+  min-width: 0;
 }
 
 body.lichessTools div.lichessTools-searchMovesCommand .position {

@@ -235,8 +235,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
             .appendTo(filters);
         }
         const userId = lt.getUserId()?.toLowerCase();
-        let m = /\/@\/(?<userId>[^\/\?#]+)\/imported\b/.exec(lt.global.location.pathname);
-        const isImportedPage = userId && m?.groups?.userId?.toLowerCase() == userId;
+        const isImportedPage = lt.location.isImportedGamesOf(userId);
         if (this.options.remove && isImportedPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
           $('<button class="lichessTools-gameListOptions-delete">')
             .attr('data-icon',lt.icon.Trash)
@@ -261,12 +260,11 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 item.el.remove();
                 await lt.timeout(100);
               }
-              lt.global.document.location.reload();
+              lt.location.reload();
             })
             .appendTo(filters);
         }
-        m = /\/@\/(?<userId>[^\/\?#]+)\/bookmark\b/.exec(lt.global.location.pathname);
-        const isBookmarksPage = userId && m?.groups?.userId?.toLowerCase() == userId;
+        const isBookmarksPage = lt.location.isBookmarksOf(userId);
         if (this.options.remove && isBookmarksPage && !$('button.lichessTools-gameListOptions-delete',filters).length) {
           $('<button class="lichessTools-gameListOptions-delete">')
             .attr('data-icon',lt.icon.Trash)
@@ -291,7 +289,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 item.el.remove();
                 await lt.timeout(100);
               }
-              lt.global.document.location.reload();
+              lt.location.reload();
             })
             .appendTo(filters);
         }
@@ -370,7 +368,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.options.showScore || this.inShowScore) return;
-      const url = new URL(lt.global.location.href);
+      const url = new URL(lt.location.href);
       url.searchParams.set('page',1);
       try {
         this.inShowScore = true;
@@ -495,8 +493,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
           filters.find('#chkAnalysis').trigger('change');
         }
       }
-      const m = /\/@\/(?<userId>[^\/\?#]+)/.exec(lt.global.location.pathname);
-      const userId = m?.groups?.userId || lt.getUserId();
+      const userId = lt.location.getUrlUser() || lt.getUserId();
       if (this.options.titledOpponents) {
         if (!$(container).find('#chkTitledOpponents').length) {
           filters
@@ -555,9 +552,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
         this.refreshActions();
       }
       if (this.options.showScore) {
-        const match = /games\/search\b(?:.*?)players.a=(?<userId1>[^\/\?&#]+)|@\/(?<userId2>[^\/\?&#]+)\/search\b/.exec(lt.global.location.href);
-        if (match) {
-          const userId = (match.groups.userId1||match.groups.userId2).toLowerCase();
+        const userId = lt.location.getUrlUser() || lt.location.getGamesSearchInfo()?.userIdA;
+        if (userId) {
           const gameTitle = $('.search__status > strong:first-child');
           if (gameTitle.length && !gameTitle.siblings('.lichessTools-showScore').length) {
             const span=$('<span class="lichessTools-showScore">')

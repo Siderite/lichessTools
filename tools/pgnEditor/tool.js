@@ -89,7 +89,8 @@
         'sendToPgnEditorTitle': 'LiChess Tools - send to PGN Editor',
         'evaluateNeedsAnalysis': 'Evaluate can only be used on the analysis or study pages - Lichess limitation',
         'selectGamesSyntaxText': 'Usage: select <start> [count]',
-        'downloadedText': 'Downloaded'
+        'downloadedText': 'Downloaded',
+        'multipleVariantsMessage': 'Multiple variants detected! Proceed at your own risk'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -165,7 +166,8 @@
         'sendToPgnEditorTitle': 'LiChess Tools - trimite la Editor PGN',
         'evaluateNeedsAnalysis': 'Evaluarea poate fi folosit\u0103 doar pe paginile de analiz\u0103 sau studiu - limitare Lichess',
         'selectGamesSyntaxText': 'Utilizare: select <start> [num\u0103r]',
-        'downloadedText': 'Desc\u0103rcat'
+        'downloadedText': 'Desc\u0103rcat',
+        'multipleVariantsMessage': 'Au fost detectate variante multiple! Continu\u0103 pe risc propriu'
       }
     }
 
@@ -541,13 +543,13 @@
           ev.preventDefault();
           this.stopOperations();
           dialog.trigger('close').remove();
-          if (lt.global.location.hash = '#pgnEditor') {
+          if (lt.location.hash == '#pgnEditor') {
             lt.global.history.pushState(null, null, ' ');
           }
         });
       this._label = $('dialog.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
-      if (lt.global.location.hash != '#pgnEditor') {
+      if (lt.location.hash != '#pgnEditor') {
         lt.global.history.pushState(null, null, '#pgnEditor');
       }
       if (!this.history) {
@@ -558,12 +560,13 @@
         this.addTextToHistory(showPgnText);
       }
       if (!lichess.analysis) {
-        lt.global.location.href = '/analysis#pgnEditor';
+        lt.location.set('/analysis#pgnEditor');
         return;
       }
       const text = this.history[this.historyIndex] || '';
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex);
+      this.countPgn();
     };
 
     getWriter = ()=>{
@@ -772,6 +775,19 @@ https://www.chessable.com/course/${courseId}/ } *`)
       this._label.text(text);
     };
 
+    warnVariants = (games)=>{
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      if (!games?.map) return;
+      const variants = games.map(g=>g?.headers?.get('Variant')?.toLowerCase())
+                            .map(v=>!v || ['from position', 'chess960', 'standard'].includes(v)
+                                      ? 'standard'
+                                      : v);
+      if (new Set(variants).size>1) {
+        lt.announce(trans.noarg('multipleVariantsMessage'));
+      }
+    };
+
     countPgn = async () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -780,6 +796,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const text = $('dialog.lichessTools-pgnEditor textarea').val();
       const co = await lt.chessops();
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
+      this.warnVariants(games);
       this.writeNote(trans.pluralSame('gameCount', games.length).replace(/%2/g, '...'));
       let moveCount = 0;
       const traverse = (node) => {
@@ -2343,6 +2360,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
       const newText = await this.gamesToPgn(games);
       this.setText(textarea, newText);
+      this.warnVariants(games);
     };
 
     gamesToPgn = async (games) => {
@@ -2350,7 +2368,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const co = await lt.chessops();
       const { makePgn } = co.pgn;
 
-      games = games.filter(g => g.moves?.children?.length || g.headers?.size);
+      games = (games||[]).filter(g => g.moves?.children?.length || g.headers?.size);
       games.forEach(game => {
         if (games.length > 1 && game.moves?.children?.length && ![...game.headers.entries()].find(e => !/^[\?\.\*\s]*$/.test(e[1]))) {
           game.headers.set('Event', 'exported by LiChess Tools');
@@ -2385,6 +2403,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex - 1);
       this.writeNote('');
+      this.countPgn();
     };
 
     redo = async (textarea) => {
@@ -2395,6 +2414,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex + 1);
       this.writeNote('');
+      this.countPgn();
     };
 
     clear = async (textarea) => {
@@ -2409,9 +2429,8 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
-      const location = lt.global.location;
       const dialog = $('dialog.lichessTools-pgnEditor');
-      if (location.hash == '#pgnEditor') {
+      if (lt.location.hash == '#pgnEditor') {
         if (!dialog.length) {
           this.showPgnEditor();
         }

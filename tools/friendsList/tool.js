@@ -8,7 +8,7 @@
         name: 'openFriends',
         category: 'friends',
         type: 'single',
-        possibleValues: ['default', 'open', 'menu', 'button', 'hidden'],
+        possibleValues: ['default', 'menu', 'hidden'],
         defaultValue: 'menu',
         offValue: 'default',
         needsLogin: true
@@ -30,12 +30,10 @@
         'onlineFriends:zero': 'Friends',
         'friendsMenu': 'LiChess Tools - friends you follow',
         'options.friends': 'Friends',
-        'options.openFriends': 'Friends box',
+        'options.openFriends': 'Friends section',
         'openFriends.default': 'Default',
-        'openFriends.open': 'Open',
         'openFriends.hidden': 'Hidden',
         'openFriends.menu': 'Menu',
-        'openFriends.button': 'Button',
         'watchGames': 'Watch games',
         'enablePlayAlert': 'Unmute playing alert',
         'mutePlayAlert': 'Mute playing alert',
@@ -66,10 +64,8 @@
         'options.friends': 'Prieteni',
         'options.openFriends': 'Sec\u0163iunea prieteni',
         'openFriends.default': 'Normal',
-        'openFriends.open': 'Deschis\u0103',
         'openFriends.hidden': 'Ascuns\u0103',
         'openFriends.menu': 'Meniu',
-        'openFriends.button': 'Buton',
         'watchGames': 'Vezi partide',
         'enablePlayAlert': 'Permite alerte c\u00E2nd joac\u0103',
         'mutePlayAlert': 'Nu permite alerte c\u00E2nd joac\u0103',
@@ -99,103 +95,31 @@
     buttonPageSize = 7;
     updateFriendsButton = () => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = this.options.openFriends;
-      if (value !== 'menu' && value !== 'button') return;
-      if (lt.global.document.hidden) {
+      if (value == 'hidden') return;
+      if (lt.global.document.hidden || !$('#friend_box .content.list *').length) {
         lt.global.clearTimeout(this._updateFriendsButtonTimeout);
         this._updateFriendsButtonTimeout = lt.global.setTimeout(this.updateFriendsButton, 500);
         return;
       }
-      const $ = lt.$;
       const trans = lt.translator;
-      const myName = lt.getUserId();
-      if (!myName) return;
-      let container = $('div.lichessTools-onlineFriends', $('.site-buttons'));
-      if (!container.length) {
-        const friendsUrl = '/@/' + myName + '/following';
-        const title = trans.noarg('friendsMenu');
-        container = $('<div class="lichessTools-onlineFriends"/>')
-          .append($('<button class="toggle link">')
-            .attr('title', title)
-            .on('mouseover click', () => {
-              this.requestOnlines();
-            })
-            .append($('<span class="data-count">')
-              .attr('data-icon', lt.icon.Group))
-          )
-          .append($(`<div class="links dropdown">
-                         <div class="pager prev" data-icon="${lt.icon.toEntity(lt.icon.UpTriangle)}"></div>
-                         <a class="lichessTools-friendsLink button button-empty" data-icon="${lt.icon.toEntity(lt.icon.Group)}" href="${friendsUrl}"></a>
-                         <button class="hideNotPlaying button button-empty" data-icon="${lt.icon.toEntity(lt.icon.AnalogTv)}"></button>
-                         <div class="notifications"></div>
-                         <div class="pager next" data-icon="${lt.icon.toEntity(lt.icon.DownTriangle)}"></div>
-                       </div>`)
-          )
-          .insertBefore('.site-buttons div.dasher');
-        const prev = $('div.pager.prev', container)
-          .on('click', ev => {
-            ev.preventDefault();
-            if (prev.is('disabled')) return;
-            this.buttonStartIndex -= this.buttonPageSize;
-            this.updateFriendsButton();
-          });
-        const next = $('div.pager.next', container)
-          .on('click', ev => {
-            ev.preventDefault();
-            if (next.is('disabled')) return;
-            this.buttonStartIndex += this.buttonPageSize;
-            this.updateFriendsButton();
-          });
-        $('button.hideNotPlaying', container)
-          .attr('title', trans.noarg('hideNotPlayingTitle'))
-          .on('click', ev => {
-            ev.preventDefault();
-            this.hideNotPlaying = !this.hideNotPlaying;
-            this.updateFriendsButton();
-          });
-        $('lichessTools-touchFriendsLink', container)
-          .attr('title', title);
-      }
-      $('button.hideNotPlaying', container)
-        .toggleClassSafe('lichessTools-active',this.hideNotPlaying);
-      const items = this.hideNotPlaying
-        ? this.user_data.playing
-        : this.user_data.online;
-      let atEnd = false;
-      if (this.buttonStartIndex + this.buttonPageSize >= items.length) {
-        this.buttonStartIndex = items.length - this.buttonPageSize;
-        atEnd = true;
-      }
-      let atStart = false;
-      if (this.buttonStartIndex <= 0) {
-        this.buttonStartIndex = 0;
-        atStart = true;
-      }
-      container
-        .toggleClass('lichessTools-on', value === 'button')
-        .toggleClass('lichessTools-somePlaying', !!this.user_data.playing.length);
-      const span = $('button.toggle > span.data-count', container)
-        .attr('data-count', this.user_data.online.length);
-      $('div.pager.prev', container)
-        .toggleClass('disabled', atStart);
-      $('div.pager.next', container)
-        .toggleClass('disabled', atEnd);
-      const notifs = $('div.notifications', container).empty();
-      const displayedItems = items.slice(this.buttonStartIndex, this.buttonStartIndex + this.buttonPageSize);
-      for (const userId of displayedItems) {
+
+      $('#friend_box .friend_box_count').wrap($('<a href="/@/me/following">'));
+
+      $('#friend_box')
+        .toggleClassSafe('data-count',true)
+        .attr('data-count', this.user_data.online.length || null);
+      for (const userId of this.user_data.online) {
         const isPlaying = this.user_data.playing.includes(userId);
         const timeControl = this.user_data.timeControls[userId];
         const playingClass = timeControl ? 'lichessTools-playing-' + timeControl : 'lichessTools-playing';
-        const elem = $('<a class="user-link ulpt">')
-          .attr('data-pt-pos', 'w')
+        const elem = $('#friend_box').find('a.user-link')
+                      .filter((i,e)=>$(e).attr('href')?.toLowerCase()?.endsWith(userId))
+                      .parent();
+        elem
           .toggleClass(playingClass, isPlaying)
-          .toggleClass('lichessTools-playing', isPlaying)
-          .attr('href', '/@/' + userId + (isPlaying ? '/tv' : ''))
-          .append('<icon>')
-          .append($('<span class="content">')
-            .text(this.user_data.names[userId] || userId))
-          .appendTo(notifs);
-        elem[0].dataset.href = '/@/' + userId;
+          .toggleClass('lichessTools-playing', isPlaying);
       }
     };
 
@@ -211,7 +135,7 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const trans = lt.translator;
-      const myName = lt.getUserId();
+      const myName = lt.getUserId()?.toLowerCase();
       if (!myName) return;
       const friendsUrl = '/@/' + myName + '/following';
       if (!$('section.lichessTools-onlineFriends', $(this.menuParent)).length) {
@@ -344,11 +268,6 @@
       }
     };
 
-    isFollowersPage = ()=>{
-      const lt = this.lichessTools;
-      return lt.global.location.hash == '#followers';
-    };
-
     filterFriendsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -372,12 +291,12 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      const myName = lt.getUserId();
+      const myName = lt.getUserId()?.toLowerCase();
       if (!myName) return;
       if (!this.options.liveFriendsPage) return;
       if (!this.isLivePage) return;
       const isFavoritesOrBlocksOrFollowers = !this.isFriendsPage;
-      const isBlocks = lt.isBlockedPlayersPage();
+      const isBlocks = lt.location.isBlockedPlayersPage();
       if (lt.global.document.hidden) {
         lt.global.clearTimeout(this._updateFriendsPageTimeout);
         this._updateFriendsPageTimeout = lt.global.setTimeout(this.updateFriendsPageDirect, 500);
@@ -408,7 +327,7 @@
                     .text(trans.noarg('opponentsText')))
           .prependTo(header);
       }
-      if (lt.isFavoriteOpponentsPage()) {
+      if (lt.location.isFavoriteOpponentsPage()) {
         const backLink = $('.box__top h1 a');
         const referrer = lt.global.document.referrer;
         if (backLink.attr('href')!=referrer) {
@@ -567,10 +486,10 @@
           .toggleClassSafe('online', isOnline)
           .toggleClassSafe('offline', !isOnline);
       }
-      if (!this._opponentsInit && lt.isFavoriteOpponentsPage()) {
+      if (!this._opponentsInit && lt.location.isFavoriteOpponentsPage()) {
         this._opponentsInit = true;
         lt.api.user.getCrosstableBulk(Object.keys(this.rows).map(opp=>[myName,opp]),crossTable=> {
-          const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName.toLowerCase());
+          const me = Object.keys(crossTable.users).find(u=>u.toLowerCase()==myName);
           const user = Object.keys(crossTable.users).find(u=>u!=me);
           if (!user||!me) return;
           const row = this.rows[user.toLowerCase()];
@@ -638,11 +557,6 @@
       timeControls: {}
     };
     following_onlines = (friends, data) => {
-      if (this.onlinesInterval) {
-        clearInterval(this.onlinesInterval);
-        this.onlinesInterval = 0;
-        this.onFirstFollowingOnlines();
-      }
       const lt = this.lichessTools;
       const $ = lt.$;
       this.user_data.names = {};
@@ -658,6 +572,7 @@
       this.user_data.online = data?.d?.map(this.getUserId) || [];
       this.user_data.playing = data?.playing?.map(this.getUserId) || [];
       this.user_data.timeControls = {};
+      this.refreshTimeControls();
       this.updateFriendsPage();
       this.updateFriendsMenu();
       this.updateFriendsButton();
@@ -670,6 +585,7 @@
       const isPlaying = data?.playing;
       if (isPlaying) {
         if (!this.user_data.playing.includes(userId)) this.user_data.playing.push(userId);
+        this.refreshTimeControls();
       } else {
         lt.arrayRemoveAll(this.user_data.playing, u => u === userId);
         this.user_data.timeControls[userId] = undefined;
@@ -703,6 +619,7 @@
       user = this.getUserId(user);
       if (!this.user_data.online.includes(user)) this.user_data.online.push(user);
       if (!this.user_data.playing.includes(user)) this.user_data.playing.push(user);
+      this.refreshTimeControls();
       let friend = this.friends[user];
       if (!friend) {
         friend = { userId: user };
@@ -727,61 +644,24 @@
       this.updateFriendsButton();
     };
 
-    onFirstFollowingOnlines = () => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const friendsBoxMode = this.options.openFriends;
-
-      switch (friendsBoxMode) {
-        case true:
-        case 'true':
-        case 'open':
-        case 'button':
-        case 'menu': {
-          if ($('#friend_box .content_wrap').is('.none')) {
-            const elem = $('.friend_box_title')[0];
-            const handler = lt.getEventHandlers(elem, 'click')[0];
-            if (handler) {
-              handler.apply(elem);
-            } else {
-              if (!$('dialog[open]').length) {
-                $('.friend_box_title').trigger('click');
-              }
-            }
-          }
-        }
-          break;
-        case 'hidden':
-        default: {
-        }
-          break;
-      }
-    };
-
-    getFollowingOnlinesByApi = async () => {
-      const lt = this.lichessTools;
-      //const json=await lt.net.json('/api/rel/following');
-      // TODO use this if made to work with logged in user https://github.com/lichess-org/lila/issues/14906
-      lt.global.console.debug('Sent following-onlines too many times. Giving up.');
-    };
-
     requestOnlines = () => {
       const lt = this.lichessTools;
       if (lt.global.document.hidden) return;
       lt.uiApi.onlineFriends.request();
-      this.requestOnlinesApi();
     };
-    requestOnlinesApi = async () => {
+
+    refreshTimeControls = async () => {
       const lt = this.lichessTools;
-      if (this.user_data.playing.length) {
-        const arr = await lt.api.user.getUserStatus(this.user_data.playing, { withGameMetas: true });
-        for (const data of arr.filter(i => i.playing)) {
-          const timeControl = lt.getGameTime(data.playing.clock, true);
-          this.user_data.timeControls[data.id] = timeControl;
-        }
-        this.updateFriendsMenu();
-        this.updateFriendsButton();
+      const playing = this.user_data.playing;
+      if (!playing.length) return;
+
+      const arr = await lt.api.user.getUserStatus(playing, { withGameMetas: true });
+      for (const data of arr.filter(i => i.playing)) {
+        const timeControl = lt.getGameTime(data.playing.clock, true);
+        this.user_data.timeControls[data.id] = timeControl;
       }
+      this.updateFriendsMenu();
+      this.updateFriendsButton();
     };
 
     hashchange = async (ev) => {
@@ -791,7 +671,7 @@
       const table = $('table.slist');
       if (!table.length) return;
       const userId = lt.getUserId();
-      if (this.isFollowersPage()) {
+      if (lt.location.isFollowersPage()) {
         if (!table[0]._followersPage) {
           if (ev) {
             lt.global.location.reload();
@@ -856,12 +736,12 @@
     menuParent = '#topnav';
 
     async init() {
-      if (this.isFollowersPage()) {
+      const lt = this.lichessTools;
+      if (lt.location.isFollowersPage()) {
         history.scrollRestoration = "manual";
       }
     }
 
-    followingOnlinesRequests = 0;
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -871,9 +751,8 @@
       const liveFriendsPage = lt.currentOptions.getValue('liveFriendsPage');
       this.logOption('Online friend list', friendsBoxMode);
       this.logOption('Live friends page', liveFriendsPage);
-      const isLowWidth = lt.global.innerWidth<=1020;
       this.options = {
-        openFriends: isLowWidth && friendsBoxMode!='hidden' ? 'button' : friendsBoxMode,
+        openFriends: friendsBoxMode,
         liveFriendsPage: liveFriendsPage,
         friendsPlaying: lt.currentOptions.getValue('friendsPlaying'),
         mutedPlayers: lt.currentOptions.getValue('mutedPlayers')
@@ -889,20 +768,21 @@
 
       const setInterval = lt.global.setInterval;
       const clearInterval = lt.global.clearInterval;
-      this.isFriendsPage = lt.isFriendsPage() && !this.isFollowersPage();
-      this.isLivePage = lt.isFriendsPage() || lt.isFavoriteOpponentsPage() || lt.isBlockedPlayersPage() || this.isFollowersPage();
+      this.isFriendsPage = lt.location.isFriendsPage();
+      this.isLivePage = this.isFriendsPage || lt.location.isFavoriteOpponentsPage() || lt.location.isBlockedPlayersPage() || lt.location.isFollowersPage();
 
       lt.uiApi.onlineFriends.events.off('onlines', this.following_onlines);
       lt.uiApi.onlineFriends.events.off('enters', this.enters);
       lt.uiApi.onlineFriends.events.off('leaves', this.leaves);
       lt.uiApi.onlineFriends.events.off('playing', this.playing);
       lt.uiApi.onlineFriends.events.off('stopped_playing', this.stopped_playing);
-      if (this.options.openFriends == 'menu' || this.options.openFriends == 'button' || (this.options.liveFriendsPage && this.isFriendsPage)) {
+      if (this.options.openFriends!='hidden' || (this.options.liveFriendsPage && this.isFriendsPage)) {
         lt.uiApi.onlineFriends.events.on('onlines', this.following_onlines);
         lt.uiApi.onlineFriends.events.on('enters', this.enters);
         lt.uiApi.onlineFriends.events.on('leaves', this.leaves);
         lt.uiApi.onlineFriends.events.on('playing', this.playing);
         lt.uiApi.onlineFriends.events.on('stopped_playing', this.stopped_playing);
+        this.requestOnlines();
       }
       
       $(lt.global).off('hashchange', this.hashchange);
@@ -927,64 +807,29 @@
         $(lt.global).on('scroll scrollend',this.onScroll);
       }
 
-      this.followingOnlinesRequests = 0;
-      clearInterval(this.onlinesInterval);
-      if (this.options.openFriends || (this.options.liveFriendsPage && this.isFriendsPage) || this.options.friendsPlaying) {
-        const checkOnlineFriends = () => {
-          if (!this.onlinesInterval) return;
-          if (lt.global.document.hidden) return;
-          this.requestOnlines();
-          this.followingOnlinesRequests++;
-          if (this.followingOnlinesRequests > 5) {
-            clearInterval(this.onlinesInterval);
-            this.getFollowingOnlinesByApi();
-          }
-        };
-        this.onlinesInterval = setInterval(checkOnlineFriends, 5000);
-        if (!this.ranStart) {
-          checkOnlineFriends();
-        }
-      }
-
       switch (this.options.openFriends) {
-        case true:
-        case 'true':
-        case 'open': {
-          $('#friend_box').css('display', '');
-          if ($('#friend_box .content_wrap').is('.none')) {
-            $('#friend_box .friend_box_title').trigger('click');
-          }
-          $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
-          $('.site-buttons .lichessTools-onlineFriends').remove();
-        }
-          break;
         case 'menu':
           {
-            $('#friend_box').css('display', 'none');
-            $('.site-buttons .lichessTools-onlineFriends').remove();
-          }
-          break;
-        case 'button':
-          {
-            $('#friend_box').css('display', 'none');
-            $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
+            $('header#top')
+              .toggleClassSafe('lichessTools-friends-hidden',false)
+              .toggleClassSafe('lichessTools-friends-menu',true);
           }
           break;
         case 'hidden': {
-          $('#friend_box .content_wrap').addClass('none');
-          $('#friend_box').css('display', 'none');
+          $('header#top')
+            .toggleClassSafe('lichessTools-friends-hidden',true)
+            .toggleClassSafe('lichessTools-friends-menu',false);
           $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
-          $('.site-buttons .lichessTools-onlineFriends').remove();
         }
           break;
-        default: {
-          $('#friend_box').css('display', '');
-          if (!$('#friend_box .content_wrap').is('.none')) {
-            $('#friend_box .friend_box_title').trigger('click');
+        default:
+        case 'default':
+          {
+          $('header#top')
+            .toggleClassSafe('lichessTools-friends-hidden',false)
+            .toggleClassSafe('lichessTools-friends-menu',false);
+            $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
           }
-          $('section.lichessTools-onlineFriends', $(this.menuParent)).remove();
-          $('.site-buttons .lichessTools-onlineFriends').remove();
-        }
           break;
       }
       this.updateFriendsMenu();

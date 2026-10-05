@@ -25,15 +25,7 @@ body.lichessTools div.round__app canvas.lichessTools-playerLag {
   vertical-align: middle;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools div.round__app canvas.lichessTools-playerLag {
-    brightness(1.5)
-  }
-}
-
-html.transp body.lichessTools div.round__app canvas.lichessTools-playerLag,
-html.dark body.lichessTools div.round__app canvas.lichessTools-playerLag,
-html.darkBoard body.lichessTools div.round__app canvas.lichessTools-playerLag {
+html.dark body.lichessTools div.round__app canvas.lichessTools-playerLag {
   brightness(1.5)
 }
 

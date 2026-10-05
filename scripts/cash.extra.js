@@ -444,4 +444,9 @@ cash.fn.makeCombo = function (options) {
   });
 };
 
+cash.fn.eachAsync=function(func) {
+  const funcs = this.map(func).get();
+  return Promise.all(funcs);
+};
+
 })(cash);

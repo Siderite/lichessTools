@@ -36,8 +36,15 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
 
-      const path = this.nodes[index];
-      const node = path && analysis.tree.nodeAtPath(path);
+      const pathOrElem = this.nodes[index];
+      let node;
+      let path = null;
+      if (typeof(pathOrElem)=='string') {
+        path = pathOrElem;
+        node = path && analysis.tree.nodeAtPath(path);
+      } else {
+        node = pathOrElem;
+      }
       if (node) {
         this.index = index;
       }
@@ -56,8 +63,12 @@
         .text(this.nodes.length ? `${this.index+1}/${this.nodes.length}` : '');
 
       if (node) {
-        analysis.jump(path);
-        lt.analysisRedraw();
+        if (path) {
+          analysis.jump(path);
+          lt.analysisRedraw();
+        } else {
+          $(node).trigger('mousedown');
+        }
       }
     };
 
@@ -72,7 +83,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
 
-      let bar = $('.lichessTools-searchMovesCommand + .analyse__moves').prev();
+      let bar = $('.lichessTools-searchMovesCommand').prev();
       if (bar.length) {
         bar.find('input.search:not(:focus)')
           .each((i,e)=>e.select());
@@ -121,7 +132,7 @@
                      this.hideBar();
                    })
         )
-        .insertBefore('.analyse__moves');
+        .insertBefore('.analyse__moves,app,.puzzle__moves');
 
       bar.find('input.search:not(:focus)')
         .each((i,e)=>e.select());
@@ -154,6 +165,16 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
+      if (analysis) {
+        return await this.searchMoveListAnalysis(pattern);
+      } else {
+        return await this.searchMoveListElements(pattern);
+      }
+    };
+
+    searchMoveListElements = async (pattern) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
       const reg = new RegExp(Array.from(lt.normalizeString(pattern)).map(c => {
         switch (c) {
           case '*': return '.*';
@@ -161,7 +182,25 @@
           case '|': return '|';
           default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
         }
-      }).join(''),'g');
+      }).join(''),'gi');
+      const elems = $('app z7yx,.tview2 move').filter((i,e)=>{
+        return reg.test($(e).text());
+      }).get();
+      this.showResults(pattern, elems);
+    };
+
+    searchMoveListAnalysis = async (pattern) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess.analysis;
+      const reg = new RegExp(Array.from(lt.normalizeString(pattern)).map(c => {
+        switch (c) {
+          case '*': return '.*';
+          case '?': return '.';
+          case '|': return '|';
+          default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
+        }
+      }).join(''),'gi');
       const searchObj = { reg, nodes: [] };
       await lt.exportPgn('',{ searchObj, separateLines: true });
       await lt.exportPgn('',{ searchObj, separateLines: true, exportComments: false, exportGlyphs: false });
@@ -207,10 +246,9 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      if (lt.isGamePlaying()) return;
-      if (analysis.gamebookPlay()) return;
+      if (analysis?.gamebookPlay()) return;
       if ($('dialog.lichessTools-pgnEditor').length) return;
-      return true;
+      return analysis || $('.tview2,app').length;
     };
 
     async start() {
@@ -219,10 +257,8 @@
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('searchMovesCommand');
       this.options = { enabled: value };
-      this.logOption('Command - trap value', value);
+      this.logOption('Command - search moves', value);
       const lichess = lt.lichess;
-      const analysis = lichess.analysis;
-      if (!analysis) return;
       if (value) {
         lt.registerCommand && lt.registerCommand('searchMovesCommand', {
           handle: (val) => {

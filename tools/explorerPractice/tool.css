@@ -17,15 +17,7 @@ body.lichessTools section.explorer-box button.lichessTools-explorerPractice.acti
   filter: contrast(0.5);
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
-    color: white;
-  }
-}
-
-html.dark body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
-html.darkBoard body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before,
-html.transp body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
+html.dark body.lichessTools section.explorer-box button.lichessTools-explorerPractice.active:before {
   color: white;
 }
 

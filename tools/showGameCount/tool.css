@@ -12,8 +12,7 @@ body.lichessTools .lichessTools-gameCountBadge {
 }
 
 /* Dark theme adjustments */
-body.lichessTools.dark .lichessTools-gameCountBadge,
-body.lichessTools.transp .lichessTools-gameCountBadge {
+body.lichessTools.dark .lichessTools-gameCountBadge {
   color: #999;
 }
 

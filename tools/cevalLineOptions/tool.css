@@ -318,7 +318,7 @@ body.lichessTools .lichessTools-downloadCeval {
   background: none;
   border: none;
   outline: none;
-  font-family: lichess;
+  font-family: lichess, lichessTools;
   position: absolute;
   top: 0;
   right: 0.1em;

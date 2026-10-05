@@ -1,5 +1,5 @@
 body.lichessTools th.lichessTools-explorerEval {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
   text-align: center;
   max-width:6em;
 }
@@ -19,15 +19,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
   color: #A03030;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
-    color: #A08080;
-  }
-}
-
-html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-bad,
-html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-bad,
-html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
+html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-bad {
   color: #A08080;
 }
 
@@ -35,15 +27,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
   color: #104010;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
-    color: #80A080;
-  }
-}
-
-html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-good,
-html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-good,
-html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
+html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-good {
   color: #80A080;
 }
 
@@ -51,15 +35,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
   color: #10A010;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
-    color: #80FF80;
-  }
-}
-
-html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-best,
-html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-best,
-html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
+html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-best {
   color: #80FF80;
 }
 
@@ -67,15 +43,7 @@ body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
   color: #1010CF;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
-    color: #8080AF;
-  }
-}
-
-html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud,
-html.darkBoard body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud,
-html.transp body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
+html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-cloud {
   color: #8080AF;
 }
 
@@ -126,4 +94,29 @@ body.lichessTools section.explorer-box div.lichessTools-spoa {
 body.lichessTools section.explorer-box table.moves:has(.lichessTools-explorerEval) td:nth-child(4) {
   font-size: .75em;
   text-align: right;
+}
+
+body.lichessTools th.lichessTools-showSharpness {
+  text-align: center;
+  max-width:6em;
+}
+
+body.lichessTools .explorer-box .moves td.lichessTools-showSharpness {
+  width: 3.5em;
+  text-align: center;
+  font-size: smaller;
+  filter: contrast(0.75);
+}
+
+body.lichessTools .explorer-box .moves td.lichessTools-maxSharpness {
+  color: var(--c-good);
+}
+
+body.lichessTools .explorer-box .moves td.lichessTools-minSharpness {
+  color: var(--c-bad);
+}
+
+body.lichessTools .explorer-box .moves td.lichessTools-bar {
+  width: 100%;
+  padding-right: 0;
 }

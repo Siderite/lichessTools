@@ -129,7 +129,7 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis || !this.isGame()) return;
+      if (!analysis || !this.isGame() || lt.location.isTvPage()) return;
       $('body').toggleClassSafe('lichessTools-gameAnalysisLayout',this.options.fitPage && !this.toggleLayout);
       this.applyLayout();
     }

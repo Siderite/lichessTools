@@ -42,15 +42,7 @@ body.lichessTools .lichessTools-chapterControls:has(div[role="footer"]:hover) .p
   display: inline;
 }
 
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .lichessTools-chapterControls div[role="footer"] {
-    background: #2D2B29;
-  }
-}
-
-html.dark body.lichessTools .lichessTools-chapterControls div[role="footer"],
-html.darkBoard body.lichessTools .lichessTools-chapterControls div[role="footer"] {
+html.dark body.lichessTools .lichessTools-chapterControls div[role="footer"] {
   background: #2D2B29;
 }
 
@@ -84,7 +76,7 @@ body.lichessTools .study__chapters button.lichessTools-collapsedChapter {
 }
 
 body.lichessTools .study__chapters div.lichessTools-expander {
-  font-family: 'lichess';
+  font-family: lichess, lichessTools;
   align-self: center;
   margin-right:0.25em;
 }
@@ -114,8 +106,17 @@ body.lichessTools main.lichessTools-hideNextButton.lichessTools-hasNextButton .g
   display: inline;
 }
 
+@keyframes brighten {
+  0%, 100% { filter: contrast(1) brightness(1); }
+  50% { filter: contrast(2) brightness(3); }
+}
+
+body.lichessTools .lichessTools-nextChapter {
+  animation: brighten 1s ease-in-out;
+}
+
 /* Lichess Helper */
 
 body.lichessTools.lichessTools-lichessHelper .study__chapters div.lichessTools-expander {
-  font-family: 'lichess' !important;
+  font-family: lichess, lichessTools !important;
 }

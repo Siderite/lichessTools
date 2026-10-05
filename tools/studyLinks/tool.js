@@ -95,7 +95,7 @@
       }
       data = this.getTwitchId(e);
       if (data) {
-        return `https://player.twitch.tv/?video=${data.id}&parent=${lt.global.location.hostname}&autoplay=true&muted=false&t=${data.time}`;
+        return `https://player.twitch.tv/?video=${data.id}&parent=${lt.location.hostname}&autoplay=true&muted=false&t=${data.time}`;
       }
     }
 
@@ -193,7 +193,7 @@
         const m = /\/study\/(?<studyId>[^\/\?#]+)?(?:\/(?<chapterId>[^\/\?#]+))?/.exec(uri.pathname);
         if (!m) return;
         $(e).removeAttr('target');
-        if (uri.origin.toLowerCase() == lt.global.location.origin.toLowerCase()
+        if (uri.origin.toLowerCase() == lt.location.origin.toLowerCase()
               && !uri.searchParams?.size
               && !uri.hash
               && m.groups?.studyId == study.data?.id

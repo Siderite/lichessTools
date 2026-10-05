@@ -36,11 +36,6 @@
       }
     }
 
-    isGamesPage = () => {
-      const lt = this.lichessTools;
-      return /^\/games(\/|$)?/i.test(lt.global.location.pathname);
-    };
-
     getKmaps = async (fen, isBlack) => {
       const lt = this.lichessTools;
       const evaluator = new ChessPositionEvaluator(fen, lt);
@@ -303,7 +298,7 @@
         const metaSection = $('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables');
         metaSection.find('.lichessTools-kmaps').remove();
       }
-      if (this.isGamesPage()) {
+      if (lt.location.isGamesPage()) {
         $.cached('body').toggleClass('lichessTools-kmapsMiniGames', this.options.enabled);
       }
     }

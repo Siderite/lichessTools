@@ -1,5 +1,42 @@
 History of features added to LiChess Tools in time (reversed order)
 
+03 Oct
+
+- custom practice engine level up to 50
+- key shortcuts toggles
+- search moves everywhere
+
+01 Oct
+
+- grab highlight theme
+- video search tool
+
+30 Sep
+
+- highlight branching positions
+- Explorer sharpness column
+
+20 Sep
+
+- rewrote Fix outside coordinates tool
+- ChessBase board margin theme
+
+13 Sep
+
+- correspondence games filters
+
+01 Sep
+
+- embed own font in font icons
+
+30 Aug
+
+- font icons tool to cover possible icon changes in Lichess
+
+27 Aug
+
+- time control pie chart in extra counters
+
 18 Aug
 
 - noUiSlider tool

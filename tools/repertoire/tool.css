@@ -2,7 +2,7 @@ body.lichessTools move.lichessTools-inRepertoire > glyph.lichessTools-repertoire
   color: #629924;
   cursor: help;
   filter: saturate(1.35);
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools move.lichessTools-inRepertoire > glyph.lichessTools-repertoire:hover {
@@ -12,17 +12,17 @@ body.lichessTools move.lichessTools-inRepertoire > glyph.lichessTools-repertoire
 body.lichessTools move.lichessTools-repertoireOwnDeviation > glyph.lichessTools-repertoire {
   color: #3d9ed8;
   cursor: help;
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools move.lichessTools-repertoireOpponentDeviation > glyph.lichessTools-repertoire {
   color: #d59120;
   cursor: help;
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }
 
 body.lichessTools move.lichessTools-repertoireEnd > glyph.lichessTools-repertoire {
   color: #999;
   cursor: help;
-  font-family: lichess;
+  font-family: lichess, lichessTools;
 }

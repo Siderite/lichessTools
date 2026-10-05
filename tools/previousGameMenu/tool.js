@@ -65,15 +65,19 @@
       const translatedText = trans.noarg('lastViewedGame');
       const translatedTitle = trans.noarg('lastViewedGameTitle');
       const games = lt.currentOptions.getValue('prevGames') || [];
+      if (!games?.length) return;
+
       const item = $('<a/>')
         .addClass('lichessTools-previousGame')
         .text(translatedText)
         .attr('title', translatedTitle);
 
-      const m = /^\/([^\/]+)/.exec(location.pathname);
-      const possibleGameId = m && m[1];
-      let index = games.findIndex(g => g.id == possibleGameId);
-      if (index <= 0) index = games.length;
+      const gameId = lt.location.getUrlGameId();
+      let index = games.length;
+      if (gameId) {
+        index = games.findIndex(g => g.id == gameId);
+        if (index <= 0) index = games.length;
+      }
       const game = games[index - 1];
       if (game) {
         item.attr('href', '/' + game.id + '/' + game.orientation);
@@ -87,7 +91,6 @@
         container.append(item);
       }
     }
-
   }
   LiChessTools.Tools.PreviousGameMenu = PreviousGameMenuTool;
 })();

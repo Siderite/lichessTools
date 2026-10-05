@@ -2,6 +2,7 @@ window.lichessTools = new LiChessTools(window, cash);
 
 lichessTools.loadTool(LiChessTools.Tools.Crowdin);
 lichessTools.loadTool(LiChessTools.Tools.PageInitData);
+lichessTools.loadTool(LiChessTools.Tools.FontIcons);
 lichessTools.loadTool(LiChessTools.Tools.EmitCeval);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
@@ -152,6 +153,8 @@ lichessTools.loadTool(LiChessTools.Tools.ShowFps);
 lichessTools.loadTool(LiChessTools.Tools.ShowOpponentMoves);
 lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
 lichessTools.loadTool(LiChessTools.Tools.BoardSaturate);
+lichessTools.loadTool(LiChessTools.Tools.CorrespondenceLobbyFilters);
+lichessTools.loadTool(LiChessTools.Tools.VideoSearch);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);

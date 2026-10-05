@@ -133,7 +133,7 @@
         const groups = [];
         if (options.exportShapes) {
           for (const shape of node.shapes || []) {
-            if (shape.type == 'rank' || shape.customSvg) continue;
+            if (shape.customSvg) continue;
             const type = shape.dest ? 'cal' : 'csl';
             let group = groups.at(-1);
             if (group?.type != type) {
@@ -358,19 +358,37 @@
         const varNodes = getVarNodes(varNode, options.separateLines);
         const pgns = [];
         const tags = (options.exportTags && lt.clone(analysis.study?.data?.chapter?.tags)) || [];
+        const variant = analysis.variantKey;
+        if (!['standard','fromPosition','chess960'].includes(variant)) {
+          addTag(tags,'Variant', trans.noarg(variant));
+        }
         if (options.exportTags && analysis.getOrientation() != 'white') {
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
         if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
-          if (options.exportTags)addTag(tags, 'SetUp', '1');
+          if (options.exportTags) {
+            addTag(tags, 'SetUp', '1');
+          }
         }
         if (options.exportTags) {
-          addTag(tags, 'Site', lt.global.location.href, true);
+          addTag(tags, 'Site', lt.location.href, true);
           const now = new Date().toISOString();
           addTag(tags, 'UTCDate', now.substr(0, 10).replaceAll('-', '.'), true);
           addTag(tags, 'UTCTime', now.substr(11, 8), true);
+          const timeControlTag = analysis.study?.data?.chapter?.tags?.find(p=>p[0]=='TimeControl')?.[1];
+          if (timeControlTag) {
+            addTag(tags, 'TimeControl', timeControlTag);
+          } else
+          if (analysis.data?.correspondence) {
+            addTag(tags, 'TimeControl', '-');
+          } else
+          if (analysis.data?.clock) {
+            const initial = +analysis.data.clock.initial || 0;
+            const increment = +analysis.data.clock.increment || 0;
+            addTag(tags, 'TimeControl', initial+'+'+increment);
+          }
         }
         const tagString = !options.print && tags.length 
           ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' 

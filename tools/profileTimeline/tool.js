@@ -30,9 +30,9 @@
 
     isMyProfilePage=()=>{
       const lt = this.lichessTools;
-      const userId = lt.getUserId()
+      const userId = lt.getUserId();
       if (!userId) return false;
-      return lt.global.location.pathname.toLowerCase().startsWith('/@/'+userId.toLowerCase());
+      return lt.location.isProfilePageOf(userId);
     };
 
     loadTimeline = async ()=>{

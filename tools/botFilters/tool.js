@@ -39,11 +39,6 @@
       }
     }
 
-    isBotsPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/player\/bots/i.test(lt.global.location.pathname);
-    };
-
     filterBots = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -57,6 +52,24 @@
         .each((i,e)=>{
           const found = $('.bots__list__entry__rating',e)
             .filter((i2,e2)=>{
+              const spans = $(e2).children('span');
+              if (!spans.length) return showUnrated;
+			  return !!spans.filter((i3,e3)=>{
+				const span = $(e3);
+                const games = +(span.attr('title').replace(/[^\d]/g,''));
+                const botIcon = span.find('span.svg-icon')
+                               .get()
+                               .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
+                               .map(lt.iconClassToIcon)
+                               .map(n=>lt.icon[n])[0];
+                const rating = +(span.text().replace(/[^\d]/g,''));
+                return icons.indexOf(botIcon)>=0 && (rating 
+                                                  ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
+                                                  : showUnrated);
+              }).length;
+            });
+          const foundOld = $('.bots__list__entry__rating',e)
+            .filter((i2,e2)=>{
               const span = $(e2).find('span');
               if (!span.length) return showUnrated;
               const games = +(span.attr('title').replace(/[^\d]/g,''));
@@ -66,7 +79,7 @@
                                                   ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
                                                   : showUnrated);
             });
-          $(e).toggleClassSafe('filteredOut',!found.length);
+          $(e).toggleClassSafe('filteredOut',!found.length&&!foundOld.length);
         });
       this.refreshAllTypesButton();
     };
@@ -89,7 +102,7 @@
       const lichess = lt.lichess;
       const value = lt.currentOptions.getValue('botFilters');
       this.logOption('Bot filters', value);
-      if (!this.isBotsPage()) return;
+      if (!lt.location.isBotsPage()) return;
       $('.lichessTools-botFilters').remove();
       if (!value) return;
       const container = $(`<div class="lichessTools-botFilters">
@@ -147,8 +160,16 @@
         lt.icon.KeyPad,
         lt.icon.FlagRacingKings
       ];
-      const icons = [...new Set($('.bots__list__entry__rating')
+	  const oldIcons = [...new Set($('.bots__list__entry__rating') // TODO remove oldIcons when Lichess removes font icons
         .find('span').get().map(e=>$(e).attr('data-icon')))];
+      const newIcons = [...new Set(
+        $('.bots__list__entry__rating')
+          .find('span.svg-icon')
+          .get()
+          .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
+          .map(lt.iconClassToIcon)
+      )];
+	  const icons = oldIcons.concat(newIcons);
       const findex = (x)=>{ const i=order.indexOf(x); return i<0?1000:i; };
       icons.sort((a,b)=>findex(a)-findex(b));
       const div = container.find('.types');

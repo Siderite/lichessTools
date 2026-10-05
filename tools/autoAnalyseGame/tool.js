@@ -62,9 +62,7 @@
       this.retries = 0;
       if (this.options[outcome]) {
         const href = $('a.fbt.analysis').attr('href');
-        if (href) {
-          lt.global.location.href = href;
-        }
+        lt.location.set(href);
       } else {
         const button = $('.lichessTools-requestAnalysis');
         if (userId && this.options.showRequestAnalysis) {
@@ -82,7 +80,7 @@
                   await lt.api.game.requestAnalysis(m.groups.id);
                 }
                 lt.storage.set('analysis.panel','computer-analysis', { raw: true });
-                lt.global.location.href = href;
+                lt.location.set(href);
               })
               .appendTo('.round__side');
           }

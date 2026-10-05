@@ -16,3 +16,37 @@ body.lichessTools td.keys then {
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
+
+body.lichessTools .lichessTools-toggle {
+  float: left;
+}
+
+
+body.lichessTools .dialog-content.help tr:has([type="checkbox"]:not(:checked)) td.desc {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+body.lichessTools .dialog-content.help td.keys {
+  --keys-toggle-size: 18px;
+}
+
+body.lichessTools .dialog-content.help td.keys .cmn-toggle > label {
+  height: var(--keys-toggle-size);
+  width: calc(var(--keys-toggle-size) * 1.66)
+}
+
+body.lichessTools .dialog-content.help td.keys .cmn-toggle > label:before {
+  font-size: calc(var(--keys-toggle-size) * 0.75);
+  line-height: calc(var(--keys-toggle-size) - 2px);
+  width: calc(var(--keys-toggle-size) - 2px);
+  height: calc(var(--keys-toggle-size) - 2px);
+  inset: unset;
+  mask-size: 50%;
+}
+
+
+body.lichessTools .dialog-content.help td.keys .cmn-toggle > label:after {
+  width: calc(var(--keys-toggle-size) - 2px);
+  height: calc(var(--keys-toggle-size) - 2px);
+}

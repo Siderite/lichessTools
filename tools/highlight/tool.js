@@ -8,7 +8,7 @@
         name: 'highlight',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['lastMove', 'notCommented', 'transposition', 'mainLine', 'mainLinePieces', 'variationDepth', 'checks', 'currentLine'],
+        possibleValues: ['lastMove', 'notCommented', 'transposition', 'mainLine', 'mainLinePieces', 'variationDepth', 'checks', 'currentLine', 'branching'],
         defaultValue: 'lastMove,notCommented,transposition',
         advanced: true
       }
@@ -24,7 +24,8 @@
         'highlight.mainLinePieces': 'Highlight pieces when out of main line',
         'highlight.variationDepth': 'Highlight variation depth',
         'highlight.checks': 'Highlight checks to kings',
-        'highlight.currentLine': 'Highlight current line'
+        'highlight.currentLine': 'Highlight current line',
+        'highlight.branching': 'Highlight branching positions'
       },
       'ro-RO': {
         'options.highlight': 'Eviden\u0163iaz\u0103 mut\u0103ri \u00een analiz\u0103',
@@ -35,7 +36,8 @@
         'highlight.mainLinePieces': 'Eviden\u0163iaz\u0103 piese c\u00e2nd nu pe linia principal\u0103',
         'highlight.variationDepth': 'Eviden\u0163iaz\u0103 ad\u00e2ncimea varia\u0163iilor',
         'highlight.checks': 'Eviden\u0163iaz\u0103 regi \u00een \u015fah',
-        'highlight.currentLine': 'Eviden\u0163iaz\u0103 linia curent\u0103'
+        'highlight.currentLine': 'Eviden\u0163iaz\u0103 linia curent\u0103',
+        'highlight.branching': 'Eviden\u0163iaz\u0103 pozi\u0163ii divergente'
       }
     }
 
@@ -260,6 +262,26 @@
       },'highlightVariationDepth');
     };
 
+    highlightBranching = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const toHighlight = [];
+      if (this.options.branching && this.state?.branching?.length) {
+        for (const node of this.state.branching) {
+          const elem = lt.getElementForNode(node);
+          if (!elem) continue;
+          toHighlight.push(elem);
+        }
+      }
+      const toRemove = $('div.analyse__moves move.lichessTools-branching')
+        .filter((i, e) => !toHighlight.includes(e));
+      const toAdd = $(toHighlight);
+      lt.requestAF(()=>{
+        toRemove.removeClass('lichessTools-branching');
+        toAdd.addClass('lichessTools-branching');
+      },'highlightBranching');
+    };
+
     traverseTree = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -271,6 +293,7 @@
       this.highlightVariationDepth();
       this.highlightChecks();
       this.highlightCurrentLine();
+      this.highlightBranching();
     };
 
     debouncedTraverseTree = this.lichessTools.debounce(this.traverseTree, 800);
@@ -290,11 +313,14 @@
         checks: lt.isOptionSet(value, 'checks'),
         currentLine: lt.isOptionSet(value, 'currentLine'),
         mainLinePieces: lt.isOptionSet(value, 'mainLinePieces'),
-        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth || this.checks || this.mainLinePieces || this.currentLine; }
+        branching: lt.isOptionSet(value, 'branching'),
+        get isSet() { return this.lastMove || this.notCommented || this.transposition || this.mainLine || this.variationDepth 
+                          || this.checks || this.mainLinePieces || this.currentLine || this.branching; }
       };
       lt.pubsub.off('lichessTools.redraw', this.highlightMainLine);
       lt.pubsub.off('lichessTools.redraw', this.highlightMainLinePieces);
       lt.pubsub.off('lichessTools.redraw', this.debouncedTraverseTree);
+      lt.pubsub.off('lichessTools.redraw', this.highlightBranching);
       if (this.options.mainLine) {
         lt.pubsub.on('lichessTools.redraw', this.highlightMainLine);
       }
@@ -303,6 +329,9 @@
       }
       if (this.options.isSet) {
         lt.pubsub.on('lichessTools.redraw', this.debouncedTraverseTree);
+      }
+      if (this.options.branching) {
+        lt.pubsub.on('lichessTools.redraw', this.highlightBranching);
       }
       $.cached('body').toggleClass('lichessTools-variationDepth', this.options.variationDepth);
       this.debouncedTraverseTree();

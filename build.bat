@@ -1,13 +1,15 @@
 @echo off
 setlocal EnableExtensions
 
-if "%~1"=="" (
-  echo Usage: %~nx0 version
-  echo Example: %~nx0 123
-  exit /b 1
-)
+for /f "usebackq delims=" %%v in (`powershell -NoProfile -Command "(Get-Content -Raw 'manifest.json.chrome' | ConvertFrom-Json).version.Replace('.','_')"`) do set "VERSION=V%%v"
 
-set "VERSION=V2_4_%~1"
+REM if "%~1"=="" (
+REM   echo Usage: %~nx0 version
+REM   echo Example: %~nx0 123
+REM   exit /b 1
+REM )
+
+REM set "VERSION=V2_4_%~1"
 
 echo Creating Firefox package...
 copy /Y "manifest.json.ff" "manifest.json" >nul

@@ -97,7 +97,7 @@
       }
       if (!value) return;
 
-      if (/^\/timeline/i.test(lt.global.location.pathname)) {
+      if (lt.location.isTimelinePage()) {
         this.setAllRead();
         let nr=0;
         if (this.prevRead) {

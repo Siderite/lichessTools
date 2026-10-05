@@ -5,13 +5,13 @@
       this.$ = cash;
       this.global = global;
       this.sri = this.randomToken();
-      delete this.global.lichessIcons;
       this.translator = new LiChessTools.Translator(this);
       this.net = new LiChessTools.Network(this);
       this.storage = new LiChessTools.Storage(this);
       this.comm = new LiChessTools.Comm(this);
       this.cache = new LiChessTools.Cache(this);
       this.api = new LiChessTools.Api(this);
+      this.location = new LiChessTools.Location(this);
       this.comm.init();
     }
 
@@ -21,7 +21,132 @@
 
 
     icon = {
-      ...lichessIcons,
+      CautionTriangle: '\uE000',
+      Link: '\uE001',
+      Rabbit: '\uE002',
+      ShareIos: '\uE003',
+      ShareAndroid: '\uE004',
+      Gear: '\uE005',
+      DieSix: '\uE006',
+      FlagKingHill: '\uE007',
+      FlameBlitz: '\uE008',
+      Feather: '\uE009',
+      Turtle: '\uE00A',
+      FlagChessboard: '\uE00B',
+      ArcheryTarget: '\uE00C',
+      ThreeCheckStack: '\uE00D',
+      UploadCloud: '\uE00E',
+      ExternalArrow: '\uE00F',
+      AnalogTv: '\uE010',
+      RssFeed: '\uE011',
+      StudyBoard: '\uE012',
+      Shield: '\uE013',
+      InkQuill: '\uE014',
+      Target: '\uE015',
+      Crown: '\uE016',
+      LineGraph: '\uE017',
+      GraduateCap: '\uE018',
+      PaperAirplane: '\uE019',
+      ZoomIn: '\uE01A',
+      Expand: '\uE01B',
+      Atom: '\uE01C',
+      List: '\uE01D',
+      Antichess: '\uE01E',
+      Microscope: '\uE01F',
+      ChasingArrows: '\uE020',
+      CrownElite: '\uE021',
+      Funnel: '\uE022',
+      Checkmark: '\uE023',
+      InternalArrow: '\uE024',
+      PlayTriangle: '\uE025',
+      GreaterThan: '\uE026',
+      LessThan: '\uE027',
+      DiscBig: '\uE028',
+      DiscBigOutline: '\uE029',
+      X: '\uE02A',
+      ArrowDownRight: '\uE02B',
+      ArrowUpRight: '\uE02C',
+      PlusButton: '\uE02D',
+      MinusButton: '\uE02E',
+      Fire: '\uE02F',
+      DownTriangle: '\uE030',
+      UpTriangle: '\uE031',
+      Bullet: '\uE032',
+      Swords: '\uE033',
+      JumpLast: '\uE034',
+      JumpFirst: '\uE035',
+      JumpNext: '\uE036',
+      JumpPrev: '\uE037',
+      Pause: '\uE038',
+      Hamburger: '\uE039',
+      Globe: '\uE03A',
+      Book: '\uE03B',
+      BarGraph: '\uE03C',
+      Keypad: '\uE03D',
+      Berserk: '\uE03E',
+      Padlock: '\uE03F',
+      FlagOutline: '\uE040',
+      BubbleSpeech: '\uE041',
+      BubbleConvo: '\uE042',
+      Envelope: '\uE043',
+      Group: '\uE044',
+      Trophy: '\uE045',
+      ThumbsUp: '\uE046',
+      Back: '\uE047',
+      CautionCircle: '\uE048',
+      NotAllowed: '\uE049',
+      RandomColor: '\uE04A',
+      Pencil: '\uE04B',
+      Cogs: '\uE04C',
+      Tag: '\uE04D',
+      Clock: '\uE04E',
+      Trash: '\uE04F',
+      User: '\uE050',
+      StarOutline: '\uE051',
+      Star: '\uE052',
+      MoreTriangle: '\uE053',
+      Eye: '\uE054',
+      Power: '\uE055',
+      Download: '\uE056',
+      Search: '\uE057',
+      Forward: '\uE058',
+      UltraBullet: '\uE059',
+      Storm: '\uE05A',
+      Tools: '\uE05B',
+      Bullseye: '\uE05C',
+      Agent: '\uE05D',
+      Mic: '\uE05E',
+      BarChart: '\uE05F',
+      InfoCircle: '\uE060',
+      ScreenDesktop: '\uE061',
+      PhoneMobile: '\uE062',
+      Multiboard: '\uE063',
+      HeartOutline: '\uE064',
+      FlagRacingKings: '\uE065',
+      Crazyhouse: '\uE066',
+      Tshirt: '\uE067',
+      Heart: '\uE068',
+      RadioTower: '\uE069',
+      BellOutline: '\uE06A',
+      Disc: '\uE06B',
+      Wings: '\uE06C',
+      DiscOutline: '\uE06D',
+      Language: '\uE06E',
+      ArrowThruApple: '\uE06F',
+      Clipboard: '\uE070',
+      Move: '\uE071',
+      Ibeam: '\uE072',
+      Cancel: '\uE073',
+      Voice: '\uE074',
+      OneHalf: '\uE076',
+      Mute: '\uE077',
+      Reload: '\uE078',
+      AccountCircle: '\uE079',
+      Logo: '\uE07A',
+      Switch: '\uE07B',
+      Cpu: '\uE07E',
+      Prune: '\uE07F',
+      Friends: '\uE080',
 
       // LiChess Tools icons
       ShowTranspositions: 'T',
@@ -92,6 +217,7 @@
       Hourglass: '\u231B',
       CyrillicCapitalLetterI: '\u0418',
       Ladder: '\uD83E\uDE9C',
+      WhiteFourPointedStar: '\u2727',
 
 
       toEntity: function(s) {
@@ -101,6 +227,14 @@
         }
         return result;
       }
+    };
+
+    iconClassToIcon = (cls)=>{
+      const lt = this;
+      const m = /^\.?icon-(?<name>.*)/.exec(cls);
+      if (!m) throw new Error('unknown icon class '+cls);
+      const name = m.groups.name;
+      return name[0].toUpperCase()+name.substr(1);
     };
 
     getTimeText = (value) => {
@@ -203,10 +337,6 @@
     get uiApi() {
       return this.global.lichess;
     }
-
-    isDev = () => {
-      return /lichess\.dev/.test(this.global.location.origin);
-    };
 
     get debug() {
       if (this._debug === undefined) {
@@ -680,20 +810,20 @@
 
     getTvOptions = () => {
       const $ = this.$;
-      const inAnalysisMode = !!this.lichess.analysis;
-      const mTv = !inAnalysisMode && /\/tv(\/([^\/]+))?/.exec(this.global.location.pathname);
-      const mUser = /\/@\/([^\/]+)/.exec(this.global.location.pathname);
+      const isTv = this.location.isTvPage();
+      const tvChannel = isTv && this.location.getTvChannel();
+      const urlUser = this.location.getUrlUser();
       const analysisUrl = $('div.buttons a.analysis,bo3 a.analysis').attr('href') || '';
-      const mAnalysis = /^\/([^\/]+)\/?(black)?/.exec(analysisUrl);
+      const mAnalysis = /^\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
       const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
-        isTv: !!mTv,
-        isUserTv: !!mTv && !!mUser,
-        user: !!mTv && mUser && mUser[1],
-        channel: mTv && !mUser && (mTv[2] || 'best'),
-        gameId: !!mAnalysis && mAnalysis[1],
+        isTv: isTv,
+        isUserTv: isTv && !!urlUser,
+        user: isTv && urlUser,
+        channel: !urlUser && this.location.getTvChannel(),
+        gameId: mAnalysis?.groups?.gameId,
         orientation: orientation,
-        isBlack: !!mAnalysis && mAnalysis[2]
+        isBlack: mAnalysis?.groups?.isBlack
       };
     };
 
@@ -898,7 +1028,7 @@
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.global.location.href);
+          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.loc.href);
         }
       }
       return elem;
@@ -930,6 +1060,7 @@
         checks: [],
         positions: {},
         glyphs: {},
+        branching: [],
         nodeIndex: +(snode?.nodeIndex) || 0
       };
       lt.traverseState = state;
@@ -979,11 +1110,16 @@
 
         if (func) func(node, state);
         let first = true;
+        let count = 0;
         for (const child of node.children) {
           child.depth = first ? node.depth : node.depth + 1;
           child.ltComp = node.ltComp;
           first = false;
           nodes.push({ node: child, path: path });
+          if (!child.ltComp && !child.comp) count++;
+        }
+        if (count>1) {
+          state.branching.push(node);
         }
       }
       return state;
@@ -991,18 +1127,6 @@
 
     getUserId = () => {
       return this.global.document.body?.dataset?.user;
-    };
-
-    isFriendsPage = () => {
-      return /\/following([\?#].*)?$/.test(this.global.location.pathname);
-    };
-
-    isFavoriteOpponentsPage = () => {
-      return /\/player\/opponents\b/.test(this.global.location.pathname);
-    };
-
-    isBlockedPlayersPage = () => {
-      return /\/rel\/blocks\b/.test(this.global.location.pathname);
     };
 
     findGlyphNode = (color, symbols) => {
@@ -1324,7 +1448,7 @@
     };
 
     speechVolume = 0.7;
-    speechRate = 1;
+    speechRate = null;
     speechVoiceIndex = undefined;
     speak = async (text, options) => {
       let volume = +options?.volume;
@@ -1337,7 +1461,7 @@
         volume: volume,
         voiceIndex: options?.voiceIndex === undefined ? this.speechVoiceIndex : options.voiceIndex,
         translated: !!options?.translated,
-        rate: options?.rate || this.speechRate
+        rate: options?.rate || this.speechRate || +this.storage.get('speech.rate') || 1
       };
       const console = this.global.console;
       try {
@@ -1509,7 +1633,7 @@
       const $ = this.$;
       const html = $.cached('html');
       if (html.is('.light')) return false;
-      if (html.is('.dark,.darkBoard,.transp')) return true;
+      if (html.is('.dark')) return true;
       return this.global.matchMedia && this.global.matchMedia('(prefers-color-scheme: dark)').matches;
     };
 
@@ -1671,6 +1795,7 @@
     }
 
     addRetries = (obj, key, maxRetries) => {
+      const lt = this;
       const original = obj[key];
       if (typeof original !== "function") {
         throw new Error("Key must point to a function");
@@ -1736,7 +1861,7 @@
 
     async init() {
       const $ = this.$;
-      $('html').attr('data-page-href',this.global.location.href);
+      $('html').attr('data-page-href',this.location.href);
       this.api.init();
       const setTimeout = this.global.setTimeout;
       const console = this.global.console;

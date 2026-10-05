@@ -80,7 +80,7 @@
   class Stockfish {
     constructor(lichessTools) {
       this.lt = lichessTools;
-      this.origin = this.lt.global.location.origin;
+      this.origin = this.lt.location.origin;
       this.restartDebounced = this.lt.debounce(this.restart, 500);
     }
 
@@ -93,11 +93,11 @@
         useBetterEngine=this.lt.storage.supportsDb && (await this.lt.getMemorySize()) >= 4;
       }
       if (useBetterEngine) {
-        engineId = '__sf_18';
-        engineRoot = 'sf_18_relaxed-simd.js';
+        engineId = '__sf_19';
+        engineRoot = 'sf_19_relaxed-simd.js';
       } else {
-        engineId = '__sf_18_smallnet';
-        engineRoot = 'sf_18_smallnet_relaxed-simd.js';
+        engineId = '__sf_19_smallnet';
+        engineRoot = 'sf_19_smallnet_relaxed-simd.js';
       }
       try {
         if (!this._module) {
@@ -278,7 +278,7 @@
       this.postMessage('setoption name UCI_Elo value 3190');
       this.postMessage('setoption name UCI_ShowWDL value true');
       this.postMessage('position fen ' + this._fen);
-      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : ' infinite') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
+      this.postMessage('go' + (this._depth ? ' depth ' + this._depth : this._time ? ' movetime ' + this._time : '') + (this._searchMoves?.length ? ' searchmoves ' + this._searchMoves.join(' ') : ''));
       this._isStarted = true;
       this.lt.debug && this.lt.global.console.debug('SF', 'Engine started');
     }

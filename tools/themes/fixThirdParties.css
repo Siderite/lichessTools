@@ -4,8 +4,8 @@
 
 @media (min-width: 1259.3px) {
 
-  body.lichessTools.lichessTools-hasBoardSize div.eval-gauge {
-    max-height: min(calc(100vh - var(---site-header-height)), max(488px, var(--board-size)));
+  body.lichessTools div.eval-gauge {
+    max-height: min(calc(100vh - var(---site-header-height)), max(488px, var(---cg-height)));
   }
 
 }

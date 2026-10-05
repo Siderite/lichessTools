@@ -40,16 +40,6 @@
       }
     }
 
-    isTrainingPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/training/i.test(lt.global.location.pathname) && !/^\/training\/(?:dashboard|themes)/.test(lt.global.location.pathname);
-    };
-
-    isPuzzleDashboardPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/training\/dashboard\/\d+\/dashboard/i.test(lt.global.location.pathname);
-    };
-
     saveHistory = ()=>{
       if (!this._history) return;
       const lt = this.lichessTools;
@@ -194,7 +184,7 @@
       lt.pubsub.off('lichessTools.puzzleEnd',this.puzzleEnd);
       lt.pubsub.off('lichessTools.puzzleFail',this.puzzleFail);
       lt.global.removeEventListener('beforeunload', this.saveHistory);
-      if (this.options.enabled && this.isTrainingPage()) {
+      if (this.options.enabled && lt.location.isPuzzleTrainingPage()) {
         this._history = lt.storage.get('LiChessTools.puzzleHistory.log', { zip: true }) || [];
         lt.pubsub.on('lichessTools.puzzleStart',this.puzzleStart);
         lt.pubsub.on('lichessTools.puzzleEnd',this.puzzleEnd);
@@ -208,7 +198,7 @@
         }
       }
       $('#lichessTools-puzzleHistory').remove();
-      if (this.options.enabled && this.isPuzzleDashboardPage()) {
+      if (this.options.enabled && lt.location.isPuzzleDashboardPage()) {
         this._history = lt.storage.get('LiChessTools.puzzleHistory.log', { zip: true }) || [];
         this.populateDashboard();
       }

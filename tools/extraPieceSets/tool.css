@@ -60,7 +60,7 @@ body.lichessTools div.lichessTools-extraPieceSets .tree {
 }
 
 body.lichessTools div.lichessTools-extraPieceSets .grid {
-  font-family: lichess;
+  font-family: lichess, lichessTools;
   font-size: 1.5em;
   padding: 0;
   min-width: 30px;
@@ -81,15 +81,7 @@ body.lichessTools dialog.lichessTools-extraPieceSets svg {
   background: #eee;
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg {
-    background: #111;
-  }
-}
-
-html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg,
-html.darkBoard body.lichessTools dialog.lichessTools-extraPieceSets svg,
-html.transp body.lichessTools dialog.lichessTools-extraPieceSets svg {
+html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg {
   background: #111;
 }
 
@@ -105,16 +97,7 @@ body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
   stroke-width: 1.5;
 }
 
-
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
-    fill: #444;
-  }
-}
-
-html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
-html.darkBoard body.lichessTools dialog.lichessTools-extraPieceSets svg circle,
-html.transp body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
+html.dark body.lichessTools dialog.lichessTools-extraPieceSets svg circle {
   fill: #444;
 }
 

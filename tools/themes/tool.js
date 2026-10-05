@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants','noBullet','squares','experimental'],
+                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder','grabHighlight'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -58,6 +58,8 @@
         'themes.noBullet': 'Hide Bullet chess',
         'themes.squares': 'Squares for circles',
         'themes.experimental': 'Experimental',
+        'themes.chessbaseBorder': 'ChessBase board margin',
+        'themes.grabHighlight': 'Grab highlight',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -91,6 +93,8 @@
         'themes.noBullet': 'Ascunde \u015fah Bullet',
         'themes.squares': 'P\u0103trate \u00een loc de cercuri',
         'themes.experimental': 'Experimental\u0103',
+        'themes.chessbaseBorder': 'Margine de tabl\u0103 ChessBase',
+        'themes.grabHighlight': 'Eviden\u0163iere apucare',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
@@ -98,13 +102,26 @@
     checkBodyDirect = async ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
-      const board = $('body #main-wrap div.cg-wrap cg-board')[0];
-      const boardChanged = this.dataBoard != $('body').attr('data-board') || this.dataBoard3d != $('body').attr('data-board3d');
-      if (boardChanged || this.board != board || (board && !$('html').css('--board-background'))) {
+      const html = $('html');
+      const body = $('body');
+      const board = body.find('#main-wrap div.cg-wrap cg-board')[0];
+      const boardChanged = this.dataBoard != body.attr('data-board') || this.dataBoard3d != body.attr('data-board3d');
+      if (boardChanged || this.board != board || (board && !html.css('--board-background'))) {
         await this.applyThemes(boardChanged);
-        this.dataBoard = $('body').attr('data-board');
-        this.dataBoard3d = $('body').attr('data-board3d');
+        this.dataBoard = body.attr('data-board');
+        this.dataBoard3d = body.attr('data-board3d');
         this.board = board;
+      }
+      let dataTheme = lt.global.document.body.dataset.theme;
+      if (!html.is('.dark,.light') || dataTheme != this.dataTheme) {
+        this.dataTheme = dataTheme;
+        if (dataTheme == 'system') {
+          dataTheme = window.matchMedia('(prefers-color-scheme: light)')?.matches ? 'light' : 'dark';
+        }
+        const isLight = dataTheme.includes('light');
+        html
+          .toggleClassSafe('dark',!isLight)
+          .toggleClassSafe('light',isLight);
       }
     };
     checkBody = lichessTools.debounce(this.checkBodyDirect,1000);
@@ -142,14 +159,14 @@
       } else {
         container = $('html');
       }
-      const preloadedImages = $('link[rel=preload][as=image]',container)
-                                .filter((i,e)=>/\.(png|jpg|jpeg|svg)$/i.test($(e).attr('href')))
+      const preloadedImages = $('link[rel=preload][as=image][fetchpriority="high"]',container)
+                                .filter((i,e)=>/\.(png|jpg|jpeg|svg|webp)$/i.test($(e).attr('href')))
                                 .get();
       const boardUrls = [];
       for (const image of preloadedImages) {
         const url = $(image).attr('href');
         const size = await this.getImageSizeFromUrl(url);
-        if (size?.width>100) boardUrls.push(url);
+        if (size?.width>150) boardUrls.push(url);
       }
 
       const index = is3d ? Math.min(1,boardUrls.length-1) : 0;
@@ -245,6 +262,7 @@
         .toggleClassSafe('sound', false)
         .toggleClassSafe('lichessTools-themes', true);
       container.find('button.head')
+        .attr('data-icon',lt.icon.LessThan)
         .text(trans.noarg('themesMenuHeaderText'))
         .append($('<a class="lichessTools-infoIcon" target="_blank">')
           .attr('title',trans.noarg('userManualLinkTitle'))
@@ -400,6 +418,26 @@
       this.setTimeControlLabels();
     };
 
+    // temporary? fix for https://github.com/lichess-org/lila/issues/21905
+    addSizeToMiniboardsDirect = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $(':is(.mini-game,.captcha) cg-container').each((i,e)=>{
+        const $e = $(e);
+        const existingWidth = $e.css('---cg-width');
+        const existingHeight = $e.css('---cg-height');
+        const width = $e.css('width');
+        const height = $e.css('height');
+        if (width && existingWidth!=width) {
+          $e.css('---cg-width',width);
+        }
+        if (height && existingHeight!=height) {
+          $e.css('---cg-height',height);
+        }
+      });
+    };
+    addSizeToMiniboards = this.lichessTools.debounce(this.addSizeToMiniboardsDirect, 500);
+
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('themes');
@@ -413,7 +451,8 @@
       if (!value && !this.ranStart) {
         return;
       }
-
+      $('body').observer()
+        .off('cg-container',this.addSizeToMiniboards);
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()
@@ -424,6 +463,10 @@
             attributeFilter: ['data-board','data-board3d','class']
           });
         $(document).on('click keydown touchstart pointerdown',this.addFirstInteractionClass);
+        this.checkBodyDirect();
+        $('body').observer()
+          .on('cg-container',this.addSizeToMiniboards, { attributes: true });
+        this.addSizeToMiniboards();
       }
       await this.applyThemes();
       $('#dasher_app')

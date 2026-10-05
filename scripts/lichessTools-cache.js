@@ -5,6 +5,7 @@
     }
 
       _lock = '__lock cache keys__';
+      _keySuffix = 1;
 
       init() {
         const lt = this.lichessTools;
@@ -133,9 +134,10 @@
         if (!original) throw new Error('Could not find function '+funcName);
         obj[funcName] = async function (...args) {
           const funcKey = 'sema_'+ (options.keyPrefix||'') + funcName;
-          const key = options.keyFunction
+          let key = options.keyFunction
             ? options.keyFunction(obj, funcName, args)
             : (options.keyPrefix||'') + funcName + JSON.stringify(args);
+          if (cache._keySuffix) key+='_'+cache._keySuffix;
           await cache.waitRelease(key);
           const cached = cache.getCached(key);
           if (cached?.value !== undefined && !cached.isExpired) {

@@ -1,0 +1,22 @@
+
+body.lichessTools.lichessTools-theme_grabHighlight piece::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0%;
+  height: 0%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #80FFFF40;
+  z-index: -1;
+  pointer-events: none;
+  transition:
+    width 0.3s,
+    height 0.3s;
+}
+
+body.lichessTools.lichessTools-theme_grabHighlight piece.dragging::before {
+  width: 130%;
+  height: 130%;
+}

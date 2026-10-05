@@ -40,11 +40,6 @@
       }
     }
 
-    isPuzzleDashboardPage = ()=>{
-      const lt = this.lichessTools;
-      return /^\/training\/dashboard\/\d+\/dashboard/i.test(lt.global.location.pathname);
-    };
-
     enhancePuzzleDashboardPage = async ()=>{
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -59,8 +54,7 @@
       const userId = lt.getUserId();
       const data = await lt.api.user.getRatingHistory(userId);
       const puzzles = data.find(i=>i.name=='Puzzles');
-      const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
-      const days = +m.groups.days;
+      const days = lt.location.getPuzzleDashboardDays();
       let afterEl = '.puzzle-dashboard__radar';
       if (days && puzzles) {
         const date = new Date();
@@ -126,8 +120,7 @@
       const htmlEncode = lt.htmlEncode;
       const trans = lt.translator;
 
-      const m = /^\/training\/dashboard\/(?<days>\d+)\/dashboard/i.exec(lt.global.location.pathname);
-      const days = +m.groups.days;
+      const days = lt.location.getPuzzleDashboardDays();
       const currentEnd = Date.now();
       const currentStart = currentEnd - days*86400000;
       
@@ -223,7 +216,7 @@
 
       $('.lichessTools-profilePuzzleTab, .lichessTools-chart-container').remove();
       if (value) {
-        if (this.isPuzzleDashboardPage()) {
+        if (lt.location.isPuzzleDashboardPage()) {
           this.enhancePuzzleDashboardPage();
         }
       }

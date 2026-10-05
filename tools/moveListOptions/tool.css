@@ -258,20 +258,8 @@ body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) d
 }
 
 html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls,
-html.darkBoard body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-html.darkBoard body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls,
-html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
+html.dark body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
   background: #101010;
-}
-
-@media not print and (prefers-color-scheme: dark) {
-
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__tools,
-  html:not(.dark, .darkBoard, .light) body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-relay-tour) div.analyse__controls {
-    background: #101010;
-  }
 }
 
 @media print {
@@ -329,11 +317,11 @@ html.transp body.lichessTools.lichessTools-analysisPopup main.analyse:not(.has-r
   }
 }
 
-
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval span.cmn-toggle {
   order: 1;
   margin-left: 0;
   margin-right: 0.5em;
+  --analyse-toggle-size: 18px;
 }
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gear {
@@ -341,7 +329,6 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval button.settings-gea
 }
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"] {
-  --analyse-toggle-size: 18px;
   height: var(--analyse-toggle-size);
   width: calc(var(--analyse-toggle-size) * 1.66)
 }
@@ -351,12 +338,18 @@ body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-a
   line-height: calc(var(--analyse-toggle-size) - 2px);
   width: calc(var(--analyse-toggle-size) - 2px);
   height: calc(var(--analyse-toggle-size) - 2px);
+  inset: unset;
+  mask-size: 50%;
 }
 
 
 body.lichessTools main.lichessTools-fixCevalToggle div.ceval label[for="cmn-tg-analyse-toggle-ceval"]:after {
   width: calc(var(--analyse-toggle-size) - 2px);
   height: calc(var(--analyse-toggle-size) - 2px);
+}
+
+body.lichessTools .action-menu .cmn-toggle-wrap {
+  padding: 4px;
 }
 
 body.lichessTools div.lichessTools-moveListOptions-header {
@@ -375,7 +368,7 @@ body.lichessTools.mobile div.lichessTools-moveListOptions-header {
 @media (min-width: 799.4px) {
 
   body.lichessTools .analyse__tools .action-menu {
-    max-height: var(--board-size);
+    max-height: var(---cg-height);
     min-height: 100%;
   }
 

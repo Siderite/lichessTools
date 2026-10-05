@@ -3,7 +3,7 @@
 @media (min-height: 600px) {
 
   body.lichessTools.lichessTools-theme_nonStickyHeader:not(.zen)>header#top {
-    position: absolute;
+    position: relative;
   }
 
   body.lichessTools.lichessTools-theme_nonStickyHeader>header#top.hide {

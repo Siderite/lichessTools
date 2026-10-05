@@ -4,6 +4,9 @@
   display: flex;
   overflow: visible;
   align-items: center;
+  padding-left: 0.75em;
+  padding-right: 0;
+  gap: 0;
 }
 
 a.lichessTools-preferences .lichessTools-toggleExtension {
@@ -27,6 +30,7 @@ a.lichessTools-preferences:hover .lichessTools-toggleExtension {
 
 
 a + a.lichessTools-preferences:before {
+  position: relative;
   padding-left: 0.5em;
   left: -0.25em;
   top: -0.5em;
@@ -207,7 +211,7 @@ div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label
 
 div.lichessTools-preferences form>div:has(input.categoryToggle:checked)>h3 label:after {
   content: var(--icon-BlackRightPointingSmallTriangle);
-  font-family: "lichess";
+  font-family: lichess, lichessTools;
   margin-left: 0.25em;
 }
 
@@ -323,4 +327,9 @@ div.lichessTools-preferences div.file button {
   background: transparent;
   align-items: center;
   display: flex;
+}
+
+/* the user.account CSS breaks the wiki box */
+body.lichessTools fieldset.analyse__wiki {
+  padding: 1rem 1rem 0;
 }

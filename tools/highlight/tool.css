@@ -1,7 +1,6 @@
 body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine:after {
   content: var(--icon-SuperscriptCapitalL);
   line-height: 1;
-  vertical-align: super;
   display: inline-block;
   margin-left: 0.25em;
 }
@@ -27,30 +26,12 @@ body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
   filter: brightness(50%);
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools main.analyse .tview2 move.lichessTools-transposition {
-    background: darkgreen;
-  }
-
-  html:not(.dark, .darkBoard, .light) body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
-  html:not(.dark, .darkBoard, .light) body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
-    filter: brightness(150%);
-  }
-
-}
-
-html.dark body.lichessTools main.analyse .tview2 move.lichessTools-transposition,
-html.darkBoard body.lichessTools main.analyse .tview2 move.lichessTools-transposition,
-html.transp body.lichessTools main.analyse .tview2 move.lichessTools-transposition {
+html.dark body.lichessTools main.analyse .tview2 move.lichessTools-transposition {
   background: darkgreen;
 }
 
 html.dark body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
-html.dark body.lichessTools main.analyse .tview2 move.lichessTools-inCheck,
-html.darkBoard body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
-html.darkBoard body.lichessTools main.analyse .tview2 move.lichessTools-inCheck,
-html.transp body.lichessTools main.analyse .tview2 move.lichessTools-lastInLine,
-html.transp body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
+html.dark body.lichessTools main.analyse .tview2 move.lichessTools-inCheck {
   filter: brightness(150%);
 }
 
@@ -165,14 +146,15 @@ body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-current
   color: var(--c-font-clearer);
 }
 
-@media not print and (prefers-color-scheme: dark) {
-  html:not(.dark, .darkBoard, .light) body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
-    filter: drop-shadow(0 0 2px var(--c-accent));
-  }
+html.dark body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
+  filter: drop-shadow(0 0 2px var(--c-accent));
 }
 
-html.dark body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san,
-html.darkBoard body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san,
-html.transp body.lichessTools .analyse__moves:not(:has(.context-menu)) .lichessTools-currentLine san {
-  filter: drop-shadow(0 0 2px var(--c-accent));
+body.lichessTools main.analyse .tview2 move.lichessTools-branching:after {
+  font-family: lichess, lichessTools;
+  content: var(--icon-ShareAndroid);
+  display: inline-block;
+  margin-left: 0.15em;
+  font-size: 0.66em;
+  filter: contrast(0.5);
 }
