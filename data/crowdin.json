@@ -7600,7 +7600,7 @@
     "onlineFriends:zero": "Amis",
     "friendsMenu": "LiChess Tools - amis que vous suivez",
     "options.friends": "Amis",
-    "options.openFriends": "Friends section",
+    "options.openFriends": "Section Amis",
     "openFriends.default": "Par défaut",
     "openFriends.hidden": "Masquée",
     "openFriends.menu": "Menu",
@@ -8767,8 +8767,8 @@
     "videoSearchHeader": "Recherche de vidéos",
     "chessInsightsLinkText": "En savoir plus sur ChessInsights.ai",
     "noVideosFoundText": "Aucune vidéo trouvée",
-    "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "practiceDepthLabel": "Profondeur : %s",
+    "goToPlayedMoveText": "Revenir au dernier coup joué"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
