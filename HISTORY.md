@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Oct
+
+- Arrow for last move theme
+
 03 Oct
 
 - custom practice engine level up to 50

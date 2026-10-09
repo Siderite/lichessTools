@@ -1,0 +1,11 @@
+body.lichessTools.lichessTools-theme_arrowLastMove .lichessTools-boardStyle .lichessTools-lastMoveArrow {
+  display: block !important;
+}
+
+body.lichessTools.lichessTools-theme_arrowLastMove .lichessTools-boardStyle square.last-move {
+  background: none;
+}
+
+body.lichessTools.lichessTools-theme_arrowLastMove .lichessTools-boardStyle .lichessTools-lastMoveArrow.castle .arrow-line {
+  marker-start: url(#arrowhead);
+}
