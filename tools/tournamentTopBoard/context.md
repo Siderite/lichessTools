@@ -34,7 +34,7 @@ This ensures the featured game link includes the tournament context hash.
 
 Async function triggered on `endData` socket event:
 
-1. Extracts current gameId from pathname regex `/(?<gameId>\w{8})(?:\/|$)`
+1. Extracts current gameId from pathname regex `/(?:\/g)?(?<gameId>\w{8})(?:\/|$)`
 2. Fetches tournament info via `lt.api.tournament.getInfo(this.tourId)`
 3. If tournament is finished → exits
 4. Gets featured game ID (`data.featured.id`)

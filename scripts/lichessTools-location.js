@@ -230,7 +230,7 @@
     getUrlGameId() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const m = /^\/(?<possibleGameId>\w{8})\b/.exec(this.loc.pathname);
+      const m = /^\/(?:g\/)?(?<possibleGameId>\w{8})\b/.exec(this.loc.pathname);
       const gameId = m?.groups?.possibleGameId;
       if (gameId && $('a.bookmark[href^="/bookmark/'+gameId+'"]').length) return gameId;
       return null;
