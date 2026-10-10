@@ -458,7 +458,7 @@
       const lt = this.lichessTools;
       lt.unbindKeyHandler('+', true);
       if (this.options.plus && !lt.isBindingDisabled?.(['+'])) {
-        lt.bindKeyHandler('+', this.goDeeper);
+        lt.bindKeyHandler('+', ()=>this.goDeeper());
       }
     };
 
