@@ -1,7 +1,7 @@
 (() => {
   class ExtraChartTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitEsmLoaded', 'EmitChapterChange'];
+    dependencies = ['EmitEsmLoaded', 'EmitChapterChange', 'ChessOps'];
 
     preferences = [
       {
@@ -9,7 +9,7 @@
         category: 'analysis',
         type: 'multiple',
         possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'coord', 'critical',
-                         'smooth', 'gauge', 'accuracyPlus','hideLegend'],
+                         'brilliantChart', 'smooth', 'gauge', 'accuracyPlus','hideLegend'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
@@ -44,6 +44,7 @@
         'extraChart.critical': 'Critical',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.moreBrilliant': '... more moves',
+        'extraChart.brilliantChart': 'Brilliance chart',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'extraChart.accuracyPlus': 'More info on Accuracy',
@@ -77,7 +78,9 @@
         'potentialLegendTitle': 'Maximum potential point',
         'moveTypesLegendText': 'Moves',
         'moveTypesLegendTitle': 'Interesting, good, best and brilliant moves',
-        'disableLocalHidesChartQuestion': 'Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?'
+        'disableLocalHidesChartQuestion': 'Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?',
+        'brilliantLegendText': 'Brilliance',
+        'brilliantLegendTitle': 'Brilliance score'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -93,6 +96,7 @@
         'extraChart.critical': 'Critice',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
+        'extraChart.brilliantChart': 'Grafic str\u0103lucire',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de evaluare',
         'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
@@ -125,7 +129,9 @@
         'potentialLegendTitle': 'Punctul de poten\u0163ial maxim',
         'moveTypesLegendText': 'Mut\u0103ri',
         'moveTypesLegendTitle': 'Mut\u0103ri interesante, bune, cele mai bune \u015fi briliante',
-        'disableLocalHidesChartQuestion': 'Dezactivarea Local pe aceast\u0103 pagin\u0103 va elimina graficul \u015fi legenda acestuia. O vei putea reactiva doar din Preferin\u0163e. Continui?'
+        'disableLocalHidesChartQuestion': 'Dezactivarea Local pe aceast\u0103 pagin\u0103 va elimina graficul \u015fi legenda acestuia. O vei putea reactiva doar din Preferin\u0163e. Continui?',
+        'brilliantLegendText': 'Str\u0103lucire',
+        'brilliantLegendTitle': 'Scor str\u0103lucire'
       }
     }
 
@@ -142,6 +148,7 @@
       localChartHover: this.thematic('#FFFF00','#604800'),
       accuracyChart: this.thematic('#FF00FF','#700058'),
       sharpnessChart: this.thematic('#FFA0A0','#B09090'),
+      brilliantChart: '#258F0B',
       coordChart: '#60A0A0',
       criticalChart: '#A00000',
       maxTensionLine: '#FF0000',
@@ -809,6 +816,39 @@
       return result;
     };
 
+    getBrilliantData = (mainline, co) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      const side = analysis.getOrientation() == 'black' ? -1 : 1;
+      let prevNode = null;
+      let prev2Node = null;
+      let prevVal = null;
+      return mainline
+        .map((node, x) => {
+          const turn = this.getNodeTurn(node);
+          if (-turn != side) {
+            prev2Node = prevNode;
+            prevNode = node;
+            return {
+              y: prevVal,
+              x: node.ply
+            };
+          }
+
+          const result = this.computeBrilliant(node, prevNode, prev2Node, co);
+          prev2Node = prevNode;
+          prevNode = node;
+          if (!result) return;
+          const val = Math.max(Math.min(result.score, 100), 0) / 50 - 1;
+          prevVal = val;
+          return {
+            y: val,
+            x: node.ply
+          };
+        })
+        .filter(r => !!r);
+    };
+
     computeGood = (side, node, prevNode) => {
       const lt = this.lichessTools;
       const cp1 = this.getCp(this.getNodeCeval(node));
@@ -820,7 +860,7 @@
     }
 
     computeBrilliantCache = new LiChessTools.MaxSizedMap(1000);
-    computeBrilliant = (side, node, prevNode, prev2Node, co) => {
+    computeBrilliant = (node, prevNode, prev2Node, co) => {
       const lt = this.lichessTools;
       if (!this.options.brilliant) return null;
 
@@ -829,7 +869,11 @@
         san: node?.san,
         evalBefore: this.getNodeCeval(prevNode),
         evalAfter: this.getNodeCeval(node),
-        multiPv: null,
+        multiPv: prevNode?.ceval?.pvs?.map(p=>({
+          moves: p.moves?.join(' '),
+          cp: p.cp,
+          mate: p.mate
+        })),
         evalTwoBefore: this.getNodeCeval(prev2Node),
         book: !!node.opening
       };
@@ -838,9 +882,6 @@
       const key = lt.global.JSON.stringify(ctx).replaceAll(/[^\w]/g,'');
       let result = this.computeBrilliantCache.get(key);
       if (result) return result;
-
-
-      //TODO:get multiPv from LT db or Lichess db
 
       const analyser = new LiChessTools.BrilliantMoveAnalyzer(ctx,{ co });
       result = analyser.computeUberBrilliance();
@@ -875,7 +916,7 @@
             if (lt.isMate(node) || p2 === undefined) return result;
             const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
-            const bril = this.computeBrilliant(m, node, p2, p3, co);
+            const bril = this.computeBrilliant(node, p2, p3, co);
             result = {
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
@@ -945,6 +986,8 @@
         mainline.at(-1).brilliantInit = initValue;
       }
     };
+
+
 
     getMaxTension = (mainline) => {
       let maxT = -1000;
@@ -1210,7 +1253,7 @@
       const chart = this._chart;
       if (!chart) return;
       const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Coordination', 'Critical', 'Max tension', 'Max potential'].includes(d.label));
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Brilliant', 'Coordination', 'Critical', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -1269,6 +1312,7 @@
       if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
       if (!analysis) return;
+      const co = await lt.chessops();
 
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
       if (!forced && this.prevBrilliant != currentBrilliant) {
@@ -1441,6 +1485,13 @@
                       .text(trans.noarg('sharpnessLegendText'))
                       .attr('title',trans.noarg('sharpnessLegendTitle'))
                       .toggleClass('enabled',this.options.sharpness)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','brilliantChart')
+                      .text(trans.noarg('brilliantLegendText'))
+                      .attr('title',trans.noarg('brilliantLegendTitle'))
+                      .toggleClass('enabled',this.options.brilliantChart)
                       .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
             )
             .append($('<button type="button">')
@@ -1721,6 +1772,41 @@
         }
       }
 
+      let existingBrilliant = chart.data.datasets.findIndex(s => s.label === 'Brilliant');
+      if (existingBrilliant >= 0 && (this.prevSmooth != this.options.smooth || !this.options.brilliantChart)) {
+        chart.data.datasets.splice(existingBrilliant, 1);
+        existingBrilliant = -1;
+        updateChart = true;
+      }
+      if (this.options.brilliantChart) {
+        const mainline = analysis.mainline;
+        if (existingBrilliant < 0) {
+          chart.data.datasets.push({
+            label: 'Brilliant',
+            type: 'line',
+            data: this.smooth(this.getBrilliantData(mainline, co)),
+            borderWidth: 2,
+            borderDash: [1],
+            cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.brilliantChart,
+            yAxisID: 'y',
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingBrilliant];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getBrilliantData(mainline));
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
+          if (updateChart) dataset.data = newData;
+        }
+      }
+
       let existingCoord = chart.data.datasets.findIndex(s => s.label === 'Coordination');
       if (existingCoord >= 0 && (this.prevSmooth != this.options.smooth || !this.options.coord)) {
         chart.data.datasets.splice(existingCoord, 1);
@@ -1995,7 +2081,6 @@
       }
 
       if (this.options.brilliant) {
-        const co = await lt.chessops();
         await this.setBrilliant(analysis.mainline, forced, co);
 
         this.showGoodMoves(forced);
@@ -2333,13 +2418,14 @@
         potential: lt.isOptionSet(value, 'potential'),
         brilliant: lt.isOptionSet(value, 'brilliant'),
         moreBrilliant: lt.isOptionSet(value, 'moreBrilliant'),
+        brilliantChart: lt.isOptionSet(value, 'brilliantChart'),
         local: lt.isOptionSet(value, 'local'),
         accuracy: lt.isOptionSet(value, 'accuracy'),
         sharpness: lt.isOptionSet(value, 'sharpness'),
         coord: lt.isOptionSet(value, 'coord'),
         critical: lt.isOptionSet(value, 'critical'),
         smooth: lt.isOptionSet(value, 'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness || this.coord || this.critical; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.brilliantChart || this.local || this.accuracy || this.sharpness || this.coord || this.critical; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
         hideLegend: lt.isOptionSet(value, 'hideLegend'),
