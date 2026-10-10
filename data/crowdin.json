@@ -1250,7 +1250,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2503,7 +2506,10 @@
     "chessInsightsLinkText": "在 ChessInsights.ai 查看更多",
     "noVideosFoundText": "未找到视频",
     "practiceDepthLabel": "深度：%s",
-    "goToPlayedMoveText": "返回上一步棋"
+    "goToPlayedMoveText": "返回上一步棋",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3756,7 +3762,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5009,7 +5018,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6262,7 +6274,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7515,7 +7530,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8768,7 +8786,10 @@
     "chessInsightsLinkText": "En savoir plus sur ChessInsights.ai",
     "noVideosFoundText": "Aucune vidéo trouvée",
     "practiceDepthLabel": "Profondeur : %s",
-    "goToPlayedMoveText": "Revenir au dernier coup joué"
+    "goToPlayedMoveText": "Revenir au dernier coup joué",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10021,7 +10042,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11274,7 +11298,10 @@
     "chessInsightsLinkText": "Δείτε περισσότερα στο ChessInsights.ai",
     "noVideosFoundText": "Δεν βρέθηκαν βίντεο",
     "practiceDepthLabel": "Βάθος: %s",
-    "goToPlayedMoveText": "Επιστροφή στην τελευταία κίνηση που παίχτηκε"
+    "goToPlayedMoveText": "Επιστροφή στην τελευταία κίνηση που παίχτηκε",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12527,7 +12554,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13780,7 +13810,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15033,7 +15066,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16286,7 +16322,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17539,7 +17578,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18792,7 +18834,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20045,7 +20090,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21298,7 +21346,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22551,7 +22602,10 @@
     "chessInsightsLinkText": "Vezi mai mult la ChessInsights.ai",
     "noVideosFoundText": "Nu s-au găsit video-uri",
     "practiceDepthLabel": "Adâncime: %s",
-    "goToPlayedMoveText": "Revino la ultima mutare jucată"
+    "goToPlayedMoveText": "Revino la ultima mutare jucată",
+    "extraChart.brilliantChart": "Grafic strălucire",
+    "brilliantLegendText": "Strălucire",
+    "brilliantLegendTitle": "Scor strălucire"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23804,7 +23858,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25057,7 +25114,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26310,7 +26370,10 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27563,7 +27626,10 @@
     "chessInsightsLinkText": "Daha fazlası için ChessInsights.ai",
     "noVideosFoundText": "Video bulunamadı",
     "practiceDepthLabel": "Derinlik: %s",
-    "goToPlayedMoveText": "Son oynanan hamleye dön"
+    "goToPlayedMoveText": "Son oynanan hamleye dön",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28816,6 +28882,9 @@
     "chessInsightsLinkText": "See more at ChessInsights.ai",
     "noVideosFoundText": "No videos found",
     "practiceDepthLabel": "Depth: %s",
-    "goToPlayedMoveText": "Return to last played move"
+    "goToPlayedMoveText": "Return to last played move",
+    "extraChart.brilliantChart": "Brilliance chart",
+    "brilliantLegendText": "Brilliance",
+    "brilliantLegendTitle": "Brilliance score"
   }
 }

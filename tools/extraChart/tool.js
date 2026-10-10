@@ -923,7 +923,7 @@
               inaccuracy: showBad && good < -5,
               good: this.options.moreBrilliant && good >= -1,
               best: this.options.moreBrilliant && good >= 0,
-              bril: bril && (this.options.moreBrilliant ? bril.isBrilliant : bril.score > bril.threshold * 0.6)
+              bril: bril && (this.options.moreBrilliant ? bril.isBrilliant : bril.score > bril.threshold * 0.6) // TODO better interesting move detection
             };
             return result;
           } finally {
