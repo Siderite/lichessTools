@@ -82,6 +82,7 @@
         if (!this.indexFile && lt.file) {
           const dbKey = 'lichessTools/LT/puzzleIndex-file';
           const fileHandle = await lt.storage.get(dbKey,{ db: true, raw: true });
+          if (!fileHandle) return;
           if (!lt.global.navigator?.userActivation?.hasBeenActive) {
             return;
           }
