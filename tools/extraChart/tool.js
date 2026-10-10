@@ -688,6 +688,7 @@
     };
 
     getNodeCeval = (node) => {
+      if (!node) return null;
       const lt = this.lichessTools;
       if (!this.options.local) return node.eval;
       const result = lt.getNodeCeval(node) || this.getCommentCeval(node);
@@ -843,7 +844,35 @@
     }
 
     computeBrilliantCache = new LiChessTools.MaxSizedMap(1000);
-    computeBrilliant = (side, node, prevNode, prev2Node) => {
+    computeBrilliant = (side, node, prevNode, prev2Node, co) => {
+      const lt = this.lichessTools;
+      if (!this.options.brilliant) return null;
+
+      const ctx = {
+        fen: prevNode?.fen,
+        san: node?.san,
+        evalBefore: this.getNodeCeval(prevNode),
+        evalAfter: this.getNodeCeval(node),
+        multiPv: null,
+        evalTwoBefore: this.getNodeCeval(prev2Node),
+        book: !!node.opening
+      };
+      if (!ctx.fen || !ctx.san || !ctx.evalBefore || !ctx.evalAfter) return null;
+
+      const key = lt.global.JSON.stringify(ctx).replaceAll(/[^\w]/g,'');
+      let result = this.computeBrilliantCache.get(key);
+      if (result) return result;
+
+
+      //TODO:get multiPv from LT db or Lichess db
+
+      const analyser = new LiChessTools.BrilliantMoveAnalyzer(ctx,{ co });
+      result = analyser.computeUberBrilliance();
+
+      this.computeBrilliantCache.set(key,result);
+      return result;
+    };
+    computeBrilliantOld = (side, node, prevNode, prev2Node) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       const cp1 = this.getCp(this.getNodeCeval(node));
@@ -1089,7 +1118,7 @@
         : 'div.computer-analysis.active #acpl-chart-container';
     };
 
-    setBrilliant = (mainline, forced) => {
+    setBrilliant = (mainline, forced, co) => {
       const initValue = this.options.moreBrilliant ? 2 : 1;
       if (!forced && mainline.at(-1)?.brilliantInit === initValue) return;
       const lt = this.lichessTools;
@@ -1107,16 +1136,14 @@
             if (lt.isMate(node) || p2 === undefined) return result;
             const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
-            const bril = p3 === undefined
-                           ? 0
-                           : this.computeBrilliant(m, node, p2, p3);
+            const bril = this.computeBrilliant(m, node, p2, p3, co);
             result = {
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
               inaccuracy: showBad && good < -5,
               good: this.options.moreBrilliant && good >= -1,
               best: this.options.moreBrilliant && good >= 0,
-              bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
+              bril: bril && (this.options.moreBrilliant ? bril.isBrilliant : bril.score > bril.threshold * 0.6)
             };
             return result;
           } finally {
@@ -2229,7 +2256,8 @@
       }
 
       if (this.options.brilliant) {
-        this.setBrilliant(analysis.mainline, forced);
+        const co = await lt.chessops();
+        await this.setBrilliant(analysis.mainline, forced, co);
 
         this.showGoodMoves(forced);
       }

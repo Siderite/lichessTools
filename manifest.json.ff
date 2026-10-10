@@ -33,7 +33,8 @@
         "scripts/lichessTools-toolBase.js",
         "scripts/lichessTools-indexedDbStorage.js",
         "scripts/lichessTools-apiSemaphore.js",
-        "scripts/lichessTools-maxSizedMap.js"
+        "scripts/lichessTools-maxSizedMap.js",
+        "scripts/lichessTools-chessMetrics.js"
       ],
       "matches": [
         "*://lichess.org/*",

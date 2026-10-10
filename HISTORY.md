@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+10 Oct
+
+- new brilliant move algorithm
+
 09 Oct
 
 - Arrow for last move theme
