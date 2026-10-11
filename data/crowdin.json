@@ -2507,9 +2507,9 @@
     "noVideosFoundText": "未找到视频",
     "practiceDepthLabel": "深度：%s",
     "goToPlayedMoveText": "返回上一步棋",
-    "extraChart.brilliantChart": "Brilliance chart",
-    "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "extraChart.brilliantChart": "精彩度图表",
+    "brilliantLegendText": "精彩度",
+    "brilliantLegendTitle": "精彩度评分"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -10130,7 +10130,7 @@
     "onlineFriends:zero": "Φίλοι",
     "friendsMenu": "LiChess Tools - φίλοι που ακολουθείτε",
     "options.friends": "Φίλοι",
-    "options.openFriends": "Friends section",
+    "options.openFriends": "Τμήμα φίλων",
     "openFriends.default": "Προεπιλογή",
     "openFriends.hidden": "Hidden",
     "openFriends.menu": "Μενού",
@@ -11299,9 +11299,9 @@
     "noVideosFoundText": "Δεν βρέθηκαν βίντεο",
     "practiceDepthLabel": "Βάθος: %s",
     "goToPlayedMoveText": "Επιστροφή στην τελευταία κίνηση που παίχτηκε",
-    "extraChart.brilliantChart": "Brilliance chart",
-    "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "extraChart.brilliantChart": "Διάγραμμα εξαιρετικών κινήσεων",
+    "brilliantLegendText": "Εξαιρετική",
+    "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -27627,9 +27627,9 @@
     "noVideosFoundText": "Video bulunamadı",
     "practiceDepthLabel": "Derinlik: %s",
     "goToPlayedMoveText": "Son oynanan hamleye dön",
-    "extraChart.brilliantChart": "Brilliance chart",
-    "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "extraChart.brilliantChart": "Göz alıcılık tablosu",
+    "brilliantLegendText": "Göz alıcılık",
+    "brilliantLegendTitle": "Göz alıcılık puanı"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
