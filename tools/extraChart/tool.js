@@ -923,7 +923,8 @@
               inaccuracy: showBad && good < -5,
               good: this.options.moreBrilliant && good >= -1,
               best: this.options.moreBrilliant && good >= 0,
-              bril: bril && (this.options.moreBrilliant ? bril.isBrilliant : bril.score > bril.threshold * 0.6) // TODO better interesting move detection
+              brilliant: bril && this.options.moreBrilliant && bril.isBrilliant,
+              interesting: bril?.isInteresting || (!this.options.moreBrilliant && bril?.isBrilliant)
             };
             return result;
           } finally {
@@ -936,20 +937,22 @@
           let symbol = null;
           let name = null;
           if (v.good) {
-            if (v.bril) {
+            if (v.brilliant) {
               symbol = '!!';
               name = 'Brilliant';
-            } else {
-              if (v.best) {
-                symbol = lt.icon.WhiteStar;
-                name = 'Best';
-              } else {
-                symbol = '!';
-                name = 'Good';
-              }
+            } else
+            if (v.best) {
+              symbol = lt.icon.WhiteStar;
+              name = 'Best';
+            if (v.interesting) {
+              symbol = '!?';
+              name = 'Interesting';
+            } else
+              symbol = '!';
+              name = 'Good';
             }
           } else {
-            if (v.bril) {
+            if (v.brilliant || v.interesting) {
               symbol = '!?';
               name = 'Interesting';
             } else

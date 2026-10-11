@@ -32,7 +32,7 @@
  *   // each returns { score, interval, inInterval, applicable, disqualified, isBrilliant, values, missing }
  *
  *   // 3. everything in one call
- *   a.computeUberBrilliance()       // { score: 0..100, isBrilliant: score >= 70, type, label, inInterval, byType, disqualified }
+ *   a.computeUberBrilliance()       // { score: 0..100, isBrilliant: score >= 70, type, label, inInterval, interestingScore, isInteresting, interestingType, interestingLabel, inInterestingInterval, byType, disqualified }
  *
  * A weighted sum is the weighted average of the principles that returned a value (null ones are left out).
  * Weights are never negative; a principle that is needed the other way round exists in that form
@@ -49,6 +49,12 @@ class BrilliantMoveAnalyzer {
     'surprise', 'quietMove', 'onlyMove', 'independence',
     'matingAttack', 'attackerValue', 'checkOffer', 'comeback',
   ];
+
+  // principles ignored when computing interesting
+  static NI_PRINCIPLES = [
+    'bestMove', 'soundAfter', 'compensation', 'regainsMaterial', 'lastingSacrifice', 'onlyMove', 'comeback'
+  ];
+  static INTERESTING_INTERVAL_WEIGHT = 0.7; // the intervals are relaxed for interesting detection
 
   // Principles that nearly every good move satisfies; they form the baseline of a type's weighted sum.
   static PRECONDITIONS = ['bestMove', 'soundAfter', 'notAlreadyWinning', 'independence', 'quietMove'];
@@ -530,9 +536,10 @@ class BrilliantMoveAnalyzer {
    * Defaults to the "sacrifice" type. `required` lists principles that must not be null for the result to apply.
    * Returns { score, interval, inInterval, applicable, disqualified, isBrilliant, values (all principles), missing }.
    */
-  computeBrilliance(weights = this.types.sacrifice.weights, interval = this.types.sacrifice.interval, required = []) {
+  computeBrilliance(weights, interval, required = []) {
     const values = this.principles();
     let sum = 0, used = 0;
+    let isum = 0, iused = 0;
     const missing = [];
     for (const [name, w] of Object.entries(weights)) {
       if (!(name in values)) throw new Error('Unknown principle: ' + name);
@@ -541,13 +548,25 @@ class BrilliantMoveAnalyzer {
       if (values[name] == null) { missing.push(name); continue; }
       sum += w * values[name];
       used += w;
+      const ignorePrinciple = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(name);
+      if (!ignorePrinciple) {
+        isum += w * values[name];
+        iused += w;
+      }
     }
     const applicable = required.every((n) => values[n] != null);
     const score = used ? sum / used : 0;
     const [lo, hi] = interval;
     const disqualified = this.disqualifiers();
     const inInterval = applicable && score >= lo && score <= hi;
-    return { score, interval: [lo, hi], inInterval, applicable, disqualified, isBrilliant: inInterval && !disqualified.length, values, missing };
+    const iscore = iused ? isum / iused : 0;
+    const inInterestingInterval = applicable && iscore >= lo && iscore <= hi;
+    return { score, interval: [lo, hi], inInterval, applicable, disqualified,
+      isBrilliant: inInterval && !disqualified.length,
+      interestingScore: iscore,
+      inInterestingInterval,
+      isInteresting: inInterestingInterval && !disqualified.length,
+      values, missing };
   }
 
   _computeType(name) {
@@ -594,21 +613,49 @@ class BrilliantMoveAnalyzer {
     const T = this.options.uberThreshold, byType = {};
     for (const name of Object.keys(this.types)) {
       const t = this.types[name], r = this._computeType(name);
-      byType[name] = { score: r.score, fit: r.applicable ? this._fit(r.score, r.interval, t.weights) : 0,
+      const iweights = {};
+      for (const k in t.weights) {
+        iweights[k] = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(k) ? 0 : t.weights[k];
+      }
+      byType[name] = { score: r.score,
+        fit: r.applicable ? this._fit(r.score, r.interval, t.weights) : 0,
+        ifit: r.applicable ? this._fit(r.interestingScore, [r.interval[0] * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT, 1], iweights) : 0,
         inInterval: r.inInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
     }
     const names = Object.keys(byType);
+    const disqualified = this.disqualifiers();
+
     const inside = names.filter((n) => byType[n].inInterval)
       .sort((a, b) => byType[b].priority - byType[a].priority || byType[b].fit - byType[a].fit);
     const bestFit = Math.max(...names.map((n) => byType[n].fit));
     const closest = names.find((n) => byType[n].fit === bestFit);
-    const disqualified = this.disqualifiers();
     const score = disqualified.length ? 0 : Math.round(bestFit * 10) / 10;
     const type = score > 0 ? (inside[0] || closest) : null;
+
+    const iinside = names.filter((n) => byType[n].inInterestingInterval)
+      .sort((a, b) => byType[b].priority - byType[a].priority || byType[b].ifit - byType[a].ifit);
+    const ibestFit = Math.max(...names.map((n) => byType[n].ifit));
+    const iclosest = names.find((n) => byType[n].ifit === ibestFit);
+    const iscore = disqualified.length ? 0 : Math.round(ibestFit * 10) / 10;
+    const itype = iscore > 0 ? (iinside[0] || iclosest) : null;
+
     return {
-      score, threshold: T, isBrilliant: score >= T,
-      type, label: type ? this.types[type].label : null,
-      inInterval: inside, byType, disqualified,
+      threshold: T,
+
+      score,
+      isBrilliant: score >= T,
+      type,
+      label: type ? this.types[type].label : null,
+      inInterval: inside,
+
+      interestingScore: iscore,
+      isInteresting: iscore >= T,
+      interestingType: itype,
+      interestingLabel: itype ? this.types[itype].label : null,
+      inInterestingInterval: iinside,
+
+      byType,
+      disqualified,
     };
   }
 
