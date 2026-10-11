@@ -1801,7 +1801,7 @@
         } else {
           const dataset = chart.data.datasets[existingBrilliant];
           const existingData = dataset.data;
-          const newData = this.smooth(this.getBrilliantData(mainline));
+          const newData = this.smooth(this.getBrilliantData(mainline, co));
           updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
           if (updateChart) dataset.data = newData;
         }
