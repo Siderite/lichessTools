@@ -6,8 +6,8 @@ Allows clicking on the board to play a move: click on destination square → if 
 
 ## Functionality
 
-- Depends on `ExtendedInteractiveLesson` and `InterceptEventHandlers`.
-- **oneClickMove preference**: multiple type with values `analysis` (Analysis/Study), `play` (Play/Puzzles — commented out in code), `onlyOrientation` (Only orientation side to move), `moveFromPgn` (Move from PGN). Default: false. Advanced.
+- Depends on `ExtendedInteractiveLesson`, `InterceptEventHandlers`, and `ChessOps`.
+- **oneClickMove preference**: multiple type with values `analysis` (Analysis/Study), `play` (Game play), `puzzles` (Puzzles), `onlyOrientation` (Only orientation side to move), `moveFromPgn` (Move from PGN). Default: false. Advanced.
 
 - **_cache**: Map storing destMan by key fen/variant.
 - **getDests(board, fen, variant)**: Gets destinations via analysis.node.dests() or cg.state.movable.dests or cache.get(key=fen+variant).
@@ -40,10 +40,10 @@ Allows clicking on the board to play a move: click on destination square → if 
 - **name**: `oneClickMove`
 - **category**: analysis2 (Analysis - minor)
 - **type**: multiple
-- **possibleValues**: ['analysis', 'onlyOrientation', 'moveFromPgn']
+- **possibleValues**: ['play', 'puzzles', 'analysis', 'onlyOrientation', 'moveFromPgn']
 - **defaultValue**: false
 - **advanced**: true
 
 ## Dependencies
 
-`ExtendedInteractiveLesson`, `InterceptEventHandlers`
+`ExtendedInteractiveLesson`, `InterceptEventHandlers`, `ChessOps`

@@ -9684,6 +9684,7 @@
   "rnbqkb1rpp3ppp4pn23P43p42N2N2PP2PPPPR1BQKB1Rw": "QGD: Semi-Tarrasch, Keres Counterattack",
   "rnbqkb1rpp3ppp4pn282Bp44PN2PP2QPPPRNB1K2Rw": "QGA: Classical, Furman, 6...cxd4",
   "rnbqkb1rpp3ppp4pn282Bp44PN2PP3PPPRNBQ1RK1w": "Queen's Gambit Accepted: Classical Defense, Steinitz Variation, Exchange Variation",
+  "rnbqkb1rpp3ppp5n21N1pp32P58PP2PPPPRNBQKB1Rw": "English Opening: Symmetrical Variation, Anti-Benoni Variation, Kasparov-Vaganian Gambit",
   "rnbqkb1rpp3ppp5n22pp43P45N2PPPN1PPPR1BQKB1Rw": "French: Tarrasch, Open, 4.exd5 exd5 5.Ngf3 Nf6",
   "rnbqkb1rpp3ppp5n22pp43P45NP1PP2PP1PRNBQKB1Rw": "QGD: Tarrasch without Nc3: 5.g3",
   "rnbqkb1rpp3ppp5n22pp43P45NP1PP2PPBPRNBQK2Rb": "QGD: Tarrasch without Nc3: 5.g3",

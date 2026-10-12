@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.253",
+  "version": "2.4.256",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/LiChessTools/",
@@ -33,7 +33,8 @@
         "scripts/lichessTools-toolBase.js",
         "scripts/lichessTools-indexedDbStorage.js",
         "scripts/lichessTools-apiSemaphore.js",
-        "scripts/lichessTools-maxSizedMap.js"
+        "scripts/lichessTools-maxSizedMap.js",
+        "scripts/lichessTools-chessMetrics.js"
       ],
       "matches": [
         "*://lichess.org/*",
@@ -257,6 +258,7 @@
         "tools/themes/experimental.css",
         "tools/themes/chessbaseBorder.css",
         "tools/themes/grabHighlight.css",
+        "tools/themes/arrowLastMove.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",

@@ -34,7 +34,7 @@ On `.msg-app__convo group t`:
 ### Refresh On Message
 
 MutationObserver on `.msg-app.pane-convo their,mine`:
-- When scroll position < 0.9 (not near bottom), triggers mousedown handler on active contact element to refresh chat content
+- When scroll position is near the bottom (`scrollQ >= 0.9`, not scrolled away), triggers mousedown handler on active contact element to refresh chat content.
 
 ### Reactions Tooltip
 

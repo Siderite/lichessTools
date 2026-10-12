@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provides access to the d3 ES module bundle. D3 is a bundled JavaScript library (from LiChessToolsAdjacent project) that provides 3D visualization functionality for chess analysis and studies.
+Provides access to the d3 ES module bundle. D3 is a bundled JavaScript library (from the LiChessToolsAdjacent project) that provides SVG data-visualization functionality (used by `ExtraPieceSets` for its tree/grid views).
 
 ## How It Works
 

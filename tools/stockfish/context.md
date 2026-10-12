@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provides a local chess engine (Stockfish 18) running in the browser, enabling real-time position analysis without relying on cloud evaluation.
+Provides a local chess engine (Stockfish 19) running in the browser, enabling real-time position analysis without relying on cloud evaluation.
 
 ## Preferences
 
@@ -18,7 +18,7 @@ The tool extends `LiChessTools.Tools.ToolBase`. It creates a `Stockfish` instanc
 
 ### Stockfish Instance
 
-- **Loading**: Loads the Stockfish JS module from lichess analysis engine assets (`npm/lila-stockfish-web/sf_18_relaxed-simd.js` or `sf_18_smallnet_relaxed-simd.js`). Uses a "better engine" (full NNUE) when storage supports indexedDB and memory ≥ 4MB; otherwise uses the small-net variant.
+- **Loading**: Loads the Stockfish JS module from lichess analysis engine assets (`npm/lila-stockfish-web/sf_19_relaxed-simd.js` or `sf_19_smallnet_relaxed-simd.js`). Uses a "better engine" (full NNUE) when storage supports indexedDB and memory size ≥ 4; otherwise uses the small-net variant.
 - **NNUE Buffers**: Loads NNUE weight files from lichess assets (`lifat/nnue/`) and caches them in indexedDB under `nnue--db/nnue/<filename>`. Sets buffers for both variants (indices 0, 1).
 - **UCI Communication**: Uses `postMessage` to send UCI commands to the engine instance. Commands include: `uci`, `setoption`, `position fen <fen>`, `go depth <depth>` / `go movetime <time>` / `go infinite`, `stop`, `quit`.
 - **Engine Options**: Default UCI settings: `UCI_Elo = 3190`, `UCI_ShowWDL = true`, `UCI_AnalyseMode` not set.

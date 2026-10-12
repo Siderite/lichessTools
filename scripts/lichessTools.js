@@ -1241,7 +1241,7 @@
       const positionKey = this.global.JSON.stringify(lastMove);
       const cacheKey = '__lastPositionKey'+(asFen?'_f':'');
       if (container.prop(cacheKey)===positionKey) {
-        return container.prop(cacheKey);
+        return container.prop(`__lastPosition`);
       }
 
       let turn = '';
@@ -1325,7 +1325,7 @@
       pos += turn[0];
 
       container.prop('__lastPosition',pos);
-      container.prop('__lastPositionKey',positionKey);
+      container.prop(cacheKey,positionKey);
 
       return pos;
     };

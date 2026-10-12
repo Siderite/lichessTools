@@ -13,8 +13,8 @@ The **AdditionalGlyphsTool** adds extra annotation glyphs (symbols) on the chess
 - **name**: `additionalGlyphs`
 - **category**: `analysis`
 - **type**: `multiple` (checkboxes)
-- **possibleValues**: `[enabled, mate, book, miss, slow, novelty]`
-- **defaultValue**: `enabled,mate,book,miss,slow` (novelty is off by default)
+- **possibleValues**: `[enabled, book, miss, slow, novelty]`
+- **defaultValue**: `enabled,book,miss,slow` (novelty is off by default)
 - **advanced**: `true` (hidden unless Advanced Preferences toggle is on)
 
 ## Upgrade History
@@ -23,13 +23,6 @@ The **AdditionalGlyphsTool** adds extra annotation glyphs (symbols) on the chess
 - `slow` glyph added in version 2.4.202
 
 ## Glyph Types
-
-### Mate (`mate`)
-- Displays when the current position is **checkmate**.
-- Detection: uses `lichessTools.isMate(node)` to determine if checkmate exists, then finds the checked king square via `$('square.check')` filter (excluding hidden/none display squares).
-- Symbol: `lt.icon.Mate` (standard mate icon)
-- Fill color: `#557766B0`
-- Shape origin: the square of the checked king. For castling moves (`O-O`), adjusts origin square (a1→c1, h1→g1, a8→c8, h8→g8).
 
 ### Book (`book`)
 - Displays when the current position matches an entry in Lichess's **opening database**.
@@ -86,7 +79,7 @@ The **AdditionalGlyphsTool** adds extra annotation glyphs (symbols) on the chess
 1. Checks if static analysis is enabled; toggles body class `lichessTools-compOff`.
 2. Gets chessground, current node glyphs list.
 3. For each enabled glyph type, checks if already present in symbols list; if not, creates new glyph entry with symbol, fill color, and optional name.
-4. Determines shape origin square for each glyph.
+4. Determines shape origin square for each glyph: `node.uci.slice(2, 4)` (the last move's destination square), adjusted for castling moves (`O-O`: a1→c1, h1→g1, a8→c8, h8→g8).
 5. Creates drawable shapes of type `glyph` with origin and label (fill + text).
 6. If `analyse.show-move-annotation` storage is false, only sets shapes without adding to node glyphs.
 7. Otherwise: adds new glyphs to node.glyphs array as `nonStandard` type entries, pushes shapes into chessground autoShapes, triggers redraw via `lt.analysisRedraw()`.

@@ -1,7 +1,7 @@
 (() => {
   class ExtraChartTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitEsmLoaded', 'EmitChapterChange'];
+    dependencies = ['EmitEsmLoaded', 'EmitChapterChange', 'ChessOps'];
 
     preferences = [
       {
@@ -9,7 +9,7 @@
         category: 'analysis',
         type: 'multiple',
         possibleValues: ['material', 'principled', 'tension', 'potential', 'brilliant', 'moreBrilliant', 'local', 'accuracy', 'sharpness', 'coord', 'critical',
-                         'smooth', 'gauge', 'accuracyPlus','hideLegend'],
+                         'brilliantChart', 'smooth', 'gauge', 'accuracyPlus','hideLegend'],
         defaultValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,accuracyPlus',
         defaultNotLoggedInValue: 'material,principled,tension,brilliant,accuracy,smooth,gauge,local,moreBrilliant,accuracyPlus',
         advanced: true
@@ -44,6 +44,7 @@
         'extraChart.critical': 'Critical',
         'extraChart.brilliant': 'Find interesting moves',
         'extraChart.moreBrilliant': '... more moves',
+        'extraChart.brilliantChart': 'Brilliance chart',
         'extraChart.smooth': 'Chart smoothing',
         'extraChart.gauge': 'on Eval gauge',
         'extraChart.accuracyPlus': 'More info on Accuracy',
@@ -77,7 +78,9 @@
         'potentialLegendTitle': 'Maximum potential point',
         'moveTypesLegendText': 'Moves',
         'moveTypesLegendTitle': 'Interesting, good, best and brilliant moves',
-        'disableLocalHidesChartQuestion': 'Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?'
+        'disableLocalHidesChartQuestion': 'Disabling Local on this page will remove the chart and its legend. You will only be able to enable it back from Preferences. Continue?',
+        'brilliantLegendText': 'Brilliance',
+        'brilliantLegendTitle': 'Brilliance score'
       },
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
@@ -93,6 +96,7 @@
         'extraChart.critical': 'Critice',
         'extraChart.brilliant': 'G\u0103se\u015Fte mut\u0103ri interesante',
         'extraChart.moreBrilliant': '... mai multe mut\u0103ri',
+        'extraChart.brilliantChart': 'Grafic str\u0103lucire',
         'extraChart.smooth': 'Netezire grafice',
         'extraChart.gauge': 'pe bara de evaluare',
         'extraChart.accuracyPlus': 'Informa\u0163ii \u00een plus pe Acurate\u0163e',
@@ -125,7 +129,9 @@
         'potentialLegendTitle': 'Punctul de poten\u0163ial maxim',
         'moveTypesLegendText': 'Mut\u0103ri',
         'moveTypesLegendTitle': 'Mut\u0103ri interesante, bune, cele mai bune \u015fi briliante',
-        'disableLocalHidesChartQuestion': 'Dezactivarea Local pe aceast\u0103 pagin\u0103 va elimina graficul \u015fi legenda acestuia. O vei putea reactiva doar din Preferin\u0163e. Continui?'
+        'disableLocalHidesChartQuestion': 'Dezactivarea Local pe aceast\u0103 pagin\u0103 va elimina graficul \u015fi legenda acestuia. O vei putea reactiva doar din Preferin\u0163e. Continui?',
+        'brilliantLegendText': 'Str\u0103lucire',
+        'brilliantLegendTitle': 'Scor str\u0103lucire'
       }
     }
 
@@ -142,6 +148,7 @@
       localChartHover: this.thematic('#FFFF00','#604800'),
       accuracyChart: this.thematic('#FF00FF','#700058'),
       sharpnessChart: this.thematic('#FFA0A0','#B09090'),
+      brilliantChart: '#258F0B',
       coordChart: '#60A0A0',
       criticalChart: '#A00000',
       maxTensionLine: '#FF0000',
@@ -502,30 +509,6 @@
       return result;
     };
 
-    findPieces = (board, piece) => {
-      const result = [];
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          if (board[y][x] == piece) result.push({ x: x, y: y });
-        }
-      }
-      return result;
-    };
-
-    isPromotion = (node) => {
-      return node.san?.includes('=');
-    };
-
-    inCheck = (fen) => {
-      const lt = this.lichessTools;
-      const side = fen.split(' ')[1] == 'w' ? 1 : -1;
-      const board = lt.getBoardFromFen(fen);
-      const king = this.findPieces(board, side == -1 ? 'K' : 'k')[0];
-      const moves = this.getAllCapturingMoves(board)
-        .filter(m => m.m != side && m.x == king.x && m.y == king.y);
-      return !!moves.length;
-    };
-
     materialWonCache = new LiChessTools.MaxSizedMap(10000);
     materialWon = (board, x, y) => {
       const lt = this.lichessTools;
@@ -688,6 +671,7 @@
     };
 
     getNodeCeval = (node) => {
+      if (!node) return null;
       const lt = this.lichessTools;
       if (!this.options.local) return node.eval;
       const result = lt.getNodeCeval(node) || this.getCommentCeval(node);
@@ -832,6 +816,39 @@
       return result;
     };
 
+    getBrilliantData = (mainline, co) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess.analysis;
+      const side = analysis.getOrientation() == 'black' ? -1 : 1;
+      let prevNode = null;
+      let prev2Node = null;
+      let prevVal = null;
+      return mainline
+        .map((node, x) => {
+          const turn = this.getNodeTurn(node);
+          if (-turn != side) {
+            prev2Node = prevNode;
+            prevNode = node;
+            return {
+              y: prevVal,
+              x: node.ply
+            };
+          }
+
+          const result = this.computeBrilliant(node, prevNode, prev2Node, co);
+          prev2Node = prevNode;
+          prevNode = node;
+          if (!result) return;
+          const val = Math.max(Math.min(result.score, 100), 0) / 50 - 1;
+          prevVal = val;
+          return {
+            y: val,
+            x: node.ply
+          };
+        })
+        .filter(r => !!r);
+    };
+
     computeGood = (side, node, prevNode) => {
       const lt = this.lichessTools;
       const cp1 = this.getCp(this.getNodeCeval(node));
@@ -843,242 +860,34 @@
     }
 
     computeBrilliantCache = new LiChessTools.MaxSizedMap(1000);
-    computeBrilliant = (side, node, prevNode, prev2Node) => {
+    computeBrilliant = (node, prevNode, prev2Node, co) => {
       const lt = this.lichessTools;
-      const Math = lt.global.Math;
-      const cp1 = this.getCp(this.getNodeCeval(node));
-      const cp2 = this.getCp(this.getNodeCeval(prevNode));
-      if ([cp1,cp2].findIndex(cp=>!cp && cp!==0)>=0) return 0;
+      if (!this.options.brilliant) return null;
 
-      const key = [node?.fen, side, cp1, cp2, prevNode?.fen, prev2Node?.fen].join('|');
+      const ctx = {
+        fen: prevNode?.fen,
+        san: node?.san,
+        evalBefore: this.getNodeCeval(prevNode),
+        evalAfter: this.getNodeCeval(node),
+        multiPv: prevNode?.ceval?.pvs?.map(p=>({
+          moves: p.moves?.join(' '),
+          cp: p.cp,
+          mate: p.mate
+        })),
+        evalTwoBefore: this.getNodeCeval(prev2Node),
+        book: !!node.opening
+      };
+      if (!ctx.fen || !ctx.san || !ctx.evalBefore || !ctx.evalAfter) return null;
+
+      const key = lt.global.JSON.stringify(ctx).replaceAll(/[^\w]/g,'');
       let result = this.computeBrilliantCache.get(key);
       if (result) return result;
 
-      const threshold = Math.abs(cp1) > 200 || this.hasTacticalMotif(node, side, prevNode) ? -50 : -25;
-      if ((cp1 - cp2) * side < threshold) return 0;
+      const analyser = new LiChessTools.BrilliantMoveAnalyzer(ctx,{ co });
+      result = analyser.computeUberBrilliance();
 
-      if (Math.abs(cp1) > 75 && Math.sign(side) != Math.sign(cp1)) return 0;
-
-      if (this.inCheck(prevNode.fen)) return 0;
-
-      if (/@/.test(node.uci)) return 0; // Crazyhouse placements
-      
-      let bonus = 0;
-      if (this.isPromotion(node)) {
-        if (/q$/i.test(node.uci)) return 0;
-        if (!this.hasTacticalMotif(node, side, prevNode) && (cp1 - cp2) * side < 50) return 0;
-        bonus += 1; // a tactical underpromotion adds to brilliancy
-      }
-
-      const balancingBonus = Math.abs(cp1) < 100 ? 0 : (cp1 * side < -100 ? 0.5 : -0.5);
-      bonus += balancingBonus;
-
-      const move = {
-        sx: 104 - node.uci.charCodeAt(0),
-        sy: node.uci.charCodeAt(1) - 49,
-        x: 104 - node.uci.charCodeAt(2),
-        y: node.uci.charCodeAt(3) - 49
-      };
-      let board = lt.getBoardFromFen(prevNode.fen);
-      const mwStartUci = this.materialWon(board, move.sx, move.sy) / 100;
-      board = lt.getBoardFromFen(node.fen);
-      const mwEndUci = this.materialWon(board, move.x, move.y) / 100;
-      const mat3 = this.simpleMaterial(prev2Node, true, side) / 100;
-      const mat1 = this.simpleMaterial(node, true, side) / 100;
-      const delta = (mat3 - mat1);
-      if (mwEndUci > mwStartUci + 1 - delta) {
-        // WintrCat spectacle score replaces the flat 1
-        const spectacle = this.computeSpectacle(board, move.x, move.y, side);
-        return spectacle + bonus;
-      }
-      const mmw1 = this.maxMaterialWon(board, side) / 100;
-      board = lt.getBoardFromFen(prev2Node.fen);
-      const mmw3 = this.maxMaterialWon(board, side) / 100;
-      const bril = (mmw3 - mmw1 - delta);
-      result = bril + bonus;
       this.computeBrilliantCache.set(key,result);
       return result;
-    };
-
-    computeSpectacle = (board, x, y, side) => {
-      const Math = this.lichessTools.global.Math;
-
-      // The sacrificed piece
-      const piece = board[y][x];
-      if (!piece) return 1;
-      const sacrificedValue = this.pieceMaterial[piece.toLowerCase()] || 0;
-      if (!sacrificedValue) return 1;
-
-      // All opponent pieces that can capture on this square
-      const capturingMoves = this.getAllCapturingMoves(board)
-        .filter(m => m.x === x && m.y === y && m.m !== side);
-
-      // No captures possible — piece is not actually en prise, treat as trivial
-      if (!capturingMoves.length) return 1;
-
-      // Factor A: sacrificed piece value in pawn units
-      const sacPawns = sacrificedValue / 100;
-
-      // Factor B: number of distinct pieces that can capture (capture count)
-      const captureCount = capturingMoves.length;
-
-      // Factor D: inverse attacker sum — lower-value attackers score higher.
-      // A queen attacked by a pawn (ratio 9) is more spectacular than one
-      // attacked by a rook (ratio 1.8).
-      let inverseAttackerSum = 0;
-      for (const cm of capturingMoves) {
-        const attackerValue = this.pieceMaterial[cm.spc.toLowerCase()] || 100;
-        inverseAttackerSum += sacPawns / (attackerValue / 100);
-      }
-
-      // Raw WintrCat score:
-      //   sacPawns * captureCount * inverseAttackerSum
-      // Examples:
-      //   Pawn sac to 1 pawn attacker:   1 * 1 * (1/1) = 1
-      //   Knight sac to 1 pawn attacker: 3 * 1 * (3/1) = 9
-      //   Rook sac to 2 attackers (P+N): 5 * 2 * (5/1 + 5/3) = 72
-      //   Queen sac to 1 pawn attacker:  9 * 1 * (9/1) = 81
-      const raw = sacPawns * captureCount * inverseAttackerSum;
-
-      // Map to the extraChart score range via log2, calibrated so that:
-      //   raw=1  (pawn sac to pawn)  -> score ~= 1.0
-      //   raw=9  (knight sac to pawn) -> score ~= 2.1
-      //   raw=81 (queen sac to pawn)  -> score ~= 4.2
-      // log2(1+raw) / log2(2) = 1, /log2(10)~=2.1, /log2(82)~=4.2 with divisor ~1.5
-      return Math.log2(1 + raw) / 1.5;
-    };
-
-    getAttacks = (board, x, y, pieceType) => {
-      const attacks = [];
-      if (pieceType === 'n') { // Knight
-        const knightMoves = [
-          [-2, -1], [-2, 1], [-1, -2], [-1, 2],
-          [1, -2], [1, 2], [2, -1], [2, 1]
-        ];
-        for (const [dx, dy] of knightMoves) {
-          const nx = x + dx, ny = y + dy;
-          if (nx >= 0 && nx < 8 && ny >= 0 && ny < 8) {
-            attacks.push([nx, ny]);
-          }
-        }
-      } else if (pieceType === 'b' || pieceType === 'q') {
-        const bishopDirs = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
-        for (const [dx, dy] of bishopDirs) {
-          for (let i = 1; i < 8; i++) {
-            const nx = x + dx * i, ny = y + dy * i;
-            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
-            attacks.push([nx, ny]);
-            if (board[ny][nx]) break;
-          }
-        }
-      }
-      if (pieceType === 'r' || pieceType === 'q') {
-        const rookDirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-        for (const [dx, dy] of rookDirs) {
-          for (let i = 1; i < 8; i++) {
-            const nx = x + dx * i, ny = y + dy * i;
-            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
-            attacks.push([nx, ny]);
-            if (board[ny][nx]) break;
-          }
-        }
-      }
-      return attacks;
-    };
-
-    hasTacticalMotif = (node, side, prevNode) => {
-      const lt = this.lichessTools;
-
-      const board = lt.getBoardFromFen(node.fen);
-      if (!board) return false;
-
-      const uci = node.uci;
-      const toX = 104 - uci.charCodeAt(2);
-      const toY = uci.charCodeAt(3) - 49;
-      const piece = board[toY][toX];
-      if (!piece) return false;
-
-      const pieceSide = piece === piece.toUpperCase() ? -1 : 1;
-      if (pieceSide !== side) return false;
-      const pieceType = piece.toLowerCase();
-
-      // Check for Fork
-      const attacks = this.getAttacks(board, toX, toY, pieceType);
-      let opponentPiecesAttacked = 0;
-      for (const [nx, ny] of attacks) {
-        const target = board[ny][nx];
-        if (!target) continue;
-        const targetSide = target === target.toUpperCase() ? -1 : 1;
-        if (targetSide === side) continue;
-        if (target.toLowerCase() !== 'k') {
-          opponentPiecesAttacked++;
-        }
-      }
-      if (opponentPiecesAttacked >= 2) {
-        return true; // Fork detected
-      }
-
-      // Check for Pin (bishop, rook, queen only)
-      if (['b', 'r', 'q'].includes(pieceType)) {
-        const pinDirs = pieceType === 'b' ? [[-1, -1], [-1, 1], [1, -1], [1, 1]] :
-                        pieceType === 'r' ? [[-1, 0], [1, 0], [0, -1], [0, 1]] :
-                        [[-1, -1], [-1, 1], [1, -1], [1, 1], [-1, 0], [1, 0], [0, -1], [0, 1]];
-        for (const [dx, dy] of pinDirs) {
-          let firstPiece = null, secondPiece = null;
-          for (let i = 1; i < 8; i++) {
-            const nx = toX + dx * i, ny = toY + dy * i;
-            if (nx < 0 || nx >= 8 || ny < 0 || ny >= 8) break;
-            const target = board[ny][nx];
-            if (!target) continue;
-            const targetSide = target === target.toUpperCase() ? -1 : 1;
-            if (targetSide === side) break;
-            if (!firstPiece) {
-              firstPiece = { x: nx, y: ny, piece: target };
-            } else {
-              secondPiece = { x: nx, y: ny, piece: target };
-              break;
-            }
-          }
-          if (firstPiece && secondPiece) {
-            const firstValue = this.pieceMaterial[firstPiece.piece.toLowerCase()] || 0;
-            const secondValue = this.pieceMaterial[secondPiece.piece.toLowerCase()] || (secondPiece.piece.toLowerCase() === 'k' ? 10000 : 0);
-            if (firstValue < secondValue) {
-              return true;
-            }
-          }
-        }
-      }
-
-      // Check for Discovered Attack
-      if (!prevNode) throw new Error('Need previous position');
-      const prevBoard = lt.getBoardFromFen(prevNode.fen);
-      const fromX = 104 - uci.charCodeAt(0);
-      const fromY = uci.charCodeAt(1) - 49;
-
-      // Find pieces that could attack through the moved piece s old position
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const otherPiece = prevBoard[y][x];
-          if (!otherPiece || otherPiece === piece) continue;
-          if ((otherPiece === otherPiece.toUpperCase() ? -1 : 1) !== side) continue;
-          const otherType = otherPiece.toLowerCase();
-          if (!['b', 'r', 'q'].includes(otherType)) continue;
-          const otherAttacks = this.getAttacks(board, x, y, otherType);
-          if (otherAttacks.some(([ax, ay]) => ax === fromX && ay === fromY)) {
-            for (const [ax, ay] of otherAttacks) {
-              if (ax === fromX && ay === fromY) continue;
-              const target = board[ay][ax];
-              if (!target) continue;
-              if ((target === target.toUpperCase() ? -1 : 1) === side) continue;
-              if (target.toLowerCase() !== 'k') {
-                return true;
-              }
-            }
-          }
-        }
-      }
-
-      return false;
     };
 
     getChartContainerSelector = () => {
@@ -1089,7 +898,7 @@
         : 'div.computer-analysis.active #acpl-chart-container';
     };
 
-    setBrilliant = (mainline, forced) => {
+    setBrilliant = (mainline, forced, co) => {
       const initValue = this.options.moreBrilliant ? 2 : 1;
       if (!forced && mainline.at(-1)?.brilliantInit === initValue) return;
       const lt = this.lichessTools;
@@ -1107,16 +916,15 @@
             if (lt.isMate(node) || p2 === undefined) return result;
             const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
-            const bril = p3 === undefined
-                           ? 0
-                           : this.computeBrilliant(m, node, p2, p3);
+            const bril = this.computeBrilliant(node, p2, p3, co);
             result = {
               blunder: showBad && good < -20,
               mistake: showBad && good < -10,
               inaccuracy: showBad && good < -5,
               good: this.options.moreBrilliant && good >= -1,
               best: this.options.moreBrilliant && good >= 0,
-              bril: this.options.moreBrilliant ? bril >= 5 : bril >= 3
+              brilliant: bril && this.options.moreBrilliant && bril.isBrilliant,
+              interesting: bril?.isInteresting || (!this.options.moreBrilliant && bril?.isBrilliant)
             };
             return result;
           } finally {
@@ -1129,20 +937,22 @@
           let symbol = null;
           let name = null;
           if (v.good) {
-            if (v.bril) {
+            if (v.brilliant) {
               symbol = '!!';
               name = 'Brilliant';
-            } else {
-              if (v.best) {
-                symbol = lt.icon.WhiteStar;
-                name = 'Best';
-              } else {
-                symbol = '!';
-                name = 'Good';
-              }
+            } else
+            if (v.best) {
+              symbol = lt.icon.WhiteStar;
+              name = 'Best';
+            if (v.interesting) {
+              symbol = '!?';
+              name = 'Interesting';
+            } else
+              symbol = '!';
+              name = 'Good';
             }
           } else {
-            if (v.bril) {
+            if (v.brilliant || v.interesting) {
               symbol = '!?';
               name = 'Interesting';
             } else
@@ -1179,6 +989,8 @@
         mainline.at(-1).brilliantInit = initValue;
       }
     };
+
+
 
     getMaxTension = (mainline) => {
       let maxT = -1000;
@@ -1444,7 +1256,7 @@
       const chart = this._chart;
       if (!chart) return;
       const lt = this.lichessTools;
-      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Coordination', 'Critical', 'Max tension', 'Max potential'].includes(d.label));
+      const removed = lt.arrayRemoveAll(chart.data.datasets, d => [ 'Material', 'Principled', 'Local', 'Accuracy', 'Sharpness', 'Brilliant', 'Coordination', 'Critical', 'Max tension', 'Max potential'].includes(d.label));
       if (removed.length) {
         chart.options.scales.x.max = Math.max.apply(null, chart.data.datasets.map(ds => ds.data.map(p => p.x)).flat());
         chart.update('none');
@@ -1503,6 +1315,7 @@
       if (!forced && lt.random() > 0.9) forced = true; // hack to sometimes update this anyway
 
       if (!analysis) return;
+      const co = await lt.chessops();
 
       const currentBrilliant = [this.options.brilliant, this.options.moreBrilliant].join(',');
       if (!forced && this.prevBrilliant != currentBrilliant) {
@@ -1675,6 +1488,13 @@
                       .text(trans.noarg('sharpnessLegendText'))
                       .attr('title',trans.noarg('sharpnessLegendTitle'))
                       .toggleClass('enabled',this.options.sharpness)
+                      .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
+            )
+            .append($('<button type="button">')
+                      .attr('data-option','brilliantChart')
+                      .text(trans.noarg('brilliantLegendText'))
+                      .attr('title',trans.noarg('brilliantLegendTitle'))
+                      .toggleClass('enabled',this.options.brilliantChart)
                       .each((i,e)=>e.addEventListener('click',clickHandler,{ capture: true }))
             )
             .append($('<button type="button">')
@@ -1955,6 +1775,41 @@
         }
       }
 
+      let existingBrilliant = chart.data.datasets.findIndex(s => s.label === 'Brilliant');
+      if (existingBrilliant >= 0 && (this.prevSmooth != this.options.smooth || !this.options.brilliantChart)) {
+        chart.data.datasets.splice(existingBrilliant, 1);
+        existingBrilliant = -1;
+        updateChart = true;
+      }
+      if (this.options.brilliantChart) {
+        const mainline = analysis.mainline;
+        if (existingBrilliant < 0) {
+          chart.data.datasets.push({
+            label: 'Brilliant',
+            type: 'line',
+            data: this.smooth(this.getBrilliantData(mainline, co)),
+            borderWidth: 2,
+            borderDash: [1],
+            cubicInterpolationMode: this.options.smooth ? 'monotone' : 'default',
+            tension: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            pointHoverRadius: 0,
+            borderColor: this.colors.brilliantChart,
+            yAxisID: 'y',
+            order: 1,
+            datalabels: { display: false }
+          });
+          updateChart = true;
+        } else {
+          const dataset = chart.data.datasets[existingBrilliant];
+          const existingData = dataset.data;
+          const newData = this.smooth(this.getBrilliantData(mainline, co));
+          updateChart |= JSON.stringify(existingData) != JSON.stringify(newData);
+          if (updateChart) dataset.data = newData;
+        }
+      }
+
       let existingCoord = chart.data.datasets.findIndex(s => s.label === 'Coordination');
       if (existingCoord >= 0 && (this.prevSmooth != this.options.smooth || !this.options.coord)) {
         chart.data.datasets.splice(existingCoord, 1);
@@ -2229,7 +2084,7 @@
       }
 
       if (this.options.brilliant) {
-        this.setBrilliant(analysis.mainline, forced);
+        await this.setBrilliant(analysis.mainline, forced, co);
 
         this.showGoodMoves(forced);
       }
@@ -2566,13 +2421,14 @@
         potential: lt.isOptionSet(value, 'potential'),
         brilliant: lt.isOptionSet(value, 'brilliant'),
         moreBrilliant: lt.isOptionSet(value, 'moreBrilliant'),
+        brilliantChart: lt.isOptionSet(value, 'brilliantChart'),
         local: lt.isOptionSet(value, 'local'),
         accuracy: lt.isOptionSet(value, 'accuracy'),
         sharpness: lt.isOptionSet(value, 'sharpness'),
         coord: lt.isOptionSet(value, 'coord'),
         critical: lt.isOptionSet(value, 'critical'),
         smooth: lt.isOptionSet(value, 'smooth'),
-        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.local || this.accuracy || this.sharpness || this.coord || this.critical; },
+        get needsChart() { return this.material || this.principled || this.tension || this.brilliant || this.moreBrilliant || this.brilliantChart || this.local || this.accuracy || this.sharpness || this.coord || this.critical; },
         accuracyPlus: lt.isOptionSet(value, 'accuracyPlus'),
         gauge: lt.isOptionSet(value, 'gauge'),
         hideLegend: lt.isOptionSet(value, 'hideLegend'),

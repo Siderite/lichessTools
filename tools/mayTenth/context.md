@@ -23,11 +23,10 @@ A celebratory tool that adds a special visual marker on May 10th (the "LiChess T
 
 ## Behavior
 
-When activated (date is May 10 OR preference set to `always`):
-1. Adds class `lichessTools-mayTenth` to `<body>`
-2. Sets the `title` attribute on site title links (`a.site-title` and `#topnav section a:has(span.home)`) to the translated "Happy LiChess Tools day!" message
+1. Adds class `lichessTools-mayTenth` to `<body>` when the current date is May 10 OR the preference is set to `always`.
+2. Sets the `title` attribute on site title links (`a.site-title` and `#topnav section a:has(span.home)`) to the translated "Happy LiChess Tools day!" message **only when the date is May 10** (not when `always`).
 
-When deactivated (date not May 10 AND preference is `never`): removes class and clears title attribute.
+When deactivated (date not May 10 AND preference is `never`): removes the body class.
 
 ## Internationalization
 

@@ -30,7 +30,7 @@ Triggered on the `lichessTools.uiApi.socket.events.endData` event:
        - **win**: if winner is the user
        - **loss**: if winner is opponent
        - **draw**: if no winner (`ev.winner` undefined/null)
-4. If outcome preference is set (`this.options[outcome]`): navigates to analysis page via `lt.global.location.href = href` (where href is from `a.fbt.analysis`).
+4. If outcome preference is set (`this.options[outcome]`): navigates to analysis page via `lt.location.set(href)` (where href is from `a.fbt.analysis`).
 
 ### Request Analysis Button (`showRequestAnalysis`)
 

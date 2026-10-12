@@ -8,7 +8,9 @@ Caches local computer evaluation (Stockfish) results in IndexedDB, so that when 
 
 ### Cache Storage Key
 
-Key format: `activeEngineId|variantKey|positionFromFen` → stored as `lichessTools/evalCache/[key]` in IndexedDB with raw JSON.
+Key stored as `lichessTools/evalCache/[key]` in IndexedDB with raw JSON. Two related key formats are used:
+- **Restore path** (`handlePly`): `activeEngineId|variantKey|positionFromFen`.
+- **Store path** (`getCeval`): `storedPv|activeEngineId|variantKey|positionFromFen` (includes the current stored PV line).
 
 ### On Ply Event (Navigation)
 

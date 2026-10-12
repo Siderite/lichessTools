@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
-          'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27','BrayanGuti',
+          'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27',
           'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
@@ -52,7 +52,6 @@
         'extraPieceSets.mowi12': 'mowi12',
         'extraPieceSets.swapnilvasave24-web': 'swapnilvasave24-web',
         'extraPieceSets.withmy27': 'withmy27',
-        'extraPieceSets.BrayanGuti': 'BrayanGuti',
         'extraPieceSets.code-and-chill': 'code-and-chill',
         'extraPieceSets.mannubhai1': 'mannubhai1',
         'extraPieceSets.lukasmonk': 'lukasmonk',

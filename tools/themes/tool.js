@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder','grabHighlight'],
+                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder','grabHighlight','arrowLastMove'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -60,6 +60,7 @@
         'themes.experimental': 'Experimental',
         'themes.chessbaseBorder': 'ChessBase board margin',
         'themes.grabHighlight': 'Grab highlight',
+        'themes.arrowLastMove': 'Arrow for last move',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -95,6 +96,7 @@
         'themes.experimental': 'Experimental\u0103',
         'themes.chessbaseBorder': 'Margine de tabl\u0103 ChessBase',
         'themes.grabHighlight': 'Eviden\u0163iere apucare',
+        'themes.arrowLastMove': 'S\u0103geat\u0103 la ultima mutare',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
@@ -227,7 +229,7 @@
     };
 
     isBoardStyleTheme = (theme) => {
-      return ['arcade','experimental'].includes(theme);
+      return ['arcade','experimental','arrowLastMove'].includes(theme);
     };
 
     setupScrollClasses = (el) => {

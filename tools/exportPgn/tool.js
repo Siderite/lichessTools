@@ -88,9 +88,10 @@
       }
 
       function centisecondsToClock(cs) {
-        const h=Math.floor(cs/360000);
-        const m=Math.floor(cs%360000/6000);
-        const s=Math.round(cs%6000/100);
+        cs = Math.round(cs/100);
+        const h=Math.floor(cs/3600);
+        const m=Math.floor(cs%3600/60);
+        const s=cs%60;
         return h.toString().padStart(2,'0')+':'+m.toString().padStart(2,'0')+':'+s.toString().padStart(2,'0');
       }
 

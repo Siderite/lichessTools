@@ -1,3 +1,20 @@
+# Preferences Tool — Context
+
+## Overview
+
+The **PreferencesTool** renders the LiChess Tools preferences UI on the teams "all teams" page (via the `#lichessTools` hash), manages the global enable/disable switch and the advanced-preferences toggle, and adds a preferences menu item to the dasher app. It reads every other tool's `preferences` array and renders controls (radio, checkbox, number, select, text, folder, file) grouped by category.
+
+## Dependencies
+
+- `DetectThirdParties`
+
+## Preferences
+
+- **advancedPreferences**: name `advancedPreferences`, category `general`, type `single`, possibleValues `[false, true]`, defaultValue `false`, advanced `true`, hidden `true` — toggles the advanced-preferences display.
+
+## Behavior
+
+
 
 Debug builds also allow `filesystem`. Mismatch between this order and discovered categories logs a console warning.
 

@@ -18,12 +18,9 @@ Sets body classes based on options:
 
 ### Coordinate Preference Handling
 
-When `fix` is enabled and analysis exists:
-- Reads Lichess user preference `analysis.data.pref.coords` (1=in, 2=out, 3=all)
-- Toggles body classes `coords-in`, `coords-out`, `coords-all` accordingly
-
-When `fix` is disabled:
-- Uses initial state captured at first run (`_init_in`, `_init_out`, `_init_all`) to set coordinate classes
+- Reads Lichess user preference `analysis.data.pref.coords` (1=in, 2=out, 3=all); if the body already has the `.coords-out` class, sets pref to 2.
+- Toggles body class `lichessTools-fixCoords-fix` when the `fix` option is enabled AND the preference is `2` (coordinates outside).
+- Toggles body classes `lichessTools-fixCoords-larger` and `lichessTools-fixCoords-square` based on their respective options.
 
 ### Square Coordinates
 

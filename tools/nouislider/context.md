@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Provides access to the noUiSlider ES module bundle. NoUiSlider is a bundled JavaScript library (from LiChessToolsAdjacent project) that provides 3D visualization functionality for chess analysis and studies.
+Provides access to the noUiSlider ES module bundle. NoUiSlider is a bundled JavaScript library (from the LiChessToolsAdjacent project) that provides range-slider UI functionality (used by `ProfileSlider` and `ProfilePuzzleTab`).
 
 ## How It Works
 

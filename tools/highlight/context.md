@@ -13,7 +13,7 @@ The **HighlightTool** adds CSS class highlights to move elements in analysis mod
 - **name**: `highlight`
 - **category**: `analysis`
 - **type**: multiple (checkboxes)
-- **possibleValues**: [`lastMove`, `notCommented`, `transposition`, `mainLine`, `mainLinePieces`, `variationDepth`, `checks`, `currentLine`]
+- **possibleValues**: [`lastMove`, `notCommented`, `transposition`, `mainLine`, `mainLinePieces`, `variationDepth`, `checks`, `currentLine`, `branching`]
 - **defaultValue**: `lastMove,notCommented,transposition`
 - **advanced**: true
 
@@ -27,6 +27,7 @@ The **HighlightTool** adds CSS class highlights to move elements in analysis mod
 - **variationDepth**: treeview visible mode — traverses tree from root, each node variationDepth computed (root=0, children depth incremented), path dict = 'vd'+min(7,variationDepth+1) + 'vdm'+variationDepth%7+1 → tview2 move elements toggle classes vdm1-vdm7/vd1-vd7 based on dict
 - **checks**: highlights check moves — state.checks from traverseTree → elements get `lichessTools-inCheck`
 - **currentLine**: highlights current line path — nodeList from analysis.tree.getNodeList(contextMenuPath||path) → elements get `lichessTools-currentLine`
+- **branching**: highlights branching positions — `state.branching` nodes from traverseTree → elements get `lichessTools-branching`
 
 ## How It Works
 
@@ -39,4 +40,4 @@ The **HighlightTool** adds CSS class highlights to move elements in analysis mod
 Checks analysis exists + !lt.isTreeviewVisible(). Calls `lt.traverse()` → sets state (lastMoves, checks, etc). Then calls all highlight functions: lastMoves, uncommented, transpositions, variationDepth, checks, currentLine. Debounced at 800ms via `debouncedTraverseTree`.
 
 ### Initialization (`start()`)
-Reads preference value via `lt.isOptionSet`. Options object with individual flags + isSet getter (lastMove||notCommented||transposition||mainLine||variationDepth||checks||mainLinePieces||currentLine). Unbinds pubsub redraw for highlightMainLine, highlightMainLinePieces, debouncedTraverseTree. If mainLine: binds redraw → highlightMainLine. If mainLinePieces: binds redraw → highlightMainLinePieces. If isSet: binds redraw → debouncedTraverseTree. Toggles body class `lichessTools-variationDepth` if variationDepth set. Calls debouncedTraverseTree.
+Reads preference value via `lt.isOptionSet`. Options object with individual flags + isSet getter (lastMove||notCommented||transposition||mainLine||variationDepth||checks||mainLinePieces||currentLine||branching). Unbinds pubsub redraw for highlightMainLine, highlightMainLinePieces, debouncedTraverseTree. If mainLine: binds redraw → highlightMainLine. If mainLinePieces: binds redraw → highlightMainLinePieces. If isSet: binds redraw → debouncedTraverseTree. Toggles body class `lichessTools-variationDepth` if variationDepth set. Calls debouncedTraverseTree.
