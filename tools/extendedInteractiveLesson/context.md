@@ -1,3 +1,31 @@
+# Extended Interactive Lesson Tool — Context
+
+## Overview
+
+The **ExtendedInteractiveLessonTool** extends Lichess's Interactive Lesson (gamebook) mode. It adds multi-branch interactive play (play all accepted variations), final/current score display, an optional give-up button, sequential or spaced-repetition path flow with per-chapter progress tracking, and authoring helpers (explain deviations, on-demand hints) for writable studies. It also restyles the preview button and collapses the gamebook edit header.
+
+## Dependencies
+
+- `EmitRedraw`
+- `EmitChapterChange`
+- `RandomVariation`
+- `DetectThirdParties`
+- `InterceptEventHandlers`
+
+## Preferences
+
+- **extendedInteractiveLesson**
+  - name `extendedInteractiveLesson`, category `study`, type `multiple`
+  - possibleValues `['extendedInteractive', 'showFinalScore', 'alwaysShowScore', 'returnToPreview', 'fastInteractive', 'giveUpButton']`
+  - defaultValue `'extendedInteractive,showFinalScore'`
+- **extendedInteractiveLessonFlow**
+  - name `extendedInteractiveLessonFlow`, category `study`, type `multiple`, advanced `true`
+  - possibleValues `['sequential', 'spacedRepetition', 'ignoreBadGlyphs', 'negativeHint', 'spaceRetry']`
+  - defaultValue `'ignoreBadGlyphs'`
+
+## Behavior
+
+
 
 ### Path enumeration (`getCurrentPath`)
 

@@ -28,14 +28,12 @@ The **BotFiltersTool** adds filter controls to the Lichess bot list page (`/play
    - **minGames**: `#chk_min_games` number value (default 0).
    - **maxGames**: `#chk_max_games` number value (default 10000000000).
    - **icons**: checked game type icons from `.types input[data-icon]`.
-2. For each bot entry (`bots__list__entry`):
-   - Extracts rating info from `.bots__list__entry__rating span`:
-     - Rating = text with non-digits removed (numeric).
-     - Games = title attribute with non-digits removed (numeric).
-     - Icon = data-icon attribute (game type).
-   - If no span (unrated bot): matches if showUnrated is checked.
-   - If rated bot: matches if icon in icons list AND rating between min/max AND games between min/max.
-   - Toggles class `filteredOut` on entry if no match found.
+2. For each bot entry (`bots__list__entry`), uses two matching paths (new and legacy) over `.bots__list__entry__rating`:
+   - **New path**: extracts the icon from nested `span.svg-icon` (maps `icon-*` classes via `iconClassToIcon`), rating from the span text (non-digits stripped), games from the span `title` (non-digits stripped).
+   - **Legacy path** (`foundOld`): extracts the icon from the span's `data-icon` attribute, rating from text, games from `title`.
+   - If a rating entry has no `span` (unrated bot): matches if showUnrated is checked.
+   - If rated: matches if icon in icons list AND rating between min/max AND games between min/max.
+   - Toggles class `filteredOut` on the entry if neither path matches.
 
 ### Refresh All Types Button (`refreshAllTypesButton`)
 
@@ -63,8 +61,8 @@ Creates a div `lichessTools-botFilters` prepended to `.bots.page-menu__content`:
 
 ### Game Type Icons
 
-- Extracts unique icons from existing bot entries' rating spans.
-- Sorts by predefined order: UltraBullet → Bullet → FlameBlitz → Rabbit → Turtle → PaperAirplane → Crazyhouse → DieSix (Chess960) → FlagKingHill → ThreeCheck → Antichess → Atom → KeyPad (Board Editor) → FlagRacingKings.
+- Extracts unique icons from existing bot entries' rating spans, both legacy `data-icon` attributes and new `span.svg-icon` `icon-*` classes (via `iconClassToIcon`).
+- Sorts by predefined order: UltraBullet → Bullet → FlameBlitz → Rabbit → Turtle → PaperAirplane → Crazyhouse → DieSix (Chess960) → FlagKingHill → ThreeCheckStack → Antichess → Atom → KeyPad (Board Editor) → FlagRacingKings.
 - Creates checkboxes for each icon, default checked.
 
 ### Input Event Handling

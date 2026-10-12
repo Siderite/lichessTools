@@ -24,7 +24,7 @@ The **BetterBestArrowTool** improves the best move arrow displayed on the chess 
 When `analysis.setAutoShapes` is called:
 
 1. Checks if node has an outcome — if yes, returns (game ended/mate).
-2. Checks if current move has negative glyphs (`?!`, `?`, `??`) — if bad move AND `allMoves` not enabled, returns (only show arrow on good moves when allMoves is off).
+2. Checks if current move has negative glyphs (`?!`, `?`, `??`) — if it is NOT a bad move AND `allMoves` not enabled, returns (arrow only shown on bad moves unless `allMoves` is on).
 3. Gets previous node from `analysis.nodeList.at(-2)`.
 4. Extracts best move candidates:
    - **Cloud eval best**: `node.eval?.best`
@@ -32,14 +32,14 @@ When `analysis.setAutoShapes` is called:
 5. Determines final best move:
    - If both cloud best AND local best exist AND node.ceval depth < 15 → uses **cloud best** (`ebest`) (cloud is deeper/more reliable)
    - Otherwise → uses **local best OR cloud best** (`cbest || ebest`)
-6. If `justOrientation` not enabled OR orientation matches turn color:
+6. If `justOrientation` not enabled OR orientation differs from turn color:
    - If best differs from node.eval.best AND new local eval centipawns ≥ existing cloud centipawns AND new depth ≥ existing depth → updates `node.eval.best = best`.
    - If no node.eval exists (dangerous fallback): creates a synthetic eval object with `_originator: 'lichessTools'`, cp, mate, and best from local eval.
 7. Stores `currBest` for use in after hook.
 
 ### Orientation Filtering (`after` hook)
 
-When `justOrientation` enabled AND orientation ≠ turn color (user is viewing opposite side):
+When `justOrientation` enabled AND orientation matches turn color (user is viewing the side to move):
 - Removes all paleGreen arrows from autoShapes that match `currBest` (orig+dest == currBest). This prevents showing best move arrow when the user is not playing that side.
 
 ## Body Class Toggle

@@ -13,7 +13,7 @@ The **ThemesTool** provides a system of visual CSS themes for Lichess that users
 
 Two preferences:
 
-1. **`themes`**: category appearance, type multiple (checkboxes), possibleValues ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat', 'pieceDrag', 'noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard', 'adamisko', 'arcade', 'fixThirdParties', 'timeControls', 'firstInteraction', 'noVariants', 'noBullet', 'squares', 'experimental'], defaultValue 'fixThirdParties', advanced yes
+1. **`themes`**: category appearance, type multiple (checkboxes), possibleValues ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat', 'pieceDrag', 'noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard', 'adamisko', 'arcade', 'fixThirdParties', 'timeControls', 'firstInteraction', 'noVariants', 'noBullet', 'squares', 'experimental', 'chessbaseBorder', 'grabHighlight', 'arrowLastMove'], defaultValue 'fixThirdParties', advanced yes
 2. **`themesMenu`**: category appearance, type single (radio), possibleValues [false, true], defaultValue true, advanced yes
 
 When themes selected: CSS classes `lichessTools-theme_<themeName>` added to body. When themesMenu enabled: a themes menu button appears in dasher_app for user selection.
@@ -46,6 +46,9 @@ When themes selected: CSS classes `lichessTools-theme_<themeName>` added to body
 | noBullet | Hide Bullet chess |
 | squares | Squares for circles |
 | experimental | Experimental (requires Board Styling) |
+| chessbaseBorder | ChessBase board margin |
+| grabHighlight | Grab highlight |
+| arrowLastMove | Arrow for last move |
 
 ## CSS Class Application Mechanism
 

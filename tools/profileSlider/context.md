@@ -6,7 +6,7 @@ Enhances the profile time-range slider with date text labels, one-week filter bu
 
 ## Functionality
 
-- **profileSlider preference**: multiple type with values `showText` (show dates on label), `add1w` (one week filter button), `fixSize` (fix small intervals). Default: 'showText,add1w,fixSize'. Advanced.
+- **profileSlider preference**: multiple type with values `showText` (show dates on label), `add1w` (one week filter button), `fixSize` (fix small intervals), `minmax` (specify rating interval). Default: 'showText,add1w,fixSize'. Advanced.
 - Uses noUiSlider from `#time-range-slider`.
 
 - **updateSlider(ev)**: If showText enabled → updates label `.lichessTools-profileSliderText` with start/end dates from slider values (ev[0], ev[1]) converted via Date.toDateString().substr(4).
@@ -32,10 +32,10 @@ Enhances the profile time-range slider with date text labels, one-week filter bu
 - **name**: `profileSlider`
 - **category**: appearance
 - **type**: multiple
-- **possibleValues**: ['showText', 'add1w', 'fixSize']
+- **possibleValues**: ['showText', 'add1w', 'fixSize', 'minmax']
 - **defaultValue**: 'showText,add1w,fixSize'
 - **advanced**: true
 
 ## Dependencies
 
-None.
+`NoUiSlider`

@@ -11,7 +11,7 @@ The **KeyboardHelpTool** injects a "LiChess Tools" section into lichess's keyboa
 ## Preferences
 
 - **name**: `keyboardHelp`
-- **category**: `analysis`
+- **category**: `general`
 - **type**: single (radio)
 - **possibleValues**: [`false`, `true`]
 - **defaultValue**: `true`

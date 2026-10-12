@@ -16,20 +16,31 @@ The **BlogAutosaveTool** provides auto-save functionality and a save button for 
 
 ## Behavior
 
+### Validity Check (`checkValidityDirect`)
+
+Validates the blog form fields (debounced 500ms as `checkValidity`), toggling the `lichessTools-invalid` class on each invalid field:
+- **title** (`#form3-title`): must be 3–80 characters long.
+- **intro** (`#form3-intro`): must be present and ≤1000 characters.
+- **content** (`#form3-markdown` / `.toastui-editor`): must be non-empty.
+- **captcha** (`input[name="move"]` + `.captcha`): must be non-empty and not in a failure state.
+
+Returns `true` only when all fields are valid.
+
 ### Save Blog (`saveBlog`)
 
 Saves the blog post via `lt.api.blog.save(blogId, arr)` where `arr` contains all form field values:
 
 1. Checks for `form.ublog-post-form__main` — if not present, returns.
-2. If NOT forced AND live checkbox is checked → returns (live mode means auto-publishing by Lichess).
-3. Extracts markdown content from `#form3-markdown`.
-4. Collects all form inputs/textarea/select values: name + value (checkboxes use checked state, others use val()).
-5. Constructs bodyContent string as URL-encoded parameter pairs joined with `&`.
-6. If NOT forced AND bodyContent equals lastSave → returns (no changes since last save).
-7. Adds body class `lichessTools-blogAutosave` during save operation.
-8. Calls API to save blog post.
-9. After save: removes body class after 2000ms setTimeout.
-10. Updates `lastSave` to current bodyContent for comparison on next save.
+2. Runs `checkValidityDirect()` — if invalid, toggles body class `lichessTools-blogSaveError` and returns.
+3. If NOT forced AND live checkbox is checked → returns (live mode means auto-publishing by Lichess).
+4. Extracts markdown content from `#form3-markdown` — if empty, returns.
+5. Collects all form inputs/textarea/select values: name + value (checkboxes use checked state, others use val()).
+6. Constructs bodyContent string as URL-encoded parameter pairs joined with `&`.
+7. If NOT forced AND bodyContent equals lastSave → returns (no changes since last save).
+8. Adds body class `lichessTools-blogAutosave` during save operation.
+9. Calls API to save blog post; on success clears `lichessTools-blogSaveError`, on error announces "errorSavingBlogMessage" (if forced) or toggles `lichessTools-blogSaveError` (if auto).
+10. After save: removes body class `lichessTools-blogAutosave` after 2000ms setTimeout.
+11. Updates `lastSave` to current bodyContent for comparison on next save.
 
 ### Save Button (`savebutton`)
 
@@ -66,6 +77,7 @@ Saves the blog post via `lt.api.blog.save(blogId, arr)` where `arr` contains all
 When enabled:
 - **autosave**: interval every 30 seconds + beforeunload listener.
 - **savebutton**: button inserted in form.
+- **validity**: `input change` listeners on `input, textarea, [contenteditable="true"]` → triggers `checkValidity` (debounced).
 
 ## Cleanup on Disable
 

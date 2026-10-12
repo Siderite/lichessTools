@@ -39,7 +39,7 @@ Tracks the currently selected piece square:
 
 ## Activation Scope
 
-- Only activates on pages with body class `.round` (games) or `.puzzle` (puzzles).
+- Only activates on pages where `main` has class `.round` (games) or `.puzzle` (puzzles).
 - Skipped on other page types.
 
 ## Event Handling

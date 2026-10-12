@@ -53,7 +53,7 @@ MutationObserver on `div` elements — debounced (100ms) refresh of time control
 
 ## Preferences
 
-- `tvOptions` — multiple type: ['link', 'bookmark', 'streamerTv', 'friendsTv', 'teamTv', 'userTvHistory', 'stickyCategory'], default: 'link,bookmark,streamerTv,friendsTv,userTvHistory'
+- `tvOptions` — multiple type: ['link', 'bookmark', 'streamerTv', 'friendsTv', 'userTvHistory', 'stickyCategory'] (note: `teamTv` is commented out in the code but still has an intl entry and a partial `isTeamTvPage()` helper), default: 'link,bookmark,streamerTv,friendsTv,userTvHistory'
 
 ## Key Methods
 

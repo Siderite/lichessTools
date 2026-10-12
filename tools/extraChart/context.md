@@ -18,6 +18,7 @@ It does not replace the native Lichess server-eval chart. It adds datasets to th
 
 - `EmitEsmLoaded` - to intercept the ACPL Chart.js module load and wrap `acpl()` so the tool receives the chart instance
 - `EmitChapterChange` - force chart refresh when study chapter changes (mainly for brilliant-move glyphs)
+- `ChessOps` - chess operations library for board/FEN parsing used by the metrics
 
 ## Preferences
 

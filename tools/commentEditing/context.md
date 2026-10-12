@@ -23,7 +23,7 @@ On `.study__comment a[data-icon="Trash"]`:
 
 ### Shift Key Visual Feedback
 
-MutationObserver on body keydown/keyup:
+Direct `keydown`/`keyup` listener on body:
 - Toggles `shiftPressed` class on lichessTools-deleteComment buttons based on ev.shiftKey state
 
 ## Dependencies

@@ -61,7 +61,7 @@ On game tables (`section.explorer-box .data table.games`) → calculates Stronge
 
 ## Preferences
 
-- `explorerEval` — multiple type: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'hidden'], default: 'ceval,db,highlightList'
+- `explorerEval` — multiple type: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'hidden'], default: 'ceval,db,highlightList'
 
 ## Key Methods
 

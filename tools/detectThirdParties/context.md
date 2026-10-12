@@ -27,7 +27,7 @@ None explicitly listed.
 
 ## Preferences
 
-- `fixAbortController` — single type, default true, advanced/hidden (Note: this preference name appears in the file but belongs to FixAbortController tool; this is likely a copy-paste artifact)
+None. This tool has no user-facing preferences; it only detects and sets body classes for other tools to use.
 
 ## Key Methods
 
