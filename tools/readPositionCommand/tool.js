@@ -51,11 +51,13 @@
 
       const node = analysis.node;
       const board = lt.getBoardFromFen(node.fen);
+      if (!board) return;
 
       this.reading = true;
+      const roleByLetter = { 'K': 'king', 'Q': 'queen', 'R': 'rook', 'B': 'bishop', 'N': 'knight', 'P': 'pawn' };
       for (const color of ['white','black']) {
         for (const p of ['K','Q','R','B','N','P']) {
-          const piece = color=='white'? p : p.toLowerCase();
+          const role = roleByLetter[p];
           for (let i = 0; i<8; i++) {
             for (let j = 0; j<8; j++) {
               if (node != analysis.node) {
@@ -63,8 +65,8 @@
                 this.paused = false;
               }
               if (!this.reading) return;
-              const ch = board[j][i];
-              if (ch != piece) continue;
+              const piece = board.get(i + (7 - j) * 8);
+              if (!piece || piece.role !== role || piece.color !== color) continue;
               await lt.speak(color+' '+this.pieces[p], { rate: speed ? speed / 100 : 0, voiceIndex: voiceIndex });
               await lt.timeout(50000 / speed);
               await lt.speak(String.fromCharCode(65+i)+'-'+String.fromCharCode(56-j), { rate: speed ? speed / 100 : 0, voiceIndex: voiceIndex });

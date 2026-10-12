@@ -689,9 +689,46 @@ class BrilliantMoveAnalyzer {
       'pawn': 'p'
     };
 
+    static LETTER_TO_ROLE = { 'k': 'king', 'q': 'queen', 'r': 'rook', 'b': 'bishop', 'n': 'knight', 'p': 'pawn' };
+
+    static get chessops() {
+      return (typeof window !== 'undefined' && window.lichessTools?.chessopsModule) || null;
+    }
+
+    static _square(x, y) { return x + (7 - y) * 8; }
+
+    static _pieceChar(b, sq) {
+      const piece = b.get(sq);
+      if (!piece) return null;
+      const ch = ChessMetrics.ROLE_LETTERS[piece.role];
+      return piece.color === 'white' ? ch.toUpperCase() : ch;
+    }
+
+    static _boardFen(board) {
+      const b = board;
+      if (!b) return '';
+      const co = ChessMetrics.chessops;
+      if (co?.fen?.makeBoardFen) return co.fen.makeBoardFen(b);
+      let fen = '';
+      for (let r = 7; r >= 0; r--) {
+        let empty = 0;
+        for (let f = 0; f < 8; f++) {
+          const piece = b.get(r * 8 + f);
+          if (piece) {
+            if (empty) { fen += empty; empty = 0; }
+            const ch = ChessMetrics.ROLE_LETTERS[piece.role];
+            fen += piece.color === 'white' ? ch.toUpperCase() : ch;
+          } else empty++;
+        }
+        if (empty) fen += empty;
+        if (r) fen += '/';
+      }
+      return fen;
+    }
+
     static occupiedSquares(board) {
       const result = [];
-      const co = board?.co;
+      const co = board;
       if (co?.occupied && typeof co.get === 'function') {
         for (const square of co.occupied) {
           const piece = co.get(square);
@@ -703,14 +740,6 @@ class BrilliantMoveAnalyzer {
             y: 7 - (square >> 3),
             ch: piece.color === 'white' ? ch.toUpperCase() : ch
           });
-        }
-        return result;
-      }
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ch = board[y][x];
-          if (!ch) continue;
-          result.push({ x, y, ch });
         }
       }
       return result;
@@ -813,273 +842,74 @@ class BrilliantMoveAnalyzer {
     static onBoard(x, y) {
       return x >= 0 && x < 8 && y >= 0 && y < 8;
     }
-
     static pieceTension(x, y, board, withSupport) {
       const underAttack = [];
-      const ch = board[y][x];
-      if (!ch) return underAttack;
-      const m = ch === ch.toUpperCase() ? 1 : -1;
-      switch (ch.toLowerCase()) {
-        case 'k':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx && !dy) continue;
-              if (!ChessMetrics.onBoard(x + dx, y + dy)) continue;
-              const pc = board[y + dy][x + dx];
-              if (!pc) continue;
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x + dx,
-                  y: y + dy,
-                  pc: pc
-                });
-              }
-            }
-          }
-          break;
-        case 'q':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx && !dy) continue;
-              const isDiagonal = dx && dy;
-              const isForward = dy === -m;
-              for (let i = 1; i < 8; i++) {
-                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (isDiagonal && pc.toLowerCase() === 'b') continue;
-                  if (!isDiagonal && pc.toLowerCase() === 'r') continue;
-                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
-                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'r':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if ((dx && dy) || (!dx && !dy)) continue;
-              for (let i = 1; i < 8; i++) {
-                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (pc.toLowerCase() === 'r') continue;
-                  if (pc.toLowerCase() === 'k') {
-                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'b':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx || !dy) continue;
-              const isForward = dy === -m;
-              for (let i = 1; i < 8; i++) {
-                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (pc.toLowerCase() === 'b') continue;
-                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
-                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'n':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx || !dy) continue;
-              if (ChessMetrics.onBoard(x + dx * 1, y + dy * 2)) {
-                const pc = board[y + dy * 2][x + dx * 1];
-                if (pc) {
-                  const pm = pc === pc.toUpperCase() ? 1 : -1;
-                  if (m != pm) {
-                    underAttack.push({
-                      m: m,
-                      sx: x,
-                      sy: y,
-                      spc: ch,
-                      x: x + dx * 1,
-                      y: y + dy * 2,
-                      pc: pc
-                    });
-                  }
-                }
-              }
-              if (ChessMetrics.onBoard(x + dx * 2, y + dy * 1)) {
-                const pc = board[y + dy * 1][x + dx * 2];
-                if (pc) {
-                  const pm = pc === pc.toUpperCase() ? 1 : -1;
-                  if (m != pm) {
-                    underAttack.push({
-                      m: m,
-                      sx: x,
-                      sy: y,
-                      spc: ch,
-                      x: x + dx * 2,
-                      y: y + dy * 1,
-                      pc: pc
-                    });
-                  }
+      const co = ChessMetrics.chessops;
+      const b = board;
+      if (!co || !b) return underAttack;
+      const sq = ChessMetrics._square(x, y);
+      const piece = b.get(sq);
+      if (!piece) return underAttack;
+      const m = piece.color === 'white' ? 1 : -1;
+      const spc = ChessMetrics._pieceChar(b, sq);
+      let attacked;
+      switch (piece.role) {
+        case 'knight': attacked = co.knightAttacks(sq); break;
+        case 'bishop': attacked = co.bishopAttacks(sq, b.occupied); break;
+        case 'rook': attacked = co.rookAttacks(sq, b.occupied); break;
+        case 'queen': attacked = co.queenAttacks(sq, b.occupied); break;
+        case 'king': attacked = co.kingAttacks(sq); break;
+        case 'pawn': attacked = co.pawnAttacks(piece.color, sq); break;
+        default: return underAttack;
+      }
+      for (const t of attacked) {
+        const tp = b.get(t);
+        if (!tp) continue;
+        if (m === (tp.color === 'white' ? 1 : -1)) continue;
+        underAttack.push({
+          m: m,
+          sx: x,
+          sy: y,
+          spc: spc,
+          x: t & 7,
+          y: 7 - (t >> 3),
+          pc: ChessMetrics._pieceChar(b, t)
+        });
+      }
+      if (withSupport && (piece.role === 'queen' || piece.role === 'rook' || piece.role === 'bishop')) {
+        const dirs = piece.role === 'queen'
+          ? [[1, 1], [1, -1], [-1, 1], [-1, -1], [1, 0], [-1, 0], [0, 1], [0, -1]]
+          : piece.role === 'bishop'
+            ? [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+            : [[1, 0], [-1, 0], [0, 1], [0, -1]];
+        for (const [dx, dy] of dirs) {
+          const isDiagonal = dx && dy;
+          const isForward = dy === -m;
+          let fx = x + dx;
+          let fy = y + dy;
+          while (fx >= 0 && fx < 8 && fy >= 0 && fy < 8) {
+            const fsq = ChessMetrics._square(fx, fy);
+            const pc = b.get(fsq);
+            if (!pc) { fx += dx; fy += dy; continue; }
+            const pm = pc.color === 'white' ? 1 : -1;
+            if (m !== pm) break;
+            const pcl = pc.role;
+            if (pcl === 'queen') { fx += dx; fy += dy; continue; }
+            if (isDiagonal && pcl === 'bishop') { fx += dx; fy += dy; continue; }
+            if (!isDiagonal && pcl === 'rook') { fx += dx; fy += dy; continue; }
+            if ((isForward && pcl === 'pawn') || pcl === 'king') {
+              const bx = fx + dx;
+              const by = fy + dy;
+              if (bx >= 0 && bx < 8 && by >= 0 && by < 8) {
+                const ppc = b.get(ChessMetrics._square(bx, by));
+                if (ppc && m !== (ppc.color === 'white' ? 1 : -1)) {
+                  underAttack.push({ m: m, sx: x, sy: y, spc: spc, x: bx, y: by, pc: ChessMetrics._pieceChar(b, fsq) });
                 }
               }
             }
+            break;
           }
-          break;
-        case 'p':
-          if (ChessMetrics.onBoard(x - 1, y - m)) {
-            const pc = board[y - m][x - 1];
-            if (pc) {
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x - 1,
-                  y: y - m,
-                  pc: pc
-                });
-              }
-            } else if (board.enpassant && board.enpassant.x == x - 1 && board.enpassant.y == y - m) {
-              const pm = -m;
-              underAttack.push({
-                m: m,
-                sx: x,
-                sy: y,
-                spc: ch,
-                x: x - 1,
-                y: y - m,
-                pc: pm == 1 ? 'P' : 'p'
-              });
-            }
-          }
-          if (ChessMetrics.onBoard(x + 1, y - m)) {
-            const pc = board[y - m][x + 1];
-            if (pc) {
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x + 1,
-                  y: y - m,
-                  pc: pc
-                });
-              }
-            } else if (board.enpassant && board.enpassant.x == x + 1 && board.enpassant.y == y - m) {
-              const pm = -m;
-              underAttack.push({
-                m: m,
-                sx: x,
-                sy: y,
-                spc: ch,
-                x: x + 1,
-                y: y - m,
-                pc: pm == 1 ? 'P' : 'p'
-              });
-            }
-          }
-          break;
+        }
       }
       return underAttack;
     }
@@ -1106,7 +936,8 @@ class BrilliantMoveAnalyzer {
     static capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
 
     static getAllCapturingMoves(board, lt) {
-      const fen = lt.getFenFromBoard(board);
+      const fen = ChessMetrics._boardFen(board);
+      if (!fen) return [];
       let result = ChessMetrics.capturingMoveCache.get(fen);
       if (result) return result;
       result = [];
@@ -1122,22 +953,27 @@ class BrilliantMoveAnalyzer {
 
     static materialWon(board, x, y, lt) {
       const Math = lt.global.Math;
-      const key = [lt.getFenFromBoard(board), x, y].join('|');
+      const b = board;
+      if (!b) return 0;
+      const key = [ChessMetrics._boardFen(board), x, y].join('|');
       let result = ChessMetrics.materialWonCache.get(key);
       if (result) return result;
-      board = lt.clone(board);
-      const ch = board[y][x];
-      if (!ch) return 0;
-      const side = ch === ch.toUpperCase() ? -1 : 1;
+      const sq = ChessMetrics._square(x, y);
+      const piece = b.get(sq);
+      if (!piece) return 0;
+      const ch = ChessMetrics.ROLE_LETTERS[piece.role];
+      const side = piece.color === 'white' ? -1 : 1;
       const moves = ChessMetrics.getAllCapturingMoves(board, lt)
         .filter(m => m.x == x && m.y == y && m.m == side)
         .sort((m1, m2) => ChessMetrics.pieceMaterial[m1.spc.toLowerCase()] - ChessMetrics.pieceMaterial[m2.spc.toLowerCase()]);
       const move = moves[0];
       if (!move) return 0;
-      result = ChessMetrics.pieceMaterial[ch.toLowerCase()] * side; //capture piece
-      board[y][x] = move.spc;
-      board[move.sy][move.sx] = null;
-      result += ChessMetrics.materialWon(board, x, y, lt);
+      result = ChessMetrics.pieceMaterial[ch] * side;
+      const cloned = b.clone();
+      const attacker = { color: move.m === 1 ? 'white' : 'black', role: ChessMetrics.LETTER_TO_ROLE[move.spc.toLowerCase()] };
+      cloned.take(ChessMetrics._square(move.sx, move.sy));
+      cloned.set(sq, attacker);
+      result += ChessMetrics.materialWon(cloned, x, y, lt);
       result = Math.sign(result) != side ? 0 : result;
       ChessMetrics.materialWonCache.set(key, result);
       return result;
@@ -1147,7 +983,7 @@ class BrilliantMoveAnalyzer {
 
     static maxMaterialWon(board, m, lt) {
       const Math = lt.global.Math;
-      const key = [lt.getFenFromBoard(board), m].join('|');
+      const key = [ChessMetrics._boardFen(board), m].join('|');
       let result = ChessMetrics.maxMaterialWonCache.get(key);
       if (result) return result;
       let mx = 0;
@@ -1163,120 +999,94 @@ class BrilliantMoveAnalyzer {
       ChessMetrics.maxMaterialWonCache.set(key, result);
       return result;
     }
-
     static getGamePhase(fen, lt) {
       const board = lt.getBoardFromFen(fen);
       if (!board) return 'opening';
+      const b = board;
+      const co = ChessMetrics.chessops;
+      if (!b || !co) return 'opening';
 
-      const majorsAndMinors = (board) => {
-        const co = board?.co;
-        if (co) {
-          return co.knight.size() + co.bishop.size() + co.rook.size() + co.queen.size();
-        }
-        return board
-                 .flat()
-                 .filter(p => 'rnbq'.includes(p.toLowerCase()))
-                 .length;
-      };
+      const majorsAndMinors = () => b.knight.size() + b.bishop.size() + b.rook.size() + b.queen.size();
 
-      const backrankSparse = (board) => {
-        return board[0].filter(p => p).length < 4
-               || board[7].filter(p => p).length < 4;
-      };
+      const backrankSparse = () => co.SquareSet.fromRank(0).intersect(b.occupied).size() < 4
+        || co.SquareSet.fromRank(7).intersect(b.occupied).size() < 4;
 
       const score = (y) => {
         return (white, black) => {
           const w = Number(white);
-          const b = Number(black);
-
+          const bn = Number(black);
           switch (true) {
-            case w === 0 && b === 0: return 0;
-            case w === 1 && b === 0: return 1 + (8 - y);
-            case w === 2 && b === 0: return y > 2 ? 2 + (y - 2) : 0;
-            case w === 3 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
-            case w === 4 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
-            case w === 0 && b === 1: return 1 + y;
-            case w === 1 && b === 1: return 5 + Math.abs(4 - y);
-            case w === 2 && b === 1: return 4 + (y - 1);
-            case w === 3 && b === 1: return 5 + (y - 1);
-            case w === 0 && b === 2: return y < 6 ? 2 + (6 - y) : 0;
-            case w === 1 && b === 2: return 4 + (7 - y);
-            case w === 2 && b === 2: return 7;
-            case w === 0 && b === 3: return y < 7 ? 3 + (7 - y) : 0;
-            case w === 1 && b === 3: return 5 + (7 - y);
-            case w === 0 && b === 4: return y < 7 ? 3 + (7 - y) : 0;
+            case w === 0 && bn === 0: return 0;
+            case w === 1 && bn === 0: return 1 + (8 - y);
+            case w === 2 && bn === 0: return y > 2 ? 2 + (y - 2) : 0;
+            case w === 3 && bn === 0: return y > 1 ? 3 + (y - 1) : 0;
+            case w === 4 && bn === 0: return y > 1 ? 3 + (y - 1) : 0;
+            case w === 0 && bn === 1: return 1 + y;
+            case w === 1 && bn === 1: return 5 + Math.abs(4 - y);
+            case w === 2 && bn === 1: return 4 + (y - 1);
+            case w === 3 && bn === 1: return 5 + (y - 1);
+            case w === 0 && bn === 2: return y < 6 ? 2 + (6 - y) : 0;
+            case w === 1 && bn === 2: return 4 + (7 - y);
+            case w === 2 && bn === 2: return 7;
+            case w === 0 && bn === 3: return y < 7 ? 3 + (7 - y) : 0;
+            case w === 1 && bn === 3: return 5 + (7 - y);
+            case w === 0 && bn === 4: return y < 7 ? 3 + (7 - y) : 0;
             default: return 0;
           }
         };
       };
 
-      const mixednessRegions = [];
-      for (let y = 0; y <= 6; ++y) {
-        for (let x = 0; x <= 6; ++x) {
-          mixednessRegions.push({ x, y });
-        }
-      }
-
-      const countInSquare = (board, topX, topY) => {
-        let white = 0, black = 0;
-        for (let dy = 0; dy < 2; ++dy) {
-          for (let dx = 0; dx < 2; ++dx) {
-            const piece = board[topY + dy][topX + dx];
-            if (!piece) continue;
-            if (piece === piece.toUpperCase()) ++white;
-            else                               ++black;
+      const mixedness = () => {
+        let acc = 0;
+        for (let y = 0; y <= 6; ++y) {
+          for (let x = 0; x <= 6; ++x) {
+            let white = 0, black = 0;
+            for (let dy = 0; dy < 2; ++dy) {
+              for (let dx = 0; dx < 2; ++dx) {
+                const piece = b.get(ChessMetrics._square(x + dx, y + dy));
+                if (!piece) continue;
+                if (piece.color === 'white') ++white;
+                else ++black;
+              }
+            }
+            acc += score(7 - y)(white, black);
           }
         }
-        return [white, black];
+        return acc;
       };
 
-      const mixedness = (board) => {
-        return mixednessRegions.reduce((acc, region) => {
-          const [w, b] = countInSquare(board, region.x, region.y);
-          return acc + score(7 - region.y)(w, b);
-        }, 0);
-      };
-
-      const mm = majorsAndMinors(board);
-      const bs = backrankSparse(board);
-      const mx = mixedness(board);
+      const mm = majorsAndMinors();
+      const bs = backrankSparse();
+      const mx = mixedness();
 
       if (mm <= 6) return 'endGame';
       if (mm <= 10 || bs || mx > 150) return 'middleGame';
       return 'opening';
     }
-
     static getStructure(board, blackOrientation) {
       if (!board) return null;
+      const b = board;
+      if (!b) return null;
       const result = {
-        pawns: {
-          'w': new Array(8).fill(-1),
-          'b': new Array(8).fill(-1)
-        },
-        led: {
-          'w': new Array(8).fill(false),
-          'b': new Array(8).fill(false)
-        },
+        pawns: { 'w': new Array(8).fill(-1), 'b': new Array(8).fill(-1) },
+        led: { 'w': new Array(8).fill(false), 'b': new Array(8).fill(false) },
         islands: { w: [], b: [] },
         qSide: { 'w': 0, 'b': 0 },
         kSide: { 'w': 0, 'b': 0 }
       };
-      for (let y = 0; y < 8; y++) {
-        const rank = board[y];
-        for (let x = 0; x < 8; x++) {
-          switch (rank[x]) {
-            case 'p':
-              if (y <= 4) {
-                if (result.pawns.b[x] > -1) result.led.b[x] = true;
-                result.pawns.b[x] = y - 1;
-              }
-              break;
-            case 'P':
-              if (y >= 3) {
-                if (result.pawns.w[x] > -1) result.led.w[x] = true;
-                result.pawns.w[x] = 6 - y;
-              }
-              break;
+      for (const sq of b.pawn) {
+        const piece = b.get(sq);
+        const file = sq & 7;
+        const rank = sq >> 3;
+        if (piece.color === 'black') {
+          if (rank >= 3) {
+            if (result.pawns.b[file] > -1) result.led.b[file] = true;
+            result.pawns.b[file] = 6 - rank;
+          }
+        } else {
+          if (rank <= 4) {
+            if (result.pawns.w[file] > -1) result.led.w[file] = true;
+            result.pawns.w[file] = rank - 1;
           }
         }
       }
@@ -1305,12 +1115,10 @@ class BrilliantMoveAnalyzer {
       const calcSide = (color) => {
         const list = result.islands[color];
         if (list.length === 0) return;
-
         const first = list[0];
         if (first.start < 2) {
           result.qSide[color] = Math.min(3, first.end) - first.start + 1;
         }
-
         const last = list[list.length - 1];
         if (last.end > 5) {
           result.kSide[color] = last.end - Math.max(4, last.start) + 1;
@@ -1320,41 +1128,42 @@ class BrilliantMoveAnalyzer {
       calcSide('w');
       calcSide('b');
 
-      const [ me, they ] = blackOrientation ? ['b','w'] : ['w','b'];
-      const toChar = (s)=>{
-        if (s==' ') return s;
-        if (s=='Q') {
-          const mv=result.qSide[me];
-          const mt=result.qSide[they];
-          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+      const [me, they] = blackOrientation ? ['b', 'w'] : ['w', 'b'];
+      const toChar = (s) => {
+        if (s == ' ') return s;
+        if (s == 'Q') {
+          const mv = result.qSide[me];
+          const mt = result.qSide[they];
+          return mv > mt ? 'M' : mv < mt ? 'T' : 'X';
         }
-        if (s=='K') {
-          const mv=result.kSide[me];
-          const mt=result.kSide[they];
-          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        if (s == 'K') {
+          const mv = result.kSide[me];
+          const mt = result.kSide[they];
+          return mv > mt ? 'M' : mv < mt ? 'T' : 'X';
         }
         if (s.startsWith('P')) {
-          const v=result.pawns[s[1]=='M'?me:they][+s[2]];
-          return v<0 ? 'X' : v;
+          const v = result.pawns[s[1] == 'M' ? me : they][+s[2]];
+          return v < 0 ? 'X' : v;
         }
         if (s.startsWith('L')) {
-          const v=result.led[s[1]=='M'?me:they][+s[2]];
+          const v = result.led[s[1] == 'M' ? me : they][+s[2]];
           return v ? 'L' : 'X';
         }
-        throw new Error('Unknown primitive: '+s);
+        throw new Error('Unknown primitive: ' + s);
       };
       const structureText = [
-        'PM3','PM4','PM2','PT3','PT4','PT2','Q','K',' ',
-        'PM5','PM1','PM6','PT5','PT1','PT6',' ',
-        'PM0','PM7','PT0','PT7',' ',
-        'LM3','LM4','LM2','LT3','LT4','LT2',' ',
-        'LM5','LM1','LM6','LT5','LT1','LT6',' ',
-        'LM0','LM7','LT0','LT7',
+        'PM3', 'PM4', 'PM2', 'PT3', 'PT4', 'PT2', 'Q', 'K', ' ',
+        'PM5', 'PM1', 'PM6', 'PT5', 'PT1', 'PT6', ' ',
+        'PM0', 'PM7', 'PT0', 'PT7', ' ',
+        'LM3', 'LM4', 'LM2', 'LT3', 'LT4', 'LT2', ' ',
+        'LM5', 'LM1', 'LM6', 'LT5', 'LT1', 'LT6', ' ',
+        'LM0', 'LM7', 'LT0', 'LT7',
       ].map(toChar).join('');
       return structureText;
     }
 
     static keySimilarityDirect(kSearch, kNamed) {
+      if (!kSearch || !kNamed) return 0;
       kSearch = kSearch.replaceAll(' ', '');
       kNamed = kNamed.replaceAll(' ', '');
       const l = Math.min(kSearch.length, kNamed.length);
@@ -1378,6 +1187,7 @@ class BrilliantMoveAnalyzer {
     static keyCache = {};
 
     static keySimilarity(kSearch, kNamed) {
+      if (!kSearch || !kNamed) return 0;
       const k = kSearch + '|' + kNamed;
       let result = ChessMetrics.keyCache[k];
       if (!result) {
@@ -1388,6 +1198,7 @@ class BrilliantMoveAnalyzer {
     }
 
     static getOpposingStructure(structure) {
+      if (!structure) return null;
       const result =
         structure.substr(3, 3) +
         structure.substr(0, 3) +
@@ -1418,30 +1229,30 @@ class BrilliantMoveAnalyzer {
         (_, i) => start + i * step
       );
     }
-
     static getWeakSquares(board, isWhite) {
       const result = [];
+      const b = board;
+      if (!b) return result;
       const pawn = isWhite ? 'P' : 'p';
       const opponentPawn = isWhite ? 'p' : 'P';
       const dy = isWhite ? -1 : 1;
+      const at = (x, y) => (x >= 0 && x < 8 && y >= 0 && y < 8) ? ChessMetrics._pieceChar(b, ChessMetrics._square(x, y)) : null;
       for (let x = 0; x < 8; x++) {
         const candidates = [];
         for (let y = 0; y < 8; y++) {
-          const p = board[y][x];
-          if (!p) {
-            if ((isWhite || y > 1) && (!isWhite || y < 6) && board[y - dy][x] == pawn) {
-              candidates.push(y);
-            } else
-            if ((isWhite || y < 4) && (!isWhite || y > 3) && (board[y + dy]?.[x + 1] == opponentPawn || board[y + dy]?.[x - 1] == opponentPawn)) {
-              candidates.push(y);
-            }
+          if (b.get(ChessMetrics._square(x, y))) continue;
+          if ((isWhite || y > 1) && (!isWhite || y < 6) && at(x, y - dy) === pawn) {
+            candidates.push(y);
+          } else
+          if ((isWhite || y < 4) && (!isWhite || y > 3) && (at(x + 1, y + dy) === opponentPawn || at(x - 1, y + dy) === opponentPawn)) {
+            candidates.push(y);
           }
         }
         for (const c of candidates) {
           let weak = true;
           const ys = isWhite ? (c < 6 ? ChessMetrics.range(c + 1, 6) : []) : (c > 1 ? ChessMetrics.range(c - 1, 1) : []);
           for (const y of ys) {
-            if (board[y][x - 1] == pawn || board[y][x + 1] == pawn) {
+            if (at(x - 1, y) === pawn || at(x + 1, y) === pawn) {
               weak = false;
               break;
             }
@@ -1451,21 +1262,19 @@ class BrilliantMoveAnalyzer {
       }
       return result;
     }
-
     static getPawns(board, isWhite) {
-      const pawn = isWhite ? 'P' : 'p';
+      const b = board;
+      if (!b) return [];
       const myPawns = [];
       const theirPawns = [];
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const p = board[y][x];
-          if (p?.toLowerCase() == 'p') {
-            if (p == pawn) {
-              myPawns.push({ x, y });
-            } else {
-              theirPawns.push({ x, y });
-            }
-          }
+      for (const sq of b.pawn) {
+        const piece = b.get(sq);
+        const x = sq & 7;
+        const y = 7 - (sq >> 3);
+        if (piece.color === (isWhite ? 'white' : 'black')) {
+          myPawns.push({ x, y });
+        } else {
+          theirPawns.push({ x, y });
         }
       }
       const files = ChessMetrics.range(0, 7).filter(x => myPawns.find(p => p.x == x));
@@ -1488,9 +1297,10 @@ class BrilliantMoveAnalyzer {
           p.hanging = true;
         });
 
+      const at = (x, y) => (x >= 0 && x < 8 && y >= 0 && y < 8) ? b.get(ChessMetrics._square(x, y)) : null;
       myPawns.forEach(p => {
         const dy = isWhite ? -1 : 1;
-        if (board[p.y + dy][p.x]) return;
+        if (at(p.x, p.y + dy)) return;
         const ys = isWhite ? (p.y < 7 ? ChessMetrics.range(p.y, 7) : []) : (p.y > 1 ? ChessMetrics.range(p.y, 1) : []);
         if (myPawns.find(mp => ys.includes(mp.y) && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) return;
         if (theirPawns.find(mp => mp.y == p.y + dy * 2 && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) p.backward = true;
@@ -1498,29 +1308,28 @@ class BrilliantMoveAnalyzer {
 
       return myPawns;
     }
-
     static getPawnBreaks(board, isWhite) {
-      const pawn = isWhite ? 'P' : 'p';
+      const b = board;
+      if (!b) return [];
       const myPawns = [];
       const theirPawns = [];
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const p = board[y][x];
-          if (p?.toLowerCase() == 'p') {
-            if (p == pawn) {
-              myPawns.push({ x, y });
-            } else {
-              theirPawns.push({ x, y });
-            }
-          }
+      for (const sq of b.pawn) {
+        const piece = b.get(sq);
+        const x = sq & 7;
+        const y = 7 - (sq >> 3);
+        if (piece.color === (isWhite ? 'white' : 'black')) {
+          myPawns.push({ x, y });
+        } else {
+          theirPawns.push({ x, y });
         }
       }
+      const at = (x, y) => (x >= 0 && x < 8 && y >= 0 && y < 8) ? b.get(ChessMetrics._square(x, y)) : null;
       myPawns.forEach(p => {
         const dests = [];
         const dy = isWhite ? -1 : 1;
-        if (!board[p.y + dy][p.x]) {
+        if (!at(p.x, p.y + dy)) {
           dests.push({ x: p.x, y: p.y + dy });
-          if (p.y == (isWhite ? 6 : 1) && !board[p.y + dy * 2][p.x]) dests.push({ x: p.x, y: p.y + dy * 2 });
+          if (p.y == (isWhite ? 6 : 1) && !at(p.x, p.y + dy * 2)) dests.push({ x: p.x, y: p.y + dy * 2 });
         }
         for (const dest of dests) {
           if ([-1, 1].find(dx => myPawns.find(mp => mp.x == dest.x + dx && mp.y == dest.y) && theirPawns.find(tp => tp.x == dest.x + dx && tp.y == dest.y + dy))) {
@@ -1528,257 +1337,190 @@ class BrilliantMoveAnalyzer {
           }
         }
       });
-
       return myPawns.filter(p => p.breaks?.length);
     }
   }
 
   LiChessTools.ChessMetrics = ChessMetrics;
-
-  class ChessPositionEvaluator {
-    constructor(fen) {
-      this.board = this.parseFEN(fen);
+  class ChessKmapsEvaluator {
+    constructor(fen, co) {
+      this.co = co;
+      this.board = co ? this.parseFEN(fen) : null;
       this.movesCache = new Map();
-      this.pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
-      this.centralSquares = [27, 28, 35, 36]; // d4, d5, e4, e5
+      this.pieceValues = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0 };
+      this.centralSquares = [27, 28, 35, 36];
     }
-  
-    // Parse FEN string to 8x8 board array
+
     parseFEN(fen) {
-      const board = Array(64).fill(null);
-      const position = fen.split(' ')[0];
-      let square = 0;
-      for (const char of position) {
-        if (square >= board.length) break;
-        if (char === '/') continue;
-        if (/\d/.test(char)) {
-          square += parseInt(char);
-        } else {
-          board[square] = char;
-          square++;
-        }
+      if (!fen || !this.co?.fen?.parseBoardFen) return null;
+      try {
+        const result = this.co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        const board = result && typeof result.unwrap === 'function' ? result.unwrap() : result;
+        return board || null;
+      } catch (e) {
+        return null;
       }
-      return board;
     }
-  
-    // Normalize a score to [-1, 1]
+
     normalize(score, min, max, area) {
-      if (score >= max) {
-        return 1;
-      }
-      if (score <= min) {
-        return -1;
-      }
-      const normalized = (2 * (score - min)) / (max - min) - 1;
-      return normalized;
+      if (score >= max) return 1;
+      if (score <= min) return -1;
+      return (2 * (score - min)) / (max - min) - 1;
     }
-  
-    // King Safety (K)
+
     evaluateKingSafety() {
+      const whiteKingIdx = this.board.king.intersect(this.board.white).first();
+      const blackKingIdx = this.board.king.intersect(this.board.black).first();
+      if (whiteKingIdx === undefined || blackKingIdx === undefined) return 0;
       let whiteScore = 0, blackScore = 0;
-      const whiteKingIdx = this.board.indexOf('K');
-      const blackKingIdx = this.board.indexOf('k');
-      if (whiteKingIdx === -1 || blackKingIdx === -1) return 0;
-  
-      // Pawn shield (pawns in front of king)
       const whitePawnShield = this.getPawnShield(whiteKingIdx, true);
       const blackPawnShield = this.getPawnShield(blackKingIdx, false);
       whiteScore += whitePawnShield * 2;
       blackScore += blackPawnShield * 2;
-  
-      // Open files near king
       const whiteOpenFiles = this.getOpenFilesNearKing(whiteKingIdx, true);
       const blackOpenFiles = this.getOpenFilesNearKing(blackKingIdx, false);
       whiteScore -= whiteOpenFiles * 1.5;
       blackScore -= blackOpenFiles * 1.5;
-  
-      // Enemy pieces near king
       const whiteThreats = this.getEnemyThreats(whiteKingIdx, true);
       const blackThreats = this.getEnemyThreats(blackKingIdx, false);
       whiteScore -= whiteThreats * 1;
       blackScore -= blackThreats * 1;
-
-      // Hole detection: squares that can never be attacked by friendly pawns
       const whiteHoles = this.getKingHoles(whiteKingIdx, true);
       const blackHoles = this.getKingHoles(blackKingIdx, false);
-      whiteScore -= whiteHoles * 0.5;  // Penalize 1 point per hole
+      whiteScore -= whiteHoles * 0.5;
       blackScore -= blackHoles * 0.5;
-  
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -15, 15,'K'); //max is ~-10, but it can go to -25
+      return this.normalize(diff, -15, 15, 'K');
     }
-  
+
     getPawnShield(kingIdx, isWhite) {
-      const rank = Math.floor(kingIdx / 8);
-      const file = kingIdx % 8;
+      const file = kingIdx & 7;
       let score = 0;
-      const offsets = isWhite ? [-9, -8, -7] : [7, 8, 9]; // Adjacent squares in front
+      const offsets = isWhite ? [7, 8, 9] : [-7, -8, -9];
       for (const offset of offsets) {
         const idx = kingIdx + offset;
         if (idx >= 0 && idx < 64 && Math.abs((idx % 8) - file) <= 1) {
-          const piece = this.board[idx];
-          if ((isWhite && piece === 'P') || (!isWhite && piece === 'p')) score += 1;
+          const piece = this.board.get(idx);
+          if (piece && piece.role === 'pawn' && piece.color === (isWhite ? 'white' : 'black')) score += 1;
         }
       }
       return score;
     }
-  
+
     getOpenFilesNearKing(kingIdx, isWhite) {
-      const file = kingIdx % 8;
+      const file = kingIdx & 7;
       let openFiles = 0;
       for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
-        let hasPawn = false;
-        for (let r = 0; r < 8; r++) {
-          const idx = r * 8 + f;
-          if ((isWhite && this.board[idx] === 'P') || (!isWhite && this.board[idx] === 'p')) {
-            hasPawn = true;
-            break;
-          }
-        }
-        if (!hasPawn) openFiles++;
+        if (this.co.SquareSet.fromFile(f).intersect(this.board.pawn).isEmpty()) openFiles++;
       }
       return openFiles;
     }
-  
+
     getEnemyThreats(kingIdx, isWhite) {
-      const file = kingIdx % 8;
-      const rank = Math.floor(kingIdx / 8);
+      const file = kingIdx & 7;
+      const rank = kingIdx >> 3;
       let threats = 0;
       for (let r = Math.max(0, rank - 2); r <= Math.min(7, rank + 2); r++) {
         for (let f = Math.max(0, file - 2); f <= Math.min(7, file + 2); f++) {
-          const idx = r * 8 + f;
-          const piece = this.board[idx];
-          if (piece && piece !== 'K' && piece !== 'k') {
-            const isEnemy = isWhite ? /[a-z]/.test(piece) : /[A-Z]/.test(piece);
-            if (isEnemy) threats += this.pieceValues[piece.toLowerCase()] || 0;
-          }
+          const piece = this.board.get(r * 8 + f);
+          if (!piece || piece.role === 'king') continue;
+          if (piece.color !== (isWhite ? 'white' : 'black')) threats += this.pieceValues[piece.role] || 0;
         }
       }
       return threats / 10;
     }
 
     getKingHoles(kingIdx, isWhite) {
-      const file = kingIdx % 8;
-      const rank = Math.floor(kingIdx / 8);
+      const file = kingIdx & 7;
+      const rank = kingIdx >> 3;
       let holes = 0;
       for (let r = Math.max(0, rank - 1); r <= Math.min(7, rank + 1); r++) {
         for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
           if (r === rank && f === file) continue;
-          if (isWhite && r <= 1) continue;
-          if (!isWhite && r >= 6) continue;
-          const idx = r * 8 + f;
-          if (!this.canEverBeAttackedByPawn(idx, isWhite)) holes++;
+          if (isWhite && r >= 6) continue;
+          if (!isWhite && r <= 1) continue;
+          if (!this.canEverBeAttackedByPawn(r * 8 + f, isWhite)) holes++;
         }
       }
       return holes;
     }
 
     canEverBeAttackedByPawn(idx, isWhite) {
-      const file = idx % 8;
-      const rank = Math.floor(idx / 8);
-      const pawnRank = isWhite ? rank - 1 : rank + 1; // Rank where pawn would attack from
-
+      const file = idx & 7;
+      const rank = idx >> 3;
+      const pawnRank = isWhite ? rank + 1 : rank - 1;
       if (pawnRank < 0 || pawnRank > 7) return false;
-
-      const friendlyPawn = isWhite ? 'P' : 'p';
+      const friendlyPawn = isWhite ? 'white' : 'black';
       for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
         if (f === file) continue;
-        const pawnIdx = pawnRank * 8 + f;
-        if (this.board[pawnIdx] === friendlyPawn) return true;
+        const piece = this.board.get(pawnRank * 8 + f);
+        if (piece && piece.role === 'pawn' && piece.color === friendlyPawn) return true;
       }
       return false;
     }
 
-    // Material (M)
     evaluateMaterial() {
       let whiteMaterial = 0, blackMaterial = 0;
       let whiteBishops = 0, blackBishops = 0;
       let whiteKnights = 0, blackKnights = 0;
       let whiteRooks = 0, blackRooks = 0;
-      for (const piece of this.board) {
-        switch(piece) {
-          case 'B': whiteBishops++; break;
-          case 'b': blackBishops++; break;
-          case 'N': whiteKnights++; break;
-          case 'n': blackKnights++; break;
-          case 'R': whiteRooks++; break;
-          case 'r': blackRooks++; break;
-        }
-
-        const value = this.pieceValues[piece?.toLowerCase()] || 0;
-        if (/[A-Z]/.test(piece)) {
-          whiteMaterial += value;
-        } else {
-          blackMaterial += value;
-        }
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        if (piece.role === 'bishop') { if (piece.color === 'white') whiteBishops++; else blackBishops++; }
+        else if (piece.role === 'knight') { if (piece.color === 'white') whiteKnights++; else blackKnights++; }
+        else if (piece.role === 'rook') { if (piece.color === 'white') whiteRooks++; else blackRooks++; }
+        const value = this.pieceValues[piece.role] || 0;
+        if (piece.color === 'white') whiteMaterial += value;
+        else blackMaterial += value;
       }
-
-      // bishop pair
       if (whiteBishops == 2) whiteMaterial += 0.3;
       if (blackBishops == 2) blackMaterial += 0.3;
-
-      // Minor piece vs. rook imbalance penalty
       if (whiteRooks === 1 && whiteBishops + whiteKnights >= 2 && blackRooks === 0) whiteMaterial -= 0.2;
       if (blackRooks === 1 && blackBishops + blackKnights >= 2 && whiteRooks === 0) blackMaterial -= 0.2;
-
       const diff = whiteMaterial - blackMaterial;
-      return this.normalize(diff, -10, 10,'M'); // Max ~39, but 10 is decisive
+      return this.normalize(diff, -10, 10, 'M');
     }
-  
-    // Piece Activity (A)
     evaluatePieceActivity() {
       let whiteScore = 0, blackScore = 0;
-  
-      // Mobility: Count pseudo-legal moves (simplified)
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece) continue;
-        const isWhite = /[A-Z]/.test(piece);
-        const moves = this.getPseudoLegalMoves(i, piece);
-        if (isWhite) {
-          whiteScore += moves.length * 0.1;
-        } else {
-          blackScore += moves.length * 0.1;
-        }
+
+      // Mobility: count pseudo-legal moves
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        const moves = this.getPseudoLegalMoves(sq, piece);
+        if (piece.color === 'white') whiteScore += moves.length * 0.1;
+        else blackScore += moves.length * 0.1;
       }
 
       // Bonus for rooks and queens on open files
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece) continue;
-        const isWhite = /[A-Z]/.test(piece);
-        const type = piece.toLowerCase();
-        if (type === 'r' || type === 'q') {
-          const file = i % 8;
-          if (this.isOpenFile(file)) {
-            if (isWhite) {
-              whiteScore += 0.3;
-            } else {
-              blackScore += 0.3;
-            }
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        if (piece.role === 'rook' || piece.role === 'queen') {
+          if (this.isOpenFile(sq & 7)) {
+            if (piece.color === 'white') whiteScore += 0.3;
+            else blackScore += 0.3;
           }
         }
       }
 
-     // Knight outpost bonus
-     const outpostSquares = [19, 20, 27, 28, 35, 36, 43, 44]; // c4, c5, d4, d5, e4, e5, f4, f5
-     for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (piece?.toLowerCase() !== 'n') continue;
-        const isWhite = /[A-Z]/.test(piece);
-        const rank = Math.floor(i / 8);
-        const file = i % 8;
-        if (outpostSquares.includes(i)) { // Knight on d4, d5, e4, e5
-          const pawnSupport = (isWhite
-            ? (file > 0 && this.board[(rank + 1) * 8 + file - 1] === 'P') || (file < 7 && this.board[(rank + 1) * 8 + file + 1] === 'P')
-            : (file > 0 && this.board[(rank - 1) * 8 + file - 1] === 'p') || (file < 7 && this.board[(rank - 1) * 8 + file + 1] === 'p'));
-          const enemyPawnAttack = this.canEverBeAttackedByPawn(i, !isWhite);
+      // Knight outpost bonus
+      const outpostSquares = [19, 20, 27, 28, 35, 36, 43, 44]; // d/e files on ranks 3-6
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        if (piece.role !== 'knight') continue;
+        const rank = sq >> 3;
+        const file = sq & 7;
+        if (outpostSquares.includes(sq)) {
+          const isPawn = (t, color) => {
+            const p = this.board.get(t);
+            return p && p.role === 'pawn' && p.color === color;
+          };
+          const pawnSupport = piece.color === 'white'
+            ? (file > 0 && isPawn((rank - 1) * 8 + file - 1, 'white')) || (file < 7 && isPawn((rank - 1) * 8 + file + 1, 'white'))
+            : (file > 0 && isPawn((rank + 1) * 8 + file - 1, 'black')) || (file < 7 && isPawn((rank + 1) * 8 + file + 1, 'black'));
+          const enemyPawnAttack = this.canEverBeAttackedByPawn(sq, piece.color === 'black');
           if (!enemyPawnAttack) {
-            if (isWhite) {
-              whiteScore += pawnSupport ? 0.3 : 0.15; // Full bonus with support, half without
-            } else {
-              blackScore += pawnSupport ? 0.3 : 0.15;
-            }
+            if (piece.color === 'white') whiteScore += pawnSupport ? 0.3 : 0.15;
+            else blackScore += pawnSupport ? 0.3 : 0.15;
           }
         }
       }
@@ -1786,126 +1528,84 @@ class BrilliantMoveAnalyzer {
       // Central control
       for (const centerIdx of this.centralSquares) {
         let whiteAttacks = 0, blackAttacks = 0;
-        for (let i = 0; i < 64; i++) {
-          const piece = this.board[i];
-          if (!piece) continue;
-          const isWhitePiece = /[A-Z]/.test(piece);
-          if (piece.toLowerCase() === 'p') {
-            // Pawn attacks
-            const attacks = this.getPawnAttacks(i, isWhitePiece);
-            if (attacks.includes(centerIdx)) {
-              if (isWhitePiece) {
-                whiteAttacks++;
-              } else {
-                blackAttacks++;
-              }
-            }
-          } else {
-            // Other pieces use pseudo-legal moves
-            const moves = this.getPseudoLegalMoves(i, piece);
-            if (moves.includes(centerIdx)) {
-              if (isWhitePiece) {
-                whiteAttacks++;
-              } else {
-                blackAttacks++;
-              }
-            }
+        for (const sq of this.board.occupied) {
+          const piece = this.board.get(sq);
+          const attacks = piece.role === 'pawn'
+            ? this.getPawnAttacks(sq, piece.color === 'white')
+            : this.getPseudoLegalMoves(sq, piece);
+          if (attacks.includes(centerIdx)) {
+            if (piece.color === 'white') whiteAttacks++;
+            else blackAttacks++;
           }
         }
-        // Award bonus if more attackers
-        if (whiteAttacks > blackAttacks) {
-          whiteScore += 0.5;
-        } else if (blackAttacks > whiteAttacks) {
-          blackScore += 0.5;
-        }
+        if (whiteAttacks > blackAttacks) whiteScore += 0.5;
+        else if (blackAttacks > whiteAttacks) blackScore += 0.5;
       }
 
       // Diagonal control
       const longDiagonals = [
         [0, 9, 18, 27, 36, 45, 54, 63], // a1-h8
-        [7, 14, 21, 28, 35, 42, 49, 56] // a8-h1
+        [7, 14, 21, 28, 35, 42, 49, 56]  // a8-h1
       ];
-
       for (const diagonal of longDiagonals) {
         let whiteAttacks = 0, blackAttacks = 0;
         let whitePieceOnDiagonal = false, blackPieceOnDiagonal = false;
-
-        // Check for pieces directly on the diagonal
         for (const idx of diagonal) {
-          const piece = this.board[idx];
+          const piece = this.board.get(idx);
           if (!piece) continue;
-          const isWhite = /[A-Z]/.test(piece);
-          const type = piece.toLowerCase();
-          if (type === 'b' || type === 'q') {
-            if (isWhite) whitePieceOnDiagonal = true;
+          if (piece.role === 'bishop' || piece.role === 'queen') {
+            if (piece.color === 'white') whitePieceOnDiagonal = true;
             else blackPieceOnDiagonal = true;
           }
         }
-
-        // Check for pieces controlling the diagonal
-        for (let i = 0; i < 64; i++) {
-          const piece = this.board[i];
-          if (!['b','q'].includes(piece?.toLowerCase())) continue; // Only bishops and queens
-          const isWhite = /[A-Z]/.test(piece);
-          const moves = this.getPseudoLegalMoves(i, piece, true); // Use control moves
+        for (const sq of this.board.occupied) {
+          const piece = this.board.get(sq);
+          if (piece.role !== 'bishop' && piece.role !== 'queen') continue;
+          const moves = this.getPseudoLegalMoves(sq, piece, true);
           for (const idx of diagonal) {
             if (moves.includes(idx)) {
-              if (isWhite) whiteAttacks++;
+              if (piece.color === 'white') whiteAttacks++;
               else blackAttacks++;
             }
           }
         }
-
-        // Scoring
-        if (whitePieceOnDiagonal) whiteScore += 0.3; // Bonus for bishop/queen on diagonal
+        if (whitePieceOnDiagonal) whiteScore += 0.3;
         if (blackPieceOnDiagonal) blackScore += 0.3;
-        whiteScore += whiteAttacks * 0.1; // Bonus for each controlled square
+        whiteScore += whiteAttacks * 0.1;
         blackScore += blackAttacks * 0.1;
-      }  
+      }
 
       // Threats
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece) continue;
-        const isWhite = /[A-Z]/.test(piece);
-        const moves = piece.toLowerCase() === 'p'
-          ? this.getPawnAttacks(i, isWhite).concat(this.getPseudoLegalMoves(i, piece))
-          : this.getPseudoLegalMoves(i, piece);
-        const oppKing = isWhite ? 'k' : 'K';
-        const oppKingIdx = this.board.indexOf(oppKing);
-
+      const whiteKing = this.board.king.intersect(this.board.white).first();
+      const blackKing = this.board.king.intersect(this.board.black).first();
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        const isWhite = piece.color === 'white';
+        const moves = piece.role === 'pawn'
+          ? this.getPawnAttacks(sq, isWhite).concat(this.getPseudoLegalMoves(sq, piece))
+          : this.getPseudoLegalMoves(sq, piece);
+        const oppKingIdx = isWhite ? blackKing : whiteKing;
         for (const move of moves) {
-          const targetPiece = this.board[move];
-          // Check for checks
+          const targetPiece = this.board.get(move);
           if (move === oppKingIdx) {
-            if (isWhite) {
-              whiteScore += 0.3; // Bonus for delivering check
-            } else {
-              blackScore += 0.3;
-            }
+            if (isWhite) whiteScore += 0.3;
+            else blackScore += 0.3;
           }
-          // Check for captures
-          if (targetPiece && (isWhite ? /[a-z]/.test(targetPiece) : /[A-Z]/.test(targetPiece))) {
-            const value = this.pieceValues[targetPiece.toLowerCase()] || 0;
-            if (isWhite) {
-              whiteScore += value * 0.1; // Scaled capture value
-            } else {
-              blackScore += value * 0.1;
-            }
+          if (targetPiece && targetPiece.color !== piece.color) {
+            const value = this.pieceValues[targetPiece.role] || 0;
+            if (isWhite) whiteScore += value * 0.1;
+            else blackScore += value * 0.1;
           }
-          // Check for promotion threats (pawns on 6th/2nd rank with clear path)
-          if (piece.toLowerCase() === 'p') {
-            const rank = Math.floor(i / 8);
-            const file = i % 8;
-            const dir = isWhite ? -1 : 1;
+          if (piece.role === 'pawn') {
+            const rank = sq >> 3;
+            const file = sq & 7;
+            const dir = isWhite ? 1 : -1;
             const nextIdx = (rank + dir) * 8 + file;
-            if ((isWhite && rank === 1) || (!isWhite && rank === 6)) {
-              if (!this.board[nextIdx] || (this.board[nextIdx] && (isWhite ? /[a-z]/.test(this.board[nextIdx]) : /[A-Z]/.test(this.board[nextIdx])))) {
-                if (isWhite) {
-                  whiteScore += 0.4; // Bonus for promotion threat
-                } else {
-                  blackScore += 0.4;
-                }
+            if ((isWhite && rank === 6) || (!isWhite && rank === 1)) {
+              const target = this.board.get(nextIdx);
+              if (!target || target.color !== piece.color) {
+                if (isWhite) whiteScore += 0.4;
+                else blackScore += 0.4;
               }
             }
           }
@@ -1913,122 +1613,71 @@ class BrilliantMoveAnalyzer {
       }
 
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -15, 15,'A'); // max is 22+, but decisive would be 15
+      return this.normalize(diff, -15, 15, 'A');
+    }
+    getPawnAttacks(idx, isWhite) {
+      return Array.from(this.co.pawnAttacks(isWhite ? 'white' : 'black', idx));
     }
 
-    getPawnAttacks(idx, isWhite) {
-      const file = idx % 8;
-      const rank = Math.floor(idx / 8);
-      const attacks = [];
-      const dir = isWhite ? -1 : 1; // White attacks up, Black attacks down
-      // Diagonal attacks
-      const attackOffsets = [-1, 1]; // Left and right files
-      for (const fOffset of attackOffsets) {
-        const newFile = file + fOffset;
-        const newRank = rank + dir;
-        if (newFile >= 0 && newFile <= 7 && newRank >= 0 && newRank <= 7) {
-          const attackIdx = newRank * 8 + newFile;
-          attacks.push(attackIdx);
-        }
-      }
-      return attacks;
-    }
-  
-    getPseudoLegalMoves(idx, piece, control) {
-      const cacheKey = `${piece}${idx}`;
+    getPseudoLegalMoves(sq, piece, control) {
+      const cacheKey = piece.role + sq;
       let result = this.movesCache.get(cacheKey);
       if (result) return result;
-
       const moves = [];
-      const file = idx % 8;
-      const rank = Math.floor(idx / 8);
-      const isWhite = /[A-Z]/.test(piece);
-      const type = piece.toLowerCase();
-  
-      const directions = {
-        r: [[0, 1], [0, -1], [1, 0], [-1, 0]],
-        b: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
-        q: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
-        n: [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]],
-        k: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
-      };
-  
-      if (type === 'p') {
+      if (piece.role === 'pawn') {
         if (control) throw new Error('Should not use control=true for pawns');
-        const dir = isWhite ? -1 : 1;
-        const startRank = isWhite ? 6 : 1;
-        // Forward move
-        let newIdx = idx + dir * 8;
-        if (newIdx >= 0 && newIdx < 64 && !this.board[newIdx]) {
-          moves.push(newIdx);
-          // Double move from starting rank
-          if (rank === startRank) {
-            newIdx += dir * 8;
-            if (!this.board[newIdx]) moves.push(newIdx);
+        const dir = piece.color === 'white' ? 8 : -8;
+        const startRank = piece.color === 'white' ? 1 : 6;
+        const one = sq + dir;
+        if (one >= 0 && one < 64 && !this.board.get(one)) {
+          moves.push(one);
+          if ((sq >> 3) === startRank) {
+            const two = one + dir;
+            if (!this.board.get(two)) moves.push(two);
           }
         }
-        // Captures
-        for (const f of [-1, 1]) {
-          newIdx = idx + dir * 8 + f;
-          if (newIdx >= 0 && newIdx < 64 && Math.abs((newIdx % 8) - file) === 1) {
-            if (this.board[newIdx] && (isWhite ? /[a-z]/.test(this.board[newIdx]) : /[A-Z]/.test(this.board[newIdx]))) {
-              moves.push(newIdx);
-            }
-          }
+        for (const t of this.co.pawnAttacks(piece.color, sq)) {
+          const target = this.board.get(t);
+          if (target && target.color !== piece.color) moves.push(t);
         }
-      } else if (directions[type]) {
-        for (const [dr, df] of directions[type]) {
-          let r = rank + dr;
-          let f = file + df;
-          let steps = type === 'n' || type === 'k' ? 1 : 7;
-          while (steps-- && r >= 0 && r < 8 && f >= 0 && f < 8) {
-            const newIdx = r * 8 + f;
-            const target = this.board[newIdx];
-            if (target) {
-              const targetWhite = /[A-Z]/.test(target);
-              if (targetWhite == isWhite && !control) break;
-              moves.push(newIdx);
-              break;
-            }
-            moves.push(newIdx);
-            r += dr;
-            f += df;
-          }
+      } else {
+        let attacked;
+        switch (piece.role) {
+          case 'knight': attacked = this.co.knightAttacks(sq); break;
+          case 'bishop': attacked = this.co.bishopAttacks(sq, this.board.occupied); break;
+          case 'rook': attacked = this.co.rookAttacks(sq, this.board.occupied); break;
+          case 'queen': attacked = this.co.queenAttacks(sq, this.board.occupied); break;
+          case 'king': attacked = this.co.kingAttacks(sq); break;
+          default: attacked = this.co.SquareSet.empty(); break;
+        }
+        for (const t of attacked) {
+          const target = this.board.get(t);
+          if (target && target.color === piece.color && !control) continue;
+          moves.push(t);
         }
       }
-  
-      result = moves.filter(i => i >= 0 && i < 64);
-      this.movesCache.set(cacheKey, result);
-      return result;
+      this.movesCache.set(cacheKey, moves);
+      return moves;
     }
 
     isOpenFile(file) {
-      for (let r = 0; r < 8; r++) {
-        const idx = r * 8 + file;
-        if (this.board[idx] === 'P' || this.board[idx] === 'p') return false;
-      }
-      return true;
+      return this.co.SquareSet.fromFile(file).intersect(this.board.pawn).isEmpty();
     }
-  
-    // Pawn Structure (P)
     evaluatePawnStructure() {
       let whiteScore = 0, blackScore = 0;
-  
-      // Count pawns per file
       const whitePawns = Array(8).fill(0);
       const blackPawns = Array(8).fill(0);
-      for (let i = 0; i < 64; i++) {
-        if (this.board[i] === 'P') whitePawns[i % 8]++;
-        if (this.board[i] === 'p') blackPawns[i % 8]++;
+      for (const sq of this.board.pawn) {
+        const piece = this.board.get(sq);
+        if (piece.color === 'white') whitePawns[sq & 7]++;
+        else blackPawns[sq & 7]++;
       }
-  
-      // Doubled pawns
+
       for (let f = 0; f < 8; f++) {
         if (whitePawns[f] > 1) whiteScore -= (whitePawns[f] - 1) * 0.5;
         if (blackPawns[f] > 1) blackScore -= (blackPawns[f] - 1) * 0.5;
       }
-  
-      // Isolated pawns
+
       for (let f = 0; f < 8; f++) {
         if (whitePawns[f]) {
           const isIsolated = !whitePawns[Math.max(0, f - 1)] && !whitePawns[Math.min(7, f + 1)];
@@ -2039,77 +1688,60 @@ class BrilliantMoveAnalyzer {
           if (isIsolated) blackScore -= 0.5;
         }
       }
-  
-      // Passed pawns
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (piece === 'P') { // White pawn
-          if (this.isPassedPawn(i, true)) {
-            const r = Math.floor(i / 8); // Row from 0 (rank 8) to 7 (rank 1)
-            const advancedRows = 6 - r; // Rows advanced from starting row 6
-            whiteScore += 0.2 * advancedRows;
-          }
-        } else if (piece === 'p') { // Black pawn
-          if (this.isPassedPawn(i, false)) {
-            const r = Math.floor(i / 8);
-            const advancedRows = r - 1; // Rows advanced from starting row 1
-            blackScore += 0.2 * advancedRows;
-          }
+
+      for (const sq of this.board.pawn) {
+        const piece = this.board.get(sq);
+        if (piece.color === 'white' && this.isPassedPawn(sq, true)) {
+          whiteScore += 0.2 * ((sq >> 3) - 1);
+        } else if (piece.color === 'black' && this.isPassedPawn(sq, false)) {
+          blackScore += 0.2 * (6 - (sq >> 3));
         }
       }
 
-      // Pawn islands
       const whiteIslands = this.countPawnIslands(whitePawns);
       const blackIslands = this.countPawnIslands(blackPawns);
       whiteScore -= (whiteIslands - 1) * 0.5;
       blackScore -= (blackIslands - 1) * 0.5;
 
-      // Backward pawns
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (piece === 'P' && this.isBackwardPawn(i, true)) {
-          whiteScore -= this.isOpenFile(i % 8) ? 0.5 : 0.3;
+      for (const sq of this.board.pawn) {
+        const piece = this.board.get(sq);
+        if (piece.color === 'white' && this.isBackwardPawn(sq, true)) {
+          whiteScore -= this.isOpenFile(sq & 7) ? 0.5 : 0.3;
         }
-        if (piece === 'p' && this.isBackwardPawn(i, false)) {
-          blackScore -= this.isOpenFile(i % 8) ? 0.5 : 0.3;
+        if (piece.color === 'black' && this.isBackwardPawn(sq, false)) {
+          blackScore -= this.isOpenFile(sq & 7) ? 0.5 : 0.3;
         }
       }
 
-      // Pawn chain bonus
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (piece?.toLowerCase() != 'p') continue;
-        const isWhite = piece === 'P';
-        const file = i % 8;
-        const rank = Math.floor(i / 8);
-        const supportOffsets = isWhite ? [9, 7] : [-9, -7]; // Diagonal support (e.g., c3 supports d4 for white)
+      for (const sq of this.board.pawn) {
+        const piece = this.board.get(sq);
+        const isWhite = piece.color === 'white';
+        const file = sq & 7;
+        const supportOffsets = isWhite ? [-9, -7] : [7, 9];
         for (const offset of supportOffsets) {
-          const supportIdx = i + offset;
+          const supportIdx = sq + offset;
           if (supportIdx >= 0 && supportIdx < 64 && Math.abs((supportIdx % 8) - file) === 1) {
-            if (this.board[supportIdx] === piece) {
-              if (isWhite) {
-                whiteScore += 0.1; // Bonus for each supported pawn
-              } else {
-                blackScore += 0.1;
-              }
+            const support = this.board.get(supportIdx);
+            if (support && support.role === 'pawn' && support.color === piece.color) {
+              if (isWhite) whiteScore += 0.1;
+              else blackScore += 0.1;
             }
           }
         }
       }
-      const diff = whiteScore - blackScore; //TODO should we take into account the number of the pawns?
-      return this.normalize(diff, -7, 7,'P'); //max delta ~15.5, but average is ~7
+
+      const diff = whiteScore - blackScore;
+      return this.normalize(diff, -7, 7, 'P');
     }
-  
+
     isPassedPawn(idx, isWhite) {
-      const file = idx % 8;
-      const rank = Math.floor(idx / 8);
-      const direction = isWhite ? -1 : 1;
-      for (let r = rank + direction; isWhite ? r >= 0 : r < 8; r += direction) {
+      const file = idx & 7;
+      const rank = idx >> 3;
+      const direction = isWhite ? 1 : -1;
+      for (let r = rank + direction; isWhite ? r < 8 : r >= 0; r += direction) {
         for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
-          const checkIdx = r * 8 + f;
-          if ((isWhite && this.board[checkIdx] === 'p') || (!isWhite && this.board[checkIdx] === 'P')) {
-            return false;
-          }
+          const piece = this.board.get(r * 8 + f);
+          if (piece && piece.role === 'pawn' && piece.color === (isWhite ? 'black' : 'white')) return false;
         }
       }
       return true;
@@ -2120,10 +1752,7 @@ class BrilliantMoveAnalyzer {
       let inIsland = false;
       for (let f = 0; f < 8; f++) {
         if (pawns[f] > 0) {
-          if (!inIsland) {
-            islands++;
-            inIsland = true;
-          }
+          if (!inIsland) { islands++; inIsland = true; }
         } else {
           inIsland = false;
         }
@@ -2132,91 +1761,80 @@ class BrilliantMoveAnalyzer {
     }
 
     canBeCaptured(idx, isWhite) {
-      const oppPieces = isWhite ? /[a-z]/ : /[A-Z]/;
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece || !oppPieces.test(piece)) continue;
-        const isPawn = piece.toLowerCase() === 'p';
-        const moves = isPawn
-          ? this.getPawnAttacks(i, !isWhite)
-          : this.getPseudoLegalMoves(i, piece);
+      const enemy = isWhite ? 'black' : 'white';
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        if (!piece || piece.color !== enemy) continue;
+        const moves = piece.role === 'pawn'
+          ? this.getPawnAttacks(sq, piece.color === 'white')
+          : this.getPseudoLegalMoves(sq, piece);
         if (moves.includes(idx)) return true;
       }
       return false;
     }
-   
+
     isBackwardPawn(idx, isWhite) {
-      const file = idx % 8;
-      const rank = Math.floor(idx / 8);
-      const dir = isWhite ? -1 : 1;
+      const file = idx & 7;
+      const rank = idx >> 3;
+      const dir = isWhite ? 1 : -1;
       const nextRank = rank + dir;
       if (nextRank < 0 || nextRank > 7) return false;
-
       const forwardIdx = nextRank * 8 + file;
-      if (this.board[forwardIdx]) return false; // Blocked
-
-      if (this.canBeCaptured(forwardIdx, isWhite)) {
-        const hasSupport = (file > 0 && this.board[rank * 8 + file - 1] === (isWhite ? 'P' : 'p')) ||
-                           (file < 7 && this.board[rank * 8 + file + 1] === (isWhite ? 'P' : 'p'));
-        return !hasSupport;
-      }
-      return false;
+      if (this.board.get(forwardIdx)) return false;
+      if (!this.canBeCaptured(forwardIdx, isWhite)) return false;
+      const friendly = (sq) => {
+        const p = this.board.get(sq);
+        return p && p.role === 'pawn' && p.color === (isWhite ? 'white' : 'black');
+      };
+      return !((file > 0 && friendly(rank * 8 + file - 1)) || (file < 7 && friendly(rank * 8 + file + 1)));
     }
-  
-    // Space Advantage (S)
     evaluateSpace() {
       let whiteScore = 0, blackScore = 0;
-  
-      // Count controlled squares in opponent's half
       const whiteControlled = new Set();
       const blackControlled = new Set();
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece) continue;
-        const isPawn = /p/i.test(piece);
-        const isWhite = /[A-Z]/.test(piece);
-        const moves = isPawn
-                        ? this.getPawnAttacks(i, isWhite)
-                        : this.getPseudoLegalMoves(i, piece, true);
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        const isWhite = piece.color === 'white';
+        const moves = piece.role === 'pawn'
+          ? this.getPawnAttacks(sq, isWhite)
+          : this.getPseudoLegalMoves(sq, piece, true);
         for (const move of moves) {
-          const rank = Math.floor(move / 8);
-          if (isWhite && rank <= 3) whiteControlled.add(move);
-          if (!isWhite && rank >= 4) blackControlled.add(move);
+          const rank = move >> 3;
+          if (isWhite && rank >= 4) whiteControlled.add(move);
+          if (!isWhite && rank <= 3) blackControlled.add(move);
         }
       }
       whiteScore += whiteControlled.size * 0.1;
       blackScore += blackControlled.size * 0.1;
-  
-      // Bonus for central pawns
-      for (const idx of this.centralSquares) {
-        if (this.board[idx] === 'P') whiteScore += 1;
-        if (this.board[idx] === 'p') blackScore += 1;
-      }
 
-      // Penalty for cramped pieces
-      for (let i = 0; i < 64; i++) {
-        const piece = this.board[i];
-        if (!piece || piece.toLowerCase() === 'k') continue; // Skip kings
-        const isWhite = /[A-Z]/.test(piece);
-        const moves = piece.toLowerCase() === 'p' 
-          ? this.getPseudoLegalMoves(i, piece).concat(this.getPawnAttacks(i, isWhite))
-          : this.getPseudoLegalMoves(i, piece);
-        if (moves.length === 0) {
-          const penalty = this.pieceValues[piece.toLowerCase()] || 1;
-          if (isWhite) {
-            whiteScore -= penalty * 0.1 + 0.2;
-          } else {
-            blackScore -= penalty * 0.1 + 0.2;
-          }
+      for (const idx of this.centralSquares) {
+        const piece = this.board.get(idx);
+        if (piece && piece.role === 'pawn') {
+          if (piece.color === 'white') whiteScore += 1;
+          else blackScore += 1;
         }
       }
-  
+
+      for (const sq of this.board.occupied) {
+        const piece = this.board.get(sq);
+        if (!piece || piece.role === 'king') continue;
+        const isWhite = piece.color === 'white';
+        const moves = piece.role === 'pawn'
+          ? this.getPseudoLegalMoves(sq, piece).concat(this.getPawnAttacks(sq, isWhite))
+          : this.getPseudoLegalMoves(sq, piece);
+        if (moves.length === 0) {
+          const penalty = this.pieceValues[piece.role] || 1;
+          if (isWhite) whiteScore -= penalty * 0.1 + 0.2;
+          else blackScore -= penalty * 0.1 + 0.2;
+        }
+      }
+
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -7, 7,'S'); //max is ~11, 7 should be decisive
+      return this.normalize(diff, -7, 7, 'S');
     }
-  
-    // Main evaluation function
+
     async evaluate() {
+      if (!this.board) return { K: 0, M: 0, A: 0, P: 0, S: 0 };
       return {
         K: this.evaluateKingSafety(),
         M: this.evaluateMaterial(),
@@ -2227,153 +1845,332 @@ class BrilliantMoveAnalyzer {
     }
   }
 
-  LiChessTools.ChessPositionEvaluator = ChessPositionEvaluator;
-
+  LiChessTools.ChessKmapsEvaluator = ChessKmapsEvaluator;
   class ChessActivityEvaluator {
     constructor(board) {
-      this.board = board;
-      this.directions = {
-        p: [], // handled separately
-        n: [
-          [1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]
-        ],
-        b: [[1,1],[1,-1],[-1,1],[-1,-1]],
-        r: [[1,0],[-1,0],[0,1],[0,-1]],
-        q: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
-        k: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
-      };
-      this.pieceBaseMobility = {
-        p: 3,
-        n: 8,
-        b: 13,
-        r: 14,
-        q: 27,
-        k: 8
-      };
+      this.co = board || null;
+      this.chessops = ChessMetrics.chessops;
+      this.pieceBaseMobility = { pawn: 3, knight: 8, bishop: 13, rook: 14, queen: 27, king: 8 };
     }
-  
+
     SECONDARY = 0.2;
     CONTROLLED_BY_OPPONENT = 0.1;
     FREE = 1;
-  
-    inBounds(x, y) {
-      return x >= 0 && x < 8 && y >= 0 && y < 8;
-    }
-  
-    getColor(piece) { 
+
+    getColor(sq) {
+      const piece = this.co?.get(sq);
       if (!piece) return 0;
-      if (piece >= 'A' && piece <= 'Z') return 1;
-      if (piece >= 'a' && piece <= 'z') return -1;
-      throw new Error('piece '+piece+' not recognized');
+      return piece.color === 'white' ? 1 : -1;
     }
-  
-    getPieceType(piece) { return piece.toLowerCase(); }
-  
-    generateMoves(x, y) {
-      const piece = this.board[y][x];
+
+    getPieceType(sq) {
+      return this.co?.get(sq)?.role;
+    }
+
+    generateMoves(sq) {
+      const piece = this.co?.get(sq);
       if (!piece) return [];
-      const color = this.getColor(piece);
-      const type = this.getPieceType(piece);
-      const moves = [];
-  
-      if (type === 'p') {
-        const dir = -color;
-        const ny = y + dir;
-        if (this.inBounds(x, ny) && !this.board[ny][x]) {
-          moves.push([x, ny]);
-        }
-        for (const dx of [-1, 1]) {
-          const cx = x + dx;
-          if (this.inBounds(cx, ny) && this.getColor(this.board[ny][cx])==-color) moves.push([cx, ny]);
-        }
-        return moves;
+      let attacked;
+      switch (piece.role) {
+        case 'knight': attacked = this.chessops.knightAttacks(sq); break;
+        case 'bishop': attacked = this.chessops.bishopAttacks(sq, this.co.occupied); break;
+        case 'rook': attacked = this.chessops.rookAttacks(sq, this.co.occupied); break;
+        case 'queen': attacked = this.chessops.queenAttacks(sq, this.co.occupied); break;
+        case 'king': attacked = this.chessops.kingAttacks(sq); break;
+        case 'pawn': attacked = this.chessops.pawnAttacks(piece.color, sq); break;
+        default: return [];
       }
-  
-      const dirs = this.directions[type];
-      for (const [dx, dy] of dirs) {
-        let nx = x + dx, ny = y + dy;
-        if (['n', 'k'].includes(type)) {
-          if (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) moves.push([nx, ny]);
-        } else {
-          while (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) {
-            moves.push([nx, ny]);
-            if (this.board[ny][nx]) break;
-            nx += dx; ny += dy;
-          }
-        }
+      const friendly = piece.color === 'white' ? this.co.white : this.co.black;
+      const moves = [];
+      for (const t of attacked) {
+        if (!friendly.has(t)) moves.push(t);
+      }
+      if (piece.role === 'pawn') {
+        const forward = piece.color === 'white' ? sq + 8 : sq - 8;
+        if (forward >= 0 && forward < 64 && !this.co.get(forward)) moves.push(forward);
       }
       return moves;
     }
-  
+
     computeControlMap() {
       const control = Array.from({ length: 8 }, () => Array(8).fill(0));
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const piece = this.board[y][x];
-          if (!piece) continue;
-          const color = this.getColor(piece);
-          const moves = this.generateMoves(x, y);
-          for (const [mx, my] of moves) {
-            control[my][mx] += color;
-          }
+      for (const sq of this.co.occupied) {
+        const piece = this.co.get(sq);
+        const color = piece.color === 'white' ? 1 : -1;
+        for (const t of this.generateMoves(sq)) {
+          control[7 - (t >> 3)][t & 7] += color;
         }
       }
       return control;
     }
-  
-    evaluatePieceActivity(x, y, controlMap) {
-      const piece = this.board[y][x];
-      const type = this.getPieceType(piece);
-      const color = this.getColor(piece);
-      const moves = this.generateMoves(x, y);
-  
+
+    evaluatePieceActivity(sq, controlMap) {
+      const piece = this.co.get(sq);
+      const type = piece.role;
+      const color = piece.color === 'white' ? 1 : -1;
+      const moves = this.generateMoves(sq);
       let score = 0;
-      for (const [mx, my] of moves) {
-        const control = controlMap[my][mx];
+      for (const t of moves) {
+        const control = controlMap[7 - (t >> 3)][t & 7];
         score += control * color < 0 ? this.CONTROLLED_BY_OPPONENT : this.FREE;
       }
-  
-      // second-level mobility
-      for (const [mx, my] of moves) {
-        if (controlMap[my][mx] * color < 0) continue;
-        const clone = this.cloneBoard();
-        clone[my][mx] = piece;
-        clone[y][x] = undefined;
+      for (const t of moves) {
+        if (controlMap[7 - (t >> 3)][t & 7] * color < 0) continue;
+        const clone = this.co.clone();
+        clone.set(t, piece);
+        clone.take(sq);
         const sub = new ChessActivityEvaluator(clone);
-        const subMoves = sub.generateMoves(mx, my);
-        for (const [sx, sy] of subMoves) {
-          if (controlMap[sy][sx] * color >= 0) score += this.SECONDARY;
+        for (const s2 of sub.generateMoves(t)) {
+          if (controlMap[7 - (s2 >> 3)][s2 & 7] * color >= 0) score += this.SECONDARY;
         }
       }
-  
       return score / this.pieceBaseMobility[type];
     }
-  
+
     cloneBoard() {
-      return this.board.map(r => r.slice());
+      return this.co.clone();
     }
-  
+
     evaluateAll() {
+      if (!this.co) return { white: [], black: [] };
       const control = this.computeControlMap();
       const result = { white: [], black: [] };
-  
-      for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
-          const piece = this.board[y][x];
-          if (!piece) continue;
-          const score = this.evaluatePieceActivity(x, y, control);
-          const arr = this.getColor(piece)==1 ? result.white : result.black;
-          arr.push({ piece, x, y, score });
-        }
+      for (const sq of this.co.occupied) {
+        const piece = this.co.get(sq);
+        const score = this.evaluatePieceActivity(sq, control);
+        const ch = ChessMetrics.ROLE_LETTERS[piece.role];
+        const letter = piece.color === 'white' ? ch.toUpperCase() : ch;
+        const arr = piece.color === 'white' ? result.white : result.black;
+        arr.push({ piece: letter, x: sq & 7, y: 7 - (sq >> 3), score });
       }
-      result.white.sort((a,b)=>a.score-b.score);
-      result.black.sort((a,b)=>a.score-b.score);
-  
+      result.white.sort((a, b) => a.score - b.score);
+      result.black.sort((a, b) => a.score - b.score);
       return result;
     }
   }
 
   LiChessTools.ChessActivityEvaluator = ChessActivityEvaluator;
+
+  // Piece coordination (how well friendly pieces defend each other). Adapted to chessops.
+  class CoordinationCalculator {
+    MOVE_CAP = 3; // treat up to 3 moves as their real cost
+    ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
+
+    fenToBoardCache = new LiChessTools.MaxSizedMap(10000);
+
+    get co() {
+      return ChessMetrics.chessops;
+    }
+
+    parseBoard(fen) {
+      const co = this.co;
+      if (!co?.fen?.parseBoardFen) return null;
+      let board = this.fenToBoardCache.get(fen);
+      if (board) return board;
+      try {
+        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        board = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
+        if (!board) return null;
+        this.fenToBoardCache.set(fen, board);
+        return board;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    inBounds(sq) {
+      return sq >= 0 && sq < 64;
+    }
+
+    attacks(board, sq) {
+      const co = this.co;
+      const piece = board.get(sq);
+      if (!piece || !co) return [];
+      let attacked;
+      switch (piece.role) {
+        case 'knight': attacked = co.knightAttacks(sq); break;
+        case 'bishop': attacked = co.bishopAttacks(sq, board.occupied); break;
+        case 'rook': attacked = co.rookAttacks(sq, board.occupied); break;
+        case 'queen': attacked = co.queenAttacks(sq, board.occupied); break;
+        case 'king': attacked = co.kingAttacks(sq); break;
+        case 'pawn': attacked = co.pawnAttacks(piece.color, sq); break;
+        default: return [];
+      }
+      return [...attacked];
+    }
+
+    computeControlMap(board, color) {
+      const control = new Set();
+      const side = color === 'white' ? board.white : board.black;
+      for (const sq of side) {
+        for (const t of this.attacks(board, sq)) control.add(t);
+      }
+      return control;
+    }
+
+    movementTargets(board, sq, control) {
+      const piece = board.get(sq);
+      if (!piece) return [];
+      const role = piece.role;
+      const results = [];
+
+      const tryPush = (t) => {
+        if (!this.inBounds(t)) return;
+        if (board.get(t)) return;
+        if (!control.has(t)) return;
+        results.push(t);
+      };
+
+      if (role === 'knight' || role === 'king') {
+        for (const t of this.attacks(board, sq)) tryPush(t);
+        return results;
+      }
+
+      if (role === 'bishop' || role === 'rook' || role === 'queen') {
+        for (const t of this.attacks(board, sq)) {
+          if (board.get(t)) continue;
+          if (control.has(t)) results.push(t);
+        }
+        return results;
+      }
+
+      return results;
+    }
+
+    bfsDistances(board, startSq, control) {
+      const dist = Array(64).fill(Infinity);
+      const queue = [startSq];
+      dist[startSq] = 0;
+
+      while (queue.length) {
+        const sq = queue.shift();
+        const d = dist[sq];
+        for (const t of this.movementTargets(board, sq, control)) {
+          if (dist[t] > d + 1) {
+            dist[t] = d + 1;
+            queue.push(t);
+          }
+        }
+      }
+
+      return dist;
+    }
+
+    computeConnectionMetric(fen) {
+      const board = this.parseBoard(fen);
+      if (!board) return [];
+
+      const pieces = [];
+      for (const sq of board.occupied) {
+        const piece = board.get(sq);
+        if (piece && piece.role !== 'pawn') pieces.push({ sq, color: piece.color });
+      }
+
+      const controlW = this.computeControlMap(board, 'white');
+      const controlB = this.computeControlMap(board, 'black');
+
+      const cost = [];
+
+      for (let i = 0; i < pieces.length; i++) {
+        const { sq, color } = pieces[i];
+        const control = color === 'white' ? controlW : controlB;
+
+        const dist = this.bfsDistances(board, sq, control);
+
+        let best = Infinity;
+        for (let j = 0; j < pieces.length; j++) {
+          if (i === j) continue;
+          if (pieces[j].color !== color) continue;
+
+          const defending = this.detectMutualOrReachableDefense(board, pieces[i].sq, pieces[j].sq, dist);
+          if (defending < best) best = defending;
+        }
+
+        cost.push({
+          piece: pieces[i],
+          cost: best,
+        });
+      }
+
+      return cost;
+    }
+
+    detectMutualOrReachableDefense(board, sqA, sqB, distA) {
+      const attacksB = this.attacks(board, sqB);
+      if (attacksB.includes(sqA)) return 0;
+
+      let best = Infinity;
+      for (const t of attacksB) {
+        if (distA[t] < best) best = distA[t];
+      }
+      return best;
+    }
+
+    computeConnectivityScoreCapped(fen) {
+      const board = this.parseBoard(fen);
+      if (!board) return { white: { sum: 0, avg: 0, pieces: 0 }, black: { sum: 0, avg: 0, pieces: 0 } };
+
+      const whitePieces = [];
+      const blackPieces = [];
+      for (const sq of board.occupied) {
+        const piece = board.get(sq);
+        if (!piece || piece.role === 'pawn') continue;
+        (piece.color === 'white' ? whitePieces : blackPieces).push(sq);
+      }
+
+      const controlW = this.computeControlMap(board, 'white');
+      const controlB = this.computeControlMap(board, 'black');
+
+      const scoreWhiteSum = this.computeSideScoreCapped(board, whitePieces, controlW, 'white');
+      const scoreBlackSum = this.computeSideScoreCapped(board, blackPieces, controlB, 'black');
+
+      const scoreWhiteAvg = whitePieces.length ? scoreWhiteSum / whitePieces.length : 0;
+      const scoreBlackAvg = blackPieces.length ? scoreBlackSum / blackPieces.length : 0;
+
+      return {
+        white: { sum: scoreWhiteSum, avg: scoreWhiteAvg, pieces: whitePieces.length },
+        black: { sum: scoreBlackSum, avg: scoreBlackAvg, pieces: blackPieces.length },
+      };
+    }
+
+    computeSideScoreCapped(board, pieces, control, color) {
+      let sum = 0;
+
+      for (let i = 0; i < pieces.length; i++) {
+        const sqA = pieces[i];
+
+        const dist = this.bfsDistances(board, sqA, control);
+
+        let best = Infinity;
+
+        for (let j = 0; j < pieces.length; j++) {
+          if (i === j) continue;
+          const sqB = pieces[j];
+          const bp = board.get(sqB);
+          if (bp && bp.color !== color) continue;
+
+          const cost = this.detectMutualOrReachableDefense(board, sqA, sqB, dist);
+
+          if (cost < best) best = cost;
+        }
+
+        if (best === Infinity || best > this.MOVE_CAP) sum += this.ISOLATED_PENALTY;
+        else sum += best;
+      }
+
+      return sum;
+    }
+
+    getCoordination(fen) {
+      const result = this.computeConnectivityScoreCapped(fen);
+      const whiteVal = (5 - result.white.avg) * result.white.pieces;
+      const blackVal = (5 - result.black.avg) * result.black.pieces;
+      const coordination = (Math.min(50, whiteVal) - Math.min(50, blackVal)) * 2;
+      return coordination;
+    }
+  }
+
+  LiChessTools.CoordinationCalculator = CoordinationCalculator;
 
   // Positional valuation (ported from Raccoon by Michael Edegware, GPL v3), adapted to chessops.
   class ChessPositionValuator {

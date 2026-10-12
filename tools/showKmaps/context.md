@@ -10,7 +10,7 @@ Category: General (Advanced in the user manual; preference itself is not marked 
 
 | File | Role |
 |------|------|
-| `tool.js` | Class `ShowKmapsTool` (UI, placement, refresh) and embedded class `ChessPositionEvaluator` (metrics) |
+| `tool.js` | Class `ShowKmapsTool` (UI, placement, refresh) and embedded class `ChessKmapsEvaluator` (metrics) |
 | `tool.css` | Layout for text and radar views, hover scale on canvas, mini-game spacing, study multiboard eval-toggle hide |
 
 ## Dependencies
@@ -95,7 +95,7 @@ Skipped when:
 - Analysis static-analysis setting is off **and** local ceval is off
 - Study multiboard eval checkbox is present and unchecked (CSS also hides `.lichessTools-kmaps` in that case)
 
-## ChessPositionEvaluator (implementation summary)
+## ChessKmapsEvaluator (implementation summary)
 
 Constructor: parse first FEN field into 64-length board (rank 8 first, a8=0). Piece values and center indices `d4,d5,e4,e5` (27,28,35,36). Move cache Map for pseudo-legal generation.
 

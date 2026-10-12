@@ -226,15 +226,17 @@
       if (!board) return;
       const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
       this.startBoard ||= lt.getBoardFromFen(startFen);
+      if (!this.startBoard) return;
 
       let changes = 0;
       const rowsToCheck = [0, 1, 6, 7];
 
       for (const row of rowsToCheck) {
         for (let f = 0; f < 8; f++) {
-          const current = board[row][f];
-          const start = this.startBoard[row][f];
-          if (current !== start) changes++;
+          const sq = f + (7 - row) * 8;
+          const current = board.get(sq);
+          const start = this.startBoard.get(sq);
+          if (current?.role !== start?.role || current?.color !== start?.color) changes++;
         }
       }
 

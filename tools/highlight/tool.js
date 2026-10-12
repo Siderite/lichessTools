@@ -192,11 +192,13 @@
         const mainNode = analysis.nodeList.findLast((n, i) => n == analysis.mainline[i]);
         const mainBoard = lt.getBoardFromFen(mainNode.fen);
         const squares = [];
-        for (let x = 0; x < 8; x++) {
-          for (let y = 0; y < 8; y++) {
-            if (board[y][x] != mainBoard[y][x]) {
-              const sq = String.fromCharCode('a'.charCodeAt(0) + x) + (8 - y);
-              squares.push(sq);
+        if (board && mainBoard) {
+          for (let sq = 0; sq < 64; sq++) {
+            const a = board.get(sq);
+            const b = mainBoard.get(sq);
+            if (a?.role !== b?.role || a?.color !== b?.color) {
+              const x = sq & 7;
+              squares.push(String.fromCharCode('a'.charCodeAt(0) + x) + (1 + (sq >> 3)));
             }
           }
         }

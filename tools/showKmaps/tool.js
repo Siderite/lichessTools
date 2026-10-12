@@ -38,7 +38,7 @@
 
     getKmaps = async (fen, isBlack) => {
       const lt = this.lichessTools;
-      const evaluator = new LiChessTools.ChessPositionEvaluator(fen);
+      const evaluator = new LiChessTools.ChessKmapsEvaluator(fen, lt.chessopsModule);
       const kmaps = await evaluator.evaluate();
       const q = isBlack ? -1 : 1;
       return { 

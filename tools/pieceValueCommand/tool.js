@@ -76,29 +76,30 @@
     };
 
     invalidBecauseCheck = (board, isBlackTurn) => {
-      const turnPieces = isBlackTurn ? 'qrb' : 'QRB';
-      const targetKing = isBlackTurn ? 'K' : 'k';
+      const turnColor = isBlackTurn ? 'black' : 'white';
+      const targetKingColor = isBlackTurn ? 'white' : 'black';
+      const rookDirections = [[-1,0],[1,0],[0,-1],[0,1]];
+      const bishopDirections = [[-1,-1],[1,1],[1,-1],[-1,1]];
       for (let j=0; j<8; j++) {
         for (let i=0; i<8; i++) {
-          const ch = board[j][i];
-          if (!turnPieces.includes(ch)) continue;
-          const rookDirections = [[-1,0],[1,0],[0,-1],[0,1]];
-          const bishopDirections = [[-1,-1],[1,1],[1,-1],[-1,1]];
+          const piece = board.get(i + (7 - j) * 8);
+          if (!piece || piece.color !== turnColor) continue;
           let directions;
-          switch(ch.toLowerCase()) {
-            case 'q': directions = rookDirections.concat(bishopDirections); break;
-            case 'r': directions = rookDirections; break;
-            case 'b': directions = bishopDirections; break;
+          switch(piece.role) {
+            case 'queen': directions = rookDirections.concat(bishopDirections); break;
+            case 'rook': directions = rookDirections; break;
+            case 'bishop': directions = bishopDirections; break;
+            default: continue;
           }
           for (const direction of directions) {
-            const pos={ i, j };
+            let x = i, y = j;
             while (true) {
-              pos.i+=direction[0];
-              pos.j+=direction[1];
-              if (pos.i<0 || pos.i>7 || pos.j<0 || pos.j>7) break;
-              const ch2 = board[pos.j][pos.i];
-              if (!ch2) continue;
-              if (ch2 !== targetKing) break;
+              x += direction[0];
+              y += direction[1];
+              if (x<0 || x>7 || y<0 || y>7) break;
+              const other = board.get(x + (7 - y) * 8);
+              if (!other) continue;
+              if (other.color !== targetKingColor || other.role !== 'king') break;
               return true;
             }
           }
@@ -126,6 +127,10 @@
         }
         this.lastProcessedFen = fen;
         const board = lt.getBoardFromFen(fen);
+        if (!board) {
+          clearValues = false;
+          return;
+        }
         const pieces = $('cg-container piece:not([data-eval]):not(.ghost)').get();
         if (!pieces.length) {
           clearValues = false;
@@ -143,17 +148,24 @@
             if (!key) continue;
             const x = key.charCodeAt(0)-97;
             const y = 56-key.charCodeAt(1);
-            const ch = board[y][x];
-            if ([undefined,'k','K'].includes(ch)) {
+            const sq = x + (7 - y) * 8;
+            const piece = board.get(sq);
+            if (!piece || piece.role === 'king') {
               continue;
             }
-            board[y][x]=undefined;
-            if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) {
-              board[y][x]=ch;
+            const roleLetter = LiChessTools.ChessMetrics.ROLE_LETTERS[piece.role];
+            const ch = piece.color === 'white' ? roleLetter.toUpperCase() : roleLetter;
+            board.take(sq);
+            if (this.invalidBecauseCheck(board, fen.split(' ')[1]=='b')) {
+              board.set(sq, piece);
               continue;
             }
             const psplits = lt.getFenFromBoard(board).split(/\s+/);
             const fenSplits = [];
+            const isRook = (s, color) => {
+              const r = board.get(s);
+              return !!r && r.role === 'rook' && r.color === color;
+            };
             for (let i=0; i<splits.length; i++) {
               if (i<psplits.length) {
                 fenSplits.push(psplits[i]);
@@ -162,11 +174,12 @@
                 if (i==2) {
                   val = [...val].filter(c=>{
                     switch(c) {
-                      case 'k': return board[0][7]=='r';
-                      case 'q': return board[0][0]=='r';
-                      case 'K': return board[7][7]=='R';
-                      case 'Q': return board[7][7]=='R';
+                      case 'k': return isRook(63, 'black');
+                      case 'q': return isRook(56, 'black');
+                      case 'K': return isRook(7, 'white');
+                      case 'Q': return isRook(7, 'white');
                     }
+                    return false;
                   }).join('');
                   val ||='-';
                 }
@@ -174,7 +187,7 @@
               }
             }
             const pfen = fenSplits.join(' ');
-            board[y][x]=ch;
+            board.set(sq, piece);
             this.current = { e, ch, baseEval, fen };
             const style = $(e).attr('style');
             const newStyle = style.replaceAll(/transform:([^;]+);/g,(...m)=>{

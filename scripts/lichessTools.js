@@ -1298,74 +1298,31 @@
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
-      const fullFen = fen;
-      let result = this.fenToBoard.get(fen);
-      if (result) return this._cloneBoard(result);
-      result = [];
-      for (let i = 0; i < 8; i++) result.push(Array(8));
-      const splits = fen.split(' ');
-      fen = splits[0];
-      let enpassant = splits[3];
-      if (enpassant && enpassant != '-') {
-        result.enpassant = {
-          x: 104 - enpassant.charCodeAt(0),
-          y: enpassant.charCodeAt(1) - 49
-        };
-      }
-      let x = 0;
-      let y = 0;
-      for (let i = 0; i < fen.length; i++) {
-        if (y>7) break;
-        const ch = fen[i];
-        if ('kqrbnp'.indexOf(ch.toLowerCase()) >= 0) {
-          result[y][x] = ch;
-          x++;
-          continue;
-        }
-        if (ch == '/') {
-          x = 0;
-          y++;
-          continue;
-        }
-        x += (+ch);
-      }
-      result.fen = fen;
-      this._attachChessopsBoard(result, fullFen);
-      this.fenToBoard.set(fen,result);
-      return this._cloneBoard(result);
-    };
-
-    _attachChessopsBoard = (board, fen) => {
       const co = this.chessopsModule;
-      if (!co?.fen?.parseFen) return;
+      if (!co?.fen?.parseBoardFen) return null;
+      let result = this.fenToBoard.get(fen);
+      if (result) return result.clone();
       try {
-        const setup = co.fen.parseFen(fen);
-        const value = setup && typeof setup.unwrap === 'function' ? setup.unwrap() : setup;
-        const coBoard = value?.board;
-        if (coBoard) {
-          Object.defineProperty(board, 'co', { value: coBoard, enumerable: false, configurable: true, writable: false });
-        }
+        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        result = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
+        if (!result) return null;
+        this.fenToBoard.set(fen, result);
+        return result.clone();
       } catch (e) {
-        // chessops couldn't parse this FEN; leave board.co unset
+        return null;
       }
-    };
-
-    _cloneBoard = (board) => {
-      const clone = board.map(r => r.slice());
-      if (board.fen !== undefined) clone.fen = board.fen;
-      if (board.enpassant !== undefined) clone.enpassant = board.enpassant;
-      if (board.co) {
-        Object.defineProperty(clone, 'co', { value: board.co, enumerable: false, configurable: true, writable: false });
-      }
-      return clone;
     };
 
     getFenFromBoard = (board) => {
+      if (!board) return '';
+      const co = this.chessopsModule;
+      if (co?.fen?.makeBoardFen) return co.fen.makeBoardFen(board);
       let fen = '';
-      for (let i = 0; i < 8; i++) {
+      const letters = { king: 'k', queen: 'q', rook: 'r', bishop: 'b', knight: 'n', pawn: 'p' };
+      for (let r = 7; r >= 0; r--) {
         let emptyCount = 0;
-        for (let j = 0; j < 8; j++) {
-          const piece = board[i][j];
+        for (let f = 0; f < 8; f++) {
+          const piece = board.get(r * 8 + f);
           if (!piece) {
             emptyCount++;
           } else {
@@ -1373,13 +1330,14 @@
               fen += emptyCount;
               emptyCount = 0;
             }
-            fen += piece;
+            const ch = letters[piece.role];
+            fen += piece.color === 'white' ? ch.toUpperCase() : ch;
           }
         }
         if (emptyCount > 0) {
           fen += emptyCount;
         }
-        if (i < 7) {
+        if (r > 0) {
           fen += '/';
         }
       }

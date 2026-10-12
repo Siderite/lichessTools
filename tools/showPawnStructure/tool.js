@@ -34,6 +34,7 @@
 
     getStructureName = async (structure, onlyNamed) => {
       const lt = this.lichessTools;
+      if (!structure) return null;
       const threshold = this.options.fuzzy ? 90 : 100;
 
       if (!this.pawnStructures) {
