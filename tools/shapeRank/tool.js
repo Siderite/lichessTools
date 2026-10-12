@@ -26,10 +26,12 @@
     }
 
 
-    shouldNotBeRanked = (shape)=>{
+    shouldBeRanked = (shape)=>{
+      if (shape?.source) return false;
       const circles = shape.customSvg?.html?.matchAll(/circle/g);
       const isGooglyHorsey = circles && [...circles].length==6;
-      return !isGooglyHorsey;
+      if (isGooglyHorsey) return false;
+      return true;
     };
 
     ensureShapeRank = () => {
@@ -48,7 +50,7 @@
           configurable: true,
           get: function () {
             let label=1;
-            for (const shape of this._shapes.filter(tool.shouldNotBeRanked)) {
+            for (const shape of this._shapes.filter(tool.shouldBeRanked)) {
               if (tool.options.enabled) {
                 shape.label={ text: String(label) };
                 label++;

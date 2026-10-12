@@ -226,13 +226,13 @@
         }
 
         const data = info.map(i=>({
-          cp: lt.getCentipawns(i),
+          cp: LiChessTools.ChessMetrics.getCentipawnOnlyValue(i),
           uci: i.pv?.[0],
           hash: lt.hash(lt.global.JSON.stringify(i)),
           order: i.order
         }));
-        const best = lt.winPerc(this.options.manualChoice && historyItem.best
-          ? lt.getCentipawns(historyItem.best)
+        const best = LiChessTools.ChessMetrics.centipawnsToWinPercentage(this.options.manualChoice && historyItem.best
+          ? LiChessTools.ChessMetrics.getCentipawnOnlyValue(historyItem.best)
           : data[0].cp
         );
 
@@ -259,8 +259,8 @@
             })
             .on('click',async ev=>{
               ev.preventDefault();
-              const winPerc = lt.winPerc(moveData.cp);
-              const moveAccuracy = lt.accuracy(best, winPerc);
+              const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(moveData.cp);
+              const moveAccuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(best, winPerc);
               historyItem.score = Math.round(moveAccuracy*10)/10;
               const ch2 = ch.clone();
               ch2.play(move);
@@ -275,8 +275,8 @@
                   .each((i,e)=>{
                     const btn = $(e);
                     const inf = data.find(d=>d.hash==btn.attr('data-hash'));
-                    const wp = lt.winPerc(inf.cp);
-                    const acc = lt.accuracy(best,wp);
+                    const wp = LiChessTools.ChessMetrics.centipawnsToWinPercentage(inf.cp);
+                    const acc = LiChessTools.ChessMetrics.winDeltaToAccuracy(best,wp);
                     const color = lt.getGradientColor(acc, [{ q: 70, color: '#FF2020' }, { q: 85, color: '#FFFF00' }, { q: 100, color: '#00FF00' }]);
                     btn
                       .css('background',color)

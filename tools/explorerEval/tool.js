@@ -218,7 +218,7 @@
 
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-          sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          sharpness = LiChessTools.ChessMetrics.wdlToSharpness(w, d, l);
 
           const winMargin = Math.round(10000*(explorerItem.white-explorerItem.black)/total)/100;
           const wilson = (x,n)=>{
@@ -290,7 +290,7 @@
           explorerItem.mate = move.mate;
 
           if (total >= 100) {
-            const moveCp = lt.getCentipawns(move);
+            const moveCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(move);
             const sim = Math.round(Math.abs(moveCp - cp) / (Math.abs(moveCp) + Math.abs(cp)) * 100);
             if (sim >= 20) {
               explorerItem.diff = Math.abs(moveCp - cp);
@@ -645,7 +645,7 @@
         if (!Number.isNaN(total)) {
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          const sharpness = LiChessTools.ChessMetrics.wdlToSharpness(w, d, l);
           if (sharpness && Number.isFinite(sharpness)) {
             const sharpnessText = trans.pluralSame('sharpnessText', sharpness);
             const sharpnessTitle = trans.pluralSame('sharpnessTitle', sharpness);

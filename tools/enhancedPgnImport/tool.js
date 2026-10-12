@@ -90,7 +90,7 @@
       for (const item of items) {
         if (item.type == 1) {
           if (prevItem) {
-            const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+            const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !LiChessTools.ChessMetrics.isStartFen(prevItem.result.game.fen);
             if (hasSetupFen) {
               pgns.push(prevItem.result);
               prevItem = null;
@@ -141,7 +141,7 @@
         if (!this.isEmpty(result)) {
           pgns.push(result);
         } else {
-          const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !lt.isStartFen(prevItem.result.game.fen);
+          const hasSetupFen = prevItem.type == 1 && prevItem.result?.game?.fen && !LiChessTools.ChessMetrics.isStartFen(prevItem.result.game.fen);
           if (hasSetupFen) {
             pgns.push(prevItem.result);
           } else {

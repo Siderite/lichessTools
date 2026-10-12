@@ -158,8 +158,6 @@
       endGame: '#707070'
     };
 
-    pieceMaterial = LiChessTools.ChessMetrics.pieceMaterial;
-
     getNodeTurn = (node) => {
       const isWhite = node.fen
         ? node.fen.includes(' w ')
@@ -167,47 +165,12 @@
       return isWhite ? 1 : -1;
     };
 
-    simpleMaterial = (node, isTotal, side) => LiChessTools.ChessMetrics.simpleMaterial(node, isTotal, side);
-
     evaluator = LiChessTools.Evaluator
                   ? new LiChessTools.Evaluator()
                   : { evaluate: (fen)=>0 };
     heuristic = node => {
       return this.evaluator.evaluate(node.fen);
     }
-
-    pieceTension = (x, y, board, withSupport) => LiChessTools.ChessMetrics.pieceTension(x, y, board, withSupport);
-
-    tension = node => LiChessTools.ChessMetrics.tension(node, this.lichessTools);
-
-    getAllCapturingMoves = (board) => LiChessTools.ChessMetrics.getAllCapturingMoves(board, this.lichessTools);
-
-    materialWon = (board, x, y) => LiChessTools.ChessMetrics.materialWon(board, x, y, this.lichessTools);
-
-    maxMaterialWonCache = new LiChessTools.MaxSizedMap(10000);
-    maxMaterialWon = (board, m) => {
-      const lt = this.lichessTools;
-      const Math = lt.global.Math;
-      const key = [lt.getFenFromBoard(board),m].join('|');
-      let result = this.maxMaterialWonCache.get(key);
-      if (result) return result;
-      let mx = 0;
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ch = board[y][x];
-          if (!ch) continue; // no piece
-          const pm = ch === ch.toUpperCase() ? 1 : -1;
-          if (pm == m) continue; // wrong turn
-          const mw = this.materialWon(board, x, y);
-          if (Math.sign(mw) == m && Math.abs(mw) > mx) {
-            mx = Math.abs(mw);
-          }
-        }
-      }
-      result = mx * m;
-      this.maxMaterialWonCache.set(key, result);
-      return result;
-    };
 
     smooth = (points) => {
       return points;
@@ -235,7 +198,7 @@
       const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
-          const cp = this.simpleMaterial(node);
+          const cp = LiChessTools.ChessMetrics.simpleMaterial(node);
           return {
             y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
             x: node.ply
@@ -249,7 +212,7 @@
       return mainline
         .map((node, x) => {
           const evl = this.heuristic(node);
-          const mat = this.simpleMaterial(node)
+          const mat = LiChessTools.ChessMetrics.simpleMaterial(node)
           let val = evl - mat;
           const cp = val * 2;
           return {
@@ -262,7 +225,7 @@
 
     getCp = (evl, side = 1) => {
       const lt = this.lichessTools;
-      return lt.getCentipawns(evl) * side;
+      return LiChessTools.ChessMetrics.getCentipawnOnlyValue(evl) * side;
     };
 
     getLocalData = (mainline) => {
@@ -344,8 +307,8 @@
           const evl = this.getNodeCeval(node);
           if (!evl) return null;
           const cp = this.getCp(evl, side);
-          const winPerc = lt.winPerc(cp);
-          const accuracy = lt.accuracy(prevWinPerc, winPerc);
+          const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
+          const accuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(prevWinPerc, winPerc);
           prevWinPerc = winPerc;
           const val = Math.max(Math.min(accuracy, 100), 0) / 50 - 1;
           prevVal = val;
@@ -504,8 +467,8 @@
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return;
-      const w1 = lt.winPerc(cp1);
-      const w2 = lt.winPerc(cp2);
+      const w1 = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp1);
+      const w2 = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp2);
       return (w1 - w2) * side;
     }
 
@@ -563,7 +526,7 @@
         .map((node, x) => {
           try {
             let result = null;
-            if (lt.isMate(node) || p2 === undefined) return result;
+            if (LiChessTools.ChessMetrics.isSanMate(node) || p2 === undefined) return result;
             const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
             const bril = this.computeBrilliant(node, p2, p3, co);
@@ -648,8 +611,8 @@
       let maxX = 0;
       mainline
         .forEach((node, x) => {
-          const tension = this.tension(node);
-          const totalMaterial = this.simpleMaterial(node, true);
+          const tension = LiChessTools.ChessMetrics.tension(node, this.lichessTools);
+          const totalMaterial = LiChessTools.ChessMetrics.simpleMaterial(node, true);
           if (maxT < tension || (maxT == tension && maxM < totalMaterial)) {
             maxT = tension;
             maxX = node.ply;
@@ -690,7 +653,7 @@
         .forEach((node, x) => {
           const board = lt.getBoardFromFen(node.fen);
           const m = this.getNodeTurn(node);
-          const maxMaterial = Math.abs(this.maxMaterialWon(board, m));
+          const maxMaterial = Math.abs(LiChessTools.ChessMetrics.maxMaterialWon(board, m, lt));
           if (maxM < maxMaterial) {
             maxM = maxMaterial;
             maxX = node.ply;
@@ -1707,7 +1670,7 @@
 
       if (!lt.inViewport(container)) return;
 
-      const mat = this.simpleMaterial(node);
+      const mat = LiChessTools.ChessMetrics.simpleMaterial(node);
       const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
       const evl = this.heuristic(node);
       const val = (evl - mat) * 2;
@@ -1764,7 +1727,7 @@
         const evl = this.getNodeCeval(node);
         if (evl) {
           const cp = this.getCp(evl, 1);
-          initialWinPerc = lt.winPerc(cp);
+          initialWinPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
         }
       } 
 
@@ -1801,7 +1764,7 @@
           const evl = this.getNodeCeval(node);
           if (!evl) return;
           const cp = this.getCp(evl, 1);
-          const winPerc = lt.winPerc(cp);
+          const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
           return { turn: turn, winPerc: winPerc }
         })
         .filter(wp=>wp!==undefined);
@@ -1842,7 +1805,7 @@
          ? [ next.winPerc , prev.winPerc]
          : [ prev.winPerc , next.winPerc];
 
-        const accuracy = lt.accuracy(expected, played);
+        const accuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(expected, played);
 
         weightedAccuracies.push({ accuracy, weight, color: prev.turn });
       }

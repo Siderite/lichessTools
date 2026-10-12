@@ -34,7 +34,7 @@
       const $ = lt.$;
       const input = $('div.copyables input[enterkeyhint="done"]');
       const fen = input.val();
-      const mirrorFen = lt.reverseFen(fen);
+      const mirrorFen = LiChessTools.ChessMetrics.mirrorFen(fen);
       input.val(mirrorFen).trigger('change');
     };
 

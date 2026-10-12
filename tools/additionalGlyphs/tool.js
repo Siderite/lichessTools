@@ -203,13 +203,13 @@
         }
       }
       if (this.options.miss && !symbols.find(s=>s=='X')) {
-        const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>lt.getCentipawns(n.ceval || n.eval));
+        const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>LiChessTools.ChessMetrics.getCentipawnOnlyValue(n.ceval || n.eval));
         const d1=cp-cp1;
         const d2=cp2-cp1;
         const q = Math.abs(d1-d2)/Math.abs(d1);
         if (q<0.2) {
-          const w = lt.winPerc(cp);
-          const w1 = lt.winPerc(cp1);
+          const w = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
+          const w1 = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp1);
           const side = node.ply % 2 == 0 ? -1 : 1;
           const badMove = (w - w1) * side < -20	;
           if (badMove) { 
@@ -322,7 +322,7 @@
 
       const sigmoid = x => 1 / (1 + Math.exp(-x));
       const getSide = n => (n.fen ? n.fen.includes(' w') : n.ply%2 == 0) ? 1 : -1;
-      const getCp = (evl,side) => lt.getCentipawns(evl) * side;
+      const getCp = (evl,side) => LiChessTools.ChessMetrics.getCentipawnOnlyValue(evl) * side;
 
       const topTotal = total(topItem);
       const rarity = 1 - moveTotal/explorerTotal;

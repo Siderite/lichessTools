@@ -191,7 +191,7 @@ class BrilliantMoveAnalyzer {
     if (ev.delivered) return 100;
     if (ev.mate != null) return ev.mate > 0 ? 100 : ev.mate < 0 ? 0 : 50;
     const cp = Math.min(1000, Math.max(-1000, ev.cp || 0));
-    return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    return ChessMetrics.centipawnsToWinPercentage(cp);
   }
   static _cp(ev) { // centipawns, mate = +-1000
     if (ev.delivered) return 1000;
@@ -1108,6 +1108,31 @@ class BrilliantMoveAnalyzer {
       result += ChessMetrics.materialWon(board, x, y, lt);
       result = Math.sign(result) != side ? 0 : result;
       ChessMetrics.materialWonCache.set(key, result);
+      return result;
+    }
+
+    static maxMaterialWonCache = new LiChessTools.MaxSizedMap(10000);
+
+    static maxMaterialWon(board, m, lt) {
+      const Math = lt.global.Math;
+      const key = [lt.getFenFromBoard(board), m].join('|');
+      let result = ChessMetrics.maxMaterialWonCache.get(key);
+      if (result) return result;
+      let mx = 0;
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const ch = board[y][x];
+          if (!ch) continue; // no piece
+          const pm = ch === ch.toUpperCase() ? 1 : -1;
+          if (pm == m) continue; // wrong turn
+          const mw = ChessMetrics.materialWon(board, x, y, lt);
+          if (Math.sign(mw) == m && Math.abs(mw) > mx) {
+            mx = Math.abs(mw);
+          }
+        }
+      }
+      result = mx * m;
+      ChessMetrics.maxMaterialWonCache.set(key, result);
       return result;
     }
 

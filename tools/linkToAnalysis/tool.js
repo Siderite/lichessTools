@@ -40,7 +40,7 @@
           .attr('title',trans.noarg('linkToAnalysisTitle'))
           .appendTo('.copyables .pgn .pair');
       }
-      if (analysis.tree.root.children?.length == 0 && lt.isStartFen(analysis.node.fen)) {
+      if (analysis.tree.root.children?.length == 0 && LiChessTools.ChessMetrics.isStartFen(analysis.node.fen)) {
         button.remove();
         return;
       }
@@ -48,7 +48,7 @@
       let url = (this._links||=new Map()).get(initialPgn);
       if (!url) {
         let pgn = initialPgn.replaceAll(/\[\w+\s+"[^"]*"\]\s+/g,'');
-        if (!lt.isStartFen(analysis.tree.root.fen)) {
+        if (!LiChessTools.ChessMetrics.isStartFen(analysis.tree.root.fen)) {
           pgn = '[FEN "'+analysis.tree.root.fen+'"]\r\n'+pgn;
         }
         pgn = pgn.replaceAll(/(\d+\.(?:\.\.)?)\s+/g,'$1');

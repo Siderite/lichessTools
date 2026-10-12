@@ -263,12 +263,6 @@
         : ceval;
     };
 
-    getCentipawns = (info) => LiChessTools.ChessMetrics.getCentipawnOnlyValue(info);
-
-    winPerc = (cp) => LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
-
-    accuracy = (expected, played) => LiChessTools.ChessMetrics.winDeltaToAccuracy(expected, played);
-
     crc24 = (data) => {
       const polynomial = 0x864CFB;
       let crc = 0xFFFFFF;
@@ -836,14 +830,6 @@
       return !node.children?.length;
     }
 
-    isMate(node) {
-      return LiChessTools.ChessMetrics.isSanMate(node);
-    }
-
-    isCheck(node) {
-      return LiChessTools.ChessMetrics.isSanCheck(node);
-    }
-
     getNodePosition(node) {
       return this.getFenPosition(node.fen);
     }
@@ -1056,7 +1042,7 @@
         state.nodeIndex++;
         if (node.comp) node.ltComp = true;
         if (!node.ltComp && (forced || this.isTreeviewVisible())) {
-          node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
+          node.isCommentedOrMate = this.isCommented(node) || LiChessTools.ChessMetrics.isSanMate(node);
           node.lt_position = this.getNodePosition(node);
           let pos = state.positions[node.lt_position];
           if (!pos) {
@@ -1081,7 +1067,7 @@
           if (this.isLastInLine(node)) {
             state.lastMoves.push(node);
           }
-          if (this.isCheck(node)) {
+          if (LiChessTools.ChessMetrics.isSanCheck(node)) {
             state.checks.push(node);
           }
         }
@@ -1309,8 +1295,6 @@
     };
 
 
-    isStartFen = (fen) => LiChessTools.ChessMetrics.isStartFen(fen);
-
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
@@ -1374,8 +1358,6 @@
       }
       return fen;
     };
-
-    reverseFen = (fen) => LiChessTools.ChessMetrics.mirrorFen(fen);
 
     makeSvg = (svgText, chessground) => {
       return {

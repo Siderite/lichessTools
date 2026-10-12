@@ -50,12 +50,6 @@
       };
     };
 
-    getWeakSquares = (board,isWhite) => LiChessTools.ChessMetrics.getWeakSquares(board,isWhite);
-
-    getPawns = (board,isWhite) => LiChessTools.ChessMetrics.getPawns(board,isWhite);
-
-    getPawnBreaks = (board,isWhite) => LiChessTools.ChessMetrics.getPawnBreaks(board,isWhite);
-
     addArrow = (x1,y1,x2,y2, options) => {
       const lt = this.lichessTools;
       const cg = lt.getChessground();
@@ -70,6 +64,7 @@
         orig: orig,
         dest: dest,
         brush: 'white',
+        source: 'moveAssistant',
         ...options
       };
       const shapes = (drawable.shapes ||= []);
@@ -173,10 +168,10 @@
       const isWhite = analysis.getOrientation() != 'black';
 
       this.clearHighlight('lichessTools-weakSquare');
-      this.getWeakSquares(board,isWhite)
+      LiChessTools.ChessMetrics.getWeakSquares(board,isWhite)
         .forEach(r=>this.highlight(r.x,r.y,'lichessTools-weakSquare'));
       this.clearHighlight('lichessTools-weakSquareOpponent');
-      this.getWeakSquares(board,!isWhite)
+      LiChessTools.ChessMetrics.getWeakSquares(board,!isWhite)
         .forEach(r=>this.highlight(r.x,r.y,'lichessTools-weakSquareOpponent'));
     };
 
@@ -197,7 +192,7 @@
       let isWhite = analysis.getOrientation() != 'black';
 
       const pieces = $('.cg-wrap cg-board piece.pawn');
-      this.getPawns(board,isWhite)
+      LiChessTools.ChessMetrics.getPawns(board,isWhite)
         .forEach(r=>{
           const cgKey = this.getCgKey(r.x,r.y);
           pieces
@@ -206,7 +201,7 @@
             .toggleClassSafe('lichessTools-isolatedPawn',!!r.isolated)
             .toggleClassSafe('lichessTools-hangingPawn',!!r.hanging);
         });
-      this.getPawns(board,!isWhite)
+      LiChessTools.ChessMetrics.getPawns(board,!isWhite)
         .forEach(r=>{
           const cgKey = this.getCgKey(r.x,r.y);
           pieces
@@ -233,8 +228,8 @@
       const board = lt.getBoardFromFen(analysis.node.fen);
 
       this.clearArrows('moveAssistant');
-      this.getPawnBreaks(board,true)
-        .concat(this.getPawnBreaks(board,false))
+      LiChessTools.ChessMetrics.getPawnBreaks(board,true)
+        .concat(LiChessTools.ChessMetrics.getPawnBreaks(board,false))
         .forEach(r=>{
           r.breaks.forEach(b=>{
             this.addArrow(r.x,r.y,b.x,b.y,{
@@ -464,7 +459,7 @@
           lt.global.console.debug('Depth:', depth + '/' + seldepth);
         }
       }
-      const cp = lt.getCentipawns(info);
+      const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(info);
       this._eval[uci] = cp;
       let wdl = info.wdl;
       if (wdl?.length == 3) {

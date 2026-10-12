@@ -116,7 +116,7 @@
         const evl = lt.getNodeCeval(node);
         if (instrument && evl) {
           const side = analysis.getOrientation() == 'black' ? -1 : 1;
-          const cp = lt.getCentipawns(evl);
+          const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(evl);
           const q = 24 / (1 + Math.exp(-0.004 * cp * side));
           const sndIndex = parseInt(q).toString().padStart(3, '0');
           lt.play('instrument/' + instrument + '/c' + sndIndex + '.mp3', 0.05);

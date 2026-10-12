@@ -69,7 +69,7 @@
       }
       await sf.stop();
       const turn = fen.includes(' b ') ? -1 : 1;
-      const result = lt.getCentipawns(this.info) * turn;
+      const result = LiChessTools.ChessMetrics.getCentipawnOnlyValue(this.info) * turn;
       this.info=null;
       this.lastInfo=null;
       return result;
@@ -227,7 +227,7 @@
       const $ = lt.$;
       if (!this.current) return;
       const turn = this.current.fen.split(' ')[1]=='b' ? -1 : 1;
-      const val = lt.getCentipawns(info) * turn;
+      const val = LiChessTools.ChessMetrics.getCentipawnOnlyValue(info) * turn;
       this.displayValue(this.current.e, this.current.baseEval - val, this.current.ch, true);
     };
 

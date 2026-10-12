@@ -371,7 +371,8 @@
           shapes.push({
             orig: child.uci.slice(0, 2),
             dest: child.uci.slice(2, 4),
-            brush: 'green'
+            brush: 'green',
+            source: 'extendedInteractiveLesson'
           });
           if (child.promotion) {
             shapes.push({
@@ -381,7 +382,8 @@
                 role: child.promotion,
                 scale: 0.8
               },
-              brush: 'green'
+              brush: 'green',
+              source: 'extendedInteractiveLesson'
             });
           }
         }

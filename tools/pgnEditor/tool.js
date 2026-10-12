@@ -582,7 +582,7 @@
           .write(`[StudyName "${studyName}"]`)
           .write(`[ChapterName "${chapterName}"]`)
           .write(`[Annotator "https://lichess.org/@/${userId}"]`, !!userId)
-          .write(`[FEN "${fen}"]`, fen && !lt.isStartFen(fen))
+          .write(`[FEN "${fen}"]`, fen && !LiChessTools.ChessMetrics.isStartFen(fen))
           .write('');
         return arr;
       };
@@ -890,7 +890,6 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lt = this.lichessTools;
 
       game.pawnStructureDict = new Map();
-      const { getStructure, getOpposingStructure } = lt.tools.ShowPawnStructureTool;
 
       const traverse = (node, ply = 0) => {
         const fen = node.data?.fen;
@@ -902,8 +901,8 @@ https://www.chessable.com/course/${courseId}/ } *`)
         }
         let structure;
         const board = lt.getBoardFromFen(fen);
-        structure = getStructure(board,false);
-        for (const key of [structure, getOpposingStructure(structure)]) {
+        structure = LiChessTools.ChessMetrics.getStructure(board,false);
+        for (const key of [structure, LiChessTools.ChessMetrics.getOpposingStructure(structure)]) {
           let arr = game.pawnStructureDict.get(key);
           if (!arr) {
             arr = [];
@@ -2017,7 +2016,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
           const comments = node.data?.comments || [];
           const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
           if (!match) return;
-          const evl = lt.getCentipawns(match.groups);
+          const evl = LiChessTools.ChessMetrics.getCentipawnOnlyValue(match.groups);
           let toRemove = false;
           switch (operator) {
             case '>':
@@ -2147,7 +2146,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const comments = node.data?.comments || [];
             const match = comments.map(c => /(?:\beval:|%eval) (?:#(?<mate>[\-\+]?\d+)|(?<cp>[\-\+]?\d+(?:\.\d+)?))/.exec(c)).find(m => !!m);
             if (!match) return;
-            const evl = lt.getCentipawns(match.groups);
+            const evl = LiChessTools.ChessMetrics.getCentipawnOnlyValue(match.groups);
             switch (operator) {
               case '>':
                 found = evl > value;

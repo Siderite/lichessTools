@@ -72,8 +72,8 @@
           if (!this.options.justOrientation || analysis.getOrientation() != analysis.turnColor()) {
             if (best && node.eval?.best != best) {
               if (node.eval) {
-                const newCp = lt.getCentipawns(newCeval);
-                const existingCp = lt.getCentipawns(node.eval);
+                const newCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(newCeval);
+                const existingCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(node.eval);
                 if (newCp >= existingCp && newCeval.depth >= (node.eval.depth || 0)) {
                   node.eval.best = best;
                 }

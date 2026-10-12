@@ -143,7 +143,7 @@
               const info = text.startsWith('#')
                 ? { mate: +text.slice(1) }
                 : { cp: (+text) * 100 };
-              const val = lt.winPerc(lt.getCentipawns(info));
+              const val = LiChessTools.ChessMetrics.centipawnsToWinPercentage(LiChessTools.ChessMetrics.getCentipawnOnlyValue(info));
               if (first === null) {
                 first = val;
                 $(e).toggleClassSafe('best',true);
@@ -300,7 +300,7 @@
       ctx.beginPath();
       ctx.moveTo(0, 10);
       for (const i of depths) {
-        const cp = lt.getCentipawns(db.get(i));
+        const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(db.get(i));
         const v = lt.sigmoidClamp(-cp,0,20,2000);
         ctx.lineTo(i, v);
       }
@@ -308,7 +308,7 @@
 
       const data = [...db.entries()
                      .filter(([k,v])=>k>2)
-                     .map(([k,v])=>({ depth: k, cp: lt.getCentipawns(v) }))];
+                     .map(([k,v])=>({ depth: k, cp: LiChessTools.ChessMetrics.getCentipawnOnlyValue(v) }))];
 
       let sumBefore = 0;
       let sumAfter = data.reduce((a,v)=>a+v.cp,0);
@@ -415,7 +415,7 @@
         return;
       }
       const side = analysis.turnColor()=='white'?-1:1;
-      const maxCp = lt.getCentipawns(ceval.pvs[0])*side;
+      const maxCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(ceval.pvs[0])*side;
       const minCp = maxCp-300;
       if (!container.length) {
         container = $('<div class="lichessTools-drawPvs">')
@@ -423,7 +423,7 @@
       }
       const data = new Map();
       const pvs = [ceval].concat(ceval.pvs?.slice(1));
-      for (const cp of pvs.map(pv=>lt.getCentipawns(pv)*side)) {
+      for (const cp of pvs.map(pv=>LiChessTools.ChessMetrics.getCentipawnOnlyValue(pv)*side)) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,cp));
         let item = data.get(rcp);
         if (!item) {
@@ -435,7 +435,7 @@
           item.count++;
         }
       }
-      const currCp = lt.getCentipawns(currCeval)*side;
+      const currCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(currCeval)*side;
       if (currCp) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,currCp));
         let item = data.get(rcp);
@@ -472,11 +472,11 @@
       }
       if (data?.pvs?.length) {
         const side = analysis.turnColor()=='white'?-1:1;
-        const cp = lt.getCentipawns(data)*side;
+        const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(data)*side;
         if (cp) {
-          const best = lt.winPerc(cp);
+          const best = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
           for (const pv of data.pvs) {
-            const wp = lt.winPerc(lt.getCentipawns(pv)*side);
+            const wp = LiChessTools.ChessMetrics.centipawnsToWinPercentage(LiChessTools.ChessMetrics.getCentipawnOnlyValue(pv)*side);
             const uci = pv?.moves?.[0];
             if (!uci) continue;
             const obj = db.discoverDepth.get(uci);

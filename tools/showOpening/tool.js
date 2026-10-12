@@ -144,7 +144,7 @@
         }
         let opening = this.opening_dict.get(pos);
         if (!opening) {
-          const reversed = lt.getPositionFromFen(lt.reverseFen(fen));
+          const reversed = lt.getPositionFromFen(LiChessTools.ChessMetrics.mirrorFen(fen));
           const op = this.opening_dict.get(reversed);
           if (op && op != '*') opening = op + ' (R)';
         }

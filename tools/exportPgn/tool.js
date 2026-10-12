@@ -367,7 +367,7 @@
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
-        if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
+        if (varNode?.fen && !LiChessTools.ChessMetrics.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
           if (options.exportTags) {
             addTag(tags, 'SetUp', '1');

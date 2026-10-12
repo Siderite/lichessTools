@@ -32,13 +32,6 @@
       }
     }
 
-    getStructure = (board, blackOrientation) => LiChessTools.ChessMetrics.getStructure(board, blackOrientation);
-
-    keySimilarityDirect = (kSearch, kNamed) => LiChessTools.ChessMetrics.keySimilarityDirect(kSearch, kNamed);
-    keySimilarity = (kSearch, kNamed) => LiChessTools.ChessMetrics.keySimilarity(kSearch, kNamed);
-
-    getOpposingStructure = structure => LiChessTools.ChessMetrics.getOpposingStructure(structure);
-
     getStructureName = async (structure, onlyNamed) => {
       const lt = this.lichessTools;
       const threshold = this.options.fuzzy ? 90 : 100;
@@ -57,7 +50,7 @@
           return {
             key: k,
             value: this.pawnStructures[k],
-            similarity: this.keySimilarity(structure, k)
+            similarity: LiChessTools.ChessMetrics.keySimilarity(structure, k)
           };
         });
         arr.sort((o1, o2) => o2.similarity - o1.similarity);
@@ -66,7 +59,7 @@
 
       const arr = getArr(structure);
       if (arr[0].similarity == 100) return arr[0].value;
-      const opp = this.getOpposingStructure(structure);
+      const opp = LiChessTools.ChessMetrics.getOpposingStructure(structure);
       const oppArr = getArr(opp).map(i => {
         return {
           ...i,
@@ -167,7 +160,7 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board);
+        const structure = LiChessTools.ChessMetrics.getStructure(board);
         const inCurrentGames = !!$(el).closest('.now-playing').length;
         const structureName = await this.getStructureName(structure, inCurrentGames);
         this.addStructureAnchor(el, structureName, structure);
@@ -192,7 +185,7 @@
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
-      const structure = await this.getStructure(board);
+      const structure = await LiChessTools.ChessMetrics.getStructure(board);
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();

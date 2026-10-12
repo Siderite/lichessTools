@@ -205,7 +205,7 @@
       const info={...this.info};
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
-      const winValue = (info.mate?.[0] === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
+      const winValue = (info.mate?.[0] === '0' ? -10000 : LiChessTools.ChessMetrics.getCentipawnOnlyValue(info)) * boardSign * side;
 
       const glyph = {
         symbol: lt.icon.NeutralFace,
