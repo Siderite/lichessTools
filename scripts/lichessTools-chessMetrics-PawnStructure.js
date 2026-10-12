@@ -154,15 +154,12 @@
       const b = board;
       if (!b) return [];
       const myPawns = [];
-      const theirPawns = [];
       for (const sq of b.pawn) {
         const piece = b.get(sq);
         const x = sq & 7;
         const y = 7 - (sq >> 3);
         if (piece.color === (isWhite ? 'white' : 'black')) {
           myPawns.push({ x, y });
-        } else {
-          theirPawns.push({ x, y });
         }
       }
       const files = PawnStructure.range(0, 7).filter(x => myPawns.find(p => p.x == x));
@@ -185,13 +182,8 @@
           p.hanging = true;
         });
 
-      const at = (x, y) => (x >= 0 && x < 8 && y >= 0 && y < 8) ? b.get(PawnStructure._square(x, y)) : null;
       myPawns.forEach(p => {
-        const dy = isWhite ? -1 : 1;
-        if (at(p.x, p.y + dy)) return;
-        const ys = isWhite ? (p.y < 7 ? PawnStructure.range(p.y, 7) : []) : (p.y > 1 ? PawnStructure.range(p.y, 1) : []);
-        if (myPawns.find(mp => ys.includes(mp.y) && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) return;
-        if (theirPawns.find(mp => mp.y == p.y + dy * 2 && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) p.backward = true;
+        if (PawnStructure.isBackward(b, PawnStructure._square(p.x, p.y), isWhite)) p.backward = true;
       });
 
       return myPawns;
@@ -295,6 +287,48 @@
 
     static isOpenFile(board, file) {
       return PawnStructure.co.SquareSet.fromFile(file).intersect(board.pawn).isEmpty();
+    }
+
+    static _sidePawns(board, isWhite) {
+      return board.pawn.intersect(isWhite ? board.white : board.black);
+    }
+
+    static isPassed(board, sq, isWhite) {
+      const file = sq & 7;
+      const rank = sq >> 3;
+      const dir = isWhite ? 1 : -1;
+      const their = PawnStructure._sidePawns(board, !isWhite);
+      for (let r = rank + dir; isWhite ? r < 8 : r >= 0; r += dir) {
+        for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+          if (their.has(r * 8 + f)) return false;
+        }
+      }
+      return true;
+    }
+
+    static isDoubled(board, sq, isWhite) {
+      const file = sq & 7;
+      const my = PawnStructure._sidePawns(board, isWhite);
+      return PawnStructure.co.SquareSet.fromFile(file).intersect(my).size() > 1;
+    }
+
+    static isBackward(board, sq, isWhite) {
+      const file = sq & 7;
+      const rank = sq >> 3;
+      const my = PawnStructure._sidePawns(board, isWhite);
+      const their = PawnStructure._sidePawns(board, !isWhite);
+      for (let r = rank; r >= 0 && r <= 7; r += (isWhite ? -1 : 1)) {
+        const s = r * 8 + file;
+        if ((file > 0 && my.has(s - 1)) || (file < 7 && my.has(s + 1))) return false;
+      }
+      const ahead = rank + (isWhite ? 2 : -2);
+      if (ahead < 0 || ahead > 7) return false;
+      for (const df of [-1, 1]) {
+        const f = file + df;
+        if (f < 0 || f > 7) continue;
+        if (their.has(ahead * 8 + f)) return true;
+      }
+      return false;
     }
   }
 

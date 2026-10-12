@@ -142,17 +142,13 @@
 
     _material(pos, phase) {
       const V = phase === 0 ? ChessPositionValuator.PIECE_VALUE_MG : ChessPositionValuator.PIECE_VALUE_EG;
-      const w = V.pawn * pos.wP.size() + V.knight * pos.wN.size() + V.bishop * pos.wB.size() + V.rook * pos.wR.size() + V.queen * pos.wQ.size();
-      const b = V.pawn * pos.bP.size() + V.knight * pos.bN.size() + V.bishop * pos.bB.size() + V.rook * pos.bR.size() + V.queen * pos.bQ.size();
-      return w - b;
+      return LiChessTools.Material.value(pos.board, 'white', V) - LiChessTools.Material.value(pos.board, 'black', V);
     }
 
     _nonPawnMaterial(pos, color) {
       const V = ChessPositionValuator.PIECE_VALUE_MG;
-      if (color === 'white') {
-        return V.knight * pos.wN.size() + V.bishop * pos.wB.size() + V.rook * pos.wR.size() + V.queen * pos.wQ.size();
-      }
-      return V.knight * pos.bN.size() + V.bishop * pos.bB.size() + V.rook * pos.bR.size() + V.queen * pos.bQ.size();
+      const counts = LiChessTools.Material.count(pos.board)[color];
+      return counts.knight * V.knight + counts.bishop * V.bishop + counts.rook * V.rook + counts.queen * V.queen;
     }
 
     _imbalance(pos) {
@@ -265,25 +261,11 @@
     }
 
     _doubled(pos, color, sq) {
-      const pawns = color === 'white' ? pos.wP : pos.bP;
-      const behind = sq + (color === 'white' ? -8 : 8);
-      return this._onBoard(behind) && pawns.has(behind) ? 1 : 0;
+      return LiChessTools.PawnStructure.isDoubled(pos.board, sq, color === 'white') ? 1 : 0;
     }
 
     _backward(pos, color, sq) {
-      const forward = color === 'white' ? 8 : -8;
-      let s = sq;
-      while (this._onBoard(s)) {
-        if (this._phalanx(pos, color, s)) return 0;
-        s -= forward;
-      }
-      const oppPawns = color === 'white' ? pos.bP : pos.wP;
-      const ahead = sq + 2 * forward;
-      for (const d of [-1, 1]) {
-        const t = ahead + d;
-        if (this._onBoard(t) && oppPawns.has(t)) return 1;
-      }
-      return 0;
+      return LiChessTools.PawnStructure.isBackward(pos.board, sq, color === 'white') ? 1 : 0;
     }
 
     _connectedBonus(pos, color, sq) {

@@ -4,7 +4,7 @@
       this.co = co;
       this.board = co ? this.parseFEN(fen) : null;
       this.movesCache = new Map();
-      this.pieceValues = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0 };
+      this.pieceValues = LiChessTools.Material.VALUE;
       this.centralSquares = [27, 28, 35, 36];
     }
 
@@ -20,9 +20,7 @@
     }
 
     normalize(score, min, max, area) {
-      if (score >= max) return 1;
-      if (score <= min) return -1;
-      return (2 * (score - min)) / (max - min) - 1;
+      return LiChessTools.Scoring.normalize(score, min, max);
     }
 
     evaluateKingSafety() {
@@ -71,23 +69,13 @@
     }
 
     evaluateMaterial() {
-      let whiteMaterial = 0, blackMaterial = 0;
-      let whiteBishops = 0, blackBishops = 0;
-      let whiteKnights = 0, blackKnights = 0;
-      let whiteRooks = 0, blackRooks = 0;
-      for (const sq of this.board.occupied) {
-        const piece = this.board.get(sq);
-        if (piece.role === 'bishop') { if (piece.color === 'white') whiteBishops++; else blackBishops++; }
-        else if (piece.role === 'knight') { if (piece.color === 'white') whiteKnights++; else blackKnights++; }
-        else if (piece.role === 'rook') { if (piece.color === 'white') whiteRooks++; else blackRooks++; }
-        const value = this.pieceValues[piece.role] || 0;
-        if (piece.color === 'white') whiteMaterial += value;
-        else blackMaterial += value;
-      }
-      if (whiteBishops == 2) whiteMaterial += 0.3;
-      if (blackBishops == 2) blackMaterial += 0.3;
-      if (whiteRooks === 1 && whiteBishops + whiteKnights >= 2 && blackRooks === 0) whiteMaterial -= 0.2;
-      if (blackRooks === 1 && blackBishops + blackKnights >= 2 && whiteRooks === 0) blackMaterial -= 0.2;
+      const counts = LiChessTools.Material.count(this.board);
+      let whiteMaterial = LiChessTools.Material.value(this.board, 'white');
+      let blackMaterial = LiChessTools.Material.value(this.board, 'black');
+      if (counts.white.bishop == 2) whiteMaterial += 0.3;
+      if (counts.black.bishop == 2) blackMaterial += 0.3;
+      if (counts.white.rook === 1 && counts.white.bishop + counts.white.knight >= 2 && counts.black.rook === 0) whiteMaterial -= 0.2;
+      if (counts.black.rook === 1 && counts.black.bishop + counts.black.knight >= 2 && counts.white.rook === 0) blackMaterial -= 0.2;
       const diff = whiteMaterial - blackMaterial;
       return this.normalize(diff, -10, 10, 'M');
     }
@@ -226,8 +214,8 @@
       const diff = whiteScore - blackScore;
       return this.normalize(diff, -15, 15, 'A');
     }
-    getPawnAttacks(idx, isWhite) {
-      return Array.from(this.co.pawnAttacks(isWhite ? 'white' : 'black', idx));
+    getPawnAttacks(idx) {
+      return LiChessTools.MoveGen.attacks(this.board, idx);
     }
 
     getPseudoLegalMoves(sq, piece, control) {
@@ -247,21 +235,12 @@
             if (!this.board.get(two)) moves.push(two);
           }
         }
-        for (const t of this.co.pawnAttacks(piece.color, sq)) {
+        for (const t of LiChessTools.MoveGen.attacks(this.board, sq)) {
           const target = this.board.get(t);
           if (target && target.color !== piece.color) moves.push(t);
         }
       } else {
-        let attacked;
-        switch (piece.role) {
-          case 'knight': attacked = this.co.knightAttacks(sq); break;
-          case 'bishop': attacked = this.co.bishopAttacks(sq, this.board.occupied); break;
-          case 'rook': attacked = this.co.rookAttacks(sq, this.board.occupied); break;
-          case 'queen': attacked = this.co.queenAttacks(sq, this.board.occupied); break;
-          case 'king': attacked = this.co.kingAttacks(sq); break;
-          default: attacked = this.co.SquareSet.empty(); break;
-        }
-        for (const t of attacked) {
+        for (const t of LiChessTools.MoveGen.attacks(this.board, sq)) {
           const target = this.board.get(t);
           if (target && target.color === piece.color && !control) continue;
           moves.push(t);
@@ -346,16 +325,7 @@
     }
 
     isPassedPawn(idx, isWhite) {
-      const file = idx & 7;
-      const rank = idx >> 3;
-      const direction = isWhite ? 1 : -1;
-      for (let r = rank + direction; isWhite ? r < 8 : r >= 0; r += direction) {
-        for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
-          const piece = this.board.get(r * 8 + f);
-          if (piece && piece.role === 'pawn' && piece.color === (isWhite ? 'black' : 'white')) return false;
-        }
-      }
-      return true;
+      return LiChessTools.PawnStructure.isPassed(this.board, idx, isWhite);
     }
 
     countPawnIslands(pawns) {
@@ -385,19 +355,7 @@
     }
 
     isBackwardPawn(idx, isWhite) {
-      const file = idx & 7;
-      const rank = idx >> 3;
-      const dir = isWhite ? 1 : -1;
-      const nextRank = rank + dir;
-      if (nextRank < 0 || nextRank > 7) return false;
-      const forwardIdx = nextRank * 8 + file;
-      if (this.board.get(forwardIdx)) return false;
-      if (!this.canBeCaptured(forwardIdx, isWhite)) return false;
-      const friendly = (sq) => {
-        const p = this.board.get(sq);
-        return p && p.role === 'pawn' && p.color === (isWhite ? 'white' : 'black');
-      };
-      return !((file > 0 && friendly(rank * 8 + file - 1)) || (file < 7 && friendly(rank * 8 + file + 1)));
+      return LiChessTools.PawnStructure.isBackward(this.board, idx, isWhite);
     }
     evaluateSpace() {
       let whiteScore = 0, blackScore = 0;

@@ -16,6 +16,25 @@
       return piece.color === 'white' ? ch.toUpperCase() : ch;
     }
 
+    static count(board) {
+      const result = {
+        white: { pawn: 0, knight: 0, bishop: 0, rook: 0, queen: 0, king: 0 },
+        black: { pawn: 0, knight: 0, bishop: 0, rook: 0, queen: 0, king: 0 },
+      };
+      for (const sq of board?.occupied || []) {
+        const piece = board.get(sq);
+        if (piece) result[piece.color][piece.role]++;
+      }
+      return result;
+    }
+
+    static value(board, color, table) {
+      const V = table || Material.VALUE;
+      const counts = Material.count(board)[color];
+      return counts.pawn * V.pawn + counts.knight * V.knight + counts.bishop * V.bishop
+        + counts.rook * V.rook + counts.queen * V.queen + counts.king * V.king;
+    }
+
     static simpleMaterial(fen, isTotal, side) {
       let result = 0;
       if (!fen) return result;
