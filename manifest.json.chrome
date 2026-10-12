@@ -39,7 +39,16 @@
         "scripts/lichessTools-indexedDbStorage.js",
         "scripts/lichessTools-apiSemaphore.js",
         "scripts/lichessTools-maxSizedMap.js",
-        "scripts/lichessTools-chessMetrics.js"
+        "scripts/lichessTools-chessMetrics-Material.js",
+        "scripts/lichessTools-chessMetrics-Scoring.js",
+        "scripts/lichessTools-chessMetrics-MoveGen.js",
+        "scripts/lichessTools-chessMetrics-PawnStructure.js",
+        "scripts/lichessTools-chessMetrics-ChessMetrics.js",
+        "scripts/lichessTools-chessMetrics-BrilliantMoveAnalyzer.js",
+        "scripts/lichessTools-chessMetrics-ChessKmapsEvaluator.js",
+        "scripts/lichessTools-chessMetrics-ChessActivityEvaluator.js",
+        "scripts/lichessTools-chessMetrics-CoordinationCalculator.js",
+        "scripts/lichessTools-chessMetrics-ChessPositionValuator.js"
       ],
       "matches": [
         "*://lichess.org/*",
