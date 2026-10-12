@@ -13799,31 +13799,6 @@
       }
     },
     {
-      "category": "BrayanGuti",
-      "name": "ChessGuti",
-      "url": "https://raw.githubusercontent.com/BrayanGuti/ChessMaster/master/public/Pieces/",
-      "type": "svg",
-      "cap": "WN",
-      "hashes": {
-        "wp": "wTa8ypdqaJVhQWEzsrIWVA==",
-        "bp": "HslDNWiVteqGgoZMTU1oKg==",
-        "wn": "k07kZpc6aoWyMJiYzGhhPg==",
-        "bn": "aLEbmWjFlfpJwWNjE5acwQ==",
-        "wb": "M8ysg9owtc7ElrIzaSuWTA==",
-        "bb": "zDNTfDDPSrEP6G1MltRpMg==",
-        "wr": "NIW1zoxzasxFaWkrYStVVQ==",
-        "br": "QlpaMT+MtbOiltTUxNSqqg==",
-        "wq": "cpaapcdoyJ4zKWnwVXGqKw==",
-        "bq": "nSE1WjiXZ+HMzJaWqpZV1A==",
-        "wk": "yrHZJ6VsSpwxaU3MhpZNTA==",
-        "bk": "tE4n2EqTlePMjrIzcWmyMg=="
-      },
-      "coordinates": {
-        "x": 21,
-        "y": 21
-      }
-    },
-    {
       "category": "code-and-chill",
       "name": "glass",
       "url": "https://raw.githubusercontent.com/code-and-chill/chessmate/refs/heads/main/app/assets/pieces/glass/",

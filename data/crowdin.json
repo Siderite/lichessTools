@@ -8787,9 +8787,9 @@
     "noVideosFoundText": "Aucune vidéo trouvée",
     "practiceDepthLabel": "Profondeur : %s",
     "goToPlayedMoveText": "Revenir au dernier coup joué",
-    "extraChart.brilliantChart": "Brilliance chart",
-    "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "extraChart.brilliantChart": "Graphique coups brillants",
+    "brilliantLegendText": "Coups brillants",
+    "brilliantLegendTitle": "Score de coups brillants"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
