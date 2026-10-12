@@ -204,50 +204,31 @@
       return underAttack;
     }
 
-    static tensionCache = new LiChessTools.MaxSizedMap(10000);
-
-    static tension(node, lt) {
-      const fen = node.fen;
-      let result = ChessMetrics.tensionCache.get(fen);
-      if (result) return result;
+    static tension = LiChessTools.Cache.memoize((node, lt) => {
       const board = lt.getBoardFromFen(node.fen);
       const underAttack = [];
       for (const { x, y } of ChessMetrics.occupiedSquares(board)) {
         const ua = ChessMetrics.pieceTension(x, y, board, true);
         underAttack.push.apply(underAttack, ua);
       }
-      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
-                  .map(i => i.split('=')[1].toLowerCase())
-                  .reduce((acc, val) => ChessMetrics.pieceMaterial[val] + acc, 0);
-      ChessMetrics.tensionCache.set(fen, result);
-      return result;
-    }
+      return [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
+        .map(i => i.split('=')[1].toLowerCase())
+        .reduce((acc, val) => ChessMetrics.pieceMaterial[val] + acc, 0);
+    }, { key: (node) => node.fen });
 
-    static capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
-
-    static getAllCapturingMoves(board, lt) {
-      const fen = ChessMetrics._boardFen(board);
-      if (!fen) return [];
-      let result = ChessMetrics.capturingMoveCache.get(fen);
-      if (result) return result;
-      result = [];
+    static getAllCapturingMoves = LiChessTools.Cache.memoize((board, lt) => {
+      const result = [];
       for (const { x, y } of ChessMetrics.occupiedSquares(board)) {
         const ua = ChessMetrics.pieceTension(x, y, board, false);
         result.push.apply(result, ua);
       }
-      ChessMetrics.capturingMoveCache.set(fen, result);
       return result;
-    }
+    }, { key: (board) => ChessMetrics._boardFen(board) });
 
-    static materialWonCache = new LiChessTools.MaxSizedMap(10000);
-
-    static materialWon(board, x, y, lt) {
+    static materialWon = LiChessTools.Cache.memoize((board, x, y, lt) => {
       const Math = lt.global.Math;
       const b = board;
       if (!b) return 0;
-      const key = [ChessMetrics._boardFen(board), x, y].join('|');
-      let result = ChessMetrics.materialWonCache.get(key);
-      if (result) return result;
       const sq = ChessMetrics._square(x, y);
       const piece = b.get(sq);
       if (!piece) return 0;
@@ -258,24 +239,18 @@
         .sort((m1, m2) => ChessMetrics.pieceMaterial[m1.spc.toLowerCase()] - ChessMetrics.pieceMaterial[m2.spc.toLowerCase()]);
       const move = moves[0];
       if (!move) return 0;
-      result = ChessMetrics.pieceMaterial[ch] * side;
+      let result = ChessMetrics.pieceMaterial[ch] * side;
       const cloned = b.clone();
       const attacker = { color: move.m === 1 ? 'white' : 'black', role: ChessMetrics.LETTER_TO_ROLE[move.spc.toLowerCase()] };
       cloned.take(ChessMetrics._square(move.sx, move.sy));
       cloned.set(sq, attacker);
       result += ChessMetrics.materialWon(cloned, x, y, lt);
       result = Math.sign(result) != side ? 0 : result;
-      ChessMetrics.materialWonCache.set(key, result);
       return result;
-    }
+    }, { key: (board, x, y) => [ChessMetrics._boardFen(board), x, y].join('|') });
 
-    static maxMaterialWonCache = new LiChessTools.MaxSizedMap(10000);
-
-    static maxMaterialWon(board, m, lt) {
+    static maxMaterialWon = LiChessTools.Cache.memoize((board, m, lt) => {
       const Math = lt.global.Math;
-      const key = [ChessMetrics._boardFen(board), m].join('|');
-      let result = ChessMetrics.maxMaterialWonCache.get(key);
-      if (result) return result;
       let mx = 0;
       for (const { x, y, ch } of ChessMetrics.occupiedSquares(board)) {
         const pm = ch === ch.toUpperCase() ? 1 : -1;
@@ -285,10 +260,8 @@
           mx = Math.abs(mw);
         }
       }
-      result = mx * m;
-      ChessMetrics.maxMaterialWonCache.set(key, result);
-      return result;
-    }
+      return mx * m;
+    }, { key: (board, m) => [ChessMetrics._boardFen(board), m].join('|') });
     static getGamePhase(fen, lt) {
       const board = lt.getBoardFromFen(fen);
       if (!board) return 'opening';
@@ -379,18 +352,10 @@
       return Math.round(sim * 100 / l);
     }
 
-    static keyCache = {};
-
-    static keySimilarity(kSearch, kNamed) {
+    static keySimilarity = LiChessTools.Cache.memoize((kSearch, kNamed) => {
       if (!kSearch || !kNamed) return 0;
-      const k = kSearch + '|' + kNamed;
-      let result = ChessMetrics.keyCache[k];
-      if (!result) {
-        result = ChessMetrics.keySimilarityDirect(kSearch, kNamed);
-        ChessMetrics.keyCache[k] = result;
-      }
-      return result;
-    }
+      return ChessMetrics.keySimilarityDirect(kSearch, kNamed);
+    }, { key: (kSearch, kNamed) => kSearch + '|' + kNamed });
 
     static getOpposingStructure(structure) {
       if (!structure) return null;

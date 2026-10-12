@@ -172,6 +172,19 @@
         obj[funcName].__originalFunction = original;
       }
 
+      // Synchronous memoize: a pure in-memory cache keyed by a key function (no persistence/expiry).
+      static memoize(fn, options = {}) {
+        const cache = new LiChessTools.MaxSizedMap(options.size || 10000);
+        const keyFn = options.key || ((...args) => JSON.stringify(args));
+        return (...args) => {
+          const key = keyFn(...args);
+          if (cache.has(key)) return cache.get(key);
+          const result = fn(...args);
+          cache.set(key, result);
+          return result;
+        };
+      }
+
   }
 
   LiChessTools.Cache = Cache;

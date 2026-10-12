@@ -41,8 +41,8 @@
  */
 class BrilliantMoveAnalyzer {
   // ---------------------------------------------------------------- constants
-  static VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0 };
-  static ATTACKER_VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 2.5 }; // a king capturing is "cheap"
+  static VALUE = LiChessTools.Material.VALUE;
+  static ATTACKER_VALUE = LiChessTools.Material.ATTACKER_VALUE; // a king capturing is "cheap"
 
   static PRINCIPLES = [
     'bestMove', 'notAlreadyWinning', 'soundAfter',
@@ -142,7 +142,6 @@ class BrilliantMoveAnalyzer {
     for (const [name, def] of Object.entries({ ...BrilliantMoveAnalyzer.TYPES, ...(types || {}) })) {
       this.types[name] = { ...(BrilliantMoveAnalyzer.TYPES[name] || {}), ...def };
     }
-    this._memo = {};
     this._init(input);
   }
 
@@ -192,7 +191,7 @@ class BrilliantMoveAnalyzer {
     if (ev.delivered) return 100;
     if (ev.mate != null) return ev.mate > 0 ? 100 : ev.mate < 0 ? 0 : 50;
     const cp = Math.min(1000, Math.max(-1000, ev.cp || 0));
-    return LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
+    return LiChessTools.Scoring.centipawnsToWinPercentage(cp);
   }
   static _cp(ev) { // centipawns, mate = +-1000
     if (ev.delivered) return 1000;
@@ -205,7 +204,7 @@ class BrilliantMoveAnalyzer {
     return { cp: flip ? -ev.cp : ev.cp };
   }
   static _ramp(x, zero, full) { // 0 at `zero`, 1 at `full`, linear between, works in both directions
-    return Math.min(1, Math.max(0, (x - zero) / (full - zero)));
+    return LiChessTools.Scoring.ramp(x, zero, full);
   }
   static _r(value, raw) { return { value, raw: raw || {} }; }
 
@@ -220,15 +219,7 @@ class BrilliantMoveAnalyzer {
     return null;
   }
   _legal(pos) {
-    const out = [];
-    for (const [from, dests] of pos.allDests()) {
-      const p = pos.board.get(from);
-      for (const to of dests) {
-        const r = this.co.squareRank(to);
-        out.push(p.role === 'pawn' && (r === 0 || r === 7) ? { from, to, promotion: 'queen' } : { from, to });
-      }
-    }
-    return out;
+    return LiChessTools.MoveGen.legalMoves(pos);
   }
   _uci(pos, m) { // Lichess writes castling as the king's two-square move, chessops as king-takes-rook
     const p = pos.board.get(m.from), t = pos.board.get(m.to);
@@ -239,8 +230,7 @@ class BrilliantMoveAnalyzer {
     return this.co.makeUci(m);
   }
   _material(pos, color) {
-    const V = BrilliantMoveAnalyzer.VALUE;
-    return Object.keys(V).reduce((s, r) => s + V[r] * pos.board.pieces(color, r).size(), 0);
+    return LiChessTools.Material.value(pos.board, color, BrilliantMoveAnalyzer.VALUE);
   }
   _balance(pos) { return this._material(pos, this.mover) - this._material(pos, this.other); } // mover minus opponent
   /** Most material (in pawns) the side to move wins by captures alone. Standing pat = 0. */
@@ -298,7 +288,12 @@ class BrilliantMoveAnalyzer {
     if (!lines.length) return null;
     return lines.sort((a, b) => b.win - a.win); // stable: engine order is kept for equal win%
   }
-  _once(key, fn) { return key in this._memo ? this._memo[key] : (this._memo[key] = fn()); }
+  _once(key, fn) {
+    if (!this._memoize) {
+      this._memoize = LiChessTools.Cache.memoize((k, f) => f(), { key: (k) => k });
+    }
+    return this._memoize(key, fn);
+  }
 
   // ---------------------------------------------------------------- shared analysis (lazy, cached)
   /** Material bookkeeping in pawns, from the mover's side. sacrifice = material given up once captures are resolved. */

@@ -17,9 +17,7 @@
       return Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
     }
     static ramp(x, zero, full) {
-      if (x <= zero) return 0;
-      if (x >= full) return 1;
-      return (x - zero) / (full - zero);
+      return Math.min(1, Math.max(0, (x - zero) / (full - zero)));
     }
     static tapered(mg, eg, phase) {
       return mg + (eg - mg) * phase;

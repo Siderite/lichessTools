@@ -18,7 +18,7 @@
     constructor(fen, co) {
       this.co = co;
       this.board = co ? this.parseFEN(fen) : null;
-      this.movesCache = new Map();
+      this.memoMoves = LiChessTools.Cache.memoize(this._computePseudoLegalMoves.bind(this), { key: (sq, piece) => piece.role + sq, size: 1000 });
       this.pieceValues = LiChessTools.Material.VALUE;
       this.centralSquares = [27, 28, 35, 36];
     }
@@ -227,9 +227,10 @@
     }
 
     getPseudoLegalMoves(sq, piece, control) {
-      const cacheKey = piece.role + sq;
-      let result = this.movesCache.get(cacheKey);
-      if (result) return result;
+      return this.memoMoves(sq, piece, control);
+    }
+
+    _computePseudoLegalMoves(sq, piece, control) {
       const moves = [];
       if (piece.role === 'pawn') {
         if (control) throw new Error('Should not use control=true for pawns');
@@ -254,7 +255,6 @@
           moves.push(t);
         }
       }
-      this.movesCache.set(cacheKey, moves);
       return moves;
     }
 

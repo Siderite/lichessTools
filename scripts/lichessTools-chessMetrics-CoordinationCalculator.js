@@ -5,26 +5,23 @@
     MOVE_CAP = 3; // treat up to 3 moves as their real cost
     ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
 
-    fenToBoardCache = new LiChessTools.MaxSizedMap(10000);
+    static _parseBoard = LiChessTools.Cache.memoize((fen, co) => {
+      if (!co?.fen?.parseBoardFen) return null;
+      try {
+        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        const board = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
+        return board || null;
+      } catch (e) {
+        return null;
+      }
+    }, { key: (fen) => fen });
 
     get co() {
       return LiChessTools.ChessMetrics.chessops;
     }
 
     parseBoard(fen) {
-      const co = this.co;
-      if (!co?.fen?.parseBoardFen) return null;
-      let board = this.fenToBoardCache.get(fen);
-      if (board) return board;
-      try {
-        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
-        board = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
-        if (!board) return null;
-        this.fenToBoardCache.set(fen, board);
-        return board;
-      } catch (e) {
-        return null;
-      }
+      return CoordinationCalculator._parseBoard(fen, this.co);
     }
 
     inBounds(sq) {

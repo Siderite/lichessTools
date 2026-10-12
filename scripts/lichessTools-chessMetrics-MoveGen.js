@@ -29,6 +29,19 @@
       }
       return control;
     }
+
+    static legalMoves(pos) {
+      const co = MoveGen.co;
+      const out = [];
+      for (const [from, dests] of pos.allDests()) {
+        const p = pos.board.get(from);
+        for (const to of dests) {
+          const r = co.squareRank(to);
+          out.push(p.role === 'pawn' && (r === 0 || r === 7) ? { from, to, promotion: 'queen' } : { from, to });
+        }
+      }
+      return out;
+    }
   }
 
   LiChessTools.MoveGen = MoveGen;
