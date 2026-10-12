@@ -2380,7 +2380,7 @@ class BrilliantMoveAnalyzer {
     static PIECE_VALUE_MG = { pawn: 128, knight: 781, bishop: 825, rook: 1276, queen: 2538, king: 0 };
     static PIECE_VALUE_EG = { pawn: 213, knight: 854, bishop: 915, rook: 1380, queen: 1380, king: 0 };
 
-    // Piece-square tables [MG, EG], 64 entries each, a1 = 0 .. h8 = 63 (White's perspective).
+    // Piece-square tables [middlegame, endgame], 64 entries each, a1 = 0 .. h8 = 63 (White's perspective).
     static PAWN_PSQT = [
       [0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 10, 19, 16, 19, 7, -5, -9, -15, 11, 15, 32, 22, 5, -22, -8, -23, 6, 20, 40, 17, 4, -12, 13, 0, -13, 1, 11, -2, -13, 5, -5, -12, -7, 22, -8, -5, -15, -18, -7, 7, -3, -13, 5, -16, 10, -8, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, -10, -6, 10, 0, 14, 7, -5, -19, -10, -10, -10, 4, 4, 3, -6, -4, 6, -2, -8, -4, -13, -12, -10, -9, 9, 4, 3, -12, -12, -6, 13, 8, 28, 20, 21, 28, 30, 7, 6, 13, 0, -11, 12, 21, 25, 19, 4, 7, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -2406,7 +2406,7 @@ class BrilliantMoveAnalyzer {
       [1, 45, 85, 76, 76, 85, 45, 1, 53, 100, 133, 135, 135, 133, 100, 53, 88, 130, 169, 175, 175, 169, 130, 88, 103, 156, 172, 172, 172, 172, 156, 103, 96, 166, 199, 199, 199, 199, 166, 96, 92, 172, 184, 191, 191, 184, 172, 92, 47, 121, 116, 131, 131, 116, 121, 47, 11, 59, 73, 78, 78, 73, 59, 11]
     ];
 
-    // mobility_bonus[phase][pieceIndex][count] — 0 knight, 1 bishop, 2 rook, 3 queen
+    // MOBILITY_BONUS[phase][pieceIndex][count] - 0 knight, 1 bishop, 2 rook, 3 queen
     static MOBILITY_BONUS = [
       [
         [-62, -53, -12, -4, 3, 13, 22, 28, 33],
@@ -2422,7 +2422,7 @@ class BrilliantMoveAnalyzer {
       ]
     ];
 
-    // Material imbalance (Stockfish-style) — qo: our pieces, qt: their pieces
+    // Material imbalance (Stockfish-style) - qo: our pieces, qt: their pieces
     static QO = [[1438], [40, 38], [32, 255, -62], [0, 104, 4, 0], [-26, -2, 47, 105, -208], [-189, 24, 117, 133, -134, -6]];
     static QT = [[0], [36, 0], [9, 63, 0], [59, 65, 42, 0], [46, 39, 24, -24, 0], [97, 100, -42, 137, 268, 0]];
 
@@ -2992,14 +2992,12 @@ class BrilliantMoveAnalyzer {
       for (const sq of pos.wQ) queenFiles.add(sq & 7);
       for (const sq of pos.bQ) queenFiles.add(sq & 7);
       const ctx = { pos, pawnColor, centralBlocked, queenFiles };
-
       const wp = this._pawns(pos, 'white', ctx);
       const bp = this._pawns(pos, 'black', ctx);
       const wq = this._queen(pos, 'white', ctx);
       const bq = this._queen(pos, 'black', ctx);
       const wn = this._pieces(pos, 'white', ctx);
       const bn = this._pieces(pos, 'black', ctx);
-
       const r = this._newEval();
       r.pawns[0] = wp.pawns[0] - bp.pawns[0];
       r.pawns[1] = wp.pawns[1] - bp.pawns[1];
