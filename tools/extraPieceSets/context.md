@@ -13,7 +13,7 @@ The **ExtraPieceSetsTool** adds custom chess piece visual sets (PNG/SVG images) 
 - **name**: `extraPieceSets`
 - **category**: `appearance`
 - **type**: multiple (checkboxes)
-- **possibleValues**: 23 named categories: `siderite`, `chesscom`, `hollowleaf`, `fordCrownVictoria`, `bend-n`, `comfysage`, `tage64`, `OwOHamper`, `DragurKnight`, `LichessHelper`, `basedpolymer`, `FelixKling`, `Moldenke1`, `sharechess`, `NayukiMafuyu`, `tsoj`, `davidssmith`, `Djapec`, `olliecampbell`, `mowi12`, `swapnilvasave24-web`, `withmy27`, `BrayanGuti`, `code-and-chill`, `mannubhai1`, `lukasmonk`
+- **possibleValues**: 23 named categories: `siderite`, `chesscom`, `hollowleaf`, `fordCrownVictoria`, `bend-n`, `comfysage`, `tage64`, `OwOHamper`, `DragurKnight`, `LichessHelper`, `basedpolymer`, `FelixKling`, `Moldenke1`, `sharechess`, `NayukiMafuyu`, `tsoj`, `davidssmith`, `Djapec`, `olliecampbell`, `mowi12`, `swapnilvasave24-web`, `withmy27`, `code-and-chill`, `mannubhai1`, `lukasmonk`
 - **defaultValue**: `siderite,chesscom,hollowleaf`
 - **advanced**: true
 
