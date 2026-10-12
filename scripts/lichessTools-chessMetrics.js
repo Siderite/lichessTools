@@ -669,4 +669,1652 @@ class BrilliantMoveAnalyzer {
 }
 
   LiChessTools.BrilliantMoveAnalyzer = BrilliantMoveAnalyzer;
+
+  class ChessMetrics {
+    static pieceMaterial = {
+      'k': 0,
+      'q': 900,
+      'r': 500,
+      'b': 310,
+      'n': 300,
+      'p': 100
+    };
+
+    static getCentipawnOnlyValue(info) {
+      if (!info || info.depth === 0) return;
+      let cp = undefined;
+      const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
+      if (mate !== undefined) {
+        const sign = mate?.toString()?.trim()?.startsWith('-')
+          ? -1
+          : 1;
+        cp = sign * (10000 - Math.abs(+mate) * 100);
+      }
+      if (info.cp !== undefined) {
+        cp = +(Array.isArray(info.cp) ? info.cp[0] : info.cp);
+      }
+      if (cp === undefined || Number.isNaN(cp)) {
+        console.warn('Failed getting centipawns from ', info);
+        return 0;
+      }
+      return cp;
+    }
+
+    static centipawnsToWinPercentage(cp) {
+      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    }
+
+    static winDeltaToAccuracy(expected, played) {
+      return Math.max(0, 103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played || 0))) - 3.1669);
+    }
+
+    static wdlToSharpness(w, d, l) {
+      return Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+    }
+
+    static isSanMate(node) {
+      return node.san?.endsWith('#');
+    }
+
+    static isSanCheck(node) {
+      return node.san?.includes('+');
+    }
+
+    static isStartFen(fen) {
+      return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+    }
+
+    static mirrorFen(fen) {
+      if (!fen) return fen;
+
+      const flipCapitalization = s => {
+        const pieces = 'RNBQKPrnbqkp';
+        return s.split('').map(ch => {
+          const i = pieces.indexOf(ch);
+          if (i < 0) return ch;
+          return pieces[(i + 6) % 12];
+        }).join('');
+      };
+
+      const splits = fen.split(' ');
+      splits[0] = flipCapitalization(splits[0].split('/').reverse().join('/'));
+      if (splits[1]) {
+        splits[1] = splits[1] == 'w' ? 'b' : 'w';
+      }
+      if (splits[2]) {
+        splits[2] = flipCapitalization(splits[2]);
+        const arr = splits[2].split('');
+        arr.sort();
+        splits[2] = arr.join('');
+      }
+      if (splits[3]) {
+        const m = /^([a-h])([1-8])$/.test(splits[3]);
+        if (m) {
+          splits[3] = m[1] + (9 - (+m[2]));
+        }
+      }
+      return splits.join(' ');
+    }
+
+    static simpleMaterial(node, isTotal, side) {
+      let result = 0;
+      if (!node.fen) return result;
+      const board = node.fen.split(' ')[0];
+      for (const ch of board) {
+        const p = ChessMetrics.pieceMaterial[ch.toLowerCase()];
+        if (p) {
+          const m = ch === ch.toUpperCase() ? 1 : -1;
+          if (!side || side == m) {
+            result += isTotal
+              ? p
+              : m * p;
+          }
+        }
+      }
+      return result;
+    }
+
+    static onBoard(x, y) {
+      return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
+    static pieceTension(x, y, board, withSupport) {
+      const underAttack = [];
+      const ch = board[y][x];
+      if (!ch) return underAttack;
+      const m = ch === ch.toUpperCase() ? 1 : -1;
+      switch (ch.toLowerCase()) {
+        case 'k':
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (!dx && !dy) continue;
+              if (!ChessMetrics.onBoard(x + dx, y + dy)) continue;
+              const pc = board[y + dy][x + dx];
+              if (!pc) continue;
+              const pm = pc === pc.toUpperCase() ? 1 : -1;
+              if (m != pm) {
+                underAttack.push({
+                  m: m,
+                  sx: x,
+                  sy: y,
+                  spc: ch,
+                  x: x + dx,
+                  y: y + dy,
+                  pc: pc
+                });
+              }
+            }
+          }
+          break;
+        case 'q':
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (!dx && !dy) continue;
+              const isDiagonal = dx && dy;
+              const isForward = dy === -m;
+              for (let i = 1; i < 8; i++) {
+                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;
+                const pc = board[y + dy * i][x + dx * i];
+                if (!pc) continue;
+                const pm = pc === pc.toUpperCase() ? 1 : -1;
+                if (m != pm) {
+                  underAttack.push({
+                    m: m,
+                    sx: x,
+                    sy: y,
+                    spc: ch,
+                    x: x + dx * i,
+                    y: y + dy * i,
+                    pc: pc
+                  });
+                } else if (withSupport) {
+                  if (pc.toLowerCase() === 'q') continue;
+                  if (isDiagonal && pc.toLowerCase() === 'b') continue;
+                  if (!isDiagonal && pc.toLowerCase() === 'r') continue;
+                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
+                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
+                    if (ppc) {
+                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
+                      if (m != ppm) {
+                        underAttack.push({
+                          m: m,
+                          sx: x,
+                          sy: y,
+                          spc: ch,
+                          x: x + dx * (i + 1),
+                          y: y + dy * (i + 1),
+                          pc: pc
+                        });
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'r':
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if ((dx && dy) || (!dx && !dy)) continue;
+              for (let i = 1; i < 8; i++) {
+                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;
+                const pc = board[y + dy * i][x + dx * i];
+                if (!pc) continue;
+                const pm = pc === pc.toUpperCase() ? 1 : -1;
+                if (m != pm) {
+                  underAttack.push({
+                    m: m,
+                    sx: x,
+                    sy: y,
+                    spc: ch,
+                    x: x + dx * i,
+                    y: y + dy * i,
+                    pc: pc
+                  });
+                } else if (withSupport) {
+                  if (pc.toLowerCase() === 'q') continue;
+                  if (pc.toLowerCase() === 'r') continue;
+                  if (pc.toLowerCase() === 'k') {
+                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
+                    if (ppc) {
+                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
+                      if (m != ppm) {
+                        underAttack.push({
+                          m: m,
+                          sx: x,
+                          sy: y,
+                          spc: ch,
+                          x: x + dx * (i + 1),
+                          y: y + dy * (i + 1),
+                          pc: pc
+                        });
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'b':
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (!dx || !dy) continue;
+              const isForward = dy === -m;
+              for (let i = 1; i < 8; i++) {
+                if (!ChessMetrics.onBoard(x + dx * i, y + dy * i)) break;;
+                const pc = board[y + dy * i][x + dx * i];
+                if (!pc) continue;
+                const pm = pc === pc.toUpperCase() ? 1 : -1;
+                if (m != pm) {
+                  underAttack.push({
+                    m: m,
+                    sx: x,
+                    sy: y,
+                    spc: ch,
+                    x: x + dx * i,
+                    y: y + dy * i,
+                    pc: pc
+                  });
+                } else if (withSupport) {
+                  if (pc.toLowerCase() === 'q') continue;
+                  if (pc.toLowerCase() === 'b') continue;
+                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
+                    const ppc = ChessMetrics.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
+                    if (ppc) {
+                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
+                      if (m != ppm) {
+                        underAttack.push({
+                          m: m,
+                          sx: x,
+                          sy: y,
+                          spc: ch,
+                          x: x + dx * (i + 1),
+                          y: y + dy * (i + 1),
+                          pc: pc
+                        });
+                      }
+                    }
+                  }
+                }
+                break;
+              }
+            }
+          }
+          break;
+        case 'n':
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (!dx || !dy) continue;
+              if (ChessMetrics.onBoard(x + dx * 1, y + dy * 2)) {
+                const pc = board[y + dy * 2][x + dx * 1];
+                if (pc) {
+                  const pm = pc === pc.toUpperCase() ? 1 : -1;
+                  if (m != pm) {
+                    underAttack.push({
+                      m: m,
+                      sx: x,
+                      sy: y,
+                      spc: ch,
+                      x: x + dx * 1,
+                      y: y + dy * 2,
+                      pc: pc
+                    });
+                  }
+                }
+              }
+              if (ChessMetrics.onBoard(x + dx * 2, y + dy * 1)) {
+                const pc = board[y + dy * 1][x + dx * 2];
+                if (pc) {
+                  const pm = pc === pc.toUpperCase() ? 1 : -1;
+                  if (m != pm) {
+                    underAttack.push({
+                      m: m,
+                      sx: x,
+                      sy: y,
+                      spc: ch,
+                      x: x + dx * 2,
+                      y: y + dy * 1,
+                      pc: pc
+                    });
+                  }
+                }
+              }
+            }
+          }
+          break;
+        case 'p':
+          if (ChessMetrics.onBoard(x - 1, y - m)) {
+            const pc = board[y - m][x - 1];
+            if (pc) {
+              const pm = pc === pc.toUpperCase() ? 1 : -1;
+              if (m != pm) {
+                underAttack.push({
+                  m: m,
+                  sx: x,
+                  sy: y,
+                  spc: ch,
+                  x: x - 1,
+                  y: y - m,
+                  pc: pc
+                });
+              }
+            } else if (board.enpassant && board.enpassant.x == x - 1 && board.enpassant.y == y - m) {
+              const pm = -m;
+              underAttack.push({
+                m: m,
+                sx: x,
+                sy: y,
+                spc: ch,
+                x: x - 1,
+                y: y - m,
+                pc: pm == 1 ? 'P' : 'p'
+              });
+            }
+          }
+          if (ChessMetrics.onBoard(x + 1, y - m)) {
+            const pc = board[y - m][x + 1];
+            if (pc) {
+              const pm = pc === pc.toUpperCase() ? 1 : -1;
+              if (m != pm) {
+                underAttack.push({
+                  m: m,
+                  sx: x,
+                  sy: y,
+                  spc: ch,
+                  x: x + 1,
+                  y: y - m,
+                  pc: pc
+                });
+              }
+            } else if (board.enpassant && board.enpassant.x == x + 1 && board.enpassant.y == y - m) {
+              const pm = -m;
+              underAttack.push({
+                m: m,
+                sx: x,
+                sy: y,
+                spc: ch,
+                x: x + 1,
+                y: y - m,
+                pc: pm == 1 ? 'P' : 'p'
+              });
+            }
+          }
+          break;
+      }
+      return underAttack;
+    }
+
+    static tensionCache = new LiChessTools.MaxSizedMap(10000);
+
+    static tension(node, lt) {
+      const fen = node.fen;
+      let result = ChessMetrics.tensionCache.get(fen);
+      if (result) return result;
+      const board = lt.getBoardFromFen(node.fen);
+      const underAttack = [];
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const ua = ChessMetrics.pieceTension(x, y, board, true);
+          underAttack.push.apply(underAttack, ua);
+        }
+      }
+      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
+                  .map(i => i.split('=')[1].toLowerCase())
+                  .reduce((acc, val) => ChessMetrics.pieceMaterial[val] + acc, 0);
+      ChessMetrics.tensionCache.set(fen, result);
+      return result;
+    }
+
+    static capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
+
+    static getAllCapturingMoves(board, lt) {
+      const fen = lt.getFenFromBoard(board);
+      let result = ChessMetrics.capturingMoveCache.get(fen);
+      if (result) return result;
+      result = [];
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const ua = ChessMetrics.pieceTension(x, y, board, false);
+          result.push.apply(result, ua);
+        }
+      }
+      ChessMetrics.capturingMoveCache.set(fen, result);
+      return result;
+    }
+
+    static materialWonCache = new LiChessTools.MaxSizedMap(10000);
+
+    static materialWon(board, x, y, lt) {
+      const Math = lt.global.Math;
+      const key = [lt.getFenFromBoard(board), x, y].join('|');
+      let result = ChessMetrics.materialWonCache.get(key);
+      if (result) return result;
+      board = lt.clone(board);
+      const ch = board[y][x];
+      if (!ch) return 0;
+      const side = ch === ch.toUpperCase() ? -1 : 1;
+      const moves = ChessMetrics.getAllCapturingMoves(board, lt)
+        .filter(m => m.x == x && m.y == y && m.m == side)
+        .sort((m1, m2) => ChessMetrics.pieceMaterial[m1.spc.toLowerCase()] - ChessMetrics.pieceMaterial[m2.spc.toLowerCase()]);
+      const move = moves[0];
+      if (!move) return 0;
+      result = ChessMetrics.pieceMaterial[ch.toLowerCase()] * side; //capture piece
+      board[y][x] = move.spc;
+      board[move.sy][move.sx] = null;
+      result += ChessMetrics.materialWon(board, x, y, lt);
+      result = Math.sign(result) != side ? 0 : result;
+      ChessMetrics.materialWonCache.set(key, result);
+      return result;
+    }
+
+    static getGamePhase(fen, lt) {
+      const board = lt.getBoardFromFen(fen);
+      if (!board) return 'opening';
+
+      const majorsAndMinors = (board) => {
+        return board
+                 .flat()
+                 .filter(p => 'rnbq'.includes(p.toLowerCase()))
+                 .length;
+      };
+
+      const backrankSparse = (board) => {
+        return board[0].filter(p => p).length < 4
+               || board[7].filter(p => p).length < 4;
+      };
+
+      const score = (y) => {
+        return (white, black) => {
+          const w = Number(white);
+          const b = Number(black);
+
+          switch (true) {
+            case w === 0 && b === 0: return 0;
+            case w === 1 && b === 0: return 1 + (8 - y);
+            case w === 2 && b === 0: return y > 2 ? 2 + (y - 2) : 0;
+            case w === 3 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
+            case w === 4 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
+            case w === 0 && b === 1: return 1 + y;
+            case w === 1 && b === 1: return 5 + Math.abs(4 - y);
+            case w === 2 && b === 1: return 4 + (y - 1);
+            case w === 3 && b === 1: return 5 + (y - 1);
+            case w === 0 && b === 2: return y < 6 ? 2 + (6 - y) : 0;
+            case w === 1 && b === 2: return 4 + (7 - y);
+            case w === 2 && b === 2: return 7;
+            case w === 0 && b === 3: return y < 7 ? 3 + (7 - y) : 0;
+            case w === 1 && b === 3: return 5 + (7 - y);
+            case w === 0 && b === 4: return y < 7 ? 3 + (7 - y) : 0;
+            default: return 0;
+          }
+        };
+      };
+
+      const mixednessRegions = [];
+      for (let y = 0; y <= 6; ++y) {
+        for (let x = 0; x <= 6; ++x) {
+          mixednessRegions.push({ x, y });
+        }
+      }
+
+      const countInSquare = (board, topX, topY) => {
+        let white = 0, black = 0;
+        for (let dy = 0; dy < 2; ++dy) {
+          for (let dx = 0; dx < 2; ++dx) {
+            const piece = board[topY + dy][topX + dx];
+            if (!piece) continue;
+            if (piece === piece.toUpperCase()) ++white;
+            else                               ++black;
+          }
+        }
+        return [white, black];
+      };
+
+      const mixedness = (board) => {
+        return mixednessRegions.reduce((acc, region) => {
+          const [w, b] = countInSquare(board, region.x, region.y);
+          return acc + score(7 - region.y)(w, b);
+        }, 0);
+      };
+
+      const mm = majorsAndMinors(board);
+      const bs = backrankSparse(board);
+      const mx = mixedness(board);
+
+      if (mm <= 6) return 'endGame';
+      if (mm <= 10 || bs || mx > 150) return 'middleGame';
+      return 'opening';
+    }
+
+    static getStructure(board, blackOrientation) {
+      if (!board) return null;
+      const result = {
+        pawns: {
+          'w': new Array(8).fill(-1),
+          'b': new Array(8).fill(-1)
+        },
+        led: {
+          'w': new Array(8).fill(false),
+          'b': new Array(8).fill(false)
+        },
+        islands: { w: [], b: [] },
+        qSide: { 'w': 0, 'b': 0 },
+        kSide: { 'w': 0, 'b': 0 }
+      };
+      for (let y = 0; y < 8; y++) {
+        const rank = board[y];
+        for (let x = 0; x < 8; x++) {
+          switch (rank[x]) {
+            case 'p':
+              if (y <= 4) {
+                if (result.pawns.b[x] > -1) result.led.b[x] = true;
+                result.pawns.b[x] = y - 1;
+              }
+              break;
+            case 'P':
+              if (y >= 3) {
+                if (result.pawns.w[x] > -1) result.led.w[x] = true;
+                result.pawns.w[x] = 6 - y;
+              }
+              break;
+          }
+        }
+      }
+
+      const buildIslands = (color) => {
+        const ps = result.pawns[color];
+        const list = result.islands[color];
+        let current = null;
+        for (let x = 0; x < 8; x++) {
+          if (ps[x] === -1) {
+            current = null;
+            continue;
+          }
+          if (current && current.end === x - 1) {
+            current.end = x;
+          } else {
+            current = { start: x, end: x };
+            list.push(current);
+          }
+        }
+      };
+
+      buildIslands('w');
+      buildIslands('b');
+
+      const calcSide = (color) => {
+        const list = result.islands[color];
+        if (list.length === 0) return;
+
+        const first = list[0];
+        if (first.start < 2) {
+          result.qSide[color] = Math.min(3, first.end) - first.start + 1;
+        }
+
+        const last = list[list.length - 1];
+        if (last.end > 5) {
+          result.kSide[color] = last.end - Math.max(4, last.start) + 1;
+        }
+      };
+
+      calcSide('w');
+      calcSide('b');
+
+      const [ me, they ] = blackOrientation ? ['b','w'] : ['w','b'];
+      const toChar = (s)=>{
+        if (s==' ') return s;
+        if (s=='Q') {
+          const mv=result.qSide[me];
+          const mt=result.qSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s=='K') {
+          const mv=result.kSide[me];
+          const mt=result.kSide[they];
+          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
+        }
+        if (s.startsWith('P')) {
+          const v=result.pawns[s[1]=='M'?me:they][+s[2]];
+          return v<0 ? 'X' : v;
+        }
+        if (s.startsWith('L')) {
+          const v=result.led[s[1]=='M'?me:they][+s[2]];
+          return v ? 'L' : 'X';
+        }
+        throw new Error('Unknown primitive: '+s);
+      };
+      const structureText = [
+        'PM3','PM4','PM2','PT3','PT4','PT2','Q','K',' ',
+        'PM5','PM1','PM6','PT5','PT1','PT6',' ',
+        'PM0','PM7','PT0','PT7',' ',
+        'LM3','LM4','LM2','LT3','LT4','LT2',' ',
+        'LM5','LM1','LM6','LT5','LT1','LT6',' ',
+        'LM0','LM7','LT0','LT7',
+      ].map(toChar).join('');
+      return structureText;
+    }
+
+    static keySimilarityDirect(kSearch, kNamed) {
+      kSearch = kSearch.replaceAll(' ', '');
+      kNamed = kNamed.replaceAll(' ', '');
+      const l = Math.min(kSearch.length, kNamed.length);
+      let sim = 0;
+      let prefixOver = false;
+      for (let i = 0; i < l; i++) {
+        if (kSearch[i] == kNamed[i]) {
+          sim += prefixOver ? 0.8 : 1;
+        } else {
+          prefixOver = true;
+          const pSearch = +kSearch[i];
+          const pNamed = +kNamed[i];
+          if (pSearch >= 0 && pNamed >= 0 && pSearch < pNamed) {
+            sim += 0.2;
+          }
+        }
+      }
+      return Math.round(sim * 100 / l);
+    }
+
+    static keyCache = {};
+
+    static keySimilarity(kSearch, kNamed) {
+      const k = kSearch + '|' + kNamed;
+      let result = ChessMetrics.keyCache[k];
+      if (!result) {
+        result = ChessMetrics.keySimilarityDirect(kSearch, kNamed);
+        ChessMetrics.keyCache[k] = result;
+      }
+      return result;
+    }
+
+    static getOpposingStructure(structure) {
+      const result =
+        structure.substr(3, 3) +
+        structure.substr(0, 3) +
+        structure.substr(6, 2).replaceAll('M', 'x').replaceAll('T', 'M').replaceAll('x', 'T') +
+        ' ' +
+        structure.substr(12, 3) +
+        structure.substr(9, 3) +
+        ' ' +
+        structure.substr(18, 2) +
+        structure.substr(16, 2) +
+        ' ' +
+        structure.substr(24, 3) +
+        structure.substr(21, 3) +
+        ' ' +
+        structure.substr(31, 3) +
+        structure.substr(28, 3) +
+        ' ' +
+        structure.substr(37, 2) +
+        structure.substr(35, 2);
+      return result;
+    }
+
+    static range(start, end, step) {
+      if (start == end) return [start];
+      if (!step) step = end > start ? 1 : -1;
+      return Array.from(
+        { length: Math.floor((end - start) / step) + 1 },
+        (_, i) => start + i * step
+      );
+    }
+
+    static getWeakSquares(board, isWhite) {
+      const result = [];
+      const pawn = isWhite ? 'P' : 'p';
+      const opponentPawn = isWhite ? 'p' : 'P';
+      const dy = isWhite ? -1 : 1;
+      for (let x = 0; x < 8; x++) {
+        const candidates = [];
+        for (let y = 0; y < 8; y++) {
+          const p = board[y][x];
+          if (!p) {
+            if ((isWhite || y > 1) && (!isWhite || y < 6) && board[y - dy][x] == pawn) {
+              candidates.push(y);
+            } else
+            if ((isWhite || y < 4) && (!isWhite || y > 3) && (board[y + dy]?.[x + 1] == opponentPawn || board[y + dy]?.[x - 1] == opponentPawn)) {
+              candidates.push(y);
+            }
+          }
+        }
+        for (const c of candidates) {
+          let weak = true;
+          const ys = isWhite ? (c < 6 ? ChessMetrics.range(c + 1, 6) : []) : (c > 1 ? ChessMetrics.range(c - 1, 1) : []);
+          for (const y of ys) {
+            if (board[y][x - 1] == pawn || board[y][x + 1] == pawn) {
+              weak = false;
+              break;
+            }
+          }
+          if (weak) result.push({ x: x, y: c });
+        }
+      }
+      return result;
+    }
+
+    static getPawns(board, isWhite) {
+      const pawn = isWhite ? 'P' : 'p';
+      const myPawns = [];
+      const theirPawns = [];
+      for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+          const p = board[y][x];
+          if (p?.toLowerCase() == 'p') {
+            if (p == pawn) {
+              myPawns.push({ x, y });
+            } else {
+              theirPawns.push({ x, y });
+            }
+          }
+        }
+      }
+      const files = ChessMetrics.range(0, 7).filter(x => myPawns.find(p => p.x == x));
+      files.filter(f => !files.includes(f - 1) && !files.includes(f + 1))
+           .forEach(f => myPawns.filter(p => p.x == f).forEach(p => p.isolated = true));
+
+      myPawns
+        .filter(p => p.x > 1 && p.x < 6 && (isWhite || p.y > 1) && (!isWhite || p.y < 6))
+        .forEach(p => {
+          let surroundingPawns = [];
+          if (!files.includes(p.x - 1) && !files.includes(p.x + 2)) {
+            surroundingPawns = myPawns.filter(mp => mp != p && mp.x == p.x + 1);
+          } else
+          if (!files.includes(p.x + 1) && !files.includes(p.x - 2)) {
+            surroundingPawns = myPawns.filter(mp => mp != p && mp.x == p.x - 1);
+          }
+          if (surroundingPawns.length != 1) return;
+          const op = surroundingPawns[0];
+          if (op.x <= 1 || op.x >= 6 || op.y != p.y) return;
+          p.hanging = true;
+        });
+
+      myPawns.forEach(p => {
+        const dy = isWhite ? -1 : 1;
+        if (board[p.y + dy][p.x]) return;
+        const ys = isWhite ? (p.y < 7 ? ChessMetrics.range(p.y, 7) : []) : (p.y > 1 ? ChessMetrics.range(p.y, 1) : []);
+        if (myPawns.find(mp => ys.includes(mp.y) && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) return;
+        if (theirPawns.find(mp => mp.y == p.y + dy * 2 && ((mp.x == p.x + 1) || (mp.x == p.x - 1)))) p.backward = true;
+      });
+
+      return myPawns;
+    }
+
+    static getPawnBreaks(board, isWhite) {
+      const pawn = isWhite ? 'P' : 'p';
+      const myPawns = [];
+      const theirPawns = [];
+      for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+          const p = board[y][x];
+          if (p?.toLowerCase() == 'p') {
+            if (p == pawn) {
+              myPawns.push({ x, y });
+            } else {
+              theirPawns.push({ x, y });
+            }
+          }
+        }
+      }
+      myPawns.forEach(p => {
+        const dests = [];
+        const dy = isWhite ? -1 : 1;
+        if (!board[p.y + dy][p.x]) {
+          dests.push({ x: p.x, y: p.y + dy });
+          if (p.y == (isWhite ? 6 : 1) && !board[p.y + dy * 2][p.x]) dests.push({ x: p.x, y: p.y + dy * 2 });
+        }
+        for (const dest of dests) {
+          if ([-1, 1].find(dx => myPawns.find(mp => mp.x == dest.x + dx && mp.y == dest.y) && theirPawns.find(tp => tp.x == dest.x + dx && tp.y == dest.y + dy))) {
+            (p.breaks ||= []).push(dest);
+          }
+        }
+      });
+
+      return myPawns.filter(p => p.breaks?.length);
+    }
+  }
+
+  LiChessTools.ChessMetrics = ChessMetrics;
+
+  class ChessPositionEvaluator {
+    constructor(fen) {
+      this.board = this.parseFEN(fen);
+      this.movesCache = new Map();
+      this.pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
+      this.centralSquares = [27, 28, 35, 36]; // d4, d5, e4, e5
+    }
+  
+    // Parse FEN string to 8x8 board array
+    parseFEN(fen) {
+      const board = Array(64).fill(null);
+      const position = fen.split(' ')[0];
+      let square = 0;
+      for (const char of position) {
+        if (square >= board.length) break;
+        if (char === '/') continue;
+        if (/\d/.test(char)) {
+          square += parseInt(char);
+        } else {
+          board[square] = char;
+          square++;
+        }
+      }
+      return board;
+    }
+  
+    // Normalize a score to [-1, 1]
+    normalize(score, min, max, area) {
+      if (score >= max) {
+        return 1;
+      }
+      if (score <= min) {
+        return -1;
+      }
+      const normalized = (2 * (score - min)) / (max - min) - 1;
+      return normalized;
+    }
+  
+    // King Safety (K)
+    evaluateKingSafety() {
+      let whiteScore = 0, blackScore = 0;
+      const whiteKingIdx = this.board.indexOf('K');
+      const blackKingIdx = this.board.indexOf('k');
+      if (whiteKingIdx === -1 || blackKingIdx === -1) return 0;
+  
+      // Pawn shield (pawns in front of king)
+      const whitePawnShield = this.getPawnShield(whiteKingIdx, true);
+      const blackPawnShield = this.getPawnShield(blackKingIdx, false);
+      whiteScore += whitePawnShield * 2;
+      blackScore += blackPawnShield * 2;
+  
+      // Open files near king
+      const whiteOpenFiles = this.getOpenFilesNearKing(whiteKingIdx, true);
+      const blackOpenFiles = this.getOpenFilesNearKing(blackKingIdx, false);
+      whiteScore -= whiteOpenFiles * 1.5;
+      blackScore -= blackOpenFiles * 1.5;
+  
+      // Enemy pieces near king
+      const whiteThreats = this.getEnemyThreats(whiteKingIdx, true);
+      const blackThreats = this.getEnemyThreats(blackKingIdx, false);
+      whiteScore -= whiteThreats * 1;
+      blackScore -= blackThreats * 1;
+
+      // Hole detection: squares that can never be attacked by friendly pawns
+      const whiteHoles = this.getKingHoles(whiteKingIdx, true);
+      const blackHoles = this.getKingHoles(blackKingIdx, false);
+      whiteScore -= whiteHoles * 0.5;  // Penalize 1 point per hole
+      blackScore -= blackHoles * 0.5;
+  
+      const diff = whiteScore - blackScore;
+      return this.normalize(diff, -15, 15,'K'); //max is ~-10, but it can go to -25
+    }
+  
+    getPawnShield(kingIdx, isWhite) {
+      const rank = Math.floor(kingIdx / 8);
+      const file = kingIdx % 8;
+      let score = 0;
+      const offsets = isWhite ? [-9, -8, -7] : [7, 8, 9]; // Adjacent squares in front
+      for (const offset of offsets) {
+        const idx = kingIdx + offset;
+        if (idx >= 0 && idx < 64 && Math.abs((idx % 8) - file) <= 1) {
+          const piece = this.board[idx];
+          if ((isWhite && piece === 'P') || (!isWhite && piece === 'p')) score += 1;
+        }
+      }
+      return score;
+    }
+  
+    getOpenFilesNearKing(kingIdx, isWhite) {
+      const file = kingIdx % 8;
+      let openFiles = 0;
+      for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+        let hasPawn = false;
+        for (let r = 0; r < 8; r++) {
+          const idx = r * 8 + f;
+          if ((isWhite && this.board[idx] === 'P') || (!isWhite && this.board[idx] === 'p')) {
+            hasPawn = true;
+            break;
+          }
+        }
+        if (!hasPawn) openFiles++;
+      }
+      return openFiles;
+    }
+  
+    getEnemyThreats(kingIdx, isWhite) {
+      const file = kingIdx % 8;
+      const rank = Math.floor(kingIdx / 8);
+      let threats = 0;
+      for (let r = Math.max(0, rank - 2); r <= Math.min(7, rank + 2); r++) {
+        for (let f = Math.max(0, file - 2); f <= Math.min(7, file + 2); f++) {
+          const idx = r * 8 + f;
+          const piece = this.board[idx];
+          if (piece && piece !== 'K' && piece !== 'k') {
+            const isEnemy = isWhite ? /[a-z]/.test(piece) : /[A-Z]/.test(piece);
+            if (isEnemy) threats += this.pieceValues[piece.toLowerCase()] || 0;
+          }
+        }
+      }
+      return threats / 10;
+    }
+
+    getKingHoles(kingIdx, isWhite) {
+      const file = kingIdx % 8;
+      const rank = Math.floor(kingIdx / 8);
+      let holes = 0;
+      for (let r = Math.max(0, rank - 1); r <= Math.min(7, rank + 1); r++) {
+        for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+          if (r === rank && f === file) continue;
+          if (isWhite && r <= 1) continue;
+          if (!isWhite && r >= 6) continue;
+          const idx = r * 8 + f;
+          if (!this.canEverBeAttackedByPawn(idx, isWhite)) holes++;
+        }
+      }
+      return holes;
+    }
+
+    canEverBeAttackedByPawn(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const pawnRank = isWhite ? rank - 1 : rank + 1; // Rank where pawn would attack from
+
+      if (pawnRank < 0 || pawnRank > 7) return false;
+
+      const friendlyPawn = isWhite ? 'P' : 'p';
+      for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+        if (f === file) continue;
+        const pawnIdx = pawnRank * 8 + f;
+        if (this.board[pawnIdx] === friendlyPawn) return true;
+      }
+      return false;
+    }
+
+    // Material (M)
+    evaluateMaterial() {
+      let whiteMaterial = 0, blackMaterial = 0;
+      let whiteBishops = 0, blackBishops = 0;
+      let whiteKnights = 0, blackKnights = 0;
+      let whiteRooks = 0, blackRooks = 0;
+      for (const piece of this.board) {
+        switch(piece) {
+          case 'B': whiteBishops++; break;
+          case 'b': blackBishops++; break;
+          case 'N': whiteKnights++; break;
+          case 'n': blackKnights++; break;
+          case 'R': whiteRooks++; break;
+          case 'r': blackRooks++; break;
+        }
+
+        const value = this.pieceValues[piece?.toLowerCase()] || 0;
+        if (/[A-Z]/.test(piece)) {
+          whiteMaterial += value;
+        } else {
+          blackMaterial += value;
+        }
+      }
+
+      // bishop pair
+      if (whiteBishops == 2) whiteMaterial += 0.3;
+      if (blackBishops == 2) blackMaterial += 0.3;
+
+      // Minor piece vs. rook imbalance penalty
+      if (whiteRooks === 1 && whiteBishops + whiteKnights >= 2 && blackRooks === 0) whiteMaterial -= 0.2;
+      if (blackRooks === 1 && blackBishops + blackKnights >= 2 && whiteRooks === 0) blackMaterial -= 0.2;
+
+      const diff = whiteMaterial - blackMaterial;
+      return this.normalize(diff, -10, 10,'M'); // Max ~39, but 10 is decisive
+    }
+  
+    // Piece Activity (A)
+    evaluatePieceActivity() {
+      let whiteScore = 0, blackScore = 0;
+  
+      // Mobility: Count pseudo-legal moves (simplified)
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece) continue;
+        const isWhite = /[A-Z]/.test(piece);
+        const moves = this.getPseudoLegalMoves(i, piece);
+        if (isWhite) {
+          whiteScore += moves.length * 0.1;
+        } else {
+          blackScore += moves.length * 0.1;
+        }
+      }
+
+      // Bonus for rooks and queens on open files
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece) continue;
+        const isWhite = /[A-Z]/.test(piece);
+        const type = piece.toLowerCase();
+        if (type === 'r' || type === 'q') {
+          const file = i % 8;
+          if (this.isOpenFile(file)) {
+            if (isWhite) {
+              whiteScore += 0.3;
+            } else {
+              blackScore += 0.3;
+            }
+          }
+        }
+      }
+
+     // Knight outpost bonus
+     const outpostSquares = [19, 20, 27, 28, 35, 36, 43, 44]; // c4, c5, d4, d5, e4, e5, f4, f5
+     for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (piece?.toLowerCase() !== 'n') continue;
+        const isWhite = /[A-Z]/.test(piece);
+        const rank = Math.floor(i / 8);
+        const file = i % 8;
+        if (outpostSquares.includes(i)) { // Knight on d4, d5, e4, e5
+          const pawnSupport = (isWhite
+            ? (file > 0 && this.board[(rank + 1) * 8 + file - 1] === 'P') || (file < 7 && this.board[(rank + 1) * 8 + file + 1] === 'P')
+            : (file > 0 && this.board[(rank - 1) * 8 + file - 1] === 'p') || (file < 7 && this.board[(rank - 1) * 8 + file + 1] === 'p'));
+          const enemyPawnAttack = this.canEverBeAttackedByPawn(i, !isWhite);
+          if (!enemyPawnAttack) {
+            if (isWhite) {
+              whiteScore += pawnSupport ? 0.3 : 0.15; // Full bonus with support, half without
+            } else {
+              blackScore += pawnSupport ? 0.3 : 0.15;
+            }
+          }
+        }
+      }
+
+      // Central control
+      for (const centerIdx of this.centralSquares) {
+        let whiteAttacks = 0, blackAttacks = 0;
+        for (let i = 0; i < 64; i++) {
+          const piece = this.board[i];
+          if (!piece) continue;
+          const isWhitePiece = /[A-Z]/.test(piece);
+          if (piece.toLowerCase() === 'p') {
+            // Pawn attacks
+            const attacks = this.getPawnAttacks(i, isWhitePiece);
+            if (attacks.includes(centerIdx)) {
+              if (isWhitePiece) {
+                whiteAttacks++;
+              } else {
+                blackAttacks++;
+              }
+            }
+          } else {
+            // Other pieces use pseudo-legal moves
+            const moves = this.getPseudoLegalMoves(i, piece);
+            if (moves.includes(centerIdx)) {
+              if (isWhitePiece) {
+                whiteAttacks++;
+              } else {
+                blackAttacks++;
+              }
+            }
+          }
+        }
+        // Award bonus if more attackers
+        if (whiteAttacks > blackAttacks) {
+          whiteScore += 0.5;
+        } else if (blackAttacks > whiteAttacks) {
+          blackScore += 0.5;
+        }
+      }
+
+      // Diagonal control
+      const longDiagonals = [
+        [0, 9, 18, 27, 36, 45, 54, 63], // a1-h8
+        [7, 14, 21, 28, 35, 42, 49, 56] // a8-h1
+      ];
+
+      for (const diagonal of longDiagonals) {
+        let whiteAttacks = 0, blackAttacks = 0;
+        let whitePieceOnDiagonal = false, blackPieceOnDiagonal = false;
+
+        // Check for pieces directly on the diagonal
+        for (const idx of diagonal) {
+          const piece = this.board[idx];
+          if (!piece) continue;
+          const isWhite = /[A-Z]/.test(piece);
+          const type = piece.toLowerCase();
+          if (type === 'b' || type === 'q') {
+            if (isWhite) whitePieceOnDiagonal = true;
+            else blackPieceOnDiagonal = true;
+          }
+        }
+
+        // Check for pieces controlling the diagonal
+        for (let i = 0; i < 64; i++) {
+          const piece = this.board[i];
+          if (!['b','q'].includes(piece?.toLowerCase())) continue; // Only bishops and queens
+          const isWhite = /[A-Z]/.test(piece);
+          const moves = this.getPseudoLegalMoves(i, piece, true); // Use control moves
+          for (const idx of diagonal) {
+            if (moves.includes(idx)) {
+              if (isWhite) whiteAttacks++;
+              else blackAttacks++;
+            }
+          }
+        }
+
+        // Scoring
+        if (whitePieceOnDiagonal) whiteScore += 0.3; // Bonus for bishop/queen on diagonal
+        if (blackPieceOnDiagonal) blackScore += 0.3;
+        whiteScore += whiteAttacks * 0.1; // Bonus for each controlled square
+        blackScore += blackAttacks * 0.1;
+      }  
+
+      // Threats
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece) continue;
+        const isWhite = /[A-Z]/.test(piece);
+        const moves = piece.toLowerCase() === 'p'
+          ? this.getPawnAttacks(i, isWhite).concat(this.getPseudoLegalMoves(i, piece))
+          : this.getPseudoLegalMoves(i, piece);
+        const oppKing = isWhite ? 'k' : 'K';
+        const oppKingIdx = this.board.indexOf(oppKing);
+
+        for (const move of moves) {
+          const targetPiece = this.board[move];
+          // Check for checks
+          if (move === oppKingIdx) {
+            if (isWhite) {
+              whiteScore += 0.3; // Bonus for delivering check
+            } else {
+              blackScore += 0.3;
+            }
+          }
+          // Check for captures
+          if (targetPiece && (isWhite ? /[a-z]/.test(targetPiece) : /[A-Z]/.test(targetPiece))) {
+            const value = this.pieceValues[targetPiece.toLowerCase()] || 0;
+            if (isWhite) {
+              whiteScore += value * 0.1; // Scaled capture value
+            } else {
+              blackScore += value * 0.1;
+            }
+          }
+          // Check for promotion threats (pawns on 6th/2nd rank with clear path)
+          if (piece.toLowerCase() === 'p') {
+            const rank = Math.floor(i / 8);
+            const file = i % 8;
+            const dir = isWhite ? -1 : 1;
+            const nextIdx = (rank + dir) * 8 + file;
+            if ((isWhite && rank === 1) || (!isWhite && rank === 6)) {
+              if (!this.board[nextIdx] || (this.board[nextIdx] && (isWhite ? /[a-z]/.test(this.board[nextIdx]) : /[A-Z]/.test(this.board[nextIdx])))) {
+                if (isWhite) {
+                  whiteScore += 0.4; // Bonus for promotion threat
+                } else {
+                  blackScore += 0.4;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      const diff = whiteScore - blackScore;
+      return this.normalize(diff, -15, 15,'A'); // max is 22+, but decisive would be 15
+    }
+
+    getPawnAttacks(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const attacks = [];
+      const dir = isWhite ? -1 : 1; // White attacks up, Black attacks down
+      // Diagonal attacks
+      const attackOffsets = [-1, 1]; // Left and right files
+      for (const fOffset of attackOffsets) {
+        const newFile = file + fOffset;
+        const newRank = rank + dir;
+        if (newFile >= 0 && newFile <= 7 && newRank >= 0 && newRank <= 7) {
+          const attackIdx = newRank * 8 + newFile;
+          attacks.push(attackIdx);
+        }
+      }
+      return attacks;
+    }
+  
+    getPseudoLegalMoves(idx, piece, control) {
+      const cacheKey = `${piece}${idx}`;
+      let result = this.movesCache.get(cacheKey);
+      if (result) return result;
+
+      const moves = [];
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const isWhite = /[A-Z]/.test(piece);
+      const type = piece.toLowerCase();
+  
+      const directions = {
+        r: [[0, 1], [0, -1], [1, 0], [-1, 0]],
+        b: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
+        q: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
+        n: [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]],
+        k: [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]],
+      };
+  
+      if (type === 'p') {
+        if (control) throw new Error('Should not use control=true for pawns');
+        const dir = isWhite ? -1 : 1;
+        const startRank = isWhite ? 6 : 1;
+        // Forward move
+        let newIdx = idx + dir * 8;
+        if (newIdx >= 0 && newIdx < 64 && !this.board[newIdx]) {
+          moves.push(newIdx);
+          // Double move from starting rank
+          if (rank === startRank) {
+            newIdx += dir * 8;
+            if (!this.board[newIdx]) moves.push(newIdx);
+          }
+        }
+        // Captures
+        for (const f of [-1, 1]) {
+          newIdx = idx + dir * 8 + f;
+          if (newIdx >= 0 && newIdx < 64 && Math.abs((newIdx % 8) - file) === 1) {
+            if (this.board[newIdx] && (isWhite ? /[a-z]/.test(this.board[newIdx]) : /[A-Z]/.test(this.board[newIdx]))) {
+              moves.push(newIdx);
+            }
+          }
+        }
+      } else if (directions[type]) {
+        for (const [dr, df] of directions[type]) {
+          let r = rank + dr;
+          let f = file + df;
+          let steps = type === 'n' || type === 'k' ? 1 : 7;
+          while (steps-- && r >= 0 && r < 8 && f >= 0 && f < 8) {
+            const newIdx = r * 8 + f;
+            const target = this.board[newIdx];
+            if (target) {
+              const targetWhite = /[A-Z]/.test(target);
+              if (targetWhite == isWhite && !control) break;
+              moves.push(newIdx);
+              break;
+            }
+            moves.push(newIdx);
+            r += dr;
+            f += df;
+          }
+        }
+      }
+  
+      result = moves.filter(i => i >= 0 && i < 64);
+      this.movesCache.set(cacheKey, result);
+      return result;
+    }
+
+    isOpenFile(file) {
+      for (let r = 0; r < 8; r++) {
+        const idx = r * 8 + file;
+        if (this.board[idx] === 'P' || this.board[idx] === 'p') return false;
+      }
+      return true;
+    }
+  
+    // Pawn Structure (P)
+    evaluatePawnStructure() {
+      let whiteScore = 0, blackScore = 0;
+  
+      // Count pawns per file
+      const whitePawns = Array(8).fill(0);
+      const blackPawns = Array(8).fill(0);
+      for (let i = 0; i < 64; i++) {
+        if (this.board[i] === 'P') whitePawns[i % 8]++;
+        if (this.board[i] === 'p') blackPawns[i % 8]++;
+      }
+  
+      // Doubled pawns
+      for (let f = 0; f < 8; f++) {
+        if (whitePawns[f] > 1) whiteScore -= (whitePawns[f] - 1) * 0.5;
+        if (blackPawns[f] > 1) blackScore -= (blackPawns[f] - 1) * 0.5;
+      }
+  
+      // Isolated pawns
+      for (let f = 0; f < 8; f++) {
+        if (whitePawns[f]) {
+          const isIsolated = !whitePawns[Math.max(0, f - 1)] && !whitePawns[Math.min(7, f + 1)];
+          if (isIsolated) whiteScore -= 0.5;
+        }
+        if (blackPawns[f]) {
+          const isIsolated = !blackPawns[Math.max(0, f - 1)] && !blackPawns[Math.min(7, f + 1)];
+          if (isIsolated) blackScore -= 0.5;
+        }
+      }
+  
+      // Passed pawns
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (piece === 'P') { // White pawn
+          if (this.isPassedPawn(i, true)) {
+            const r = Math.floor(i / 8); // Row from 0 (rank 8) to 7 (rank 1)
+            const advancedRows = 6 - r; // Rows advanced from starting row 6
+            whiteScore += 0.2 * advancedRows;
+          }
+        } else if (piece === 'p') { // Black pawn
+          if (this.isPassedPawn(i, false)) {
+            const r = Math.floor(i / 8);
+            const advancedRows = r - 1; // Rows advanced from starting row 1
+            blackScore += 0.2 * advancedRows;
+          }
+        }
+      }
+
+      // Pawn islands
+      const whiteIslands = this.countPawnIslands(whitePawns);
+      const blackIslands = this.countPawnIslands(blackPawns);
+      whiteScore -= (whiteIslands - 1) * 0.5;
+      blackScore -= (blackIslands - 1) * 0.5;
+
+      // Backward pawns
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (piece === 'P' && this.isBackwardPawn(i, true)) {
+          whiteScore -= this.isOpenFile(i % 8) ? 0.5 : 0.3;
+        }
+        if (piece === 'p' && this.isBackwardPawn(i, false)) {
+          blackScore -= this.isOpenFile(i % 8) ? 0.5 : 0.3;
+        }
+      }
+
+      // Pawn chain bonus
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (piece?.toLowerCase() != 'p') continue;
+        const isWhite = piece === 'P';
+        const file = i % 8;
+        const rank = Math.floor(i / 8);
+        const supportOffsets = isWhite ? [9, 7] : [-9, -7]; // Diagonal support (e.g., c3 supports d4 for white)
+        for (const offset of supportOffsets) {
+          const supportIdx = i + offset;
+          if (supportIdx >= 0 && supportIdx < 64 && Math.abs((supportIdx % 8) - file) === 1) {
+            if (this.board[supportIdx] === piece) {
+              if (isWhite) {
+                whiteScore += 0.1; // Bonus for each supported pawn
+              } else {
+                blackScore += 0.1;
+              }
+            }
+          }
+        }
+      }
+      const diff = whiteScore - blackScore; //TODO should we take into account the number of the pawns?
+      return this.normalize(diff, -7, 7,'P'); //max delta ~15.5, but average is ~7
+    }
+  
+    isPassedPawn(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const direction = isWhite ? -1 : 1;
+      for (let r = rank + direction; isWhite ? r >= 0 : r < 8; r += direction) {
+        for (let f = Math.max(0, file - 1); f <= Math.min(7, file + 1); f++) {
+          const checkIdx = r * 8 + f;
+          if ((isWhite && this.board[checkIdx] === 'p') || (!isWhite && this.board[checkIdx] === 'P')) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    countPawnIslands(pawns) {
+      let islands = 0;
+      let inIsland = false;
+      for (let f = 0; f < 8; f++) {
+        if (pawns[f] > 0) {
+          if (!inIsland) {
+            islands++;
+            inIsland = true;
+          }
+        } else {
+          inIsland = false;
+        }
+      }
+      return islands;
+    }
+
+    canBeCaptured(idx, isWhite) {
+      const oppPieces = isWhite ? /[a-z]/ : /[A-Z]/;
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece || !oppPieces.test(piece)) continue;
+        const isPawn = piece.toLowerCase() === 'p';
+        const moves = isPawn
+          ? this.getPawnAttacks(i, !isWhite)
+          : this.getPseudoLegalMoves(i, piece);
+        if (moves.includes(idx)) return true;
+      }
+      return false;
+    }
+   
+    isBackwardPawn(idx, isWhite) {
+      const file = idx % 8;
+      const rank = Math.floor(idx / 8);
+      const dir = isWhite ? -1 : 1;
+      const nextRank = rank + dir;
+      if (nextRank < 0 || nextRank > 7) return false;
+
+      const forwardIdx = nextRank * 8 + file;
+      if (this.board[forwardIdx]) return false; // Blocked
+
+      if (this.canBeCaptured(forwardIdx, isWhite)) {
+        const hasSupport = (file > 0 && this.board[rank * 8 + file - 1] === (isWhite ? 'P' : 'p')) ||
+                           (file < 7 && this.board[rank * 8 + file + 1] === (isWhite ? 'P' : 'p'));
+        return !hasSupport;
+      }
+      return false;
+    }
+  
+    // Space Advantage (S)
+    evaluateSpace() {
+      let whiteScore = 0, blackScore = 0;
+  
+      // Count controlled squares in opponent's half
+      const whiteControlled = new Set();
+      const blackControlled = new Set();
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece) continue;
+        const isPawn = /p/i.test(piece);
+        const isWhite = /[A-Z]/.test(piece);
+        const moves = isPawn
+                        ? this.getPawnAttacks(i, isWhite)
+                        : this.getPseudoLegalMoves(i, piece, true);
+        for (const move of moves) {
+          const rank = Math.floor(move / 8);
+          if (isWhite && rank <= 3) whiteControlled.add(move);
+          if (!isWhite && rank >= 4) blackControlled.add(move);
+        }
+      }
+      whiteScore += whiteControlled.size * 0.1;
+      blackScore += blackControlled.size * 0.1;
+  
+      // Bonus for central pawns
+      for (const idx of this.centralSquares) {
+        if (this.board[idx] === 'P') whiteScore += 1;
+        if (this.board[idx] === 'p') blackScore += 1;
+      }
+
+      // Penalty for cramped pieces
+      for (let i = 0; i < 64; i++) {
+        const piece = this.board[i];
+        if (!piece || piece.toLowerCase() === 'k') continue; // Skip kings
+        const isWhite = /[A-Z]/.test(piece);
+        const moves = piece.toLowerCase() === 'p' 
+          ? this.getPseudoLegalMoves(i, piece).concat(this.getPawnAttacks(i, isWhite))
+          : this.getPseudoLegalMoves(i, piece);
+        if (moves.length === 0) {
+          const penalty = this.pieceValues[piece.toLowerCase()] || 1;
+          if (isWhite) {
+            whiteScore -= penalty * 0.1 + 0.2;
+          } else {
+            blackScore -= penalty * 0.1 + 0.2;
+          }
+        }
+      }
+  
+      const diff = whiteScore - blackScore;
+      return this.normalize(diff, -7, 7,'S'); //max is ~11, 7 should be decisive
+    }
+  
+    // Main evaluation function
+    async evaluate() {
+      return {
+        K: this.evaluateKingSafety(),
+        M: this.evaluateMaterial(),
+        A: this.evaluatePieceActivity(),
+        P: this.evaluatePawnStructure(),
+        S: this.evaluateSpace(),
+      };
+    }
+  }
+
+  LiChessTools.ChessPositionEvaluator = ChessPositionEvaluator;
+
+  class ChessActivityEvaluator {
+    constructor(board) {
+      this.board = board;
+      this.directions = {
+        p: [], // handled separately
+        n: [
+          [1,2],[2,1],[-1,2],[-2,1],[1,-2],[2,-1],[-1,-2],[-2,-1]
+        ],
+        b: [[1,1],[1,-1],[-1,1],[-1,-1]],
+        r: [[1,0],[-1,0],[0,1],[0,-1]],
+        q: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]],
+        k: [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
+      };
+      this.pieceBaseMobility = {
+        p: 3,
+        n: 8,
+        b: 13,
+        r: 14,
+        q: 27,
+        k: 8
+      };
+    }
+  
+    SECONDARY = 0.2;
+    CONTROLLED_BY_OPPONENT = 0.1;
+    FREE = 1;
+  
+    inBounds(x, y) {
+      return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+  
+    getColor(piece) { 
+      if (!piece) return 0;
+      if (piece >= 'A' && piece <= 'Z') return 1;
+      if (piece >= 'a' && piece <= 'z') return -1;
+      throw new Error('piece '+piece+' not recognized');
+    }
+  
+    getPieceType(piece) { return piece.toLowerCase(); }
+  
+    generateMoves(x, y) {
+      const piece = this.board[y][x];
+      if (!piece) return [];
+      const color = this.getColor(piece);
+      const type = this.getPieceType(piece);
+      const moves = [];
+  
+      if (type === 'p') {
+        const dir = -color;
+        const ny = y + dir;
+        if (this.inBounds(x, ny) && !this.board[ny][x]) {
+          moves.push([x, ny]);
+        }
+        for (const dx of [-1, 1]) {
+          const cx = x + dx;
+          if (this.inBounds(cx, ny) && this.getColor(this.board[ny][cx])==-color) moves.push([cx, ny]);
+        }
+        return moves;
+      }
+  
+      const dirs = this.directions[type];
+      for (const [dx, dy] of dirs) {
+        let nx = x + dx, ny = y + dy;
+        if (['n', 'k'].includes(type)) {
+          if (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) moves.push([nx, ny]);
+        } else {
+          while (this.inBounds(nx, ny) && this.getColor(this.board[ny][nx])!=color) {
+            moves.push([nx, ny]);
+            if (this.board[ny][nx]) break;
+            nx += dx; ny += dy;
+          }
+        }
+      }
+      return moves;
+    }
+  
+    computeControlMap() {
+      const control = Array.from({ length: 8 }, () => Array(8).fill(0));
+      for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+          const piece = this.board[y][x];
+          if (!piece) continue;
+          const color = this.getColor(piece);
+          const moves = this.generateMoves(x, y);
+          for (const [mx, my] of moves) {
+            control[my][mx] += color;
+          }
+        }
+      }
+      return control;
+    }
+  
+    evaluatePieceActivity(x, y, controlMap) {
+      const piece = this.board[y][x];
+      const type = this.getPieceType(piece);
+      const color = this.getColor(piece);
+      const moves = this.generateMoves(x, y);
+  
+      let score = 0;
+      for (const [mx, my] of moves) {
+        const control = controlMap[my][mx];
+        score += control * color < 0 ? this.CONTROLLED_BY_OPPONENT : this.FREE;
+      }
+  
+      // second-level mobility
+      for (const [mx, my] of moves) {
+        if (controlMap[my][mx] * color < 0) continue;
+        const clone = this.cloneBoard();
+        clone[my][mx] = piece;
+        clone[y][x] = undefined;
+        const sub = new ChessActivityEvaluator(clone);
+        const subMoves = sub.generateMoves(mx, my);
+        for (const [sx, sy] of subMoves) {
+          if (controlMap[sy][sx] * color >= 0) score += this.SECONDARY;
+        }
+      }
+  
+      return score / this.pieceBaseMobility[type];
+    }
+  
+    cloneBoard() {
+      return this.board.map(r => r.slice());
+    }
+  
+    evaluateAll() {
+      const control = this.computeControlMap();
+      const result = { white: [], black: [] };
+  
+      for (let x = 0; x < 8; x++) {
+        for (let y = 0; y < 8; y++) {
+          const piece = this.board[y][x];
+          if (!piece) continue;
+          const score = this.evaluatePieceActivity(x, y, control);
+          const arr = this.getColor(piece)==1 ? result.white : result.black;
+          arr.push({ piece, x, y, score });
+        }
+      }
+      result.white.sort((a,b)=>a.score-b.score);
+      result.black.sort((a,b)=>a.score-b.score);
+  
+      return result;
+    }
+  }
+
+  LiChessTools.ChessActivityEvaluator = ChessActivityEvaluator;
 })();

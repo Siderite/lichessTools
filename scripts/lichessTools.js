@@ -263,33 +263,11 @@
         : ceval;
     };
 
-    getCentipawns = (info) => {
-      if (!info || info.depth === 0) return;
-      let cp = undefined;
-      const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
-      if (mate !== undefined) {
-        const sign = mate?.toString()?.trim()?.startsWith('-')
-          ? -1
-          : 1;
-        cp = sign * (10000 - Math.abs(+mate) * 100);
-      }
-      if (info.cp !== undefined) {
-        cp = +(Array.isArray(info.cp) ? info.cp[0] : info.cp);
-      }
-      if (cp === undefined || Number.isNaN(cp)) {
-        this.global.console.warn('Failed getting centipawns from ',info);
-        return 0;
-      }
-      return cp;
-    };
+    getCentipawns = (info) => LiChessTools.ChessMetrics.getCentipawnOnlyValue(info);
 
-    winPerc = (cp) => {
-      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
-    };
+    winPerc = (cp) => LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
 
-    accuracy = (expected, played) =>{
-      return Math.max(0,103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played||0))) - 3.1669);
-    };
+    accuracy = (expected, played) => LiChessTools.ChessMetrics.winDeltaToAccuracy(expected, played);
 
     crc24 = (data) => {
       const polynomial = 0x864CFB;
@@ -859,11 +837,11 @@
     }
 
     isMate(node) {
-      return node.san?.endsWith('#');
+      return LiChessTools.ChessMetrics.isSanMate(node);
     }
 
     isCheck(node) {
-      return node.san?.includes('+');
+      return LiChessTools.ChessMetrics.isSanCheck(node);
     }
 
     getNodePosition(node) {
@@ -1331,9 +1309,7 @@
     };
 
 
-    isStartFen = (fen) => {
-      return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-    };
+    isStartFen = (fen) => LiChessTools.ChessMetrics.isStartFen(fen);
 
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
@@ -1399,37 +1375,7 @@
       return fen;
     };
 
-    reverseFen = (fen) => {
-      if (!fen) return fen;
-
-      const flipCapitalization = s => {
-        const pieces = 'RNBQKPrnbqkp';
-        return s.split('').map(ch => {
-          const i = pieces.indexOf(ch);
-          if (i < 0) return ch;
-          return pieces[(i + 6) % 12];
-        }).join('');
-      };
-
-      const splits = fen.split(' ');
-      splits[0] = flipCapitalization(splits[0].split('/').reverse().join('/'));
-      if (splits[1]) {
-        splits[1] = splits[1] == 'w' ? 'b' : 'w';
-      }
-      if (splits[2]) {
-        splits[2] = flipCapitalization(splits[2]);
-        const arr = splits[2].split('');
-        arr.sort();
-        splits[2] = arr.join('');
-      }
-      if (splits[3]) {
-        const m = /^([a-h])([1-8])$/.test(splits[3]);
-        if (m) {
-          splits[3] = m[1] + (9 - (+m[2]));
-        }
-      }
-      return splits.join(' ');
-    };
+    reverseFen = (fen) => LiChessTools.ChessMetrics.mirrorFen(fen);
 
     makeSvg = (svgText, chessground) => {
       return {
