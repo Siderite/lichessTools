@@ -28,6 +28,7 @@
       const value = lt.currentOptions.getValue('chessOps');
       if (!value) {
         lt.chessops = null;
+        lt.chessopsModule = null;
         return;
       }
       if (!lt.chessops) {
@@ -44,6 +45,8 @@
           });
         });
       }
+      // eagerly load chessops so synchronous code (e.g. the board adapter) can use it
+      lt.chessops().then(co => { lt.chessopsModule = co; });
     }
 
   }

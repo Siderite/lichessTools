@@ -1298,8 +1298,9 @@
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
+      const fullFen = fen;
       let result = this.fenToBoard.get(fen);
-      if (result) return result.map(r => r.slice()); //clone
+      if (result) return this._cloneBoard(result);
       result = [];
       for (let i = 0; i < 8; i++) result.push(Array(8));
       const splits = fen.split(' ');
@@ -1329,8 +1330,34 @@
         x += (+ch);
       }
       result.fen = fen;
+      this._attachChessopsBoard(result, fullFen);
       this.fenToBoard.set(fen,result);
-      return result;
+      return this._cloneBoard(result);
+    };
+
+    _attachChessopsBoard = (board, fen) => {
+      const co = this.chessopsModule;
+      if (!co?.fen?.parseFen) return;
+      try {
+        const setup = co.fen.parseFen(fen);
+        const value = setup && typeof setup.unwrap === 'function' ? setup.unwrap() : setup;
+        const coBoard = value?.board;
+        if (coBoard) {
+          Object.defineProperty(board, 'co', { value: coBoard, enumerable: false, configurable: true, writable: false });
+        }
+      } catch (e) {
+        // chessops couldn't parse this FEN; leave board.co unset
+      }
+    };
+
+    _cloneBoard = (board) => {
+      const clone = board.map(r => r.slice());
+      if (board.fen !== undefined) clone.fen = board.fen;
+      if (board.enpassant !== undefined) clone.enpassant = board.enpassant;
+      if (board.co) {
+        Object.defineProperty(clone, 'co', { value: board.co, enumerable: false, configurable: true, writable: false });
+      }
+      return clone;
     };
 
     getFenFromBoard = (board) => {

@@ -680,6 +680,42 @@ class BrilliantMoveAnalyzer {
       'p': 100
     };
 
+    static ROLE_LETTERS = {
+      'king': 'k',
+      'queen': 'q',
+      'rook': 'r',
+      'bishop': 'b',
+      'knight': 'n',
+      'pawn': 'p'
+    };
+
+    static occupiedSquares(board) {
+      const result = [];
+      const co = board?.co;
+      if (co?.occupied && typeof co.get === 'function') {
+        for (const square of co.occupied) {
+          const piece = co.get(square);
+          if (!piece) continue;
+          const ch = ChessMetrics.ROLE_LETTERS[piece.role];
+          if (!ch) continue;
+          result.push({
+            x: square & 7,
+            y: 7 - (square >> 3),
+            ch: piece.color === 'white' ? ch.toUpperCase() : ch
+          });
+        }
+        return result;
+      }
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const ch = board[y][x];
+          if (!ch) continue;
+          result.push({ x, y, ch });
+        }
+      }
+      return result;
+    }
+
     static getCentipawnOnlyValue(info) {
       if (!info || info.depth === 0) return;
       let cp = undefined;
@@ -1056,11 +1092,9 @@ class BrilliantMoveAnalyzer {
       if (result) return result;
       const board = lt.getBoardFromFen(node.fen);
       const underAttack = [];
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ua = ChessMetrics.pieceTension(x, y, board, true);
-          underAttack.push.apply(underAttack, ua);
-        }
+      for (const { x, y } of ChessMetrics.occupiedSquares(board)) {
+        const ua = ChessMetrics.pieceTension(x, y, board, true);
+        underAttack.push.apply(underAttack, ua);
       }
       result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
                   .map(i => i.split('=')[1].toLowerCase())
@@ -1076,11 +1110,9 @@ class BrilliantMoveAnalyzer {
       let result = ChessMetrics.capturingMoveCache.get(fen);
       if (result) return result;
       result = [];
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ua = ChessMetrics.pieceTension(x, y, board, false);
-          result.push.apply(result, ua);
-        }
+      for (const { x, y } of ChessMetrics.occupiedSquares(board)) {
+        const ua = ChessMetrics.pieceTension(x, y, board, false);
+        result.push.apply(result, ua);
       }
       ChessMetrics.capturingMoveCache.set(fen, result);
       return result;
@@ -1119,16 +1151,12 @@ class BrilliantMoveAnalyzer {
       let result = ChessMetrics.maxMaterialWonCache.get(key);
       if (result) return result;
       let mx = 0;
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ch = board[y][x];
-          if (!ch) continue; // no piece
-          const pm = ch === ch.toUpperCase() ? 1 : -1;
-          if (pm == m) continue; // wrong turn
-          const mw = ChessMetrics.materialWon(board, x, y, lt);
-          if (Math.sign(mw) == m && Math.abs(mw) > mx) {
-            mx = Math.abs(mw);
-          }
+      for (const { x, y, ch } of ChessMetrics.occupiedSquares(board)) {
+        const pm = ch === ch.toUpperCase() ? 1 : -1;
+        if (pm == m) continue; // wrong turn
+        const mw = ChessMetrics.materialWon(board, x, y, lt);
+        if (Math.sign(mw) == m && Math.abs(mw) > mx) {
+          mx = Math.abs(mw);
         }
       }
       result = mx * m;
@@ -1141,6 +1169,10 @@ class BrilliantMoveAnalyzer {
       if (!board) return 'opening';
 
       const majorsAndMinors = (board) => {
+        const co = board?.co;
+        if (co) {
+          return co.knight.size() + co.bishop.size() + co.rook.size() + co.queen.size();
+        }
         return board
                  .flat()
                  .filter(p => 'rnbq'.includes(p.toLowerCase()))
