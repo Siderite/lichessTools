@@ -75,9 +75,9 @@
         if (you && !e.__initialTitle) {
           const yourPerf = you.perfs[key];
           if (yourPerf && !yourPerf.prov) {
-            e.initialTitle = $(e).attr('title');
+            e.__initialTitle = $(e).attr('title');
             const predicted = this.getGlickoOutcomes(yourPerf,perf);
-            const newTitle = e.initialTitle + ' (' + trans.pluralSame('predictedRatingChangeText',predicted) + ')';
+            const newTitle = e.__initialTitle + ' (' + trans.pluralSame('predictedRatingChangeText',predicted) + ')';
             $(e).attr('title',newTitle);
           }
         }

@@ -49,16 +49,15 @@
       const [data,meta] = args;
       data.time = Date.now();
 
-      const cevalResult = await this.getCeval(data.fen);
-      const value = cevalResult?.data;
-      if (data.depth <= 20 || data.depth <= value?.depth) return;
+      const { dbKey, data: existingData } = await this.getCeval(data.fen);
+      if (data.depth <= 20 || data.depth <= existingData?.depth) return;
       try {
-        await lt.storage.set(cevalResult.dbKey,data,{ db: true, raw: true });
+        await lt.storage.set(dbKey,data,{ db: true, raw: true });
       } catch(e) {
         if (e.name === "QuotaExceededError") {
           const dbStorage = lt.storage.getStore({ db: true, raw: true });
           dbStorage.removeAllBy(dbKey,'time','upperBound',Date.now()-86400*1000*30);
-          await lt.storage.set(cevalResult.dbKey,data,{ db: true, raw: true });
+          await lt.storage.set(dbKey,data,{ db: true, raw: true });
         }
       };
     };

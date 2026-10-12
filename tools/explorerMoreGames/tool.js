@@ -94,7 +94,7 @@
       analysis.redraw = lt.unwrapFunction(analysis.redraw, 'explorerMoreGames');
       if (!value) return;
       analysis.redraw = lt.wrapFunction(analysis.redraw, {
-        id: 'explorerSnaps',
+        id: 'explorerMoreGames',
         before: ($this, ...args) => {
           this.addGamesFromMoves();
         },

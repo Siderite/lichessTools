@@ -53,20 +53,18 @@
 
       const userId = lt.getUserId();
       const data = await lt.api.user.getRatingHistory(userId);
-      const puzzles = data.find(i=>i.name=='Puzzles');
+      const puzzles = data.find(i=>i.name=='puzzle');
       const days = lt.location.getPuzzleDashboardDays();
       let afterEl = '.puzzle-dashboard__radar';
       if (days && puzzles) {
         const date = new Date();
         date.setDate(date.getDate()-days);
-        lt.arrayRemoveAll(puzzles.points,p=>{
-          return new Date(p[0],p[1],p[2])<date;
-        });
+        lt.arrayRemoveAll(puzzles.points,([y, m, d]) => new Date(y, m, d) < date);
         afterEl = $('<div class="chart-container lichessTools-chart-container"><canvas class="rating-history"></div>').insertAfter(afterEl);
         asset.loadEsm('chart.ratingHistory',{ 
           init: {
             data: data,
-            singlePerfName: 'Puzzles'
+            singlePerfName: 'puzzle'
           }
         });
       }
