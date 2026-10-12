@@ -1,4 +1,98 @@
 (() => {
+  // ============================================================ shared foundation modules
+  // One material helper with a shared value table.
+  class Material {
+    // piece value in "piece units" (pawn = 1)
+    static VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0 };
+    // value of an attacker (a king capturing is "cheap")
+    static ATTACKER_VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 2.5 };
+    // centipawn value keyed by letter (historical ChessMetrics table)
+    static VALUE_CP = { 'k': 0, 'q': 900, 'r': 500, 'b': 310, 'n': 300, 'p': 100 };
+    static ROLE_LETTER = { king: 'k', queen: 'q', rook: 'r', bishop: 'b', knight: 'n', pawn: 'p' };
+    static LETTER_TO_ROLE = { 'k': 'king', 'q': 'queen', 'r': 'rook', 'b': 'bishop', 'n': 'knight', 'p': 'pawn' };
+
+    static letterOf(piece) {
+      const ch = Material.ROLE_LETTER[piece?.role];
+      if (!ch) return null;
+      return piece.color === 'white' ? ch.toUpperCase() : ch;
+    }
+
+    static simpleMaterial(fen, isTotal, side) {
+      let result = 0;
+      if (!fen) return result;
+      const board = String(fen).split(' ')[0];
+      for (const ch of board) {
+        const p = Material.VALUE_CP[ch.toLowerCase()];
+        if (p) {
+          const m = ch === ch.toUpperCase() ? 1 : -1;
+          if (!side || side == m) result += isTotal ? p : m * p;
+        }
+      }
+      return result;
+    }
+  }
+
+  // One scoring utility (normalization, logistic, ramp, tapered interpolation).
+  class Scoring {
+    static normalize(score, min, max) {
+      if (score >= max) return 1;
+      if (score <= min) return -1;
+      return (2 * (score - min)) / (max - min) - 1;
+    }
+    static centipawnsToWinPercentage(cp) {
+      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    }
+    static winDeltaToAccuracy(expected, played) {
+      return Math.max(0, 103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played || 0))) - 3.1669);
+    }
+    static wdlToSharpness(w, d, l) {
+      return Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+    }
+    static ramp(x, zero, full) {
+      if (x <= zero) return 0;
+      if (x >= full) return 1;
+      return (x - zero) / (full - zero);
+    }
+    static tapered(mg, eg, phase) {
+      return mg + (eg - mg) * phase;
+    }
+  }
+
+  // One attack/move generator (chessops attacks).
+  class MoveGen {
+    static get co() {
+      return (typeof window !== 'undefined' && window.lichessTools?.chessopsModule) || null;
+    }
+    static attacks(board, sq) {
+      const co = MoveGen.co;
+      const piece = board?.get(sq);
+      if (!piece || !co) return [];
+      let attacked;
+      switch (piece.role) {
+        case 'knight': attacked = co.knightAttacks(sq); break;
+        case 'bishop': attacked = co.bishopAttacks(sq, board.occupied); break;
+        case 'rook': attacked = co.rookAttacks(sq, board.occupied); break;
+        case 'queen': attacked = co.queenAttacks(sq, board.occupied); break;
+        case 'king': attacked = co.kingAttacks(sq); break;
+        case 'pawn': attacked = co.pawnAttacks(piece.color, sq); break;
+        default: return [];
+      }
+      return [...attacked];
+    }
+    static controlMap(board, color) {
+      const control = new Set();
+      const side = board?.[color === 'white' ? 'white' : 'black'];
+      for (const sq of side || []) {
+        for (const t of MoveGen.attacks(board, sq)) control.add(t);
+      }
+      return control;
+    }
+  }
+
+  LiChessTools.Material = Material;
+  LiChessTools.Scoring = Scoring;
+  LiChessTools.MoveGen = MoveGen;
+
 /**
  * BrilliantMoveAnalyzer
  *
@@ -671,37 +765,20 @@ class BrilliantMoveAnalyzer {
   LiChessTools.BrilliantMoveAnalyzer = BrilliantMoveAnalyzer;
 
   class ChessMetrics {
-    static pieceMaterial = {
-      'k': 0,
-      'q': 900,
-      'r': 500,
-      'b': 310,
-      'n': 300,
-      'p': 100
-    };
+    static pieceMaterial = Material.VALUE_CP;
 
-    static ROLE_LETTERS = {
-      'king': 'k',
-      'queen': 'q',
-      'rook': 'r',
-      'bishop': 'b',
-      'knight': 'n',
-      'pawn': 'p'
-    };
+    static ROLE_LETTERS = Material.ROLE_LETTER;
 
-    static LETTER_TO_ROLE = { 'k': 'king', 'q': 'queen', 'r': 'rook', 'b': 'bishop', 'n': 'knight', 'p': 'pawn' };
+    static LETTER_TO_ROLE = Material.LETTER_TO_ROLE;
 
     static get chessops() {
-      return (typeof window !== 'undefined' && window.lichessTools?.chessopsModule) || null;
+      return MoveGen.co;
     }
 
     static _square(x, y) { return x + (7 - y) * 8; }
 
     static _pieceChar(b, sq) {
-      const piece = b.get(sq);
-      if (!piece) return null;
-      const ch = ChessMetrics.ROLE_LETTERS[piece.role];
-      return piece.color === 'white' ? ch.toUpperCase() : ch;
+      return Material.letterOf(b.get(sq));
     }
 
     static _boardFen(board) {
@@ -766,15 +843,15 @@ class BrilliantMoveAnalyzer {
     }
 
     static centipawnsToWinPercentage(cp) {
-      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+      return Scoring.centipawnsToWinPercentage(cp);
     }
 
     static winDeltaToAccuracy(expected, played) {
-      return Math.max(0, 103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played || 0))) - 3.1669);
+      return Scoring.winDeltaToAccuracy(expected, played);
     }
 
     static wdlToSharpness(w, d, l) {
-      return Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+      return Scoring.wdlToSharpness(w, d, l);
     }
 
     static isSanMate(node) {
@@ -822,21 +899,7 @@ class BrilliantMoveAnalyzer {
     }
 
     static simpleMaterial(node, isTotal, side) {
-      let result = 0;
-      if (!node.fen) return result;
-      const board = node.fen.split(' ')[0];
-      for (const ch of board) {
-        const p = ChessMetrics.pieceMaterial[ch.toLowerCase()];
-        if (p) {
-          const m = ch === ch.toUpperCase() ? 1 : -1;
-          if (!side || side == m) {
-            result += isTotal
-              ? p
-              : m * p;
-          }
-        }
-      }
-      return result;
+      return Material.simpleMaterial(node?.fen, isTotal, side);
     }
 
     static onBoard(x, y) {
@@ -852,16 +915,7 @@ class BrilliantMoveAnalyzer {
       if (!piece) return underAttack;
       const m = piece.color === 'white' ? 1 : -1;
       const spc = ChessMetrics._pieceChar(b, sq);
-      let attacked;
-      switch (piece.role) {
-        case 'knight': attacked = co.knightAttacks(sq); break;
-        case 'bishop': attacked = co.bishopAttacks(sq, b.occupied); break;
-        case 'rook': attacked = co.rookAttacks(sq, b.occupied); break;
-        case 'queen': attacked = co.queenAttacks(sq, b.occupied); break;
-        case 'king': attacked = co.kingAttacks(sq); break;
-        case 'pawn': attacked = co.pawnAttacks(piece.color, sq); break;
-        default: return underAttack;
-      }
+      const attacked = MoveGen.attacks(b, sq);
       for (const t of attacked) {
         const tp = b.get(t);
         if (!tp) continue;
@@ -1849,7 +1903,6 @@ class BrilliantMoveAnalyzer {
   class ChessActivityEvaluator {
     constructor(board) {
       this.co = board || null;
-      this.chessops = ChessMetrics.chessops;
       this.pieceBaseMobility = { pawn: 3, knight: 8, bishop: 13, rook: 14, queen: 27, king: 8 };
     }
 
@@ -1870,16 +1923,7 @@ class BrilliantMoveAnalyzer {
     generateMoves(sq) {
       const piece = this.co?.get(sq);
       if (!piece) return [];
-      let attacked;
-      switch (piece.role) {
-        case 'knight': attacked = this.chessops.knightAttacks(sq); break;
-        case 'bishop': attacked = this.chessops.bishopAttacks(sq, this.co.occupied); break;
-        case 'rook': attacked = this.chessops.rookAttacks(sq, this.co.occupied); break;
-        case 'queen': attacked = this.chessops.queenAttacks(sq, this.co.occupied); break;
-        case 'king': attacked = this.chessops.kingAttacks(sq); break;
-        case 'pawn': attacked = this.chessops.pawnAttacks(piece.color, sq); break;
-        default: return [];
-      }
+      const attacked = MoveGen.attacks(this.co, sq);
       const friendly = piece.color === 'white' ? this.co.white : this.co.black;
       const moves = [];
       for (const t of attacked) {
@@ -1983,29 +2027,11 @@ class BrilliantMoveAnalyzer {
     }
 
     attacks(board, sq) {
-      const co = this.co;
-      const piece = board.get(sq);
-      if (!piece || !co) return [];
-      let attacked;
-      switch (piece.role) {
-        case 'knight': attacked = co.knightAttacks(sq); break;
-        case 'bishop': attacked = co.bishopAttacks(sq, board.occupied); break;
-        case 'rook': attacked = co.rookAttacks(sq, board.occupied); break;
-        case 'queen': attacked = co.queenAttacks(sq, board.occupied); break;
-        case 'king': attacked = co.kingAttacks(sq); break;
-        case 'pawn': attacked = co.pawnAttacks(piece.color, sq); break;
-        default: return [];
-      }
-      return [...attacked];
+      return MoveGen.attacks(board, sq);
     }
 
     computeControlMap(board, color) {
-      const control = new Set();
-      const side = color === 'white' ? board.white : board.black;
-      for (const sq of side) {
-        for (const t of this.attacks(board, sq)) control.add(t);
-      }
-      return control;
+      return MoveGen.controlMap(board, color);
     }
 
     movementTargets(board, sq, control) {
