@@ -41,12 +41,13 @@
           // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
           lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
             chessops = await import(url);
+            lt.chessopsModule = chessops;
             resolve(chessops);
           });
         });
       }
       // eagerly load chessops so synchronous code (e.g. the board adapter) can use it
-      lt.chessops().then(co => { lt.chessopsModule = co; });
+      lt.chessops();
     }
 
   }
