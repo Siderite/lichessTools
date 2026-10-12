@@ -1,5 +1,20 @@
 (() => {
   class ChessKmapsEvaluator {
+    static WEIGHTS = {
+      kingSafety: { pawnShield: 2, openFiles: -1.5, threats: -1, holes: -0.5, range: [-15, 15] },
+      material: { bishopPair: 0.3, rookPenalty: -0.2, range: [-10, 10] },
+      activity: {
+        mobility: 0.1, openFile: 0.3, outpostSupported: 0.3, outpost: 0.15, central: 0.5,
+        diagonalPiece: 0.3, diagonalAttack: 0.1, kingThreat: 0.3, pieceThreat: 0.1, pawnPush: 0.4,
+        range: [-15, 15],
+      },
+      pawns: {
+        doubled: -0.5, isolated: -0.5, passed: 0.2, island: -0.5,
+        backwardOpen: -0.5, backward: -0.3, support: 0.1, range: [-7, 7],
+      },
+      space: { control: 0.1, centralPawn: 1, trapped: -0.1, trappedBase: -0.2, range: [-7, 7] },
+    };
+
     constructor(fen, co) {
       this.co = co;
       this.board = co ? this.parseFEN(fen) : null;
@@ -27,25 +42,16 @@
       const whiteKingIdx = this.board.king.intersect(this.board.white).first();
       const blackKingIdx = this.board.king.intersect(this.board.black).first();
       if (whiteKingIdx === undefined || blackKingIdx === undefined) return 0;
-      let whiteScore = 0, blackScore = 0;
-      const whitePawnShield = this.getPawnShield(whiteKingIdx, true);
-      const blackPawnShield = this.getPawnShield(blackKingIdx, false);
-      whiteScore += whitePawnShield * 2;
-      blackScore += blackPawnShield * 2;
-      const whiteOpenFiles = this.getOpenFilesNearKing(whiteKingIdx, true);
-      const blackOpenFiles = this.getOpenFilesNearKing(blackKingIdx, false);
-      whiteScore -= whiteOpenFiles * 1.5;
-      blackScore -= blackOpenFiles * 1.5;
-      const whiteThreats = this.getEnemyThreats(whiteKingIdx, true);
-      const blackThreats = this.getEnemyThreats(blackKingIdx, false);
-      whiteScore -= whiteThreats * 1;
-      blackScore -= blackThreats * 1;
-      const whiteHoles = this.getKingHoles(whiteKingIdx, true);
-      const blackHoles = this.getKingHoles(blackKingIdx, false);
-      whiteScore -= whiteHoles * 0.5;
-      blackScore -= blackHoles * 0.5;
-      const diff = whiteScore - blackScore;
-      return this.normalize(diff, -15, 15, 'K');
+      const W = ChessKmapsEvaluator.WEIGHTS.kingSafety;
+      const whiteScore = this.getPawnShield(whiteKingIdx, true) * W.pawnShield
+        + this.getOpenFilesNearKing(whiteKingIdx, true) * W.openFiles
+        + this.getEnemyThreats(whiteKingIdx, true) * W.threats
+        + this.getKingHoles(whiteKingIdx, true) * W.holes;
+      const blackScore = this.getPawnShield(blackKingIdx, false) * W.pawnShield
+        + this.getOpenFilesNearKing(blackKingIdx, false) * W.openFiles
+        + this.getEnemyThreats(blackKingIdx, false) * W.threats
+        + this.getKingHoles(blackKingIdx, false) * W.holes;
+      return this.normalize(whiteScore - blackScore, W.range[0], W.range[1], 'K');
     }
 
     getPawnShield(kingIdx, isWhite) {
@@ -69,25 +75,27 @@
     }
 
     evaluateMaterial() {
+      const W = ChessKmapsEvaluator.WEIGHTS.material;
       const counts = LiChessTools.Material.count(this.board);
       let whiteMaterial = LiChessTools.Material.value(this.board, 'white');
       let blackMaterial = LiChessTools.Material.value(this.board, 'black');
-      if (counts.white.bishop == 2) whiteMaterial += 0.3;
-      if (counts.black.bishop == 2) blackMaterial += 0.3;
-      if (counts.white.rook === 1 && counts.white.bishop + counts.white.knight >= 2 && counts.black.rook === 0) whiteMaterial -= 0.2;
-      if (counts.black.rook === 1 && counts.black.bishop + counts.black.knight >= 2 && counts.white.rook === 0) blackMaterial -= 0.2;
+      if (counts.white.bishop == 2) whiteMaterial += W.bishopPair;
+      if (counts.black.bishop == 2) blackMaterial += W.bishopPair;
+      if (counts.white.rook === 1 && counts.white.bishop + counts.white.knight >= 2 && counts.black.rook === 0) whiteMaterial += W.rookPenalty;
+      if (counts.black.rook === 1 && counts.black.bishop + counts.black.knight >= 2 && counts.white.rook === 0) blackMaterial += W.rookPenalty;
       const diff = whiteMaterial - blackMaterial;
-      return this.normalize(diff, -10, 10, 'M');
+      return this.normalize(diff, W.range[0], W.range[1], 'M');
     }
     evaluatePieceActivity() {
+      const W = ChessKmapsEvaluator.WEIGHTS.activity;
       let whiteScore = 0, blackScore = 0;
 
       // Mobility: count pseudo-legal moves
       for (const sq of this.board.occupied) {
         const piece = this.board.get(sq);
         const moves = this.getPseudoLegalMoves(sq, piece);
-        if (piece.color === 'white') whiteScore += moves.length * 0.1;
-        else blackScore += moves.length * 0.1;
+        if (piece.color === 'white') whiteScore += moves.length * W.mobility;
+        else blackScore += moves.length * W.mobility;
       }
 
       // Bonus for rooks and queens on open files
@@ -95,8 +103,8 @@
         const piece = this.board.get(sq);
         if (piece.role === 'rook' || piece.role === 'queen') {
           if (this.isOpenFile(sq & 7)) {
-            if (piece.color === 'white') whiteScore += 0.3;
-            else blackScore += 0.3;
+            if (piece.color === 'white') whiteScore += W.openFile;
+            else blackScore += W.openFile;
           }
         }
       }
@@ -118,8 +126,8 @@
             : (file > 0 && isPawn((rank + 1) * 8 + file - 1, 'black')) || (file < 7 && isPawn((rank + 1) * 8 + file + 1, 'black'));
           const enemyPawnAttack = this.canEverBeAttackedByPawn(sq, piece.color === 'black');
           if (!enemyPawnAttack) {
-            if (piece.color === 'white') whiteScore += pawnSupport ? 0.3 : 0.15;
-            else blackScore += pawnSupport ? 0.3 : 0.15;
+            if (piece.color === 'white') whiteScore += pawnSupport ? W.outpostSupported : W.outpost;
+            else blackScore += pawnSupport ? W.outpostSupported : W.outpost;
           }
         }
       }
@@ -137,8 +145,8 @@
             else blackAttacks++;
           }
         }
-        if (whiteAttacks > blackAttacks) whiteScore += 0.5;
-        else if (blackAttacks > whiteAttacks) blackScore += 0.5;
+        if (whiteAttacks > blackAttacks) whiteScore += W.central;
+        else if (blackAttacks > whiteAttacks) blackScore += W.central;
       }
 
       // Diagonal control
@@ -168,10 +176,10 @@
             }
           }
         }
-        if (whitePieceOnDiagonal) whiteScore += 0.3;
-        if (blackPieceOnDiagonal) blackScore += 0.3;
-        whiteScore += whiteAttacks * 0.1;
-        blackScore += blackAttacks * 0.1;
+        if (whitePieceOnDiagonal) whiteScore += W.diagonalPiece;
+        if (blackPieceOnDiagonal) blackScore += W.diagonalPiece;
+        whiteScore += whiteAttacks * W.diagonalAttack;
+        blackScore += blackAttacks * W.diagonalAttack;
       }
 
       // Threats
@@ -187,13 +195,13 @@
         for (const move of moves) {
           const targetPiece = this.board.get(move);
           if (move === oppKingIdx) {
-            if (isWhite) whiteScore += 0.3;
-            else blackScore += 0.3;
+            if (isWhite) whiteScore += W.kingThreat;
+            else blackScore += W.kingThreat;
           }
           if (targetPiece && targetPiece.color !== piece.color) {
             const value = this.pieceValues[targetPiece.role] || 0;
-            if (isWhite) whiteScore += value * 0.1;
-            else blackScore += value * 0.1;
+            if (isWhite) whiteScore += value * W.pieceThreat;
+            else blackScore += value * W.pieceThreat;
           }
           if (piece.role === 'pawn') {
             const rank = sq >> 3;
@@ -203,8 +211,8 @@
             if ((isWhite && rank === 6) || (!isWhite && rank === 1)) {
               const target = this.board.get(nextIdx);
               if (!target || target.color !== piece.color) {
-                if (isWhite) whiteScore += 0.4;
-                else blackScore += 0.4;
+                if (isWhite) whiteScore += W.pawnPush;
+                else blackScore += W.pawnPush;
               }
             }
           }
@@ -212,7 +220,7 @@
       }
 
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -15, 15, 'A');
+      return this.normalize(diff, W.range[0], W.range[1], 'A');
     }
     getPawnAttacks(idx) {
       return LiChessTools.MoveGen.attacks(this.board, idx);
@@ -254,6 +262,7 @@
       return LiChessTools.PawnStructure.isOpenFile(this.board, file);
     }
     evaluatePawnStructure() {
+      const W = ChessKmapsEvaluator.WEIGHTS.pawns;
       let whiteScore = 0, blackScore = 0;
       const whitePawns = Array(8).fill(0);
       const blackPawns = Array(8).fill(0);
@@ -264,42 +273,42 @@
       }
 
       for (let f = 0; f < 8; f++) {
-        if (whitePawns[f] > 1) whiteScore -= (whitePawns[f] - 1) * 0.5;
-        if (blackPawns[f] > 1) blackScore -= (blackPawns[f] - 1) * 0.5;
+        if (whitePawns[f] > 1) whiteScore += (whitePawns[f] - 1) * W.doubled;
+        if (blackPawns[f] > 1) blackScore += (blackPawns[f] - 1) * W.doubled;
       }
 
       for (let f = 0; f < 8; f++) {
         if (whitePawns[f]) {
           const isIsolated = !whitePawns[Math.max(0, f - 1)] && !whitePawns[Math.min(7, f + 1)];
-          if (isIsolated) whiteScore -= 0.5;
+          if (isIsolated) whiteScore += W.isolated;
         }
         if (blackPawns[f]) {
           const isIsolated = !blackPawns[Math.max(0, f - 1)] && !blackPawns[Math.min(7, f + 1)];
-          if (isIsolated) blackScore -= 0.5;
+          if (isIsolated) blackScore += W.isolated;
         }
       }
 
       for (const sq of this.board.pawn) {
         const piece = this.board.get(sq);
         if (piece.color === 'white' && this.isPassedPawn(sq, true)) {
-          whiteScore += 0.2 * ((sq >> 3) - 1);
+          whiteScore += W.passed * ((sq >> 3) - 1);
         } else if (piece.color === 'black' && this.isPassedPawn(sq, false)) {
-          blackScore += 0.2 * (6 - (sq >> 3));
+          blackScore += W.passed * (6 - (sq >> 3));
         }
       }
 
       const whiteIslands = this.countPawnIslands(whitePawns);
       const blackIslands = this.countPawnIslands(blackPawns);
-      whiteScore -= (whiteIslands - 1) * 0.5;
-      blackScore -= (blackIslands - 1) * 0.5;
+      whiteScore += (whiteIslands - 1) * W.island;
+      blackScore += (blackIslands - 1) * W.island;
 
       for (const sq of this.board.pawn) {
         const piece = this.board.get(sq);
         if (piece.color === 'white' && this.isBackwardPawn(sq, true)) {
-          whiteScore -= this.isOpenFile(sq & 7) ? 0.5 : 0.3;
+          whiteScore += this.isOpenFile(sq & 7) ? W.backwardOpen : W.backward;
         }
         if (piece.color === 'black' && this.isBackwardPawn(sq, false)) {
-          blackScore -= this.isOpenFile(sq & 7) ? 0.5 : 0.3;
+          blackScore += this.isOpenFile(sq & 7) ? W.backwardOpen : W.backward;
         }
       }
 
@@ -313,15 +322,15 @@
           if (supportIdx >= 0 && supportIdx < 64 && Math.abs((supportIdx % 8) - file) === 1) {
             const support = this.board.get(supportIdx);
             if (support && support.role === 'pawn' && support.color === piece.color) {
-              if (isWhite) whiteScore += 0.1;
-              else blackScore += 0.1;
+              if (isWhite) whiteScore += W.support;
+              else blackScore += W.support;
             }
           }
         }
       }
 
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -7, 7, 'P');
+      return this.normalize(diff, W.range[0], W.range[1], 'P');
     }
 
     isPassedPawn(idx, isWhite) {
@@ -358,6 +367,7 @@
       return LiChessTools.PawnStructure.isBackward(this.board, idx, isWhite);
     }
     evaluateSpace() {
+      const W = ChessKmapsEvaluator.WEIGHTS.space;
       let whiteScore = 0, blackScore = 0;
       const whiteControlled = new Set();
       const blackControlled = new Set();
@@ -373,14 +383,14 @@
           if (!isWhite && rank <= 3) blackControlled.add(move);
         }
       }
-      whiteScore += whiteControlled.size * 0.1;
-      blackScore += blackControlled.size * 0.1;
+      whiteScore += whiteControlled.size * W.control;
+      blackScore += blackControlled.size * W.control;
 
       for (const idx of this.centralSquares) {
         const piece = this.board.get(idx);
         if (piece && piece.role === 'pawn') {
-          if (piece.color === 'white') whiteScore += 1;
-          else blackScore += 1;
+          if (piece.color === 'white') whiteScore += W.centralPawn;
+          else blackScore += W.centralPawn;
         }
       }
 
@@ -393,13 +403,13 @@
           : this.getPseudoLegalMoves(sq, piece);
         if (moves.length === 0) {
           const penalty = this.pieceValues[piece.role] || 1;
-          if (isWhite) whiteScore -= penalty * 0.1 + 0.2;
-          else blackScore -= penalty * 0.1 + 0.2;
+          if (isWhite) whiteScore += penalty * W.trapped + W.trappedBase;
+          else blackScore += penalty * W.trapped + W.trappedBase;
         }
       }
 
       const diff = whiteScore - blackScore;
-      return this.normalize(diff, -7, 7, 'S');
+      return this.normalize(diff, W.range[0], W.range[1], 'S');
     }
 
     async evaluate() {
