@@ -12,7 +12,7 @@ It does not replace the native Lichess server-eval chart. It adds datasets to th
 |------|------|
 | `tool.js` | Main tool class `ExtraChartTool`, all metric computation, chart generation, glyph logic, accuracy-plus UI, legend, Christmas easter egg |
 | `tool.css` | Styling for chart container height, legend bar, gauge ticks, good-moves symbols, accuracy tooltip, Christmas text |
-| `raccoon.js` | Third-party chess engine (Raccoon by Michael Edegware). Bundled for positional evaluation used by the "Principled" metric via `LiChessTools.Evaluator` (if present); otherwise heuristic returns 0 |
+| — | Positional valuation (previously `raccoon.js`, Raccoon by Michael Edegware, GPL v3) moved to `LiChessTools.ChessPositionValuator` in `scripts/lichessTools-chessMetrics.js` |
 
 ## Dependencies
 
@@ -73,7 +73,7 @@ All y-values for continuous lines are mapped into roughly [-1, +1] (Chart.js sca
 - Difference (White positive) scaled: `y = 2/(1+exp(-0.004*cp)) - 1`.
 
 ### Principled (`getPrincipledData`)
-- `heuristic(node)` = `LiChessTools.Evaluator.evaluate(fen)` (Raccoon-based positional score) minus raw material.
+- `heuristic(node)` = `LiChessTools.ChessPositionValuator.evaluate(fen)` (chessops-based positional score) minus raw material.
 - Same logistic scaling. Represents non-material positional quality (mobility, centralization, etc.).
 
 ### Max tension / Max potential
@@ -176,4 +176,4 @@ Heavy geometric/attack calculations use `LiChessTools.MaxSizedMap` (size limits 
 - Brilliant glyphs are deliberately temporary (client-side only).
 - Smoothing preference exists but the `smooth()` method currently returns points unchanged (previous spike-removal logic is commented out).
 - Disabling Local on a page that only has the local chart removes the chart; re-enable only from Preferences.
-- Raccoon is GPL-licensed; keep attribution if the Evaluator path is used.
+- `ChessPositionValuator` is a clean chessops port of Raccoon (GPL v3) — keep attribution.

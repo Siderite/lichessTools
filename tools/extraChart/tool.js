@@ -165,11 +165,11 @@
       return isWhite ? 1 : -1;
     };
 
-    evaluator = LiChessTools.Evaluator
-                  ? new LiChessTools.Evaluator()
-                  : { evaluate: (fen)=>0 };
     heuristic = node => {
-      return this.evaluator.evaluate(node.fen);
+      const co = this.lichessTools.chessopsModule;
+      if (!co) return 0;
+      this._valuator ||= new LiChessTools.ChessPositionValuator(co);
+      return this._valuator.evaluate(node.fen);
     }
 
     smooth = (points) => {

@@ -82,8 +82,6 @@
         "tools/boardStyle/tool.js",
         "tools/gameAnalysisLayout/tool.js",
 
-        "tools/extraChart/raccoon.js",
-
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
         "tools/feedback/tool.js",
