@@ -49,8 +49,7 @@
         lt.global.console.warn('ChessOps not loaded');
         return;
       }
-      const fen = co.fen.parseFen(analysis.node.fen).unwrap();
-      let ch = co.Chess.fromSetup(fen).unwrap();
+      let ch = LiChessTools.MoveGen.positionFromFen(analysis.node.fen, co);
 
       const result = {
         moves: [],

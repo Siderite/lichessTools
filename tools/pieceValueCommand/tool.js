@@ -97,7 +97,7 @@
               x += direction[0];
               y += direction[1];
               if (x<0 || x>7 || y<0 || y>7) break;
-              const other = board.get(x + (7 - y) * 8);
+              const other = board.get(LiChessTools.MoveGen.square(x, y));
               if (!other) continue;
               if (other.color !== targetKingColor || other.role !== 'king') break;
               return true;
@@ -148,7 +148,7 @@
             if (!key) continue;
             const x = key.charCodeAt(0)-97;
             const y = 56-key.charCodeAt(1);
-            const sq = x + (7 - y) * 8;
+            const sq = LiChessTools.MoveGen.square(x, y);
             const piece = board.get(sq);
             if (!piece || piece.role === 'king') {
               continue;

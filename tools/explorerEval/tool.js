@@ -148,8 +148,7 @@
       const co = await lt.chessops();
       if (co && this.options.evalRows && moves?.length) {
         const newRows = moves.filter(m => !$('tr[data-uci="' + m.uci + '"]', container).length);
-        const fen = co.fen.parseFen(analysis.node.fen).unwrap();
-        const ch = co.Chess.fromSetup(fen).unwrap();
+        const ch = LiChessTools.MoveGen.positionFromFen(analysis.node.fen, co);
         const sumElem = $('tr.sum', container);
         for (const newRow of newRows) {
           let uci = newRow.uci;

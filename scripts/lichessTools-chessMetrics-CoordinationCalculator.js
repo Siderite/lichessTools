@@ -5,19 +5,10 @@
     MOVE_CAP = 3; // treat up to 3 moves as their real cost
     ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
 
-    static _parseBoard = LiChessTools.Cache.memoize((fen, co) => {
-      if (!co?.fen?.parseBoardFen) return null;
-      try {
-        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
-        const board = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
-        return board || null;
-      } catch (e) {
-        return null;
-      }
-    }, { key: (fen) => fen });
+    static _parseBoard = LiChessTools.Cache.memoize((fen, co) => LiChessTools.MoveGen.boardFromFen(fen, co), { key: (fen) => fen });
 
     get co() {
-      return LiChessTools.ChessMetrics.chessops;
+      return LiChessTools.MoveGen.co;
     }
 
     parseBoard(fen) {

@@ -193,6 +193,11 @@
       return toRemove.length?this.smooth(points):points;*/
     }
 
+    chartSigmoid = (x) => {
+      const Math = this.lichessTools.global.Math;
+      return 2 / (1 + Math.exp(-0.004 * x)) - 1;
+    };
+
     getMaterialData = (mainline) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
@@ -200,7 +205,7 @@
         .map((node, x) => {
           const cp = LiChessTools.ChessMetrics.simpleMaterial(node);
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply
           };
         });
@@ -216,7 +221,7 @@
           let val = evl - mat;
           const cp = val * 2;
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply
           };
         })
@@ -243,7 +248,7 @@
           if (!ceval) return null;
           const cp = this.getCp(ceval);
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply,
             path: path
           };
@@ -263,7 +268,7 @@
           const cps = node.ceval.pvs.slice(1).map(pv=>this.getCp(pv));
           const cp = cps.reduce((a,v)=>a+v,0)/cps.length;
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply,
             path: path
           };
@@ -332,7 +337,7 @@
           if (total == 0) return null;
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          const sharpness = LiChessTools.Scoring.wdlToSharpness(w, d, l);
           const val = Math.min(sharpness / 100, 0.9);
           return {
             y: val,
@@ -1671,10 +1676,10 @@
       if (!lt.inViewport(container)) return;
 
       const mat = LiChessTools.ChessMetrics.simpleMaterial(node);
-      const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
+      const material = this.chartSigmoid(mat);
       const evl = this.heuristic(node);
       const val = (evl - mat) * 2;
-      const principled = 2 / (1 + Math.exp(-0.004 * val)) - 1;
+      const principled = this.chartSigmoid(val);
       let matElem = $('tick.lichessTools-material', container);
       if (!matElem.length) {
         matElem = $('<tick>')

@@ -50,8 +50,7 @@
       const lt = this.lichessTools;
       const co = await lt.chessops();
       if (!co) return;
-      fen = co.fen.parseFen(fen).unwrap();
-      const ch = co.Chess.fromSetup(fen).unwrap();
+      const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
       ch.play(co.parseUci(uci));
       return co.fen.makeFen(ch.toSetup());
     };

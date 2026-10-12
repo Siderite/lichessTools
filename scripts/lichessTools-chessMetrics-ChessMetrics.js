@@ -11,7 +11,7 @@
       return LiChessTools.MoveGen.co;
     }
 
-    static _square(x, y) { return x + (7 - y) * 8; }
+    static _square(x, y) { return LiChessTools.MoveGen.square(x, y); }
 
     static _pieceChar(b, sq) {
       return LiChessTools.Material.letterOf(b.get(sq));

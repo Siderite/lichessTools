@@ -46,8 +46,7 @@
       let destMan = analysis?.node?.dests() || cg?.state?.movable?.dests || this._cache.get(key);
       if (!destMan) {
         const co = await lt.chessops();
-        const setup = co.fen.parseFen(fen).unwrap();
-        const pos = co.Chess.fromSetup(setup).unwrap();
+        const pos = LiChessTools.MoveGen.positionFromFen(fen, co);
 
         destMan = co.compat.chessgroundDests(pos);
         this._cache.set(key,destMan);

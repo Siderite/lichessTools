@@ -62,8 +62,7 @@
       
       const topMoves = result.data?.topMoves;
       if (topMoves?.length) {
-      const fenInfo = co.fen.parseFen(fen).unwrap();
-      const ch = co.Chess.fromSetup(fenInfo).unwrap();
+      const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
         topMoves.forEach(move=>{
           const mv = co.san.parseSan(ch,move.move);
           const uci = co.makeUci(mv);

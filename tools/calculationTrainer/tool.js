@@ -129,8 +129,7 @@
             );
             invalid = [];
             const frags = text?.split(/[,\s+]/) || [];
-            const fenInfo = co.fen.parseFen(fen).unwrap();
-            const ch = co.Chess.fromSetup(fenInfo).unwrap();
+            const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
             for (const frag of frags) {
               if (!frag) continue;
               let move = co.san.parseSan(ch,frag);
@@ -237,8 +236,7 @@
         );
 
         data.sort((a,b)=>a.order-b.order);
-        const fenInfo = co.fen.parseFen(fen).unwrap();
-        const ch = co.Chess.fromSetup(fenInfo).unwrap();
+        const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
 
         const buttonContainer = $('<div class="choices">')
           .appendTo(container);

@@ -5,6 +5,23 @@
     static get co() {
       return (typeof window !== 'undefined' && window.lichessTools?.chessopsModule) || null;
     }
+    static square(x, y) { return x + (7 - y) * 8; }
+    static boardFromFen(fen, co) {
+      co = co || MoveGen.co;
+      if (!co?.fen?.parseBoardFen) return null;
+      try {
+        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        const board = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
+        return board || null;
+      } catch (e) {
+        return null;
+      }
+    }
+    static positionFromFen(fen, co) {
+      co = co || MoveGen.co;
+      if (!co?.fen?.parseFen || !co?.Chess?.fromSetup) return null;
+      return co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap();
+    }
     static attacks(board, sq) {
       const co = MoveGen.co;
       const piece = board?.get(sq);

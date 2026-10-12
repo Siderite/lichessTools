@@ -24,14 +24,7 @@
     }
 
     parseFEN(fen) {
-      if (!fen || !this.co?.fen?.parseBoardFen) return null;
-      try {
-        const result = this.co.fen.parseBoardFen(String(fen).split(' ')[0]);
-        const board = result && typeof result.unwrap === 'function' ? result.unwrap() : result;
-        return board || null;
-      } catch (e) {
-        return null;
-      }
+      return LiChessTools.MoveGen.boardFromFen(fen, this.co);
     }
 
     normalize(score, min, max, area) {
