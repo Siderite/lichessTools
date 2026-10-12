@@ -661,85 +661,16 @@
 
     getGamePhases = (mainline) => {
       const lt = this.lichessTools;
-      const Math = lt.global.Math;
       let middleGame = 0;
       let endGame = 0;
 
-      const majorsAndMinors = (board) => {
-        return board
-                 .flat()
-                 .filter(p=>'rnbq'.includes(p.toLowerCase()))
-                 .length;
-      };
-
-      const backrankSparse = (board) => {
-        return board[0].filter(p=>p).length<4
-               || board[7].filter(p=>p).length<4;
-      };
-
-      const score = (y) => {
-        return (white, black) => {
-          const w = Number(white);
-          const b = Number(black);
-
-          switch (true) {
-            case w === 0 && b === 0: return 0;
-            case w === 1 && b === 0: return 1 + (8 - y);
-            case w === 2 && b === 0: return y > 2 ? 2 + (y - 2) : 0;
-            case w === 3 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
-            case w === 4 && b === 0: return y > 1 ? 3 + (y - 1) : 0; // group of 4 on homerow = 0
-            case w === 0 && b === 1: return 1 + y;
-            case w === 1 && b === 1: return 5 + Math.abs(4 - y);
-            case w === 2 && b === 1: return 4 + (y - 1);
-            case w === 3 && b === 1: return 5 + (y - 1);
-            case w === 0 && b === 2: return y < 6 ? 2 + (6 - y) : 0;
-            case w === 1 && b === 2: return 4 + (7 - y);
-            case w === 2 && b === 2: return 7;
-            case w === 0 && b === 3: return y < 7 ? 3 + (7 - y) : 0;
-            case w === 1 && b === 3: return 5 + (7 - y);
-            case w === 0 && b === 4: return y < 7 ? 3 + (7 - y) : 0;
-            default: return 0;
-          }
-        };
-      };
-
-      const mixednessRegions = [];
-      for (let y = 0; y <= 6; ++y) {
-        for (let x = 0; x <= 6; ++x) {
-          mixednessRegions.push({ x, y });
-        }
-      }
-
-      const countInSquare = (board, topX, topY) => {
-        let white = 0, black = 0;
-        for (let dy = 0; dy < 2; ++dy) {
-          for (let dx = 0; dx < 2; ++dx) {
-            const piece = board[topY + dy][topX + dx];
-            if (!piece) continue;
-            if (piece === piece.toUpperCase()) ++white;
-            else                               ++black;
-          }
-        }
-        return [white, black];
-      }
-
-      const mixedness = (board) => {
-        return mixednessRegions.reduce((acc, region) => {
-          const [w, b] = countInSquare(board, region.x, region.y);
-          return acc + score(7-region.y)(w, b);
-        }, 0);
-      };
-
       for (const node of mainline) {
-        const board = lt.getBoardFromFen(node.fen);
-        const mm = majorsAndMinors(board);
-        const bs = backrankSparse(board);
-        const mx = mixedness(board);
-        if (!middleGame && (mm <= 10 || bs || mx > 150)) {
+        const phase = LiChessTools.ChessMetrics.getGamePhase(node.fen, lt);
+        if (!middleGame && (phase === 'middleGame' || phase === 'endGame')) {
           middleGame = node.ply;
           continue;
         }
-        if (middleGame && mm <= 6) {
+        if (middleGame && phase === 'endGame') {
           endGame = node.ply;
           break;
         }
