@@ -1253,7 +1253,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2509,7 +2510,8 @@
     "goToPlayedMoveText": "返回上一步棋",
     "extraChart.brilliantChart": "精彩度图表",
     "brilliantLegendText": "精彩度",
-    "brilliantLegendTitle": "精彩度评分"
+    "brilliantLegendTitle": "精彩度评分",
+    "themes.flat": "No shadows or blur"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3765,7 +3767,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5021,7 +5024,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6277,7 +6281,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7533,7 +7538,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8789,7 +8795,8 @@
     "goToPlayedMoveText": "Revenir au dernier coup joué",
     "extraChart.brilliantChart": "Graphique coups brillants",
     "brilliantLegendText": "Coups brillants",
-    "brilliantLegendTitle": "Score de coups brillants"
+    "brilliantLegendTitle": "Score de coups brillants",
+    "themes.flat": "No shadows or blur"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10045,7 +10052,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11301,7 +11309,8 @@
     "goToPlayedMoveText": "Επιστροφή στην τελευταία κίνηση που παίχτηκε",
     "extraChart.brilliantChart": "Διάγραμμα εξαιρετικών κινήσεων",
     "brilliantLegendText": "Εξαιρετική",
-    "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων"
+    "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων",
+    "themes.flat": "No shadows or blur"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12557,7 +12566,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13813,7 +13823,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15069,7 +15080,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16325,7 +16337,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17581,7 +17594,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18837,7 +18851,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20093,7 +20108,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21349,7 +21365,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22605,7 +22622,8 @@
     "goToPlayedMoveText": "Revino la ultima mutare jucată",
     "extraChart.brilliantChart": "Grafic strălucire",
     "brilliantLegendText": "Strălucire",
-    "brilliantLegendTitle": "Scor strălucire"
+    "brilliantLegendTitle": "Scor strălucire",
+    "themes.flat": "Fără umbre sau estompări"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23861,7 +23879,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25117,7 +25136,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26373,7 +26393,8 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27629,7 +27650,8 @@
     "goToPlayedMoveText": "Son oynanan hamleye dön",
     "extraChart.brilliantChart": "Göz alıcılık tablosu",
     "brilliantLegendText": "Göz alıcılık",
-    "brilliantLegendTitle": "Göz alıcılık puanı"
+    "brilliantLegendTitle": "Göz alıcılık puanı",
+    "themes.flat": "No shadows or blur"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28885,6 +28907,7 @@
     "goToPlayedMoveText": "Return to last played move",
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
-    "brilliantLegendTitle": "Brilliance score"
+    "brilliantLegendTitle": "Brilliance score",
+    "themes.flat": "No shadows or blur"
   }
 }

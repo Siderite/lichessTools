@@ -1,0 +1,751 @@
+/* Flat - remove Lichess backdrop-filter and box-shadow (static list) */
+
+/* Opaque backgrounds (remove transparency) */
+body.lichessTools.lichessTools-theme_flat {
+  --c-bg: hsl(var(---site-hue) 7% 14%);
+  --c-bg-opaque: hsl(var(---site-hue) 7% 14%);
+  --c-bg-low: hsl(var(---site-hue) 7% 22%);
+  --c-bg-mid: hsl(var(---site-hue) 7% 16%);
+  --c-bg-zebra: hsl(var(---site-hue) 5% 19%);
+  --c-bg-zebra2: hsl(var(---site-hue) 5% 24%);
+  --c-bg-popup: hsl(var(---site-hue) 7% 22%);
+  --c-bg-input: hsl(from var(--c-bg-page) h s 12% / alpha);
+  --c-bg-variation: hsl(var(---site-hue) 5% 15%);
+  --c-bg-header-dropdown: hsl(var(---site-hue) 7% 22%);
+}
+
+html.light body.lichessTools.lichessTools-theme_flat {
+  --c-bg: hsl(0 0% 100%);
+  --c-bg-opaque: #fff;
+  --c-bg-low: #e3e3e3;
+  --c-bg-mid: hsl(var(---site-hue) 7% 97%);
+  --c-bg-zebra: hsl(var(---site-hue) 12% 96.5%);
+  --c-bg-zebra2: hsl(var(---site-hue) 12% 92%);
+  --c-bg-popup: #fff;
+  --c-bg-input: hsl(from var(--c-bg-page) h s 97);
+  --c-bg-variation: hsl(var(---site-hue) 12% 92%);
+  --c-bg-header-dropdown: hsl(0 0% 100%);
+}
+
+body.lichessTools.lichessTools-theme_flat :-webkit-any(input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat :is(input:autofill,textarea:autofill,select:autofill) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse__clock {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse__clock.active {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse__tools {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse__tools .comp-off__hint {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse__tools:has(.action-menu) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .analyse-controls {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .board-menu {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .board-menu:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .box {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack__btn {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack__btn:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack__btn.active {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack__btn.active:not(.disabled):hover {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack>form {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack>form .btn-rack__btn {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .btn-rack>form:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button-green {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button-green:not(.disabled,:disabled,[disabled]):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button-red {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button-red:not(.disabled,:disabled,[disabled]):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button:not(.disabled,:disabled,[disabled]):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button:not(.disabled):focus-visible {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.active {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.active:not(.disabled):hover {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-empty {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-empty:hover:not(.disabled,:disabled,[disabled]):not(.disabled) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-empty:not(.disabled):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-empty.button-green:not(.disabled):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-empty.button-red:not(.disabled):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-metal {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .button.button-metal:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .carousel .ublog-post-card {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .ceval {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .cmn-toggle input:disabled+label:after {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .cmn-toggle input:disabled+label:before {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .cmn-toggle input:focus-visible:not(:disabled)+label {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .cmn-toggle label:after {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .cmn-toggle label:hover:not(.disabled,:disabled,[disabled]):after {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .complete-list {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .copy-me {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .copyables .copyable {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .copyables .pgn textarea.is-error {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .crosstable {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .crosstable povs:hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .crosstable povs:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .crosstable__score {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .crosstable__users {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .daily-feed__update__marker.nobg {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .data-count:after {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .data-count:not(.disabled):hover:after {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .engine-error pre {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .eval-gauge:after {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer__config .choices button {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer__config .choices button:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer__config .choices button.active {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer__config .choices button[aria-pressed=true] {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer-box .black {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer-box .draws {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer-box .explorer-title {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer-box .moves tbody tr.sum td {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .explorer-box .white {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .form-check__input input:not(:disabled):focus-visible+.form-check__label {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .game__meta {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .is3d .main-board cg-board {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__app__content {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__blog .ublog-post-card:hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__box {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__box__top {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__box__top:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__classes a {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__feed {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__side .entries {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__spotlights {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__streams {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lobby__support-link {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lpool {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lpool.active {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .lpools {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .mchat {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .mselect__label {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .mselect__label:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .mselect__list {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .now-playing cg-board {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__side__config {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__side__metas {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__side__replay {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__side__theme {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__side__user {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .puzzle__tools {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .pv_box .pv-board .pv-board-square cg-board {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rclock .time {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rcontrols .rematch-decline {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rcontrols .rematch.fbt {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rcontrols .rematch.fbt:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rcontrols .rematch.fbt:not(.disabled):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .rcontrols .rematch.fbt:not(.disabled):hover:not(.disabled,:disabled,[disabled]):hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .round__app cg-board {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .round__app__table {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .site-buttons .dropdown {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .site-buttons .dropdown:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .subnav__inner {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .tabs-horiz {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .toggle-box--toggle legend {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .tour-spotlight {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .tour-spotlight:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .ublog-post-card {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .ublog-post-card .user-link:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .ublog-post-card time:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .ublog-post-card--link:hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .unread {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .unread:not(.disabled):hover {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat .upt__actions.btn-rack {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .variant-kingOfTheHill cg-container:before {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .variant-racingKings .cg-wrap.cg-wrap cg-container:before {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #analyse-cm {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #analyse-cm .title {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #announce {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #ceval-settings {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #ceval-settings:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #friend_box .content_wrap {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #friend_box .content_wrap:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #hook {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #hook .opponent {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #hook .opponent:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #miniBoard {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #miniGame {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #network-status {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #powerTip {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #powerTip .forecast-info .title {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #promotion-choice square {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #promotion-choice square:hover {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #top:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #top.scrolled {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #topnav {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #topnav div {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #topnav div:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat:not(.simple-board) cg-board {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat .shepherd-element {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat #impersonate {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat dialog::before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat cg-board {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat cg-board:before {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio .label {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio .label:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio input:checked+label {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio input:checked+label:not(.disabled):hover {
+  box-shadow: none !important;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio label {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat group.radio label:hover:not(.disabled,:disabled,[disabled]) {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat i5d aPp {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat i5d bo3 {
+  box-shadow: none;
+}
+
+body.lichessTools.lichessTools-theme_flat i5d:before {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.lichessTools.lichessTools-theme_flat kbd {
+  box-shadow: none;
+}

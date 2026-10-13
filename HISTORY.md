@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+13 Oct
+
+- flat theme
+
 10 Oct
 
 - new brilliant move algorithm

@@ -272,6 +272,7 @@
         "tools/themes/chessbaseBorder.css",
         "tools/themes/grabHighlight.css",
         "tools/themes/arrowLastMove.css",
+        "tools/themes/flat.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
