@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 13 Oct
 
 - flat theme
+- small network status theme
 
 10 Oct
 

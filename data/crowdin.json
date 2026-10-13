@@ -1254,7 +1254,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2511,7 +2512,8 @@
     "extraChart.brilliantChart": "精彩度图表",
     "brilliantLegendText": "精彩度",
     "brilliantLegendTitle": "精彩度评分",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3768,7 +3770,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5025,7 +5028,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6282,7 +6286,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7539,7 +7544,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8796,7 +8802,8 @@
     "extraChart.brilliantChart": "Graphique coups brillants",
     "brilliantLegendText": "Coups brillants",
     "brilliantLegendTitle": "Score de coups brillants",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10053,7 +10060,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11310,7 +11318,8 @@
     "extraChart.brilliantChart": "Διάγραμμα εξαιρετικών κινήσεων",
     "brilliantLegendText": "Εξαιρετική",
     "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12567,7 +12576,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13824,7 +13834,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15081,7 +15092,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16338,7 +16350,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17595,7 +17608,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18852,7 +18866,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20109,7 +20124,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21366,7 +21382,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22623,7 +22640,8 @@
     "extraChart.brilliantChart": "Grafic strălucire",
     "brilliantLegendText": "Strălucire",
     "brilliantLegendTitle": "Scor strălucire",
-    "themes.flat": "Fără umbre sau estompări"
+    "themes.flat": "Fără umbre sau estompări",
+    "themes.smallNetworkStatus": "Status rețea minimizat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23880,7 +23898,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25137,7 +25156,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26394,7 +26414,8 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27651,7 +27672,8 @@
     "extraChart.brilliantChart": "Göz alıcılık tablosu",
     "brilliantLegendText": "Göz alıcılık",
     "brilliantLegendTitle": "Göz alıcılık puanı",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28908,6 +28930,7 @@
     "extraChart.brilliantChart": "Brilliance chart",
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
-    "themes.flat": "No shadows or blur"
+    "themes.flat": "No shadows or blur",
+    "themes.smallNetworkStatus": "Small network status"
   }
 }

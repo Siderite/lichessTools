@@ -1,0 +1,12 @@
+/* Small network status */
+
+body.lichessTools.lichessTools-theme_smallNetworkStatus #network-status {
+  max-width: 25em;
+  transition: max-width 0.5s;
+}
+
+body.lichessTools.lichessTools-theme_smallNetworkStatus #network-status:not(:hover) {
+  max-width: 2em;
+  overflow: hidden;
+  padding: 0.25em;
+}
