@@ -1298,7 +1298,7 @@
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
-      const co = this.chessopsModule;
+      const co = LiChessTools.chessopsModule;
       if (!co?.fen?.parseBoardFen) return null;
       let result = this.fenToBoard.get(fen);
       if (result) return result.clone();
@@ -1315,7 +1315,7 @@
 
     getFenFromBoard = (board) => {
       if (!board) return '';
-      const co = this.chessopsModule;
+      const co = LiChessTools.chessopsModule;
       if (co?.fen?.makeBoardFen) return co.fen.makeBoardFen(board);
       let fen = '';
       const letters = { king: 'k', queen: 'q', rook: 'r', bishop: 'b', knight: 'n', pawn: 'p' };

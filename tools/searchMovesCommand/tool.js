@@ -208,7 +208,8 @@
       const set = new Set(searchObj.nodes);
       const spTool = lt.tools.ShowPawnStructureTool;
       if (spTool) {
-        const { getStructure, getOpposingStructure } = LiChessTools.ChessMetrics;
+        const { getStructure } = LiChessTools.ChessMetrics;
+        const { getOpposingStructure } = LiChessTools.PawnStructure;
         const reg = new RegExp(Array.from(pattern).map(c => {
           switch (c) {
             case '*': return '.*';

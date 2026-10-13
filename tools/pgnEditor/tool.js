@@ -902,7 +902,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         let structure;
         const board = lt.getBoardFromFen(fen);
         structure = LiChessTools.ChessMetrics.getStructure(board,false);
-        for (const key of [structure, LiChessTools.ChessMetrics.getOpposingStructure(structure)]) {
+        for (const key of [structure, LiChessTools.PawnStructure.getOpposingStructure(structure)]) {
           let arr = game.pawnStructureDict.get(key);
           if (!arr) {
             arr = [];

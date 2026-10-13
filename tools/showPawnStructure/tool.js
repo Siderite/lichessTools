@@ -51,7 +51,7 @@
           return {
             key: k,
             value: this.pawnStructures[k],
-            similarity: LiChessTools.ChessMetrics.keySimilarity(structure, k)
+            similarity: LiChessTools.PawnStructure.keySimilarity(structure, k)
           };
         });
         arr.sort((o1, o2) => o2.similarity - o1.similarity);
@@ -60,7 +60,7 @@
 
       const arr = getArr(structure);
       if (arr[0].similarity == 100) return arr[0].value;
-      const opp = LiChessTools.ChessMetrics.getOpposingStructure(structure);
+      const opp = LiChessTools.PawnStructure.getOpposingStructure(structure);
       const oppArr = getArr(opp).map(i => {
         return {
           ...i,

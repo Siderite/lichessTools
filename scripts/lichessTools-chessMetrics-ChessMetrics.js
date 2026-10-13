@@ -8,7 +8,7 @@
     static LETTER_TO_ROLE = LiChessTools.Material.LETTER_TO_ROLE;
 
     static get chessops() {
-      return LiChessTools.MoveGen.co;
+      return LiChessTools.chessopsModule || null;
     }
 
     static _square(x, y) { return LiChessTools.MoveGen.square(x, y); }
@@ -328,57 +328,6 @@
     }
     static getStructure(board, blackOrientation) {
       return LiChessTools.PawnStructure.getStructure(board, blackOrientation);
-    }
-
-    static keySimilarityDirect(kSearch, kNamed) {
-      if (!kSearch || !kNamed) return 0;
-      kSearch = kSearch.replaceAll(' ', '');
-      kNamed = kNamed.replaceAll(' ', '');
-      const l = Math.min(kSearch.length, kNamed.length);
-      let sim = 0;
-      let prefixOver = false;
-      for (let i = 0; i < l; i++) {
-        if (kSearch[i] == kNamed[i]) {
-          sim += prefixOver ? 0.8 : 1;
-        } else {
-          prefixOver = true;
-          const pSearch = +kSearch[i];
-          const pNamed = +kNamed[i];
-          if (pSearch >= 0 && pNamed >= 0 && pSearch < pNamed) {
-            sim += 0.2;
-          }
-        }
-      }
-      return Math.round(sim * 100 / l);
-    }
-
-    static keySimilarity = LiChessTools.Cache.memoize((kSearch, kNamed) => {
-      if (!kSearch || !kNamed) return 0;
-      return ChessMetrics.keySimilarityDirect(kSearch, kNamed);
-    }, { key: (kSearch, kNamed) => kSearch + '|' + kNamed });
-
-    static getOpposingStructure(structure) {
-      if (!structure) return null;
-      const result =
-        structure.substr(3, 3) +
-        structure.substr(0, 3) +
-        structure.substr(6, 2).replaceAll('M', 'x').replaceAll('T', 'M').replaceAll('x', 'T') +
-        ' ' +
-        structure.substr(12, 3) +
-        structure.substr(9, 3) +
-        ' ' +
-        structure.substr(18, 2) +
-        structure.substr(16, 2) +
-        ' ' +
-        structure.substr(24, 3) +
-        structure.substr(21, 3) +
-        ' ' +
-        structure.substr(31, 3) +
-        structure.substr(28, 3) +
-        ' ' +
-        structure.substr(37, 2) +
-        structure.substr(35, 2);
-      return result;
     }
 
     static range(start, end, step) {

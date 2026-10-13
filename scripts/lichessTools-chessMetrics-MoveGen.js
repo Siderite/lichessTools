@@ -3,7 +3,7 @@
   // One attack/move generator (chessops attacks).
   class MoveGen {
     static get co() {
-      return (typeof window !== 'undefined' && window.lichessTools?.chessopsModule) || null;
+      return LiChessTools.chessopsModule || null;
     }
     static square(x, y) { return x + (7 - y) * 8; }
     static boardFromFen(fen, co) {

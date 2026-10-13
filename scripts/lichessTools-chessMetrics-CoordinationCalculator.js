@@ -8,7 +8,7 @@
     static _parseBoard = LiChessTools.Cache.memoize((fen, co) => LiChessTools.MoveGen.boardFromFen(fen, co), { key: (fen) => fen });
 
     get co() {
-      return LiChessTools.MoveGen.co;
+      return LiChessTools.chessopsModule || null;
     }
 
     parseBoard(fen) {

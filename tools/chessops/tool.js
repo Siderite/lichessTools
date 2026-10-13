@@ -28,7 +28,7 @@
       const value = lt.currentOptions.getValue('chessOps');
       if (!value) {
         lt.chessops = null;
-        lt.chessopsModule = null;
+        LiChessTools.chessopsModule = null;
         return;
       }
       if (!lt.chessops) {
@@ -41,7 +41,7 @@
           // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
           lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
             chessops = await import(url);
-            lt.chessopsModule = chessops;
+            LiChessTools.chessopsModule = chessops;
             resolve(chessops);
           });
         });
