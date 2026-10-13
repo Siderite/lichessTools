@@ -1255,7 +1255,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2513,7 +2516,10 @@
     "brilliantLegendText": "精彩度",
     "brilliantLegendTitle": "精彩度评分",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3771,7 +3777,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5029,7 +5038,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6287,7 +6299,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7545,7 +7560,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8803,7 +8821,10 @@
     "brilliantLegendText": "Coups brillants",
     "brilliantLegendTitle": "Score de coups brillants",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10061,7 +10082,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11319,7 +11343,10 @@
     "brilliantLegendText": "Εξαιρετική",
     "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12577,7 +12604,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13835,7 +13865,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15093,7 +15126,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16351,7 +16387,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17609,7 +17648,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18867,7 +18909,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20125,7 +20170,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21383,7 +21431,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22641,7 +22692,10 @@
     "brilliantLegendText": "Strălucire",
     "brilliantLegendTitle": "Scor strălucire",
     "themes.flat": "Fără umbre sau estompări",
-    "themes.smallNetworkStatus": "Status rețea minimizat"
+    "themes.smallNetworkStatus": "Status rețea minimizat",
+    "options.variationIndex": "Arată variația curentă",
+    "variationIndexText": "Variația %1$s din %2$s",
+    "variationIndexTitle": "Clic pentru a parcurge variațiile"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23899,7 +23953,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25157,7 +25214,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26415,7 +26475,10 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27673,7 +27736,10 @@
     "brilliantLegendText": "Göz alıcılık",
     "brilliantLegendTitle": "Göz alıcılık puanı",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -28931,6 +28997,9 @@
     "brilliantLegendText": "Brilliance",
     "brilliantLegendTitle": "Brilliance score",
     "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status"
+    "themes.smallNetworkStatus": "Small network status",
+    "options.variationIndex": "Show current variation",
+    "variationIndexText": "Variation %1$s of %2$s",
+    "variationIndexTitle": "Click to cycle between variations"
   }
 }

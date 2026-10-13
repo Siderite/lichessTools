@@ -1,0 +1,16 @@
+body.lichessTools div.analyse__tools div.lichessTools-variationIndex {
+  order: 66;
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  flex-shrink: 0;
+  z-index: 1;
+  padding: 0.4em 0.5em;
+  font-size: 0.85em;
+  font-style: italic;
+  background: var(--c-bg-box);
+  border-top: 1px solid var(--c-border);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}

@@ -59,7 +59,9 @@
       const tools = $	('main.analyse .analyse__tools');
       const explorerBox = $('section.explorer-box', tools);
       const th = tools.height();
-      const hh = $('.ceval', tools).height() + ($('.pv_box', tools).height() || 0);
+      const hh = ['.ceval','.pv_box','.lichessTools-variationIndex']
+                   .map(s=>($(s, tools).height() || 0))
+                   .reduce((acc, curr) => acc + curr, 0);
       const t = tools.offset().top;
       const et = explorerBox.offset().top;
       const h = this.isMobile

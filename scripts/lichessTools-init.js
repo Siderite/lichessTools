@@ -65,6 +65,7 @@ lichessTools.loadTool(LiChessTools.Tools.Repertoire);
 lichessTools.loadTool(LiChessTools.Tools.CommentStyling);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
+lichessTools.loadTool(LiChessTools.Tools.VariationIndex);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
