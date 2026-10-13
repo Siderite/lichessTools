@@ -142,7 +142,8 @@
 
     extractUserId = (text) => {
       const lt = this.lichessTools;
-      const challengeX = lt.global.i18n?.site?.challengeX;
+      const trans = lt.translator;
+      const challengeX = trans.noarg('challengeX');
       if (!challengeX) {
         lt.global.console.warn('Could not determine the challengeX translation string');
         return;

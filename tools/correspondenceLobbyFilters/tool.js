@@ -105,7 +105,11 @@
       const lt = this.lichessTools;
       if (!isFinite(days)) return '∞';
       const nbDays = lt.global.i18n?.site?.nbDays;
-      return typeof nbDays === 'function' ? nbDays(days) : lt.translator.pluralSame('nbDays', days);
+      if (!nbDays) {
+        lt.global.console.warn('Could not find the nbDays function');
+        return `${days} days`;
+      }
+      return nbDays(days);
     };
 
     dayIndex = (days) => {

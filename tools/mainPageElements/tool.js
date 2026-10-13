@@ -157,7 +157,7 @@
         $('.lichessTools-recentGames').remove();
         const userId = lt.getUserId();
         if (userId && this.options.recentGames) {
-          const playAgainstComputerTitle = lt.global.i18n?.site?.playAgainstComputer || null;
+          const playAgainstComputerTitle = trans.noarg('playAgainstComputer');
           if (!playAgainstComputerTitle) {
             lt.global.console.warn('Could not determine playAgainstComputer translation string!');
           }

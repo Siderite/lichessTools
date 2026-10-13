@@ -223,6 +223,7 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const trans = lt.translator;
       const analysis = lichess?.analysis;
       const study = analysis?.study;
       if (!study) return;
@@ -230,7 +231,7 @@
       const anchorElem = $('button.tags:not(:has(+button.comments))');
       if (!anchorElem.length) return;
 
-      const commentThisPositionText = lt.global.i18n?.study?.commentThisPosition;
+      const commentThisPositionText = trans.noarg('commentThisPosition');
       if (!commentThisPositionText) {
         lt.global.console.warn('Could not determine commentThisPosition translation string!');
       }

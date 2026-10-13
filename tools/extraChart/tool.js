@@ -1517,7 +1517,7 @@
         }
       }
 
-      let middleGameText = lt.global.i18n?.site?.middlegame;
+      let middleGameText = trans.noarg('middlegame');
       if (!middleGameText) {
         lt.global.console.warn('Could not determine middlegame translation string!');
         middleGameText = 'Middlegame';
@@ -1574,7 +1574,7 @@
         }
       }
 
-      let endGameText = lt.global.i18n?.site?.endgame
+      let endGameText = trans.noarg('endgame');
       if (!endGameText) {
         lt.global.console.warn('Could not determine endgame translation string!');
         endGameText = 'Endgame';

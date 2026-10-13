@@ -83,8 +83,12 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
+      const buttonText = lichessTools.translator.noarg('clearLocalData');
+      if (!buttonText) {
+        lt.global.console.warn('Could not determine clearLocalData translation string!');
+      }
       const button = $(`.action-menu__tools [data-icon="${lt.icon.Trash}"]`)
-                        .filter((i,e)=>$(e).text()==lichessTools.translator.noarg('clearLocalData'));
+                        .filter((i,e)=>$(e).text()==buttonText);
       if (button.prop('__initClearData')) return;
       button.prop('__initClearData',true)
             .each((i,el)=>{

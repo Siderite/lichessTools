@@ -92,9 +92,9 @@
           : (analysis.node.autoDeeper || targetDepth);
         if (customDepth && analysis.cevalEnabled() && !analysis.ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
-          const pattern = lt.global.i18n?.site?.depthX('\\d+');
+          const pattern = lt.global.i18n?.site?.depthX?.('\\d+');
           if (!pattern) {
-            lt.global.console.warn('Could not determine the pattern for depth regular expression');
+            lt.global.console.warn('Could not determine the pattern for depth regular expression (depthX)');
             // lichess keeps a reference to the actual node
             elem.replaceText(text=>{
               return text
