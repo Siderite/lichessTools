@@ -427,7 +427,7 @@
         .map((node, x) => {
           const index = evalData.findIndex(i => i.x == x);
           return {
-            y: index >= 0 ? allScores[index] / (M * 7) : 0,
+            y: index >= 0 ? Math.max(Math.min(allScores[index] / (M * 7), 1), -1) : 0,
             x: x
           };
         });
