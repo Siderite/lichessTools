@@ -48,7 +48,7 @@ class BrilliantMoveAnalyzer {
     'bestMove', 'notAlreadyWinning', 'soundAfter',
     'sacrifice', 'heavySacrifice', 'compensation', 'regainsMaterial', 'lastingSacrifice',
     'surprise', 'quietMove', 'onlyMove', 'independence',
-    'matingAttack', 'attackerValue', 'checkOffer', 'comeback',
+    'matingAttack', 'attackerValue', 'checkOffer', 'comeback', 'savesDraw',
   ];
 
   // principles ignored when computing interesting
@@ -77,6 +77,10 @@ class BrilliantMoveAnalyzer {
     mateFull: 6,             // mate in this many moves or fewer: matingAttack() = 1 ...
     mateZero: 14,            // ... and 0 from this many
     comebackBelow: 45,       // comeback() only applies when the mover's win% was below this two plies earlier
+    drawLostZero: 40,        // savesDraw(): mover's win% before the move at which "was lost" = 0 ...
+    drawLostFull: 15,        // ... and fully lost (=1) at/below this
+    drawLow: 35,             // ... win% after at/below which the result is still losing (drawish = 0)
+    drawHigh: 65,            // ... win% after at/above which the result is winning (drawish = 0)
     uberThreshold: 70,       // computeUberBrilliance(): scores >= this are brilliant
   };
 
@@ -129,6 +133,14 @@ class BrilliantMoveAnalyzer {
       weights: { quietMove: 16, bestMove: 16, sacrifice: 18, soundAfter: 14, independence: 12, notAlreadyWinning: 6, onlyMove: 12, surprise: 6 },
       interval: [0.87, 1],
       requires: [],
+    },
+    swindle: {
+      label: 'Draw swindle',
+      priority: 6,
+      about: 'A non-obvious move that saves a draw from a lost position.',
+      weights: { savesDraw: 24, bestMove: 18, onlyMove: 16, soundAfter: 14, notAlreadyWinning: 12, surprise: 8, independence: 8 },
+      interval: [0.85, 1],
+      requires: ['savesDraw'],
     },
   };
 
@@ -505,6 +517,23 @@ class BrilliantMoveAnalyzer {
     const B = BrilliantMoveAnalyzer, o = this.options;
     if (this.wTwoBefore == null || this.wTwoBefore >= o.comebackBelow) return B._r(null);
     return B._r(Math.min(1, Math.max(0, (this.wAfter - this.wTwoBefore) / 30)), { winPctTwoBefore: this.wTwoBefore, winPctAfter: this.wAfter });
+  }
+
+  // 17. The move saves a draw from a lost position (a "swindle"): clearly lost before, drawn — not winning — after.
+  //     Returns null when the mover was not clearly lost, so the principle is left out of the sum.
+  savesDraw() {
+    const B = BrilliantMoveAnalyzer, o = this.options;
+    if (this.wBefore == null || this.wAfter == null) return B._r(null);
+    const wasLost = B._ramp(this.wBefore, o.drawLostZero, o.drawLostFull);
+    if (wasLost <= 0) return B._r(null);
+    const drawish = this._drawish(this.wAfter);
+    return B._r(Math.min(1, wasLost * drawish), { winPctBefore: this.wBefore, winPctAfter: this.wAfter, wasLost, drawish });
+  }
+  /** Closeness of a win% to a dead draw: 1 at 50, 0 at/outside [drawLow, drawHigh]. */
+  _drawish(w) {
+    const o = this.options;
+    if (w <= o.drawLow || w >= o.drawHigh) return 0;
+    return 1 - Math.abs(w - 50) / (o.drawHigh - 50);
   }
 
   // ---------------------------------------------------------------- running principles
