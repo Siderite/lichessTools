@@ -6,6 +6,7 @@ History of features added to LiChess Tools in time (reversed order)
 - small network status theme
 - variation index tool
 - mute own moves tool
+- keyboard shortcuts for bold/italic in forums
 
 10 Oct
 

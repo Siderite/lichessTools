@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Enhances inbox chat, forum posts, and profile pages with: image paste support (upload to imgur/imgbb), big emoji display for single-emoji messages, auto-refresh on new message in inbox, reactions tooltip showing all reaction titles on mobile. Also provides delete button for pasted images.
+Enhances inbox chat, forum posts, and profile pages with: image paste support (upload to imgur/imgbb), big emoji display for single-emoji messages, auto-refresh on new message in inbox, reactions tooltip showing all reaction titles on mobile, and Ctrl+B/Ctrl+I keyboard shortcuts for bold/italic in the forum markdown editor. Also provides delete button for pasted images.
 
 ## How It Works
 
@@ -41,13 +41,20 @@ MutationObserver on `.msg-app.pane-convo their,mine`:
 On `div.reactions`:
 - Creates `<div class="lichessTools-reactionsTooltip">` with all yes button titles joined by newline
 
+### Markdown Keyboard Shortcuts
+
+On `textarea.markdown-content-textarea` (the forum editor):
+- Ctrl+B (or Cmd+B) toggles bold (`**`) and Ctrl+I (or Cmd+I) toggles italic (`_`) on the selected text.
+- Only acts when there is a non-empty selection; otherwise the key event is left untouched.
+- Detects whether the selection is already wrapped in the target marker (directly, or with the other marker nested inside/outside) and unwraps instead of wrapping, so bold/italic combinations stay valid.
+
 ## Dependencies
 
 - Dialog, InterceptEventHandlers
 
 ## Preferences
 
-- `chatForumBlogs` — multiple type: ['pasteImages', 'bigEmoji', 'refreshOnMessage', 'reactionsTooltip'], default: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip', needsLogin: true
+- `chatForumBlogs` — multiple type: ['pasteImages', 'bigEmoji', 'refreshOnMessage', 'reactionsTooltip', 'markdownShortcuts'], default: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip,markdownShortcuts', needsLogin: true
 
 ## Key Methods
 
@@ -55,3 +62,5 @@ On `div.reactions`:
 - `pasteImage(ev)` → inserts URL into textarea after fetching image URL
 - `initControls()` → sets up paste/drop handlers, big emoji detection, refresh on message
 - `refreshChatDirect()` → triggers chat refresh if scroll not near bottom
+- `handleMarkdownShortcuts(ev)` → intercepts Ctrl+B/Ctrl+I on the forum editor textarea
+- `toggleMarkdown(textarea, marker)` → toggles `**` or `_` around the selection, unwrapping when already styled

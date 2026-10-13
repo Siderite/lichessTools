@@ -8,14 +8,15 @@
         name: 'chatForumBlogs',
         category: 'comm',
         type: 'multiple',
-        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage','reactionsTooltip'],
-        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip',
+        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage', 'reactionsTooltip', 'markdownShortcuts'],
+        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip,markdownShortcuts',
         needsLogin: true
       }
     ];
 
     upgrades = [
-      { name:'chatForumBlogs', value:'reactionsTooltip', version: '2.4.203', type: 'new' }
+      { name:'chatForumBlogs', value:'reactionsTooltip', version: '2.4.203', type: 'new' },
+      { name:'chatForumBlogs', value:'markdownShortcuts', version: '2.5.0', type: 'new' }
     ];
 
 
@@ -27,6 +28,7 @@
         'chatForumBlogs.bigEmoji': 'Large one emoji message',
         'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
         'chatForumBlogs.reactionsTooltip': 'Reactions tooltip on mobile',
+        'chatForumBlogs.markdownShortcuts': 'Keyboard shortcuts in forums',
         'pastingError': 'There was an error generating the image URL',
         'deleteImageButtonTitle': 'LiChess Tools - delete image',
         'deleteImageQuestion': 'Are you sure you want to delete this image for everybody?',
@@ -39,6 +41,7 @@
         'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
         'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
         'chatForumBlogs.reactionsTooltip': 'Tooltip la reac\u016fii pe mobil',
+        'chatForumBlogs.markdownShortcuts': 'Scurt\u0103turi taste \u00een forumuri',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii',
         'deleteImageButtonTitle': 'LiChess Tools - \u015fterge imaginea',
         'deleteImageQuestion': 'Sigur \u015fterg imaginea pentru toat\u0103 lumea?',
@@ -219,11 +222,71 @@
     };
     refreshChat = lichessTools.debounce(this.refreshChatDirect,3000);
 
+    handleMarkdownShortcuts = (ev) => {
+      if (ev.defaultPrevented) return;
+      if (!(ev.ctrlKey || ev.metaKey) || ev.altKey || ev.shiftKey) return;
+      const key = ev.key?.toLowerCase();
+      let marker = null;
+      if (key === 'b') {
+        marker = '**';
+      } else if (key === 'i') {
+        marker = '_';
+      } else {
+        return;
+      }
+      const target = ev.target;
+      if (target?.tagName !== 'TEXTAREA' || !target.matches('textarea.markdown-content-textarea')) return;
+      if (target.selectionStart === target.selectionEnd) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      this.toggleMarkdown(target, marker);
+    };
+
+    toggleMarkdown = (textarea, marker) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const otherMarker = marker === '**' ? '_' : '**';
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const text = textarea.value;
+      const selected = text.substring(start, end);
+      const before = text.substring(0, start);
+      const after = text.substring(end);
+
+      const direct = before.endsWith(marker) && after.startsWith(marker);
+      const outer = before.endsWith(marker + otherMarker) && after.startsWith(otherMarker + marker);
+      const inner = before.endsWith(otherMarker + marker) && after.startsWith(marker + otherMarker);
+
+      let newValue, newStart, newEnd;
+      if (direct || outer || inner) {
+        const stripLength = direct ? marker.length : marker.length + otherMarker.length;
+        const newBefore = direct
+          ? before.substring(0, before.length - marker.length)
+          : before.substring(0, before.length - stripLength) + otherMarker;
+        const newAfter = direct
+          ? after.substring(marker.length)
+          : otherMarker + after.substring(stripLength);
+        newValue = newBefore + selected + newAfter;
+        newStart = start - marker.length;
+        newEnd = end - marker.length;
+      } else {
+        newValue = before + marker + selected + marker + after;
+        newStart = start + marker.length;
+        newEnd = end + marker.length;
+      }
+
+      textarea.value = newValue;
+      textarea.setSelectionRange(newStart, newEnd);
+      textarea.focus();
+      $(textarea).trigger('input');
+    };
+
 
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      $.cached('body').off('keydown', this.handleMarkdownShortcuts);
       const value = lt.currentOptions.getValue('chatForumBlogs');
       this.logOption('Inbox chat', value);
       if (!lt.getUserId()) {
@@ -235,7 +298,8 @@
         bigEmoji: lt.isOptionSet(value, 'bigEmoji'),
         refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage'),
         reactionsTooltip: lt.isOptionSet(value, 'reactionsTooltip'),
-        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip },
+        markdownShortcuts: lt.isOptionSet(value, 'markdownShortcuts'),
+        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip || this.markdownShortcuts },
       };
       if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       lt.global.clearInterval(this.interval);
@@ -270,6 +334,9 @@
               .appendTo(e);
           }
         });
+      }
+      if (this.options.markdownShortcuts) {
+        $.cached('body').on('keydown', this.handleMarkdownShortcuts);
       }
     }
 

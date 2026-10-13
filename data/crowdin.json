@@ -1259,7 +1259,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2521,7 +2522,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3783,7 +3785,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5045,7 +5048,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6307,7 +6311,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7569,7 +7574,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8831,7 +8837,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10093,7 +10100,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11355,7 +11363,8 @@
     "options.variationIndex": "Εμφάνιση τρέχουσας βαριάντας",
     "variationIndexText": "Βαριάντα %1$s από %2$s",
     "variationIndexTitle": "Κλικ για κύκλο μεταξύ βαριάντων",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12617,7 +12626,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13879,7 +13889,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15141,7 +15152,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16403,7 +16415,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17665,7 +17678,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18927,7 +18941,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20189,7 +20204,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21451,7 +21467,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22713,7 +22730,8 @@
     "options.variationIndex": "Arată variația curentă",
     "variationIndexText": "Variația %1$s din %2$s",
     "variationIndexTitle": "Clic pentru a parcurge variațiile",
-    "options.muteOwnMoves": "Nu vorbi propriile mutări"
+    "options.muteOwnMoves": "Nu vorbi propriile mutări",
+    "chatForumBlogs.markdownShortcuts": "Scurtături taste în forumuri"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23975,7 +23993,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25237,7 +25256,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26499,7 +26519,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27761,7 +27782,8 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29023,6 +29045,7 @@
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves"
+    "options.muteOwnMoves": "Mute speech for your own moves",
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
   }
 }
