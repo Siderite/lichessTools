@@ -55,7 +55,7 @@ class BrilliantMoveAnalyzer {
   static NI_PRINCIPLES = [
     'bestMove', 'soundAfter', 'compensation', 'regainsMaterial', 'lastingSacrifice', 'onlyMove', 'comeback'
   ];
-  static INTERESTING_INTERVAL_WEIGHT = 0.7; // the intervals are relaxed for interesting detection
+  static INTERESTING_INTERVAL_WEIGHT = 0.8; // the intervals are relaxed for interesting detection
 
   // Principles that nearly every good move satisfies; they form the baseline of a type's weighted sum.
   static PRECONDITIONS = ['bestMove', 'soundAfter', 'notAlreadyWinning', 'independence', 'quietMove'];
