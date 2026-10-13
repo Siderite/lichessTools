@@ -5,6 +5,7 @@ History of features added to LiChess Tools in time (reversed order)
 - flat theme
 - small network status theme
 - variation index tool
+- mute own moves tool
 
 10 Oct
 

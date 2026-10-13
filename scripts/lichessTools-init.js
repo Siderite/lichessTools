@@ -7,6 +7,7 @@ lichessTools.loadTool(LiChessTools.Tools.EmitCeval);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.SoundOptions);
+lichessTools.loadTool(LiChessTools.Tools.MuteOwnMoves);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);

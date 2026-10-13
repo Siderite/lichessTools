@@ -1258,7 +1258,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2519,7 +2520,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3780,7 +3782,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5041,7 +5044,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6302,7 +6306,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7563,7 +7568,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8824,7 +8830,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10085,7 +10092,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11290,7 +11298,7 @@
     "options.boardSaturate": "Board saturation",
     "boardSaturateText": "Saturation",
     "boardSaturateTitle": "LiChess Tools - board saturation",
-    "mobileExperience.hscrub": "Slide move control",
+    "mobileExperience.hscrub": "Έλεγχος κίνησης κύλισης",
     "removeFolderButtonTitle": "Εκκαθάριση φακέλου",
     "expandAllButtonTitle": "Ανάπτυξη/σύμπτυξη όλων των προτιμήσεων",
     "AiGameText": "Επίπεδο υπολογιστή %s",
@@ -11342,11 +11350,12 @@
     "extraChart.brilliantChart": "Διάγραμμα εξαιρετικών κινήσεων",
     "brilliantLegendText": "Εξαιρετική",
     "brilliantLegendTitle": "Σκορ εξαιρετικών κινήσεων",
-    "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status",
-    "options.variationIndex": "Show current variation",
-    "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "themes.flat": "Χωρίς σκιές ή θόλωμα",
+    "themes.smallNetworkStatus": "Κατάσταση μικρού δικτύου",
+    "options.variationIndex": "Εμφάνιση τρέχουσας βαριάντας",
+    "variationIndexText": "Βαριάντα %1$s από %2$s",
+    "variationIndexTitle": "Κλικ για κύκλο μεταξύ βαριάντων",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12607,7 +12616,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13868,7 +13878,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15129,7 +15140,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16390,7 +16402,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17651,7 +17664,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18912,7 +18926,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20173,7 +20188,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21434,7 +21450,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22695,7 +22712,8 @@
     "themes.smallNetworkStatus": "Status rețea minimizat",
     "options.variationIndex": "Arată variația curentă",
     "variationIndexText": "Variația %1$s din %2$s",
-    "variationIndexTitle": "Clic pentru a parcurge variațiile"
+    "variationIndexTitle": "Clic pentru a parcurge variațiile",
+    "options.muteOwnMoves": "Nu vorbi propriile mutări"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23956,7 +23974,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25217,7 +25236,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26478,7 +26498,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27739,7 +27760,8 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29000,6 +29022,7 @@
     "themes.smallNetworkStatus": "Small network status",
     "options.variationIndex": "Show current variation",
     "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations"
+    "variationIndexTitle": "Click to cycle between variations",
+    "options.muteOwnMoves": "Mute speech for your own moves"
   }
 }
