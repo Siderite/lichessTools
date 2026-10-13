@@ -125,7 +125,9 @@
       let sim = 0;
       let prefixOver = false;
       for (let i = 0; i < l; i++) {
-        if (kSearch[i] == kNamed[i]) {
+        if (kNamed[i] == '?') {
+          sim += 1;
+        } else if (kSearch[i] == kNamed[i]) {
           sim += prefixOver ? 0.8 : 1;
         } else {
           prefixOver = true;

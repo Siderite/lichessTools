@@ -47,13 +47,17 @@
 
       const getArr = (structure) => {
         if (!this.pawnStructures) return [];
-        const arr = Object.keys(this.pawnStructures).map(k => {
-          return {
-            key: k,
-            value: this.pawnStructures[k],
-            similarity: LiChessTools.PawnStructure.keySimilarity(structure, k)
-          };
-        });
+        const arr = [];
+        for (const item of this.pawnStructures) {
+          const value = { name: item.name, url: item.url };
+          for (const k of item.structures || []) {
+            arr.push({
+              key: k,
+              value: value,
+              similarity: LiChessTools.PawnStructure.keySimilarity(structure, k)
+            });
+          }
+        }
         arr.sort((o1, o2) => o2.similarity - o1.similarity);
         return arr;
       };

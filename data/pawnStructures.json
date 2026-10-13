@@ -1,190 +1,289 @@
-{
-  "2XXX1XXT": {
+[
+  {
     "name": "Queen's Isolani",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Queen's_Gambit_%E2%80%93_Isolani_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#queens-isolani",
+    "structures": [
+      "2XXX1XXT"
+    ]
   },
-  "2XXXX0TX": {
+  {
     "name": "Italian Isolani",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Giuoco_Piano_%E2%80%93_Isolani_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#italian-isolani",
+    "structures": [
+      "2XXXX0TX"
+    ]
   },
-  "2X2X1XTT": {
+  {
     "name": "Hanging Pawns",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Hanging_pawns"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#hanging-pawns",
+    "structures": [
+      "2X2X1XTT"
+    ]
   },
-  "21X2X0TM": {
+  {
     "name": "Carlsbad",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Carlsbad_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#carlsbad",
+    "structures": [
+      "21X2X0TM"
+    ]
   },
-  "21X2X1TM": {
+  {
     "name": "Orthodox Exchange",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Carlsbad_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#orthodox-exchange",
+    "structures": [
+      "21X2X1TM"
+    ]
   },
-  "X22X21XX": {
+  {
     "name": "Rauzer Formation",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Rauzer_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#rauzer-formation",
+    "structures": [
+      "X22X21XX"
+    ]
   },
-  "X221X1TM": {
+  {
     "name": "Boleslavsky Wall",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Boleslavsky_Wall"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#boleslavsky-wall",
+    "structures": [
+      "X221X1TM"
+    ]
   },
-  "X2011XMX": {
+  {
     "name": "Scheveningen",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Sicilian_%E2%80%93_Scheveningen"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#scheveningen",
+    "structures": [
+      "X2011XMX"
+    ]
   },
-  "X2010XMX 000001": {
+  {
     "name": "Dragon",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Sicilian_%E2%80%93_Dragon"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#dragon",
+    "structures": [
+      "X2010XMX 000001"
+    ]
   },
-  "X2210XMX": {
-    "name": "Mar\u00f3czi Bind",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind"
+  {
+    "name": "Maróczi Bind",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#maroczy-bind",
+    "structures": [
+      "X2210XMX",
+      "X2201XMX"
+    ]
   },
-  "X2201XMX": {
-    "name": "Mar\u00f3czi Bind",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind"
-  },
-  "X2211XMX 000010": {
+  {
     "name": "Hedgehog",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Hedgehog"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#hedgehog",
+    "structures": [
+      "X2211XMX 000010 ??10"
+    ]
   },
-  "X2012XMX": {
+  {
     "name": "Boleslavsky Hole",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Boleslavsky_hole"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#boleslavsky-hole",
+    "structures": [
+      "X2012XMX"
+    ]
   },
-  "322120XX": {
+  {
     "name": "d5 Chain",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#d5-chain",
+    "structures": [
+      "322120XX",
+      "320120XX"
+    ]
   },
-  "230210XX": {
+  {
     "name": "e5 Chain",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#e5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#e5-chain",
+    "structures": [
+      "230210XX"
+    ]
   },
-  "2X321XMT": {
+  {
     "name": "Panov",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Panov_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#panov",
+    "structures": [
+      "2X321XMT",
+      "2X320XMT"
+    ]
   },
-  "200210XX 000200": {
+  {
     "name": "Stonewall",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Stonewall_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#stonewall",
+    "structures": [
+      "200210XX 000200"
+    ]
   },
-  "122122XX": {
+  {
     "name": "Botvinnik",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Botvinnik_system"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#botvinnik",
+    "structures": [
+      "122122XX"
+    ]
   },
-  "21XX11TX": {
+  {
     "name": "Slav",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Slav_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#slav",
+    "structures": [
+      "21XX11TX"
+    ]
   },
-  "2X1X11MT": {
+  {
     "name": "Caro",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Caro_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#caro",
+    "structures": [
+      "2X1X11MT",
+      "2X0X11MT"
+    ]
   },
-  "32X1X2TM": {
+  {
     "name": "Modern Benoni",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Modern_Benoni_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#modern-benoni",
+    "structures": [
+      "32X1X2TM"
+    ]
   },
-  "120102XX": {
+  {
     "name": "Closed Sicilian",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Closed_Sicilian_formation"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#closed-sicilian",
+    "structures": [
+      "120102XX"
+    ]
   },
-  "221X02TX 0X0000": {
-    "name": "Gr\u00FCnfeld Center",
-    "url": "https://herculeschess.com/grunfeld-defense/"
+  {
+    "name": "Grünfeld Center",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#grunfeld-center",
+    "structures": [
+      "221X02TX 0X0000"
+    ]
   },
-  "3X012XMT": {
+  {
     "name": "Najdorf",
-    "url": "https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#najdorf",
+    "structures": [
+      "3X012XMT",
+      "X20X22XX",
+      "X2022XMX"
+    ]
   },
-  "3X21X2XX": {
+  {
     "name": "Symmetric Benoni",
-    "url": "https://thechessworld.com/articles/openings/closed-center-in-kid-and-benoni/"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#symmetric-benoni",
+    "structures": [
+      "3X21X2XX"
+    ]
   },
-  "2X320XMT": {
-    "name": "Panov",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Panov_formation"
-  },
-  "32X12XXX": {
+  {
     "name": "KID I",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#kid-i",
+    "structures": [
+      "32X12XXX"
+    ]
   },
-  "322122XX": {
+  {
     "name": "KID II",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#kid-ii",
+    "structures": [
+      "322122XX"
+    ]
   },
-  "X221X0TM": {
+  {
     "name": "Open KID",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Boleslavsky_Wall"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#open-kid",
+    "structures": [
+      "X221X0TM"
+    ]
   },
-  "222121XX": {
+  {
     "name": "KID Complex",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#kid-complex",
+    "structures": [
+      "222121XX"
+    ]
   },
-  "2X0210XM": {
+  {
     "name": "French",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#e5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#french",
+    "structures": [
+      "2X0210XM",
+      "X3121XMX"
+    ]
   },
-  "X3121XMX": {
-    "name": "French",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#e5-chain"
-  },
-  "XX1X1XMT": {
+  {
     "name": "3-3 vs 4-2",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#e5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#3-3-vs-4-2",
+    "structures": [
+      "XX1X1XMT"
+    ]
   },
-  "32X102MX 0000X1 00X0": {
+  {
     "name": "Benko",
-    "url": "http://www.chesscorner.com/tutorial/Intermediate/openingrep/benko/benko.htm"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#benko",
+    "structures": [
+      "32X102MX 0000X1 00X0"
+    ]
   },
-  "321123XX": {
+  {
     "name": "Closed Ruy Lopez",
-    "url": "https://chess-structures.com/2015/04/23/chess-structures-in-practice-the-closed-ruy-lopez/"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#closed-ruy-lopez",
+    "structures": [
+      "321123XX"
+    ]
   },
-  "221122XX": {
+  {
     "name": "Lopez",
-    "url": "https://chess-structures.com/2015/04/23/chess-structures-in-practice-the-closed-ruy-lopez/"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#lopez",
+    "structures": [
+      "221122XX"
+    ]
   },
-  "X20X22XX": {
-    "name": "Najdorf",
-    "url": "https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/"
+  {
+    "name": "Maróczi SymT",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#maroczi-symt",
+    "structures": [
+      "32X10XXX"
+    ]
   },
-  "X2022XMX": {
-    "name": "Najdorf",
-    "url": "https://thechessworld.com/articles/openings/beating-the-najdorf-common-middlegame-structures/"
+  {
+    "name": "Maróczi AsymT",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#maroczi-asymt",
+    "structures": [
+      "3X210XMT"
+    ]
   },
-  "32X10XXX": {
-    "name": "Mar\u00f3czi SymT",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind"
-  },
-  "3X210XMT": {
-    "name": "Mar\u00f3czi AsymT",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Mar%C3%B3czy_Bind"
-  },
-  "3X2122XM 00020X": {
+  {
     "name": "KID II TA",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#kid-ii-ta",
+    "structures": [
+      "3X2122XM 00020X"
+    ]
   },
-  "3X2122XM 000X00": {
+  {
     "name": "KID II TB",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#kid-ii-tb",
+    "structures": [
+      "3X2122XM 000X00"
+    ]
   },
-  "3X2120XM 00020X": {
+  {
     "name": "d5 Chain TA",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#d5-chain-ta",
+    "structures": [
+      "3X2120XM 00020X"
+    ]
   },
-  "3X2120XM 000X00": {
+  {
     "name": "d5 Chain TB",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#d5-chain-tb",
+    "structures": [
+      "3X2120XM 000X00"
+    ]
   },
-  "X2X1XXXM": {
+  {
     "name": "Lopez Exchange",
-    "url": "https://chess-structures.com/2015/04/23/chess-structures-in-practice-the-closed-ruy-lopez/"
-  },
-  "2X0X11MT": {
-    "name": "Caro",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#Caro_formation"
-  },
-  "320120XX": {
-    "name": "d5 Chain",
-    "url": "https://en.wikipedia.org/wiki/Pawn_structure#d5-chain"
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#lopez-exchange",
+    "structures": [
+      "X2X1XXXM"
+    ]
   }
-}
+]

@@ -52,7 +52,7 @@ Rearranges the structure string to show the opposing color's perspective: swaps 
 
 ### Pawn Structures Database
 
-Loaded via `lt.comm.getData('pawnStructures.json')`. Stored in `this.pawnStructures` as a dict keyed by structure key strings → value objects (name, url).
+Loaded via `lt.comm.getData('pawnStructures.json')`. Stored in `this.pawnStructures` as an array of objects `{ name, url, structures: [key, ...] }`, where `structures` lists the structure key strings that map to that name/url.
 
 ### Structure Name Matching (`getStructureName(structure, onlyNamed)`)
 
