@@ -42,7 +42,10 @@
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
       const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-opening').remove();
+        return;
+      }
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -296,7 +299,10 @@
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
       const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-opening').remove();
+        return;
+      }
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;

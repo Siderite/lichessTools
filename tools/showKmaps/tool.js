@@ -195,7 +195,10 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      if ($.cached('body').is('.playing')) return;
+      if ($.cached('body').is('.playing')) {
+        $('.lichessTools-kmaps').remove();
+        return;
+      }
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -241,7 +244,10 @@
       const $ = lt.$;
       if (lt.global.document.hidden) return;
       const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-kmaps').remove();
+        return;
+      }
 
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
