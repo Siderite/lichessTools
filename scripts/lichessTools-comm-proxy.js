@@ -65,7 +65,7 @@ window.addEventListener('LichessTools.send', async (ev) => {
       response = { err: localError.toString() };
     }
   }
-  const newDetail=JSON.stringify({ ...response, uid: uid });
+  const newDetail=JSON.stringify(Array.isArray(response) ? { result: response, uid: uid } : { ...response, uid: uid });
   const customEvent = new CustomEvent("LichessTools.receive", {
     detail: newDetail,
     bubbles: true,

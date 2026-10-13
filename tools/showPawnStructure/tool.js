@@ -44,13 +44,6 @@
           return;
         }
       }
-      if (!Array.isArray(this.pawnStructures)) {
-        this.pawnStructures = Object.entries(this.pawnStructures).map(([key, value]) => ({
-          name: value.name,
-          url: value.url,
-          structures: [key]
-        }));
-      }
 
       const getArr = (structure) => {
         if (!this.pawnStructures) return [];
