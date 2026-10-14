@@ -2517,13 +2517,13 @@
     "extraChart.brilliantChart": "精彩度图表",
     "brilliantLegendText": "精彩度",
     "brilliantLegendTitle": "精彩度评分",
-    "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status",
-    "options.variationIndex": "Show current variation",
-    "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "themes.flat": "无阴影或模糊",
+    "themes.smallNetworkStatus": "微型网络状态",
+    "options.variationIndex": "显示当前变例",
+    "variationIndexText": "变例 %1$s / %2$s",
+    "variationIndexTitle": "点击以在变例之间索引",
+    "options.muteOwnMoves": "静音己方走棋的语音",
+    "chatForumBlogs.markdownShortcuts": "论坛中的键盘快捷键"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -11363,8 +11363,8 @@
     "options.variationIndex": "Εμφάνιση τρέχουσας βαριάντας",
     "variationIndexText": "Βαριάντα %1$s από %2$s",
     "variationIndexTitle": "Κλικ για κύκλο μεταξύ βαριάντων",
-    "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "options.muteOwnMoves": "Σίγαση ομιλίας για τις δικές σας κινήσεις",
+    "chatForumBlogs.markdownShortcuts": "Συντομεύσεις πληκτρολογίου στα φόρουμ"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
