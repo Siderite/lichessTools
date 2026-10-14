@@ -100,8 +100,9 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!el.length) el = $(el);
+      const ek = euweKramer?.code ? euweKramer : null;
       let structureElem = el.find('.lichessTools-structure');
-      if (!structureName) {
+      if (!structureName && !ek) {
         structureElem.remove();
         return;
       }
@@ -113,32 +114,36 @@
           .appendTo(visibleEl);
       }
 
-      const isLink = !!structureName.url;
-      let title = trans.pluralSame('structureNameTitle', structure);
-      if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
-
       let nameEl = structureElem.find('.lichessTools-structureName');
-      if (!nameEl.length || nameEl.is('a') !== isLink) {
-        structureElem.empty();
-        nameEl = $('<' + (isLink ? 'a' : 'span') + '>')
-          .addClass('lichessTools-structureName')
-          .appendTo(structureElem);
-      }
-      nameEl
-        .textSafe(structureName.name)
-        .attrSafe('title', title);
-      if (isLink) {
-        nameEl.attrSafe('target', '_blank');
-        nameEl.attrSafe('href', structureName.url);
+      if (structureName) {
+        const isLink = !!structureName.url;
+        let title = trans.pluralSame('structureNameTitle', structure);
+        if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
+
+        if (!nameEl.length || nameEl.is('a') !== isLink) {
+          nameEl = $('<' + (isLink ? 'a' : 'span') + '>')
+            .addClass('lichessTools-structureName');
+          const ekExisting = structureElem.find('.lichessTools-euweKramer');
+          if (ekExisting.length) nameEl.insertBefore(ekExisting);
+          else nameEl.appendTo(structureElem);
+        }
+        nameEl
+          .textSafe(structureName.name)
+          .attrSafe('title', title);
+        if (isLink) {
+          nameEl.attrSafe('target', '_blank');
+          nameEl.attrSafe('href', structureName.url);
+        }
+      } else {
+        nameEl.remove();
       }
 
-      const ek = euweKramer?.code ? euweKramer : null;
       let ekEl = structureElem.find('.lichessTools-euweKramer');
       if (ek) {
         let ekTitle = ek.code + ' ' + ek.name + ' \u2014 ' + ek.category;
-        const others = (ek.matches || []).filter(m => m?.code && m.code !== ek.code);
+        const others = (ek.matches || []).map(m => m?.code).filter(c => c && c !== ek.code);
         if (others.length) {
-          ekTitle += '\r\n' + others.map(m => m.code + ' ' + m.name).join('\r\n');
+          ekTitle += '\r\n' + others.join(', ');
         }
         if (!ekEl.length) {
           ekEl = $('<a>')

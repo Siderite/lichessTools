@@ -77,10 +77,10 @@ Cached in `keyCache`. Direct computation:
 ### Structure Anchor Rendering (`addStructureAnchor(el, structureName, structure, euweKramer)`)
 
 Creates or updates a `.lichessTools-structure` span container on the target:
-- If no name → removes the existing element.
+- If no name and no Euwe-Kramer classification → removes the existing element.
 - Finds the visible element in viewport to append.
-- Renders a `.lichessTools-structureName` child (an `<a>` when structureName has a url, otherwise a `<span>`) with the structure name and title (translator pluralSame('structureNameTitle', structure) + optional best reference line).
-- When an Euwe-Kramer classification is available, appends a `.lichessTools-euweKramer` link showing the primary taxo code (e.g. `D.4`) pointing at `https://siderite.dev/LiChessTools/pawnStructures.html#ek-<code>` (code lowercased, dots removed via `getEuweKramerUrl`). Its title lists the formation name/category plus any secondary matches.
+- Renders a `.lichessTools-structureName` child (an `<a>` when structureName has a url, otherwise a `<span>`) with the structure name and title (translator pluralSame('structureNameTitle', structure) + optional best reference line). Skipped when no name is available (e.g. `onlyNamed` and no exact/fuzzy match).
+- When an Euwe-Kramer classification is available, appends a `.lichessTools-euweKramer` link showing the primary taxo code (e.g. `D.4`) pointing at `https://siderite.dev/LiChessTools/pawnStructures.html#ek-<code>` (code lowercased, dots removed via `getEuweKramerUrl`). Its title lists the formation name/category and, when there are secondary matches, a comma-separated list of the remaining codes (excluding the primary code already displayed). This is shown even when there is no structure name.
 
 ### miniGameStructure — Mini-game elements
 
