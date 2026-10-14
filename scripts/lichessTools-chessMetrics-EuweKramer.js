@@ -118,11 +118,6 @@
       return key[3] !== 'x' || key[4] !== 'x';
     }
 
-    // Whether either side still has a d- or e-pawn.
-    static _hasAnyCentrePawn(key) {
-      return key[3] !== 'x' || key[4] !== 'x' || key[11] !== 'x' || key[12] !== 'x';
-    }
-
     // Queenside / kingside pawn counts per side (for rival majorities).
     static _flankPawns(key) {
       const isPawn = ch => ch !== 'x';
@@ -148,11 +143,11 @@
       ['A.3', /^...x[34]......x[34]...$/],        // KP centre (e4/e5, d-pawns gone)
       ['A.4', /^..1[25][34]1....6[25][34]6..$/],  // four pawns, KPs forward
       ['A.5', /^..1[34][25]1....6[34][25]6..$/],  // four pawns, QPs forward
-      ['D.1', /^..343.....454...$/],              // blocked oblique, QP forward (KID)
+      ['D.1', /^...43......54...$/],              // blocked oblique, QP forward (d5 lock)
       ['D.2', /^...34......45...$/],              // blocked oblique, KP forward (French)
       ['D.5', /^..323.....454...$/],              // pseudo-stonewall (c4+d3+e4)
-      ['D.3', /^...323.....45[^4]..$/],           // stonewall (d4+e3+f4)
-      ['D.4', /^...323.....454..$/],              // anti-stonewall (f4 vs f5)
+      ['D.3', /^...323.....4.[^4]..$/],           // stonewall (d4+e3+f4)
+      ['D.4', /^...323.....4.4..$/],              // anti-stonewall (f4 vs f5)
       ['F.7', /^..x3x......x....$/],              // isolated queen's pawn (d4)
       ['F.8', /^.x33x.....xx....$/],              // hanging pawns (c4+d4)
       ['E.3', /^...x3.....45x...$/],              // Sicilian formation
@@ -179,34 +174,33 @@
     ];
 
     // Classify assuming "me" = the White segment of the key (the book's White POV).
-    // Returns { code, name, category, note } or null.
+    // Collects every formation that matches, in priority order.
     static _classifyPov(key, wDoubled, bDoubled) {
+      const matches = [];
+      let symmetric = false;
+
       for (const [code, re] of EuweKramer.SHAPE_RULES) {
-        if (re.test(key)) return EuweKramer._result(code);
+        if (re.test(key)) {
+          matches.push(EuweKramer._result(code));
+          if (code.startsWith('A.')) symmetric = true;
+        }
       }
 
       const doubled = EuweKramer._doubledFormation(key, wDoubled);
-      if (doubled) return doubled;
+      if (doubled) matches.push(doubled);
 
-      // B vs C: positional vs material preponderance (a pawn-count split, not a shape).
-      const { white: central, black: oppCentral } = EuweKramer._centrality(key);
+      // B vs C preponderance applies to non-symmetric centres (a pawn-count split).
+      if (!symmetric) {
+        const { white: central, black: oppCentral } = EuweKramer._centrality(key);
+        const preponderance = EuweKramer._preponderance(key, central, oppCentral);
+        if (preponderance) matches.push(preponderance);
 
-      if (central > oppCentral) {
-        for (const [code, re] of EuweKramer.C_RULES) {
-          if (re.test(key)) return EuweKramer._result(code, 'best-effort');
-        }
-      } else if (central === oppCentral && EuweKramer._hasCentrePawn(key)) {
-        for (const [code, re] of EuweKramer.B_RULES) {
-          if (re.test(key)) return EuweKramer._result(code);
+        if (central === oppCentral && EuweKramer._hasRivalMajorities(key)) {
+          matches.push(EuweKramer._result(EuweKramer._isOpenCentre(key) ? 'E.4' : 'E.5', 'best-effort'));
         }
       }
 
-      // E.4 / E.5 Rival majorities: opposite-wing majorities (a flank count, not a shape).
-      if (central === oppCentral && EuweKramer._hasRivalMajorities(key)) {
-        return EuweKramer._result(EuweKramer._isOpenCentre(key) ? 'E.4' : 'E.5', 'best-effort');
-      }
-
-      return null;
+      return matches;
     }
 
     static _hasRivalMajorities(key) {
@@ -218,35 +212,39 @@
 
     // Public: classify a chessops board from White's point of view, falling back to
     // the mirrored (Black's) point of view for the "advantage" categories (B/C/D/E).
+    // Returns the winning formation plus an array of every formation that matches.
     static classify(board) {
       if (!board) return null;
       const p = EuweKramer._ranks(board);
       if (!p) return null;
       const key = EuweKramer._key(p.w, p.b);
-      let res = EuweKramer._classifyPov(key, p.wDoubled, p.bDoubled);
-      if (res) {
-        res.side = 'white';
-        return res;
+
+      let matches = EuweKramer._classifyPov(key, p.wDoubled, p.bDoubled)
+        .map(m => ({ ...m, side: 'white' }));
+      if (!matches.length) {
+        matches = EuweKramer._classifyPov(EuweKramer._mirrorKey(key), p.bDoubled, p.wDoubled)
+          .map(m => ({ ...m, side: 'black' }));
       }
-      res = EuweKramer._classifyPov(EuweKramer._mirrorKey(key), p.bDoubled, p.wDoubled);
-      if (res) {
-        res.side = 'black';
-        return res;
-      }
-      return EuweKramer._coarse(key);
+      if (!matches.length) return null;
+
+      return { ...matches[0], matches };
     }
 
-    // Coarse fallback: only the B/C preponderance type, without the exact sub-code.
-    static _coarse(key) {
-      const { white, black } = EuweKramer._centrality(key);
-      if (white > black) {
-        return { code: 'C', name: 'Extra central pawns (unspecified)', category: 'Extra central pawns', side: 'white', note: 'best-effort' };
+    // The B/C preponderance category: the specific sub-code when recognised, otherwise
+    // the coarse category. Returns null when the centre is symmetric or unbalanced toward
+    // the opponent (the mirror pass then handles it).
+    static _preponderance(key, central, oppCentral) {
+      if (central > oppCentral) {
+        for (const [code, re] of EuweKramer.C_RULES) {
+          if (re.test(key)) return EuweKramer._result(code, 'best-effort');
+        }
+        return { code: 'C', name: 'Extra central pawns (unspecified)', category: 'Extra central pawns', note: 'best-effort' };
       }
-      if (black > white) {
-        return { code: 'C', name: 'Extra central pawns (unspecified)', category: 'Extra central pawns', side: 'black', note: 'best-effort' };
-      }
-      if (EuweKramer._hasAnyCentrePawn(key)) {
-        return { code: 'B', name: 'Positional advantage in the centre (unspecified)', category: 'Positional advantage in the centre', side: null, note: 'best-effort' };
+      if (central === oppCentral && EuweKramer._hasCentrePawn(key)) {
+        for (const [code, re] of EuweKramer.B_RULES) {
+          if (re.test(key)) return EuweKramer._result(code);
+        }
+        return { code: 'B', name: 'Positional advantage in the centre (unspecified)', category: 'Positional advantage in the centre', note: 'best-effort' };
       }
       return null;
     }

@@ -8832,13 +8832,13 @@
     "extraChart.brilliantChart": "Graphique coups brillants",
     "brilliantLegendText": "Coups brillants",
     "brilliantLegendTitle": "Score de coups brillants",
-    "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status",
-    "options.variationIndex": "Show current variation",
-    "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "themes.flat": "Pas d'ombres ni de flou",
+    "themes.smallNetworkStatus": "Statut du réseau en mode réduit",
+    "options.variationIndex": "Afficher la variante en cours",
+    "variationIndexText": "Variante %1$s de %2$s",
+    "variationIndexTitle": "Cliquer pour faire défiler les variantes",
+    "options.muteOwnMoves": "Désactiver la synthèse vocale pour vos propres coups",
+    "chatForumBlogs.markdownShortcuts": "Raccourcis clavier dans les forums"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
