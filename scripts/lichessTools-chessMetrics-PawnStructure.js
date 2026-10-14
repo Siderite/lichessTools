@@ -19,7 +19,7 @@
       );
     }
 
-    static getStructure(board, blackOrientation) {
+    static getPawnSkeleton(board) {
       if (!board) return null;
       const b = board;
       const result = {
@@ -82,6 +82,13 @@
 
       calcSide('w');
       calcSide('b');
+
+      return result;
+    }
+
+    static getStructure(board, blackOrientation) {
+      const result = PawnStructure.getPawnSkeleton(board);
+      if (!result) return null;
 
       const [me, they] = blackOrientation ? ['b', 'w'] : ['w', 'b'];
       const toChar = (s) => {

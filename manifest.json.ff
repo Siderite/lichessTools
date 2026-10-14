@@ -39,6 +39,7 @@
         "scripts/lichessTools-chessMetrics-MoveGen.js",
         "scripts/lichessTools-chessMetrics-PawnStructure.js",
         "scripts/lichessTools-chessMetrics-ChessMetrics.js",
+        "scripts/lichessTools-chessMetrics-EuweKramer.js",
         "scripts/lichessTools-chessMetrics-BrilliantMoveAnalyzer.js",
         "scripts/lichessTools-chessMetrics-ChessKmapsEvaluator.js",
         "scripts/lichessTools-chessMetrics-ChessActivityEvaluator.js",

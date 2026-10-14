@@ -342,6 +342,9 @@
     static getPawnBreaks(board, isWhite) {
       return LiChessTools.PawnStructure.getPawnBreaks(board, isWhite);
     }
+    static getEuweKramer(board) {
+      return LiChessTools.EuweKramer.classify(board);
+    }
   }
 
   LiChessTools.ChessMetrics = ChessMetrics;
