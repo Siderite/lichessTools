@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Oct
+
+- centralized page for chess openings
+
 13 Oct
 
 - flat theme
