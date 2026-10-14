@@ -108,14 +108,9 @@
       };
     }
 
-    // Whether the d- and e-files are open for both sides.
+    // Whether the d-file is open for both sides (the "open file between" rival majorities).
     static _isOpenCentre(key) {
-      return key[3] === 'x' && key[4] === 'x' && key[11] === 'x' && key[12] === 'x';
-    }
-
-    // Whether "me" (the White segment) still has a d- or e-pawn.
-    static _hasCentrePawn(key) {
-      return key[3] !== 'x' || key[4] !== 'x';
+      return key[3] === 'x' && key[11] === 'x';
     }
 
     // Queenside / kingside pawn counts per side (for rival majorities).
@@ -123,78 +118,98 @@
       const isPawn = ch => ch !== 'x';
       const count = (from, to) => key.slice(from, to).split('').filter(isPawn).length;
       return {
-        white: { queen: count(0, 3), king: count(5, 8) },
-        black: { queen: count(8, 11), king: count(13, 16) }
+        white: { queen: count(0, 4), king: count(4, 8) },
+        black: { queen: count(8, 12), king: count(12, 16) }
       };
     }
 
     // D.6 Wyvill / D.8 Winawer: doubled c-pawns with a locked centre (needs the doubled flag).
     static _doubledFormation(key, wDoubled) {
       if (!wDoubled[2]) return null;
-      if (key[3] === '4') return EuweKramer._result('D.6', 'best-effort');
-      if (key[4] === '4' && key[11] === '4' && key[12] === '5' && key[10] === '4') return EuweKramer._result('D.8', 'best-effort');
+      if (key[3] === '4') return EuweKramer._result('D.6', 'best-effort');                 // Wyvill: d5
+      if (key[4] === '4' && key[11] === '4' && key[12] === '5') return EuweKramer._result('D.8', 'best-effort'); // Winawer: e5 vs d5+e6
       return null;
     }
 
     // Shape formations matched directly against the key (no pawn counting needed).
     static SHAPE_RULES = [
+      // A. Symmetrical centre formations
       ['A.1', /^...xx......xx...$/],              // vanished centre
-      ['A.2', /^...[34]x......[34]x...$/],        // QP centre (d4/d5, e-pawns gone)
-      ['A.3', /^...x[34]......x[34]...$/],        // KP centre (e4/e5, d-pawns gone)
-      ['A.4', /^..1[25][34]1....6[25][34]6..$/],  // four pawns, KPs forward
-      ['A.5', /^..1[34][25]1....6[34][25]6..$/],  // four pawns, QPs forward
-      ['D.1', /^...43......54...$/],              // blocked oblique, QP forward (d5 lock)
-      ['D.2', /^...34......45...$/],              // blocked oblique, KP forward (French)
-      ['D.5', /^..323.....454...$/],              // pseudo-stonewall (c4+d3+e4)
-      ['D.3', /^...323.....4.[^4]..$/],           // stonewall (d4+e3+f4)
-      ['D.4', /^...323.....4.4..$/],              // anti-stonewall (f4 vs f5)
+      ['A.2', /^...3x......4x...$/],              // QP centre (d4 vs d5, e-pawns gone)
+      ['A.3', /^..1x3.....6x4...$/],              // KP centre (e4 vs e5, d-pawns gone, c-pawns home)
+      ['A.4', /^..[^3]23......54...$/],           // four pawns, KPs forward (d3+e4 vs d6+e5, no c4)
+      ['A.5', /^..132[^3].....45...$/],          // four pawns, QPs forward (d4+e3 vs d5+e6, c-pawn home, no f4)
+      // D. Closed formations
+      ['D.1', /^..143.....654...$/],              // blocked oblique, QP forward (c2+d5+e4 vs c7+d6+e5)
+      ['D.2', /^..\d34.....\d45...$/],            // blocked oblique, KP forward (d4+e5 vs d5+e6, c-pawns present)
+      ['D.3', /^..332[^3]....5454..$/],           // stonewall (c4+d4+e3 vs c6+d5+e6+f5)
+      ['D.4', /^..3323....5454..$/],              // anti-stonewall (c4+d4+e3+f4 vs c6+d5+e6+f5)
+      ['D.5', /^..323.....666...$/],              // pseudo-stonewall, Botvinnik (c4+d3+e4 vs ...c7/d7/e7)
+      // E. Open formations
+      ['E.1', /^...x3......5x...$/],              // Ruy Lopez (e4 vs d6, open d-file)
+      ['E.2', /^..13x.....6x5...$/],              // French/Caro (d4 vs e6, open d-file, c-pawns home)
+      ['E.3', /^...x3.....x66...$/],              // Sicilian (e4 vs d7+e7, open c-file)
+      // F. Half-open formations
+      ['F.1', /^..x32.....x45...$/],              // half-open symmetrical (d4+e3 vs d5+e6, open c-file)
+      ['F.2', /^..2x3.....4x4...$/],              // half-open focus formation (c3+e4 vs c5+e5, open d-file)
+      ['F.3', /^..x34.....x45...$/],              // half-open blocked oblique (d4+e5 vs d5+e6, open c-file)
+      ['F.4', /^..1x4.....x45...$/],              // half-open French (e5 vs d5+e6, open c-file)
+      ['F.5', /^..23x.....x46...$/],              // Caro-Kann / QGD Exchange (c3+d4 vs d5, open c-file)
+      ['F.6', /^..x43.....4x4...$/],              // passed pawn protected but blockaded (d5+e4 vs c5+e5, knight blockades d6)
       ['F.7', /^..x3x......x....$/],              // isolated queen's pawn (d4)
       ['F.8', /^.x33x.....xx....$/],              // hanging pawns (c4+d4)
-      ['E.3', /^...x3.....45x...$/],              // Sicilian formation
-      ['E.1', /^...x3.....65x...$/],              // Ruy Lopez formation
-      ['E.2', /^...3x......x5...$/],              // French/Caro formation
-      ['F.5', /^...3[12]......4x...$/],           // Caro-Kann / QGD Exchange
     ];
 
-    // Positional preponderance (B) — only when central pawn counts are equal.
-    static B_RULES = [
-      ['B.1', /^...x4......xx...$/],              // advanced fixed single-pawn, KP forward
-      ['B.2', /^...4x......xx...$/],              // advanced fixed single-pawn, QP forward
-      ['B.3', /^...33......54...$/],              // partially fixed centre (tension form)
-      ['B.4', /^..33x......5x...$/],              // partially fixed centre (incomplete QP)
-    ];
-
-    // Material preponderance (C) — only when "me" has MORE central pawns.
-    static C_RULES = [
-      ['C.1', /^...\d\d......xx...$/],            // absolute centre (two vs none)
-      ['C.2', /^...34......x....$/],              // hanging centre (d4+e5)
+    // Positional (B) and material (C) preponderance, matched directly against the key.
+    static ADVANTAGE_RULES = [
+      ['B.1', /^...x4......x5...$/],              // advanced fixed single-pawn, KP forward (e5 vs e6)
+      ['B.2', /^...4x......5x...$/],              // advanced fixed single-pawn, QP forward (d5 vs d6)
+      ['B.3', /^...33......54...$/],              // partially fixed centre, tension form (d4+e4 vs d6+e5)
+      ['B.4', /^...43......56...$/],              // partially fixed centre, Benoni (d5+e4 vs d6+e7)
+      ['B.5', /^...24......45...$/],              // partially fixed centre, French (d3+e5 vs d5+e6)
+      ['B.6', /^...34......65...$/],              // partially fixed centre, French (d4+e5 vs d7+e6)
+      ['B.7', /^...x3......x5...$/],              // mobile centre, KP (e4 vs e6, d open)
+      ['B.8', /^...3x......5x...$/],              // mobile centre, QP (d4 vs d6, e open)
+      ['C.1', /^...\d\d......xx...$/],            // absolute centre (two central pawns vs none)
+      ['C.2', /^...xx......45...$/],              // hanging centre (d5+e6 vs none)
       ['C.3', /^...33......5x...$/],              // classic centre (d4+e4 vs d6)
-      ['C.8', /^...32...........$/],              // latent central majority, KP in reserve
-      ['C.7', /^...23...........$/],              // latent central majority, QP in reserve
+      ['C.4', /^...33.....5x5...$/],              // neo-classic centre (d4+e4 vs c6+e6)
+      ['C.5', /^...33.....xx5...$/],              // neo-classic centre with open file (d4+e4 vs e6)
+      ['C.6', /^...33.....5x4...$/],              // unbalanced tension (d4+e4 vs c6+e5)
+      ['C.7', /^...23......x4...$/],              // latent central majority, QP in reserve (d3+e4 vs e5)
+      ['C.8', /^...32......4x...$/],              // latent central majority, KP in reserve (d4+e3 vs d5)
     ];
 
     // Classify assuming "me" = the White segment of the key (the book's White POV).
-    // Collects every formation that matches, in priority order.
+    // Collects the matching formation (and its specific sub-formations) in priority order.
     static _classifyPov(key, wDoubled, bDoubled) {
       const matches = [];
       let symmetric = false;
 
+      const doubled = EuweKramer._doubledFormation(key, wDoubled);
+      if (doubled) matches.push(doubled);
+
       for (const [code, re] of EuweKramer.SHAPE_RULES) {
+        if (doubled && (code === 'D.1' || code === 'D.2')) continue; // D.6/D.8 are doubled-c refinements of D.1/D.2
         if (re.test(key)) {
           matches.push(EuweKramer._result(code));
           if (code.startsWith('A.')) symmetric = true;
         }
       }
 
-      const doubled = EuweKramer._doubledFormation(key, wDoubled);
-      if (doubled) matches.push(doubled);
-
-      // B vs C preponderance applies to non-symmetric centres (a pawn-count split).
+      // B vs C preponderance applies to non-symmetric centres.
       if (!symmetric) {
-        const { white: central, black: oppCentral } = EuweKramer._centrality(key);
-        const preponderance = EuweKramer._preponderance(key, central, oppCentral);
-        if (preponderance) matches.push(preponderance);
+        for (const [code, re] of EuweKramer.ADVANTAGE_RULES) {
+          if (re.test(key)) {
+            matches.push(EuweKramer._result(code, 'best-effort'));
+            break;
+          }
+        }
+      }
 
+      // Rival majorities is a fallback: only when no specific formation matched.
+      if (!matches.length) {
+        const { white: central, black: oppCentral } = EuweKramer._centrality(key);
         if (central === oppCentral && EuweKramer._hasRivalMajorities(key)) {
           matches.push(EuweKramer._result(EuweKramer._isOpenCentre(key) ? 'E.4' : 'E.5', 'best-effort'));
         }
@@ -228,25 +243,6 @@
       if (!matches.length) return null;
 
       return { ...matches[0], matches };
-    }
-
-    // The B/C preponderance category: the specific sub-code when recognised, otherwise
-    // the coarse category. Returns null when the centre is symmetric or unbalanced toward
-    // the opponent (the mirror pass then handles it).
-    static _preponderance(key, central, oppCentral) {
-      if (central > oppCentral) {
-        for (const [code, re] of EuweKramer.C_RULES) {
-          if (re.test(key)) return EuweKramer._result(code, 'best-effort');
-        }
-        return { code: 'C', name: 'Extra central pawns (unspecified)', category: 'Extra central pawns', note: 'best-effort' };
-      }
-      if (central === oppCentral && EuweKramer._hasCentrePawn(key)) {
-        for (const [code, re] of EuweKramer.B_RULES) {
-          if (re.test(key)) return EuweKramer._result(code);
-        }
-        return { code: 'B', name: 'Positional advantage in the centre (unspecified)', category: 'Positional advantage in the centre', note: 'best-effort' };
-      }
-      return null;
     }
 
     // Convenience: classify directly from a FEN string.

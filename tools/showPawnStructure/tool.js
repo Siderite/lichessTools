@@ -91,7 +91,11 @@
       };
     };
 
-    addStructureAnchor = (el, structureName, structure) => {
+    getEuweKramerUrl = (code) => {
+      return 'https://siderite.dev/LiChessTools/pawnStructures.html#ek-' + code.toLowerCase().replace(/\./g, '');
+    };
+
+    addStructureAnchor = (el, structureName, structure, euweKramer) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -102,27 +106,52 @@
         return;
       }
 
-      const isLink = !!structureName.url;
-      if ((isLink && structureElem.is('span')) || (!isLink && structureElem.is('a'))) {
-        structureElem.remove();
-        structureElem = el.find('.lichessTools-structure');
-      }
       if (!structureElem.length) {
         const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
-        structureElem = $('<' + (isLink ? 'a' : 'span') + '>')
+        structureElem = $('<span>')
           .addClass('lichessTools-structure')
           .appendTo(visibleEl);
-        if (isLink) {
-          structureElem.attr('target', '_blank');
-        }
       }
+
+      const isLink = !!structureName.url;
       let title = trans.pluralSame('structureNameTitle', structure);
       if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
-      structureElem
-        .replaceText(structureName.name)
+
+      let nameEl = structureElem.find('.lichessTools-structureName');
+      if (!nameEl.length || nameEl.is('a') !== isLink) {
+        structureElem.empty();
+        nameEl = $('<' + (isLink ? 'a' : 'span') + '>')
+          .addClass('lichessTools-structureName')
+          .appendTo(structureElem);
+      }
+      nameEl
+        .textSafe(structureName.name)
         .attrSafe('title', title);
       if (isLink) {
-        structureElem.attrSafe('href', structureName.url);
+        nameEl.attrSafe('target', '_blank');
+        nameEl.attrSafe('href', structureName.url);
+      }
+
+      const ek = euweKramer?.code ? euweKramer : null;
+      let ekEl = structureElem.find('.lichessTools-euweKramer');
+      if (ek) {
+        let ekTitle = ek.code + ' ' + ek.name + ' \u2014 ' + ek.category;
+        const others = (ek.matches || []).filter(m => m?.code && m.code !== ek.code);
+        if (others.length) {
+          ekTitle += '\r\n' + others.map(m => m.code + ' ' + m.name).join('\r\n');
+        }
+        if (!ekEl.length) {
+          ekEl = $('<a>')
+            .addClass('lichessTools-euweKramer')
+            .appendTo(structureElem);
+        }
+        ekEl
+          .attrSafe('target', '_blank')
+          .attrSafe('href', this.getEuweKramerUrl(ek.code))
+          .attrSafe('title', ekTitle)
+          .textSafe(ek.code);
+      } else {
+        ekEl.remove();
       }
     };
 
@@ -169,9 +198,10 @@
         }
         const board = lt.getBoardFromFen(fen);
         const structure = LiChessTools.ChessMetrics.getStructure(board);
+        const euweKramer = LiChessTools.ChessMetrics.getEuweKramer(board);
         const inCurrentGames = !!$(el).closest('.now-playing').length;
         const structureName = await this.getStructureName(structure, inCurrentGames);
-        this.addStructureAnchor(el, structureName, structure);
+        this.addStructureAnchor(el, structureName, structure, euweKramer);
         fen = '';
       }
       if (notInViewport) this.miniGameStructureDebounced();
@@ -202,8 +232,9 @@
         metaSection.find('.lichessTools-structure').remove();
         return;
       }
+      const euweKramer = LiChessTools.ChessMetrics.getEuweKramer(board);
       const structureName = await this.getStructureName(structure);
-      this.addStructureAnchor(metaSection, structureName, structure);
+      this.addStructureAnchor(metaSection, structureName, structure, euweKramer);
       if (!ply) {
         await this.miniGameStructure();
       }

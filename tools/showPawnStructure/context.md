@@ -74,14 +74,13 @@ Cached in `keyCache`. Direct computation:
 - Mismatch where search pawn rank < named pawn rank adds 0.2.
 - Result = `Math.round(sim * 100 / l)` percentage.
 
-### Structure Anchor Rendering (`addStructureAnchor(el, structureName, structure)`)
+### Structure Anchor Rendering (`addStructureAnchor(el, structureName, structure, euweKramer)`)
 
-Creates or updates `.lichessTools-structure` element on target:
-- If no name → removes existing element.
-- Switches element type (a vs span) based on whether structureName has url (link).
-- Finds visible element in viewport to append.
-- Title = translator pluralSame('structureNameTitle', structure) + optional best reference line (`best.value.name + similarity%`).
-- ReplaceText with structureName name. Sets href if link.
+Creates or updates a `.lichessTools-structure` span container on the target:
+- If no name → removes the existing element.
+- Finds the visible element in viewport to append.
+- Renders a `.lichessTools-structureName` child (an `<a>` when structureName has a url, otherwise a `<span>`) with the structure name and title (translator pluralSame('structureNameTitle', structure) + optional best reference line).
+- When an Euwe-Kramer classification is available, appends a `.lichessTools-euweKramer` link showing the primary taxo code (e.g. `D.4`) pointing at `https://siderite.dev/LiChessTools/pawnStructures.html#ek-<code>` (code lowercased, dots removed via `getEuweKramerUrl`). Its title lists the formation name/category plus any secondary matches.
 
 ### miniGameStructure — Mini-game elements
 
@@ -89,12 +88,12 @@ Processes `a[href].mini-game`, `div.boards>a[href]`, `.study__multiboard a.mini-
 - Checks document not hidden, body not .playing, showStaticAnalysis not false + cevalEnabled.
 - If eval checkbox exists and unchecked → skip.
 - Gets FEN from `data-state` or `lt.getPositionFromBoard`.
-- Extracts board → structure → structureName → adds anchor.
+- Extracts board → structure and Euwe-Kramer classification → structureName → adds anchor.
 - Debounced (500ms). If elements not in viewport → re-debounces.
 
 ### refreshStructure — Main game/analysis page
 
-On main board: gets FEN from `analysis.node.fen` or `lt.getPositionFromBoard($('main')`. Extracts board → structure → structureName. Targets metaSection cached query:
+On main board: gets FEN from `analysis.node.fen` or `lt.getPositionFromBoard($('main')`. Extracts board → structure and Euwe-Kramer classification → structureName. Targets metaSection cached query:
 ```
 div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables
 ```
