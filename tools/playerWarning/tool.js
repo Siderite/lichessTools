@@ -62,6 +62,26 @@
       return timeControl;
     };
 
+    getVariant = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const variants = [
+        'chess960',
+        'antichess',
+        'kingOfTheHill',
+        'threeCheck',
+        'atomic',
+        'horde',
+        'racingKings',
+        'crazyhouse'
+      ];
+      const main = $('.round__app');
+      for (const variant of variants) {
+        if (main.is('.variant-' + variant)) return variant;
+      }
+      return 'standard';
+    };
+
     timeControlSuspicion = (data, options = {}) => {
       const {
         minGames = 50,
@@ -124,6 +144,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       if (!this.isPlayingGame()) return;
+      if (this.getVariant() != 'standard') return;
       const userId = lt.getUserId();
       await $('.round__app .ruser-top a.user-link,.round__app .ruser-bottom a.user-link')
         .eachAsync(async (i, e) => {
