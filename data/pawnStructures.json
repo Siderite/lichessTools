@@ -144,6 +144,13 @@
     ]
   },
   {
+    "name": "c3+d4",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#c3d4",
+    "structures": [
+      "2X1X1XTT"
+    ]
+  },
+  {
     "name": "Modern Benoni",
     "url": "https://siderite.dev/LiChessTools/pawnStructures.html#modern-benoni",
     "structures": [
