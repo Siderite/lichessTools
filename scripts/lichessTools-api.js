@@ -20,6 +20,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.study, 'getStudyPgn', { persist: 'session', interval: 1000, minTime: 1000 });
         lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
           const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
           await lt.timeout(500);
@@ -79,6 +80,15 @@
             url: '/study/{studyId}/{chapterId}.pgn'+query,
             args: { studyId, chapterId }
           },{ ignoreStatuses: [404] });
+          return pgn;
+        },
+
+        async getStudyPgn(studyId) {
+          const lt = this.lichessTools;
+          const pgn = await lt.net.fetch({
+            url: '/study/{studyId}.pgn',
+            args: { studyId }
+          }, { ignoreStatuses: [404] });
           return pgn;
         },
 

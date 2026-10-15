@@ -1,0 +1,29 @@
+body.lichessTools .lichessTools-studyStats .dialog-content > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em;
+}
+
+body.lichessTools .lichessTools-studyStats .dialog-content > div span:first-child {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+body.lichessTools .lichessTools-studyStats .dialog-content > div span:last-child {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-studyStats .dialog-content {
+  padding: 0.5em 2em;
+  min-width: 26em;
+  max-width: 44em;
+}
+
+body.lichessTools .lichessTools-studyStats .dialog-content .spinner {
+  width: 1.5em;
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -157,6 +157,7 @@ lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
 lichessTools.loadTool(LiChessTools.Tools.BoardSaturate);
 lichessTools.loadTool(LiChessTools.Tools.CorrespondenceLobbyFilters);
 lichessTools.loadTool(LiChessTools.Tools.VideoSearch);
+lichessTools.loadTool(LiChessTools.Tools.StudyStats);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
