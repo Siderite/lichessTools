@@ -16,7 +16,7 @@ The **ExtendedInteractiveLessonTool** extends Lichess's Interactive Lesson (game
 
 - **extendedInteractiveLesson**
   - name `extendedInteractiveLesson`, category `study`, type `multiple`
-  - possibleValues `['extendedInteractive', 'showFinalScore', 'alwaysShowScore', 'returnToPreview', 'fastInteractive', 'giveUpButton']`
+  - possibleValues `['extendedInteractive', 'showFinalScore', 'alwaysShowScore', 'returnToPreview', 'fastInteractive', 'giveUpButton', 'highlightPieceOnHint']`
   - defaultValue `'extendedInteractive,showFinalScore'`
 - **extendedInteractiveLessonFlow**
   - name `extendedInteractiveLessonFlow`, category `study`, type `multiple`, advanced `true`
@@ -78,6 +78,7 @@ Collapsible header "Extended Interactive lesson" on `.gamebook-edit` reduces edi
 - Give-up button in comment area (confirm dialog).
 - Options strip under gamebook floor listing active prefs and variation count; link to user manual.
 - Solution arrows for all accepted moves (not only one).
+- Highlight piece to move on hint after a mistake (`highlightPieceOnHint`): when a mistake was made on the current position and the player clicks the hint button, the correct piece(s) are flashed with the `lichessTools-flash` CSS class.
 - Threat-mode arrow tinting (`findThreatArrow`) when engine threat view is on.
 - Action-menu quick toggles for the main preference flags on interactive chapters.
 

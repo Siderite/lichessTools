@@ -1260,7 +1260,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2523,7 +2524,8 @@
     "variationIndexText": "变例 %1$s / %2$s",
     "variationIndexTitle": "点击以在变例之间索引",
     "options.muteOwnMoves": "静音己方走棋的语音",
-    "chatForumBlogs.markdownShortcuts": "论坛中的键盘快捷键"
+    "chatForumBlogs.markdownShortcuts": "论坛中的键盘快捷键",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3786,7 +3788,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5049,7 +5052,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6312,7 +6316,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7575,7 +7580,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8838,7 +8844,8 @@
     "variationIndexText": "Variante %1$s de %2$s",
     "variationIndexTitle": "Cliquer pour faire défiler les variantes",
     "options.muteOwnMoves": "Désactiver la synthèse vocale pour vos propres coups",
-    "chatForumBlogs.markdownShortcuts": "Raccourcis clavier dans les forums"
+    "chatForumBlogs.markdownShortcuts": "Raccourcis clavier dans les forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10101,7 +10108,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11364,7 +11372,8 @@
     "variationIndexText": "Βαριάντα %1$s από %2$s",
     "variationIndexTitle": "Κλικ για κύκλο μεταξύ βαριάντων",
     "options.muteOwnMoves": "Σίγαση ομιλίας για τις δικές σας κινήσεις",
-    "chatForumBlogs.markdownShortcuts": "Συντομεύσεις πληκτρολογίου στα φόρουμ"
+    "chatForumBlogs.markdownShortcuts": "Συντομεύσεις πληκτρολογίου στα φόρουμ",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12627,7 +12636,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13890,7 +13900,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15153,7 +15164,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16416,7 +16428,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17679,7 +17692,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18942,7 +18956,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20205,7 +20220,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21468,7 +21484,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22731,7 +22748,8 @@
     "variationIndexText": "Variația %1$s din %2$s",
     "variationIndexTitle": "Clic pentru a parcurge variațiile",
     "options.muteOwnMoves": "Nu vorbi propriile mutări",
-    "chatForumBlogs.markdownShortcuts": "Scurtături taste în forumuri"
+    "chatForumBlogs.markdownShortcuts": "Scurtături taste în forumuri",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Indică piesa de mutat după greșeală"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -23994,7 +24012,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25257,7 +25276,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26520,7 +26540,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27783,7 +27804,8 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29046,6 +29068,7 @@
     "variationIndexText": "Variation %1$s of %2$s",
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums"
+    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
   }
 }
