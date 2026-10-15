@@ -8,7 +8,7 @@
         name: 'chapterNavigation',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['controls', 'hideNextButton', 'subChapters'],
+        possibleValues: ['controls', 'hideNextButton', 'subChapters', 'panel'],
         defaultValue: 'controls,hideNextButton',
         advanced: true
       }
@@ -27,6 +27,10 @@
         'chapterNavigation.controls': 'Navigation controls',
         'chapterNavigation.hideNextButton': 'Hide next chapter button',
         'chapterNavigation.subChapters': 'Subchapters',
+        'chapterNavigation.panel': 'Chapter overview panel',
+        'chapterOverviewPanelTitle': 'LiChess Tools - chapter overview',
+        'chapterOverviewPrevTitle': 'Show previous chapters',
+        'chapterOverviewNextTitle': 'Show next chapters',
         'nextChapterButtonTitle': 'Next chapter'
       },
       'ro-RO': {
@@ -41,11 +45,26 @@
         'chapterNavigation.controls': 'Controale navigare',
         'chapterNavigation.hideNextButton': 'Ascunde butonul pentru capitolul urm\u0103tor',
         'chapterNavigation.subChapters': 'Subcapitole',
+        'chapterNavigation.panel': 'Panou navigare capitole',
+        'chapterOverviewPanelTitle': 'LiChess Tools - panou navigare capitole',
+        'chapterOverviewPrevTitle': 'Afi\u0219eaz\u0103 capitolele anterioare',
+        'chapterOverviewNextTitle': 'Afi\u0219eaz\u0103 capitolele urm\u0103toare',
         'nextChapterButtonTitle': 'Urm\u0103torul capitol'
       }
     }
 
     elemCache = { all:[], map:new Map() };
+    panelWindowStart = null;
+    lastPanelChapterId = null;
+    panelDragPointerId = null;
+    panelDragStartX = 0;
+    panelDragStartY = 0;
+    panelDragLastX = 0;
+    panelDragActive = false;
+    panelDragAccum = 0;
+    panelDragThreshold = 40;
+    panelDragStartThreshold = 10;
+
     getChapterElements = (chapterId, forced)=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -178,6 +197,13 @@
           .attrSafe('data-chapter-id', nextChapter?.id || null);
       }
 
+      if (this.options.panel) {
+        list ||= study.chapters.list.all();
+        this.refreshPanelDirect(list);
+      } else {
+        $('.lichessTools-chapterNavigation-panel').remove();
+      }
+
       if (this.options.subChapters) {
         list ||= study.chapters.list.all();
         for (let i=0; i<list.length; i++) {
@@ -293,6 +319,190 @@
       if (chapter) study.setChapter(chapter.id);
     };
 
+    refreshPanelDirect = (list) => {
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const study = lt.lichess.analysis?.study;
+      if (!study) return;
+      const anchor = $('div.study__side .study__chapters,aside.relay-tour__side .vertical-resize').eq(0);
+      const anchorEl = anchor.length ? anchor : $('aside.relay-tour__side .relay-games');
+      if (!anchorEl.length) return;
+
+      if (list.length <= 1) {
+        $('.lichessTools-chapterNavigation-panel').remove();
+        return;
+      }
+
+      const chapterId = study.currentChapter()?.id;
+      if (chapterId !== this.lastPanelChapterId) {
+        this.panelWindowStart = null;
+        this.lastPanelChapterId = chapterId;
+      }
+      let currentIndex = chapterId ? list.findIndex(c => c.id == chapterId) : 0;
+      if (currentIndex < 0) currentIndex = 0;
+
+      let panel = $('.lichessTools-chapterNavigation-panel');
+      if (!panel.length) {
+        panel = $(`<div class="lichessTools-chapterNavigation-panel">
+          <button type="button" class="arrow prev" data-act="prev"></button>
+          <div class="window"></div>
+          <button type="button" class="arrow next" data-act="next"></button>
+        </div>`)
+          .attr('title', trans.noarg('chapterOverviewPanelTitle'))
+          .on('click', this.actionPanelControls)
+          .insertBefore(anchorEl);
+        panel.find('.window')
+          .on('wheel', this.onPanelWheel)
+          .on('pointerdown', this.onPanelPointerDown)
+          .on('pointermove', this.onPanelPointerMove)
+          .on('pointerup pointercancel', this.onPanelPointerUp);
+      }
+
+      const windowSize = Math.min(list.length, 6);
+      let start = this.panelWindowStart ?? (currentIndex - Math.floor(windowSize / 2));
+      start = Math.max(0, Math.min(start, list.length - windowSize));
+
+      const chapters = $('<div class="chapters">');
+      const end = Math.min(start + windowSize, list.length);
+      chapters.append($('<span class="link edge left">')
+        .toggleClassSafe('empty', start == 0));
+      for (let i = start; i < end; i++) {
+        const chapter = list[i];
+        const isCurrent = i === currentIndex;
+        const btn = $('<button type="button" class="chapter">')
+          .attr('data-chapter-id', chapter.id)
+          .attr('title', chapter.name)
+          .text(i + 1);
+        if (isCurrent) {
+          btn.addClass('current');
+        }
+        chapters.append(btn);
+        if (i < end - 1) {
+          const link = $('<span class="link">');
+          if (i === currentIndex) link.addClass('from-current');
+          if (i + 1 === currentIndex) link.addClass('to-current');
+          chapters.append(link);
+        }
+      }
+      chapters.append($('<span class="link edge right">')
+        .toggleClassSafe('empty', end >= list.length));
+      panel.find('.window').empty().append(chapters);
+
+      const canScroll = list.length > windowSize;
+      panel.find('.arrow.prev')
+        .attr('title', trans.noarg('chapterOverviewPrevTitle'))
+        .toggleClassSafe('disabled', !canScroll || start == 0);
+      panel.find('.arrow.next')
+        .attr('title', trans.noarg('chapterOverviewNextTitle'))
+        .toggleClassSafe('disabled', !canScroll || start == list.length - windowSize);
+    };
+
+    actionPanelControls = (ev) => {
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const study = lt.lichess.analysis?.study;
+      if (!study) return;
+      const target = $(ev.target).closest('[data-act],[data-chapter-id]');
+      if (!target.length) return;
+      const act = target.attr('data-act');
+      if (act == 'prev') {
+        this.shiftPanelWindow(-1);
+        return;
+      }
+      if (act == 'next') {
+        this.shiftPanelWindow(1);
+        return;
+      }
+      const id = target.attr('data-chapter-id');
+      if (!id) return;
+      const chapterId = study.currentChapter()?.id;
+      const chapter = study.chapters.list.all().find(c => c.id == id);
+      if (chapter && chapter.id !== chapterId) {
+        study.setChapter(chapter.id);
+      }
+    };
+
+    shiftPanelWindow = (delta) => {
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const study = lt.lichess.analysis?.study;
+      if (!study) return;
+      const list = study.chapters.list.all();
+      const windowSize = Math.min(list.length, 6);
+      if (list.length <= windowSize) return;
+      const chapterId = study.currentChapter()?.id;
+      let currentIndex = chapterId ? list.findIndex(c => c.id == chapterId) : 0;
+      if (currentIndex < 0) currentIndex = 0;
+      let start = this.panelWindowStart ?? (currentIndex - Math.floor(windowSize / 2));
+      start = Math.max(0, Math.min(start, list.length - windowSize));
+      const newStart = Math.max(0, Math.min(start + delta, list.length - windowSize));
+      if (newStart === start) return;
+      this.panelWindowStart = newStart;
+      this.refreshPanelDirect(list);
+    };
+
+    onPanelWheel = (ev) => {
+      const lt = this.lichessTools;
+      const Math = lt.global.Math;
+      const study = lt.lichess.analysis?.study;
+      if (!study) return;
+      const list = study.chapters.list.all();
+      const windowSize = Math.min(list.length, 6);
+      if (list.length <= windowSize) return;
+      const delta = ev.deltaX !== 0 ? ev.deltaX : ev.deltaY;
+      if (!delta) return;
+      ev.preventDefault();
+      this.shiftPanelWindow(delta > 0 ? 1 : -1);
+    };
+
+    onPanelPointerDown = (ev) => {
+      this.panelDragPointerId = ev.pointerId;
+      this.panelDragStartX = ev.clientX;
+      this.panelDragStartY = ev.clientY;
+      this.panelDragLastX = ev.clientX;
+      this.panelDragActive = false;
+      this.panelDragAccum = 0;
+    };
+
+    onPanelPointerMove = (ev) => {
+      if (this.panelDragPointerId === null || ev.pointerId !== this.panelDragPointerId) return;
+      const Math = this.lichessTools.global.Math;
+      if (this.panelDragActive) {
+        ev.preventDefault();
+        const dx = ev.clientX - this.panelDragLastX;
+        this.panelDragLastX = ev.clientX;
+        this.panelDragAccum += dx;
+        while (this.panelDragAccum >= this.panelDragThreshold) {
+          this.panelDragAccum -= this.panelDragThreshold;
+          this.shiftPanelWindow(-1);
+        }
+        while (this.panelDragAccum <= -this.panelDragThreshold) {
+          this.panelDragAccum += this.panelDragThreshold;
+          this.shiftPanelWindow(1);
+        }
+        return;
+      }
+      const dx = ev.clientX - this.panelDragStartX;
+      const dy = ev.clientY - this.panelDragStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > this.panelDragStartThreshold) {
+        this.panelDragActive = true;
+        this.panelDragLastX = ev.clientX;
+        this.panelDragAccum = dx;
+        ev.currentTarget.setPointerCapture(ev.pointerId);
+        ev.preventDefault();
+      }
+    };
+
+    onPanelPointerUp = (ev) => {
+      if (this.panelDragPointerId === null || ev.pointerId !== this.panelDragPointerId) return;
+      this.panelDragPointerId = null;
+      this.panelDragActive = false;
+      this.panelDragAccum = 0;
+    };
+
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -302,7 +512,8 @@
       this.options = {
         controls: lt.isOptionSet(value, 'controls'),
         hideNextButton: lt.isOptionSet(value, 'hideNextButton'),
-        subChapters: lt.isOptionSet(value, 'subChapters')
+        subChapters: lt.isOptionSet(value, 'subChapters'),
+        panel: lt.isOptionSet(value, 'panel')
       };
       const $ = lt.$;
       const study = lichess?.analysis?.study;
@@ -320,8 +531,13 @@
       $('.lichessTools-expander').remove();
       $('.lichessTools-collapsedChapter').removeClass('lichessTools-collapsedChapter');
       $('button[data-id].collapsed').removeClass('collapsed');
+      $('.lichessTools-chapterNavigation-panel').remove();
+      this.panelWindowStart = null;
+      this.lastPanelChapterId = null;
+      this.panelDragPointerId = null;
+      this.panelDragActive = false;
 
-      if (this.options.controls || this.options.subChapters) {
+      if (this.options.controls || this.options.subChapters || this.options.panel) {
         lt.pubsub.on('lichessTools.chapterChange', this.refreshChapterControls);
         lt.pubsub.on('lichessTools.redraw', this.refreshChapterControls);
         lt.uiApi.events.on('chat.resize', this.refreshChapterControls);

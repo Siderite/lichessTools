@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 15 Oct
 
 - highlight pieces to move on second hit after a mistake was made
+- chapter overview panel
 
 14 Oct
 

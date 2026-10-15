@@ -1261,7 +1261,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2525,7 +2529,11 @@
     "variationIndexTitle": "点击以在变例之间索引",
     "options.muteOwnMoves": "静音己方走棋的语音",
     "chatForumBlogs.markdownShortcuts": "论坛中的键盘快捷键",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3789,7 +3797,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5053,7 +5065,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6317,7 +6333,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7581,7 +7601,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8845,7 +8869,11 @@
     "variationIndexTitle": "Cliquer pour faire défiler les variantes",
     "options.muteOwnMoves": "Désactiver la synthèse vocale pour vos propres coups",
     "chatForumBlogs.markdownShortcuts": "Raccourcis clavier dans les forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10109,7 +10137,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11373,7 +11405,11 @@
     "variationIndexTitle": "Κλικ για κύκλο μεταξύ βαριάντων",
     "options.muteOwnMoves": "Σίγαση ομιλίας για τις δικές σας κινήσεις",
     "chatForumBlogs.markdownShortcuts": "Συντομεύσεις πληκτρολογίου στα φόρουμ",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12637,7 +12673,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -13901,7 +13941,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15165,7 +15209,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16429,7 +16477,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17693,7 +17745,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -18957,7 +19013,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20221,7 +20281,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21485,7 +21549,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -22749,7 +22817,11 @@
     "variationIndexTitle": "Clic pentru a parcurge variațiile",
     "options.muteOwnMoves": "Nu vorbi propriile mutări",
     "chatForumBlogs.markdownShortcuts": "Scurtături taste în forumuri",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Indică piesa de mutat după greșeală"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Indică piesa de mutat după greșeală",
+    "chapterNavigation.panel": "Panou navigare capitole",
+    "chapterOverviewPanelTitle": "LiChess Tools - panou navigare capitole",
+    "chapterOverviewPrevTitle": "Afișează capitolele anterioare",
+    "chapterOverviewNextTitle": "Afișează următoarele capitole"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24013,7 +24085,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25277,7 +25353,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26541,7 +26621,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -27805,7 +27889,11 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29069,6 +29157,10 @@
     "variationIndexTitle": "Click to cycle between variations",
     "options.muteOwnMoves": "Mute speech for your own moves",
     "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake"
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
+    "chapterNavigation.panel": "Chapter overview panel",
+    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
+    "chapterOverviewPrevTitle": "Show previous chapters",
+    "chapterOverviewNextTitle": "Show next chapters"
   }
 }

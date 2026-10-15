@@ -213,7 +213,9 @@ chapters.
       reloads.
 - [ ] **T4.3 Chapter navigation controls.** Test *Navigation controls* (first/prev/random/next/last),
       *Hide next chapter button*, *Subchapters* (chapters named with `|`/`\`/`-` become collapsible
-      children), and `rnd:N` weighting. Expected: buttons work; subchapters nest one level.
+      children), `rnd:N` weighting, and *Chapter overview panel* (6-circle window above the list; arrows,
+      wheel/trackpad, and touch drag shift the window, circle click changes chapter). Expected: buttons
+      work; subchapters nest one level; panel tracks the current chapter.
 - [ ] **T4.4 Chapter editing.** Test *Chapter tags*, *Multiple chapters*, *Merge lines*. Also
       *Change chapter names from PGN tags* (set name from Event or White/Black tags, or suggested from
       mainline moves). Expected: bulk edit works and names update.

@@ -120,3 +120,115 @@ body.lichessTools .lichessTools-nextChapter {
 body.lichessTools.lichessTools-lichessHelper .study__chapters div.lichessTools-expander {
   font-family: lichess, lichessTools !important;
 }
+
+body.lichessTools .lichessTools-chapterNavigation-panel {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.2em 0.3em;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .window {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .chapters {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .arrow {
+  flex: 0 0 auto;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 2px solid #50ba96;
+  background: transparent;
+  color: #50ba96;
+  font-family: lichess, lichessTools;
+  font-size: 1.1em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .arrow.prev:before {
+  content: var(--icon-LessThan);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .arrow.next:before {
+  content: var(--icon-GreaterThan);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .arrow.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .chapter {
+  flex: 0 0 auto;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: #50ba96;
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  text-shadow: 0 1px 2px #00000040;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .chapter.current {
+  background: #ff8a00;
+  border-color: #ffd34d;
+  box-shadow: 0 0 0.4em #ff8a00;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link {
+  flex: 1 1 0.5em;
+  min-width: 0.3em;
+  height: 2px;
+  border-radius: 1px;
+  background: #50ba96;
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link.from-current {
+  background: linear-gradient(to right, #ffd34d, #50ba96);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link.to-current {
+  background: linear-gradient(to right, #50ba96, #ffd34d);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link.edge.left {
+  background: linear-gradient(to right, transparent, #50ba96);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link.edge.right {
+  background: linear-gradient(to left, transparent, #50ba96);
+}
+
+body.lichessTools .lichessTools-chapterNavigation-panel .link.edge.empty {
+  visibility: hidden;
+}
+
+
