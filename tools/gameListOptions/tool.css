@@ -55,7 +55,8 @@ body.lichessTools #chkAnalysis,
 body.lichessTools #chkNoAnalysis,
 body.lichessTools #chkAnalysisLink,
 body.lichessTools #chkTitledOpponents,
-body.lichessTools #chkColor {
+body.lichessTools #chkColor,
+body.lichessTools #chkCompactView {
   vertical-align: bottom;
   margin-left: 0.5em;
 }
@@ -66,6 +67,7 @@ body.lichessTools label[for="chkNoAnalysis"],
 body.lichessTools label[for="chkAnalysisLink"],
 body.lichessTools label[for="chkTitledOpponents"],
 body.lichessTools label[for="chkColor"],
+body.lichessTools label[for="chkCompactView"],
 body.lichessTools label[for="txtTextFilter"] {
   margin-left: 1em;
 }
@@ -128,4 +130,74 @@ body.lichessTools .lichessTools-showScore {
 
 body.lichessTools .lichessTools-showScore.computing {
   opacity:0.5;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row {
+  position: relative;
+  overflow: visible;
+  min-height: unset;
+  font-size: 0.8em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__board {
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  transform: translateY(-50%);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 2px 8px #00000040;
+  width: 20em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row:hover .game-row__board {
+  opacity: 1;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos {
+  display: grid;
+  grid-template-columns: 4fr 3fr 2fr;
+  grid-template-areas:
+    'header versus result'
+    'header versus metadata';
+  align-items: center;
+  gap: 0.5em 1em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-width: 0;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .header .header__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .versus {
+  grid-area: versus;
+  min-width: 0;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .result {
+  grid-area: result;
+  min-width: 0;
+  text-align: left;
+  padding-left: 1em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .metadata {
+  grid-area: metadata;
+  min-width: 0;
+  padding-left: 1em;
+}
+
+body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos > .opening {
+  display: none;
 }

@@ -13,7 +13,7 @@ The **GameListOptionsTool** adds filters, selection checkboxes, analysis links, 
 - **name**: `gameListOptions`
 - **category**: `general`
 - **type**: multiple (checkboxes)
-- **possibleValues**: [`aborted`, `analysis`, `titledOpponents`, `select`, `analysisLink`, `color`, `extraInfo`, `remove`, `textFilter`, `showScore`]
+- **possibleValues**: [`aborted`, `analysis`, `titledOpponents`, `select`, `analysisLink`, `color`, `extraInfo`, `remove`, `textFilter`, `showScore`, `compactView`]
 - **defaultValue**: `select,analysis,analysisLink,color,aborted,extraInfo,remove`
 - **advanced**: true
 
@@ -29,6 +29,7 @@ The **GameListOptionsTool** adds filters, selection checkboxes, analysis links, 
 - **remove**: delete games/remove bookmarks buttons — on imported page (/@/user/imported) or bookmarks page (/@/user/bookmark): dialog confirm question → API deleteImported/removeBookmark per item, removes article element, reloads page after 100ms timeout between deletions
 - **textFilter**: text filter input — placeholder "filter words", change event sets min-height calc(100vh - offset.top + scrollY), splits regex `"quoted" | unquoted` → each article toggled `lichessTools-textFiltered` if text doesn't include split
 - **showScore**: show game results — on games/search players.a=userId or /@/user/search: span after search__status strong. If games<50: auto computeScore; else: click button to computeScore. Computes wins/draws/losses across pages (max 18 pages, 2000ms timeout between, 429 status → 20000ms timeout)
+- **compactView**: compact game list layout — checkbox + container class toggle `lichessTools-gameListOptions-compactView` (storage persists); CSS hides the opening and lays out header/versus/result+metadata in a 3-column grid, showing the mini-board as a floating tooltip on row hover
 
 ## How It Works
 

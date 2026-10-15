@@ -1279,7 +1279,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2561,7 +2563,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3843,7 +3847,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5125,7 +5131,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6407,7 +6415,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7689,7 +7699,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8971,7 +8983,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10253,7 +10267,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11535,7 +11551,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12817,7 +12835,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14099,7 +14119,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15381,7 +15403,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16663,7 +16687,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17945,7 +17971,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19227,7 +19255,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20509,7 +20539,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21791,7 +21823,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23073,7 +23107,9 @@
     "studyStatsTopics": "Subiecte",
     "studyStatsSettings": "Setări",
     "studyStatsMoves": "Mutări / variații",
-    "studyStatsError": "Nu s-a putut încărca PGN-ul studiului"
+    "studyStatsError": "Nu s-a putut încărca PGN-ul studiului",
+    "gameListOptions.compactView": "Vizualizare compactă",
+    "compactViewLabel": "Compact"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24355,7 +24391,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25637,7 +25675,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26919,7 +26959,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28201,7 +28243,9 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29483,6 +29527,8 @@
     "studyStatsTopics": "Topics",
     "studyStatsSettings": "Settings",
     "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN"
+    "studyStatsError": "Could not load the study PGN",
+    "gameListOptions.compactView": "Compact view",
+    "compactViewLabel": "Compact"
   }
 }
