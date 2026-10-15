@@ -42,6 +42,13 @@
     ]
   },
   {
+    "name": "Richter-Rauzer",
+    "url": "https://siderite.dev/LiChessTools/pawnStructures.html#richter-rauzer",
+    "structures": [
+      "X2011XMM"
+    ]
+  },
+  {
     "name": "Boleslavsky Wall",
     "url": "https://siderite.dev/LiChessTools/pawnStructures.html#boleslavsky-wall",
     "structures": [
