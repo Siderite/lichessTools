@@ -579,9 +579,12 @@
         BISHOP_B: "b",
         KNIGHT_B: "n",
         PAWN_B: "p",
-        LAND_MINE: "l",
-        WAR_BEAR: "w",
-        CASTLE: "c",
+        LAND_MINE_W: "L",
+        LAND_MINE_B: "l",
+        WAR_BEAR_W: "W",
+        WAR_BEAR_B: "w",
+        CASTLE_W: "C",
+        CASTLE_B: "c",
       };
 
       //other SCG ids
@@ -602,6 +605,9 @@
       this.NUM_CELLS_DISPLAYED = this.NUM_CELLS * 2 + 3;
       this.DIALOG_MARGIN = 6;
       this.CHECK_POINT_HEIGHT = 5;
+      // @block: the block is "in view" when its first row (rank 1) is this many
+      // rows above the death line (progress). "5th from the bottom" = 4.
+      this.BLOCK_VIEW_OFFSET = 4;
 
       this.BG_COLOR = "#193441";
       this.CELL_COLOR_1 = "#D1DBBD";
@@ -677,6 +683,7 @@
       this.activeBeat = -1;
       this.scriptBusy = false;
       this.advancementStopped = true;
+      this.blockWait = null;
       this.boardRendered = false;
       this.activeBlockIndex = -1;
       this.SAN_TO_PIECE = {
@@ -686,9 +693,9 @@
         B: this.Piece.BISHOP_W, b: this.Piece.BISHOP_B,
         N: this.Piece.KNIGHT_W, n: this.Piece.KNIGHT_B,
         P: this.Piece.PAWN_W, p: this.Piece.PAWN_B,
-        W: this.Piece.WAR_BEAR, w: this.Piece.WAR_BEAR,
-        C: this.Piece.CASTLE, c: this.Piece.CASTLE,
-        L: this.Piece.LAND_MINE, l: this.Piece.LAND_MINE,
+        W: this.Piece.WAR_BEAR_W, w: this.Piece.WAR_BEAR_B,
+        C: this.Piece.CASTLE_W, c: this.Piece.CASTLE_B,
+        L: this.Piece.LAND_MINE_W, l: this.Piece.LAND_MINE_B,
       };
 
       this.loadAudio();
@@ -995,7 +1002,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.WAR_BEAR,
+          this.Piece.WAR_BEAR_W,
           `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
           `
@@ -1004,26 +1011,41 @@
         this.PIECE_STROKE_COLOR,
         0
       );
+      this.svgStyle(
+        this.makeDef(
+          this.Piece.WAR_BEAR_B,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
+          `
+        ),
+        "#002",
+        "#333",
+        0
+      );
 
       const makePike = (x, y) => {
         return `<path d="M ${x} ${y} L ${x + 1} ${y} L ${x + 0.5} ${y - 3} L ${x} ${y}"/>`;
       };
 
+      const minePikes = [
+        makePike(2, 9.5),
+        makePike(5, 9),
+        makePike(8, 10),
+        makePike(7, 8),
+        makePike(4, 7.5),
+        makePike(1, 8.5),
+      ].join("\n");
+
       this.svgStyle(
-        this.makeDef(
-          this.Piece.LAND_MINE,
-          [
-            makePike(2, 9.5),
-            makePike(5, 9),
-            makePike(8, 10),
-            makePike(7, 8),
-            makePike(4, 7.5),
-            makePike(1, 8.5),
-          ].join("\n"),
-          true
-        ),
+        this.makeDef(this.Piece.LAND_MINE_W, minePikes, true),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
+        0
+      );
+      this.svgStyle(
+        this.makeDef(this.Piece.LAND_MINE_B, minePikes, true),
+        "#002",
+        "#333",
         0
       );
       //HERO_KING
@@ -1099,19 +1121,21 @@
         "#333",
         0
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.CASTLE,
-          `
+      const castleMarkup = `
             <path d="M 25 30 L 50 30 L 50 5 L 45 5 L 45 10 L 40 10 L 40 5 L 35 5 L 35 10 L 30 10 L 30 5 L 25 5 L 25 30"/>
             <path d="M 0 50 L 0 50 L 27.5 50 L 27.5 35 L 47.5 35 L 47.5 50 L 75 50 L 75 20 L 70 20 L 70 25 L 65 25 L 65 20 L 60 20 L 60 25 L 55 25 L 55 20 L 50 20 L 50 25 L 45 25 L 45 20 L 40 20 L 40 25 L 35 25 L 35 20 L 30 20 L 30 25 L 25 25 L 25 20 L 20 20 L 20 25 L 15 25 L 15 20 L 10 20 L 10 25 L 5 25 L 5 20 L 0 20 L 0 50"/>
-          `,
-          true,
-          2.5,
-          50
-        ),
+          `;
+
+      this.svgStyle(
+        this.makeDef(this.Piece.CASTLE_W, castleMarkup, true, 2.5, 50),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
+        0
+      );
+      this.svgStyle(
+        this.makeDef(this.Piece.CASTLE_B, castleMarkup, true, 2.5, 50),
+        "#002",
+        "#333",
         0
       );
       this.makeKillCounter();
@@ -1198,13 +1222,14 @@
       let currentGeneric = null;
       let block = null;
       let pendingScript = [];
+      let pendingActions = [];
 
       const newBlock = () => ({
         checkpoint: false,
         showThreat: null,
         win: [],
         loss: [],
-        actions: [],
+        actions: pendingActions,
         script: pendingScript,
         state: 1,
         rows: [],
@@ -1231,22 +1256,22 @@
             currentBeat = { kind: "screen", trigger: trigger || null, state: state, lines: [] };
             pendingScript.push(currentBeat);
           } else if (
-            ["2d", "iso", "stop", "start"].includes(head) &&
+            ["2d", "iso", "stop", "start", "block"].includes(head) &&
             !trigger &&
             state === null
           ) {
-            if (!block || block.checkpoint) {
-              block = newBlock();
-              this.blocks.push(block);
-              pendingScript = [];
+            if (block && !block.checkpoint) {
+              block.actions.push(head);
+            } else {
+              pendingActions.push(head);
             }
-            block.actions.push(head);
           } else if (head === "win" || head === "loss") {
             if (trigger) {
               if (!block || block.checkpoint) {
                 block = newBlock();
                 this.blocks.push(block);
                 pendingScript = [];
+                pendingActions = [];
               }
               if (head === "win") block.win.push(trigger);
               else block.loss.push(trigger);
@@ -1257,11 +1282,13 @@
             this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], actions: [], script: [], state: 1, rows: [] });
             block = null;
             pendingScript = [];
+            pendingActions = [];
           } else if (head.startsWith("showThreat")) {
             if (!block || block.checkpoint) {
               block = newBlock();
               this.blocks.push(block);
               pendingScript = [];
+              pendingActions = [];
             }
             block.showThreat = head.slice("showThreat".length).trim();
           } else {
@@ -1276,7 +1303,7 @@
           currentBeat = null;
           currentGeneric = null;
         } else {
-          const isRow = line.split("/").every((s) => s.length === 8);
+          const isRow = line.split("/").every((s) => /^[. prnbkqlwcPRNBKQLWC]{8}$/.test(s));
           if (isRow) {
             currentBeat = null;
             currentGeneric = null;
@@ -1284,6 +1311,7 @@
               block = newBlock();
               this.blocks.push(block);
               pendingScript = [];
+              pendingActions = [];
             }
             block.rows.push(line.split("/").map((s) => s.trim()));
           } else if (currentGeneric === "win") {
@@ -1429,7 +1457,7 @@
       for (const b of script) b.fired = false;
       this.activeBeat = -1;
       const first = script.findIndex((b) => !b.trigger || b.trigger === "start");
-      if (first >= 0) {
+      if (first === 0) {
         this.activeBeat = first;
         this.playBeat(script[first]);
       } else {
@@ -1454,9 +1482,6 @@
         this.scriptBusy = true;
         // Title screen stays until the player dismisses it (SPACE/CLICK).
       } else if (beat.kind === "text" || beat.kind === "screen") {
-        if (beat.state != null) {
-          this.setBlockState(this.activeScriptBlockIndex, beat.state);
-        }
         this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
         this.scriptBusy = true;
       }
@@ -1489,6 +1514,9 @@
         } else if (beat.kind === "text" || beat.kind === "screen") {
           this.hideDialog();
           this.clearTalking();
+        }
+        if (beat.state != null) {
+          this.setBlockState(this.activeScriptBlockIndex, beat.state);
         }
         this.advanceBeat();
       }
@@ -1696,7 +1724,7 @@
       this.checkBoard[row][col].piece = piece;
 
       //Walls
-      if (type == this.Piece.CASTLE) {
+      if (type == this.Piece.CASTLE_W || type == this.Piece.CASTLE_B) {
         for (let i = 0; i < this.NUM_CELLS; i++) {
           if (i != 3 && i != 4) {
             if (!this.checkBoard[row][i]) {
@@ -1723,6 +1751,9 @@
         row = rowMin;
       } else if (row >= rowMax) {
         row = rowMax;
+      }
+      if (this.blockWait && row > this.blockWait.startRow) {
+        row = this.blockWait.startRow;
       }
       if (col != oldCol || row != oldRow) {
         let capturedType = null;
@@ -1782,8 +1813,21 @@
 
     checkTriggers(capturedType) {
       const blockIndex = this.currentBlockIndex();
-      this.playBlockScript(blockIndex);
       const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
+
+      // @block: hold the king and the script until the block scrolls into view
+      if (
+        block &&
+        block.actions.includes("block") &&
+        this.progress < block.startRow - this.BLOCK_VIEW_OFFSET
+      ) {
+        this.blockWait = { blockIndex: blockIndex, startRow: block.startRow };
+        this.enterBlock(blockIndex);
+        return;
+      }
+      this.blockWait = null;
+
+      this.playBlockScript(blockIndex);
       const rank = block ? this.player.row - block.startRow + 1 : null;
       const file = this.player.col;
 
@@ -1834,8 +1878,10 @@
 
     getThreateningCell(row, col) {
       let threateningCell;
-      //land mine
-      threateningCell = this.getCellWithPieceAt(row, col, this.Piece.LAND_MINE);
+      //land mines (and white war bears) — stepping on one is death
+      threateningCell =
+        this.getCellWithPieceAt(row, col, this.Piece.LAND_MINE_W) ||
+        this.getCellWithPieceAt(row, col, this.Piece.WAR_BEAR_W);
       if (threateningCell) {
         return threateningCell;
       }
@@ -1967,7 +2013,9 @@
         type === this.Piece.ROOK_B ||
         type === this.Piece.BISHOP_B ||
         type === this.Piece.KNIGHT_B ||
-        type === this.Piece.PAWN_B
+        type === this.Piece.PAWN_B ||
+        type === this.Piece.WAR_BEAR_B ||
+        type === this.Piece.LAND_MINE_B
       );
     }
 
@@ -2271,6 +2319,9 @@
       if (this.lastTime) {
         this.progress +=
           this.progressPerSec * (now - this.lastTime) * this.MS_TO_S;
+      }
+      if (this.blockWait && this.progress >= this.blockWait.startRow - this.BLOCK_VIEW_OFFSET) {
+        this.checkTriggers(null);
       }
       if (this.player.row < this.progress - 0.9) {
         //player out of view

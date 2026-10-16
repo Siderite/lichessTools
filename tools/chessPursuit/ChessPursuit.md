@@ -20,7 +20,7 @@ There are only **three kinds of lines**:
 Every board row is exactly **8 letters**. Each letter is one square.
 
 - `.` = empty (a space works too)
-- any other letter = a piece
+- one of the piece letters below = a piece (nothing else is allowed on the board)
 
 ### The pieces
 
@@ -45,7 +45,7 @@ Every board row is exactly **8 letters**. Each letter is one square.
 | --- | --- |
 | `L` / `l` | 💣 Land mine — white `L` is deadly, black `l` just blocks |
 | `W` / `w` | 🐻 War bear — white `W` is deadly (like a mine), black `w` just blocks |
-| `c` | 🏰 Castle — your goal |
+| `C` / `c` | 🏰 Castle — your goal |
 
 ### A board example
 
@@ -138,6 +138,8 @@ This plays only when the player steps onto **row 4** of this block.
 | `win` | the block is won |
 | `lose` | the player loses |
 
+> **Tip — gating a conversation:** if the *first* text in a block has a trigger, nothing plays when you enter — the block waits. When the trigger finally happens, that text shows, and only *after* you dismiss it do the triggerless texts that follow play in order.
+
 A comma (`,`) means **AND** — all parts must be true:
 
 ```
@@ -217,6 +219,7 @@ Some `@` lines are not speech — they are **commands**. They run when the playe
 | `@iso` | look at the board in 3D (tilted) |
 | `@stop` | stop the screen from scrolling up |
 | `@start` | start the screen scrolling up again |
+| `@block` | hold the king and the story until the block scrolls fully into view |
 | `@checkpoint` | a save point — die, and you restart here |
 | `@showThreat P` | highlight every square that piece attacks (here: all pawns) |
 
