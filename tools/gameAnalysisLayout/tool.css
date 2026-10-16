@@ -98,7 +98,7 @@
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .computer-analysis:has(.future-game-analysis):not(:has(#acpl-chart-container.lichessTools-extraChart)) {
     grid-area: uchat;
-    display: block;
+    display: flex;
     height: auto;
   }
 
