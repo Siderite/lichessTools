@@ -29,16 +29,15 @@ The entire story and level are authored in a single data file (`ChessPursuit.dat
   Black (hero's side, blocks): `p` pawn · `n` knight · `b` bishop · `r` rook · `q` queen · `k` king.
   Specials: `l`/`L` land mine · `w`/`W` war bear · `c`/`C` castle.
 - `/`-separated variants = **block states**: `a/b/c`. The current block state (1-based) selects the variant; if a row has fewer variants than the current state, the **last** variant carries forward.
-- Block directives: `@checkpoint`, `@showThreat <letter>`.
+- Block directives: `@checkpoint`, `@showThreat <letter>`, `@2d`, `@iso`, `@stop`, `@start`.
 
 ## 3. Beats (script)
 
 | Beat | Syntax | Meaning |
 | --- | --- | --- |
-| Title | `@title` + line | game title overlay (hidden on the first `@start`) |
+| Title | `@title` + line | game title overlay (hidden on dismiss) |
 | Text | `@<actor>[/<trigger>][/<state>]` + lines | dialog box; bob the actor(s) |
 | Screen | `@screen/<trigger>` + lines | dialog box; **no** bob |
-| Action | `@2d` · `@iso` · `@stop` · `@start` | change view / advancement |
 
 - `<actor>` = comma-separated SAN ids (`K`, `n`, `K,k`, `Ra2`, …) — bob all matched pieces.
 - `<trigger>` = comma-separated filters (AND).
@@ -66,12 +65,13 @@ Example: `capture,7-rank,c-file` = a capture on **c7**.
 
 ## 6. View (`@2d` / `@iso`)
 
-- Actions that set the projection.
+- Block directives that set the projection when the player enters the block.
 - **Animated** when changing (reuse the perspective tilt); **no-op** if already in that state.
-- `@iso` does **not** start advancement — follow it with `@start`.
+- `@iso` does **not** start advancement — follow it with `@start` in the same block.
 
 ## 7. Advancement (`@stop` / `@start`)
 
+- Block directives fired when the player enters the block.
 - Auto-advancement starts **stopped**.
 - `@stop` = pause (persistent); `@start` = resume.
 - A displayed text also halts advancement while it is shown (returns to the flag's state on dismiss).

@@ -19,7 +19,6 @@ It looks like our roles are <tspan fill="red" font-family="impact">REVERSED<anim
 Today, it is my turn to protect you !
 @iso
 @start
-
 // 0: Intro (3 states)
 ........
 ........
@@ -34,7 +33,19 @@ Today, it is my turn to protect you !
 ........
 ........
 
+// test
+@2d
+........
+Rp.....r
+Np.....n
+Bp.....b
+Qp.....q
+Kp.....k
+Pp.....p
+........
+
 // First pawn
+@iso
 @showThreat P
 ........
 ........

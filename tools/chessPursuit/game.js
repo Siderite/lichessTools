@@ -676,8 +676,8 @@
       this.activeBeat = -1;
       this.scriptBusy = false;
       this.advancementStopped = true;
-      this.startActionDone = false;
       this.boardRendered = false;
+      this.activeBlockIndex = -1;
       this.SAN_TO_PIECE = {
         K: this.Piece.KING_W, k: this.Piece.KING_B,
         Q: this.Piece.QUEEN_W, q: this.Piece.QUEEN_B,
@@ -982,6 +982,18 @@
       );
       this.svgStyle(
         this.makeDef(
+          this.Piece.QUEEN_W,
+          `
+            <circle cx="5" cy="0.4" r="0.6"/>
+            <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
+          `
+        ),
+        this.PIECE_FILL_COLOR,
+        this.PIECE_STROKE_COLOR,
+        0
+      );
+      this.svgStyle(
+        this.makeDef(
           this.Piece.WAR_BEAR,
           `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
@@ -1039,6 +1051,53 @@
         0
       );
 
+      this.svgStyle(
+        this.makeDef(
+          this.Piece.PAWN_B,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
+            <circle cx="5" cy="3" r="2"/>
+          `
+        ),
+        "#002",
+        "#333",
+        0
+      );
+      this.svgStyle(
+        this.makeDef(
+          this.Piece.KNIGHT_B,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
+          `
+        ),
+        "#002",
+        "#333",
+        0
+      );
+      this.svgStyle(
+        this.makeDef(
+          this.Piece.BISHOP_B,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
+            <circle cx="5" cy="0" r="0.7"/>
+            <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          `
+        ),
+        "#002",
+        "#333",
+        0
+      );
+      this.svgStyle(
+        this.makeDef(
+          this.Piece.ROOK_B,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
+          `
+        ),
+        "#002",
+        "#333",
+        0
+      );
       this.svgStyle(
         this.makeDef(
           this.Piece.CASTLE,
@@ -1163,7 +1222,11 @@
             !trigger &&
             state === null
           ) {
-            this.script.push({ kind: "action", action: head });
+            if (!block || block.checkpoint) {
+              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              this.blocks.push(block);
+            }
+            (block.actions = block.actions || []).push(head);
           } else if (head === "win" || head === "loss") {
             if (trigger) {
               if (!block || block.checkpoint) {
@@ -1361,9 +1424,6 @@
         }
         this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
         this.scriptBusy = true;
-      } else if (beat.kind === "action") {
-        this.runAction(beat.action);
-        this.advanceBeat();
       }
     }
 
@@ -1377,6 +1437,9 @@
         this.scriptBusy = false;
         this.hideDialog();
         this.clearTalking();
+        if (this.introScreen) this.introScreen.style.display = "none";
+        if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+        this.enterBlock(this.currentBlockIndex());
       }
     }
 
@@ -1394,6 +1457,24 @@
       }
     }
 
+    currentBlockIndex() {
+      return this.blocks.findIndex(
+        (b) =>
+          this.player.row >= b.startRow &&
+          this.player.row < b.startRow + b.rows.length
+      );
+    }
+
+    enterBlock(blockIndex) {
+      if (blockIndex === this.activeBlockIndex) return;
+      this.activeBlockIndex = blockIndex;
+      const block = this.blocks[blockIndex];
+      if (!block) return;
+      for (const action of block.actions || []) {
+        this.runAction(action);
+      }
+    }
+
     runAction(action) {
       if (action === "2d") {
         this.setView(true);
@@ -1403,11 +1484,6 @@
         this.advancementStopped = true;
       } else if (action === "start") {
         this.advancementStopped = false;
-        if (!this.startActionDone) {
-          this.startActionDone = true;
-          if (this.introScreen) this.introScreen.style.display = "none";
-          if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
-        }
       }
     }
 
@@ -1662,11 +1738,9 @@
     }
 
     checkTriggers(capturedType) {
-      const block = this.blocks.find(
-        (b) =>
-          this.player.row >= b.startRow &&
-          this.player.row < b.startRow + b.rows.length
-      );
+      const blockIndex = this.currentBlockIndex();
+      this.enterBlock(blockIndex);
+      const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
       const rank = block ? this.player.row - block.startRow + 1 : null;
       const file = this.player.col;
 
@@ -1999,7 +2073,7 @@
       if (!type) return null;
       const file = m[2] ? m[2].charCodeAt(0) - 97 : null;
       const rank = m[3] ? parseInt(m[3], 10) : null;
-      let match = null;
+      const matches = [];
       for (const row of this.checkBoard) {
         if (!row) continue;
         for (const cell of row) {
@@ -2016,11 +2090,24 @@
               : cell.piece.row + 1;
             if (pieceRank !== rank) continue;
           }
-          if (match) return null; // ambiguous
-          match = cell.piece;
+          matches.push(cell.piece);
         }
       }
-      return match;
+      if (matches.length === 1) return matches[0];
+      if (matches.length === 0) return null;
+      // Ambiguous: prefer pieces in the player's current block.
+      const currentBlockIndex = this.currentBlockIndex();
+      const currentBlock =
+        currentBlockIndex >= 0 ? this.blocks[currentBlockIndex] : null;
+      if (currentBlock) {
+        const inBlock = matches.filter(
+          (p) =>
+            p.row >= currentBlock.startRow &&
+            p.row < currentBlock.startRow + currentBlock.rows.length
+        );
+        if (inBlock.length === 1) return inBlock[0];
+      }
+      return null;
     }
 
     speakerLabel(sanLetter) {
@@ -2058,6 +2145,8 @@
 
       // Reinitialize game
       this.initCheckBoard(checkPointIndex);
+      this.activeBlockIndex = -1;
+      this.enterBlock(this.currentBlockIndex());
 
       // Prepare next update
       this.lastTime = null;
