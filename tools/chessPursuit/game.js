@@ -684,6 +684,7 @@
       this.scriptBusy = false;
       this.advancementStopped = true;
       this.blockWait = null;
+      this.pendingGameOver = null;
       this.boardRendered = false;
       this.activeBlockIndex = -1;
       this.SAN_TO_PIECE = {
@@ -1805,7 +1806,7 @@
           this.player.row = row;
           this.checkTriggers(capturedType);
           if (!this.gameIsOver && row >= this.lastRowIndex) {
-            this.setGameIsOver(true, true);
+            this.pendingGameOver = true;
           }
         }
       }
@@ -1850,14 +1851,14 @@
       for (const cond of block.win) {
         if (this.triggerMatches(cond, rank, file, capturedType)) {
           this.fireTrigger("win");
-          this.setGameIsOver(true, true);
+          this.pendingGameOver = true;
           return;
         }
       }
       for (const cond of block.loss) {
         if (this.triggerMatches(cond, rank, file, capturedType)) {
           this.fireTrigger("lose");
-          this.setGameIsOver(true, false);
+          this.pendingGameOver = false;
           return;
         }
       }
@@ -2505,6 +2506,13 @@
             this.updatePieceStyle(this.player);
           }
         }
+      }
+
+      // Apply pending win/loss once the king's move animation has finished
+      if (this.pendingGameOver !== null && !this.player.anim) {
+        const won = this.pendingGameOver;
+        this.pendingGameOver = null;
+        this.setGameIsOver(true, won);
       }
 
       // Update removed pieces
