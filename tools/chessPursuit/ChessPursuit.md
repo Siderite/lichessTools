@@ -28,7 +28,7 @@ The entire story and level are authored in a single data file (`ChessPursuit.dat
   White (enemy, checks the hero): `P` pawn · `N` knight · `B` bishop · `R` rook · `Q` queen · `K` king.
   Black (hero's side, blocks): `p` pawn · `n` knight · `b` bishop · `r` rook · `q` queen · `k` king.
   Specials: `l`/`L` land mine · `w`/`W` war bear · `c`/`C` castle.
-- `/`-separated variants = **block states**: `a/b/c`. The current block state (1-based) selects the variant; if a row has fewer variants than the current state, the **last** variant carries forward.
+- `/`-separated variants = **block states**: `a/b/c`. Each block has its **own** state (1-based, default `1`) that selects the variant; if a row has fewer variants than the block's state, the **last** variant carries forward.
 - Block directives: `@checkpoint`, `@showThreat <letter>`, `@2d`, `@iso`, `@stop`, `@start`.
 
 ## 3. Beats (script)
@@ -37,12 +37,13 @@ The entire story and level are authored in a single data file (`ChessPursuit.dat
 | --- | --- | --- |
 | Title | `@title` + line | game title overlay (hidden on dismiss) |
 | Text | `@<actor>[/<trigger>][/<state>]` + lines | dialog box; bob the actor(s) |
-| Screen | `@screen/<trigger>` + lines | dialog box; **no** bob |
+| Screen | `@screen[/<trigger>][/<state>]` + lines | dialog box; **no** bob |
 
 - `<actor>` = comma-separated SAN ids (`K`, `n`, `K,k`, `Ra2`, …) — bob all matched pieces.
 - `<trigger>` = comma-separated filters (AND).
-- `<state>` = block state (1-based); missing → **inherit latest**.
+- `<state>` = sets the **state of the block the beat belongs to** (1-based); missing → no change.
 - Parsing: the last `/`-segment is the `<state>` if it is a bare number, otherwise it belongs to the trigger. E.g. `@K` → trigger `start`; `@K/2` → state `2`; `@K/start` → trigger `start`; `@K/7-rank/2` → trigger `7-rank`, state `2`.
+- **Block-scoped**: beats belong to the block they precede. Sequential beats (no trigger, or `start`) play in order when the player enters the block; triggered beats (`<n>-rank`, `<f>-file`, …) fire while the player is inside that block. Win/lose overlay text stays at the end of the file.
 
 ## 4. Triggers / conditions (unified)
 
@@ -53,6 +54,7 @@ Comma = AND. Filters:
 - `start` · `win` · `lose` · `capture` · `<piece>-capture` · `check`
 
 Example: `capture,7-rank,c-file` = a capture on **c7**.
+- Beats are **once per playthrough**: a block's script (sequential + triggered) plays the first time you enter the block, and won't replay if you leave and re-enter it. Triggered beats also won't re-fire after they've matched. Respawning resets all of this.
 
 ## 5. Defaults
 

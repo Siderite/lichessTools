@@ -668,11 +668,12 @@
       this.deathCounterText = null;
       // data-driven script state
       this.title = null;
-      this.script = [];
+      this.activeScript = [];
+      this.playedScripts = new Set();
       this.blocks = [];
       this.genericWin = [];
       this.genericLoss = [];
-      this.blockState = 1;
+      this.activeScriptBlockIndex = -1;
       this.activeBeat = -1;
       this.scriptBusy = false;
       this.advancementStopped = true;
@@ -704,7 +705,7 @@
       this.setupVisibilityChange();
 
       this.initCheckBoard(0);
-      this.startScript();
+      this.playBlockScript(0);
       this.tic();
     }
 
@@ -1188,7 +1189,7 @@
     parseGameData(levelData) {
       const data = levelData || "";
       this.title = null;
-      this.script = [];
+      this.activeScript = [];
       this.blocks = [];
       this.genericWin = [];
       this.genericLoss = [];
@@ -1196,6 +1197,18 @@
       let currentBeat = null;
       let currentGeneric = null;
       let block = null;
+      let pendingScript = [];
+
+      const newBlock = () => ({
+        checkpoint: false,
+        showThreat: null,
+        win: [],
+        loss: [],
+        actions: [],
+        script: pendingScript,
+        state: 1,
+        rows: [],
+      });
 
       for (const rawLine of data.split("\n")) {
         const line = rawLine.trim();
@@ -1213,25 +1226,27 @@
 
           if (head === "title") {
             currentBeat = { kind: "title", lines: [] };
-            this.script.push(currentBeat);
+            pendingScript.push(currentBeat);
           } else if (head === "screen") {
-            currentBeat = { kind: "screen", trigger: trigger || null, lines: [] };
-            this.script.push(currentBeat);
+            currentBeat = { kind: "screen", trigger: trigger || null, state: state, lines: [] };
+            pendingScript.push(currentBeat);
           } else if (
             ["2d", "iso", "stop", "start"].includes(head) &&
             !trigger &&
             state === null
           ) {
             if (!block || block.checkpoint) {
-              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              block = newBlock();
               this.blocks.push(block);
+              pendingScript = [];
             }
-            (block.actions = block.actions || []).push(head);
+            block.actions.push(head);
           } else if (head === "win" || head === "loss") {
             if (trigger) {
               if (!block || block.checkpoint) {
-                block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+                block = newBlock();
                 this.blocks.push(block);
+                pendingScript = [];
               }
               if (head === "win") block.win.push(trigger);
               else block.loss.push(trigger);
@@ -1239,17 +1254,19 @@
               currentGeneric = head;
             }
           } else if (head === "checkpoint") {
-            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], rows: [] });
+            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], actions: [], script: [], state: 1, rows: [] });
             block = null;
+            pendingScript = [];
           } else if (head.startsWith("showThreat")) {
             if (!block || block.checkpoint) {
-              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              block = newBlock();
               this.blocks.push(block);
+              pendingScript = [];
             }
             block.showThreat = head.slice("showThreat".length).trim();
           } else {
             currentBeat = { kind: "text", actor: head, trigger: trigger || null, state: state, lines: [] };
-            this.script.push(currentBeat);
+            pendingScript.push(currentBeat);
           }
         } else if (!line) {
           currentBeat = null;
@@ -1264,8 +1281,9 @@
             currentBeat = null;
             currentGeneric = null;
             if (!block || block.checkpoint) {
-              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              block = newBlock();
               this.blocks.push(block);
+              pendingScript = [];
             }
             block.rows.push(line.split("/").map((s) => s.trim()));
           } else if (currentGeneric === "win") {
@@ -1278,10 +1296,12 @@
         }
       }
 
-      const titleBeat = this.script.find((b) => b.kind === "title");
-      this.title = titleBeat ? titleBeat.lines.join("") : null;
-      if (this.script.length && !this.script[0].trigger) {
-        this.script[0].trigger = "start";
+      for (const b of this.blocks) {
+        const titleBeat = (b.script || []).find((beat) => beat.kind === "title");
+        if (titleBeat) {
+          this.title = titleBeat.lines.join("");
+          break;
+        }
       }
     }
 
@@ -1316,7 +1336,7 @@
 
         for (let i = b.rows.length - 1; i >= 0; i--) {
           const variants = b.rows[i];
-          const idx = Math.min(this.blockState, variants.length) - 1;
+          const idx = Math.min(b.state || 1, variants.length) - 1;
           const row = variants[idx] || "";
           if (row.length > this.NUM_CELLS) throw new Error("Row too long");
           this.checkBoard[currentRowIndex] = [];
@@ -1399,16 +1419,31 @@
       this.lastTime = now;
     }
 
-    startScript() {
-      this.fireTrigger("start");
+    playBlockScript(blockIndex) {
+      const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
+      const script = block ? block.script || [] : [];
+      this.activeScript = script;
+      this.activeScriptBlockIndex = blockIndex;
+      if (blockIndex < 0 || this.playedScripts.has(blockIndex)) return;
+      this.playedScripts.add(blockIndex);
+      for (const b of script) b.fired = false;
+      this.activeBeat = -1;
+      const first = script.findIndex((b) => !b.trigger || b.trigger === "start");
+      if (first >= 0) {
+        this.activeBeat = first;
+        this.playBeat(script[first]);
+      } else {
+        this.enterBlock(blockIndex);
+      }
     }
 
     fireTrigger(trigger) {
       if (!trigger) return;
-      for (let i = 0; i < this.script.length; i++) {
-        if (this.script[i].trigger === trigger) {
+      const script = this.activeScript || [];
+      for (let i = 0; i < script.length; i++) {
+        if (script[i].trigger === trigger) {
           this.activeBeat = i;
-          this.playBeat(this.script[i]);
+          this.playBeat(script[i]);
           return;
         }
       }
@@ -1419,8 +1454,8 @@
         this.scriptBusy = true;
         // Title screen stays until the player dismisses it (SPACE/CLICK).
       } else if (beat.kind === "text" || beat.kind === "screen") {
-        if (beat.state != null && beat.state !== this.blockState) {
-          this.setBlockState(beat.state);
+        if (beat.state != null) {
+          this.setBlockState(this.activeScriptBlockIndex, beat.state);
         }
         this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
         this.scriptBusy = true;
@@ -1428,8 +1463,9 @@
     }
 
     advanceBeat() {
-      const next = this.script[this.activeBeat + 1];
-      if (next && !next.trigger) {
+      const script = this.activeScript || [];
+      const next = script[this.activeBeat + 1];
+      if (next && (!next.trigger || next.trigger === "start")) {
         this.activeBeat++;
         this.playBeat(next);
       } else {
@@ -1444,7 +1480,8 @@
     }
 
     dismissScript() {
-      const beat = this.activeBeat >= 0 ? this.script[this.activeBeat] : null;
+      const script = this.activeScript || [];
+      const beat = this.activeBeat >= 0 ? script[this.activeBeat] : null;
       if (this.scriptBusy && beat) {
         if (beat.kind === "title") {
           if (this.introScreen) this.introScreen.style.display = "none";
@@ -1525,32 +1562,38 @@
       this.skyCanvas.opacity(this.perspectiveProgress);
     }
 
-    setBlockState(state) {
-      const oldState = this.blockState;
+    setBlockState(blockIndex, state) {
+      const b = blockIndex >= 0 ? this.blocks[blockIndex] : null;
+      if (!b || b.checkpoint) return;
+      const oldState = b.state || 1;
       if (oldState === state) return;
-      this.blockState = state;
-      for (const b of this.blocks) {
-        if (b.rows.every((r) => r.length <= 1)) continue;
-        for (let i = 0; i < b.rows.length; i++) {
-          const variants = b.rows[i];
-          const oldRow = variants[Math.min(oldState, variants.length) - 1] || "";
-          const newRow = variants[Math.min(state, variants.length) - 1] || "";
-          if (oldRow === newRow) continue;
-          const boardRow = b.startRow + (b.rows.length - 1 - i);
-          const rowArray = this.checkBoard[boardRow];
-          for (let j = 0; j < this.NUM_CELLS; j++) {
-            const oldChar = oldRow.charAt(j);
-            const newChar = newRow.charAt(j);
-            if (oldChar === newChar) continue;
-            if (oldChar !== "." && oldChar !== " " && rowArray && rowArray[j] && rowArray[j].piece) {
-              this.destroyPiece(rowArray[j].piece);
-              rowArray[j] = {};
-            }
-            if (newChar !== "." && newChar !== " ") {
-              const pieceCell = this.addPieceAt(newChar, boardRow, j);
+      b.state = state;
+      for (let i = 0; i < b.rows.length; i++) {
+        const variants = b.rows[i];
+        if (variants.length <= 1) continue;
+        const oldRow = variants[Math.min(oldState, variants.length) - 1] || "";
+        const newRow = variants[Math.min(state, variants.length) - 1] || "";
+        if (oldRow === newRow) continue;
+        const boardRow = b.startRow + (b.rows.length - 1 - i);
+        const rowArray = this.checkBoard[boardRow];
+        for (let j = 0; j < this.NUM_CELLS; j++) {
+          const oldChar = oldRow.charAt(j);
+          const newChar = newRow.charAt(j);
+          if (oldChar === newChar) continue;
+          if (oldChar !== "." && oldChar !== " " && rowArray && rowArray[j] && rowArray[j].piece) {
+            this.destroyPiece(rowArray[j].piece);
+            rowArray[j] = {};
+          }
+          if (newChar !== "." && newChar !== " ") {
+            const pieceCell = this.addPieceAt(newChar, boardRow, j);
+            pieceCell.piece.appearing = true;
+            pieceCell.piece.appearTime = Date.now();
+            if (
+              this.topRowDisplayed >= 0 &&
+              boardRow >= this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5 &&
+              boardRow <= this.topRowDisplayed
+            ) {
               this.addSvgShape(pieceCell.piece);
-              pieceCell.piece.appearing = true;
-              pieceCell.piece.appearTime = Date.now();
             }
           }
         }
@@ -1739,16 +1782,19 @@
 
     checkTriggers(capturedType) {
       const blockIndex = this.currentBlockIndex();
-      this.enterBlock(blockIndex);
+      this.playBlockScript(blockIndex);
       const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
       const rank = block ? this.player.row - block.startRow + 1 : null;
       const file = this.player.col;
 
       if (rank != null) {
-        for (let i = 0; i < this.script.length; i++) {
-          const beat = this.script[i];
+        const script = this.activeScript || [];
+        for (let i = 0; i < script.length; i++) {
+          const beat = script[i];
           if (!beat.trigger || beat.trigger === "start" || beat.trigger === "win" || beat.trigger === "lose") continue;
+          if (beat.fired) continue;
           if (this.triggerMatches(beat.trigger, rank, file, capturedType)) {
+            beat.fired = true;
             this.activeBeat = i;
             this.playBeat(beat);
             break;
@@ -2144,7 +2190,22 @@
       this.moveCount = this.checkpointMoveCounts[checkPointIndex] || 0;
 
       // Reinitialize game
+      const respawnRow = checkPointIndex === 0 ? 5 : this.checkPoints[checkPointIndex];
+      this.playedScripts.clear();
+      for (let i = 0; i < this.blocks.length; i++) {
+        const b = this.blocks[i];
+        if (b.checkpoint) continue;
+        if (b.startRow < respawnRow) {
+          this.playedScripts.add(i);
+        } else {
+          b.state = 1;
+        }
+      }
+
       this.initCheckBoard(checkPointIndex);
+      this.activeBeat = -1;
+      this.scriptBusy = false;
+      this.activeScript = [];
       this.activeBlockIndex = -1;
       this.enterBlock(this.currentBlockIndex());
 
@@ -2269,7 +2330,7 @@
               } else {
                 index -= (colIndex + 1) / 2;
               }
-              if (row[index] && row[index].piece) {
+              if (row[index] && row[index].piece && !row[index].piece.shape) {
                 this.addSvgShape(row[index].piece);
               }
             }
