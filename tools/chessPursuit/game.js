@@ -685,6 +685,7 @@
       this.advancementStopped = true;
       this.blockWait = null;
       this.pendingGameOver = null;
+      this.pendingGameOverText = null;
       this.boardRendered = false;
       this.activeBlockIndex = -1;
       this.SAN_TO_PIECE = {
@@ -807,10 +808,10 @@
           }
 
           // N: jump to the next block (checkpoint)
-          /*if (this.input.keys.n === 0 && !this.scriptBusy && !this.gameIsOver) {
+          if (this.input.keys.n === 0 && !this.scriptBusy && !this.gameIsOver) {
             this.input.keys.n = -1;
             this.jumpToNextBlock();
-          }*/
+          }
 
           break;
       }
@@ -1221,6 +1222,7 @@
 
       let currentBeat = null;
       let currentGeneric = null;
+      let currentBlockGeneric = null;
       let block = null;
       let pendingScript = [];
       let pendingActions = [];
@@ -1230,6 +1232,8 @@
         showThreat: null,
         win: [],
         loss: [],
+        winText: [],
+        lossText: [],
         actions: pendingActions,
         script: pendingScript,
         state: 1,
@@ -1241,6 +1245,7 @@
         if (line.startsWith("@")) {
           currentBeat = null;
           currentGeneric = null;
+          currentBlockGeneric = null;
           const parts = line.slice(1).split("/");
           const head = parts[0];
           const rest = parts.slice(1);
@@ -1274,8 +1279,13 @@
                 pendingScript = [];
                 pendingActions = [];
               }
-              if (head === "win") block.win.push(trigger);
-              else block.loss.push(trigger);
+              if (head === "win") {
+                block.win.push(trigger);
+                currentBlockGeneric = "win";
+              } else {
+                block.loss.push(trigger);
+                currentBlockGeneric = "loss";
+              }
             } else {
               currentGeneric = head;
             }
@@ -1299,15 +1309,18 @@
         } else if (!line) {
           currentBeat = null;
           currentGeneric = null;
+          currentBlockGeneric = null;
           block = null;
         } else if (line.startsWith("//")) {
           currentBeat = null;
           currentGeneric = null;
+          currentBlockGeneric = null;
         } else {
           const isRow = line.split("/").every((s) => /^[. prnbkqlwcPRNBKQLWC]{8}$/.test(s));
           if (isRow) {
             currentBeat = null;
             currentGeneric = null;
+            currentBlockGeneric = null;
             if (!block || block.checkpoint) {
               block = newBlock();
               this.blocks.push(block);
@@ -1319,6 +1332,10 @@
             this.genericWin.push(line);
           } else if (currentGeneric === "loss") {
             this.genericLoss.push(line);
+          } else if (currentBlockGeneric === "win" && block) {
+            block.winText.push(line);
+          } else if (currentBlockGeneric === "loss" && block) {
+            block.lossText.push(line);
           } else if (currentBeat && (currentBeat.kind === "text" || currentBeat.kind === "screen" || currentBeat.kind === "title")) {
             currentBeat.lines.push(line);
           }
@@ -1375,8 +1392,8 @@
               const char = row.charAt(j);
               if (char !== " " && char !== ".") {
                 const pieceCell = this.addPieceAt(char, currentRowIndex, j);
-                if (b.showThreat === char) {
-                  showThreatCell = this.checkBoard[currentRowIndex][j];
+                if (b.showThreat === char && !showThreatCell) {
+                  showThreatCell = pieceCell;
                 }
               }
             }
@@ -1852,6 +1869,7 @@
         if (this.triggerMatches(cond, rank, file, capturedType)) {
           this.fireTrigger("win");
           this.pendingGameOver = true;
+          this.pendingGameOverText = block.winText && block.winText.length ? block.winText : null;
           return;
         }
       }
@@ -1859,6 +1877,7 @@
         if (this.triggerMatches(cond, rank, file, capturedType)) {
           this.fireTrigger("lose");
           this.pendingGameOver = false;
+          this.pendingGameOverText = block.lossText && block.lossText.length ? block.lossText : null;
           return;
         }
       }
@@ -2292,8 +2311,12 @@
       }
     }
 
-    setGameIsOver(val, win) {
+    setGameIsOver(val, win, text) {
       if (win) {
+        if (text && text.length) {
+          this.svgInnerHtml(this.winTitle, text[0] || "YOU WIN !");
+          this.svgInnerHtml(this.winHint, text[1] || "");
+        }
         this.raf = false;
         this.gameIsOver = true;
         this.won = true;
@@ -2301,6 +2324,9 @@
         this.audio.play("win");
       } else {
         if (this.won) return;
+        if (text && text.length) {
+          this.svgInnerHtml(this.gameOverTitle, text[0] || "CHECKMATE !");
+        }
         if (val != this.gameIsOver) {
           this.gameIsOver = val;
           if (this.gameIsOver) {
@@ -2511,8 +2537,10 @@
       // Apply pending win/loss once the king's move animation has finished
       if (this.pendingGameOver !== null && !this.player.anim) {
         const won = this.pendingGameOver;
+        const text = this.pendingGameOverText;
         this.pendingGameOver = null;
-        this.setGameIsOver(true, won);
+        this.pendingGameOverText = null;
+        this.setGameIsOver(true, won, text);
       }
 
       // Update removed pieces
@@ -2813,6 +2841,7 @@
       });
       this.svgInnerHtml(title, this.genericLoss[0] || "CHECKMATE !");
       this.gameOverScreen.appendChild(title);
+      this.gameOverTitle = title;
 
       const hint = document.createElementNS(xmlns, "text");
       this.svgAttrs(hint, {
@@ -2991,6 +3020,7 @@
       });
       this.svgInnerHtml(title, this.genericWin[0] || "YOU WIN !");
       this.winScreen.appendChild(title);
+      this.winTitle = title;
 
       const hint = document.createElementNS(xmlns, "text");
       this.svgAttrs(hint, {
@@ -3005,6 +3035,7 @@
       });
       this.svgInnerHtml(hint, this.genericWin[1] || "");
       this.winScreen.appendChild(hint);
+      this.winHint = hint;
     }
 
     /** Parse HTML string into SVG nodes (needed for <tspan>) */
