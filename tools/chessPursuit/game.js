@@ -558,22 +558,30 @@
     }
   }
 
+  // Game data is loaded from ChessPursuit.dat (see ChessPursuit.md for the format).
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
 
-      //pieces id (used in SVG and checkboard)
+      //piece ids (used in SVG and checkboard) — PGN piece names:
+      //White (enemy, checks the hero) uppercase · Black (hero's side, blocks) lowercase
       this.Piece = {
-        HERO_KING: "h",
-        ENEMY_KING: "e",
-        PAWN: "p",
-        ROOK: "r",
-        BISHOP: "b",
-        KNIGHT: "k",
+        KING_W: "K",
+        QUEEN_W: "Q",
+        ROOK_W: "R",
+        BISHOP_W: "B",
+        KNIGHT_W: "N",
+        PAWN_W: "P",
+        KING_B: "k",
+        QUEEN_B: "q",
+        ROOK_B: "r",
+        BISHOP_B: "b",
+        KNIGHT_B: "n",
+        PAWN_B: "p",
         LAND_MINE: "l",
         WAR_BEAR: "w",
         CASTLE: "c",
-        QUEEN: "q",
       };
 
       //other SCG ids
@@ -612,7 +620,7 @@
       this.svgCache = {};
     }
 
-    load(gameContainer) {
+    load(gameContainer, levelData) {
       this.root = gameContainer;
 
       //------------------------------------------------------------------------------------------------------------------
@@ -622,17 +630,20 @@
       this.now = 0; //Date.now(), set on update
       this.lastTime;
       this.killCount = 0;
+      this.moveCount = 0;
       this.checkMateCount = 0;
       this.checkCount = 0;
       this.winScreen = null;
       this.gameOverScreen = null;
       this.gameIsOver = false;
+      this.won = false;
       this.autoMove = false;
       this.progress = 0; //expressed as a number of rows
       this.progressPerSec = 1; //1
       this.checkBoard = null;
       this.checkPoints = null;
       this.checkpointKillCounts = [];
+      this.checkpointMoveCounts = [];
       this.topRowDisplayed = -1;
       this.raf = true;
       this.isDocumentActive = true;
@@ -647,15 +658,40 @@
       this.intro = true;
       this.introStartTime;
       this.perspectiveProgress = 0;
-      this.introProgress = 0;
-      this.introStep = -1;
+      this.viewAnim = null;
       this.dialogBox = null;
       this.dialogSpeakerText = null;
       this.dialogText = null;
       this.checkText = null;
       this.captureCounterText = null;
+      this.moveCounterText = null;
+      this.deathCounterText = null;
+      // data-driven script state
+      this.title = null;
+      this.script = [];
+      this.blocks = [];
+      this.genericWin = [];
+      this.genericLoss = [];
+      this.blockState = 1;
+      this.activeBeat = -1;
+      this.scriptBusy = false;
+      this.advancementStopped = true;
+      this.startActionDone = false;
+      this.boardRendered = false;
+      this.SAN_TO_PIECE = {
+        K: this.Piece.KING_W, k: this.Piece.KING_B,
+        Q: this.Piece.QUEEN_W, q: this.Piece.QUEEN_B,
+        R: this.Piece.ROOK_W, r: this.Piece.ROOK_B,
+        B: this.Piece.BISHOP_W, b: this.Piece.BISHOP_B,
+        N: this.Piece.KNIGHT_W, n: this.Piece.KNIGHT_B,
+        P: this.Piece.PAWN_W, p: this.Piece.PAWN_B,
+        W: this.Piece.WAR_BEAR, w: this.Piece.WAR_BEAR,
+        C: this.Piece.CASTLE, c: this.Piece.CASTLE,
+        L: this.Piece.LAND_MINE, l: this.Piece.LAND_MINE,
+      };
 
       this.loadAudio();
+      this.parseGameData(levelData);
       this.createCanvases();
 
       //------------------------------------------------------------------------------------------------------------------
@@ -668,6 +704,7 @@
       this.setupVisibilityChange();
 
       this.initCheckBoard(0);
+      this.startScript();
       this.tic();
     }
 
@@ -686,7 +723,7 @@
     handleInput(ev) {
       switch(ev.type) {
         case 'move':
-          if (!this.gameIsOver && !this.intro && this.topRowDisplayed > 0 && !this.player.invalid) {
+          if (!this.gameIsOver && !this.scriptBusy && this.topRowDisplayed > 0 && !this.player.invalid) {
             this.movePlayer(this.player.row + ev.dy, this.player.col + ev.dx);
           }
           break;
@@ -694,12 +731,11 @@
           if (this.input.mouse.click) {
             if (this.gameIsOver) {
               this.setGameIsOver(false);
-            } else
-            if (this.intro && this.introStep >= 0) {
-              this.nextIntroStep();
+            } else if (this.scriptBusy) {
+              this.dismissScript();
             }
           }
-          if (!this.gameIsOver && !this.intro && this.topRowDisplayed > 0 && !this.player.invalid) {
+          if (!this.gameIsOver && !this.scriptBusy && this.topRowDisplayed > 0 && !this.player.invalid) {
             const rect = this.root.getBoundingClientRect();
             const scaleX = this.SIZE / rect.width;
             const scaleY = (1.25 * this.SIZE) / rect.height;
@@ -742,9 +778,8 @@
             this.input.keys.space = -1;
             if (this.gameIsOver) {
               this.setGameIsOver(false);
-            } else
-            if (this.intro && this.introStep >= 0) {
-              this.nextIntroStep();
+            } else if (this.scriptBusy) {
+              this.dismissScript();
             }
           }
           // Mute toggle on 'm' (only on key-up)
@@ -753,7 +788,7 @@
           }
 
           // Special: Enter toggles pause (only when not in intro/game-over)
-          if (!this.intro && this.input.keyBoolMap.enter && !this.gameIsOver) {
+          if (!this.scriptBusy && this.input.keyBoolMap.enter && !this.gameIsOver) {
             this.raf = !this.raf;
             this.pauseText.style.display = this.raf ? "none" : "block";
             if (this.raf) {
@@ -762,8 +797,8 @@
             }
           }
 
-          /*/ N: jump to the next block (checkpoint)
-          if (this.input.keys.n === 0 && !this.intro && !this.gameIsOver) {
+          // N: jump to the next block (checkpoint)
+          /*if (this.input.keys.n === 0 && !this.scriptBusy && !this.gameIsOver) {
             this.input.keys.n = -1;
             this.jumpToNextBlock();
           }*/
@@ -888,7 +923,7 @@
       //makeDef scales/translates them so a <use> can position each piece on the board.
       this.svgStyle(
         this.makeDef(
-          this.Piece.PAWN,
+          this.Piece.PAWN_W,
           `
             <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
             <circle cx="5" cy="3" r="2"/>
@@ -900,7 +935,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.ENEMY_KING,
+          this.Piece.KING_W,
           `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
@@ -912,7 +947,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.KNIGHT,
+          this.Piece.KNIGHT_W,
           `
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
           `
@@ -923,7 +958,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.ROOK,
+          this.Piece.ROOK_W,
           `
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
           `
@@ -934,7 +969,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.BISHOP,
+          this.Piece.BISHOP_W,
           `
             <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
             <circle cx="5" cy="0" r="0.7"/>
@@ -981,7 +1016,7 @@
       //HERO_KING
       this.svgStyle(
         this.makeDef(
-          this.Piece.HERO_KING,
+          this.Piece.KING_B,
           `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
@@ -993,7 +1028,7 @@
       );
       this.svgStyle(
         this.makeDef(
-          this.Piece.QUEEN,
+          this.Piece.QUEEN_B,
           `
             <circle cx="5" cy="0.4" r="0.6"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
@@ -1020,6 +1055,8 @@
         0
       );
       this.makeKillCounter();
+      this.makeMoveCounter();
+      this.makeDeathCounter();
     }
 
     makeKillCounter() {
@@ -1035,6 +1072,38 @@
         "font-family": "Impact",
       });
       this.svgElem.appendChild(this.captureCounterText);
+    }
+
+    makeMoveCounter() {
+      const xmlns = "http://www.w3.org/2000/svg";
+      this.moveCounterText = document.createElementNS(xmlns, "text");
+      this.svgAttrs(this.moveCounterText, {
+        x: this.SIZE - 10,
+        y: "30",
+        "text-anchor": "end",
+        "font-size": "24px",
+        fill: "#5f7",
+        stroke: "black",
+        "stroke-width": "1px",
+        "font-family": "Impact",
+      });
+      this.svgElem.appendChild(this.moveCounterText);
+    }
+
+    makeDeathCounter() {
+      const xmlns = "http://www.w3.org/2000/svg";
+      this.deathCounterText = document.createElementNS(xmlns, "text");
+      this.svgAttrs(this.deathCounterText, {
+        x: "50%",
+        y: "30",
+        "text-anchor": "middle",
+        "font-size": "24px",
+        fill: "#5f7",
+        stroke: "black",
+        "stroke-width": "1px",
+        "font-family": "Impact",
+      });
+      this.svgElem.appendChild(this.deathCounterText);
     }
 
     initShadowCanvas() {
@@ -1055,6 +1124,102 @@
       this.shadowCanvas.top(this.HORIZON_Y)
       this.shadowCanvas.pointerEvents(false);
       this.shadowCanvas.appendTo(this.root)
+    }
+
+    parseGameData(levelData) {
+      const data = levelData || "";
+      this.title = null;
+      this.script = [];
+      this.blocks = [];
+      this.genericWin = [];
+      this.genericLoss = [];
+
+      let currentBeat = null;
+      let currentGeneric = null;
+      let block = null;
+
+      for (const rawLine of data.split("\n")) {
+        const line = rawLine.trim();
+        if (line.startsWith("@")) {
+          currentBeat = null;
+          currentGeneric = null;
+          const parts = line.slice(1).split("/");
+          const head = parts[0];
+          const rest = parts.slice(1);
+          let state = null;
+          if (rest.length && /^\d+$/.test(rest[rest.length - 1])) {
+            state = parseInt(rest.pop(), 10);
+          }
+          const trigger = rest.length ? rest.join("/") : null;
+
+          if (head === "title") {
+            currentBeat = { kind: "title", lines: [] };
+            this.script.push(currentBeat);
+          } else if (head === "screen") {
+            currentBeat = { kind: "screen", trigger: trigger || null, lines: [] };
+            this.script.push(currentBeat);
+          } else if (
+            ["2d", "iso", "stop", "start"].includes(head) &&
+            !trigger &&
+            state === null
+          ) {
+            this.script.push({ kind: "action", action: head });
+          } else if (head === "win" || head === "loss") {
+            if (trigger) {
+              if (!block || block.checkpoint) {
+                block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+                this.blocks.push(block);
+              }
+              if (head === "win") block.win.push(trigger);
+              else block.loss.push(trigger);
+            } else {
+              currentGeneric = head;
+            }
+          } else if (head === "checkpoint") {
+            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], rows: [] });
+            block = null;
+          } else if (head.startsWith("showThreat")) {
+            if (!block || block.checkpoint) {
+              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              this.blocks.push(block);
+            }
+            block.showThreat = head.slice("showThreat".length).trim();
+          } else {
+            currentBeat = { kind: "text", actor: head, trigger: trigger || null, state: state, lines: [] };
+            this.script.push(currentBeat);
+          }
+        } else if (!line) {
+          currentBeat = null;
+          currentGeneric = null;
+          block = null;
+        } else if (line.startsWith("//")) {
+          currentBeat = null;
+          currentGeneric = null;
+        } else {
+          const isRow = line.split("/").every((s) => s.length === 8);
+          if (isRow) {
+            currentBeat = null;
+            currentGeneric = null;
+            if (!block || block.checkpoint) {
+              block = { checkpoint: false, showThreat: null, win: [], loss: [], rows: [] };
+              this.blocks.push(block);
+            }
+            block.rows.push(line.split("/").map((s) => s.trim()));
+          } else if (currentGeneric === "win") {
+            this.genericWin.push(line);
+          } else if (currentGeneric === "loss") {
+            this.genericLoss.push(line);
+          } else if (currentBeat && (currentBeat.kind === "text" || currentBeat.kind === "screen" || currentBeat.kind === "title")) {
+            currentBeat.lines.push(line);
+          }
+        }
+      }
+
+      const titleBeat = this.script.find((b) => b.kind === "title");
+      this.title = titleBeat ? titleBeat.lines.join("") : null;
+      if (this.script.length && !this.script[0].trigger) {
+        this.script[0].trigger = "start";
+      }
     }
 
     initCheckBoard(startCheckPointIndex) {
@@ -1080,14 +1245,16 @@
         }
       };
 
-      const block = (...args) => {
-        let options = typeof args[0] === "object" ? args.shift() : {};
+      const buildBlock = (b) => {
         let showThreatCell = null;
         const doAdd = startCheckPointIndex < this.checkPoints.length;
         const startRowIndex = currentRowIndex;
+        b.startRow = startRowIndex;
 
-        for (let i = args.length - 1; i >= 0; i--) {
-          const row = args[i];
+        for (let i = b.rows.length - 1; i >= 0; i--) {
+          const variants = b.rows[i];
+          const idx = Math.min(this.blockState, variants.length) - 1;
+          const row = variants[idx] || "";
           if (row.length > this.NUM_CELLS) throw new Error("Row too long");
           this.checkBoard[currentRowIndex] = [];
 
@@ -1095,20 +1262,9 @@
             for (let j = 0; j < row.length; j++) {
               const char = row.charAt(j);
               if (char !== " " && char !== ".") {
-                const lowerChar = char.toLowerCase();
-                const pieceCell = this.addPieceAt(
-                  lowerChar,
-                  currentRowIndex,
-                  j
-                );
-                if (options.showThreat === lowerChar) {
+                const pieceCell = this.addPieceAt(char, currentRowIndex, j);
+                if (b.showThreat === char) {
                   showThreatCell = this.checkBoard[currentRowIndex][j];
-                }
-                if (char !== lowerChar) {
-                  // TODO: allied pieces
-                }
-                if (options.intro) {
-                  pieceCell.piece.intro = true;
                 }
               }
             }
@@ -1131,326 +1287,21 @@
         }
       };
 
-      // === Level layout using local `block` and `checkPoint` ===
-
-      // 0: Intro
-      block(
-        { intro: true },
-        "........",
-        "........",
-        "........",
-        this.intro ? "..reqr.." : "........",
-        this.intro ? "...kk..." : "........",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........",
-        "kkkkkkkk"
-      );
-
-      // First pawn
-      block(
-        { showThreat: "p" },
-        "........",
-        "........",
-        "....p...",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Scattered pawns
-      block(
-        "..pppp..",
-        "..pppp..",
-        "........",
-        "..p.....",
-        "........",
-        ".....p..",
-        "........",
-        ".p......"
-      );
-
-      // Pawn rows
-      block(
-        "........",
-        "pppppp..",
-        "........",
-        "..pppppp",
-        "........",
-        "pppppp..",
-        "........",
-        "........"
-      );
-
-      // Triangle
-      block(
-        "........",
-        "pp...ppp",
-        "..p.p...",
-        "...p....",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Sawtooth
-      block(
-        "........",
-        "...pp...",
-        "p.p..p.p",
-        ".p....p.",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Wedges
-      block(
-        "........",
-        "....ppp.",
-        ".....p..",
-        "ppp.....",
-        ".p...ppp",
-        "......p.",
-        "........",
-        "........"
-      );
-
-      checkPoint(); // CHECK POINT 1
-
-      // First rook
-      block(
-        { showThreat: "r" },
-        "........",
-        "...p....",
-        "........",
-        "...r....",
-        "........",
-        "...p....",
-        "........",
-        "........"
-      );
-
-      // Rook diagonal
-      block(
-        "........",
-        "........",
-        "r.......",
-        ".r......",
-        "..r.....",
-        "...r....",
-        "....r...",
-        ".....r..",
-        "pppppp.."
-      );
-
-      // Rook rows
-      block(
-        "........",
-        "........",
-        "........",
-        ".......p",
-        "....rp.r",
-        "........",
-        "........",
-        "pp......",
-        "r...p..p",
-        "p......."
-      );
-
-      // Rook labyrinth
-      block(
-        "........",
-        "p.....r.",
-        "r.....p.",
-        "r....p..",
-        "........",
-        "...p....",
-        "...p....",
-        "p..ppppp",
-        "........"
-      );
-
-      checkPoint(); // CHECK POINT 2
-
-      // First bishop
-      block(
-        { showThreat: "b" },
-        "........",
-        "........",
-        "........",
-        "........",
-        "...b....",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Bishop field
-      block(
-        "........",
-        ".p.p.p..",
-        "b.b.b.b.",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Rooks & bishops simple
-      block(
-        "........",
-        "r.p..p.r",
-        "p......p",
-        "........",
-        "b      b",
-        "pp....pp",
-        "........",
-        "........"
-      );
-
-      // Pawns, bishops, rooks
-      block(
-        "........",
-        "r.......",
-        ".r..p..b",
-        ".......r",
-        "....p...",
-        "...p....",
-        "..p.....",
-        "pp.....p"
-      );
-
-      checkPoint(); // CHECK POINT 3
-
-      // First knight
-      block(
-        { showThreat: "k" },
-        "........",
-        "........",
-        "...k....",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Knight rows
-      block(
-        "p.......",
-        "r.....p.",
-        "........",
-        "........",
-        "......kk",
-        "........",
-        "pkk.....",
-        "........"
-      );
-
-      // Rooks, bishop, knight
-      block(
-        "p...pppp",
-        "r....b.r",
-        "...p.b.p",
-        "........",
-        "........",
-        "........",
-        ".k......",
-        "........",
-        "........",
-        "........"
-      );
-
-      checkPoint(); // CHECK POINT 4
-
-      // First land mine
-      block(
-        { showThreat: "l" },
-        "........",
-        "........",
-        "........",
-        "...l....",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      // Land mines
-      block(
-        "l.llllll",
-        "l.l....l",
-        "..l.llll",
-        ".ll.l...",
-        "l...l.l.",
-        "l.lll.l.",
-        "l.....l.",
-        "lllllll."
-      );
-
-      // Land mines and pawns
-      block(
-        ".p..pll.",
-        ".l.p...l",
-        "lpl.p.p.",
-        ".....lp.",
-        "ll.ll.l.",
-        ".l..l...",
-        "........",
-        "........"
-      );
-
-      // Mixed threats
-      block(
-        "........",
-        "..r.....",
-        "..llk...",
-        "........",
-        "...l....",
-        "...p..pb",
-        ".......l",
-        "..p..l..",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
-
-      checkPoint(); // CHECK POINT 5
-
-      // Final castle
-      block(
-        "........",
-        "c.......",
-        "........",
-        "........",
-        "........",
-        "........",
-        "........"
-      );
+      for (const b of this.blocks) {
+        if (b.checkpoint) checkPoint();
+        buildBlock(b);
+      }
 
       this.lastRowIndex = currentRowIndex;
 
       // Place player
       if (startCheckPointIndex === 0) {
-        this.player = this.addPieceAt(this.Piece.HERO_KING, 5, 4).piece;
+        this.player = this.addPieceAt(this.Piece.KING_B, 5, 4).piece;
         this.progress = 2; // Hide starting pawn row
       } else {
         this.progress = this.checkPoints[startCheckPointIndex];
         this.player = this.addPieceAt(
-          this.Piece.HERO_KING,
+          this.Piece.KING_B,
           this.progress,
           3
         ).piece;
@@ -1471,206 +1322,172 @@
       }
     }
 
-    updateIntro() {
-      const whiteKing = this.checkBoard[8][3].piece;
-      const blackKing = this.player;
+    // ===== Script engine =====
 
-      let i, j, cell, row;
+    updateScript() {
       const now = Date.now();
-      const init = !this.introStartTime;
-      if (init) {
-        this.introStartTime = now;
+      if (!this.boardRendered) {
+        this.boardRendered = true;
         this.skipIntroTweens();
-        if (whiteKing) {
-          whiteKing.talking = false;
-          whiteKing.talkingStartTime = now;
-        }
-        blackKing.talking = false;
-        blackKing.talkingStartTime = now;
-      }
-
-      if (this.introStep === -1) {
-        this.shadowCanvas.opacity(0);
-        this.skyCanvas.opacity(0);
-        this.perspectiveProgress = 0;
         this.update();
-        this.lastTime = null;
-        this.introStep = 0;
-      } else if (this.introStep === 0) {
-        // Waiting for space
-      } else if (this.introStep === 1) {
-        if (init) {
-          this.showDialog(true, [
-            "Surrender Black King !",
-            "Your army is defeated, and your Queen is mine !",
-          ]);
-          whiteKing.talking = true;
-        }
-      } else if (this.introStep === 2) {
-        if (init) {
-          this.hideDialog();
-          for (j = 0; j < this.NUM_CELLS; j++) {
-            cell = this.checkBoard[0][j];
-            this.addIntroTween(
-              cell.piece,
-              {
-                row: 2,
-                col: j + (j % 2 === 0 ? 1 : -1),
-              },
-              j * 0.1,
-              0.5
-            );
-          }
-        }
-      } else if (this.introStep === 3) {
-        if (init) {
-          this.showDialog(true, [
-            "You thought I'd only bring two knights to battle ?",
-            "You are surrounded,",
-            "admit defeat now and I shall be merciful.",
-          ]);
-          whiteKing.talking = true;
-        }
-      } else if (this.introStep === 4) {
-        if (init) {
-          this.showDialog(false, ["Never !"]);
-          blackKing.talking = true;
-        }
-      } else if (this.introStep === 5) {
-        if (init) {
-          this.showDialog(true, [
-            "As you wish...",
-            "I am taking the prisoner back to the castle.",
-            "Knights, capture him, I want him alive.",
-          ]);
-          whiteKing.talking = true;
-        }
-      } else if (this.introStep === 6) {
-        if (init) {
-          this.hideDialog();
-          for (j = 2; j <= 5; j++) {
-            cell = this.checkBoard[8][j];
-            if (cell) {
-              this.addIntroTween(cell.piece, { row: 9 }, 0, 0.5);
-              this.addIntroTween(cell.piece, { row: 10 }, 1, 0.5);
-            }
-          }
-          this.addIntroTween(
-            this.checkBoard[7][3].piece,
-            { row: 8, col: 1 },
-            0.5,
-            0.5
-          );
-          this.addIntroTween(
-            this.checkBoard[7][3].piece,
-            { row: 10, col: 2 },
-            1.5,
-            0.5
-          );
-          this.addIntroTween(
-            this.checkBoard[7][4].piece,
-            { row: 8, col: 6 },
-            0.5,
-            0.5
-          );
-          this.addIntroTween(
-            this.checkBoard[7][4].piece,
-            { row: 10, col: 5 },
-            1.5,
-            0.5
-          );
-        }
-      } else if (this.introStep === 7) {
-        if (init) {
-          const anim =
-            '<animate attributeType="CSS" attributeName="fill" from="red" to="orange" dur="0.5s" repeatCount="indefinite"/>';
-          this.showDialog(false, [
-            'It looks like our roles are <tspan fill="red" font-family="impact">REVERSED' +
-              anim +
-              "</tspan> my Queen.",
-            "Today, it is my turn to protect you !",
-          ]);
-          blackKing.talking = true;
-
-          for (i = 1; i < 2 * this.NUM_CELLS; i++) {
-            row = this.checkBoard[i];
-            if (row) {
-              for (j = 0; j < this.NUM_CELLS; j++) {
-                cell = row[j];
-                if (cell && cell.piece && cell.piece.intro) {
-                  this.removeSvgShape(cell.piece);
-                  row[j] = {};
-                }
-              }
-            }
-          }
-        }
-      } else if (this.introStep === 8) {
-        if (init) {
-          this.hideDialog();
-          this.pressSpaceText.style.display = "none";
-        }
-        this.introProgress = ((now - this.introStartTime) * this.MS_TO_S) / 4;
-        if (this.introProgress > 1) {
-          this.introStep = 9;
-        } else {
-          this.introProgress = Math.sin((this.introProgress * Math.PI) / 2);
-          this.perspectiveProgress = (this.introProgress - 0.2) / 0.6;
-          if (this.perspectiveProgress < 0) {
-            this.perspectiveProgress = 0;
-          } else if (this.perspectiveProgress > 1) {
-            this.perspectiveProgress = 1;
-          }
-          this.shadowCanvas.opacity(this.perspectiveProgress);
-          if (this.introProgress > 0.8) {
-            this.introScreen.style.opacity = (1 - this.introProgress) / 0.2;
-            this.skyCanvas.opacity(1 - this.introScreen.style.opacity);
-          }
-        }
       }
-
-      if (init) {
-        if (!this.introTweens.length) {
-          this.pressSpaceText.style.opacity = 1;
-        } else {
-          this.pressSpaceText.style.opacity = 0;
-          const hasText =
-            this.introTweens[0].e === this.dialogBox &&
-            this.introTweens[0].to._y === this.dialogOpenY;
-          const lastTween = this.introTweens[this.introTweens.length - 1];
-          const delay = lastTween.du + lastTween.de;
-          if (hasText) {
-            this.addIntroTween(
-              this.pressSpaceText.style,
-              { opacity: 1 },
-              delay + 2,
-              0.1
-            );
-          } else if (this.introStep > 1 && this.introStep < 8) {
-            this.addIntroCallback(this.nextIntroStep, delay);
-          }
-        }
-      }
-
+      this.updateView(now);
       this.updateIntroTweens();
-
-      if (this.introStep === 9) {
-        this.intro = false;
-        this.perspectiveProgress = 1;
-        this.introScreen.style.display = "none";
-        this.shadowCanvas.opacity(1);
-        this.skyCanvas.opacity(1);
-        this.pressSpaceText.style.display = "none";
-        this.hideDialog();
-        this.player.talking = false;
-      }
-
       this.lastTime = now;
     }
 
-    nextIntroStep() {
-      this.introStep++;
-      this.introStartTime = null;
+    startScript() {
+      this.fireTrigger("start");
+    }
+
+    fireTrigger(trigger) {
+      if (!trigger) return;
+      for (let i = 0; i < this.script.length; i++) {
+        if (this.script[i].trigger === trigger) {
+          this.activeBeat = i;
+          this.playBeat(this.script[i]);
+          return;
+        }
+      }
+    }
+
+    playBeat(beat) {
+      if (beat.kind === "title") {
+        this.scriptBusy = true;
+        // Title screen stays until the player dismisses it (SPACE/CLICK).
+      } else if (beat.kind === "text" || beat.kind === "screen") {
+        if (beat.state != null && beat.state !== this.blockState) {
+          this.setBlockState(beat.state);
+        }
+        this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
+        this.scriptBusy = true;
+      } else if (beat.kind === "action") {
+        this.runAction(beat.action);
+        this.advanceBeat();
+      }
+    }
+
+    advanceBeat() {
+      const next = this.script[this.activeBeat + 1];
+      if (next && !next.trigger) {
+        this.activeBeat++;
+        this.playBeat(next);
+      } else {
+        this.activeBeat = -1;
+        this.scriptBusy = false;
+        this.hideDialog();
+        this.clearTalking();
+      }
+    }
+
+    dismissScript() {
+      const beat = this.activeBeat >= 0 ? this.script[this.activeBeat] : null;
+      if (this.scriptBusy && beat) {
+        if (beat.kind === "title") {
+          if (this.introScreen) this.introScreen.style.display = "none";
+          if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+        } else if (beat.kind === "text" || beat.kind === "screen") {
+          this.hideDialog();
+          this.clearTalking();
+        }
+        this.advanceBeat();
+      }
+    }
+
+    runAction(action) {
+      if (action === "2d") {
+        this.setView(true);
+      } else if (action === "iso") {
+        this.setView(false);
+      } else if (action === "stop") {
+        this.advancementStopped = true;
+      } else if (action === "start") {
+        this.advancementStopped = false;
+        if (!this.startActionDone) {
+          this.startActionDone = true;
+          if (this.introScreen) this.introScreen.style.display = "none";
+          if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+        }
+      }
+    }
+
+    setView(iso2d) {
+      if (iso2d) {
+        this.intro = true;
+        this.viewAnim = {
+          start: Date.now(),
+          duration: 4000,
+          from: this.perspectiveProgress,
+          to: 0,
+        };
+      } else {
+        if (this.intro === false && this.perspectiveProgress >= 1) return;
+        this.intro = true;
+        this.viewAnim = {
+          start: Date.now(),
+          duration: 4000,
+          from: this.perspectiveProgress,
+          to: 1,
+        };
+      }
+    }
+
+    updateView(now) {
+      if (!this.viewAnim) return;
+      const anim = this.viewAnim;
+      let p = (now - anim.start) / anim.duration;
+      if (p >= 1) {
+        p = 1;
+        this.viewAnim = null;
+        this.perspectiveProgress = anim.to;
+        if (anim.to >= 1) this.intro = false;
+      } else {
+        p = Math.sin((p * Math.PI) / 2);
+        this.perspectiveProgress = anim.from + (anim.to - anim.from) * p;
+      }
+      this.shadowCanvas.opacity(this.perspectiveProgress);
+      this.skyCanvas.opacity(this.perspectiveProgress);
+    }
+
+    setBlockState(state) {
+      const oldState = this.blockState;
+      if (oldState === state) return;
+      this.blockState = state;
+      for (const b of this.blocks) {
+        if (b.rows.every((r) => r.length <= 1)) continue;
+        for (let i = 0; i < b.rows.length; i++) {
+          const variants = b.rows[i];
+          const oldRow = variants[Math.min(oldState, variants.length) - 1] || "";
+          const newRow = variants[Math.min(state, variants.length) - 1] || "";
+          if (oldRow === newRow) continue;
+          const boardRow = b.startRow + (b.rows.length - 1 - i);
+          const rowArray = this.checkBoard[boardRow];
+          for (let j = 0; j < this.NUM_CELLS; j++) {
+            const oldChar = oldRow.charAt(j);
+            const newChar = newRow.charAt(j);
+            if (oldChar === newChar) continue;
+            if (oldChar !== "." && oldChar !== " " && rowArray && rowArray[j] && rowArray[j].piece) {
+              this.destroyPiece(rowArray[j].piece);
+              rowArray[j] = {};
+            }
+            if (newChar !== "." && newChar !== " ") {
+              const pieceCell = this.addPieceAt(newChar, boardRow, j);
+              this.addSvgShape(pieceCell.piece);
+              pieceCell.piece.appearing = true;
+              pieceCell.piece.appearTime = Date.now();
+            }
+          }
+        }
+      }
+    }
+
+    clearTalking() {
+      for (const row of this.checkBoard) {
+        if (!row) continue;
+        for (const cell of row) {
+          if (cell && cell.piece) cell.piece.talking = false;
+        }
+      }
     }
 
     addIntroTween(element, props, delay, duration) {
@@ -1707,6 +1524,11 @@
     }
 
     updateIntroTweens() {
+      if (!this.introTweens) {
+        if (this.dialogBox) this.dialogBox.setAttributeNS(null, "y", this.dialogBox._y);
+        return;
+      }
+      if (!this.introStartTime) this.introStartTime = Date.now();
       const time = (Date.now() - this.introStartTime) * this.MS_TO_S;
       let key;
       for (let i = 0; i < this.introTweens.length; i++) {
@@ -1784,6 +1606,7 @@
         row = rowMax;
       }
       if (col != oldCol || row != oldRow) {
+        let capturedType = null;
         const oldCell = this.checkBoard[oldRow][oldCol];
         if (!this.checkBoard[row]) {
           this.checkBoard[row] = [];
@@ -1793,7 +1616,7 @@
           cell = {};
           this.checkBoard[row][col] = cell;
         }
-        if (!cell.wall) {
+        if (!cell.wall && !(cell.piece && this.isBlackPiece(cell.piece.type))) {
           const threateningCell = this.getThreateningCell(row, col);
           if (threateningCell) {
             this.audio.play("check");
@@ -1804,13 +1627,19 @@
             col = oldCol;
             row = oldRow;
             this.checkCount++;
+            this.moveCount++;
+            const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
+            this.checkpointMoveCounts[checkpointIndex] = this.moveCount;
           } else {
             this.player.invalid = false;
+            this.moveCount++;
+            const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
+            this.checkpointMoveCounts[checkpointIndex] = this.moveCount;
             if (cell.piece) {
+              capturedType = cell.piece.type;
               this.destroyPiece(cell.piece);
               this.killCount++;
-              const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
-              this.checkpointKillCounts[checkpointIndex]=this.killCount;
+              this.checkpointKillCounts[checkpointIndex] = this.killCount;
               this.audio.play("capture");
             } else {
               this.audio.play("move");
@@ -1824,11 +1653,63 @@
           this.player.animStartTime = Date.now();
           this.player.col = col;
           this.player.row = row;
-          if (row >= this.lastRowIndex) {
+          this.checkTriggers(capturedType);
+          if (!this.gameIsOver && row >= this.lastRowIndex) {
             this.setGameIsOver(true, true);
           }
         }
       }
+    }
+
+    checkTriggers(capturedType) {
+      const block = this.blocks.find(
+        (b) =>
+          this.player.row >= b.startRow &&
+          this.player.row < b.startRow + b.rows.length
+      );
+      const rank = block ? this.player.row - block.startRow + 1 : null;
+      const file = this.player.col;
+
+      if (rank != null) {
+        for (let i = 0; i < this.script.length; i++) {
+          const beat = this.script[i];
+          if (!beat.trigger || beat.trigger === "start" || beat.trigger === "win" || beat.trigger === "lose") continue;
+          if (this.triggerMatches(beat.trigger, rank, file, capturedType)) {
+            this.activeBeat = i;
+            this.playBeat(beat);
+            break;
+          }
+        }
+      }
+
+      if (!block) return;
+      for (const cond of block.win) {
+        if (this.triggerMatches(cond, rank, file, capturedType)) {
+          this.fireTrigger("win");
+          this.setGameIsOver(true, true);
+          return;
+        }
+      }
+      for (const cond of block.loss) {
+        if (this.triggerMatches(cond, rank, file, capturedType)) {
+          this.fireTrigger("lose");
+          this.setGameIsOver(true, false);
+          return;
+        }
+      }
+    }
+
+    triggerMatches(trigger, rank, file, capturedType) {
+      return trigger.split(",").every((f) => {
+        f = f.trim();
+        const rm = /^(\d+)-rank$/.exec(f);
+        if (rm) return rank === parseInt(rm[1], 10);
+        const fm = /^([a-h])-file$/.exec(f);
+        if (fm) return file === fm[1].charCodeAt(0) - 97;
+        if (f === "capture") return !!capturedType;
+        if (/^[a-z]-capture$/.test(f)) return capturedType === f[0];
+        return false;
+      });
     }
 
     getThreateningCell(row, col) {
@@ -1838,10 +1719,10 @@
       if (threateningCell) {
         return threateningCell;
       }
-      //pawns
+      //White pawns (enemy) — Black pawns never check
       threateningCell =
-        this.getCellWithPieceAt(row + 1, col - 1, this.Piece.PAWN) ||
-        this.getCellWithPieceAt(row + 1, col + 1, this.Piece.PAWN);
+        this.getCellWithPieceAt(row + 1, col - 1, this.Piece.PAWN_W) ||
+        this.getCellWithPieceAt(row + 1, col + 1, this.Piece.PAWN_W);
       if (threateningCell) {
         return threateningCell;
       }
@@ -1851,7 +1732,7 @@
       for (j = col - 1; j >= 0; j--) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -1862,7 +1743,7 @@
       for (j = col + 1; j <= this.NUM_CELLS; j++) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -1873,7 +1754,7 @@
       for (i = row + 1; i <= row + this.NUM_CELLS; i++) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -1884,7 +1765,7 @@
       for (i = row - 1; i >= row - this.NUM_CELLS; i--) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -1897,7 +1778,7 @@
       for (j = col - 1, i = row - 1; j >= 0; j--, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP) {
+          if (cell.piece.type == this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -1908,7 +1789,7 @@
       for (j = col + 1, i = row - 1; j < this.NUM_CELLS; j++, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP) {
+          if (cell.piece.type == this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -1919,7 +1800,7 @@
       for (j = col - 1, i = row + 1; j >= 0; j--, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP) {
+          if (cell.piece.type == this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -1930,7 +1811,7 @@
       for (j = col + 1, i = row + 1; j < this.NUM_CELLS; j++, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP) {
+          if (cell.piece.type == this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -1938,14 +1819,14 @@
         }
       }
       threateningCell =
-        this.getCellWithPieceAt(row + 2, col - 1, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row - 2, col - 1, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row + 2, col + 1, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row - 2, col + 1, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row + 1, col - 2, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row - 1, col - 2, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row + 1, col + 2, this.Piece.KNIGHT) ||
-        this.getCellWithPieceAt(row - 1, col + 2, this.Piece.KNIGHT);
+        this.getCellWithPieceAt(row + 2, col - 1, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row - 2, col - 1, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row + 2, col + 1, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row - 2, col + 1, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row + 1, col - 2, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row - 1, col - 2, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row + 1, col + 2, this.Piece.KNIGHT_W) ||
+        this.getCellWithPieceAt(row - 1, col + 2, this.Piece.KNIGHT_W);
       return threateningCell;
     }
 
@@ -1957,6 +1838,17 @@
           return cell;
         }
       }
+    }
+
+    isBlackPiece(type) {
+      return (
+        type === this.Piece.KING_B ||
+        type === this.Piece.QUEEN_B ||
+        type === this.Piece.ROOK_B ||
+        type === this.Piece.BISHOP_B ||
+        type === this.Piece.KNIGHT_B ||
+        type === this.Piece.PAWN_B
+      );
     }
 
     destroyPiece(piece) {
@@ -2058,11 +1950,20 @@
       }
     }
 
-    showDialog(whiteKing, texts) {
-      if (whiteKing) {
-        this.svgInnerHtml(this.dialogSpeakerText, "White King :");
-      } else {
-        this.svgInnerHtml(this.dialogSpeakerText, "Black King :");
+    showDialog(actorStr, texts) {
+      if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+      this.skipIntroTweens();
+      this.introStartTime = Date.now();
+      const pieces = actorStr ? this.resolveActor(actorStr) : [];
+      this.svgInnerHtml(
+        this.dialogSpeakerText,
+        pieces.length ? this.speakerLabel(actorStr.split(",")[0].trim()) : ""
+      );
+      this.clearTalking();
+      const now = Date.now();
+      for (const piece of pieces) {
+        piece.talking = true;
+        piece.talkingStartTime = now;
       }
 
       let txt = "";
@@ -2077,7 +1978,66 @@
     }
 
     hideDialog() {
+      this.skipIntroTweens();
+      this.introStartTime = Date.now();
       this.addIntroTween(this.dialogBox, { _y: this.dialogCloseY }, 0, 0.5);
+    }
+
+    resolveActor(actorStr) {
+      const pieces = [];
+      for (const id of actorStr.split(",")) {
+        const piece = this.resolveSingleActor(id.trim());
+        if (piece && !pieces.includes(piece)) pieces.push(piece);
+      }
+      return pieces;
+    }
+
+    resolveSingleActor(id) {
+      const m = /^([A-Za-z])([a-h]?)(\d*)$/.exec(id);
+      if (!m) return null;
+      const type = this.SAN_TO_PIECE && this.SAN_TO_PIECE[m[1]];
+      if (!type) return null;
+      const file = m[2] ? m[2].charCodeAt(0) - 97 : null;
+      const rank = m[3] ? parseInt(m[3], 10) : null;
+      let match = null;
+      for (const row of this.checkBoard) {
+        if (!row) continue;
+        for (const cell of row) {
+          if (!cell || !cell.piece || cell.piece.type !== type) continue;
+          if (file !== null && cell.piece.col !== file) continue;
+          if (rank !== null) {
+            const block = this.blocks.find(
+              (b) =>
+                cell.piece.row >= b.startRow &&
+                cell.piece.row < b.startRow + b.rows.length
+            );
+            const pieceRank = block
+              ? cell.piece.row - block.startRow + 1
+              : cell.piece.row + 1;
+            if (pieceRank !== rank) continue;
+          }
+          if (match) return null; // ambiguous
+          match = cell.piece;
+        }
+      }
+      return match;
+    }
+
+    speakerLabel(sanLetter) {
+      const upper = sanLetter.toUpperCase();
+      const names = {
+        K: "King",
+        Q: "Queen",
+        R: "Rook",
+        B: "Bishop",
+        N: "Knight",
+        P: "Pawn",
+        W: "War Bear",
+        C: "Castle",
+        L: "Land Mine",
+      };
+      const name = names[upper] || upper;
+      return (sanLetter === upper ? "White " : "Black ") + name + " :";
     }
 
     restart(checkPointIndex) {
@@ -2094,6 +2054,7 @@
         }
       }
       this.killCount = this.checkpointKillCounts[checkPointIndex] || 0;
+      this.moveCount = this.checkpointMoveCounts[checkPointIndex] || 0;
 
       // Reinitialize game
       this.initCheckBoard(checkPointIndex);
@@ -2120,9 +2081,9 @@
     tic() {
       this.input.processInput();
       if (!this.gameIsOver) {
-        if (this.intro) {
-          this.updateIntro();
-        } else {
+        if (this.scriptBusy) {
+          this.updateScript();
+        } else if (!this.advancementStopped) {
           this.update();
         }
         this.render();
@@ -2136,9 +2097,11 @@
       if (win) {
         this.raf = false;
         this.gameIsOver = true;
+        this.won = true;
         this.winScreen.style.display = "block";
         this.audio.play("win");
       } else {
+        if (this.won) return;
         if (val != this.gameIsOver) {
           this.gameIsOver = val;
           if (this.gameIsOver) {
@@ -2153,6 +2116,8 @@
 
     update() {
       const now = Date.now();
+      this.updateView(now);
+      this.updateIntroTweens();
       if (this.lastTime) {
         this.progress +=
           this.progressPerSec * (now - this.lastTime) * this.MS_TO_S;
@@ -2246,6 +2211,13 @@
               const piece = row[colIndex].piece;
               const res = this.computeCellPos(piece.row, piece.col);
               Object.assign(piece, res);
+              if (piece.appearing) {
+                const ap = Math.min(1, (now - piece.appearTime) * this.MS_TO_S / 0.5);
+                const ae = Math.sin((ap * Math.PI) / 2);
+                piece.opacity = res.opacity * ae;
+                piece.scale = res.scale * (0.5 + 0.5 * ae);
+                if (ap >= 1) piece.appearing = false;
+              }
               if (piece.talking) {
                 const bounce =
                   -Math.abs(
@@ -2266,7 +2238,10 @@
           }
         }
       }
-      this.svgInnerHtml(this.captureCounterText, this.intro ? '' : 'Captures: ' + this.killCount);
+      const inGame = !this.scriptBusy && !this.advancementStopped;
+      this.svgInnerHtml(this.captureCounterText, inGame ? 'Captures: ' + this.killCount : '');
+      this.svgInnerHtml(this.moveCounterText, inGame ? 'Moves: ' + this.moveCount : '');
+      this.svgInnerHtml(this.deathCounterText, inGame ? 'Deaths: ' + this.checkMateCount : '');
 
       // Update player animation
       let playerAnimProgress;
@@ -2627,7 +2602,7 @@
         "text-anchor": "middle",
         "font-family": "Impact",
       });
-      this.svgInnerHtml(title, "CHECKMATE !");
+      this.svgInnerHtml(title, this.genericLoss[0] || "CHECKMATE !");
       this.gameOverScreen.appendChild(title);
 
       const hint = document.createElementNS(xmlns, "text");
@@ -2679,7 +2654,7 @@
       });
       this.svgInnerHtml(
         title,
-        'CHESS<tspan style="font-style:italic;">PURSUIT</tspan>'
+        this.title || 'CHESS<tspan style="font-style:italic;">PURSUIT</tspan>'
       );
       this.introScreen.appendChild(title);
     }
@@ -2805,7 +2780,7 @@
         "text-anchor": "middle",
         "font-family": "Impact",
       });
-      this.svgInnerHtml(title, "YOU WIN !");
+      this.svgInnerHtml(title, this.genericWin[0] || "YOU WIN !");
       this.winScreen.appendChild(title);
 
       const hint = document.createElementNS(xmlns, "text");
@@ -2819,7 +2794,7 @@
         "text-anchor": "middle",
         "font-family": "Impact",
       });
-      this.svgInnerHtml(hint, "Alas, your Queen is in another castle...");
+      this.svgInnerHtml(hint, this.genericWin[1] || "");
       this.winScreen.appendChild(hint);
     }
 
@@ -2854,9 +2829,37 @@
     }
   }
 
-  hook.loadChessPursuit = function (gameContainer) {
-    const game = new ChessPursuitGame();
-    game.load(gameContainer);
-    return () => game.setGameIsOver(true);
+  hook.loadChessPursuit = function (gameContainer, dataUrl) {
+    let game = null;
+    let disposed = false;
+    (async () => {
+      let levelData;
+      try {
+        const res = await fetch(dataUrl);
+        if (res.ok) {
+          levelData = await res.text();
+        }
+      } catch (e) {
+        console.error("Could not load Chess Pursuit data", e);
+      }
+      if (disposed) {
+        return;
+      }
+      if (!levelData) {
+        console.error("Chess Pursuit data is empty");
+      }
+      try {
+        game = new ChessPursuitGame();
+        game.load(gameContainer, levelData);
+      } catch (e) {
+        console.error("Could not start Chess Pursuit", e);
+      }
+    })();
+    return () => {
+      disposed = true;
+      if (game) {
+        game.setGameIsOver(true);
+      }
+    };
   };
 })(window.LiChessTools || window);

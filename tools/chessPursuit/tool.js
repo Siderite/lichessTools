@@ -77,10 +77,11 @@
             $(dlg)
               .addClass('lichessTools-chessPursuit')
 
+            const dataUrl = await lt.comm.getChromeUrl('tools/chessPursuit/ChessPursuit.dat');
             lt.global.setTimeout(()=>{
               dlg.focus();
               const container = $(dlg).find('.dialog-content')[0];
-              const dispose = LiChessTools.loadChessPursuit(container);
+              const dispose = LiChessTools.loadChessPursuit(container, dataUrl);
               $(dlg).on('keyup keydown',this.proxyKeyEvents);
               $(dlg).on('close',()=>{
                 dispose();
