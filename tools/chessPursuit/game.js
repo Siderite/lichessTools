@@ -49,6 +49,7 @@
       27: "esc",
       13: "enter",
       77: "mute", // m
+      78: "n", // n
     };
 
     /** Tracks whether a key is currently held down */
@@ -761,6 +762,12 @@
             }
           }
 
+          /*/ N: jump to the next block (checkpoint)
+          if (this.input.keys.n === 0 && !this.intro && !this.gameIsOver) {
+            this.input.keys.n = -1;
+            this.jumpToNextBlock();
+          }*/
+
           break;
       }
     };
@@ -877,229 +884,81 @@
       this.makePauseText();
       this.makeWinScreen();
 
-      //For convenience, shape defs are given in a [10,10] rect, transformed to [CELL_SIZE,CELL_SIZE] in actual SVG
-      //We also transform the shape positions so that the piece origin is [OX,OY]
+      //Piece shapes are authored as SVG markup in a 10x10 grid (origin [5,8]).
+      //makeDef scales/translates them so a <use> can position each piece on the board.
       this.svgStyle(
-        this.makeDef(this.Piece.PAWN, [
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [5, 3],
-            "L",
-            [2, 8],
-          ]),
-          this.makeCircle(5, 3, 2),
-        ]),
+        this.makeDef(
+          this.Piece.PAWN,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
+            <circle cx="5" cy="3" r="2"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.ENEMY_KING, [
-          this.makePath([
-            "M",
-            [4.6, 1.4],
-            "L",
-            [5.4, 1.4],
-            "L",
-            [5.4, -0.6],
-            "L",
-            [6.4, -0.6],
-            "L",
-            [6.4, -1.4],
-            "L",
-            [5.4, -1.4],
-            "L",
-            [5.4, -2.4],
-            "L",
-            [4.6, -2.4],
-            "L",
-            [4.6, -1.4],
-            "L",
-            [3.6, -1.4],
-            "L",
-            [3.6, -0.6],
-            "L",
-            [4.6, -0.6],
-            "L",
-            [4.6, 1.4],
-          ]),
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [6, 3],
-            "L",
-            [7, 1],
-            "Q",
-            [5, 0],
-            [3, 1],
-            "L",
-            [4, 3],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.ENEMY_KING,
+          `
+            <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
+            <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.KNIGHT, [
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [7, 6],
-            "Q",
-            [8, 3],
-            [7, 0],
-            "L",
-            [6, 1],
-            "L",
-            [5, 1],
-            "L",
-            [2, 4],
-            "L",
-            [3, 5],
-            "L",
-            [5, 4],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.KNIGHT,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.ROOK, [
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [6.5, 3],
-            "L",
-            [8, 2],
-            "L",
-            [8, 0],
-            "L",
-            [7, 0],
-            "L",
-            [7, 1],
-            "L",
-            [6, 1],
-            "L",
-            [6, 0],
-            "L",
-            [4, 0],
-            "L",
-            [4, 1],
-            "L",
-            [3, 1],
-            "L",
-            [3, 0],
-            "L",
-            [2, 0],
-            "L",
-            [2, 2],
-            "L",
-            [3.5, 3],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.ROOK,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.BISHOP, [
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [6, 4],
-            "Q",
-            [8, 1.1],
-            [5, 0],
-            "Q",
-            [2, 1.1],
-            [4, 4],
-            "L",
-            [2, 8],
-          ]),
-          this.makeCircle(5, 0, 0.7),
-          this.makePath(["M", [3.8, 0.8], "L", [4.4, 2.5]], {
-            "stroke-width": 2,
-          }),
-        ]),
+        this.makeDef(
+          this.Piece.BISHOP,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
+            <circle cx="5" cy="0" r="0.7"/>
+            <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.WAR_BEAR, [
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [8.5, 6],
-            "L",
-            [7, 7],
-            "L",
-            [7, 5],
-            "L",
-            [6, 6],
-            "L",
-            [5, 4.5],
-            "L",
-            [4, 6],
-            "L",
-            [3, 5],
-            "L",
-            [3, 7],
-            "L",
-            [1.5, 6],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.WAR_BEAR,
+          `
+            <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
+          `
+        ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
         0
       );
 
       const makePike = (x, y) => {
-        return this.makePath([
-          "M",
-          [x, y],
-          "L",
-          [x + 1, y],
-          "L",
-          [x + 0.5, y - 3],
-          "L",
-          [x, y],
-        ]);
+        return `<path d="M ${x} ${y} L ${x + 1} ${y} L ${x + 0.5} ${y - 3} L ${x} ${y}"/>`;
       };
 
       this.svgStyle(
@@ -1112,7 +971,7 @@
             makePike(7, 8),
             makePike(4, 7.5),
             makePike(1, 8.5),
-          ],
+          ].join("\n"),
           true
         ),
         this.PIECE_FILL_COLOR,
@@ -1121,85 +980,25 @@
       );
       //HERO_KING
       this.svgStyle(
-        this.makeDef(this.Piece.HERO_KING, [
-          this.makePath([
-            "M",
-            [4.6, 1.4],
-            "L",
-            [5.4, 1.4],
-            "L",
-            [5.4, -0.6],
-            "L",
-            [6.4, -0.6],
-            "L",
-            [6.4, -1.4],
-            "L",
-            [5.4, -1.4],
-            "L",
-            [5.4, -2.4],
-            "L",
-            [4.6, -2.4],
-            "L",
-            [4.6, -1.4],
-            "L",
-            [3.6, -1.4],
-            "L",
-            [3.6, -0.6],
-            "L",
-            [4.6, -0.6],
-            "L",
-            [4.6, 1.4],
-          ]),
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [6, 3],
-            "L",
-            [7, 1],
-            "Q",
-            [5, 0],
-            [3, 1],
-            "L",
-            [4, 3],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.HERO_KING,
+          `
+            <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
+            <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
+          `
+        ),
         "#002",
         "#333",
         0
       );
       this.svgStyle(
-        this.makeDef(this.Piece.QUEEN, [
-          this.makeCircle(5, 0.4, 0.6),
-          this.makePath([
-            "M",
-            [2, 8],
-            "Q",
-            [5, 10],
-            [8, 8],
-            "L",
-            [6, 3],
-            "L",
-            [7.5, 1],
-            "L",
-            [5.8, 1.5],
-            "L",
-            [5, 0.8],
-            "L",
-            [4.2, 1.5],
-            "L",
-            [2.5, 1],
-            "L",
-            [4, 3],
-            "L",
-            [2, 8],
-          ]),
-        ]),
+        this.makeDef(
+          this.Piece.QUEEN,
+          `
+            <circle cx="5" cy="0.4" r="0.6"/>
+            <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
+          `
+        ),
         "#002",
         "#333",
         0
@@ -1208,125 +1007,13 @@
       this.svgStyle(
         this.makeDef(
           this.Piece.CASTLE,
-          [
-            this.makePath(
-              [
-                "M",
-                [25, 30],
-                "L",
-                [50, 30],
-                "L",
-                [50, 5],
-                "L",
-                [45, 5],
-                "L",
-                [45, 10],
-                "L",
-                [40, 10],
-                "L",
-                [40, 5],
-                "L",
-                [35, 5],
-                "L",
-                [35, 10],
-                "L",
-                [30, 10],
-                "L",
-                [30, 5],
-                "L",
-                [25, 5],
-                "L",
-                [25, 30],
-              ],
-              null,
-              2.5,
-              50
-            ),
-            this.makePath(
-              [
-                "M",
-                [0, 50],
-                "L",
-                [0, 50],
-                "L",
-                [27.5, 50],
-                "L",
-                [27.5, 35],
-                "L",
-                [47.5, 35],
-                "L",
-                [47.5, 50],
-                "L",
-                [75, 50],
-                "L",
-                [75, 20],
-                "L",
-                [70, 20],
-                "L",
-                [70, 25],
-                "L",
-                [65, 25],
-                "L",
-                [65, 20],
-                "L",
-                [60, 20],
-                "L",
-                [60, 25],
-                "L",
-                [55, 25],
-                "L",
-                [55, 20],
-                "L",
-                [50, 20],
-                "L",
-                [50, 25],
-                "L",
-                [45, 25],
-                "L",
-                [45, 20],
-                "L",
-                [40, 20],
-                "L",
-                [40, 25],
-                "L",
-                [35, 25],
-                "L",
-                [35, 20],
-                "L",
-                [30, 20],
-                "L",
-                [30, 25],
-                "L",
-                [25, 25],
-                "L",
-                [25, 20],
-                "L",
-                [20, 20],
-                "L",
-                [20, 25],
-                "L",
-                [15, 25],
-                "L",
-                [15, 20],
-                "L",
-                [10, 20],
-                "L",
-                [10, 25],
-                "L",
-                [5, 25],
-                "L",
-                [5, 20],
-                "L",
-                [0, 20],
-                "L",
-                [0, 50],
-              ],
-              null,
-              2.5,
-              50
-            ),
-          ],
-          true
+          `
+            <path d="M 25 30 L 50 30 L 50 5 L 45 5 L 45 10 L 40 10 L 40 5 L 35 5 L 35 10 L 30 10 L 30 5 L 25 5 L 25 30"/>
+            <path d="M 0 50 L 0 50 L 27.5 50 L 27.5 35 L 47.5 35 L 47.5 50 L 75 50 L 75 20 L 70 20 L 70 25 L 65 25 L 65 20 L 60 20 L 60 25 L 55 25 L 55 20 L 50 20 L 50 25 L 45 25 L 45 20 L 40 20 L 40 25 L 35 25 L 35 20 L 30 20 L 30 25 L 25 25 L 25 20 L 20 20 L 20 25 L 15 25 L 15 20 L 10 20 L 10 25 L 5 25 L 5 20 L 0 20 L 0 50"/>
+          `,
+          true,
+          2.5,
+          50
         ),
         this.PIECE_FILL_COLOR,
         this.PIECE_STROKE_COLOR,
@@ -2394,14 +2081,16 @@
     }
 
     restart(checkPointIndex) {
-      // Find the checkpoint we were at
-      checkPointIndex ??= this.checkPoints.length - 1;
-      for (let i = 0; i < this.checkPoints.length; i++) {
-        if (this.progress < this.checkPoints[i]) {
-          if (i > 0) {
-            checkPointIndex = i - 1;
+      if (checkPointIndex === undefined) {
+        // Find the checkpoint we were at
+        checkPointIndex = this.checkPoints.length - 1;
+        for (let i = 0; i < this.checkPoints.length; i++) {
+          if (this.progress < this.checkPoints[i]) {
+            if (i > 0) {
+              checkPointIndex = i - 1;
+            }
+            break;
           }
-          break;
         }
       }
       this.killCount = this.checkpointKillCounts[checkPointIndex] || 0;
@@ -2413,6 +2102,19 @@
       this.lastTime = null;
       this.topRowDisplayed = -1;
       this.checkMateCount++;
+    }
+
+    jumpToNextBlock() {
+      let nextIndex = -1;
+      for (let i = 0; i < this.checkPoints.length; i++) {
+        if (this.player.row < this.checkPoints[i]) {
+          nextIndex = i;
+          break;
+        }
+      }
+      if (nextIndex !== -1) {
+        this.restart(nextIndex);
+      }
     }
 
     tic() {
@@ -2803,20 +2505,29 @@
     // SVG / DOM helpers
     // ---------------------------------------------------------------------
 
+    /** Parse an SVG markup string into element nodes (whitespace-only text ignored) */
+    makeElems(html) {
+      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement("div");
+      this._svgTmpDiv.innerHTML = `<svg>${html}</svg>`;
+      return Array.from(this._svgTmpDiv.firstChild.children);
+    }
+
     /** Create a <g> definition for a piece (used in <defs>) */
-    makeDef(id, shapes, skipShadow = false) {
+    makeDef(id, html, skipShadow = false, ox = 5, oy = 8) {
       const xmlns = "http://www.w3.org/2000/svg";
       const def = document.createElementNS(xmlns, "g");
       def.setAttributeNS(null, "id", id);
+      // Shapes are authored in a 10x10 grid with the piece origin at [ox,oy].
+      // Scale and translate so the origin maps to the def's local (0,0), where a
+      // <use> then positions the piece on the board.
+      const scale = this.CELL_SIZE / 10;
+      def.setAttributeNS(
+        null,
+        "transform",
+        `translate(${-scale * ox} ${-scale * oy}) scale(${scale})`
+      );
       if (!skipShadow) def.appendChild(this.makeShadow());
-      for (const shape of shapes) {
-        // circles / paths are already positioned relative to the piece origin
-        if (shape.getAttributeNS(null, "x")) {
-          // keep existing x/y (used for rects â€“ not needed here)
-        } else {
-          shape.setAttributeNS(null, "x", -this.CELL_SIZE / 2);
-          shape.setAttributeNS(null, "y", -this.CELL_SIZE);
-        }
+      for (const shape of this.makeElems(html)) {
         def.appendChild(shape);
       }
       this.defs.appendChild(def);
@@ -2846,57 +2557,18 @@
     }
 
     /** Piece shadow (ellipse) */
-    makeShadow(ox = 5, oy = 8) {
-      const shadow = this.makeEllipse(ox, oy, 3.1, 1.8);
-      this.svgStyle(shadow, "rgba(0,0,0,0.2)", "none");
+    makeShadow() {
+      const xmlns = "http://www.w3.org/2000/svg";
+      const shadow = document.createElementNS(xmlns, "ellipse");
+      this.svgAttrs(shadow, {
+        cx: 5,
+        cy: 8,
+        rx: 3.1,
+        ry: 1.8,
+        fill: "rgba(0,0,0,0.2)",
+        stroke: "none",
+      });
       return shadow;
-    }
-
-    /** <circle> */
-    makeCircle(cx, cy, r, ox = 5, oy = 8) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const circle = document.createElementNS(xmlns, "circle");
-      this.svgAttrs(circle, {
-        cx: this.svgFloat(cx - ox),
-        cy: this.svgFloat(cy - oy),
-        r: this.svgFloat(r),
-      });
-      return circle;
-    }
-
-    /** <ellipse> */
-    makeEllipse(cx, cy, rx, ry, ox = 5, oy = 8) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const ellipse = document.createElementNS(xmlns, "ellipse");
-      this.svgAttrs(ellipse, {
-        cx: this.svgFloat(cx - ox),
-        cy: this.svgFloat(cy - oy),
-        rx: this.svgFloat(rx),
-        ry: this.svgFloat(ry),
-      });
-      return ellipse;
-    }
-
-    /** <path> */
-    makePath(list, style = null, ox = 5, oy = 8) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const path = document.createElementNS(xmlns, "path");
-      path.setAttributeNS(null, "d", this.makePathString(list, ox, oy));
-      if (style) this.svgAttrs(path, style);
-      return path;
-    }
-
-    /** Build the "d" attribute string from a list of commands/coords */
-    makePathString(list, ox = 5, oy = 8) {
-      const path = [];
-      for (let i = 0; i < list.length; i++) {
-        let e = list[i];
-        if (typeof e == "object") {
-          e = this.svgFloat(e[0] - ox) + "," + this.svgFloat(e[1] - oy);
-        }
-        path.push(e);
-      }
-      return path.join(' ');
     }
 
     /** <use> element that references a definition */
@@ -2908,11 +2580,6 @@
       use.setAttributeNS(xlinkns, "xlink:href", "#" + id);
       use.setAttribute("xmlns:xlink", xlinkns);
       return use;
-    }
-
-    /** Round a float for SVG coordinates (CELL_SIZE * f ? 0.1 precision) */
-    svgFloat(f) {
-      return Math.round(this.CELL_SIZE * f) * 0.1;
     }
 
     /** <text> definition for the "CHECK" label */
