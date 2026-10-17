@@ -600,6 +600,64 @@
     P: 'Pawn', W: 'War Bear', C: 'Castle', L: 'Land Mine',
   };
 
+  // Injected into the game so the whole look can be restyled (and overridden by
+  // the tool's own stylesheet) via classes and the --cp-* custom properties.
+  // Canvas colours are read back in readPalette(); the PALETTE fallbacks below
+  // mirror these defaults.
+  const STYLE = `
+.lichessTools-chessPursuit-game {
+  --cp-bg-color: #193441;
+  --cp-cell-color-1: #D1DBBD;
+  --cp-cell-color-2: #3E606F;
+  --cp-rollover-color: #779944;
+  --cp-rollover-too-far-color: #889988;
+  --cp-invalid-rgb: 255,0,0;
+  --cp-checkpoint-color: #5DFFB68F;
+  --cp-sky-color: #FF8601;
+  --cp-sun-color: #FFE7CA;
+  --cp-mountain-rgb: 10,20,25;
+  --cp-piece-white-fill: #EEEEEE;
+  --cp-piece-white-stroke: #000000;
+  --cp-piece-black-fill: #000022;
+  --cp-piece-black-stroke: #555555;
+}
+
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-piece--white { fill: var(--cp-piece-white-fill); stroke: var(--cp-piece-white-stroke); stroke-width: 0; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-piece--black { fill: var(--cp-piece-black-fill); stroke: var(--cp-piece-black-stroke); stroke-width: 0; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-piece--pawn { stroke-width: 0.2; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-counter { font-size: 24px; fill: #55FF77; stroke: #000000; stroke-width: 1px; font-family: Impact; }
+
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen-overlay { fill: #00000080; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen--intro .lichessTools-chessPursuit-screen-overlay { fill: var(--cp-sky-color); stroke: #000000; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen-title { font-size: 48px; font-family: Impact; stroke: #000000; stroke-width: 2px; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen--gameover .lichessTools-chessPursuit-screen-title { fill: #FFA500; stroke: #FF0000; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen--win .lichessTools-chessPursuit-screen-title { fill: #55FF77; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen--intro .lichessTools-chessPursuit-screen-title { fill: #FFA500; stroke: #FF0000; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-screen-hint { font-size: 22px; fill: #FFFFFF; stroke: #000000; stroke-width: 1px; font-family: Impact; }
+
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-press-space { font-size: 22px; fill: #FFFFFF; stroke: #000000; stroke-width: 1px; font-family: Impact; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-pause { font-size: 32px; fill: #FFA500; stroke: #000000; stroke-width: 1px; font-family: Impact; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-check { font-size: 28px; fill: #FF0000; stroke: #000000; stroke-width: 1px; font-family: Impact; }
+
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-dialog-bg { fill: #000000CC; stroke: #FFFFFF; stroke-width: 2px; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-dialog-speaker { font-size: 18px; fill: #FFFFFF; font-family: Impact; }
+.lichessTools-chessPursuit-game .lichessTools-chessPursuit-dialog-text { font-size: 16px; fill: #FFFFFF; font-family: sans-serif; }
+`;
+
+  // Canvas colours read from the CSS palette above: [custom property, field, fallback].
+  const PALETTE = [
+    ['--cp-bg-color', 'BG_COLOR', '#193441'],
+    ['--cp-cell-color-1', 'CELL_COLOR_1', '#D1DBBD'],
+    ['--cp-cell-color-2', 'CELL_COLOR_2', '#3E606F'],
+    ['--cp-rollover-color', 'ROLLOVER_COLOR', '#779944'],
+    ['--cp-rollover-too-far-color', 'ROLLOVER_COLOR_TOO_FAR', '#889988'],
+    ['--cp-invalid-rgb', 'INVALID_CELL_COLOR_RGB', '255,0,0'],
+    ['--cp-checkpoint-color', 'CHECK_POINT_COLOR', '#5DFFB68F'],
+    ['--cp-sky-color', 'SKY_COLOR', '#FF8601'],
+    ['--cp-sun-color', 'SUN_COLOR', '#FFE7CA'],
+    ['--cp-mountain-rgb', 'MOUNTAIN_RGB', '10,20,25'],
+  ];
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
@@ -622,18 +680,6 @@
       // rows above the death line (progress). "5th from the bottom" = 4.
       this.BLOCK_VIEW_OFFSET = 4;
 
-      this.BG_COLOR = '#193441';
-      this.CELL_COLOR_1 = '#D1DBBD';
-      this.CELL_COLOR_2 = '#3E606F';
-      this.ROLLOVER_COLOR = '#794';
-      this.ROLLOVER_COLOR_TOO_FAR = '#898';
-      this.WHITE_PIECE_FILL_COLOR = '#eee';
-      this.WHITE_PIECE_STROKE_COLOR = '#555';
-      this.BLACK_PIECE_FILL_COLOR = '#002';
-      this.BLACK_PIECE_STROKE_COLOR = '#333';
-      this.INVALID_CELL_COLOR_RGB = '255,0,0';
-      this.CHECK_POINT_COLOR = 'rgba(93, 255, 182, 0.56)';
-
       this.MS_TO_S = 1 / 1000;
       this.THRESHOLD_DOWN = -0.02;
       this.THRESHOLD_UP = 0.02;
@@ -641,8 +687,27 @@
       this.svgCache = {};
     }
 
+    /** Inject the stylesheet that restyles the game (see STYLE above). */
+    injectStyles() {
+      const style = document.createElement('style');
+      style.textContent = STYLE;
+      this.root.appendChild(style);
+    }
+
+    /** Read the --cp-* palette from CSS so canvas drawing is overridable too. */
+    readPalette() {
+      const computed = window.getComputedStyle ? window.getComputedStyle(this.root) : null;
+      for (const [cssVar, field, fallback] of PALETTE) {
+        const value = computed ? computed.getPropertyValue(cssVar).trim() : '';
+        this[field] = value || fallback;
+      }
+    }
+
     load(gameContainer, levelData) {
       this.root = gameContainer;
+      this.root.classList.add('lichessTools-chessPursuit-game');
+      this.injectStyles();
+      this.readPalette();
 
       //------------------------------------------------------------------------------------------------------------------
       // game logic
@@ -671,6 +736,7 @@
       this.lastRowIndex = null;
       this.player = null;
       this.playerAnimDuration = 0.05;
+      this.pieceMoveDuration = 0.3;
       this.playerInvalidDuration = 0.5;
       this.pressSpaceText = null;
       this.pauseText = null;
@@ -701,7 +767,6 @@
       this.pendingGameOver = null;
       this.pendingGameOverText = null;
       this.boardRendered = false;
-      this.activeBlockIndex = -1;
 
       this.loadAudio();
       this.parseGameData(levelData);
@@ -849,13 +914,13 @@
       ctx.clearRect(0, 0, this.SIZE, this.SIZE);
       ctx.save();
       //Draw sky
-      ctx.fillStyle = '#FF8601';
+      ctx.fillStyle = this.SKY_COLOR;
       ctx.beginPath();
       ctx.rect(0, 0, this.SIZE, this.HORIZON_Y);
       ctx.fill();
       ctx.clip();
       //Draw sun
-      ctx.fillStyle = '#FFE7CA';
+      ctx.fillStyle = this.SUN_COLOR;
       const sunRadius = this.SIZE / 4;
       ctx.beginPath();
       ctx.arc(
@@ -870,7 +935,7 @@
       ctx.restore();
       //Draw Mountains
       ctx.beginPath();
-      ctx.fillStyle = 'rgb(10,20,25)';
+      ctx.fillStyle = 'rgb(' + this.MOUNTAIN_RGB + ')';
       const mountainMaxHeight = 40;
       const points = [
         0, 0.7, 0.1, 0.3, 0.2, 1, 0.3, 0.5, 0.35, 0.8, 0.42, 0.5, 0.55, 0.9,
@@ -892,10 +957,8 @@
       ctx.save();
       ctx.translate(0, this.HORIZON_Y);
       const grd = ctx.createLinearGradient(0, 0, 0, shadowSize);
-      const c = 'rgba(10,20,25,';
-      const c2 = ')';
-      grd.addColorStop(0, c + 1 + c2);
-      grd.addColorStop(1, c + 0 + c2);
+      grd.addColorStop(0, 'rgba(' + this.MOUNTAIN_RGB + ',1)');
+      grd.addColorStop(1, 'rgba(' + this.MOUNTAIN_RGB + ',0)');
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, shadowSize);
       ctx.restore();
@@ -937,34 +1000,26 @@
         `
             <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
             <circle cx="5" cy="3" r="2"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.KING_W,
         `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.KNIGHT_W,
         `
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.ROOK_W,
         `
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.BISHOP_W,
@@ -972,34 +1027,26 @@
             <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
             <circle cx="5" cy="0" r="0.7"/>
             <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.QUEEN_W,
         `
             <circle cx="5" cy="0.4" r="0.6"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.WAR_BEAR_W,
         `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
-          `,
-        this.WHITE_PIECE_FILL_COLOR,
-        this.WHITE_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.WAR_BEAR_B,
         `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
 
       const makePike = (x, y) => {
@@ -1015,26 +1062,22 @@
         makePike(1, 8.5),
       ].join('\n');
 
-      this.definePiece(this.Piece.LAND_MINE_W, minePikes, this.WHITE_PIECE_FILL_COLOR, this.WHITE_PIECE_STROKE_COLOR, { skipShadow: true });
-      this.definePiece(this.Piece.LAND_MINE_B, minePikes, this.BLACK_PIECE_FILL_COLOR, this.BLACK_PIECE_STROKE_COLOR, { skipShadow: true });
+      this.definePiece(this.Piece.LAND_MINE_W, minePikes, { skipShadow: true });
+      this.definePiece(this.Piece.LAND_MINE_B, minePikes, { skipShadow: true });
       // HERO_KING
       this.definePiece(
         this.Piece.KING_B,
         `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.QUEEN_B,
         `
             <circle cx="5" cy="0.4" r="0.6"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
 
       this.definePiece(
@@ -1042,17 +1085,13 @@
         `
             <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
             <circle cx="5" cy="3" r="2"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.KNIGHT_B,
         `
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.BISHOP_B,
@@ -1060,25 +1099,21 @@
             <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
             <circle cx="5" cy="0" r="0.7"/>
             <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
       this.definePiece(
         this.Piece.ROOK_B,
         `
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
-          `,
-        this.BLACK_PIECE_FILL_COLOR,
-        this.BLACK_PIECE_STROKE_COLOR
+          `
       );
       const castleMarkup = `
             <path d="M 25 30 L 50 30 L 50 5 L 45 5 L 45 10 L 40 10 L 40 5 L 35 5 L 35 10 L 30 10 L 30 5 L 25 5 L 25 30"/>
             <path d="M 0 50 L 0 50 L 27.5 50 L 27.5 35 L 47.5 35 L 47.5 50 L 75 50 L 75 20 L 70 20 L 70 25 L 65 25 L 65 20 L 60 20 L 60 25 L 55 25 L 55 20 L 50 20 L 50 25 L 45 25 L 45 20 L 40 20 L 40 25 L 35 25 L 35 20 L 30 20 L 30 25 L 25 25 L 25 20 L 20 20 L 20 25 L 15 25 L 15 20 L 10 20 L 10 25 L 5 25 L 5 20 L 0 20 L 0 50"/>
           `;
 
-      this.definePiece(this.Piece.CASTLE_W, castleMarkup, this.WHITE_PIECE_FILL_COLOR, this.WHITE_PIECE_STROKE_COLOR, { skipShadow: true, ox: 2.5, oy: 50 });
-      this.definePiece(this.Piece.CASTLE_B, castleMarkup, this.BLACK_PIECE_FILL_COLOR, this.BLACK_PIECE_STROKE_COLOR, { skipShadow: true, ox: 2.5, oy: 50 });
+      this.definePiece(this.Piece.CASTLE_W, castleMarkup, { skipShadow: true, ox: 2.5, oy: 50 });
+      this.definePiece(this.Piece.CASTLE_B, castleMarkup, { skipShadow: true, ox: 2.5, oy: 50 });
       this.makeCounter('captureCounterText', '10');
       this.makeCounter('moveCounterText', this.SIZE - 10, 'end');
       this.makeCounter('deathCounterText', '50%', 'middle');
@@ -1087,15 +1122,8 @@
     /** Create one of the three on-screen stat counters. */
     makeCounter(field, x, textAnchor) {
       const el = document.createElementNS(SVG_NS, 'text');
-      const attrs = {
-        x,
-        y: '30',
-        'font-size': '24px',
-        fill: '#5f7',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'font-family': 'Impact',
-      };
+      el.setAttribute('class', 'lichessTools-chessPursuit-counter');
+      const attrs = { x, y: '30' };
       if (textAnchor) attrs['text-anchor'] = textAnchor;
       this[field] = el;
       this.svgAttrs(el, attrs);
@@ -1108,11 +1136,9 @@
       const ctx = this.shadowCanvas.ctx;
       //Top down shadow
       const grd = ctx.createLinearGradient(0, 0, 0, this.SIZE);
-      const c = 'rgba(10,20,25,';
-      const c2 = ')';
-      grd.addColorStop(0, c + 0 + c2);
-      grd.addColorStop(0.2, c + 0 + c2);
-      grd.addColorStop(1, c + 0.5 + c2);
+      grd.addColorStop(0, 'rgba(' + this.MOUNTAIN_RGB + ',0)');
+      grd.addColorStop(0.2, 'rgba(' + this.MOUNTAIN_RGB + ',0)');
+      grd.addColorStop(1, 'rgba(' + this.MOUNTAIN_RGB + ',0.5)');
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, this.SIZE);
       ctx.restore();
@@ -1134,8 +1160,6 @@
       let currentBlockGeneric = null;
       let block = null;
       let pendingScript = [];
-      let pendingActions = [];
-      let pendingExitActions = [];
 
       const newBlock = () => ({
         checkpoint: false,
@@ -1144,8 +1168,6 @@
         loss: [],
         winText: [],
         lossText: [],
-        actions: pendingActions,
-        exitActions: pendingExitActions,
         script: pendingScript,
         state: 1,
         rows: [],
@@ -1165,23 +1187,16 @@
           } else if (head === 'screen') {
             currentBeat = { kind: 'screen', trigger: trigger || null, state: state, lines: [] };
             pendingScript.push(currentBeat);
-          } else if (head === 'block' && !trigger && state === null) {
-            // @block: hold the king (and pause the script) until the block scrolls into view.
-            currentBeat = { kind: 'block' };
+          } else if (head === 'block' && !trigger) {
+            // @block[/N]: hold the king (and pause the script) until the block scrolls into view.
+            currentBeat = { kind: 'block', offset: state };
             pendingScript.push(currentBeat);
           } else if (
-            ['2d', 'iso', 'stop', 'start'].includes(head) &&
+            ['2d', 'iso', 'stop', 'start', 'hide', 'show'].includes(head) &&
             !trigger &&
             state === null
           ) {
-            if (block && !block.checkpoint) {
-              block.actions.push(head);
-            } else if (pendingScript.length === 0) {
-              pendingActions.push(head);
-            } else {
-              pendingExitActions.push(head);
-            }
-          } else if ((head === 'hide' || head === 'show') && !trigger && state === null) {
+            // View/scroll actions are script beats so they play in order with @block and text.
             currentBeat = { kind: 'action', action: head };
             pendingScript.push(currentBeat);
           } else if (head === 'win' || head === 'loss') {
@@ -1190,8 +1205,6 @@
                 block = newBlock();
                 this.blocks.push(block);
                 pendingScript = [];
-                pendingActions = [];
-                pendingExitActions = [];
               }
               if (head === 'win') {
                 block.win.push(trigger);
@@ -1204,18 +1217,14 @@
               currentGeneric = head;
             }
           } else if (head === 'checkpoint') {
-            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], actions: [], script: [], state: 1, rows: [] });
+            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], script: [], state: 1, rows: [] });
             block = null;
             pendingScript = [];
-            pendingActions = [];
-            pendingExitActions = [];
           } else if (head.startsWith('showThreat')) {
             if (!block || block.checkpoint) {
               block = newBlock();
               this.blocks.push(block);
               pendingScript = [];
-              pendingActions = [];
-              pendingExitActions = [];
             }
             block.showThreat = head.slice('showThreat'.length).trim();
           } else {
@@ -1240,8 +1249,6 @@
               block = newBlock();
               this.blocks.push(block);
               pendingScript = [];
-              pendingActions = [];
-              pendingExitActions = [];
             }
             block.rows.push(line.split('/').map((s) => s.trim()));
           } else if (currentGeneric === 'win') {
@@ -1412,11 +1419,6 @@
       if (first === 0) {
         this.activeBeat = first;
         this.playBeat(script[first]);
-      } else {
-        this.enterBlock(blockIndex);
-        if (first < 0) {
-          this.runExitActions(blockIndex);
-        }
       }
     }
 
@@ -1438,8 +1440,9 @@
         // Title screen stays until the player dismisses it (SPACE/CLICK).
       } else if (beat.kind === 'block') {
         const block = this.activeScriptBlockIndex >= 0 ? this.blocks[this.activeScriptBlockIndex] : null;
-        if (block && this.progress < block.startRow - this.BLOCK_VIEW_OFFSET) {
-          this.blockWait = { blockIndex: this.activeScriptBlockIndex, startRow: block.startRow };
+        const offset = beat.offset != null ? beat.offset : this.BLOCK_VIEW_OFFSET;
+        if (block && this.progress < block.startRow - offset) {
+          this.blockWait = { blockIndex: this.activeScriptBlockIndex, startRow: block.startRow, offset };
         } else {
           this.advanceBeat();
         }
@@ -1465,8 +1468,6 @@
         this.clearTalking();
         if (this.introScreen) this.introScreen.style.display = 'none';
         if (this.pressSpaceText) this.pressSpaceText.style.display = 'none';
-        this.runExitActions(this.currentBlockIndex());
-        this.enterBlock(this.currentBlockIndex());
       }
     }
 
@@ -1496,16 +1497,6 @@
       );
     }
 
-    enterBlock(blockIndex) {
-      if (blockIndex === this.activeBlockIndex) return;
-      this.activeBlockIndex = blockIndex;
-      const block = this.blocks[blockIndex];
-      if (!block) return;
-      for (const action of block.actions || []) {
-        this.runAction(action);
-      }
-    }
-
     runAction(action) {
       if (action === '2d') {
         this.setView(true);
@@ -1519,14 +1510,6 @@
         this.player.hidden = true;
       } else if (action === 'show') {
         this.player.hidden = false;
-      }
-    }
-
-    runExitActions(blockIndex) {
-      const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
-      if (!block) return;
-      for (const action of block.exitActions || []) {
-        this.runAction(action);
       }
     }
 
@@ -1566,6 +1549,11 @@
       const oldState = b.state || 1;
       if (oldState === state) return;
       b.state = state;
+
+      // Collect every changed cell: pieces leaving a square (removals) and
+      // pieces arriving on a square (additions).
+      const removals = [];
+      const additions = [];
       for (let i = 0; i < b.rows.length; i++) {
         const variants = b.rows[i];
         if (variants.length <= 1) continue;
@@ -1578,23 +1566,102 @@
           const oldChar = oldRow.charAt(j);
           const newChar = newRow.charAt(j);
           if (oldChar === newChar) continue;
-          if (oldChar !== '.' && oldChar !== ' ' && rowArray && rowArray[j] && rowArray[j].piece) {
-            this.destroyPiece(rowArray[j].piece);
+          if (
+            oldChar !== '.' &&
+            oldChar !== ' ' &&
+            rowArray &&
+            rowArray[j] &&
+            rowArray[j].piece
+          ) {
+            removals.push({ char: oldChar, row: boardRow, col: j, piece: rowArray[j].piece });
             rowArray[j] = {};
           }
           if (newChar !== '.' && newChar !== ' ') {
-            const pieceCell = this.addPieceAt(newChar, boardRow, j);
-            pieceCell.piece.appearing = true;
-            pieceCell.piece.appearTime = Date.now();
-            if (
-              this.topRowDisplayed >= 0 &&
-              boardRow >= this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5 &&
-              boardRow <= this.topRowDisplayed
-            ) {
-              this.addSvgShape(pieceCell.piece);
-            }
+            additions.push({ char: newChar, row: boardRow, col: j });
           }
         }
+      }
+
+      // Pair removals with additions of the same piece letter: those pieces
+      // "moved" and should slide onto their new square (capturing whatever was
+      // there). Greedy closest-first matching by letter keeps nearby pairs
+      // together when several pieces share a letter.
+      const usedRemovals = new Set();
+      const usedAdditions = new Set();
+      const moves = [];
+      for (let a = 0; a < additions.length; a++) {
+        if (usedAdditions.has(a)) continue;
+        const add = additions[a];
+        let best = -1;
+        let bestDist = Infinity;
+        for (let r = 0; r < removals.length; r++) {
+          if (usedRemovals.has(r)) continue;
+          const rem = removals[r];
+          if (rem.char !== add.char) continue;
+          const dist = Math.abs(rem.row - add.row) + Math.abs(rem.col - add.col);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = r;
+          }
+        }
+        if (best >= 0) {
+          usedAdditions.add(a);
+          usedRemovals.add(best);
+          moves.push({
+            piece: removals[best].piece,
+            fromRow: removals[best].row,
+            fromCol: removals[best].col,
+            toRow: add.row,
+            toCol: add.col,
+          });
+        }
+      }
+
+      // Slide moved pieces to their new squares.
+      for (const move of moves) {
+        this.movePieceTo(move.piece, move.fromRow, move.fromCol, move.toRow, move.toCol);
+      }
+
+      // Removed pieces with no matching addition were captured or vanished.
+      for (let r = 0; r < removals.length; r++) {
+        if (!usedRemovals.has(r)) this.destroyPiece(removals[r].piece);
+      }
+
+      // Additions with no matching removal are brand-new pieces fading in.
+      for (let a = 0; a < additions.length; a++) {
+        if (usedAdditions.has(a)) continue;
+        const add = additions[a];
+        const pieceCell = this.addPieceAt(add.char, add.row, add.col);
+        pieceCell.piece.appearing = true;
+        pieceCell.piece.appearTime = Date.now();
+        if (
+          this.topRowDisplayed >= 0 &&
+          add.row >= this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5 &&
+          add.row <= this.topRowDisplayed
+        ) {
+          this.addSvgShape(pieceCell.piece);
+        }
+      }
+    }
+
+    /** Move a piece to a new square, animating the slide (used for state changes). */
+    movePieceTo(piece, fromRow, fromCol, toRow, toCol) {
+      if (!this.checkBoard[toRow]) this.checkBoard[toRow] = [];
+      if (!this.checkBoard[toRow][toCol]) this.checkBoard[toRow][toCol] = {};
+      this.checkBoard[toRow][toCol].piece = piece;
+      piece.row = toRow;
+      piece.col = toCol;
+      piece.fromRow = fromRow;
+      piece.fromCol = fromCol;
+      piece.moving = true;
+      piece.moveStartTime = Date.now();
+      if (
+        !piece.shape &&
+        this.topRowDisplayed >= 0 &&
+        toRow >= this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5 &&
+        toRow <= this.topRowDisplayed
+      ) {
+        this.addSvgShape(piece);
       }
     }
 
@@ -1728,11 +1795,10 @@
     /** Clamp a row index to the playable vertical range. */
     clampRow(row) {
       const rowMin = Math.floor(this.progress);
-      const rowMax = this.topRowDisplayed - 2;
       if (row < rowMin) {
         row = rowMin;
-      } else if (row >= rowMax) {
-        row = rowMax;
+      } else if (!this.scrollingStopped && row >= this.topRowDisplayed - 2) {
+        row = this.topRowDisplayed - 2;
       }
       if (this.blockWait && row > this.blockWait.startRow) {
         row = this.blockWait.startRow;
@@ -2025,6 +2091,16 @@
       );
     }
 
+    /** 'white' for uppercase pieces, 'black' for lowercase (includes castles). */
+    pieceScheme(type) {
+      return type === type.toLowerCase() ? 'black' : 'white';
+    }
+
+    /** Pawns are outline shapes (circle + triangle) that need a visible border. */
+    isPawn(type) {
+      return type === this.Piece.PAWN_W || type === this.Piece.PAWN_B;
+    }
+
     destroyPiece(piece) {
       this.removedPieces.push(piece);
       piece.removedTime = Date.now();
@@ -2099,6 +2175,11 @@
         shape = this.svgCache[piece.type].pop();
       } else {
         shape = this.makeUse(piece.type);
+        const shapeClass = piece.type === this.SVG.CHECK_TEXT
+          ? 'lichessTools-chessPursuit-check'
+          : 'lichessTools-chessPursuit-piece lichessTools-chessPursuit-piece--' + this.pieceScheme(piece.type)
+            + (this.isPawn(piece.type) ? ' lichessTools-chessPursuit-piece--pawn' : '');
+        shape.setAttribute('class', shapeClass);
       }
 
       // Important: elements added to top -> prepend to maintain draw order
@@ -2250,8 +2331,6 @@
       this.scriptBusy = false;
       this.blockWait = null;
       this.activeScript = [];
-      this.activeBlockIndex = -1;
-      this.enterBlock(this.currentBlockIndex());
 
       // Prepare next update
       this.lastTime = null;
@@ -2277,7 +2356,7 @@
       if (!this.gameIsOver) {
         if (this.scriptBusy) {
           this.updateScript();
-        } else if (!this.scrollingStopped) {
+        } else {
           this.update();
         }
         this.render();
@@ -2319,11 +2398,11 @@
       const now = Date.now();
       this.updateView(now);
       this.updateIntroTweens();
-      if (this.lastTime) {
+      if (!this.scrollingStopped && this.lastTime) {
         this.progress +=
           this.progressPerSec * (now - this.lastTime) * this.MS_TO_S;
       }
-      if (this.blockWait && this.progress >= this.blockWait.startRow - this.BLOCK_VIEW_OFFSET) {
+      if (this.blockWait && this.progress >= this.blockWait.startRow - this.blockWait.offset) {
         this.blockWait = null;
         this.advanceBeat();
       }
@@ -2352,7 +2431,10 @@
       }
 
       //update checkboard based on progress
-      const topRow = Math.floor(this.progress) + this.NUM_CELLS_DISPLAYED;
+      const topRow = Math.max(
+        Math.floor(this.progress) + this.NUM_CELLS_DISPLAYED,
+        this.player.row + 2
+      );
       if (!this.lastTime || this.topRowDisplayed < topRow) {
         let row, colIndex, changes;
         //Destroy out of view rows
@@ -2540,6 +2622,19 @@
           const piece = row[colIndex].piece;
           const res = this.computeCellPos(piece.row, piece.col);
           Object.assign(piece, res);
+          if (piece.moving) {
+            const mp = Math.min(1, (now - piece.moveStartTime) * this.MS_TO_S / this.pieceMoveDuration);
+            if (mp >= 1) {
+              piece.moving = false;
+            } else {
+              const eased = Math.sin((mp * Math.PI) / 2);
+              const oldPos = this.computeCellPos(piece.fromRow, piece.fromCol);
+              piece.opacity = res.opacity * eased + oldPos.opacity * (1 - eased);
+              piece.scale = res.scale * eased + oldPos.scale * (1 - eased);
+              piece.x = res.x * eased + oldPos.x * (1 - eased);
+              piece.y = res.y * eased + oldPos.y * (1 - eased);
+            }
+          }
           if (piece.appearing) {
             const ap = Math.min(1, (now - piece.appearTime) * this.MS_TO_S / 0.5);
             const ae = Math.sin((ap * Math.PI) / 2);
@@ -2733,15 +2828,6 @@
       nodes.forEach((node) => svg.appendChild(node));
     }
 
-    /** Convenience for fill / stroke */
-    svgStyle(svgElem, fill, stroke, strokeWidth) {
-      const attrs = {};
-      if (fill !== undefined) attrs.fill = fill;
-      if (stroke !== undefined) attrs.stroke = stroke;
-      if (strokeWidth !== undefined) attrs['stroke-width'] = strokeWidth;
-      return this.svgAttrs(svgElem, attrs);
-    }
-
     /** Parse an SVG markup string into element nodes (whitespace-only text ignored) */
     makeElems(html) {
       if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
@@ -2770,10 +2856,10 @@
       return def;
     }
 
-    /** Define a piece in <defs> and style it (convenience around makeDef + svgStyle). */
-    definePiece(id, html, fill, stroke, options = {}) {
+    /** Define a piece shape in <defs> (the <use> element carries the styling class). */
+    definePiece(id, html, options = {}) {
       const { skipShadow = false, ox = 5, oy = 8 } = options;
-      this.svgStyle(this.makeDef(id, html, skipShadow, ox, oy), fill, stroke, 0);
+      this.makeDef(id, html, skipShadow, ox, oy);
     }
 
     makeFilter(id) {
@@ -2788,14 +2874,14 @@
       });
       this.svgInnerHtml(
         def,
-        '<feFlood flood-color="rgba(255,0,0,0.3)" result="COLOR"></feFlood>' +
+        '<feFlood flood-color="#FF0000" flood-opacity="0.3" result="COLOR"></feFlood>' +
           '<feComposite operator="atop" in="COLOR" in2="SourceGraphic"></feComposite>'
       );
       this.defs.appendChild(def);
       return def;
     }
 
-    /** Piece shadow (ellipse) */
+    /** Piece shadow (ellipse); styled via attributes so it survives <use> cloning. */
     makeShadow() {
       const shadow = document.createElementNS(SVG_NS, 'ellipse');
       this.svgAttrs(shadow, {
@@ -2803,7 +2889,8 @@
         cy: 8,
         rx: 3.1,
         ry: 1.8,
-        fill: 'rgba(0,0,0,0.2)',
+        fill: '#000000',
+        'fill-opacity': 0.2,
         stroke: 'none',
       });
       return shadow;
@@ -2822,14 +2909,8 @@
     makeCheckTextDef(id, text) {
       const txt = document.createElementNS(SVG_NS, 'text');
       txt.setAttributeNS(null, 'id', id);
-      this.svgAttrs(txt, {
-        x: '-40',
-        'font-size': '28',
-        fill: 'red',
-        stroke: 'black',
-        'stroke-width': '1',
-        'font-family': 'Impact',
-      });
+      txt.setAttribute('class', 'lichessTools-chessPursuit-check');
+      this.svgAttrs(txt, { x: '-40' });
       this.svgInnerHtml(txt, text);
       this.defs.appendChild(txt);
     }
@@ -2837,48 +2918,28 @@
     /** Game-over overlay */
     makeGameOverScreen() {
       this.gameOverScreen = document.createElementNS(SVG_NS, 'g');
+      this.gameOverScreen.setAttribute('class', 'lichessTools-chessPursuit-screen lichessTools-chessPursuit-screen--gameover');
       this.gameOverScreen.style.display = 'none';
       this.svgElem.appendChild(this.gameOverScreen);
 
       const rect = document.createElementNS(SVG_NS, 'rect');
-      this.svgAttrs(rect, {
-        x: 0,
-        y: 0,
-        width: '100%',
-        height: '100%',
-        fill: 'rgba(0,0,0,0.5)',
-      });
+      rect.setAttribute('class', 'lichessTools-chessPursuit-screen-overlay');
+      this.svgAttrs(rect, { x: 0, y: 0, width: '100%', height: '100%' });
       this.gameOverScreen.appendChild(rect);
 
       const title = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(title, {
-        x: '50%',
-        y: '50%',
-        'font-size': '48px',
-        fill: 'orange',
-        stroke: 'red',
-        'stroke-width': '2px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      title.setAttribute('class', 'lichessTools-chessPursuit-screen-title');
+      this.svgAttrs(title, { x: '50%', y: '50%', 'text-anchor': 'middle' });
       this.svgInnerHtml(title, this.genericLoss[0] || 'CHECKMATE !');
       this.gameOverScreen.appendChild(title);
       this.gameOverTitle = title;
 
       const hint = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(hint, {
-        x: '50%',
-        y: '60%',
-        'font-size': '22px',
-        fill: 'white',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      hint.setAttribute('class', 'lichessTools-chessPursuit-screen-hint');
+      this.svgAttrs(hint, { x: '50%', y: '60%', 'text-anchor': 'middle' });
       this.svgInnerHtml(
         hint,
-        `<tspan x="50%">Press <tspan style="fill:orange;">SPACE</tspan> or <tspan style="fill:orange;">CLICK</tspan></tspan>` +
+        `<tspan x="50%">Press <tspan style="fill:#FFA500;">SPACE</tspan> or <tspan style="fill:#FFA500;">CLICK</tspan></tspan>` +
           `<tspan x="50%" dy="1.5em">to restart from the last checkpoint.</tspan>`
       );
       this.gameOverScreen.appendChild(hint);
@@ -2887,30 +2948,17 @@
     /** Intro title screen */
     makeIntroScreen() {
       this.introScreen = document.createElementNS(SVG_NS, 'g');
+      this.introScreen.setAttribute('class', 'lichessTools-chessPursuit-screen lichessTools-chessPursuit-screen--intro');
       this.svgElem.appendChild(this.introScreen);
 
       const rect = document.createElementNS(SVG_NS, 'rect');
-      this.svgAttrs(rect, {
-        x: 0,
-        y: 0,
-        width: '100%',
-        height: this.HORIZON_Y,
-        fill: '#FF8601',
-        stroke: '#000',
-      });
+      rect.setAttribute('class', 'lichessTools-chessPursuit-screen-overlay');
+      this.svgAttrs(rect, { x: 0, y: 0, width: '100%', height: this.HORIZON_Y });
       this.introScreen.appendChild(rect);
 
       const title = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(title, {
-        x: '50%',
-        y: '60',
-        'font-size': '48px',
-        fill: 'orange',
-        stroke: 'red',
-        'stroke-width': '2px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      title.setAttribute('class', 'lichessTools-chessPursuit-screen-title');
+      this.svgAttrs(title, { x: '50%', y: '60', 'text-anchor': 'middle' });
       this.svgInnerHtml(
         title,
         this.title || 'CHESS<tspan style="font-style:italic;">PURSUIT</tspan>'
@@ -2921,19 +2969,11 @@
     /** "Press SPACE or CLICK" prompt */
     makePressSpaceText() {
       this.pressSpaceText = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(this.pressSpaceText, {
-        x: '50%',
-        y: this.HORIZON_Y + this.SIZE - 10,
-        'font-size': '22px',
-        fill: 'white',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      this.pressSpaceText.setAttribute('class', 'lichessTools-chessPursuit-press-space');
+      this.svgAttrs(this.pressSpaceText, { x: '50%', y: this.HORIZON_Y + this.SIZE - 10, 'text-anchor': 'middle' });
       this.svgInnerHtml(
         this.pressSpaceText,
-        'Press <tspan style="fill:orange;">SPACE</tspan> or <tspan style="fill:orange;">CLICK</tspan>'
+        'Press <tspan style="fill:#FFA500;">SPACE</tspan> or <tspan style="fill:#FFA500;">CLICK</tspan>'
       );
       this.svgElem.appendChild(this.pressSpaceText);
     }
@@ -2941,16 +2981,8 @@
     /** Paused overlay */
     makePauseText() {
       this.pauseText = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(this.pauseText, {
-        x: '50%',
-        y: '50%',
-        'font-size': '32px',
-        fill: 'orange',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      this.pauseText.setAttribute('class', 'lichessTools-chessPursuit-pause');
+      this.svgAttrs(this.pauseText, { x: '50%', y: '50%', 'text-anchor': 'middle' });
       this.svgInnerHtml(this.pauseText, 'PAUSED');
       this.pauseText.style.display = 'none';
       this.svgElem.appendChild(this.pauseText);
@@ -2966,6 +2998,7 @@
         this.HORIZON_Y + this.SIZE - height - this.DIALOG_MARGIN;
 
       this.dialogBox = document.createElementNS(SVG_NS, 'svg');
+      this.dialogBox.setAttribute('class', 'lichessTools-chessPursuit-dialog');
       this.dialogBox._y = this.dialogCloseY; // used for tweening
       this.svgAttrs(this.dialogBox, {
         x: this.DIALOG_MARGIN,
@@ -2976,80 +3009,43 @@
       this.svgElem.appendChild(this.dialogBox);
 
       const rect = document.createElementNS(SVG_NS, 'rect');
-      this.svgAttrs(rect, {
-        width: '100%',
-        height: '100%',
-        fill: 'rgba(0,0,0,0.8)',
-        stroke: '#fff',
-        'stroke-width': 2,
-      });
+      rect.setAttribute('class', 'lichessTools-chessPursuit-dialog-bg');
+      this.svgAttrs(rect, { width: '100%', height: '100%' });
       this.dialogBox.appendChild(rect);
 
       this.dialogSpeakerText = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(this.dialogSpeakerText, {
-        x: 10,
-        y: 20,
-        'font-size': '18px',
-        fill: '#fff',
-        'text-anchor': 'left',
-        'font-family': 'Impact',
-      });
+      this.dialogSpeakerText.setAttribute('class', 'lichessTools-chessPursuit-dialog-speaker');
+      this.svgAttrs(this.dialogSpeakerText, { x: 10, y: 20, 'text-anchor': 'left' });
       this.dialogBox.appendChild(this.dialogSpeakerText);
 
       this.dialogText = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(this.dialogText, {
-        x: 10,
-        y: 40,
-        'font-size': '16px',
-        fill: '#fff',
-        'text-anchor': 'left',
-        'font-family': 'sans-serif',
-      });
+      this.dialogText.setAttribute('class', 'lichessTools-chessPursuit-dialog-text');
+      this.svgAttrs(this.dialogText, { x: 10, y: 40, 'text-anchor': 'left' });
       this.dialogBox.appendChild(this.dialogText);
     }
 
     /** Win screen */
     makeWinScreen() {
       this.winScreen = document.createElementNS(SVG_NS, 'g');
+      this.winScreen.setAttribute('class', 'lichessTools-chessPursuit-screen lichessTools-chessPursuit-screen--win');
       this.winScreen.style.display = 'none';
       this.svgElem.appendChild(this.winScreen);
 
       const rect = document.createElementNS(SVG_NS, 'rect');
-      this.svgAttrs(rect, {
-        x: 0,
-        y: 0,
-        width: '100%',
-        height: '100%',
-        fill: 'rgba(0,0,0,0.5)',
-      });
+      rect.setAttribute('class', 'lichessTools-chessPursuit-screen-overlay');
+      this.svgAttrs(rect, { x: 0, y: 0, width: '100%', height: '100%' });
       this.winScreen.appendChild(rect);
 
       const title = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(title, {
-        x: '50%',
-        y: '50%',
-        'font-size': '48px',
-        fill: '#5f7',
-        stroke: 'black',
-        'stroke-width': '2px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      title.setAttribute('class', 'lichessTools-chessPursuit-screen-title');
+      this.svgAttrs(title, { x: '50%', y: '50%', 'text-anchor': 'middle' });
       this.svgInnerHtml(title, this.genericWin[0] || 'YOU WIN !');
       this.winScreen.appendChild(title);
       this.winTitle = title;
 
       const hint = document.createElementNS(SVG_NS, 'text');
-      this.svgAttrs(hint, {
-        x: '50%',
-        y: '60%',
-        'font-size': '22px',
-        fill: 'white',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'text-anchor': 'middle',
-        'font-family': 'Impact',
-      });
+      hint.setAttribute('class', 'lichessTools-chessPursuit-screen-hint');
+      this.svgAttrs(hint, { x: '50%', y: '60%', 'text-anchor': 'middle' });
       this.svgInnerHtml(hint, this.genericWin[1] || '');
       this.winScreen.appendChild(hint);
       this.winHint = hint;

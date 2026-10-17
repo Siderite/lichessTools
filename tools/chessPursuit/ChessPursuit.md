@@ -207,11 +207,31 @@ How to read `@k/2-rank/1`:
 
 > **The number at the very end is always the state.** Everything before it is the trigger.
 
+### A piece that moves — capture!
+
+If the **same letter** sits on a different square in the next state, the game treats it as that piece *moving*: it slides to its new square, and whatever it lands on is captured.
+
+```
+wK....../.w......
+```
+
+- state 1: a black war bear `w` on `a`, the White King `K` on `b`
+- state 2: the war bear on `b` — it **slides onto the King and captures him**
+
+Trigger it with a speech that ends in `/2`:
+
+```
+@k/2
+Meet my new pet!
+```
+
+The war bear glides from `a` to `b`, the King flies off, and the war bear takes his square.
+
 ---
 
 ## 5. Block commands
 
-Some `@` lines are not speech — they are **commands**. They run when the player enters the block:
+Some `@` lines are not speech — they are **commands**. They are part of the script and play in order, exactly where you place them (mixed with any speech):
 
 | Command | What it does |
 | --- | --- |
@@ -219,7 +239,8 @@ Some `@` lines are not speech — they are **commands**. They run when the playe
 | `@iso` | look at the board in 3D (tilted) |
 | `@stop` | stop the screen from scrolling up |
 | `@start` | start the screen scrolling up again |
-| `@block` | hold the king and the story until the block scrolls fully into view |
+| `@block` | hold the king and the story until the block scrolls into view (default: its start row is 4 rows above the death line) |
+| `@block/N` | same, but with N rows instead of the default 4 (e.g. `@block/5`) |
 | `@hide` | make the king invisible (he's still there) |
 | `@show` | make the king visible again |
 | `@checkpoint` | a save point — die, and you restart here |
@@ -238,6 +259,18 @@ Example:
 ```
 
 The view tilts to 3D, the screen starts moving, and the Rook's attack squares light up so the player sees where NOT to step.
+
+> Commands play in the order you write them. To hold the king before switching views, put `@block` before `@2d`/`@stop`:
+
+```
+@block
+@2d
+@stop
+@k
+Give me back my queen!
+```
+
+Here the king is held until the block is in view, then the view flattens, the scroll stops, and the speech plays.
 
 > The screen starts **stopped**. Use `@start` to make it chase the player.
 
