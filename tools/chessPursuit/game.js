@@ -2,11 +2,11 @@
   class Canvas {
 
     constructor(id, width, height) {
-      this.canvas = document.createElement("canvas");
+      this.canvas = document.createElement('canvas');
       this.canvas.id = id;
       this.canvas.width = width;
       this.canvas.height = height;
-      this.ctx = this.canvas.getContext("2d");
+      this.ctx = this.canvas.getContext('2d');
     }
 
     appendTo(parent) {
@@ -20,11 +20,11 @@
 
     top(value) {
       if (value === undefined) return parseFloat(this.canvas.style.top);
-      this.canvas.style.top = value+'px';
+      this.canvas.style.top = value + 'px';
     }
 
     pointerEvents(value) {
-      if (value === undefined) return this.canvas.style.pointerEvents != 'none';
+      if (value === undefined) return this.canvas.style.pointerEvents !== 'none';
       this.canvas.style.pointerEvents = value ? undefined : 'none';
     }
   }
@@ -35,21 +35,21 @@
 
     /** Map of key codes -> logical key names */
     keyMap = {
-      37: "left", // left arrow
-      65: "left", // a
-      81: "left", // q
-      38: "up", // up arrow
-      90: "up", // z
-      87: "up", // w
-      83: "down", // s
-      40: "down", // down arrow
-      39: "right", // right arrow
-      68: "right", // d
-      32: "space", // space
-      27: "esc",
-      13: "enter",
-      77: "mute", // m
-      78: "n", // n
+      37: 'left', // left arrow
+      65: 'left', // a
+      81: 'left', // q
+      38: 'up', // up arrow
+      90: 'up', // z
+      87: 'up', // w
+      83: 'down', // s
+      40: 'down', // down arrow
+      39: 'right', // right arrow
+      68: 'right', // d
+      32: 'space', // space
+      27: 'esc',
+      13: 'enter',
+      77: 'mute', // m
+      78: 'n', // n
     };
 
     /** Tracks whether a key is currently held down */
@@ -69,16 +69,16 @@
       if (!this.keysBlockedUntilAllUp) {
         //read keys that were just released or that were pressed just a few frames ago
         //this leaves some time for a combination (ie: up+right)
-        if (this.keys.down == this.KEY_LATENCY || this.keys.down === 0) {
+        if (this.keys.down === this.KEY_LATENCY || this.keys.down === 0) {
           dy = -1;
         }
-        if (this.keys.up == this.KEY_LATENCY || this.keys.up === 0) {
+        if (this.keys.up === this.KEY_LATENCY || this.keys.up === 0) {
           dy = 1;
         }
-        if (this.keys.left == this.KEY_LATENCY || this.keys.left === 0) {
+        if (this.keys.left === this.KEY_LATENCY || this.keys.left === 0) {
           dx = -1;
         }
-        if (this.keys.right == this.KEY_LATENCY || this.keys.right === 0) {
+        if (this.keys.right === this.KEY_LATENCY || this.keys.right === 0) {
           dx = 1;
         }
         if (dx || dy) {
@@ -126,7 +126,7 @@
       this.emit({type:'mouse',...this.mouse});
     }
 
-    /** Core key handler â€“ called from keydown/keyup */
+    /** Core key handler - called from keydown/keyup */
     onkey(isDown, e) {
       const c = e.keyCode || e.charCode;
       const keyName = this.keyMap[c];
@@ -164,22 +164,22 @@
       this.mouse.y = e.clientY;
     }
 
-    /** Attach all input listeners â€“ call from load() */
+    /** Attach all input listeners - call from load() */
     setup(root) {
       this.root = root;
 
       // ---- Keyboard ----
-      root.addEventListener("keydown", (e) => this.onkey(true, e));
-      root.addEventListener("keyup", (e) => this.onkey(false, e));
+      root.addEventListener('keydown', (e) => this.onkey(true, e));
+      root.addEventListener('keyup', (e) => this.onkey(false, e));
 
       // ---- Pointer (mouse / touch) ----
-      root.addEventListener("pointerdown", (e) => this.onmouse(true, e));
-      root.addEventListener("pointerup", (e) => this.onmouse(false, e));
-      root.addEventListener("pointercancel", (e) => this.onmouse(false, e));
-      root.addEventListener("pointermove", (e) => this.onmousemove(e));
+      root.addEventListener('pointerdown', (e) => this.onmouse(true, e));
+      root.addEventListener('pointerup', (e) => this.onmouse(false, e));
+      root.addEventListener('pointercancel', (e) => this.onmouse(false, e));
+      root.addEventListener('pointermove', (e) => this.onmousemove(e));
     }
 
-    emit(event){
+    emit(event) {
       for (const handler of this.handlers) handler(event);
     }
 
@@ -436,7 +436,7 @@
       header[8] = 1048578; // block align (2) and bits (16)
       header[9] = 1635017060; // 'data'
       header[10] = dataLen;
-      const blob = new Blob([wavData], { type: "audio/wav" });
+      const blob = new Blob([wavData], { type: 'audio/wav' });
       return URL.createObjectURL(blob);
     }
 
@@ -472,11 +472,11 @@
 
     downloadWav(key) {
       const sound = this.sounds[key];
-      let i=0;
+      let i = 0;
       for (const soundData of sound) {
         i++;
         const url = soundData.pool[soundData.tick].src;
-        const a = document.createElement("a");
+        const a = document.createElement('a');
         a.href = url;
         a.download = key+'_'+i+'.wav';
         document.body.appendChild(a);
@@ -542,14 +542,14 @@
     }
 
     /**
-     * ax² + bx + c
+     * ax^2 + bx + c
      */
     quadraticEq(x, a, b, c) {
       return a * x * x + b * x + c;
     }
 
     /**
-     * Solve ax² + bx + c = y for x
+     * Solve ax^2 + bx + c = y for x
      */
     reverseQuadraticEq(y, a, b, c, positiveRoot = true) {
       const discriminant = b * b - 4 * a * (c - y);
@@ -563,38 +563,45 @@
   // A board row is exactly 8 squares; each square is a piece letter, '.' or ' '.
   const BOARD_ROW_PATTERN = /^[. prnbkqlwcPRNBKQLWC]{8}$/;
 
+  // Piece ids (used in SVG defs and the checkBoard) - PGN piece names:
+  // White (enemy, checks the hero) is uppercase; Black (hero's side, blocks) is lowercase.
+  const PIECE = {
+    KING_W: 'K', QUEEN_W: 'Q', ROOK_W: 'R', BISHOP_W: 'B', KNIGHT_W: 'N', PAWN_W: 'P',
+    KING_B: 'k', QUEEN_B: 'q', ROOK_B: 'r', BISHOP_B: 'b', KNIGHT_B: 'n', PAWN_B: 'p',
+    LAND_MINE_W: 'L', LAND_MINE_B: 'l', WAR_BEAR_W: 'W', WAR_BEAR_B: 'w',
+    CASTLE_W: 'C', CASTLE_B: 'c',
+  };
+
+  // Other SVG ids.
+  const SVG_IDS = {
+    ENEMY_FILTER: 'ef',
+    CHECK_TEXT: 'ct',
+  };
+
+  // SAN piece letter -> internal piece id (used to resolve speech actors).
+  const SAN_TO_PIECE = {
+    K: PIECE.KING_W, k: PIECE.KING_B,
+    Q: PIECE.QUEEN_W, q: PIECE.QUEEN_B,
+    R: PIECE.ROOK_W, r: PIECE.ROOK_B,
+    B: PIECE.BISHOP_W, b: PIECE.BISHOP_B,
+    N: PIECE.KNIGHT_W, n: PIECE.KNIGHT_B,
+    P: PIECE.PAWN_W, p: PIECE.PAWN_B,
+    W: PIECE.WAR_BEAR_W, w: PIECE.WAR_BEAR_B,
+    C: PIECE.CASTLE_W, c: PIECE.CASTLE_B,
+    L: PIECE.LAND_MINE_W, l: PIECE.LAND_MINE_B,
+  };
+
+  // Speaker labels shown in the dialog box (e.g. "White King :").
+  const SPEAKER_NAMES = {
+    K: 'King', Q: 'Queen', R: 'Rook', B: 'Bishop', N: 'Knight',
+    P: 'Pawn', W: 'War Bear', C: 'Castle', L: 'Land Mine',
+  };
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
-
-      //piece ids (used in SVG and checkboard) — PGN piece names:
-      //White (enemy, checks the hero) uppercase · Black (hero's side, blocks) lowercase
-      this.Piece = {
-        KING_W: "K",
-        QUEEN_W: "Q",
-        ROOK_W: "R",
-        BISHOP_W: "B",
-        KNIGHT_W: "N",
-        PAWN_W: "P",
-        KING_B: "k",
-        QUEEN_B: "q",
-        ROOK_B: "r",
-        BISHOP_B: "b",
-        KNIGHT_B: "n",
-        PAWN_B: "p",
-        LAND_MINE_W: "L",
-        LAND_MINE_B: "l",
-        WAR_BEAR_W: "W",
-        WAR_BEAR_B: "w",
-        CASTLE_W: "C",
-        CASTLE_B: "c",
-      };
-
-      //other SCG ids
-      this.SVG = {
-        ENEMY_FILTER: "ef",
-        CHECK_TEXT: "ct",
-      };
+      this.Piece = PIECE;
+      this.SVG = SVG_IDS;
 
       //------------------------------------------------------------------------------------------------------------------
       // sizes and DOM
@@ -612,34 +619,21 @@
       // rows above the death line (progress). "5th from the bottom" = 4.
       this.BLOCK_VIEW_OFFSET = 4;
 
-      this.BG_COLOR = "#193441";
-      this.CELL_COLOR_1 = "#D1DBBD";
-      this.CELL_COLOR_2 = "#3E606F";
-      this.ROLLOVER_COLOR = "#794";
-      this.ROLLOVER_COLOR_TOO_FAR = "#898";
-      this.PIECE_FILL_COLOR = "#eee";
-      this.PIECE_STROKE_COLOR = "#555";
-      this.INVALID_CELL_COLOR_RGB = "255,0,0";
-      this.CHECK_POINT_COLOR = "rgba(93, 255, 182, 0.56)";
+      this.BG_COLOR = '#193441';
+      this.CELL_COLOR_1 = '#D1DBBD';
+      this.CELL_COLOR_2 = '#3E606F';
+      this.ROLLOVER_COLOR = '#794';
+      this.ROLLOVER_COLOR_TOO_FAR = '#898';
+      this.PIECE_FILL_COLOR = '#eee';
+      this.PIECE_STROKE_COLOR = '#555';
+      this.INVALID_CELL_COLOR_RGB = '255,0,0';
+      this.CHECK_POINT_COLOR = 'rgba(93, 255, 182, 0.56)';
 
       this.MS_TO_S = 1 / 1000;
       this.THRESHOLD_DOWN = -0.02;
       this.THRESHOLD_UP = 0.02;
 
       this.svgCache = {};
-
-      // PGN/SAN piece letter -> internal piece id (used to resolve speech actors).
-      this.SAN_TO_PIECE = {
-        K: this.Piece.KING_W, k: this.Piece.KING_B,
-        Q: this.Piece.QUEEN_W, q: this.Piece.QUEEN_B,
-        R: this.Piece.ROOK_W, r: this.Piece.ROOK_B,
-        B: this.Piece.BISHOP_W, b: this.Piece.BISHOP_B,
-        N: this.Piece.KNIGHT_W, n: this.Piece.KNIGHT_B,
-        P: this.Piece.PAWN_W, p: this.Piece.PAWN_B,
-        W: this.Piece.WAR_BEAR_W, w: this.Piece.WAR_BEAR_B,
-        C: this.Piece.CASTLE_W, c: this.Piece.CASTLE_B,
-        L: this.Piece.LAND_MINE_W, l: this.Piece.LAND_MINE_B,
-      };
     }
 
     load(gameContainer, levelData) {
@@ -649,11 +643,10 @@
       // game logic
       //------------------------------------------------------------------------------------------------------------------
 
-      this.now = 0; //Date.now(), set on update
       this.lastTime = null;
       this.killCount = 0;
       this.moveCount = 0;
-      this.checkMateCount = 0;
+      this.deathCount = 0;
       this.checkCount = 0;
       this.winScreen = null;
       this.gameOverScreen = null;
@@ -667,7 +660,7 @@
       this.checkpointKillCounts = [];
       this.checkpointMoveCounts = [];
       this.topRowDisplayed = -1;
-      this.raf = true;
+      this.running = true;
       this.isDocumentActive = true;
       this.removedPieces = [];
       this.lastRowIndex = null;
@@ -698,7 +691,7 @@
       this.activeScriptBlockIndex = -1;
       this.activeBeat = -1;
       this.scriptBusy = false;
-      this.advancementStopped = true;
+      this.scrollingStopped = true;
       this.blockWait = null;
       this.pendingGameOver = null;
       this.pendingGameOverText = null;
@@ -725,7 +718,7 @@
 
     setupVisibilityChange() {
       // ---- Visibility change (pause when tab is hidden) ----
-      document.addEventListener("visibilitychange", () => {
+      document.addEventListener('visibilitychange', () => {
         const isActive = !document.hidden;
         if (isActive && !this.isDocumentActive) {
           this.lastTime = Date.now();
@@ -736,7 +729,7 @@
     }
 
     handleInput(ev) {
-      switch(ev.type) {
+      switch (ev.type) {
         case 'move':
           if (!this.gameIsOver && !this.scriptBusy && this.topRowDisplayed > 0 && !this.player.invalid) {
             this.movePlayer(this.player.row + ev.dy, this.player.col + ev.dx);
@@ -804,9 +797,9 @@
 
           // Special: Enter toggles pause (only when not in intro/game-over)
           if (!this.scriptBusy && this.input.keyBoolMap.enter && !this.gameIsOver) {
-            this.raf = !this.raf;
-            this.pauseText.style.display = this.raf ? "none" : "block";
-            if (this.raf) {
+            this.running = !this.running;
+            this.pauseText.style.display = this.running ? 'none' : 'block';
+            if (this.running) {
               this.lastTime = Date.now();
               this.tic();
             }
@@ -851,13 +844,13 @@
       ctx.clearRect(0, 0, this.SIZE, this.SIZE);
       ctx.save();
       //Draw sky
-      ctx.fillStyle = "#FF8601";
+      ctx.fillStyle = '#FF8601';
       ctx.beginPath();
       ctx.rect(0, 0, this.SIZE, this.HORIZON_Y);
       ctx.fill();
       ctx.clip();
       //Draw sun
-      ctx.fillStyle = "#FFE7CA";
+      ctx.fillStyle = '#FFE7CA';
       const sunRadius = this.SIZE / 4;
       ctx.beginPath();
       ctx.arc(
@@ -872,7 +865,7 @@
       ctx.restore();
       //Draw Mountains
       ctx.beginPath();
-      ctx.fillStyle = "rgb(10,20,25)";
+      ctx.fillStyle = 'rgb(10,20,25)';
       const mountainMaxHeight = 40;
       const points = [
         0, 0.7, 0.1, 0.3, 0.2, 1, 0.3, 0.5, 0.35, 0.8, 0.42, 0.5, 0.55, 0.9,
@@ -894,8 +887,8 @@
       ctx.save();
       ctx.translate(0, this.HORIZON_Y);
       const grd = ctx.createLinearGradient(0, 0, 0, shadowSize);
-      const c = "rgba(10,20,25,";
-      const c2 = ")";
+      const c = 'rgba(10,20,25,';
+      const c2 = ')';
       grd.addColorStop(0, c + 1 + c2);
       grd.addColorStop(1, c + 0 + c2);
       ctx.fillStyle = grd;
@@ -905,29 +898,29 @@
     }
 
     initSvg() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const xlinkns = "http://www.w3.org/1999/xlink";
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const xlinkns = 'http://www.w3.org/1999/xlink';
       const boxWidth = this.SIZE;
       const boxHeight = this.SIZE + this.HORIZON_Y;
-      this.svgElem = document.createElementNS(xmlns, "svg");
-      this.svgElem.setAttribute("xmlns", xmlns);
+      this.svgElem = document.createElementNS(xmlns, 'svg');
+      this.svgElem.setAttribute('xmlns', xmlns);
       this.svgElem.setAttributeNS(
         null,
-        "viewBox",
-        "0 0 " + boxWidth + " " + boxHeight
+        'viewBox',
+        '0 0 ' + boxWidth + ' ' + boxHeight
       );
-      this.svgElem.setAttributeNS(null, "width", boxWidth);
-      this.svgElem.setAttributeNS(null, "height", boxHeight);
+      this.svgElem.setAttributeNS(null, 'width', boxWidth);
+      this.svgElem.setAttributeNS(null, 'height', boxHeight);
       this.root.appendChild(this.svgElem);
-      this.defs = document.createElementNS(xmlns, "defs");
+      this.defs = document.createElementNS(xmlns, 'defs');
       this.svgElem.appendChild(this.defs);
 
       //make pieces layer
-      this.svgPiecesLayer = document.createElementNS(xmlns, "g");
+      this.svgPiecesLayer = document.createElementNS(xmlns, 'g');
       this.svgElem.appendChild(this.svgPiecesLayer);
       this.makeIntroScreen();
       this.makeFilter(this.SVG.ENEMY_FILTER);
-      this.makeCheckTextDef(this.SVG.CHECK_TEXT, "CHECK");
+      this.makeCheckTextDef(this.SVG.CHECK_TEXT, 'CHECK');
       this.makeGameOverScreen();
       this.makeDialogBox();
       this.makePressSpaceText();
@@ -1025,8 +1018,8 @@
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
 
@@ -1041,7 +1034,7 @@
         makePike(7, 8),
         makePike(4, 7.5),
         makePike(1, 8.5),
-      ].join("\n");
+      ].join('\n');
 
       this.svgStyle(
         this.makeDef(this.Piece.LAND_MINE_W, minePikes, true),
@@ -1051,8 +1044,8 @@
       );
       this.svgStyle(
         this.makeDef(this.Piece.LAND_MINE_B, minePikes, true),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       //HERO_KING
@@ -1064,8 +1057,8 @@
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       this.svgStyle(
@@ -1076,8 +1069,8 @@
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
 
@@ -1089,8 +1082,8 @@
             <circle cx="5" cy="3" r="2"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       this.svgStyle(
@@ -1100,8 +1093,8 @@
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       this.svgStyle(
@@ -1113,8 +1106,8 @@
             <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       this.svgStyle(
@@ -1124,8 +1117,8 @@
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
           `
         ),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
       const castleMarkup = `
@@ -1141,58 +1134,58 @@
       );
       this.svgStyle(
         this.makeDef(this.Piece.CASTLE_B, castleMarkup, true, 2.5, 50),
-        "#002",
-        "#333",
+        '#002',
+        '#333',
         0
       );
-      this.makeKillCounter();
+      this.makeCaptureCounter();
       this.makeMoveCounter();
       this.makeDeathCounter();
     }
 
-    makeKillCounter() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.captureCounterText = document.createElementNS(xmlns, "text");
+    makeCaptureCounter() {
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.captureCounterText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.captureCounterText, {
-        x: "10",
-        y: "30",
-        "font-size": "24px",
-        fill: "#5f7",
-        stroke: "black",
-        "stroke-width": "1px",
-        "font-family": "Impact",
+        x: '10',
+        y: '30',
+        'font-size': '24px',
+        fill: '#5f7',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'font-family': 'Impact',
       });
       this.svgElem.appendChild(this.captureCounterText);
     }
 
     makeMoveCounter() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.moveCounterText = document.createElementNS(xmlns, "text");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.moveCounterText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.moveCounterText, {
         x: this.SIZE - 10,
-        y: "30",
-        "text-anchor": "end",
-        "font-size": "24px",
-        fill: "#5f7",
-        stroke: "black",
-        "stroke-width": "1px",
-        "font-family": "Impact",
+        y: '30',
+        'text-anchor': 'end',
+        'font-size': '24px',
+        fill: '#5f7',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'font-family': 'Impact',
       });
       this.svgElem.appendChild(this.moveCounterText);
     }
 
     makeDeathCounter() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.deathCounterText = document.createElementNS(xmlns, "text");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.deathCounterText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.deathCounterText, {
-        x: "50%",
-        y: "30",
-        "text-anchor": "middle",
-        "font-size": "24px",
-        fill: "#5f7",
-        stroke: "black",
-        "stroke-width": "1px",
-        "font-family": "Impact",
+        x: '50%',
+        y: '30',
+        'text-anchor': 'middle',
+        'font-size': '24px',
+        fill: '#5f7',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'font-family': 'Impact',
       });
       this.svgElem.appendChild(this.deathCounterText);
     }
@@ -1203,21 +1196,21 @@
       const ctx = this.shadowCanvas.ctx;
       //Top down shadow
       const grd = ctx.createLinearGradient(0, 0, 0, this.SIZE);
-      const c = "rgba(10,20,25,";
-      const c2 = ")";
+      const c = 'rgba(10,20,25,';
+      const c2 = ')';
       grd.addColorStop(0, c + 0 + c2);
       grd.addColorStop(0.2, c + 0 + c2);
       grd.addColorStop(1, c + 0.5 + c2);
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, this.SIZE);
       ctx.restore();
-      this.shadowCanvas.top(this.HORIZON_Y)
+      this.shadowCanvas.top(this.HORIZON_Y);
       this.shadowCanvas.pointerEvents(false);
-      this.shadowCanvas.appendTo(this.root)
+      this.shadowCanvas.appendTo(this.root);
     }
 
     parseGameData(levelData) {
-      const data = levelData || "";
+      const data = levelData || '';
       this.title = null;
       this.activeScript = [];
       this.blocks = [];
@@ -1246,22 +1239,22 @@
         rows: [],
       });
 
-      for (const rawLine of data.split("\n")) {
+      for (const rawLine of data.split('\n')) {
         const line = rawLine.trim();
-        if (line.startsWith("@")) {
+        if (line.startsWith('@')) {
           currentBeat = null;
           currentGeneric = null;
           currentBlockGeneric = null;
           const { head, trigger, state } = this.parseDirective(line);
 
-          if (head === "title") {
-            currentBeat = { kind: "title", lines: [] };
+          if (head === 'title') {
+            currentBeat = { kind: 'title', lines: [] };
             pendingScript.push(currentBeat);
-          } else if (head === "screen") {
-            currentBeat = { kind: "screen", trigger: trigger || null, state: state, lines: [] };
+          } else if (head === 'screen') {
+            currentBeat = { kind: 'screen', trigger: trigger || null, state: state, lines: [] };
             pendingScript.push(currentBeat);
           } else if (
-            ["2d", "iso", "stop", "start", "block"].includes(head) &&
+            ['2d', 'iso', 'stop', 'start', 'block'].includes(head) &&
             !trigger &&
             state === null
           ) {
@@ -1272,10 +1265,10 @@
             } else {
               pendingExitActions.push(head);
             }
-          } else if ((head === "hide" || head === "show") && !trigger && state === null) {
-            currentBeat = { kind: "action", action: head };
+          } else if ((head === 'hide' || head === 'show') && !trigger && state === null) {
+            currentBeat = { kind: 'action', action: head };
             pendingScript.push(currentBeat);
-          } else if (head === "win" || head === "loss") {
+          } else if (head === 'win' || head === 'loss') {
             if (trigger) {
               if (!block || block.checkpoint) {
                 block = newBlock();
@@ -1284,23 +1277,23 @@
                 pendingActions = [];
                 pendingExitActions = [];
               }
-              if (head === "win") {
+              if (head === 'win') {
                 block.win.push(trigger);
-                currentBlockGeneric = "win";
+                currentBlockGeneric = 'win';
               } else {
                 block.loss.push(trigger);
-                currentBlockGeneric = "loss";
+                currentBlockGeneric = 'loss';
               }
             } else {
               currentGeneric = head;
             }
-          } else if (head === "checkpoint") {
+          } else if (head === 'checkpoint') {
             this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], actions: [], script: [], state: 1, rows: [] });
             block = null;
             pendingScript = [];
             pendingActions = [];
             pendingExitActions = [];
-          } else if (head.startsWith("showThreat")) {
+          } else if (head.startsWith('showThreat')) {
             if (!block || block.checkpoint) {
               block = newBlock();
               this.blocks.push(block);
@@ -1308,9 +1301,9 @@
               pendingActions = [];
               pendingExitActions = [];
             }
-            block.showThreat = head.slice("showThreat".length).trim();
+            block.showThreat = head.slice('showThreat'.length).trim();
           } else {
-            currentBeat = { kind: "text", actor: head, trigger: trigger || null, state: state, lines: [] };
+            currentBeat = { kind: 'text', actor: head, trigger: trigger || null, state: state, lines: [] };
             pendingScript.push(currentBeat);
           }
         } else if (!line) {
@@ -1318,7 +1311,7 @@
           currentGeneric = null;
           currentBlockGeneric = null;
           block = null;
-        } else if (line.startsWith("//")) {
+        } else if (line.startsWith('//')) {
           currentBeat = null;
           currentGeneric = null;
           currentBlockGeneric = null;
@@ -1334,25 +1327,25 @@
               pendingActions = [];
               pendingExitActions = [];
             }
-            block.rows.push(line.split("/").map((s) => s.trim()));
-          } else if (currentGeneric === "win") {
+            block.rows.push(line.split('/').map((s) => s.trim()));
+          } else if (currentGeneric === 'win') {
             this.genericWin.push(line);
-          } else if (currentGeneric === "loss") {
+          } else if (currentGeneric === 'loss') {
             this.genericLoss.push(line);
-          } else if (currentBlockGeneric === "win" && block) {
+          } else if (currentBlockGeneric === 'win' && block) {
             block.winText.push(line);
-          } else if (currentBlockGeneric === "loss" && block) {
+          } else if (currentBlockGeneric === 'loss' && block) {
             block.lossText.push(line);
-          } else if (currentBeat && (currentBeat.kind === "text" || currentBeat.kind === "screen" || currentBeat.kind === "title")) {
+          } else if (currentBeat && (currentBeat.kind === 'text' || currentBeat.kind === 'screen' || currentBeat.kind === 'title')) {
             currentBeat.lines.push(line);
           }
         }
       }
 
       for (const b of this.blocks) {
-        const titleBeat = (b.script || []).find((beat) => beat.kind === "title");
+        const titleBeat = (b.script || []).find((beat) => beat.kind === 'title');
         if (titleBeat) {
-          this.title = titleBeat.lines.join("");
+          this.title = titleBeat.lines.join('');
           break;
         }
       }
@@ -1360,20 +1353,20 @@
 
     /** Split an "@..." directive into its head, trigger and optional state. */
     parseDirective(line) {
-      const parts = line.slice(1).split("/");
+      const parts = line.slice(1).split('/');
       const head = parts[0];
       const rest = parts.slice(1);
       let state = null;
       if (rest.length && /^\d+$/.test(rest[rest.length - 1])) {
         state = parseInt(rest.pop(), 10);
       }
-      const trigger = rest.length ? rest.join("/") : null;
+      const trigger = rest.length ? rest.join('/') : null;
       return { head, trigger, state };
     }
 
     /** True when a trimmed line is one or more "/"-separated board rows. */
     isBoardRow(line) {
-      return line.split("/").every((segment) => BOARD_ROW_PATTERN.test(segment));
+      return line.split('/').every((segment) => BOARD_ROW_PATTERN.test(segment));
     }
 
     initCheckBoard(startCheckPointIndex) {
@@ -1408,14 +1401,14 @@
         for (let i = b.rows.length - 1; i >= 0; i--) {
           const variants = b.rows[i];
           const idx = Math.min(b.state || 1, variants.length) - 1;
-          const row = variants[idx] || "";
-          if (row.length > this.NUM_CELLS) throw new Error("Row too long");
+          const row = variants[idx] || '';
+          if (row.length > this.NUM_CELLS) throw new Error('Row too long');
           this.checkBoard[currentRowIndex] = [];
 
-          if (doAdd && row !== "") {
+          if (doAdd && row !== '') {
             for (let j = 0; j < row.length; j++) {
               const char = row.charAt(j);
-              if (char !== " " && char !== ".") {
+              if (char !== ' ' && char !== '.') {
                 const pieceCell = this.addPieceAt(char, currentRowIndex, j);
                 if (b.showThreat === char && !showThreatCell) {
                   showThreatCell = pieceCell;
@@ -1499,7 +1492,7 @@
       this.playedScripts.add(blockIndex);
       for (const b of script) b.fired = false;
       this.activeBeat = -1;
-      const first = script.findIndex((b) => !b.trigger || b.trigger === "start");
+      const first = script.findIndex((b) => !b.trigger || b.trigger === 'start');
       if (first === 0) {
         this.activeBeat = first;
         this.playBeat(script[first]);
@@ -1524,14 +1517,14 @@
     }
 
     playBeat(beat) {
-      if (beat.kind === "title") {
+      if (beat.kind === 'title') {
         this.scriptBusy = true;
         // Title screen stays until the player dismisses it (SPACE/CLICK).
-      } else if (beat.kind === "action") {
+      } else if (beat.kind === 'action') {
         this.runAction(beat.action);
         this.advanceBeat();
-      } else if (beat.kind === "text" || beat.kind === "screen") {
-        this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
+      } else if (beat.kind === 'text' || beat.kind === 'screen') {
+        this.showDialog(beat.kind === 'text' ? beat.actor : null, beat.lines);
         this.scriptBusy = true;
       }
     }
@@ -1539,7 +1532,7 @@
     advanceBeat() {
       const script = this.activeScript || [];
       const next = script[this.activeBeat + 1];
-      if (next && (!next.trigger || next.trigger === "start")) {
+      if (next && (!next.trigger || next.trigger === 'start')) {
         this.activeBeat++;
         this.playBeat(next);
       } else {
@@ -1547,8 +1540,8 @@
         this.scriptBusy = false;
         this.hideDialog();
         this.clearTalking();
-        if (this.introScreen) this.introScreen.style.display = "none";
-        if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+        if (this.introScreen) this.introScreen.style.display = 'none';
+        if (this.pressSpaceText) this.pressSpaceText.style.display = 'none';
         this.runExitActions(this.currentBlockIndex());
         this.enterBlock(this.currentBlockIndex());
       }
@@ -1558,14 +1551,14 @@
       const script = this.activeScript || [];
       const beat = this.activeBeat >= 0 ? script[this.activeBeat] : null;
       if (this.scriptBusy && beat) {
-        if (beat.kind === "title") {
-          if (this.introScreen) this.introScreen.style.display = "none";
-          if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
-        } else if (beat.kind === "text" || beat.kind === "screen") {
+        if (beat.kind === 'title') {
+          if (this.introScreen) this.introScreen.style.display = 'none';
+          if (this.pressSpaceText) this.pressSpaceText.style.display = 'none';
+        } else if (beat.kind === 'text' || beat.kind === 'screen') {
           this.hideDialog();
           this.clearTalking();
         }
-        if (beat.state != null) {
+        if (beat.state !== null) {
           this.setBlockState(this.activeScriptBlockIndex, beat.state);
         }
         this.advanceBeat();
@@ -1591,17 +1584,17 @@
     }
 
     runAction(action) {
-      if (action === "2d") {
+      if (action === '2d') {
         this.setView(true);
-      } else if (action === "iso") {
+      } else if (action === 'iso') {
         this.setView(false);
-      } else if (action === "stop") {
-        this.advancementStopped = true;
-      } else if (action === "start") {
-        this.advancementStopped = false;
-      } else if (action === "hide") {
+      } else if (action === 'stop') {
+        this.scrollingStopped = true;
+      } else if (action === 'start') {
+        this.scrollingStopped = false;
+      } else if (action === 'hide') {
         this.player.hidden = true;
-      } else if (action === "show") {
+      } else if (action === 'show') {
         this.player.hidden = false;
       }
     }
@@ -1614,25 +1607,17 @@
       }
     }
 
-    setView(iso2d) {
-      if (iso2d) {
-        this.intro = true;
-        this.viewAnim = {
-          start: Date.now(),
-          duration: 4000,
-          from: this.perspectiveProgress,
-          to: 0,
-        };
-      } else {
-        if (this.intro === false && this.perspectiveProgress >= 1) return;
-        this.intro = true;
-        this.viewAnim = {
-          start: Date.now(),
-          duration: 4000,
-          from: this.perspectiveProgress,
-          to: 1,
-        };
-      }
+    setView(flat) {
+      // '2d' -> flat (perspective 0); 'iso' -> tilted (perspective 1).
+      const to = flat ? 0 : 1;
+      if (!flat && !this.intro && this.perspectiveProgress >= 1) return;
+      this.intro = true;
+      this.viewAnim = {
+        start: Date.now(),
+        duration: 4000,
+        from: this.perspectiveProgress,
+        to,
+      };
     }
 
     updateView(now) {
@@ -1661,8 +1646,8 @@
       for (let i = 0; i < b.rows.length; i++) {
         const variants = b.rows[i];
         if (variants.length <= 1) continue;
-        const oldRow = variants[Math.min(oldState, variants.length) - 1] || "";
-        const newRow = variants[Math.min(state, variants.length) - 1] || "";
+        const oldRow = variants[Math.min(oldState, variants.length) - 1] || '';
+        const newRow = variants[Math.min(state, variants.length) - 1] || '';
         if (oldRow === newRow) continue;
         const boardRow = b.startRow + (b.rows.length - 1 - i);
         const rowArray = this.checkBoard[boardRow];
@@ -1670,11 +1655,11 @@
           const oldChar = oldRow.charAt(j);
           const newChar = newRow.charAt(j);
           if (oldChar === newChar) continue;
-          if (oldChar !== "." && oldChar !== " " && rowArray && rowArray[j] && rowArray[j].piece) {
+          if (oldChar !== '.' && oldChar !== ' ' && rowArray && rowArray[j] && rowArray[j].piece) {
             this.destroyPiece(rowArray[j].piece);
             rowArray[j] = {};
           }
-          if (newChar !== "." && newChar !== " ") {
+          if (newChar !== '.' && newChar !== ' ') {
             const pieceCell = this.addPieceAt(newChar, boardRow, j);
             pieceCell.piece.appearing = true;
             pieceCell.piece.appearTime = Date.now();
@@ -1734,7 +1719,7 @@
 
     updateIntroTweens() {
       if (!this.introTweens) {
-        if (this.dialogBox) this.dialogBox.setAttributeNS(null, "y", this.dialogBox._y);
+        if (this.dialogBox) this.dialogBox.setAttributeNS(null, 'y', this.dialogBox._y);
         return;
       }
       if (!this.introStartTime) this.introStartTime = Date.now();
@@ -1766,7 +1751,7 @@
           }
         }
       }
-      this.dialogBox.setAttributeNS(null, "y", this.dialogBox._y);
+      this.dialogBox.setAttributeNS(null, 'y', this.dialogBox._y);
     }
 
     addPieceAt(type, row, col) {
@@ -1787,9 +1772,9 @@
       this.checkBoard[row][col].piece = piece;
 
       //Walls
-      if (type == this.Piece.CASTLE_W || type == this.Piece.CASTLE_B) {
+      if (type === this.Piece.CASTLE_W || type === this.Piece.CASTLE_B) {
         for (let i = 0; i < this.NUM_CELLS; i++) {
-          if (i != 3 && i != 4) {
+          if (i !== 3 && i !== 4) {
             if (!this.checkBoard[row][i]) {
               this.checkBoard[row][i] = {};
             }
@@ -1805,7 +1790,7 @@
       const oldRow = this.player.row;
       col = this.clampCol(col);
       row = this.clampRow(row);
-      if (col != oldCol || row != oldRow) {
+      if (col !== oldCol || row !== oldRow) {
         this.applyMove(oldRow, oldCol, row, col);
       }
     }
@@ -1854,7 +1839,7 @@
       }
       const threateningCell = this.getThreateningCell(row, col);
       if (threateningCell) {
-        this.audio.play("check");
+        this.audio.play('check');
         this.player.invalid = true;
         this.player.invalidCol = col;
         this.player.invalidRow = row;
@@ -1874,9 +1859,9 @@
           this.destroyPiece(cell.piece);
           this.killCount++;
           this.checkpointKillCounts[checkpointIndex] = this.killCount;
-          this.audio.play("capture");
+          this.audio.play('capture');
         } else {
-          this.audio.play("move");
+          this.audio.play('move');
         }
         oldCell.piece = null;
         cell.piece = this.player;
@@ -1900,7 +1885,7 @@
       // @block: hold the king and the script until the block scrolls into view
       if (
         block &&
-        block.actions.includes("block") &&
+        block.actions.includes('block') &&
         this.progress < block.startRow - this.BLOCK_VIEW_OFFSET
       ) {
         this.blockWait = { blockIndex: blockIndex, startRow: block.startRow };
@@ -1913,11 +1898,11 @@
       const rank = block ? this.player.row - block.startRow + 1 : null;
       const file = this.player.col;
 
-      if (rank != null) {
+      if (rank !== null) {
         const script = this.activeScript || [];
         for (let i = 0; i < script.length; i++) {
           const beat = script[i];
-          if (!beat.trigger || beat.trigger === "start" || beat.trigger === "win" || beat.trigger === "lose") continue;
+          if (!beat.trigger || beat.trigger === 'start' || beat.trigger === 'win' || beat.trigger === 'lose') continue;
           if (beat.fired) continue;
           if (this.triggerMatches(beat.trigger, rank, file, capturedType)) {
             beat.fired = true;
@@ -1931,7 +1916,7 @@
       if (!block) return;
       for (const cond of block.win) {
         if (this.triggerMatches(cond, rank, file, capturedType)) {
-          this.fireTrigger("win");
+          this.fireTrigger('win');
           this.pendingGameOver = true;
           this.pendingGameOverText = block.winText && block.winText.length ? block.winText : null;
           return;
@@ -1939,7 +1924,7 @@
       }
       for (const cond of block.loss) {
         if (this.triggerMatches(cond, rank, file, capturedType)) {
-          this.fireTrigger("lose");
+          this.fireTrigger('lose');
           this.pendingGameOver = false;
           this.pendingGameOverText = block.lossText && block.lossText.length ? block.lossText : null;
           return;
@@ -1948,13 +1933,13 @@
     }
 
     triggerMatches(trigger, rank, file, capturedType) {
-      return trigger.split(",").every((f) => {
+      return trigger.split(',').every((f) => {
         f = f.trim();
         const rm = /^(\d+)-rank$/.exec(f);
         if (rm) return rank === parseInt(rm[1], 10);
         const fm = /^([a-h])-file$/.exec(f);
         if (fm) return file === fm[1].charCodeAt(0) - 97;
-        if (f === "capture") return !!capturedType;
+        if (f === 'capture') return !!capturedType;
         if (/^[a-z]-capture$/.test(f)) return capturedType === f[0];
         return false;
       });
@@ -1962,31 +1947,31 @@
 
     getThreateningCell(row, col) {
       let threateningCell;
-      //land mines (and white war bears) — stepping on one is death
+      //land mines (and white war bears) - stepping on one is death
       threateningCell =
         this.getCellWithPieceAt(row, col, this.Piece.LAND_MINE_W) ||
         this.getCellWithPieceAt(row, col, this.Piece.WAR_BEAR_W);
       if (threateningCell) {
         return threateningCell;
       }
-      //White pawns (enemy) — Black pawns never check
+      //White pawns (enemy) - Black pawns never check
       threateningCell =
         this.getCellWithPieceAt(row + 1, col - 1, this.Piece.PAWN_W) ||
         this.getCellWithPieceAt(row + 1, col + 1, this.Piece.PAWN_W);
       if (threateningCell) {
         return threateningCell;
       }
-      // Rook — orthogonal lines, blocked by the first piece in each direction.
+      // Rook - orthogonal lines, blocked by the first piece in each direction.
       const rook = this.findRookThreat(row, col);
       if (rook) {
         return rook;
       }
-      // Bishop — diagonal lines.
+      // Bishop - diagonal lines.
       const bishop = this.findBishopThreat(row, col);
       if (bishop) {
         return bishop;
       }
-      // Knight — L-shaped jumps.
+      // Knight - L-shaped jumps.
       return this.findKnightThreat(row, col);
     }
 
@@ -1997,7 +1982,7 @@
       for (let j = col - 1; j >= 0; j--) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
+          if (cell.piece.type === this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -2008,7 +1993,7 @@
       for (let j = col + 1; j <= this.NUM_CELLS; j++) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
+          if (cell.piece.type === this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -2019,7 +2004,7 @@
       for (let i = row + 1; i <= row + this.NUM_CELLS; i++) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
+          if (cell.piece.type === this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -2030,7 +2015,7 @@
       for (let i = row - 1; i >= row - this.NUM_CELLS; i--) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
+          if (cell.piece.type === this.Piece.ROOK_W) {
             return cell;
           } else {
             break;
@@ -2047,7 +2032,7 @@
       for (let j = col - 1, i = row - 1; j >= 0; j--, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP_W) {
+          if (cell.piece.type === this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -2058,7 +2043,7 @@
       for (let j = col + 1, i = row - 1; j < this.NUM_CELLS; j++, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP_W) {
+          if (cell.piece.type === this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -2069,7 +2054,7 @@
       for (let j = col - 1, i = row + 1; j >= 0; j--, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP_W) {
+          if (cell.piece.type === this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -2080,7 +2065,7 @@
       for (let j = col + 1, i = row + 1; j < this.NUM_CELLS; j++, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.BISHOP_W) {
+          if (cell.piece.type === this.Piece.BISHOP_W) {
             return cell;
           } else {
             break;
@@ -2183,7 +2168,7 @@
         if (piece.scale > 0) {
           piece.shape.setAttributeNS(
             null,
-            "transform",
+            'transform',
             `scale(${piece.scale}) translate(${piece.x / piece.scale},${
               piece.y / piece.scale
             })`
@@ -2211,11 +2196,11 @@
       }
 
       if (piece.shape) {
-        throw new Error("Piece already has a shape");
+        throw new Error('Piece already has a shape');
       }
 
       piece.shape = shape;
-      shape.style.filter = "none";
+      shape.style.filter = 'none';
     }
 
     removeSvgShape(piece) {
@@ -2227,13 +2212,13 @@
     }
 
     showDialog(actorStr, texts) {
-      if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+      if (this.pressSpaceText) this.pressSpaceText.style.display = 'none';
       this.skipIntroTweens();
       this.introStartTime = Date.now();
       const pieces = actorStr ? this.resolveActor(actorStr) : [];
       this.svgInnerHtml(
         this.dialogSpeakerText,
-        pieces.length ? this.speakerLabel(actorStr.split(",")[0].trim()) : ""
+        pieces.length ? this.speakerLabel(actorStr.split(',')[0].trim()) : ''
       );
       this.clearTalking();
       const now = Date.now();
@@ -2242,7 +2227,7 @@
         piece.talkingStartTime = now;
       }
 
-      let txt = "";
+      let txt = '';
       for (let i = 0; i < texts.length; i++) {
         txt += `<tspan x="10" ${i === 0 ? "" : 'dy="1.2em"'}>${
           texts[i]
@@ -2261,7 +2246,7 @@
 
     resolveActor(actorStr) {
       const pieces = [];
-      for (const id of actorStr.split(",")) {
+      for (const id of actorStr.split(',')) {
         const piece = this.resolveSingleActor(id.trim());
         if (piece && !pieces.includes(piece)) pieces.push(piece);
       }
@@ -2271,7 +2256,7 @@
     resolveSingleActor(id) {
       const m = /^([A-Za-z])([a-h]?)(\d*)$/.exec(id);
       if (!m) return null;
-      const type = this.SAN_TO_PIECE && this.SAN_TO_PIECE[m[1]];
+      const type = SAN_TO_PIECE[m[1]];
       if (!type) return null;
       const file = m[2] ? m[2].charCodeAt(0) - 97 : null;
       const rank = m[3] ? parseInt(m[3], 10) : null;
@@ -2314,19 +2299,8 @@
 
     speakerLabel(sanLetter) {
       const upper = sanLetter.toUpperCase();
-      const names = {
-        K: "King",
-        Q: "Queen",
-        R: "Rook",
-        B: "Bishop",
-        N: "Knight",
-        P: "Pawn",
-        W: "War Bear",
-        C: "Castle",
-        L: "Land Mine",
-      };
-      const name = names[upper] || upper;
-      return (sanLetter === upper ? "White " : "Black ") + name + " :";
+      const name = SPEAKER_NAMES[upper] || upper;
+      return (sanLetter === upper ? 'White ' : 'Black ') + name + ' :';
     }
 
     restart(checkPointIndex) {
@@ -2368,7 +2342,7 @@
       // Prepare next update
       this.lastTime = null;
       this.topRowDisplayed = -1;
-      this.checkMateCount++;
+      this.deathCount++;
     }
 
     jumpToNextBlock() {
@@ -2389,12 +2363,12 @@
       if (!this.gameIsOver) {
         if (this.scriptBusy) {
           this.updateScript();
-        } else if (!this.advancementStopped) {
+        } else if (!this.scrollingStopped) {
           this.update();
         }
         this.render();
       }
-      if (this.raf && this.isDocumentActive) {
+      if (this.running && this.isDocumentActive) {
         requestAnimationFrame(() => this.tic());
       }
     }
@@ -2402,25 +2376,25 @@
     setGameIsOver(val, win, text) {
       if (win) {
         if (text && text.length) {
-          this.svgInnerHtml(this.winTitle, text[0] || "YOU WIN !");
-          this.svgInnerHtml(this.winHint, text[1] || "");
+          this.svgInnerHtml(this.winTitle, text[0] || 'YOU WIN !');
+          this.svgInnerHtml(this.winHint, text[1] || '');
         }
-        this.raf = false;
+        this.running = false;
         this.gameIsOver = true;
         this.won = true;
-        this.winScreen.style.display = "block";
-        this.audio.play("win");
+        this.winScreen.style.display = 'block';
+        this.audio.play('win');
       } else {
         if (this.won) return;
         if (text && text.length) {
-          this.svgInnerHtml(this.gameOverTitle, text[0] || "CHECKMATE !");
+          this.svgInnerHtml(this.gameOverTitle, text[0] || 'CHECKMATE !');
         }
-        if (val != this.gameIsOver) {
+        if (val !== this.gameIsOver) {
           this.gameIsOver = val;
           if (this.gameIsOver) {
-            this.gameOverScreen.style.display = "block";
+            this.gameOverScreen.style.display = 'block';
           } else {
-            this.gameOverScreen.style.display = "none";
+            this.gameOverScreen.style.display = 'none';
             this.restart();
           }
         }
@@ -2459,7 +2433,7 @@
         } else {
           this.setGameIsOver(true);
         }
-        this.audio.play("checkmate");
+        this.audio.play('checkmate');
       }
 
       //update checkboard based on progress
@@ -2535,7 +2509,7 @@
             this.player.threateningPiece &&
             this.player.threateningPiece.shape
           ) {
-            this.player.threateningPiece.shape.style.filter = "none";
+            this.player.threateningPiece.shape.style.filter = 'none';
           }
           this.player.invalid = false;
         } else {
@@ -2681,10 +2655,10 @@
 
     /** Update the on-screen capture / move / death counters. */
     renderCounters() {
-      const inGame = !this.scriptBusy && !this.advancementStopped;
+      const inGame = !this.scriptBusy && !this.scrollingStopped;
       this.svgInnerHtml(this.captureCounterText, inGame ? 'Captures: ' + this.killCount : '');
       this.svgInnerHtml(this.moveCounterText, inGame ? 'Moves: ' + this.moveCount : '');
-      this.svgInnerHtml(this.deathCounterText, inGame ? 'Deaths: ' + this.checkMateCount : '');
+      this.svgInnerHtml(this.deathCounterText, inGame ? 'Deaths: ' + this.deathCount : '');
     }
 
     /** Animate captured pieces flying off, then recycle their SVG shapes. */
@@ -2825,23 +2799,23 @@
 
     /** Parse an SVG markup string into element nodes (whitespace-only text ignored) */
     makeElems(html) {
-      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement("div");
+      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
       this._svgTmpDiv.innerHTML = `<svg>${html}</svg>`;
       return Array.from(this._svgTmpDiv.firstChild.children);
     }
 
     /** Create a <g> definition for a piece (used in <defs>) */
     makeDef(id, html, skipShadow = false, ox = 5, oy = 8) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const def = document.createElementNS(xmlns, "g");
-      def.setAttributeNS(null, "id", id);
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const def = document.createElementNS(xmlns, 'g');
+      def.setAttributeNS(null, 'id', id);
       // Shapes are authored in a 10x10 grid with the piece origin at [ox,oy].
       // Scale and translate so the origin maps to the def's local (0,0), where a
       // <use> then positions the piece on the board.
       const scale = this.CELL_SIZE / 10;
       def.setAttributeNS(
         null,
-        "transform",
+        'transform',
         `translate(${-scale * ox} ${-scale * oy}) scale(${scale})`
       );
       if (!skipShadow) def.appendChild(this.makeShadow());
@@ -2854,16 +2828,16 @@
 
     makeFilter(id) {
       const def = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "filter"
+        'http://www.w3.org/2000/svg',
+        'filter'
       );
-      def.setAttributeNS(null, "id", id);
+      def.setAttributeNS(null, 'id', id);
       this.svgAttrs(def, {
-        x: "0",
-        y: "0",
-        width: "100%",
-        height: "100%",
-        "color-interpolation-filters": "sRGB",
+        x: '0',
+        y: '0',
+        width: '100%',
+        height: '100%',
+        'color-interpolation-filters': 'sRGB',
       });
       this.svgInnerHtml(
         def,
@@ -2876,42 +2850,42 @@
 
     /** Piece shadow (ellipse) */
     makeShadow() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const shadow = document.createElementNS(xmlns, "ellipse");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const shadow = document.createElementNS(xmlns, 'ellipse');
       this.svgAttrs(shadow, {
         cx: 5,
         cy: 8,
         rx: 3.1,
         ry: 1.8,
-        fill: "rgba(0,0,0,0.2)",
-        stroke: "none",
+        fill: 'rgba(0,0,0,0.2)',
+        stroke: 'none',
       });
       return shadow;
     }
 
     /** <use> element that references a definition */
     makeUse(id, attrs = {}) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const xlinkns = "http://www.w3.org/1999/xlink";
-      const use = document.createElementNS(xmlns, "use");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const xlinkns = 'http://www.w3.org/1999/xlink';
+      const use = document.createElementNS(xmlns, 'use');
       this.svgAttrs(use, attrs);
-      use.setAttributeNS(xlinkns, "xlink:href", "#" + id);
-      use.setAttribute("xmlns:xlink", xlinkns);
+      use.setAttributeNS(xlinkns, 'xlink:href', '#' + id);
+      use.setAttribute('xmlns:xlink', xlinkns);
       return use;
     }
 
     /** <text> definition for the "CHECK" label */
     makeCheckTextDef(id, text) {
-      const xmlns = "http://www.w3.org/2000/svg";
-      const txt = document.createElementNS(xmlns, "text");
-      txt.setAttributeNS(null, "id", id);
+      const xmlns = 'http://www.w3.org/2000/svg';
+      const txt = document.createElementNS(xmlns, 'text');
+      txt.setAttributeNS(null, 'id', id);
       this.svgAttrs(txt, {
-        x: "-40",
-        "font-size": "28",
-        fill: "red",
-        stroke: "black",
-        "stroke-width": "1",
-        "font-family": "Impact",
+        x: '-40',
+        'font-size': '28',
+        fill: 'red',
+        stroke: 'black',
+        'stroke-width': '1',
+        'font-family': 'Impact',
       });
       this.svgInnerHtml(txt, text);
       this.defs.appendChild(txt);
@@ -2919,46 +2893,46 @@
 
     /** Game-over overlay */
     makeGameOverScreen() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.gameOverScreen = document.createElementNS(xmlns, "g");
-      this.gameOverScreen.style.display = "none";
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.gameOverScreen = document.createElementNS(xmlns, 'g');
+      this.gameOverScreen.style.display = 'none';
       this.svgElem.appendChild(this.gameOverScreen);
 
-      const rect = document.createElementNS(xmlns, "rect");
+      const rect = document.createElementNS(xmlns, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
-        width: "100%",
-        height: "100%",
-        fill: "rgba(0,0,0,0.5)",
+        width: '100%',
+        height: '100%',
+        fill: 'rgba(0,0,0,0.5)',
       });
       this.gameOverScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, "text");
+      const title = document.createElementNS(xmlns, 'text');
       this.svgAttrs(title, {
-        x: "50%",
-        y: "50%",
-        "font-size": "48px",
-        fill: "orange",
-        stroke: "red",
-        "stroke-width": "2px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '50%',
+        'font-size': '48px',
+        fill: 'orange',
+        stroke: 'red',
+        'stroke-width': '2px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
-      this.svgInnerHtml(title, this.genericLoss[0] || "CHECKMATE !");
+      this.svgInnerHtml(title, this.genericLoss[0] || 'CHECKMATE !');
       this.gameOverScreen.appendChild(title);
       this.gameOverTitle = title;
 
-      const hint = document.createElementNS(xmlns, "text");
+      const hint = document.createElementNS(xmlns, 'text');
       this.svgAttrs(hint, {
-        x: "50%",
-        y: "60%",
-        "font-size": "22px",
-        fill: "white",
-        stroke: "black",
-        "stroke-width": "1px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '60%',
+        'font-size': '22px',
+        fill: 'white',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
       this.svgInnerHtml(
         hint,
@@ -2970,31 +2944,31 @@
 
     /** Intro title screen */
     makeIntroScreen() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.introScreen = document.createElementNS(xmlns, "g");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.introScreen = document.createElementNS(xmlns, 'g');
       this.svgElem.appendChild(this.introScreen);
 
-      const rect = document.createElementNS(xmlns, "rect");
+      const rect = document.createElementNS(xmlns, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
-        width: "100%",
+        width: '100%',
         height: this.HORIZON_Y,
-        fill: "#FF8601",
-        stroke: "#000",
+        fill: '#FF8601',
+        stroke: '#000',
       });
       this.introScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, "text");
+      const title = document.createElementNS(xmlns, 'text');
       this.svgAttrs(title, {
-        x: "50%",
-        y: "60",
-        "font-size": "48px",
-        fill: "orange",
-        stroke: "red",
-        "stroke-width": "2px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '60',
+        'font-size': '48px',
+        fill: 'orange',
+        stroke: 'red',
+        'stroke-width': '2px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
       this.svgInnerHtml(
         title,
@@ -3005,17 +2979,17 @@
 
     /** "Press SPACE or CLICK" prompt */
     makePressSpaceText() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.pressSpaceText = document.createElementNS(xmlns, "text");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.pressSpaceText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.pressSpaceText, {
-        x: "50%",
+        x: '50%',
         y: this.HORIZON_Y + this.SIZE - 10,
-        "font-size": "22px",
-        fill: "white",
-        stroke: "black",
-        "stroke-width": "1px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        'font-size': '22px',
+        fill: 'white',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
       this.svgInnerHtml(
         this.pressSpaceText,
@@ -3026,26 +3000,26 @@
 
     /** Paused overlay */
     makePauseText() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.pauseText = document.createElementNS(xmlns, "text");
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.pauseText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.pauseText, {
-        x: "50%",
-        y: "50%",
-        "font-size": "32px",
-        fill: "orange",
-        stroke: "black",
-        "stroke-width": "1px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '50%',
+        'font-size': '32px',
+        fill: 'orange',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
-      this.svgInnerHtml(this.pauseText, "PAUSED");
-      this.pauseText.style.display = "none";
+      this.svgInnerHtml(this.pauseText, 'PAUSED');
+      this.pauseText.style.display = 'none';
       this.svgElem.appendChild(this.pauseText);
     }
 
     /** Dialog box (slides in from bottom) */
     makeDialogBox() {
-      const xmlns = "http://www.w3.org/2000/svg";
+      const xmlns = 'http://www.w3.org/2000/svg';
       const width = this.SIZE - 2 * this.DIALOG_MARGIN;
       const height = 0.3 * this.SIZE - 2 * this.DIALOG_MARGIN;
 
@@ -3053,7 +3027,7 @@
       this.dialogOpenY =
         this.HORIZON_Y + this.SIZE - height - this.DIALOG_MARGIN;
 
-      this.dialogBox = document.createElementNS(xmlns, "svg");
+      this.dialogBox = document.createElementNS(xmlns, 'svg');
       this.dialogBox._y = this.dialogCloseY; // used for tweening
       this.svgAttrs(this.dialogBox, {
         x: this.DIALOG_MARGIN,
@@ -3063,83 +3037,83 @@
       });
       this.svgElem.appendChild(this.dialogBox);
 
-      const rect = document.createElementNS(xmlns, "rect");
+      const rect = document.createElementNS(xmlns, 'rect');
       this.svgAttrs(rect, {
-        width: "100%",
-        height: "100%",
-        fill: "rgba(0,0,0,0.8)",
-        stroke: "#fff",
-        "stroke-width": 2,
+        width: '100%',
+        height: '100%',
+        fill: 'rgba(0,0,0,0.8)',
+        stroke: '#fff',
+        'stroke-width': 2,
       });
       this.dialogBox.appendChild(rect);
 
-      this.dialogSpeakerText = document.createElementNS(xmlns, "text");
+      this.dialogSpeakerText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.dialogSpeakerText, {
         x: 10,
         y: 20,
-        "font-size": "18px",
-        fill: "#fff",
-        "text-anchor": "left",
-        "font-family": "Impact",
+        'font-size': '18px',
+        fill: '#fff',
+        'text-anchor': 'left',
+        'font-family': 'Impact',
       });
       this.dialogBox.appendChild(this.dialogSpeakerText);
 
-      this.dialogText = document.createElementNS(xmlns, "text");
+      this.dialogText = document.createElementNS(xmlns, 'text');
       this.svgAttrs(this.dialogText, {
         x: 10,
         y: 40,
-        "font-size": "16px",
-        fill: "#fff",
-        "text-anchor": "left",
-        "font-family": "sans-serif",
+        'font-size': '16px',
+        fill: '#fff',
+        'text-anchor': 'left',
+        'font-family': 'sans-serif',
       });
       this.dialogBox.appendChild(this.dialogText);
     }
 
     /** Win screen */
     makeWinScreen() {
-      const xmlns = "http://www.w3.org/2000/svg";
-      this.winScreen = document.createElementNS(xmlns, "g");
-      this.winScreen.style.display = "none";
+      const xmlns = 'http://www.w3.org/2000/svg';
+      this.winScreen = document.createElementNS(xmlns, 'g');
+      this.winScreen.style.display = 'none';
       this.svgElem.appendChild(this.winScreen);
 
-      const rect = document.createElementNS(xmlns, "rect");
+      const rect = document.createElementNS(xmlns, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
-        width: "100%",
-        height: "100%",
-        fill: "rgba(0,0,0,0.5)",
+        width: '100%',
+        height: '100%',
+        fill: 'rgba(0,0,0,0.5)',
       });
       this.winScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, "text");
+      const title = document.createElementNS(xmlns, 'text');
       this.svgAttrs(title, {
-        x: "50%",
-        y: "50%",
-        "font-size": "48px",
-        fill: "#5f7",
-        stroke: "black",
-        "stroke-width": "2px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '50%',
+        'font-size': '48px',
+        fill: '#5f7',
+        stroke: 'black',
+        'stroke-width': '2px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
-      this.svgInnerHtml(title, this.genericWin[0] || "YOU WIN !");
+      this.svgInnerHtml(title, this.genericWin[0] || 'YOU WIN !');
       this.winScreen.appendChild(title);
       this.winTitle = title;
 
-      const hint = document.createElementNS(xmlns, "text");
+      const hint = document.createElementNS(xmlns, 'text');
       this.svgAttrs(hint, {
-        x: "50%",
-        y: "60%",
-        "font-size": "22px",
-        fill: "white",
-        stroke: "black",
-        "stroke-width": "1px",
-        "text-anchor": "middle",
-        "font-family": "Impact",
+        x: '50%',
+        y: '60%',
+        'font-size': '22px',
+        fill: 'white',
+        stroke: 'black',
+        'stroke-width': '1px',
+        'text-anchor': 'middle',
+        'font-family': 'Impact',
       });
-      this.svgInnerHtml(hint, this.genericWin[1] || "");
+      this.svgInnerHtml(hint, this.genericWin[1] || '');
       this.winScreen.appendChild(hint);
       this.winHint = hint;
     }
@@ -3147,7 +3121,7 @@
     /** Parse HTML string into SVG nodes (needed for <tspan>) */
     svgInnerHtml(svg, html) {
       // Re-use a single temporary div to avoid creating many
-      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement("div");
+      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
       const wrapper = `<svg>${html}</svg>`;
       this._svgTmpDiv.innerHTML = wrapper;
       const nodes = Array.from(this._svgTmpDiv.firstChild.childNodes);
@@ -3170,7 +3144,7 @@
       const attrs = {};
       if (fill !== undefined) attrs.fill = fill;
       if (stroke !== undefined) attrs.stroke = stroke;
-      if (strokeWidth !== undefined) attrs["stroke-width"] = strokeWidth;
+      if (strokeWidth !== undefined) attrs['stroke-width'] = strokeWidth;
       return this.svgAttrs(svgElem, attrs);
     }
   }
@@ -3186,19 +3160,19 @@
           levelData = await res.text();
         }
       } catch (e) {
-        console.error("Could not load Chess Pursuit data", e);
+        console.error('Could not load Chess Pursuit data', e);
       }
       if (disposed) {
         return;
       }
       if (!levelData) {
-        console.error("Chess Pursuit data is empty");
+        console.error('Chess Pursuit data is empty');
       }
       try {
         game = new ChessPursuitGame();
         game.load(gameContainer, levelData);
       } catch (e) {
-        console.error("Could not start Chess Pursuit", e);
+        console.error('Could not start Chess Pursuit', e);
       }
     })();
     return () => {
