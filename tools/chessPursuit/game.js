@@ -563,6 +563,9 @@
   // A board row is exactly 8 squares; each square is a piece letter, '.' or ' '.
   const BOARD_ROW_PATTERN = /^[. prnbkqlwcPRNBKQLWC]{8}$/;
 
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const XLINK_NS = 'http://www.w3.org/1999/xlink';
+
   // Piece ids (used in SVG defs and the checkBoard) - PGN piece names:
   // White (enemy, checks the hero) is uppercase; Black (hero's side, blocks) is lowercase.
   const PIECE = {
@@ -624,8 +627,10 @@
       this.CELL_COLOR_2 = '#3E606F';
       this.ROLLOVER_COLOR = '#794';
       this.ROLLOVER_COLOR_TOO_FAR = '#898';
-      this.PIECE_FILL_COLOR = '#eee';
-      this.PIECE_STROKE_COLOR = '#555';
+      this.WHITE_PIECE_FILL_COLOR = '#eee';
+      this.WHITE_PIECE_STROKE_COLOR = '#555';
+      this.BLACK_PIECE_FILL_COLOR = '#002';
+      this.BLACK_PIECE_STROKE_COLOR = '#333';
       this.INVALID_CELL_COLOR_RGB = '255,0,0';
       this.CHECK_POINT_COLOR = 'rgba(93, 255, 182, 0.56)';
 
@@ -653,8 +658,8 @@
       this.gameIsOver = false;
       this.won = false;
       this.autoMove = false;
-      this.progress = 0; //expressed as a number of rows
-      this.progressPerSec = 1; //1
+      this.progress = 0; // expressed as a number of rows
+      this.progressPerSec = 1;
       this.checkBoard = null;
       this.checkPoints = null;
       this.checkpointKillCounts = [];
@@ -813,7 +818,7 @@
 
           break;
       }
-    };
+    }
 
     loadAudio() {
       // http://sfxr.me/
@@ -898,12 +903,10 @@
     }
 
     initSvg() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      const xlinkns = 'http://www.w3.org/1999/xlink';
       const boxWidth = this.SIZE;
       const boxHeight = this.SIZE + this.HORIZON_Y;
-      this.svgElem = document.createElementNS(xmlns, 'svg');
-      this.svgElem.setAttribute('xmlns', xmlns);
+      this.svgElem = document.createElementNS(SVG_NS, 'svg');
+      this.svgElem.setAttribute('xmlns', SVG_NS);
       this.svgElem.setAttributeNS(
         null,
         'viewBox',
@@ -912,11 +915,11 @@
       this.svgElem.setAttributeNS(null, 'width', boxWidth);
       this.svgElem.setAttributeNS(null, 'height', boxHeight);
       this.root.appendChild(this.svgElem);
-      this.defs = document.createElementNS(xmlns, 'defs');
+      this.defs = document.createElementNS(SVG_NS, 'defs');
       this.svgElem.appendChild(this.defs);
 
       //make pieces layer
-      this.svgPiecesLayer = document.createElementNS(xmlns, 'g');
+      this.svgPiecesLayer = document.createElementNS(SVG_NS, 'g');
       this.svgElem.appendChild(this.svgPiecesLayer);
       this.makeIntroScreen();
       this.makeFilter(this.SVG.ENEMY_FILTER);
@@ -927,100 +930,76 @@
       this.makePauseText();
       this.makeWinScreen();
 
-      //Piece shapes are authored as SVG markup in a 10x10 grid (origin [5,8]).
-      //makeDef scales/translates them so a <use> can position each piece on the board.
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.PAWN_W,
-          `
+      // Piece shapes are authored as SVG markup in a 10x10 grid (origin [5,8]).
+      // makeDef scales/translates them so a <use> can position each piece on the board.
+      this.definePiece(
+        this.Piece.PAWN_W,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
             <circle cx="5" cy="3" r="2"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.KING_W,
-          `
+      this.definePiece(
+        this.Piece.KING_W,
+        `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.KNIGHT_W,
-          `
+      this.definePiece(
+        this.Piece.KNIGHT_W,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.ROOK_W,
-          `
+      this.definePiece(
+        this.Piece.ROOK_W,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.BISHOP_W,
-          `
+      this.definePiece(
+        this.Piece.BISHOP_W,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
             <circle cx="5" cy="0" r="0.7"/>
             <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.QUEEN_W,
-          `
+      this.definePiece(
+        this.Piece.QUEEN_W,
+        `
             <circle cx="5" cy="0.4" r="0.6"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.WAR_BEAR_W,
-          `
+      this.definePiece(
+        this.Piece.WAR_BEAR_W,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
-          `
-        ),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
+          `,
+        this.WHITE_PIECE_FILL_COLOR,
+        this.WHITE_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.WAR_BEAR_B,
-          `
+      this.definePiece(
+        this.Piece.WAR_BEAR_B,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 8.5 6 L 7 7 L 7 5 L 6 6 L 5 4.5 L 4 6 L 3 5 L 3 7 L 1.5 6 L 2 8"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
 
       const makePike = (x, y) => {
@@ -1036,158 +1015,91 @@
         makePike(1, 8.5),
       ].join('\n');
 
-      this.svgStyle(
-        this.makeDef(this.Piece.LAND_MINE_W, minePikes, true),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
-      );
-      this.svgStyle(
-        this.makeDef(this.Piece.LAND_MINE_B, minePikes, true),
-        '#002',
-        '#333',
-        0
-      );
-      //HERO_KING
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.KING_B,
-          `
+      this.definePiece(this.Piece.LAND_MINE_W, minePikes, this.WHITE_PIECE_FILL_COLOR, this.WHITE_PIECE_STROKE_COLOR, { skipShadow: true });
+      this.definePiece(this.Piece.LAND_MINE_B, minePikes, this.BLACK_PIECE_FILL_COLOR, this.BLACK_PIECE_STROKE_COLOR, { skipShadow: true });
+      // HERO_KING
+      this.definePiece(
+        this.Piece.KING_B,
+        `
             <path d="M 4.6 1.4 L 5.4 1.4 L 5.4 -0.6 L 6.4 -0.6 L 6.4 -1.4 L 5.4 -1.4 L 5.4 -2.4 L 4.6 -2.4 L 4.6 -1.4 L 3.6 -1.4 L 3.6 -0.6 L 4.6 -0.6 L 4.6 1.4"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7 1 Q 5 0 3 1 L 4 3 L 2 8"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.QUEEN_B,
-          `
+      this.definePiece(
+        this.Piece.QUEEN_B,
+        `
             <circle cx="5" cy="0.4" r="0.6"/>
             <path d="M 2 8 Q 5 10 8 8 L 6 3 L 7.5 1 L 5.8 1.5 L 5 0.8 L 4.2 1.5 L 2.5 1 L 4 3 L 2 8"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
 
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.PAWN_B,
-          `
+      this.definePiece(
+        this.Piece.PAWN_B,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 5 3 L 2 8"/>
             <circle cx="5" cy="3" r="2"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.KNIGHT_B,
-          `
+      this.definePiece(
+        this.Piece.KNIGHT_B,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 7 6 Q 8 3 7 0 L 6 1 L 5 1 L 2 4 L 3 5 L 5 4 L 2 8"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.BISHOP_B,
-          `
+      this.definePiece(
+        this.Piece.BISHOP_B,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 6 4 Q 8 1.1 5 0 Q 2 1.1 4 4 L 2 8"/>
             <circle cx="5" cy="0" r="0.7"/>
             <path d="M 3.8 0.8 L 4.4 2.5" stroke-width="2" vector-effect="non-scaling-stroke"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
-      this.svgStyle(
-        this.makeDef(
-          this.Piece.ROOK_B,
-          `
+      this.definePiece(
+        this.Piece.ROOK_B,
+        `
             <path d="M 2 8 Q 5 10 8 8 L 6.5 3 L 8 2 L 8 0 L 7 0 L 7 1 L 6 1 L 6 0 L 4 0 L 4 1 L 3 1 L 3 0 L 2 0 L 2 2 L 3.5 3 L 2 8"/>
-          `
-        ),
-        '#002',
-        '#333',
-        0
+          `,
+        this.BLACK_PIECE_FILL_COLOR,
+        this.BLACK_PIECE_STROKE_COLOR
       );
       const castleMarkup = `
             <path d="M 25 30 L 50 30 L 50 5 L 45 5 L 45 10 L 40 10 L 40 5 L 35 5 L 35 10 L 30 10 L 30 5 L 25 5 L 25 30"/>
             <path d="M 0 50 L 0 50 L 27.5 50 L 27.5 35 L 47.5 35 L 47.5 50 L 75 50 L 75 20 L 70 20 L 70 25 L 65 25 L 65 20 L 60 20 L 60 25 L 55 25 L 55 20 L 50 20 L 50 25 L 45 25 L 45 20 L 40 20 L 40 25 L 35 25 L 35 20 L 30 20 L 30 25 L 25 25 L 25 20 L 20 20 L 20 25 L 15 25 L 15 20 L 10 20 L 10 25 L 5 25 L 5 20 L 0 20 L 0 50"/>
           `;
 
-      this.svgStyle(
-        this.makeDef(this.Piece.CASTLE_W, castleMarkup, true, 2.5, 50),
-        this.PIECE_FILL_COLOR,
-        this.PIECE_STROKE_COLOR,
-        0
-      );
-      this.svgStyle(
-        this.makeDef(this.Piece.CASTLE_B, castleMarkup, true, 2.5, 50),
-        '#002',
-        '#333',
-        0
-      );
-      this.makeCaptureCounter();
-      this.makeMoveCounter();
-      this.makeDeathCounter();
+      this.definePiece(this.Piece.CASTLE_W, castleMarkup, this.WHITE_PIECE_FILL_COLOR, this.WHITE_PIECE_STROKE_COLOR, { skipShadow: true, ox: 2.5, oy: 50 });
+      this.definePiece(this.Piece.CASTLE_B, castleMarkup, this.BLACK_PIECE_FILL_COLOR, this.BLACK_PIECE_STROKE_COLOR, { skipShadow: true, ox: 2.5, oy: 50 });
+      this.makeCounter('captureCounterText', '10');
+      this.makeCounter('moveCounterText', this.SIZE - 10, 'end');
+      this.makeCounter('deathCounterText', '50%', 'middle');
     }
 
-    makeCaptureCounter() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.captureCounterText = document.createElementNS(xmlns, 'text');
-      this.svgAttrs(this.captureCounterText, {
-        x: '10',
+    /** Create one of the three on-screen stat counters. */
+    makeCounter(field, x, textAnchor) {
+      const el = document.createElementNS(SVG_NS, 'text');
+      const attrs = {
+        x,
         y: '30',
         'font-size': '24px',
         fill: '#5f7',
         stroke: 'black',
         'stroke-width': '1px',
         'font-family': 'Impact',
-      });
-      this.svgElem.appendChild(this.captureCounterText);
-    }
-
-    makeMoveCounter() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.moveCounterText = document.createElementNS(xmlns, 'text');
-      this.svgAttrs(this.moveCounterText, {
-        x: this.SIZE - 10,
-        y: '30',
-        'text-anchor': 'end',
-        'font-size': '24px',
-        fill: '#5f7',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'font-family': 'Impact',
-      });
-      this.svgElem.appendChild(this.moveCounterText);
-    }
-
-    makeDeathCounter() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.deathCounterText = document.createElementNS(xmlns, 'text');
-      this.svgAttrs(this.deathCounterText, {
-        x: '50%',
-        y: '30',
-        'text-anchor': 'middle',
-        'font-size': '24px',
-        fill: '#5f7',
-        stroke: 'black',
-        'stroke-width': '1px',
-        'font-family': 'Impact',
-      });
-      this.svgElem.appendChild(this.deathCounterText);
+      };
+      if (textAnchor) attrs['text-anchor'] = textAnchor;
+      this[field] = el;
+      this.svgAttrs(el, attrs);
+      this.svgElem.appendChild(el);
     }
 
     initShadowCanvas() {
@@ -2797,6 +2709,36 @@
     // SVG / DOM helpers
     // ---------------------------------------------------------------------
 
+    /** Set multiple attributes on an SVG element */
+    svgAttrs(el, attrs) {
+      if (attrs) {
+        for (const key in attrs) {
+          el.setAttributeNS(null, key, attrs[key]);
+        }
+      }
+      return el;
+    }
+
+    /** Parse an HTML string into SVG nodes (needed for <tspan>) */
+    svgInnerHtml(svg, html) {
+      // Reuse a single temporary div for parsing.
+      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
+      const wrapper = `<svg>${html}</svg>`;
+      this._svgTmpDiv.innerHTML = wrapper;
+      const nodes = Array.from(this._svgTmpDiv.firstChild.childNodes);
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      nodes.forEach((node) => svg.appendChild(node));
+    }
+
+    /** Convenience for fill / stroke */
+    svgStyle(svgElem, fill, stroke, strokeWidth) {
+      const attrs = {};
+      if (fill !== undefined) attrs.fill = fill;
+      if (stroke !== undefined) attrs.stroke = stroke;
+      if (strokeWidth !== undefined) attrs['stroke-width'] = strokeWidth;
+      return this.svgAttrs(svgElem, attrs);
+    }
+
     /** Parse an SVG markup string into element nodes (whitespace-only text ignored) */
     makeElems(html) {
       if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
@@ -2806,8 +2748,7 @@
 
     /** Create a <g> definition for a piece (used in <defs>) */
     makeDef(id, html, skipShadow = false, ox = 5, oy = 8) {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      const def = document.createElementNS(xmlns, 'g');
+      const def = document.createElementNS(SVG_NS, 'g');
       def.setAttributeNS(null, 'id', id);
       // Shapes are authored in a 10x10 grid with the piece origin at [ox,oy].
       // Scale and translate so the origin maps to the def's local (0,0), where a
@@ -2826,11 +2767,14 @@
       return def;
     }
 
+    /** Define a piece in <defs> and style it (convenience around makeDef + svgStyle). */
+    definePiece(id, html, fill, stroke, options = {}) {
+      const { skipShadow = false, ox = 5, oy = 8 } = options;
+      this.svgStyle(this.makeDef(id, html, skipShadow, ox, oy), fill, stroke, 0);
+    }
+
     makeFilter(id) {
-      const def = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'filter'
-      );
+      const def = document.createElementNS(SVG_NS, 'filter');
       def.setAttributeNS(null, 'id', id);
       this.svgAttrs(def, {
         x: '0',
@@ -2850,8 +2794,7 @@
 
     /** Piece shadow (ellipse) */
     makeShadow() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      const shadow = document.createElementNS(xmlns, 'ellipse');
+      const shadow = document.createElementNS(SVG_NS, 'ellipse');
       this.svgAttrs(shadow, {
         cx: 5,
         cy: 8,
@@ -2865,19 +2808,16 @@
 
     /** <use> element that references a definition */
     makeUse(id, attrs = {}) {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      const xlinkns = 'http://www.w3.org/1999/xlink';
-      const use = document.createElementNS(xmlns, 'use');
+      const use = document.createElementNS(SVG_NS, 'use');
       this.svgAttrs(use, attrs);
-      use.setAttributeNS(xlinkns, 'xlink:href', '#' + id);
-      use.setAttribute('xmlns:xlink', xlinkns);
+      use.setAttributeNS(XLINK_NS, 'xlink:href', '#' + id);
+      use.setAttribute('xmlns:xlink', XLINK_NS);
       return use;
     }
 
     /** <text> definition for the "CHECK" label */
     makeCheckTextDef(id, text) {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      const txt = document.createElementNS(xmlns, 'text');
+      const txt = document.createElementNS(SVG_NS, 'text');
       txt.setAttributeNS(null, 'id', id);
       this.svgAttrs(txt, {
         x: '-40',
@@ -2893,12 +2833,11 @@
 
     /** Game-over overlay */
     makeGameOverScreen() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.gameOverScreen = document.createElementNS(xmlns, 'g');
+      this.gameOverScreen = document.createElementNS(SVG_NS, 'g');
       this.gameOverScreen.style.display = 'none';
       this.svgElem.appendChild(this.gameOverScreen);
 
-      const rect = document.createElementNS(xmlns, 'rect');
+      const rect = document.createElementNS(SVG_NS, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
@@ -2908,7 +2847,7 @@
       });
       this.gameOverScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, 'text');
+      const title = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(title, {
         x: '50%',
         y: '50%',
@@ -2923,7 +2862,7 @@
       this.gameOverScreen.appendChild(title);
       this.gameOverTitle = title;
 
-      const hint = document.createElementNS(xmlns, 'text');
+      const hint = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(hint, {
         x: '50%',
         y: '60%',
@@ -2944,11 +2883,10 @@
 
     /** Intro title screen */
     makeIntroScreen() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.introScreen = document.createElementNS(xmlns, 'g');
+      this.introScreen = document.createElementNS(SVG_NS, 'g');
       this.svgElem.appendChild(this.introScreen);
 
-      const rect = document.createElementNS(xmlns, 'rect');
+      const rect = document.createElementNS(SVG_NS, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
@@ -2959,7 +2897,7 @@
       });
       this.introScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, 'text');
+      const title = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(title, {
         x: '50%',
         y: '60',
@@ -2979,8 +2917,7 @@
 
     /** "Press SPACE or CLICK" prompt */
     makePressSpaceText() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.pressSpaceText = document.createElementNS(xmlns, 'text');
+      this.pressSpaceText = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(this.pressSpaceText, {
         x: '50%',
         y: this.HORIZON_Y + this.SIZE - 10,
@@ -3000,8 +2937,7 @@
 
     /** Paused overlay */
     makePauseText() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.pauseText = document.createElementNS(xmlns, 'text');
+      this.pauseText = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(this.pauseText, {
         x: '50%',
         y: '50%',
@@ -3019,7 +2955,6 @@
 
     /** Dialog box (slides in from bottom) */
     makeDialogBox() {
-      const xmlns = 'http://www.w3.org/2000/svg';
       const width = this.SIZE - 2 * this.DIALOG_MARGIN;
       const height = 0.3 * this.SIZE - 2 * this.DIALOG_MARGIN;
 
@@ -3027,7 +2962,7 @@
       this.dialogOpenY =
         this.HORIZON_Y + this.SIZE - height - this.DIALOG_MARGIN;
 
-      this.dialogBox = document.createElementNS(xmlns, 'svg');
+      this.dialogBox = document.createElementNS(SVG_NS, 'svg');
       this.dialogBox._y = this.dialogCloseY; // used for tweening
       this.svgAttrs(this.dialogBox, {
         x: this.DIALOG_MARGIN,
@@ -3037,7 +2972,7 @@
       });
       this.svgElem.appendChild(this.dialogBox);
 
-      const rect = document.createElementNS(xmlns, 'rect');
+      const rect = document.createElementNS(SVG_NS, 'rect');
       this.svgAttrs(rect, {
         width: '100%',
         height: '100%',
@@ -3047,7 +2982,7 @@
       });
       this.dialogBox.appendChild(rect);
 
-      this.dialogSpeakerText = document.createElementNS(xmlns, 'text');
+      this.dialogSpeakerText = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(this.dialogSpeakerText, {
         x: 10,
         y: 20,
@@ -3058,7 +2993,7 @@
       });
       this.dialogBox.appendChild(this.dialogSpeakerText);
 
-      this.dialogText = document.createElementNS(xmlns, 'text');
+      this.dialogText = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(this.dialogText, {
         x: 10,
         y: 40,
@@ -3072,12 +3007,11 @@
 
     /** Win screen */
     makeWinScreen() {
-      const xmlns = 'http://www.w3.org/2000/svg';
-      this.winScreen = document.createElementNS(xmlns, 'g');
+      this.winScreen = document.createElementNS(SVG_NS, 'g');
       this.winScreen.style.display = 'none';
       this.svgElem.appendChild(this.winScreen);
 
-      const rect = document.createElementNS(xmlns, 'rect');
+      const rect = document.createElementNS(SVG_NS, 'rect');
       this.svgAttrs(rect, {
         x: 0,
         y: 0,
@@ -3087,7 +3021,7 @@
       });
       this.winScreen.appendChild(rect);
 
-      const title = document.createElementNS(xmlns, 'text');
+      const title = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(title, {
         x: '50%',
         y: '50%',
@@ -3102,7 +3036,7 @@
       this.winScreen.appendChild(title);
       this.winTitle = title;
 
-      const hint = document.createElementNS(xmlns, 'text');
+      const hint = document.createElementNS(SVG_NS, 'text');
       this.svgAttrs(hint, {
         x: '50%',
         y: '60%',
@@ -3116,36 +3050,6 @@
       this.svgInnerHtml(hint, this.genericWin[1] || '');
       this.winScreen.appendChild(hint);
       this.winHint = hint;
-    }
-
-    /** Parse HTML string into SVG nodes (needed for <tspan>) */
-    svgInnerHtml(svg, html) {
-      // Re-use a single temporary div to avoid creating many
-      if (!this._svgTmpDiv) this._svgTmpDiv = document.createElement('div');
-      const wrapper = `<svg>${html}</svg>`;
-      this._svgTmpDiv.innerHTML = wrapper;
-      const nodes = Array.from(this._svgTmpDiv.firstChild.childNodes);
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
-      nodes.forEach((node) => svg.appendChild(node));
-    }
-
-    /** Set multiple attributes on an SVG element */
-    svgAttrs(el, attrs) {
-      if (attrs) {
-        for (const key in attrs) {
-          el.setAttributeNS(null, key, attrs[key]);
-        }
-      }
-      return el;
-    }
-
-    /** Convenience for fill / stroke */
-    svgStyle(svgElem, fill, stroke, strokeWidth) {
-      const attrs = {};
-      if (fill !== undefined) attrs.fill = fill;
-      if (stroke !== undefined) attrs.stroke = stroke;
-      if (strokeWidth !== undefined) attrs['stroke-width'] = strokeWidth;
-      return this.svgAttrs(svgElem, attrs);
     }
   }
 
