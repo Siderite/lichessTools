@@ -221,11 +221,12 @@
         noNotifications: lt.isOptionSet(value, 'noNotifications')
       };
       if (lt.location.isTeamPageOf(this.teamId)) this.setVisitedTeamPage();
-      await this.refreshTeam(lt.location.isForumPage());
-      if (!this.inTeam) {
-        this.notifyToJoin();
-      }
-      await this.updateForumPage();
+      this.refreshTeam(lt.location.isForumPage()).then(()=>{
+        if (!this.inTeam) {
+          this.notifyToJoin();
+        }
+      });
+      this.updateForumPage();
       this.removeWarningFromTeamForum();
     }
 
