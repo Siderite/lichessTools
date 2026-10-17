@@ -1165,8 +1165,12 @@
           } else if (head === 'screen') {
             currentBeat = { kind: 'screen', trigger: trigger || null, state: state, lines: [] };
             pendingScript.push(currentBeat);
+          } else if (head === 'block' && !trigger && state === null) {
+            // @block: hold the king (and pause the script) until the block scrolls into view.
+            currentBeat = { kind: 'block' };
+            pendingScript.push(currentBeat);
           } else if (
-            ['2d', 'iso', 'stop', 'start', 'block'].includes(head) &&
+            ['2d', 'iso', 'stop', 'start'].includes(head) &&
             !trigger &&
             state === null
           ) {
@@ -1432,6 +1436,13 @@
       if (beat.kind === 'title') {
         this.scriptBusy = true;
         // Title screen stays until the player dismisses it (SPACE/CLICK).
+      } else if (beat.kind === 'block') {
+        const block = this.activeScriptBlockIndex >= 0 ? this.blocks[this.activeScriptBlockIndex] : null;
+        if (block && this.progress < block.startRow - this.BLOCK_VIEW_OFFSET) {
+          this.blockWait = { blockIndex: this.activeScriptBlockIndex, startRow: block.startRow };
+        } else {
+          this.advanceBeat();
+        }
       } else if (beat.kind === 'action') {
         this.runAction(beat.action);
         this.advanceBeat();
@@ -1794,19 +1805,9 @@
       const blockIndex = this.currentBlockIndex();
       const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
 
-      // @block: hold the king and the script until the block scrolls into view
-      if (
-        block &&
-        block.actions.includes('block') &&
-        this.progress < block.startRow - this.BLOCK_VIEW_OFFSET
-      ) {
-        this.blockWait = { blockIndex: blockIndex, startRow: block.startRow };
-        this.enterBlock(blockIndex);
-        return;
-      }
-      this.blockWait = null;
-
       this.playBlockScript(blockIndex);
+      if (this.blockWait) return; // the @block beat is holding the script until the block is in view
+
       const rank = block ? this.player.row - block.startRow + 1 : null;
       const file = this.player.col;
 
@@ -2247,6 +2248,7 @@
       this.initCheckBoard(checkPointIndex);
       this.activeBeat = -1;
       this.scriptBusy = false;
+      this.blockWait = null;
       this.activeScript = [];
       this.activeBlockIndex = -1;
       this.enterBlock(this.currentBlockIndex());
@@ -2322,7 +2324,8 @@
           this.progressPerSec * (now - this.lastTime) * this.MS_TO_S;
       }
       if (this.blockWait && this.progress >= this.blockWait.startRow - this.BLOCK_VIEW_OFFSET) {
-        this.checkTriggers(null);
+        this.blockWait = null;
+        this.advanceBeat();
       }
       if (this.player.row < this.progress - 0.9) {
         //player out of view
