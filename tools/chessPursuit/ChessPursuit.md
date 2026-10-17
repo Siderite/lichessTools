@@ -220,6 +220,8 @@ Some `@` lines are not speech — they are **commands**. They run when the playe
 | `@stop` | stop the screen from scrolling up |
 | `@start` | start the screen scrolling up again |
 | `@block` | hold the king and the story until the block scrolls fully into view |
+| `@hide` | make the king invisible (he's still there) |
+| `@show` | make the king visible again |
 | `@checkpoint` | a save point — die, and you restart here |
 | `@showThreat P` | highlight every square that piece attacks (here: all pawns) |
 
