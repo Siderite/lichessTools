@@ -560,6 +560,9 @@
 
   // Game data is loaded from ChessPursuit.dat (see ChessPursuit.md for the format).
 
+  // A board row is exactly 8 squares; each square is a piece letter, '.' or ' '.
+  const BOARD_ROW_PATTERN = /^[. prnbkqlwcPRNBKQLWC]{8}$/;
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
@@ -624,6 +627,19 @@
       this.THRESHOLD_UP = 0.02;
 
       this.svgCache = {};
+
+      // PGN/SAN piece letter -> internal piece id (used to resolve speech actors).
+      this.SAN_TO_PIECE = {
+        K: this.Piece.KING_W, k: this.Piece.KING_B,
+        Q: this.Piece.QUEEN_W, q: this.Piece.QUEEN_B,
+        R: this.Piece.ROOK_W, r: this.Piece.ROOK_B,
+        B: this.Piece.BISHOP_W, b: this.Piece.BISHOP_B,
+        N: this.Piece.KNIGHT_W, n: this.Piece.KNIGHT_B,
+        P: this.Piece.PAWN_W, p: this.Piece.PAWN_B,
+        W: this.Piece.WAR_BEAR_W, w: this.Piece.WAR_BEAR_B,
+        C: this.Piece.CASTLE_W, c: this.Piece.CASTLE_B,
+        L: this.Piece.LAND_MINE_W, l: this.Piece.LAND_MINE_B,
+      };
     }
 
     load(gameContainer, levelData) {
@@ -634,7 +650,7 @@
       //------------------------------------------------------------------------------------------------------------------
 
       this.now = 0; //Date.now(), set on update
-      this.lastTime;
+      this.lastTime = null;
       this.killCount = 0;
       this.moveCount = 0;
       this.checkMateCount = 0;
@@ -662,7 +678,7 @@
       this.pauseText = null;
       this.introScreen = null;
       this.intro = true;
-      this.introStartTime;
+      this.introStartTime = null;
       this.perspectiveProgress = 0;
       this.viewAnim = null;
       this.dialogBox = null;
@@ -688,17 +704,6 @@
       this.pendingGameOverText = null;
       this.boardRendered = false;
       this.activeBlockIndex = -1;
-      this.SAN_TO_PIECE = {
-        K: this.Piece.KING_W, k: this.Piece.KING_B,
-        Q: this.Piece.QUEEN_W, q: this.Piece.QUEEN_B,
-        R: this.Piece.ROOK_W, r: this.Piece.ROOK_B,
-        B: this.Piece.BISHOP_W, b: this.Piece.BISHOP_B,
-        N: this.Piece.KNIGHT_W, n: this.Piece.KNIGHT_B,
-        P: this.Piece.PAWN_W, p: this.Piece.PAWN_B,
-        W: this.Piece.WAR_BEAR_W, w: this.Piece.WAR_BEAR_B,
-        C: this.Piece.CASTLE_W, c: this.Piece.CASTLE_B,
-        L: this.Piece.LAND_MINE_W, l: this.Piece.LAND_MINE_B,
-      };
 
       this.loadAudio();
       this.parseGameData(levelData);
@@ -1202,7 +1207,6 @@
       const c2 = ")";
       grd.addColorStop(0, c + 0 + c2);
       grd.addColorStop(0.2, c + 0 + c2);
-      //grd.addColorStop(0.9,"rgba(0,0,0,0.3)");
       grd.addColorStop(1, c + 0.5 + c2);
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, this.SIZE, this.SIZE);
@@ -1226,6 +1230,7 @@
       let block = null;
       let pendingScript = [];
       let pendingActions = [];
+      let pendingExitActions = [];
 
       const newBlock = () => ({
         checkpoint: false,
@@ -1235,6 +1240,7 @@
         winText: [],
         lossText: [],
         actions: pendingActions,
+        exitActions: pendingExitActions,
         script: pendingScript,
         state: 1,
         rows: [],
@@ -1246,14 +1252,7 @@
           currentBeat = null;
           currentGeneric = null;
           currentBlockGeneric = null;
-          const parts = line.slice(1).split("/");
-          const head = parts[0];
-          const rest = parts.slice(1);
-          let state = null;
-          if (rest.length && /^\d+$/.test(rest[rest.length - 1])) {
-            state = parseInt(rest.pop(), 10);
-          }
-          const trigger = rest.length ? rest.join("/") : null;
+          const { head, trigger, state } = this.parseDirective(line);
 
           if (head === "title") {
             currentBeat = { kind: "title", lines: [] };
@@ -1268,9 +1267,14 @@
           ) {
             if (block && !block.checkpoint) {
               block.actions.push(head);
-            } else {
+            } else if (pendingScript.length === 0) {
               pendingActions.push(head);
+            } else {
+              pendingExitActions.push(head);
             }
+          } else if ((head === "hide" || head === "show") && !trigger && state === null) {
+            currentBeat = { kind: "action", action: head };
+            pendingScript.push(currentBeat);
           } else if (head === "win" || head === "loss") {
             if (trigger) {
               if (!block || block.checkpoint) {
@@ -1278,6 +1282,7 @@
                 this.blocks.push(block);
                 pendingScript = [];
                 pendingActions = [];
+                pendingExitActions = [];
               }
               if (head === "win") {
                 block.win.push(trigger);
@@ -1294,12 +1299,14 @@
             block = null;
             pendingScript = [];
             pendingActions = [];
+            pendingExitActions = [];
           } else if (head.startsWith("showThreat")) {
             if (!block || block.checkpoint) {
               block = newBlock();
               this.blocks.push(block);
               pendingScript = [];
               pendingActions = [];
+              pendingExitActions = [];
             }
             block.showThreat = head.slice("showThreat".length).trim();
           } else {
@@ -1316,8 +1323,7 @@
           currentGeneric = null;
           currentBlockGeneric = null;
         } else {
-          const isRow = line.split("/").every((s) => /^[. prnbkqlwcPRNBKQLWC]{8}$/.test(s));
-          if (isRow) {
+          if (this.isBoardRow(line)) {
             currentBeat = null;
             currentGeneric = null;
             currentBlockGeneric = null;
@@ -1326,6 +1332,7 @@
               this.blocks.push(block);
               pendingScript = [];
               pendingActions = [];
+              pendingExitActions = [];
             }
             block.rows.push(line.split("/").map((s) => s.trim()));
           } else if (currentGeneric === "win") {
@@ -1349,6 +1356,24 @@
           break;
         }
       }
+    }
+
+    /** Split an "@..." directive into its head, trigger and optional state. */
+    parseDirective(line) {
+      const parts = line.slice(1).split("/");
+      const head = parts[0];
+      const rest = parts.slice(1);
+      let state = null;
+      if (rest.length && /^\d+$/.test(rest[rest.length - 1])) {
+        state = parseInt(rest.pop(), 10);
+      }
+      const trigger = rest.length ? rest.join("/") : null;
+      return { head, trigger, state };
+    }
+
+    /** True when a trimmed line is one or more "/"-separated board rows. */
+    isBoardRow(line) {
+      return line.split("/").every((segment) => BOARD_ROW_PATTERN.test(segment));
     }
 
     initCheckBoard(startCheckPointIndex) {
@@ -1480,6 +1505,9 @@
         this.playBeat(script[first]);
       } else {
         this.enterBlock(blockIndex);
+        if (first < 0) {
+          this.runExitActions(blockIndex);
+        }
       }
     }
 
@@ -1499,6 +1527,9 @@
       if (beat.kind === "title") {
         this.scriptBusy = true;
         // Title screen stays until the player dismisses it (SPACE/CLICK).
+      } else if (beat.kind === "action") {
+        this.runAction(beat.action);
+        this.advanceBeat();
       } else if (beat.kind === "text" || beat.kind === "screen") {
         this.showDialog(beat.kind === "text" ? beat.actor : null, beat.lines);
         this.scriptBusy = true;
@@ -1518,6 +1549,7 @@
         this.clearTalking();
         if (this.introScreen) this.introScreen.style.display = "none";
         if (this.pressSpaceText) this.pressSpaceText.style.display = "none";
+        this.runExitActions(this.currentBlockIndex());
         this.enterBlock(this.currentBlockIndex());
       }
     }
@@ -1567,6 +1599,18 @@
         this.advancementStopped = true;
       } else if (action === "start") {
         this.advancementStopped = false;
+      } else if (action === "hide") {
+        this.player.hidden = true;
+      } else if (action === "show") {
+        this.player.hidden = false;
+      }
+    }
+
+    runExitActions(blockIndex) {
+      const block = blockIndex >= 0 ? this.blocks[blockIndex] : null;
+      if (!block) return;
+      for (const action of block.exitActions || []) {
+        this.runAction(action);
       }
     }
 
@@ -1732,6 +1776,7 @@
         row: row,
         col: col,
         showThreat: false,
+        hidden: false,
       };
       if (!this.checkBoard[row]) {
         this.checkBoard[row] = [];
@@ -1758,11 +1803,22 @@
     movePlayer(row, col) {
       const oldCol = this.player.col;
       const oldRow = this.player.row;
-      if (col < 0) {
-        col = 0;
-      } else if (col >= this.NUM_CELLS) {
-        col = this.NUM_CELLS - 1;
+      col = this.clampCol(col);
+      row = this.clampRow(row);
+      if (col != oldCol || row != oldRow) {
+        this.applyMove(oldRow, oldCol, row, col);
       }
+    }
+
+    /** Clamp a column index to the board's horizontal bounds. */
+    clampCol(col) {
+      if (col < 0) return 0;
+      if (col >= this.NUM_CELLS) return this.NUM_CELLS - 1;
+      return col;
+    }
+
+    /** Clamp a row index to the playable vertical range. */
+    clampRow(row) {
       const rowMin = Math.floor(this.progress);
       const rowMax = this.topRowDisplayed - 2;
       if (row < rowMin) {
@@ -1773,59 +1829,67 @@
       if (this.blockWait && row > this.blockWait.startRow) {
         row = this.blockWait.startRow;
       }
-      if (col != oldCol || row != oldRow) {
-        let capturedType = null;
-        const oldCell = this.checkBoard[oldRow][oldCol];
-        if (!this.checkBoard[row]) {
-          this.checkBoard[row] = [];
+      return row;
+    }
+
+    /** Index of the first checkpoint above `row` (used to snapshot counters). */
+    checkpointIndexForRow(row) {
+      return this.checkPoints.findIndex((cp) => row < cp);
+    }
+
+    /** Resolve a move attempt (row/col are already clamped). */
+    applyMove(oldRow, oldCol, row, col) {
+      let capturedType = null;
+      const oldCell = this.checkBoard[oldRow][oldCol];
+      if (!this.checkBoard[row]) {
+        this.checkBoard[row] = [];
+      }
+      let cell = this.checkBoard[row][col];
+      if (!cell) {
+        cell = {};
+        this.checkBoard[row][col] = cell;
+      }
+      if (cell.wall || (cell.piece && this.isBlackPiece(cell.piece.type))) {
+        return;
+      }
+      const threateningCell = this.getThreateningCell(row, col);
+      if (threateningCell) {
+        this.audio.play("check");
+        this.player.invalid = true;
+        this.player.invalidCol = col;
+        this.player.invalidRow = row;
+        this.player.threateningPiece = threateningCell.piece;
+        row = oldRow;
+        col = oldCol;
+        this.checkCount++;
+        this.moveCount++;
+        this.checkpointMoveCounts[this.checkpointIndexForRow(row)] = this.moveCount;
+      } else {
+        this.player.invalid = false;
+        this.moveCount++;
+        const checkpointIndex = this.checkpointIndexForRow(row);
+        this.checkpointMoveCounts[checkpointIndex] = this.moveCount;
+        if (cell.piece) {
+          capturedType = cell.piece.type;
+          this.destroyPiece(cell.piece);
+          this.killCount++;
+          this.checkpointKillCounts[checkpointIndex] = this.killCount;
+          this.audio.play("capture");
+        } else {
+          this.audio.play("move");
         }
-        let cell = this.checkBoard[row][col];
-        if (!cell) {
-          cell = {};
-          this.checkBoard[row][col] = cell;
-        }
-        if (!cell.wall && !(cell.piece && this.isBlackPiece(cell.piece.type))) {
-          const threateningCell = this.getThreateningCell(row, col);
-          if (threateningCell) {
-            this.audio.play("check");
-            this.player.invalid = true;
-            this.player.invalidCol = col;
-            this.player.invalidRow = row;
-            this.player.threateningPiece = threateningCell.piece;
-            col = oldCol;
-            row = oldRow;
-            this.checkCount++;
-            this.moveCount++;
-            const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
-            this.checkpointMoveCounts[checkpointIndex] = this.moveCount;
-          } else {
-            this.player.invalid = false;
-            this.moveCount++;
-            const checkpointIndex = this.checkPoints.findIndex(cp => row < cp);
-            this.checkpointMoveCounts[checkpointIndex] = this.moveCount;
-            if (cell.piece) {
-              capturedType = cell.piece.type;
-              this.destroyPiece(cell.piece);
-              this.killCount++;
-              this.checkpointKillCounts[checkpointIndex] = this.killCount;
-              this.audio.play("capture");
-            } else {
-              this.audio.play("move");
-            }
-            oldCell.piece = null;
-            cell.piece = this.player;
-          }
-          this.player.oldCol = oldCol;
-          this.player.oldRow = oldRow;
-          this.player.anim = true;
-          this.player.animStartTime = Date.now();
-          this.player.col = col;
-          this.player.row = row;
-          this.checkTriggers(capturedType);
-          if (!this.gameIsOver && row >= this.lastRowIndex) {
-            this.pendingGameOver = true;
-          }
-        }
+        oldCell.piece = null;
+        cell.piece = this.player;
+      }
+      this.player.oldCol = oldCol;
+      this.player.oldRow = oldRow;
+      this.player.anim = true;
+      this.player.animStartTime = Date.now();
+      this.player.col = col;
+      this.player.row = row;
+      this.checkTriggers(capturedType);
+      if (!this.gameIsOver && row >= this.lastRowIndex) {
+        this.pendingGameOver = true;
       }
     }
 
@@ -1912,56 +1976,75 @@
       if (threateningCell) {
         return threateningCell;
       }
-      //ROOK
-      let i, j, cell;
-      //Check left
-      for (j = col - 1; j >= 0; j--) {
-        cell = this.getCellWithPieceAt(row, j);
-        if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
-            return cell;
-          } else {
-            break;
-          }
-        }
+      // Rook — orthogonal lines, blocked by the first piece in each direction.
+      const rook = this.findRookThreat(row, col);
+      if (rook) {
+        return rook;
       }
-      //Check right
-      for (j = col + 1; j <= this.NUM_CELLS; j++) {
-        cell = this.getCellWithPieceAt(row, j);
-        if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
-            return cell;
-          } else {
-            break;
-          }
-        }
+      // Bishop — diagonal lines.
+      const bishop = this.findBishopThreat(row, col);
+      if (bishop) {
+        return bishop;
       }
-      //Check up
-      for (i = row + 1; i <= row + this.NUM_CELLS; i++) {
-        cell = this.getCellWithPieceAt(i, col);
-        if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
-            return cell;
-          } else {
-            break;
-          }
-        }
-      }
-      //Check down
-      for (i = row - 1; i >= row - this.NUM_CELLS; i--) {
-        cell = this.getCellWithPieceAt(i, col);
-        if (cell && cell.piece) {
-          if (cell.piece.type == this.Piece.ROOK_W) {
-            return cell;
-          } else {
-            break;
-          }
-        }
-      }
+      // Knight — L-shaped jumps.
+      return this.findKnightThreat(row, col);
+    }
 
-      //BISHOP
-      //diag bottom left
-      for (j = col - 1, i = row - 1; j >= 0; j--, i--) {
+    /** Find a threatening white rook along any orthogonal line. */
+    findRookThreat(row, col) {
+      let cell;
+      // left
+      for (let j = col - 1; j >= 0; j--) {
+        cell = this.getCellWithPieceAt(row, j);
+        if (cell && cell.piece) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
+            return cell;
+          } else {
+            break;
+          }
+        }
+      }
+      // right
+      for (let j = col + 1; j <= this.NUM_CELLS; j++) {
+        cell = this.getCellWithPieceAt(row, j);
+        if (cell && cell.piece) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
+            return cell;
+          } else {
+            break;
+          }
+        }
+      }
+      // up
+      for (let i = row + 1; i <= row + this.NUM_CELLS; i++) {
+        cell = this.getCellWithPieceAt(i, col);
+        if (cell && cell.piece) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
+            return cell;
+          } else {
+            break;
+          }
+        }
+      }
+      // down
+      for (let i = row - 1; i >= row - this.NUM_CELLS; i--) {
+        cell = this.getCellWithPieceAt(i, col);
+        if (cell && cell.piece) {
+          if (cell.piece.type == this.Piece.ROOK_W) {
+            return cell;
+          } else {
+            break;
+          }
+        }
+      }
+      return undefined;
+    }
+
+    /** Find a threatening white bishop along any diagonal. */
+    findBishopThreat(row, col) {
+      let cell;
+      // diag bottom-left
+      for (let j = col - 1, i = row - 1; j >= 0; j--, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
           if (cell.piece.type == this.Piece.BISHOP_W) {
@@ -1971,8 +2054,8 @@
           }
         }
       }
-      //diag bottom right
-      for (j = col + 1, i = row - 1; j < this.NUM_CELLS; j++, i--) {
+      // diag bottom-right
+      for (let j = col + 1, i = row - 1; j < this.NUM_CELLS; j++, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
           if (cell.piece.type == this.Piece.BISHOP_W) {
@@ -1982,8 +2065,8 @@
           }
         }
       }
-      //diag top left
-      for (j = col - 1, i = row + 1; j >= 0; j--, i++) {
+      // diag top-left
+      for (let j = col - 1, i = row + 1; j >= 0; j--, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
           if (cell.piece.type == this.Piece.BISHOP_W) {
@@ -1993,8 +2076,8 @@
           }
         }
       }
-      //diag top right
-      for (j = col + 1, i = row + 1; j < this.NUM_CELLS; j++, i++) {
+      // diag top-right
+      for (let j = col + 1, i = row + 1; j < this.NUM_CELLS; j++, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
           if (cell.piece.type == this.Piece.BISHOP_W) {
@@ -2004,7 +2087,12 @@
           }
         }
       }
-      threateningCell =
+      return undefined;
+    }
+
+    /** Find a threatening white knight on any L-shaped square. */
+    findKnightThreat(row, col) {
+      return (
         this.getCellWithPieceAt(row + 2, col - 1, this.Piece.KNIGHT_W) ||
         this.getCellWithPieceAt(row - 2, col - 1, this.Piece.KNIGHT_W) ||
         this.getCellWithPieceAt(row + 2, col + 1, this.Piece.KNIGHT_W) ||
@@ -2012,8 +2100,8 @@
         this.getCellWithPieceAt(row + 1, col - 2, this.Piece.KNIGHT_W) ||
         this.getCellWithPieceAt(row - 1, col - 2, this.Piece.KNIGHT_W) ||
         this.getCellWithPieceAt(row + 1, col + 2, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row - 1, col + 2, this.Piece.KNIGHT_W);
-      return threateningCell;
+        this.getCellWithPieceAt(row - 1, col + 2, this.Piece.KNIGHT_W)
+      );
     }
 
     getCellWithPieceAt(row, col, type) {
@@ -2091,7 +2179,7 @@
 
     updatePieceStyle(piece) {
       if (piece.shape) {
-        piece.shape.style.opacity = piece.opacity;
+        piece.shape.style.opacity = piece.hidden ? 0 : piece.opacity;
         if (piece.scale > 0) {
           piece.shape.setAttributeNS(
             null,
@@ -2424,52 +2512,9 @@
 
       // SVG ------------------------------------------------------------------------------------------------------
 
-      // Update pieces
-      let pieceAfterPlayer;
-      let row;
-      for (
-        let rowIndex = this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5;
-        rowIndex <= this.topRowDisplayed;
-        rowIndex++
-      ) {
-        row = this.checkBoard[rowIndex];
-        if (row) {
-          for (let colIndex = 0; colIndex < this.NUM_CELLS; colIndex++) {
-            if (row[colIndex] && row[colIndex].piece) {
-              const piece = row[colIndex].piece;
-              const res = this.computeCellPos(piece.row, piece.col);
-              Object.assign(piece, res);
-              if (piece.appearing) {
-                const ap = Math.min(1, (now - piece.appearTime) * this.MS_TO_S / 0.5);
-                const ae = Math.sin((ap * Math.PI) / 2);
-                piece.opacity = res.opacity * ae;
-                piece.scale = res.scale * (0.5 + 0.5 * ae);
-                if (ap >= 1) piece.appearing = false;
-              }
-              if (piece.talking) {
-                const bounce =
-                  -Math.abs(
-                    Math.sin(((now - piece.talkingStartTime) * Math.PI) / 800)
-                  ) *
-                  this.CELL_SIZE *
-                  0.2;
-                piece.y += bounce;
-              }
-              this.updatePieceStyle(piece);
-              if (
-                piece.y > this.player.y &&
-                (!pieceAfterPlayer || pieceAfterPlayer.y > piece.y)
-              ) {
-                pieceAfterPlayer = piece;
-              }
-            }
-          }
-        }
-      }
-      const inGame = !this.scriptBusy && !this.advancementStopped;
-      this.svgInnerHtml(this.captureCounterText, inGame ? 'Captures: ' + this.killCount : '');
-      this.svgInnerHtml(this.moveCounterText, inGame ? 'Moves: ' + this.moveCount : '');
-      this.svgInnerHtml(this.deathCounterText, inGame ? 'Deaths: ' + this.checkMateCount : '');
+      // Update pieces and counters.
+      const pieceAfterPlayer = this.renderPieces(now);
+      this.renderCounters();
 
       // Update player animation
       let playerAnimProgress;
@@ -2543,35 +2588,8 @@
         this.setGameIsOver(true, won, text);
       }
 
-      // Update removed pieces
-      for (let i = 0, len = this.removedPieces.length; i < len; i++) {
-        const removedPiece = this.removedPieces[i];
-        const removedPieceProgress =
-          (now - removedPiece.removedTime) * this.MS_TO_S;
-        if (removedPieceProgress > 1) {
-          this.removeSvgShape(removedPiece);
-          this.removedPieces[i] = this.removedPieces[--len];
-          this.removedPieces.length = len;
-          i--;
-        } else {
-          if (removedPiece.justRemoved) {
-            removedPiece.justRemoved = false;
-            removedPiece.removedX = removedPiece.x;
-            removedPiece.removedY = removedPiece.y;
-          }
-          if (removedPiece.x < this.SIZE * 0.5) {
-            removedPiece.x =
-              removedPiece.removedX - removedPieceProgress * this.SIZE;
-          } else {
-            removedPiece.x =
-              removedPiece.removedX + removedPieceProgress * this.SIZE;
-          }
-          removedPiece.y =
-            removedPiece.removedY -
-            Math.sin(removedPieceProgress * Math.PI) * this.SIZE * 0.4;
-          this.updatePieceStyle(removedPiece);
-        }
-      }
+      // Animate and clean up captured pieces.
+      this.renderRemovedPieces(now);
 
       // "CHECK" text
       if (this.player.anim && this.player.invalid) {
@@ -2615,6 +2633,94 @@
 
       // CANVAS ------------------------------------------------------------------------------------------------------
 
+      this.renderBoardCanvas(playerAnimProgress);
+    }
+
+    /** Update SVG shapes for all visible pieces; returns the piece drawn just behind the player. */
+    renderPieces(now) {
+      let pieceAfterPlayer;
+      for (
+        let rowIndex = this.topRowDisplayed - this.NUM_CELLS_DISPLAYED - 5;
+        rowIndex <= this.topRowDisplayed;
+        rowIndex++
+      ) {
+        const row = this.checkBoard[rowIndex];
+        if (!row) continue;
+        for (let colIndex = 0; colIndex < this.NUM_CELLS; colIndex++) {
+          if (!row[colIndex] || !row[colIndex].piece) continue;
+          const piece = row[colIndex].piece;
+          const res = this.computeCellPos(piece.row, piece.col);
+          Object.assign(piece, res);
+          if (piece.appearing) {
+            const ap = Math.min(1, (now - piece.appearTime) * this.MS_TO_S / 0.5);
+            const ae = Math.sin((ap * Math.PI) / 2);
+            piece.opacity = res.opacity * ae;
+            piece.scale = res.scale * (0.5 + 0.5 * ae);
+            if (ap >= 1) piece.appearing = false;
+          }
+          if (piece.talking) {
+            const bounce =
+              -Math.abs(
+                Math.sin(((now - piece.talkingStartTime) * Math.PI) / 800)
+              ) *
+              this.CELL_SIZE *
+              0.2;
+            piece.y += bounce;
+          }
+          this.updatePieceStyle(piece);
+          if (
+            piece.y > this.player.y &&
+            (!pieceAfterPlayer || pieceAfterPlayer.y > piece.y)
+          ) {
+            pieceAfterPlayer = piece;
+          }
+        }
+      }
+      return pieceAfterPlayer;
+    }
+
+    /** Update the on-screen capture / move / death counters. */
+    renderCounters() {
+      const inGame = !this.scriptBusy && !this.advancementStopped;
+      this.svgInnerHtml(this.captureCounterText, inGame ? 'Captures: ' + this.killCount : '');
+      this.svgInnerHtml(this.moveCounterText, inGame ? 'Moves: ' + this.moveCount : '');
+      this.svgInnerHtml(this.deathCounterText, inGame ? 'Deaths: ' + this.checkMateCount : '');
+    }
+
+    /** Animate captured pieces flying off, then recycle their SVG shapes. */
+    renderRemovedPieces(now) {
+      for (let i = 0, len = this.removedPieces.length; i < len; i++) {
+        const removedPiece = this.removedPieces[i];
+        const removedPieceProgress =
+          (now - removedPiece.removedTime) * this.MS_TO_S;
+        if (removedPieceProgress > 1) {
+          this.removeSvgShape(removedPiece);
+          this.removedPieces[i] = this.removedPieces[--len];
+          this.removedPieces.length = len;
+          i--;
+        } else {
+          if (removedPiece.justRemoved) {
+            removedPiece.justRemoved = false;
+            removedPiece.removedX = removedPiece.x;
+            removedPiece.removedY = removedPiece.y;
+          }
+          if (removedPiece.x < this.SIZE * 0.5) {
+            removedPiece.x =
+              removedPiece.removedX - removedPieceProgress * this.SIZE;
+          } else {
+            removedPiece.x =
+              removedPiece.removedX + removedPieceProgress * this.SIZE;
+          }
+          removedPiece.y =
+            removedPiece.removedY -
+            Math.sin(removedPieceProgress * Math.PI) * this.SIZE * 0.4;
+          this.updatePieceStyle(removedPiece);
+        }
+      }
+    }
+
+    /** Draw the isometric board (and highlights) on the background canvas. */
+    renderBoardCanvas(playerAnimProgress) {
       const bgCtx = this.bgCanvas.ctx;
       bgCtx.save();
       bgCtx.translate(0, this.HORIZON_Y);
@@ -2661,7 +2767,7 @@
           bgCtx.closePath();
           bgCtx.lineWidth = 1;
 
-          // Mouse over highlight
+          // Mouse-over highlight.
           if (
             this.mouseRow !== -1 &&
             this.mouseCol !== -1 &&
@@ -2682,7 +2788,7 @@
           }
           bgCtx.fill();
 
-          row = this.checkBoard[i + progressIndex];
+          const row = this.checkBoard[i + progressIndex];
           if (row?.[j]) {
             const cell = row[j];
             if (cell.showThreat) {
@@ -3101,5 +3207,19 @@
         game.setGameIsOver(true);
       }
     };
+  };
+
+  // Expose the game's building blocks under a single namespace so they can be
+  // unit-tested and reused without reaching into this closure. This is a
+  // read-only registry and does not change any game behaviour; the legacy
+  // `hook.loadChessPursuit` entry point above is preserved for compatibility.
+  hook.ChessPursuit = {
+    Canvas,
+    InputManager,
+    SoundParams,
+    SoundGenerator,
+    ArcadeAudio,
+    Projection,
+    ChessPursuitGame,
   };
 })(window.LiChessTools || window);
