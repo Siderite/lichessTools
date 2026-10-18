@@ -658,6 +658,232 @@
     ['--cp-mountain-rgb', 'MOUNTAIN_RGB', '10,20,25'],
   ];
 
+  // ---------------------------------------------------------------------------
+  // @-directives (strategy pattern)
+  //
+  // Each @keyword in ChessPursuit.dat is handled by a Directive subclass. A
+  // directive knows how to parse its own @-line into a script beat (or into
+  // block/generic metadata) and how to play / dismiss that beat. Add a new
+  // command by subclassing Directive (or ActionDirective for one-shot commands)
+  // and registering it with `game.registerDirective(MyDirective)`.
+  // ---------------------------------------------------------------------------
+
+  class Directive {
+    constructor(game, keyword) {
+      this.game = game;
+      this.keyword = keyword;
+    }
+
+    /** Whether this directive handles the given @head (and trigger/state). */
+    matches(head, trigger, state) {
+      return head === this.keyword;
+    }
+
+    /** Parse the @-line. Returns a script beat (pushed by the caller), or null
+     *  when the directive handled block/generic metadata itself. May mutate the
+     *  shared parse state in `ctx.ps`. */
+    parse(ctx) {
+      return null;
+    }
+
+    /** Run when a beat produced by this directive starts playing. */
+    play(beat) {}
+
+    /** Run when a beat produced by this directive is dismissed (SPACE/CLICK). */
+    dismiss(beat) {}
+  }
+
+  // A directive whose beat shows the dialog box (speech, with or without actor).
+  class DialogDirective extends Directive {
+    play(beat) {
+      this.game.showDialog(beat.kind === 'text' ? beat.actor : null, beat.lines);
+      this.game.scriptBusy = true;
+    }
+
+    dismiss() {
+      this.game.hideDialog();
+      this.game.clearTalking();
+    }
+  }
+
+  class TitleDirective extends Directive {
+    constructor(game) { super(game, 'title'); }
+
+    parse(ctx) {
+      const beat = { kind: 'title', directive: this, lines: [] };
+      ctx.ps.currentBeat = beat;
+      return beat;
+    }
+
+    play() {
+      this.game.scriptBusy = true;
+    }
+
+    dismiss() {
+      if (this.game.introScreen) this.game.introScreen.style.display = 'none';
+      if (this.game.pressSpaceText) this.game.pressSpaceText.style.display = 'none';
+    }
+  }
+
+  class ScreenDirective extends DialogDirective {
+    constructor(game) { super(game, 'screen'); }
+
+    parse(ctx) {
+      const beat = { kind: 'screen', directive: this, trigger: ctx.trigger || null, state: ctx.state, lines: [] };
+      ctx.ps.currentBeat = beat;
+      return beat;
+    }
+  }
+
+  // The catch-all directive: any unrecognised @head is speech by that actor.
+  class TextDirective extends DialogDirective {
+    constructor(game) { super(game, null); }
+
+    matches() { return true; }
+
+    parse(ctx) {
+      const beat = { kind: 'text', directive: this, actor: ctx.head, trigger: ctx.trigger || null, state: ctx.state, lines: [] };
+      ctx.ps.currentBeat = beat;
+      return beat;
+    }
+  }
+
+  class BlockDirective extends Directive {
+    constructor(game) { super(game, 'block'); }
+
+    matches(head, trigger) {
+      return head === this.keyword && !trigger;
+    }
+
+    parse(ctx) {
+      const beat = { kind: 'block', directive: this, offset: ctx.state };
+      return beat;
+    }
+
+    play(beat) {
+      const game = this.game;
+      const block = game.activeScriptBlockIndex >= 0 ? game.blocks[game.activeScriptBlockIndex] : null;
+      const offset = beat.offset != null ? beat.offset : game.BLOCK_VIEW_OFFSET;
+      if (block && game.progress < block.startRow - offset) {
+        game.blockWait = { blockIndex: game.activeScriptBlockIndex, startRow: block.startRow, offset };
+      } else {
+        game.advanceBeat();
+      }
+    }
+  }
+
+  // Base class for one-shot commands (@2d, @iso, ...). Subclasses override run().
+  class ActionDirective extends Directive {
+    matches(head, trigger, state) {
+      return head === this.keyword && !trigger && state === null;
+    }
+
+    parse(ctx) {
+      const beat = { kind: 'action', directive: this, action: this.keyword };
+      return beat;
+    }
+
+    play() {
+      this.run();
+      this.game.advanceBeat();
+    }
+
+    run() {}
+  }
+
+  class TwoDDirective extends ActionDirective {
+    constructor(game) { super(game, '2d'); }
+    run() { this.game.setView(true); }
+  }
+
+  class IsoDirective extends ActionDirective {
+    constructor(game) { super(game, 'iso'); }
+    run() { this.game.setView(false); }
+  }
+
+  class StopDirective extends ActionDirective {
+    constructor(game) { super(game, 'stop'); }
+    run() { this.game.scrollingStopped = true; }
+  }
+
+  class StartDirective extends ActionDirective {
+    constructor(game) { super(game, 'start'); }
+    run() { this.game.scrollingStopped = false; }
+  }
+
+  class HideDirective extends ActionDirective {
+    constructor(game) { super(game, 'hide'); }
+    run() { this.game.player.hidden = true; }
+  }
+
+  class ShowDirective extends ActionDirective {
+    constructor(game) { super(game, 'show'); }
+    run() { this.game.player.hidden = false; }
+  }
+
+  // Shared by @win and @loss: attach a win/loss trigger to the block, or switch
+  // to collecting the generic end-of-game text.
+  class WinLossDirective extends Directive {
+    parse(ctx) {
+      const ps = ctx.ps;
+      if (ctx.trigger) {
+        if (!ps.block || ps.block.checkpoint) {
+          ps.block = ctx.newBlock();
+          this.game.blocks.push(ps.block);
+          ps.pendingScript = [];
+        }
+        ps.block[this.field].push(ctx.trigger);
+        ps.currentBlockGeneric = this.field;
+      } else {
+        ps.currentGeneric = this.field;
+      }
+      return null;
+    }
+  }
+
+  class WinDirective extends WinLossDirective {
+    constructor(game) { super(game, 'win'); this.field = 'win'; }
+  }
+
+  class LossDirective extends WinLossDirective {
+    constructor(game) { super(game, 'loss'); this.field = 'loss'; }
+  }
+
+  class CheckpointDirective extends Directive {
+    constructor(game) { super(game, 'checkpoint'); }
+
+    parse(ctx) {
+      const ps = ctx.ps;
+      this.game.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], script: [], state: 1, rows: [] });
+      ps.block = null;
+      ps.pendingScript = [];
+      ps.pendingShowThreat = null;
+      return null;
+    }
+  }
+
+  class ShowThreatDirective extends Directive {
+    constructor(game) { super(game, 'showThreat'); }
+
+    matches(head) {
+      return head.startsWith(this.keyword);
+    }
+
+    parse(ctx) {
+      const ps = ctx.ps;
+      const piece = ctx.head.slice('showThreat'.length).trim();
+      if (ps.block && !ps.block.checkpoint) {
+        // A block already exists: attach the threat to it directly.
+        ps.block.showThreat = piece;
+      } else {
+        // Defer to the block that the next board rows will create, so any beats
+        // written between @showThreat and the board rows are not orphaned.
+        ps.pendingShowThreat = piece;
+      }
+      return null;
+    }
+  }
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
@@ -685,6 +911,42 @@
       this.THRESHOLD_UP = 0.02;
 
       this.svgCache = {};
+
+      // @-directive registry (strategy pattern). Built-ins are registered here;
+      // add new commands with registerDirective().
+      this.directives = [];
+      this.defaultDirective = new TextDirective(this);
+      this.registerDirective(new TitleDirective(this));
+      this.registerDirective(new ScreenDirective(this));
+      this.registerDirective(new BlockDirective(this));
+      this.registerDirective(new TwoDDirective(this));
+      this.registerDirective(new IsoDirective(this));
+      this.registerDirective(new StopDirective(this));
+      this.registerDirective(new StartDirective(this));
+      this.registerDirective(new HideDirective(this));
+      this.registerDirective(new ShowDirective(this));
+      this.registerDirective(new WinDirective(this));
+      this.registerDirective(new LossDirective(this));
+      this.registerDirective(new CheckpointDirective(this));
+      this.registerDirective(new ShowThreatDirective(this));
+    }
+
+    /** Register a directive. Accepts a Directive instance or a class (which is
+     *  instantiated with the game). Returns the registered instance. */
+    registerDirective(directive) {
+      if (typeof directive === 'function') {
+        directive = new directive(this);
+      }
+      this.directives.push(directive);
+      return directive;
+    }
+
+    /** Resolve the directive that handles an @head, falling back to speech. */
+    resolveDirective(head, trigger = null, state = null) {
+      for (const directive of this.directives) {
+        if (directive.matches(head, trigger, state)) return directive;
+      }
+      return this.defaultDirective;
     }
 
     /** Inject the stylesheet that restyles the game (see STYLE above). */
@@ -1155,112 +1417,72 @@
       this.genericWin = [];
       this.genericLoss = [];
 
-      let currentBeat = null;
-      let currentGeneric = null;
-      let currentBlockGeneric = null;
-      let block = null;
-      let pendingScript = [];
+      // Shared parse state, mutated by each directive's parse() method.
+      const ps = {
+        currentBeat: null,
+        currentGeneric: null,
+        currentBlockGeneric: null,
+        block: null,
+        pendingScript: [],
+        pendingShowThreat: null,
+      };
 
-      const newBlock = () => ({
-        checkpoint: false,
-        showThreat: null,
-        win: [],
-        loss: [],
-        winText: [],
-        lossText: [],
-        script: pendingScript,
-        state: 1,
-        rows: [],
-      });
+      const newBlock = () => {
+        const showThreat = ps.pendingShowThreat;
+        ps.pendingShowThreat = null;
+        return {
+          checkpoint: false,
+          showThreat,
+          win: [],
+          loss: [],
+          winText: [],
+          lossText: [],
+          script: ps.pendingScript,
+          state: 1,
+          rows: [],
+        };
+      };
 
       for (const rawLine of data.split('\n')) {
         const line = rawLine.trim();
         if (line.startsWith('@')) {
-          currentBeat = null;
-          currentGeneric = null;
-          currentBlockGeneric = null;
+          ps.currentBeat = null;
+          ps.currentGeneric = null;
+          ps.currentBlockGeneric = null;
           const { head, trigger, state } = this.parseDirective(line);
-
-          if (head === 'title') {
-            currentBeat = { kind: 'title', lines: [] };
-            pendingScript.push(currentBeat);
-          } else if (head === 'screen') {
-            currentBeat = { kind: 'screen', trigger: trigger || null, state: state, lines: [] };
-            pendingScript.push(currentBeat);
-          } else if (head === 'block' && !trigger) {
-            // @block[/N]: hold the king (and pause the script) until the block scrolls into view.
-            currentBeat = { kind: 'block', offset: state };
-            pendingScript.push(currentBeat);
-          } else if (
-            ['2d', 'iso', 'stop', 'start', 'hide', 'show'].includes(head) &&
-            !trigger &&
-            state === null
-          ) {
-            // View/scroll actions are script beats so they play in order with @block and text.
-            currentBeat = { kind: 'action', action: head };
-            pendingScript.push(currentBeat);
-          } else if (head === 'win' || head === 'loss') {
-            if (trigger) {
-              if (!block || block.checkpoint) {
-                block = newBlock();
-                this.blocks.push(block);
-                pendingScript = [];
-              }
-              if (head === 'win') {
-                block.win.push(trigger);
-                currentBlockGeneric = 'win';
-              } else {
-                block.loss.push(trigger);
-                currentBlockGeneric = 'loss';
-              }
-            } else {
-              currentGeneric = head;
-            }
-          } else if (head === 'checkpoint') {
-            this.blocks.push({ checkpoint: true, showThreat: null, win: [], loss: [], script: [], state: 1, rows: [] });
-            block = null;
-            pendingScript = [];
-          } else if (head.startsWith('showThreat')) {
-            if (!block || block.checkpoint) {
-              block = newBlock();
-              this.blocks.push(block);
-              pendingScript = [];
-            }
-            block.showThreat = head.slice('showThreat'.length).trim();
-          } else {
-            currentBeat = { kind: 'text', actor: head, trigger: trigger || null, state: state, lines: [] };
-            pendingScript.push(currentBeat);
-          }
+          const directive = this.resolveDirective(head, trigger, state);
+          const beat = directive.parse({ ps, head, trigger, state, newBlock });
+          if (beat) ps.pendingScript.push(beat);
         } else if (!line) {
-          currentBeat = null;
-          currentGeneric = null;
-          currentBlockGeneric = null;
-          block = null;
+          ps.currentBeat = null;
+          ps.currentGeneric = null;
+          ps.currentBlockGeneric = null;
+          ps.block = null;
         } else if (line.startsWith('//')) {
-          currentBeat = null;
-          currentGeneric = null;
-          currentBlockGeneric = null;
+          ps.currentBeat = null;
+          ps.currentGeneric = null;
+          ps.currentBlockGeneric = null;
         } else {
           if (this.isBoardRow(line)) {
-            currentBeat = null;
-            currentGeneric = null;
-            currentBlockGeneric = null;
-            if (!block || block.checkpoint) {
-              block = newBlock();
-              this.blocks.push(block);
-              pendingScript = [];
+            ps.currentBeat = null;
+            ps.currentGeneric = null;
+            ps.currentBlockGeneric = null;
+            if (!ps.block || ps.block.checkpoint) {
+              ps.block = newBlock();
+              this.blocks.push(ps.block);
+              ps.pendingScript = [];
             }
-            block.rows.push(line.split('/').map((s) => s.trim()));
-          } else if (currentGeneric === 'win') {
+            ps.block.rows.push(line.split('/').map((s) => s.trim()));
+          } else if (ps.currentGeneric === 'win') {
             this.genericWin.push(line);
-          } else if (currentGeneric === 'loss') {
+          } else if (ps.currentGeneric === 'loss') {
             this.genericLoss.push(line);
-          } else if (currentBlockGeneric === 'win' && block) {
-            block.winText.push(line);
-          } else if (currentBlockGeneric === 'loss' && block) {
-            block.lossText.push(line);
-          } else if (currentBeat && (currentBeat.kind === 'text' || currentBeat.kind === 'screen' || currentBeat.kind === 'title')) {
-            currentBeat.lines.push(line);
+          } else if (ps.currentBlockGeneric === 'win' && ps.block) {
+            ps.block.winText.push(line);
+          } else if (ps.currentBlockGeneric === 'loss' && ps.block) {
+            ps.block.lossText.push(line);
+          } else if (ps.currentBeat && (ps.currentBeat.kind === 'text' || ps.currentBeat.kind === 'screen' || ps.currentBeat.kind === 'title')) {
+            ps.currentBeat.lines.push(line);
           }
         }
       }
@@ -1435,24 +1657,8 @@
     }
 
     playBeat(beat) {
-      if (beat.kind === 'title') {
-        this.scriptBusy = true;
-        // Title screen stays until the player dismisses it (SPACE/CLICK).
-      } else if (beat.kind === 'block') {
-        const block = this.activeScriptBlockIndex >= 0 ? this.blocks[this.activeScriptBlockIndex] : null;
-        const offset = beat.offset != null ? beat.offset : this.BLOCK_VIEW_OFFSET;
-        if (block && this.progress < block.startRow - offset) {
-          this.blockWait = { blockIndex: this.activeScriptBlockIndex, startRow: block.startRow, offset };
-        } else {
-          this.advanceBeat();
-        }
-      } else if (beat.kind === 'action') {
-        this.runAction(beat.action);
-        this.advanceBeat();
-      } else if (beat.kind === 'text' || beat.kind === 'screen') {
-        this.showDialog(beat.kind === 'text' ? beat.actor : null, beat.lines);
-        this.scriptBusy = true;
-      }
+      // Each beat carries its directive, so playing delegates to that class.
+      beat.directive.play(beat);
     }
 
     advanceBeat() {
@@ -1475,13 +1681,7 @@
       const script = this.activeScript || [];
       const beat = this.activeBeat >= 0 ? script[this.activeBeat] : null;
       if (this.scriptBusy && beat) {
-        if (beat.kind === 'title') {
-          if (this.introScreen) this.introScreen.style.display = 'none';
-          if (this.pressSpaceText) this.pressSpaceText.style.display = 'none';
-        } else if (beat.kind === 'text' || beat.kind === 'screen') {
-          this.hideDialog();
-          this.clearTalking();
-        }
+        beat.directive.dismiss(beat);
         if (beat.state !== null) {
           this.setBlockState(this.activeScriptBlockIndex, beat.state);
         }
@@ -1495,22 +1695,6 @@
           this.player.row >= b.startRow &&
           this.player.row < b.startRow + b.rows.length
       );
-    }
-
-    runAction(action) {
-      if (action === '2d') {
-        this.setView(true);
-      } else if (action === 'iso') {
-        this.setView(false);
-      } else if (action === 'stop') {
-        this.scrollingStopped = true;
-      } else if (action === 'start') {
-        this.scrollingStopped = false;
-      } else if (action === 'hide') {
-        this.player.hidden = true;
-      } else if (action === 'show') {
-        this.player.hidden = false;
-      }
     }
 
     setView(flat) {
@@ -1628,7 +1812,9 @@
       }
 
       // Additions with no matching removal are brand-new pieces fading in.
-      for (let a = 0; a < additions.length; a++) {
+      // Iterate nearest rank first so closer pieces are painted on top (the
+      // `additions` list is built top-to-bottom, so process it in reverse).
+      for (let a = additions.length - 1; a >= 0; a--) {
         if (usedAdditions.has(a)) continue;
         const add = additions[a];
         const pieceCell = this.addPieceAt(add.char, add.row, add.col);
@@ -3098,5 +3284,7 @@
     ArcadeAudio,
     Projection,
     ChessPursuitGame,
+    Directive,
+    ActionDirective,
   };
 })(window.LiChessTools || window);
