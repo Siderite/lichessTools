@@ -1138,10 +1138,10 @@
           }
 
           // N: jump to the next block (checkpoint)
-          if (this.input.keys.n === 0 && !this.scriptBusy && !this.gameIsOver) {
+          /*if (this.input.keys.n === 0 && !this.scriptBusy && !this.gameIsOver) {
             this.input.keys.n = -1;
             this.jumpToNextBlock();
-          }
+          }*/
 
           break;
       }
@@ -1682,7 +1682,7 @@
       const beat = this.activeBeat >= 0 ? script[this.activeBeat] : null;
       if (this.scriptBusy && beat) {
         beat.directive.dismiss(beat);
-        if (beat.state !== null) {
+        if (beat.state != null) {
           this.setBlockState(this.activeScriptBlockIndex, beat.state);
         }
         this.advanceBeat();
