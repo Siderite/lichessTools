@@ -449,7 +449,8 @@
         "tools/d3/d3.bundle.mjs",
         "tools/nouislider/nouislider.bundle.mjs",
         "tools/fontIcons/lichessTools.woff2",
-        "tools/chessPursuit/ChessPursuit.dat"
+        "tools/chessPursuit/ChessPursuit.dat",
+        "tools/chessPursuit/ChessPursuit2.dat"
       ],
       "matches": [
         "*://lichess.org/*",

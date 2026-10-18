@@ -1281,7 +1281,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2565,7 +2570,12 @@
     "studyStatsMoves": "着法 / 变例",
     "studyStatsError": "无法加载研习 PGN",
     "gameListOptions.compactView": "紧凑视图",
-    "compactViewLabel": "紧凑"
+    "compactViewLabel": "紧凑",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3849,7 +3859,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5133,7 +5148,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6417,7 +6437,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7701,7 +7726,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -8985,7 +9015,12 @@
     "studyStatsMoves": "Coups / variantes",
     "studyStatsError": "Impossibilité de charger le PGN de ​​l'étude",
     "gameListOptions.compactView": "Affichage compact",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10269,7 +10304,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11553,7 +11593,12 @@
     "studyStatsMoves": "Κινήσεις / βαριάντες",
     "studyStatsError": "Αδυναμία φόρτωσης του PGN μελέτης",
     "gameListOptions.compactView": "Συμπαγής Προβολή",
-    "compactViewLabel": "Συμπαγές"
+    "compactViewLabel": "Συμπαγές",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12837,7 +12882,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14121,7 +14171,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15405,7 +15460,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16689,7 +16749,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -17973,7 +18038,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19257,7 +19327,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20541,7 +20616,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21825,7 +21905,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23109,7 +23194,12 @@
     "studyStatsMoves": "Mutări / variații",
     "studyStatsError": "Nu s-a putut încărca PGN-ul studiului",
     "gameListOptions.compactView": "Vizualizare compactă",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Urmărire în șah",
+    "chessPursuit.chapter2": "Urmărire în șah 2",
+    "chessPursuit2Text": "Urmărire în șah 2",
+    "chessPursuit2Title": "LiChess Tools - joacă Urmărire în șah 2",
+    "chessPursuit2Header": "Urmărire în șah 2"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24393,7 +24483,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25677,7 +25772,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -26961,7 +27061,12 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28209,7 +28314,7 @@
     "themes.grabHighlight": "Seçileni vurgula",
     "options.videoSearch": "Videolardaki arama pozisyonu",
     "videoSearchButtonText": "Videolar",
-    "videoSearchButtonTitle": "LiChess Tools - şuanki pozisyon ile videoları ara",
+    "videoSearchButtonTitle": "LiChess Tools - şu anki pozisyon ile videoları ara",
     "videoSearchHeader": "Video arama",
     "chessInsightsLinkText": "Daha fazlası için ChessInsights.ai",
     "noVideosFoundText": "Video bulunamadı",
@@ -28218,34 +28323,39 @@
     "extraChart.brilliantChart": "Göz alıcılık tablosu",
     "brilliantLegendText": "Göz alıcılık",
     "brilliantLegendTitle": "Göz alıcılık puanı",
-    "themes.flat": "No shadows or blur",
-    "themes.smallNetworkStatus": "Small network status",
-    "options.variationIndex": "Show current variation",
-    "variationIndexText": "Variation %1$s of %2$s",
-    "variationIndexTitle": "Click to cycle between variations",
-    "options.muteOwnMoves": "Mute speech for your own moves",
-    "chatForumBlogs.markdownShortcuts": "Keyboard shortcuts in forums",
-    "extendedInteractiveLesson.highlightPieceOnHint": "Hint piece to move after mistake",
-    "chapterNavigation.panel": "Chapter overview panel",
-    "chapterOverviewPanelTitle": "LiChess Tools - chapter overview",
-    "chapterOverviewPrevTitle": "Show previous chapters",
-    "chapterOverviewNextTitle": "Show next chapters",
-    "options.studyStats": "Show study statistics",
-    "studyStatsButtonText": "Study stats",
-    "studyStatsButtonTitle": "LiChess Tools - show study statistics",
-    "studyStatsHeader": "Study statistics",
-    "studyStatsName": "Name",
-    "studyStatsDescription": "Description",
-    "studyStatsChapters": "Chapters",
-    "studyStatsOwner": "Owner",
-    "studyStatsMembers": "Members",
-    "studyStatsUpdated": "Updated",
-    "studyStatsTopics": "Topics",
-    "studyStatsSettings": "Settings",
-    "studyStatsMoves": "Moves / variations",
-    "studyStatsError": "Could not load the study PGN",
-    "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "themes.flat": "Gölge ve bulanıklık yok",
+    "themes.smallNetworkStatus": "Küçük ağ durumu",
+    "options.variationIndex": "Mevcut varyasyonu göster",
+    "variationIndexText": "Varyasyon %1$s / %2$s",
+    "variationIndexTitle": "Varyasyonlar arasında geçiş yapmak için tıklayın",
+    "options.muteOwnMoves": "Kendi hamlelerinizde konuşmayı sessize al",
+    "chatForumBlogs.markdownShortcuts": "Forumlarda klavye kısayolları",
+    "extendedInteractiveLesson.highlightPieceOnHint": "Hata yaptıktan sonra taşı ipucu olarak göster",
+    "chapterNavigation.panel": "Bölüm genel bakış paneli",
+    "chapterOverviewPanelTitle": "LiChess Tools - bölüm genel bakışı",
+    "chapterOverviewPrevTitle": "Önceki bölümleri göster",
+    "chapterOverviewNextTitle": "Sonraki bölümleri göster",
+    "options.studyStats": "Çalışma istatistiklerini göster",
+    "studyStatsButtonText": "Çalışma istatistikleri",
+    "studyStatsButtonTitle": "LiChess Tools - çalışma istatistiklerini göster",
+    "studyStatsHeader": "Çalışma istatistikleri",
+    "studyStatsName": "Ad",
+    "studyStatsDescription": "Açıklama",
+    "studyStatsChapters": "Bölümler",
+    "studyStatsOwner": "Sahip",
+    "studyStatsMembers": "Üyeler",
+    "studyStatsUpdated": "Güncellendi",
+    "studyStatsTopics": "Konular",
+    "studyStatsSettings": "Ayarlar",
+    "studyStatsMoves": "Hamleler / varyasyonlar",
+    "studyStatsError": "Çalışma PGN'si yüklenemedi",
+    "gameListOptions.compactView": "Kompakt görünüm",
+    "compactViewLabel": "Kompakt",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29529,6 +29639,11 @@
     "studyStatsMoves": "Moves / variations",
     "studyStatsError": "Could not load the study PGN",
     "gameListOptions.compactView": "Compact view",
-    "compactViewLabel": "Compact"
+    "compactViewLabel": "Compact",
+    "chessPursuit.chapter1": "Chess Pursuit",
+    "chessPursuit.chapter2": "Chess Pursuit 2",
+    "chessPursuit2Text": "Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Header": "Chess Pursuit 2"
   }
 }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+18 Oct
+
+- Chess Pursuit 2
+
 15 Oct
 
 - highlight pieces to move on second hit after a mistake was made
