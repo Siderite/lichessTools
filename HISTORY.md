@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+19 Oct
+
+- new friends playing alerts muted by default (preference sets the default state; per-player muted/unmuted stored in local storage)
+
 18 Oct
 
 - Chess Pursuit 2

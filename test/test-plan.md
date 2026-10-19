@@ -269,8 +269,15 @@ chapters.
 - [ ] **T6.2 Live friends page.** Expected: real-time updates; filters (online/playing/active/muted);
       TV icon per friend; mute/unmute per friend; one-click unblock on Blocked page; total count in
       title; links to Followers and Favorite Opponents; crosstable score on Favorite Opponents.
-- [ ] **T6.3 Sound/voice alert when friends start playing.** Enable one or more time controls.
-      Expected: an alert plays when a friend starts a game in a selected time control.
+- [ ] **T6.3 Sound/voice alert when friends start playing.** *Default alerts state for new friends
+      playing* is **Muted** by default, and each friend can override it with a stored state. Expected:
+      with no friend toggled, nothing fires and no game status is fetched; set it to **Unmuted** and a
+      friend starting a game in a selected time control alerts; clicking a friend's bell on the live
+      friends page stores the opposite of the default for that friend and makes it override the default
+      (one friend alerts while the rest stay silent, and the other way round); clicking it again returns
+      the friend to the default; the bell icon style and its title (*Unmute playing alert* / *Mute
+      playing alert*) always show the friend's effective state, and the hide-muted filter hides exactly
+      those friends.
 - [ ] **T6.4 Go to Analysis on game end.** Test *loss* / *draw* / *win* / *Request analysis button*.
       Expected: the analysis page opens automatically for the selected outcome(s).
 - [ ] **T6.5 Play layout (+ elements).** Test *Normal* / *Hide left side* / *Hide chat*; and

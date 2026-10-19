@@ -106,6 +106,7 @@ The `themes/tool.js` loads user-supplied custom CSS themes from `tools/themes/*.
 
 - `friendsList` — Online friends display in menu/button/friends box
 - `friendsPlaying` — Sound alerts when friends start playing (configurable by time control)
+- Alerts state default for new friends (`muteFriendsNotifications`, default `muted`): friends with no recorded state follow it; per-player muted/unmuted overrides live in local storage `LiChessTools.friendsAlertStatus`; no extra filter or button is added to the friends page
 - Followers page (`#followers`) with new follower notifications
 - Crosstable scores on opponents pages
 - Mute/unmute per-player alert toggles

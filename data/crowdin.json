@@ -1286,7 +1286,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2575,7 +2578,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3864,7 +3870,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5153,7 +5162,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6442,7 +6454,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7731,7 +7746,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9016,11 +9034,14 @@
     "studyStatsError": "Impossibilité de charger le PGN de ​​l'étude",
     "gameListOptions.compactView": "Affichage compact",
     "compactViewLabel": "Compact",
-    "chessPursuit.chapter1": "Chess Pursuit",
-    "chessPursuit.chapter2": "Chess Pursuit 2",
-    "chessPursuit2Text": "Chess Pursuit 2",
-    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit.chapter1": "Échecs poursuite",
+    "chessPursuit.chapter2": "Échecs poursuite 2",
+    "chessPursuit2Text": "Échecs poursuite 2",
+    "chessPursuit2Title": "Lichess Tools - Jouer à échecs poursuite 2",
+    "chessPursuit2Header": "Échecs poursuite 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10309,7 +10330,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11598,7 +11622,10 @@
     "chessPursuit.chapter2": "Σκακιστική Επιδίωξη 2",
     "chessPursuit2Text": "Σκακιστική Επιδίωξη 2",
     "chessPursuit2Title": "LiChess Tools - παίξτε Σκακιστική Επιδίωξη 2",
-    "chessPursuit2Header": "Σκακιστική Επιδίωξη 2"
+    "chessPursuit2Header": "Σκακιστική Επιδίωξη 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12887,7 +12914,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14176,7 +14206,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15465,7 +15498,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16754,7 +16790,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18043,7 +18082,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19332,7 +19374,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20621,7 +20666,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21910,7 +21958,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23199,7 +23250,10 @@
     "chessPursuit.chapter2": "Urmărire în șah 2",
     "chessPursuit2Text": "Urmărire în șah 2",
     "chessPursuit2Title": "LiChess Tools - joacă Urmărire în șah 2",
-    "chessPursuit2Header": "Urmărire în șah 2"
+    "chessPursuit2Header": "Urmărire în șah 2",
+    "options.muteFriendsNotifications": "Starea implicită a alertelor pentru prietenii nou adăugați",
+    "muteFriendsNotifications.muted": "Dezactivate",
+    "muteFriendsNotifications.unmuted": "Activate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24488,7 +24542,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25777,7 +25834,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27066,7 +27126,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28355,7 +28418,10 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29644,6 +29710,9 @@
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
     "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit2Header": "Chess Pursuit 2",
+    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
+    "muteFriendsNotifications.muted": "Muted",
+    "muteFriendsNotifications.unmuted": "Unmuted"
   }
 }
