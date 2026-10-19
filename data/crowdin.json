@@ -28417,11 +28417,11 @@
     "chessPursuit.chapter1": "Chess Pursuit",
     "chessPursuit.chapter2": "Chess Pursuit 2",
     "chessPursuit2Text": "Chess Pursuit 2",
-    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
+    "chessPursuit2Title": "Lichess Tools - Chess Pursuit 2 oyna",
     "chessPursuit2Header": "Chess Pursuit 2",
-    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
-    "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "options.muteFriendsNotifications": "Yeni eklenen arkadaşlar için varsayılan oyun bildirimleri durumu",
+    "muteFriendsNotifications.muted": "Sessize alındı",
+    "muteFriendsNotifications.unmuted": "Sesi açık"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
