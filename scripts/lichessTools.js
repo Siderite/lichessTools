@@ -835,13 +835,11 @@
     }
 
     getFenPosition(fen) {
-      let index = fen.length - 1;
-      let spaces = 0;
-      while (index >= 0 && spaces < 2) {
-        if (fen[index] === ' ') spaces++;
-        index--;
-      }
-      return fen.slice(0, index + 1);
+      // position identity is board + side to move + castling + en-passant; counting the
+      // two fields back from the end dropped the castling and en-passant fields whenever
+      // the move counters were missing (issue #1816)
+      const fields = String(fen ?? '').split(' ');
+      return fields.slice(0, Math.min(4, fields.length)).join(' ');
     }
 
     treeviewVisibleCache = {

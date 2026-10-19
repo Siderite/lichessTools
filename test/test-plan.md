@@ -436,6 +436,22 @@ chapters.
       settings*, *Show more Explorer games*, *Resize Explorer*. Expected: snapshots toggle, more games
       load, the explorer resizes.
 
+## Headless harness checks (node, no browser needed)
+
+These are gitignored scratch scripts under `test/` (`build.bat` excludes the folder). They assert
+code behaviour without lichess.org, so they are the fastest regression signal after a change.
+
+- [ ] **H.1 FEN repair (`MoveGen.fixFen`, issues #1202 + #1816).** `node test/fixFen.check.js`.
+      Expected: only `PASS` lines, exit code 0. Covers rank-1/8 pawn promotion, one king per side,
+      non-adjacent kings, bogus castling/en-passant fields, field-count preservation, `fixFen` being
+      idempotent, the `MoveGen.boardFromFen`/`positionFromFen` repair fallbacks, the chessops
+      castling-right and en-passant transforms (lifting the a1 rook → `Kkq`, the h1 rook → `Qkq`,
+      a king off the e-file → `kq`, a push past an adjacent pawn → the jumped square, the en-passant
+      capture → cleared), the piece-value tool's rebuilt FEN and the position identity key
+      (`getFenPosition`, which used to drop the castling and en-passant fields for counterless FENs).
+- [ ] **H.2 Friends alert tri-state (`friendsPlaying`, issue #1494).** `node test/friendsMute.check.js`.
+      Expected: only `PASS` lines, exit code 0.
+
 ---
 
 ## Quick smoke-test pass (run after any change)
