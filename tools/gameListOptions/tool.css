@@ -158,7 +158,7 @@ body.lichessTools .lichessTools-gameListOptions-compactView article.game-row:hov
 
 body.lichessTools .lichessTools-gameListOptions-compactView article.game-row .game-row__infos {
   display: grid;
-  grid-template-columns: 4fr 3fr 2fr;
+  grid-template-columns: 3fr 4fr 2fr;
   grid-template-areas:
     'header versus result'
     'header versus metadata';
