@@ -167,6 +167,23 @@
       $('#comment-text').val(commentText);
     };
 
+    // issue #1884: typing into the textarea changes no <comment> element and no chapter,
+    // so no commentChange/chapterChange/redraw fires; the textarea itself fires an 'input'
+    // event per keystroke. The listener is re-attached because lichess rebuilds the textarea.
+    addCommentTextareaListener = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('textarea#comment-text')
+        .off('input', this.debouncedAddCommentClasses)
+        .on('input', this.debouncedAddCommentClasses);
+    };
+
+    removeCommentTextareaListener = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      $('textarea#comment-text').off('input', this.debouncedAddCommentClasses);
+    };
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -185,12 +202,18 @@
       lt.pubsub.off('lichessTools.commentChange', this.debouncedAddCommentClasses);
       $('.study__chapters').observer()
         .off('button h3',this.debouncedAddCommentClasses);
+      $('body').observer()
+        .off('.study__comments',this.addCommentTextareaListener);
+      this.removeCommentTextareaListener();
       if (value) {
         lt.pubsub.on('lichessTools.redraw', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.chapterChange', this.debouncedAddCommentClasses);
         lt.pubsub.on('lichessTools.commentChange', this.debouncedAddCommentClasses);
         $('.study__chapters').observer()
           .on('button h3',this.debouncedAddCommentClasses);
+        $('body').observer()
+          .on('.study__comments',this.addCommentTextareaListener);
+        this.addCommentTextareaListener();
         this.addCommentClasses();
         lt.analysisRedraw();
       } else {

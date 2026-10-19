@@ -26,6 +26,15 @@ On writable study with node comments:
   - Saves combined text with new cls prefix via `lt.saveComment()`
   - Sets textarea#comment-text value
 
+### Styling Button Visibility
+
+`addCommentClasses()` shows the button only when the study is writable and the current node has
+comment text (`lt.getNodeCommentsText(analysis.node)`), and removes it otherwise. It runs on
+`lichessTools.redraw`, `lichessTools.chapterChange`, `lichessTools.commentChange` and on chapter
+button mutations. Typing into `textarea#comment-text` mutates no `<comment>` element and no chapter,
+so none of those events fires: the tool therefore also listens to the textarea's `input` event
+(issue #1884, `addCommentTextareaListener` re-attaches the listener because lichess rebuilds the textarea).
+
 ### Color Classes Array
 
 ['red', 'orange', 'yellow', 'green', 'lightgreen', 'cyan', 'lightblue', 'blue', 'violet', 'magenta', 'pink', 'underline', 'strikethrough', 'italic', 'bold', 'cursive', ''] — cycles through these.
@@ -45,3 +54,5 @@ On writable study with node comments:
 - `addCommentClasses()` → parses cls: patterns and applies color classes to comments/chapters
 - `cycleCommentColor(ev)` → cycles through colors for user's comments
 - `debouncedAddCommentClasses()` → debounced version of addCommentClasses
+- `addCommentTextareaListener()` → attaches the debounced handler to the comment textarea input events
+- `removeCommentTextareaListener()` → detaches it when the preference is off

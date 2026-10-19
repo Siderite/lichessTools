@@ -451,6 +451,12 @@ code behaviour without lichess.org, so they are the fastest regression signal af
       (`getFenPosition`, which used to drop the castling and en-passant fields for counterless FENs).
 - [ ] **H.2 Friends alert tri-state (`friendsPlaying`, issue #1494).** `node test/friendsMute.check.js`.
       Expected: only `PASS` lines, exit code 0.
+- [ ] **H.3 Comment styling button while typing (`commentStyling`, issue #1884).** `node test/commentStylingInputListener.check.js`.
+      Expected: `passed: 13   failed: 0`, exit code 0. Instantiates the real `CommentStylingTool` against a
+      mocked cash/browser layer and asserts that a textarea `input` event runs `debouncedAddCommentClasses`
+      (so the styling button reappears while typing), that the listener is re-attached when lichess rebuilds
+      the textarea, that rapid keystrokes collapse into one pass, and that disabling the preference removes
+      both the observer and the listener.
 
 ---
 
