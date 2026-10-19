@@ -47,6 +47,14 @@
       return commentNodes;
     };
 
+    parseClassList = (raw) => {
+      if (!raw) return [];
+      return raw.split(',')
+        .map(p => p.trim())
+        .filter(p => p && p !== 'none' && p !== 'clear')
+        .map(p => 'lichessTools-' + p);
+    };
+
     addCommentClasses = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -73,7 +81,7 @@
       const commentNodes = this.getCommentNodes($('div.analyse__moves comment, div.gamebook .comment .content'));
       for (const node of commentNodes) {
         let pos = 0;
-        let cls = null;
+        let cls = [];
         const rep = [];
         const r = /cls:([^\s]*)\s*/gs;
         const text = node.textContent;
@@ -81,19 +89,18 @@
         if (!m) continue;
         while (m) {
           if (m.index >= pos) {
-            rep.push($('<span>').addClass(cls).text(text.slice(pos, m.index)));
+            const span = $('<span>').text(text.slice(pos, m.index));
+            for (const c of cls) span.addClass(c);
+            rep.push(span);
           }
-          cls = m[1];
-          if (!cls || cls == 'none' || cls == 'clear') {
-            cls = null;
-          } else {
-            cls = 'lichessTools-' + cls;
-          }
+          cls = this.parseClassList(m[1]);
           pos = m.index + m[0].length;
           m = r.exec(text);
         }
         if (pos < text.length) {
-          rep.push($('<span>').addClass(cls).text(text.slice(pos)));
+          const span = $('<span>').text(text.slice(pos));
+          for (const c of cls) span.addClass(c);
+          rep.push(span);
         }
         if (rep.length) {
           for (let i = rep.length - 1; i >= 0; i--) {
@@ -110,10 +117,9 @@
         const reg = /\s*\bcls:(?<cls>[^\s]+)/;
         const match = reg.exec(text);
         if (match) {
-          const cls = match.groups.cls;
-          e.removeAttr('class')
-            .addClass('lichessTools-'+cls)
-            .replaceText(t=>t.replace(reg,''));
+          e.removeAttr('class');
+          for (const c of this.parseClassList(match.groups.cls)) e.addClass(c);
+          e.replaceText(t=>t.replace(reg,''));
         }
       });
 
@@ -140,11 +146,15 @@
       let commentText = comments.map(c => c.text).join('\r\n\r\n');
       r.lastIndex = 0;
       const m = r.exec(commentText);
-      let cls = m?.at(1);
-      let index = classes.indexOf(cls) + 1;
+      const rawCls = m?.at(1) ?? '';
+      const parts = rawCls.length ? rawCls.split(',').map(p => p.trim()).filter(p => p) : [];
+      const firstPart = parts.length ? parts[0] : '';
+      const restParts = parts.slice(1);
+      let index = classes.indexOf(firstPart) + 1;
       if (index == classes.length) index = 0;
-      cls = classes[index];
-      commentText = (cls ? 'cls:' + cls + ' ' : '') + commentText.replace(r, '').trim();
+      const nextFirst = classes[index];
+      const joined = [nextFirst, ...restParts].filter(p => p).join(',');
+      commentText = (joined ? 'cls:' + joined + ' ' : '') + commentText.replace(r, '').trim();
       const chapterId = study.currentChapter()?.id;
       if (!chapterId) {
         lt.global.console.warn('Could not determine chapterId');

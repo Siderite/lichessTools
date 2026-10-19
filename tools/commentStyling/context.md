@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Adds color styling to study comments via `cls: [color]` syntax in comment text. Also provides a cycle button that rotates through available colors for the user's own comments. Supports chapter name coloring via `cls:` prefix.
+Adds color styling to study comments via `cls:[color]` syntax in comment text. Also provides a cycle button that rotates through available colors for the user's own comments. Supports chapter name coloring via `cls:` prefix. Multiple classes can be combined with commas (e.g. `cls:red,bold,italic`), each applying its own CSS class on the same span.
 
 ## How It Works
 
@@ -41,6 +41,7 @@ On writable study with node comments:
 ## Key Methods
 
 - `getCommentNodes(elem)` → recursively extracts text nodes from element contents
+- `parseClassList(raw)` → splits a `cls:` token on commas and returns the list of `lichessTools-*` class names (empty for `none`/`clear`)
 - `addCommentClasses()` → parses cls: patterns and applies color classes to comments/chapters
 - `cycleCommentColor(ev)` → cycles through colors for user's comments
 - `debouncedAddCommentClasses()` → debounced version of addCommentClasses
