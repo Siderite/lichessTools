@@ -161,32 +161,11 @@
               continue;
             }
             const psplits = lt.getFenFromBoard(board).split(/\s+/);
-            const fenSplits = [];
-            const isRook = (s, color) => {
-              const r = board.get(s);
-              return !!r && r.role === 'rook' && r.color === color;
-            };
-            for (let i=0; i<splits.length; i++) {
-              if (i<psplits.length) {
-                fenSplits.push(psplits[i]);
-              } else {
-                let val = splits[i];
-                if (i==2) {
-                  val = [...val].filter(c=>{
-                    switch(c) {
-                      case 'k': return isRook(63, 'black');
-                      case 'q': return isRook(56, 'black');
-                      case 'K': return isRook(7, 'white');
-                      case 'Q': return isRook(7, 'white');
-                    }
-                    return false;
-                  }).join('');
-                  val ||='-';
-                }
-                fenSplits.push(val);
-              }
-            }
-            const pfen = fenSplits.join(' ');
+            // the board changed, so the trailing fields must be revalidated: castling
+            // rights whose king/corner rook is gone and stale en-passant squares are
+            // dropped by the shared FEN repair (issue #1816)
+            const joined = psplits.concat(splits.slice(psplits.length)).join(' ');
+            const pfen = LiChessTools.MoveGen.fixFen(joined) || joined;
             board.set(sq, piece);
             this.current = { e, ch, baseEval, fen };
             const style = $(e).attr('style');
