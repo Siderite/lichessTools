@@ -11594,11 +11594,11 @@
     "studyStatsError": "Αδυναμία φόρτωσης του PGN μελέτης",
     "gameListOptions.compactView": "Συμπαγής Προβολή",
     "compactViewLabel": "Συμπαγές",
-    "chessPursuit.chapter1": "Chess Pursuit",
-    "chessPursuit.chapter2": "Chess Pursuit 2",
-    "chessPursuit2Text": "Chess Pursuit 2",
-    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2"
+    "chessPursuit.chapter1": "Σκακιστική Επιδίωξη",
+    "chessPursuit.chapter2": "Σκακιστική Επιδίωξη 2",
+    "chessPursuit2Text": "Σκακιστική Επιδίωξη 2",
+    "chessPursuit2Title": "LiChess Tools - παίξτε Σκακιστική Επιδίωξη 2",
+    "chessPursuit2Header": "Σκακιστική Επιδίωξη 2"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -24439,7 +24439,7 @@
     "friendsPlaying.rapid": "Rapid",
     "friendsPlaying.classical": "Classical",
     "friendsPlaying.standard": "Standard only",
-    "themes.chessbaseBorder": "ChessBase board margin",
+    "themes.chessbaseBorder": "Шахматная доска",
     "highlight.branching": "Highlight branching positions",
     "sharpnessText": "%s",
     "sharpnessHeaderTitle": "LiChess Tools - Move sharpness",
