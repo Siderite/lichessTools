@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 19 Oct
 
 - new friends playing alerts muted by default (preference sets the default state; per-player muted/unmuted stored in local storage)
+- upload image button in inbox chat and biography textareas, opening a file picker next to the paste (mobile browsers get neither paste events nor a clipboard to read)
 
 18 Oct
 

@@ -457,6 +457,23 @@ code behaviour without lichess.org, so they are the fastest regression signal af
       (so the styling button reappears while typing), that the listener is re-attached when lichess rebuilds
       the textarea, that rapid keystrokes collapse into one pass, and that disabling the preference removes
       both the observer and the listener.
+- [ ] **H.4 Upload image button for chat and biography (`chatForumBlogs`, issue #1348).** `node test/uploadImageButton.check.js`.
+      Expected: `passed: 52   failed: 0`, exit code 0. Instantiates the real `ChatForumBlogsTool` against a
+      mocked cash/browser layer and asserts that the Lichess-markup button (`button-empty` + `upload-image`
+      span, translateable title) is added exactly once per textarea target (inbox chat, biography) and never
+      to the non-textarea target, that the button opens a picker (the File System Access picker when present,
+      asked for one image starting in `pictures`, with one extension per entry, and its own `id`; otherwise the browse dialog of a detached `<input type=file>`
+      created with cash, bound to `change cancel` and opened through `.trigger('click')`, whose folder entry is
+      skipped and which never lands in the page), that the picked `File` runs the same
+      hosting-service pipeline as a paste (markdown image form inside a `.markdown-textarea`, plain url outside),
+      that the paste mechanism stays complementary (paste/drop/dragover handlers still bound and a paste still
+      uploads), that the tool never reaches into `this.lichessTools` beyond binding `lt`, that a picker the browser
+      cannot run logs and falls back to that browse dialog, that a closed picker (an `AbortError`) stops there and
+      uploads nothing, and that an empty pick, a dismissed dialog and a non-image pick upload nothing
+      (the first logged or silent, the others announcing the message), and that disabling the preference
+      removes both buttons and every listener.
+
+
 
 ---
 

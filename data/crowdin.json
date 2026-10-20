@@ -1289,7 +1289,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2581,7 +2583,9 @@
     "chessPursuit2Header": "棋力闯关 2",
     "options.muteFriendsNotifications": "新添加好友的默认提示音状态",
     "muteFriendsNotifications.muted": "静音",
-    "muteFriendsNotifications.unmuted": "取消静音"
+    "muteFriendsNotifications.unmuted": "取消静音",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3873,7 +3877,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5165,7 +5171,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6457,7 +6465,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7749,7 +7759,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9041,7 +9053,9 @@
     "chessPursuit2Header": "Échecs poursuite 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10333,7 +10347,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11625,7 +11641,9 @@
     "chessPursuit2Header": "Σκακιστική Επιδίωξη 2",
     "options.muteFriendsNotifications": "Προεπιλεγμένη κατάσταση αναπαραγωγής ειδοποιήσεων για νέους φίλους",
     "muteFriendsNotifications.muted": "Σε Σίγαση",
-    "muteFriendsNotifications.unmuted": "Χωρίς Σίγαση"
+    "muteFriendsNotifications.unmuted": "Χωρίς Σίγαση",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12917,7 +12935,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14209,7 +14229,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15501,7 +15523,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16793,7 +16817,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18085,7 +18111,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19377,7 +19405,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20669,7 +20699,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21961,7 +21993,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23253,7 +23287,9 @@
     "chessPursuit2Header": "Urmărire în șah 2",
     "options.muteFriendsNotifications": "Starea implicită a alertelor pentru prietenii nou adăugați",
     "muteFriendsNotifications.muted": "Dezactivate",
-    "muteFriendsNotifications.unmuted": "Activate"
+    "muteFriendsNotifications.unmuted": "Activate",
+    "uploadImageButtonTitle": "LiChess Tools - încărcare imagine",
+    "uploadImageMissingText": "Nici o imagine selectată"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24545,7 +24581,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25837,7 +25875,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27129,7 +27169,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28421,7 +28463,9 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Yeni eklenen arkadaşlar için varsayılan oyun bildirimleri durumu",
     "muteFriendsNotifications.muted": "Sessize alındı",
-    "muteFriendsNotifications.unmuted": "Sesi açık"
+    "muteFriendsNotifications.unmuted": "Sesi açık",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29713,6 +29757,8 @@
     "chessPursuit2Header": "Chess Pursuit 2",
     "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
     "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "muteFriendsNotifications.unmuted": "Unmuted",
+    "uploadImageButtonTitle": "LiChess Tools - upload image",
+    "uploadImageMissingText": "No image was selected"
   }
 }
