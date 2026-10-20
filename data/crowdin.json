@@ -2574,14 +2574,14 @@
     "studyStatsError": "无法加载研习 PGN",
     "gameListOptions.compactView": "紧凑视图",
     "compactViewLabel": "紧凑",
-    "chessPursuit.chapter1": "Chess Pursuit",
-    "chessPursuit.chapter2": "Chess Pursuit 2",
-    "chessPursuit2Text": "Chess Pursuit 2",
-    "chessPursuit2Title": "Lichess Tools - play Chess Pursuit 2",
-    "chessPursuit2Header": "Chess Pursuit 2",
-    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
-    "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "chessPursuit.chapter1": "棋力闯关",
+    "chessPursuit.chapter2": "棋力闯关 2",
+    "chessPursuit2Text": "棋力闯关 2",
+    "chessPursuit2Title": "LiChess Tools - 玩棋力闯关 2",
+    "chessPursuit2Header": "棋力闯关 2",
+    "options.muteFriendsNotifications": "新添加好友的默认提示音状态",
+    "muteFriendsNotifications.muted": "静音",
+    "muteFriendsNotifications.unmuted": "取消静音"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -11623,9 +11623,9 @@
     "chessPursuit2Text": "Σκακιστική Επιδίωξη 2",
     "chessPursuit2Title": "LiChess Tools - παίξτε Σκακιστική Επιδίωξη 2",
     "chessPursuit2Header": "Σκακιστική Επιδίωξη 2",
-    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
-    "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted"
+    "options.muteFriendsNotifications": "Προεπιλεγμένη κατάσταση αναπαραγωγής ειδοποιήσεων για νέους φίλους",
+    "muteFriendsNotifications.muted": "Σε Σίγαση",
+    "muteFriendsNotifications.unmuted": "Χωρίς Σίγαση"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
