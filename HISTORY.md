@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+20 Oct
+
+- position difficulty option in ceval
+
 19 Oct
 
 - new friends playing alerts muted by default (preference sets the default state; per-player muted/unmuted stored in local storage)
