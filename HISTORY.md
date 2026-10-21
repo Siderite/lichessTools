@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - position difficulty option in ceval
 - shift-click and shift-g to cycle just brilliant/interesting moves
+- expanded position info
 
 19 Oct
 

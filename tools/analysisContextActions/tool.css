@@ -60,13 +60,33 @@ body.lichessTools .lichessTools-positionInfo .dialog-content > div span:first-ch
   font-weight: bold;
 }
 
+body.lichessTools .lichessTools-positionInfo .dialog-content > div span:last-child {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+body.lichessTools .lichessTools-positionInfo .dialog-content .spinner {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+body.lichessTools .lichessTools-positionInfo .dialog-content a {
+  color: inherit;
+  text-decoration: underline dotted;
+  cursor: pointer;
+}
+
 body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .dialog-content {
   padding: 0.5em 2em;
-  min-width:26em;
+  min-width:34em;
 }
 
 /* icon-Trash */
 body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a[data-icon="\E04F"]:before,
 body.lichessTools #analyse-cm.lichessTools-removeSuperfluous a span.icon-trash {
   color: var(--c-accent);
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-positionInfo .pawnStructure {
+  max-width: 13em;
 }

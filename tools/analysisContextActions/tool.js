@@ -1,7 +1,7 @@
 (() => {
   class AnalysisContextActionsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'CustomEngineLevel', 'ExportPGN', 'DetectThirdParties', 'Dialog'];
+    dependencies = ['EmitRedraw', 'CustomEngineLevel', 'ExportPGN', 'DetectThirdParties', 'Dialog', 'Stockfish', 'ChessOps'];
 
     preferences = [
       {
@@ -18,6 +18,13 @@
         possibleValues: [0,1,2,3,4,5],
         defaultValue: 0,
         advanced: true
+      },
+      {
+        name: 'analysisContextActionsEngineDepth',
+        category: 'analysis',
+        type: 'number',
+        defaultValue: 12,
+        advanced: true
       }
     ];
 
@@ -30,6 +37,7 @@
         'options.analysis': 'Analysis',
         'options.analysisContextActions': 'Extra context menu options',
         'options.analysisContextActionsCoverage': 'Study chapter coverage depth for position info',
+        'options.analysisContextActionsEngineDepth': 'Engine depth for position info (0 = no engine)',
         'analysisContextActions.copyPgn': 'Copy branch as PGN',
         'analysisContextActions.moveEval': 'Engine evaluation for last moves',
         'analysisContextActions.lineEval': 'Engine evaluation for previous moves',
@@ -62,12 +70,30 @@
         'bumpDownVariationTitle': 'LiChess Tools - bump down variation',
         'positionInfoText': 'Position info',
         'positionInfoTitle': 'LiChess Tools - show information about selected position',
-        'positionInfoOutputText': `Ply: $ply
-Moves so far: $movesSoFar
-Following main moves: $movesMain
-Following total moves: $movesTotal
-Following branches: $branches`,
-        'treeCoverageText': 'Coverage: %s%',
+        'positionInfoPly': 'Ply',
+        'positionInfoMovesSoFar': 'Moves so far',
+        'positionInfoFollowingMainMoves': 'Following main moves',
+        'positionInfoFollowingTotalMoves': 'Following total moves',
+        'positionInfoFollowingBranches': 'Following branches',
+        'positionInfoCoverage': 'Coverage',
+        'positionInfoOpening': 'Opening',
+        'positionInfoGamePhase': 'Game phase',
+        'positionInfoPhaseOpening': 'Opening',
+        'positionInfoPhaseMiddleGame': 'Middlegame',
+        'positionInfoPhaseEndGame': 'Endgame',
+        'positionInfoLegalMoves': 'Legal moves',
+        'positionInfoTension': 'Tension',
+        'positionInfoPawnStructure': 'Pawn structure',
+        'positionInfoEuweKramerFormation': 'Euwe-Kramer formation',
+        'positionInfoWeakSquares': 'Weak squares',
+        'positionInfoCoordination': 'Coordination',
+        'positionInfoKmapsWhite': 'K-MAPS (White)',
+        'positionInfoSharpness': 'Sharpness',
+        'positionInfoSharpnessExplorer': 'Explorer',
+        'positionInfoSharpnessEngine': 'engine',
+        'positionInfoPositionDifficulty': 'Position difficulty',
+        'positionInfoLastMoveBrilliancy': 'Last move brilliancy',
+        'positionInfoLastMoveInteresting': 'Last move interestingness',
         'analysisContextActionsCoverage.0': 'disabled',
         'analysisContextActionsCoverage.1': '1',
         'analysisContextActionsCoverage.2': '2',
@@ -79,6 +105,7 @@ Following branches: $branches`,
         'options.analysis': 'Analiz\u0103',
         'options.analysisContextActions': 'Op\u0163iuni \u00een plus \u00een meniul context',
         'options.analysisContextActionsCoverage': 'Ad\u00e2ncime acoperire capitole studiu pentru informa\u0163ii pozi\u0163ie',
+        'options.analysisContextActionsEngineDepth': 'Ad\u00e2ncime analyses: nivel motorul pentru informa\u0163ii pozi\u0163ie (0 = nicio motorul)',
         'analysisContextActions.copyPgn': 'Copiaz\u0103 varia\u0163ia ca PGN',
         'analysisContextActions.moveEval': 'Evaluare mut\u0103ri finale',
         'analysisContextActions.lineEval': 'Evaluare mut\u0103ri precedente',
@@ -111,12 +138,30 @@ Following branches: $branches`,
         'bumpDownVariationTitle': 'LiChess Tools - coboar\u0103 varia\u0163ia',
         'positionInfoText': 'Informa\u0163ii pozi\u0163ie',
         'positionInfoTitle': 'LiChess Tools - afi\u015feaz\u0103 informa\u0163ii despre pozi\u0163ia selectat\u0103',
-        'positionInfoOutputText': `Ply: $ply
-Mut\u0103ri p\u00e2na acum: $movesSoFar
-Mut\u0103ri principale urm\u0103toare: $movesMain
-Total mut\u0103ri urm\u0103toare: $movesTotal
-Varia\u0163ii urm\u0103toare: $branches`,
-        'treeCoverageText': 'Acoperire: %s%',
+        'positionInfoPly': 'Jum\u0103t\u0103\u0163i mutare',
+        'positionInfoMovesSoFar': 'Mut\u0103ri p\u00e2n\u0103 acum',
+        'positionInfoFollowingMainMoves': 'Urm\u0103toare mut\u0103ri pe linia principal\u0103',
+        'positionInfoFollowingTotalMoves': 'Urm\u0103toare mut\u0103ri nn total',
+        'positionInfoFollowingBranches': 'Varia\u0163ii urm\u0103toare',
+        'positionInfoCoverage': 'Acoperire',
+        'positionInfoOpening': 'Deschidere',
+        'positionInfoGamePhase': 'Faza jocului',
+        'positionInfoPhaseOpening': 'Deschidere',
+        'positionInfoPhaseMiddleGame': 'Mijlocul partidei',
+        'positionInfoPhaseEndGame': 'Final de partid\u0103',
+        'positionInfoLegalMoves': 'Mut\u0103ri legale',
+        'positionInfoTension': 'Tensiune',
+        'positionInfoPawnStructure': 'Structura pionilor',
+        'positionInfoEuweKramerFormation': 'Forma\u0163ia Euwe-Kramer',
+        'positionInfoWeakSquares': 'P\u0103trate slabe',
+        'positionInfoCoordination': 'Coordonare',
+        'positionInfoKmapsWhite': 'K-MAPS (Alb)',
+        'positionInfoSharpness': 'Periculozitate',
+        'positionInfoSharpnessExplorer': 'Explorator',
+        'positionInfoSharpnessEngine': 'motor',
+        'positionInfoPositionDifficulty': 'Dificultatea pozi\u0163iei',
+        'positionInfoLastMoveBrilliancy': 'Str\u0103lucirea ultimei mut\u0103ri',
+        'positionInfoLastMoveInteresting': 'C\u00e2t de interesant\u0103 ultima mutare',
         'analysisContextActionsCoverage.0': 'dezactivat',
         'analysisContextActionsCoverage.1': '1',
         'analysisContextActionsCoverage.2': '2',
@@ -129,6 +174,7 @@ Varia\u0163ii urm\u0103toare: $branches`,
     showPositionInfo = async (ev) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
+      const $ = lt.$;
       const trans = lt.translator;
       const analysis = lichess.analysis;
       const path = analysis?.contextMenuPath;
@@ -151,17 +197,27 @@ Varia\u0163ii urm\u0103toare: $branches`,
       f(node);
       if (movesTotal) branches++;
       const ply = node.ply;
-      let text = trans.noarg('positionInfoOutputText')
-        .replace('$ply',`${ply}`)
-        .replace('$movesSoFar',`${movesSoFar}`)
-        .replace('$movesMain',`${movesMain}`)
-        .replace('$movesTotal',`${movesTotal}`)
-        .replace('$branches',`${branches}`);
-      if (this.options.positionInfoCoverageDepth && analysis.study && analysis.explorer.enabled()) {
-        const coverage = await this.computeTreeCoverage(node,this.options.positionInfoCoverageDepth);
-        text+='\r\n'+trans.pluralSame('treeCoverageText',Math.round(coverage*100));
-      }
-      const moveNumber = Math.floor((ply + 1) / 2);
+      const fen = node?.fen;
+      const co = LiChessTools.chessopsModule;
+      const board = lt.getBoardFromFen(fen);
+      const prevNode = path.length>=2 ? analysis.tree.nodeAtPath(path.slice(0,-2)) : null;
+      const prev2Node = path.length>=4 ? analysis.tree.nodeAtPath(path.slice(0,-4)) : null;
+      const engineDepth = this.options.engineDepth;
+      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      const gameData = analysis?.data?.game;
+      const gameStatusId = Number(gameData?.status?.id ?? 21);
+      const gameOngoing = !!gameData && gameData.id != 'synthetic' && gameStatusId <= 20;
+      const hidePositionMetrics = lt.isGamePlaying() || $.cached('body').is('.playing') || gameOngoing
+        || (showStaticAnalysis === false && !analysis?.cevalEnabled());
+      const allowPositionMetrics = !hidePositionMetrics;
+      const signed = (v,dec)=> (v>0?'+':'') + v.toFixed(dec);
+      const metric = (label,fn)=>{
+        try { return fn(); } catch (e) { lt.global.console.warn('positionInfo '+label,e); return null; }
+      };
+      const metricAsync = async (label,fn)=>{
+        try { return await fn(); } catch (e) { lt.global.console.warn('positionInfo '+label,e); return null; }
+      };
+      const moveNumber = lt.global.Math.floor((ply + 1) / 2);
       let header;
       if (moveNumber>0 && node.san) {
         header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
@@ -176,15 +232,286 @@ Varia\u0163ii urm\u0103toare: $branches`,
         header: $(header),
         noDrag: true
       });
-      for (const line of text.split(/[\r\n]+/)) {
-        const [k,v] = line.split(/\s*:\s*/);
-        $('<div>')
-          .append($('<span>').text(k))
-          .append($('<span>').text(v))
-          .appendTo($('.dialog-content',dialog));
-      }
       $(dialog).addClass('lichessTools-positionInfo');
+      const content = $('.dialog-content', dialog);
+      const link = (text,url)=> !!url
+        ? $('<a>')
+          .textSafe(String(text))
+          .attrSafe('href',String(url))
+          .attrSafe('target','_blank')
+        : String(text);
+      const isMissing = (value)=> value === undefined || value === null || value === '' || (typeof value === 'number' && value !== value);
+      const renderValue = (span,value)=>{
+        if (typeof value === 'object') span.append(value);
+        else span.textSafe(String(value));
+      };
+      const addRow = (label,value)=>{
+        if (isMissing(value)) return;
+        const row = $('<div>').appendTo(content);
+        $('<span>').textSafe(String(label)).appendTo(row);
+        renderValue($('<span>').appendTo(row),value);
+      };
+      const spinnerRow = (label)=>{
+        if (label === undefined || label === null) return null;
+        const row = $('<div>').appendTo(content);
+        $('<span>').textSafe(String(label)).appendTo(row);
+        return [ row, $('<span>').appendTo(row).append(lt.spinnerHtml) ];
+      };
+      const fillRow = (pair,value)=>{
+        if (!pair) return;
+        const row = pair?.[0];
+        const valueSpan = pair?.[1];
+        if (!row || !valueSpan) return;
+        if (isMissing(value)) { row.remove(); return; }
+        valueSpan.empty();
+        renderValue(valueSpan,value);
+      };
+      const setRow = (pair,value)=> fillRow(pair,value);
+      const setRowLazy = async (pair,valueFn)=> !pair ? null : fillRow(pair,await valueFn());
+      const structureTool = lt.tools?.ShowPawnStructureTool;
+      const structure = metric('pawnStructureKey',()=> board ? LiChessTools.ChessMetrics.getStructure(board) : null);
+      const euweKramer = metric('euweKramerFormation',()=> board ? LiChessTools.ChessMetrics.getEuweKramer(board) : null);
+      const ekText = euweKramer?.code ? (euweKramer.name ? euweKramer.code + ' ' + euweKramer.name : euweKramer.code) : null;
+      const ekUrl = euweKramer?.code ? structureTool?.getEuweKramerUrl?.(euweKramer.code) : null;
+      const namedOpening = (n)=> n?.opening?.name && n.opening.name != '*' ? String(n.opening.name) : null;
+      const pathNodes = analysis.tree?.getNodeList?.(path) || [];
+      let openingName = namedOpening(node);
+      const openingIsCurrent = !!openingName;
+      for (let i = pathNodes.length - 1; i >= 0 && !openingName; i--) openingName = namedOpening(pathNodes[i]);
+      const openingHref = openingIsCurrent ? $('section.explorer-box div.data div.title a').attr('href') : null;
+      const openingUrl = openingHref && /^\/opening\//i.test(openingHref) ? openingHref : null;
+      addRow(trans.noarg('positionInfoPly'),ply);
+      addRow(trans.noarg('positionInfoMovesSoFar'),movesSoFar);
+      addRow(trans.noarg('positionInfoFollowingMainMoves'),movesMain);
+      addRow(trans.noarg('positionInfoFollowingTotalMoves'),movesTotal);
+      addRow(trans.noarg('positionInfoFollowingBranches'),branches);
+      const coverageOn = this.options.positionInfoCoverageDepth && analysis.study && analysis.explorer.enabled();
+      const coverageRow = coverageOn ? spinnerRow(trans.noarg('positionInfoCoverage')) : null;
+      addRow(trans.noarg('positionInfoOpening'),openingName ? link(openingName,openingUrl) : null);
+      const phase = metric('gamePhase',()=> LiChessTools.ChessMetrics.getGamePhase(fen,lt));
+      addRow(trans.noarg('positionInfoGamePhase'),
+        phase == 'endGame' ? trans.noarg('positionInfoPhaseEndGame')
+          : phase == 'middleGame' ? trans.noarg('positionInfoPhaseMiddleGame')
+          : phase == 'opening' ? trans.noarg('positionInfoPhaseOpening')
+          : null);
+      const position = allowPositionMetrics ? metric('legalMoves',()=> co ? LiChessTools.MoveGen.positionFromFen(fen,co) : null) : null;
+      if (allowPositionMetrics) addRow(trans.noarg('positionInfoLegalMoves'),position ? LiChessTools.MoveGen.legalMoves(position)?.length : null);
+      const tensionCp = allowPositionMetrics ? metric('tension',()=> LiChessTools.ChessMetrics.tension(node,lt)) : null;
+      if (allowPositionMetrics) addRow(trans.noarg('positionInfoTension'),tensionCp == null ? null : (tensionCp/100).toFixed(1));
+      const pawnRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoPawnStructure')) : null;
+      pawnRow?.[1]?.addClass('pawnStructure');
+      if (allowPositionMetrics) addRow(trans.noarg('positionInfoEuweKramerFormation'),ekText ? link(ekText,ekUrl) : null);
+      const weakRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoWeakSquares')) : null;
+      const coordRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoCoordination')) : null;
+      const kmapsRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoKmapsWhite')) : null;
+      const engineOn = engineDepth > 0 && allowPositionMetrics;
+      const sharpnessRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoSharpness')) : null;
+      const difficultyRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoPositionDifficulty')) : null;
+      const brilliancyRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoLastMoveBrilliancy')) : null;
+      const interestingRow = allowPositionMetrics ? spinnerRow(trans.noarg('positionInfoLastMoveInteresting')) : null;
       dialog.showModal();
+      if (coverageOn) {
+        const coverage = await metricAsync('coverage',async ()=> await this.computeTreeCoverage(node,this.options.positionInfoCoverageDepth));
+        setRow(coverageRow,coverage == null ? null : lt.global.Math.round(coverage*100) + '%');
+      }
+      await setRowLazy(pawnRow,()=> metricAsync('pawnStructure',async ()=>{
+        if (!structure) return null;
+        const named = structureTool?.options ? await structureTool.getStructureName(structure,true) : null;
+        return named?.name
+          ? (named.url
+              ? $('<span>').textSafe(structure + '\n').append(link(named.name,named.url))
+              : structure + '\n' + named.name)
+          : structure;
+      }));
+      await setRowLazy(weakRow,()=> metricAsync('weakSquares',async ()=>{
+        if (!board) return null;
+        const whiteWeak = LiChessTools.ChessMetrics.getWeakSquares(board,true);
+        const blackWeak = LiChessTools.ChessMetrics.getWeakSquares(board,false);
+        return 'W ' + (whiteWeak?.length ?? 0) + ' / B ' + (blackWeak?.length ?? 0);
+      }));
+      await setRowLazy(coordRow,()=> metricAsync('coordination',async ()=>{
+        if (!board) return null;
+        this._positionInfoCoordination ||= new LiChessTools.CoordinationCalculator();
+        const sides = this._positionInfoCoordination.computeConnectivityScoreCapped(fen);
+        const score = (side)=> side?.pieces ? lt.global.Math.round(lt.global.Math.min(50,(5 - side.avg)*side.pieces)) : 0;
+        return 'W ' + score(sides.white) + ' / B ' + score(sides.black);
+      }));
+      await setRowLazy(kmapsRow,()=> metricAsync('kmaps',async ()=>{
+        if (!co) return null;
+        const kmaps = await new LiChessTools.ChessKmapsEvaluator(fen,co).evaluate();
+        if (!kmaps) return null;
+        return [ 'K','M','A','P','S' ]
+          .map(letter=> letter + signed(lt.global.Math.round((kmaps[letter] ?? 0)*100),0))
+          .join(' ');
+      }));
+      let search = null;
+      if (engineOn) search = await metricAsync('engineSearch',async ()=> await this.engineSearch(fen,engineDepth,4));
+      const bestLine = search?.lines?.[0];
+      let sharpness = null;
+      let sharpnessSource = null;
+      const explorerItem = allowPositionMetrics ? analysis.explorer?.cache?.[fen] : null;
+      if (explorerItem) {
+        const explorerTotal = (explorerItem.white || 0) + (explorerItem.draws || 0) + (explorerItem.black || 0);
+        if (explorerTotal > 0) {
+          const q = 1000/explorerTotal;
+          sharpness = LiChessTools.ChessMetrics.wdlToSharpness(explorerItem.white*q, lt.global.Math.max(explorerItem.draws,1)*q, explorerItem.black*q);
+          sharpnessSource = trans.noarg('positionInfoSharpnessExplorer');
+        }
+      }
+      if (allowPositionMetrics && sharpness == null && bestLine?.wdl?.length == 3) {
+        sharpness = LiChessTools.ChessMetrics.wdlToSharpness(...bestLine.wdl);
+        sharpnessSource = trans.noarg('positionInfoSharpnessEngine');
+      }
+      setRow(sharpnessRow,sharpness == null || Number.isNaN(sharpness) ? null : lt.global.Math.round(sharpness) + ' (' + sharpnessSource + ')');
+      await setRowLazy(difficultyRow,()=> metricAsync('positionDifficulty',async ()=>{
+        if (!search?.series || search.series.size<2) return null;
+        const difficulty = LiChessTools.PositionDifficultyEvaluator.evaluate(search.series);
+        if (!difficulty) return null;
+        return difficulty.difficulty.toFixed(1) + ' (c ' + difficulty.complexity.toFixed(2) + ' d ' + difficulty.effectiveDepth.toFixed(1) + ')';
+      }));
+      const brilliancy = allowPositionMetrics
+        ? await metricAsync('brilliancy',async ()=> await this.lastMoveBrilliancy(node,prevNode,prev2Node,engineDepth,search))
+        : null;
+      const categoryList = (key)=>{
+        const byType = brilliancy?.res?.byType;
+        if (!byType) return null;
+        const list = Object.keys(byType)
+          .map((name)=>({ label: brilliancy.labels?.[name] ?? name, score: byType[name]?.[key] ?? 0 }))
+          .filter((category)=> category.score > 0)
+          .sort((x,y)=> y.score - x.score);
+        return list.length ? list : null;
+      };
+      const brilliantList = categoryList('fit');
+      const interestingList = categoryList('ifit');
+      const categoryText = (list,prefix)=> !list
+        ? null
+        : list
+          .map((category,i)=> (i === 0 && prefix ? '!! ' : '') + category.label + ' ' + category.score.toFixed(1))
+          .join('\n');
+      setRow(brilliancyRow,categoryText(brilliantList,brilliancy?.res?.isBrilliant));
+      setRow(interestingRow,categoryText(interestingList,brilliancy?.res?.isInteresting));
+    };
+
+    engineSearch = async (fen, depth, multipv) => {
+      const lt = this.lichessTools;
+      if (!depth || !fen || !lt.stockfish) return null;
+      const sf = await lt.stockfish.load();
+      if (!sf) return null;
+      let done = false;
+      const raw = [];
+      const onInfo = (i)=>{
+        if (!i) return;
+        if (i.cp === undefined && i.mate === undefined) return;
+        raw.push(i);
+      };
+      const onBestmove = ()=>{ done = true; };
+      const onError = (e)=>{ done = true; };
+      try {
+        sf.on('info', onInfo);
+        sf.on('bestmove', onBestmove);
+        sf.on('error', onError);
+        sf.setDepth(depth);
+        if (multipv) sf.setMultiPv(multipv);
+        sf.setPosition(fen);
+        sf.start();
+        let guard = 0;
+        while (!done && guard++ < 150) await lt.timeout(200);
+        await sf.stop();
+      } finally {
+        try { sf.off('info', onInfo); } catch (e) {}
+        try { sf.off('bestmove', onBestmove); } catch (e) {}
+        try { sf.off('error', onError); } catch (e) {}
+      }
+      const series = new Map();
+      const linesByPv = new Map();
+      for (const info of raw) {
+        const searchDepth = +(info.depth?.[0] ?? 0);
+        if (!searchDepth) continue;
+        const pv = info.pv || [];
+        const uci = pv[0];
+        const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(info);
+        if (uci && cp !== undefined) {
+          let values = series.get(searchDepth);
+          if (!values) {
+            values = new Map();
+            series.set(searchDepth, values);
+          }
+          if (!values.has(uci)) values.set(uci, cp);
+        }
+        const multipvNr = +(info.multipv?.[0] ?? 1);
+        linesByPv.set(multipvNr, {
+          multipv: multipvNr,
+          depth: searchDepth,
+          cp: info.cp?.[0] !== undefined ? +info.cp[0] : null,
+          mate: info.mate?.[0] !== undefined ? +info.mate[0] : null,
+          wdl: Array.isArray(info.wdl) && info.wdl.length == 3 ? info.wdl.map(v=> +v) : null,
+          pv: pv
+        });
+      }
+      const lines = [...linesByPv.values()].sort((x,y)=> x.multipv - y.multipv);
+      return { fen, side: fen.split(/\s+/)?.[1] == 'b' ? -1 : 1, series, lines };
+    };
+
+    normalizeCeval = (ev)=>{
+      if (!ev) return null;
+      if (typeof ev.mate === 'number') return { mate: ev.mate };
+      if (ev.mate != null && Number.isFinite(+ev.mate)) return { mate: +ev.mate };
+      if (typeof ev.cp === 'number') return { cp: ev.cp };
+      if (ev.cp != null && Number.isFinite(+ev.cp)) return { cp: +ev.cp };
+      return null;
+    };
+
+    engineEval = (search)=>{
+      const line = search?.lines?.[0];
+      if (!line) return null;
+      if (line.mate != null) return { mate: line.mate * search.side };
+      if (line.cp != null) return { cp: line.cp * search.side };
+      return null;
+    };
+
+    lastMoveBrilliancy = async (node, prevNode, prev2Node, engineDepth, search)=>{
+      const lt = this.lichessTools;
+      const co = LiChessTools.chessopsModule;
+      if (!co || !node || !prevNode || !prevNode.fen || !node.san) return null;
+      let evalBefore = this.normalizeCeval(lt.getNodeCeval(prevNode));
+      let evalAfter = this.normalizeCeval(lt.getNodeCeval(node));
+      let multiPv = prevNode?.ceval?.pvs?.map(p=>({ moves: p.moves?.join(' '), cp: p.cp, mate: p.mate }));
+      if (engineDepth > 0 && (!multiPv || !evalBefore)) {
+        const parentSearch = await this.engineSearch(prevNode.fen, engineDepth, 4);
+        if (parentSearch) {
+          const side = parentSearch.side;
+          if (!multiPv) {
+            multiPv = parentSearch.lines?.map((line)=>({
+              moves: line.pv?.join(' '),
+              cp: line.cp != null ? line.cp*side : undefined,
+              mate: line.mate != null ? line.mate*side : undefined
+            }))
+              .filter((line)=> line.cp != null || line.mate != null);
+          }
+          if (!evalBefore) evalBefore = this.engineEval(parentSearch);
+        }
+      }
+      if (!evalAfter) evalAfter = this.engineEval(search);
+      const ctx = {
+        fen: prevNode.fen,
+        san: node.san,
+        evalBefore,
+        evalAfter,
+        multiPv,
+        evalTwoBefore: prev2Node ? this.normalizeCeval(lt.getNodeCeval(prev2Node)) : null,
+        book: !!node.opening
+      };
+      if (!ctx.fen || !ctx.san || !ctx.evalBefore || !ctx.evalAfter) return null;
+      try {
+        const analyser = new LiChessTools.BrilliantMoveAnalyzer(ctx,{ co });
+        const res = analyser.computeUberBrilliance();
+        const labels = {};
+        for (const name of Object.keys(analyser.types)) labels[name] = analyser.types[name]?.label ?? name;
+        return { ctx, res, labels };
+      } catch (e) {
+        lt.global.console.warn('positionInfo brilliancy',e);
+        return null;
+      }
     };
 
     computeTreeCoverage = async (node, maxDepth) => {
@@ -753,6 +1080,7 @@ Varia\u0163ii urm\u0103toare: $branches`,
         reorderVariations: lt.isOptionSet(value, 'reorderVariations'),
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
         positionInfoCoverageDepth: +lt.currentOptions.getValue('analysisContextActionsCoverage') || 0,
+        engineDepth: +lt.currentOptions.getValue('analysisContextActionsEngineDepth') || 0,
         get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; }
       };
       clearInterval(this.engineCheckInterval);
