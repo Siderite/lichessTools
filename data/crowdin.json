@@ -1293,7 +1293,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2589,7 +2590,8 @@
     "uploadImageButtonTitle": "LiChess Tools - 上传图像",
     "uploadImageMissingText": "未选择图像",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3885,7 +3887,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5181,7 +5184,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6477,7 +6481,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7773,7 +7778,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9069,7 +9075,8 @@
     "uploadImageButtonTitle": "LiChess Tools – importer une image",
     "uploadImageMissingText": "Aucune image n'a été sélectionnée",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10365,7 +10372,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11661,7 +11669,8 @@
     "uploadImageButtonTitle": "LiChess Tools - μεταφόρτωση εικόνας",
     "uploadImageMissingText": "Δεν επιλέχθηκε εικόνα",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12957,7 +12966,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14253,7 +14263,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15549,7 +15560,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16845,7 +16857,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18141,7 +18154,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19437,7 +19451,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20733,7 +20748,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -22029,7 +22045,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23325,7 +23342,8 @@
     "uploadImageButtonTitle": "LiChess Tools - încărcare imagine",
     "uploadImageMissingText": "Nici o imagine selectată",
     "cevalLineOptions.difficulty": "Dificultatea poziției",
-    "positionDifficultyTitle": "LiChess Tools - dificultatea poziției $difficulty (complexitate $complexity x adâncime $depth)"
+    "positionDifficultyTitle": "LiChess Tools - dificultatea poziției $difficulty (complexitate $complexity x adâncime $depth)",
+    "nextBrilliant": "Următoarea interesantă/briliantă"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24621,7 +24639,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25917,7 +25936,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27213,7 +27233,8 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28509,7 +28530,8 @@
     "uploadImageButtonTitle": "LiChess Tools - resim yükle",
     "uploadImageMissingText": "Resim seçilmedi",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29805,6 +29827,7 @@
     "uploadImageButtonTitle": "LiChess Tools - upload image",
     "uploadImageMissingText": "No image was selected",
     "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
+    "nextBrilliant": "Next interesting/brilliant"
   }
 }

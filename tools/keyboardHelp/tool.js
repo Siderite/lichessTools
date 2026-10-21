@@ -25,6 +25,7 @@
         'nextMistake': 'Next mistake (all lines)',
         'nextInaccuracy': 'Next inaccuracy (all lines)',
         'nextGood': 'Next good/brilliant/interesting',
+        'nextBrilliant': 'Next interesting/brilliant',
         'nextOpponentBlunder': 'Next opponent blunder',
         'nextOpponentMistake': 'Next opponent mistake',
         'nextOpponentInaccuracy': 'Next opponent inaccuracy',
@@ -61,6 +62,7 @@
         'nextMistake': 'Urm\u0103toarea gre\u015Feal\u0103 (toate liniile)',
         'nextInaccuracy': 'Urm\u0103toarea inexactitate (toate liniile)',
         'nextGood': 'Urm\u0103toarea bun\u0103/briliant\u0103/interesant\u0103',
+        'nextBrilliant': 'Urm\u0103toarea interesant\u0103/briliant\u0103',
         'nextOpponentBlunder': 'Urm\u0103toarea gaf\u0103 a adversarului',
         'nextOpponentMistake': 'Urm\u0103toarea gre\u015Feal\u0103 a adversarului',
         'nextOpponentInaccuracy': 'Urm\u0103toarea inexactitate a adversarului',
@@ -210,6 +212,7 @@
           }
           row(['i'], 'nextInaccuracy');
           row(['g'], 'nextGood');
+          row(['shift', 'g'], 'nextBrilliant');
           row(['alt', 'b'], 'nextOpponentBlunder');
           row(['alt', 'm'], 'nextOpponentMistake');
           row(['alt', 'i'], 'nextOpponentInaccuracy');

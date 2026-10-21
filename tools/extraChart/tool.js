@@ -715,7 +715,7 @@
               .attr('title', trans.noarg('goodMovesTitle'))
               .on('click', (ev) => {
                 ev.preventDefault();
-                lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
+                lt.jumpToGlyphSymbols(ev.shiftKey ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
               })
               .on('pointermove', (ev) => {
                 const chart = this._chart;

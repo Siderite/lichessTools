@@ -260,6 +260,7 @@
       lt.unbindKeyHandler('b');
       lt.unbindKeyHandler('shift+b');
       lt.unbindKeyHandler('g');
+      lt.unbindKeyHandler('shift+g');
       lt.unbindKeyHandler('alt+i', true);
       lt.unbindKeyHandler('alt+m', true);
       lt.unbindKeyHandler('alt+b', true);
@@ -306,6 +307,8 @@
         }
         if (!lt.isBindingDisabled?.(['g']))
         lt.bindKeyHandler('g', () => lt.jumpToGlyphSymbols(['!', '!?', '!!', lt.icon.WhiteStar]));
+        if (!lt.isBindingDisabled?.(['shift','g']))
+        lt.bindKeyHandler('shift+g', () => lt.jumpToGlyphSymbols(['!?', '!!']));
         if (!lt.isBindingDisabled?.(['alt','i']))
         lt.bindKeyHandler('alt+i', () => lt.jumpToGlyphSymbols('?!', true));
         if (!lt.isBindingDisabled?.(['alt','m']))
