@@ -11668,9 +11668,9 @@
     "muteFriendsNotifications.unmuted": "Χωρίς Σίγαση",
     "uploadImageButtonTitle": "LiChess Tools - μεταφόρτωση εικόνας",
     "uploadImageMissingText": "Δεν επιλέχθηκε εικόνα",
-    "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
-    "nextBrilliant": "Next interesting/brilliant"
+    "cevalLineOptions.difficulty": "Δυσκολία θέσης",
+    "positionDifficultyTitle": "LiChessTools - δυσκολία θέσης $difficulty (πολυπλοκότητα $complexity x βάθος $depth)",
+    "nextBrilliant": "Επόμενη ενδιαφέρουσα /εξαιρετική κίνηση"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -28529,9 +28529,9 @@
     "muteFriendsNotifications.unmuted": "Sesi açık",
     "uploadImageButtonTitle": "LiChess Tools - resim yükle",
     "uploadImageMissingText": "Resim seçilmedi",
-    "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
-    "nextBrilliant": "Next interesting/brilliant"
+    "cevalLineOptions.difficulty": "Pozisyon zorluğu",
+    "positionDifficultyTitle": "LiChess Tools - pozisyon zorluğu $difficulty (karmaşıklığı $complexity x derinliği $depth)",
+    "nextBrilliant": "Sonraki ilginç/göz alıcı"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
