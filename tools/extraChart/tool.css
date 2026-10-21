@@ -167,6 +167,10 @@ body.lichessTools .lichessTools-chartLegend button {
   opacity: 0.5;
 }
 
+body.lichessTools .analyse__underboard .computer-analysis .lichessTools-chartLegend button {
+  margin: 0;
+}
+
 body.lichessTools .lichessTools-chartLegend button:hover {
   border-bottom: solid 1px var(--c-link);
 }
