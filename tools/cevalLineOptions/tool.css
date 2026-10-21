@@ -392,3 +392,21 @@ body.lichessTools div.pv[data-cost]:not(:has(strong)):after {
   position:absolute;
   left:0;
 }
+
+body.lichessTools .analyse__tools div.ceval:has(> .lichessTools-positionDifficulty),
+body.lichessTools .analyse__controls:has(> .lichessTools-positionDifficulty) {
+  position: relative;
+}
+
+body.lichessTools .lichessTools-positionDifficulty {
+  position: absolute;
+  bottom: 0;
+  right: 0.2em;
+  font-size: small;
+  line-height: 1.2;
+  padding: 0 0.25em;
+  border-radius: 2px;
+  background: #40404080;
+  color: var(--difficulty-color);
+  z-index: 2;
+}

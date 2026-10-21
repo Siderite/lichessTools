@@ -1291,7 +1291,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2584,8 +2586,10 @@
     "options.muteFriendsNotifications": "新添加好友的默认提示音状态",
     "muteFriendsNotifications.muted": "静音",
     "muteFriendsNotifications.unmuted": "取消静音",
-    "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageButtonTitle": "LiChess Tools - 上传图像",
+    "uploadImageMissingText": "未选择图像",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3879,7 +3883,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5173,7 +5179,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6467,7 +6475,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7761,7 +7771,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9051,11 +9063,13 @@
     "chessPursuit2Text": "Échecs poursuite 2",
     "chessPursuit2Title": "Lichess Tools - Jouer à échecs poursuite 2",
     "chessPursuit2Header": "Échecs poursuite 2",
-    "options.muteFriendsNotifications": "Default playing alerts state for newly added friends",
-    "muteFriendsNotifications.muted": "Muted",
-    "muteFriendsNotifications.unmuted": "Unmuted",
-    "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "options.muteFriendsNotifications": "État par défaut des alertes de jeu pour les amis récemment ajoutés",
+    "muteFriendsNotifications.muted": "Mode silencieux",
+    "muteFriendsNotifications.unmuted": "Son activé",
+    "uploadImageButtonTitle": "LiChess Tools – importer une image",
+    "uploadImageMissingText": "Aucune image n'a été sélectionnée",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10349,7 +10363,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11642,8 +11658,10 @@
     "options.muteFriendsNotifications": "Προεπιλεγμένη κατάσταση αναπαραγωγής ειδοποιήσεων για νέους φίλους",
     "muteFriendsNotifications.muted": "Σε Σίγαση",
     "muteFriendsNotifications.unmuted": "Χωρίς Σίγαση",
-    "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageButtonTitle": "LiChess Tools - μεταφόρτωση εικόνας",
+    "uploadImageMissingText": "Δεν επιλέχθηκε εικόνα",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -12937,7 +12955,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14231,7 +14251,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15525,7 +15547,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16819,7 +16843,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18113,7 +18139,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19407,7 +19435,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -20701,7 +20731,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -21995,7 +22027,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23289,7 +23323,9 @@
     "muteFriendsNotifications.muted": "Dezactivate",
     "muteFriendsNotifications.unmuted": "Activate",
     "uploadImageButtonTitle": "LiChess Tools - încărcare imagine",
-    "uploadImageMissingText": "Nici o imagine selectată"
+    "uploadImageMissingText": "Nici o imagine selectată",
+    "cevalLineOptions.difficulty": "Dificultatea poziției",
+    "positionDifficultyTitle": "LiChess Tools - dificultatea poziției $difficulty (complexitate $complexity x adâncime $depth)"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -24583,7 +24619,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -25877,7 +25915,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27171,7 +27211,9 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -28464,8 +28506,10 @@
     "options.muteFriendsNotifications": "Yeni eklenen arkadaşlar için varsayılan oyun bildirimleri durumu",
     "muteFriendsNotifications.muted": "Sessize alındı",
     "muteFriendsNotifications.unmuted": "Sesi açık",
-    "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageButtonTitle": "LiChess Tools - resim yükle",
+    "uploadImageMissingText": "Resim seçilmedi",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -29759,6 +29803,8 @@
     "muteFriendsNotifications.muted": "Muted",
     "muteFriendsNotifications.unmuted": "Unmuted",
     "uploadImageButtonTitle": "LiChess Tools - upload image",
-    "uploadImageMissingText": "No image was selected"
+    "uploadImageMissingText": "No image was selected",
+    "cevalLineOptions.difficulty": "Position difficulty",
+    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)"
   }
 }

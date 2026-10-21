@@ -54,13 +54,27 @@ MutationObserver on `lichessTools.redraw`:
 - Plots previous node's PVS cp values as horizontal bars with count and quality classes (good/warn/bad)
 - Also plots current node's eval
 
+### Position Difficulty
+
+Same ceval collector as the depth chart (`db` per analysis path); on every ceval event and on
+`lichessTools.redraw` it runs `LiChessTools.PositionDifficultyEvaluator.evaluate(series)` where
+`series` is `Map<depth, Map<uci, centipawn>>` built from the stored pv lines.
+- Creates `<div class="lichessTools-positionDifficulty">` in the ceval area, text = the difficulty,
+  `data-difficulty` attribute, colored through `--difficulty-color` (`lt.getGradientColor`).
+- Tooltip shows difficulty = complexity × effective depth (Biswas/Regan "Quantifying Depth and
+  Complexity of Thinking and Knowledge"): complexity from the generalized Kendall tau between the
+  evaluation lists of neighbouring depths, effective depth from the weighted swing Σ of how the
+  distance of each move to the best move changes with depth.
+- Needs at least two depths with the same moves evaluated; with `moreLines` on, more moves take part
+  and the metric is closer to the paper (which bounds legal moves at ℓ=50).
+
 ## Dependencies
 
 - EmitRedraw, EmitCeval
 
 ## Preferences
 
-- `cevalLineOptions` — multiple type: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs', 'cost'], default: 'moreLines'
+- `cevalLineOptions` — multiple type: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs', 'cost', 'difficulty'], default: 'moreLines'
 
 ## Key Methods
 
@@ -68,6 +82,7 @@ MutationObserver on `lichessTools.redraw`:
 - `handleMoreLines()` → manages multipv max toggle button
 - `handleExternalEngine()` → checks external engine status and limits lines
 - `drawChart()` → draws depth chart canvas on eval pearl
+- `drawDifficulty()` → position difficulty badge from the ceval depth series
 - `downloadCevalData()` → downloads analysis JSON
 - `drawPvs()` → plots PV distribution bars
 - `handleCeval(args)` → stores eval data in db Map per path/depth
