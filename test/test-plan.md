@@ -1,6 +1,6 @@
 # LiChess Tools — Test Plan
 
-Comprehensive manual test plan for the **LiChess Tools** extension (v2.5.0). If you work through
+Comprehensive manual test plan for the **LiChess Tools** extension (v2.5.3). If you work through
 every item here and it passes, you can be confident the extension works end-to-end.
 
 The plan is ordered **most important → least important**:
@@ -26,6 +26,39 @@ The plan is ordered **most important → least important**:
 5. Where a test changes a preference, note its default so you can restore it afterwards.
 
 Legend: `[ ]` = not run yet · `[x]` = pass · `[!]` = failed (add a note).
+
+## What's new this week (Oct 19–21, v2.5.1 → v2.5.3)
+
+Items added or amended by this week's commits — everything else below is unchanged. Run these first;
+they are where this week's regressions show up.
+
+**Oct 21 (v2.5.3)**
+- **Expanded position info** (issue #1868, `analysisContextActions` tool.js/css) → rewritten **T3.8**
+  and new **T3.8a** (the Position info dialog went from 6 tree rows to tree + basics + structure +
+  engine rows, and gained the *Engine depth for position info (0 = no engine)* preference).
+- **Position difficulty metric as a ceval line option** (`cevalLineOptions.tool.js/css`, new
+  `scripts/lichessTools-chessMetrics-PositionDifficultyEvaluator.js`) → extended **T1.24**, new
+  **T1.24a**, new headless **H.5**.
+- **`Shift-G` / Shift-click to cycle only interesting/brilliant moves** (issue #1593: `keyShortcuts`,
+  `keyboardHelp`, `extraChart`) → new **T2.13a**, new **T1.7a**.
+- **Chart label spacing in game analysis** (`extraChart/tool.css`) → new **T1.27**.
+
+**Oct 20**
+- **Upload image button for inbox chat & biography** (issue #1348, `chatForumBlogs`) → extended **T6.17**
+  (manual); already headless-covered by **H.4**.
+- **Chart tooltip filter re-added** — "the mystery line", tooltips restricted to the main dataset → **T1.27**.
+
+**Oct 19**
+- **Multiple `cls:` classes in one comment** (issue #1877, `commentStyling`) → new **T4.14a**.
+- **Styling ink pen while typing a comment** (issue #1884, `commentStyling`) → new **T4.14b**
+  (headless **H.3** already covers the listener).
+- **Friends playing alerts default state** (issue #1494, `friendsPlaying`/`friendsList`) → **T6.3** /
+  **H.2** — rewritten: shipped `muteFriendsNotifications` defaults to **Unmuted**, which contradicts the
+  `HISTORY.md` note ("muted by default") and the harness; T6.3 now carries that flag.
+- **FEN repair + FEN transform fixes** (issues #1202 + #1816, `MoveGen`, `pieceValueCommand`) → **H.1**.
+- **Compact game list column widths** (`gameListOptions/tool.css`) → extended **T7.15**.
+- Translations (`data/crowdin.json`, `data/wikiUrls.json`), docs (`HISTORY.md`), manifest version bump
+  `2.5.3` → covered by **T10.1** and the manifest load checks in **H.5**; no separate test item.
 
 ---
 
@@ -80,6 +113,12 @@ The "Extra analysis charting" feature is under *Analysis/Study → Extra analysi
       (always ≥ center); *Max tension* / *Max potential* lines appear.
 - [ ] **T1.7 Extra charting — Find interesting moves / …more moves.** Expected: interesting moves get
       highlighted/marked; "…more moves" adds an extra good/brilliant-move classification pass.
+- [ ] **T1.7a Good moves chip — Shift-click cycling.** In a finished game's analysis, hover the "good
+      moves" chip in the computer-analysis panel: the interesting/brilliant moves light up on the chart
+      line. Clicking it cycles to any good/brilliant/interesting/win-star move (`!`, `!?`, `!!`, ★);
+      **Shift-clicking** it cycles only through interesting/brilliant moves (`!?`, `!!`) — plain good
+      moves and the win star are skipped. Since v2.5.3 this is driven by Shift, not by the *…more moves*
+      option, so it must hold with that option off and on.
 - [ ] **T1.8 Extra charting — Brilliance chart.** Expected: a chart line for the orientation side.
 - [ ] **T1.9 Extra charting — Chart smoothing.** Expected: chart lines become smoother.
 - [ ] **T1.10 Extra charting — on Eval gauge.** Expected: a green (material) and blue (principled)
@@ -116,11 +155,24 @@ The "Extra analysis charting" feature is under *Analysis/Study → Extra analysi
 - [ ] **T1.24 Computer evaluation line options.** Verify in turn: *Highlight same moves*,
       *…only current orientation*, *More lines* (slider up to 10), *Color evaluation*, *Depth chart*
       (superscript ply), *Download engine analysis* (JSON, FEN in filename), *Plot PVs*, *Move cost*
-      (`$` on engine moves; hover shows cost).
+      (`$` on engine moves; hover shows cost), *Position difficulty*.
+- [ ] **T1.24a Position difficulty badge (new).** Enable *Position difficulty* and run a local eval on
+      the Analysis board. Expected: a difficulty badge renders in the eval area (`div.lichessTools-
+      positionDifficulty`, coloured by value), redrawn on every redraw, with a tooltip reading
+      "LiChess Tools - position difficulty D (complexity C x depth D)". The metric needs at least two
+      depths that evaluated the same moves, so a shallow/one-ply eval shows no badge — wait for a deeper
+      search. Turning *More lines* on must add moves to the series and change the value (the paper bounds
+      legal moves at ℓ=50). With the option off, no badge is drawn and no difficulty listener is bound.
 - [ ] **T1.25 Custom engine settings.** Verify *Custom analysis/practice engine depth*, *Custom
       analysis engine options*, *Analysis engine threads*, *Analysis engine hash*. Expected: the
       local engine respects the depth/threads/hash/options.
 - [ ] **T1.26 Ceval cache.** Expected: repeat a position and local eval is served from cache faster.
+- [ ] **T1.27 Chart hover & label polish (this week).** In a finished game's analysis with extra
+      charting on: (a) hovering a chart point pops **one** tooltip — the main chart line's — not a stack
+      of per-line tooltips (the tooltip filter is back on since Oct 20, `filter: t => t.datasetIndex
+      === 0`); (b) the chart legend buttons in the underboard computer-analysis panel sit flush with no
+      extra margin (Oct 21 CSS fix), keep their dimmed look and the underline on hover, and the labels
+      do not wrap or overlap the eval panel.
 
 ## Tier 2 — Commands & Keyboard Shortcuts
 
@@ -153,6 +205,12 @@ enabled. Type commands into the command bar (or the analysis input).
 - [ ] **T2.12 `Ctrl-Space`.** Expected: plays the best computer move (Space is reserved by Lichess).
 - [ ] **T2.13 `i` / `m` / `b` and `Alt-i` / `Alt-m` / `Alt-b`.** Expected: cycles to the next
       inaccuracy / mistake / blunder across the whole variation tree (Lichess only does the mainline).
+- [ ] **T2.13a `g` vs `Shift-G`.** Expected: `g` cycles to the next good/brilliant/interesting/win-star
+      move (`!`, `!?`, `!!`, ★); `Shift-G` cycles to the next **interesting/brilliant** move only
+      (`!?`, `!!`) — plain good moves and the win star are skipped, forward and backward through the
+      whole variation tree. Disabling *Extra key shortcuts* must unbind both (`shift+g` is unbound too),
+      and a per-key toggle may disable `Shift-G` alone. *Keyboard help* must show the new row
+      "Next interesting/brilliant" beside "Next good/brilliant/interesting".
 - [ ] **T2.14 `.` / `Ctrl-.` / `Shift-.` then a digit key.** Expected: selects a move from variations
       (`.`) / computer list (`Ctrl-.`) / explorer (`Shift-.`) by number.
 - [ ] **T2.15 `Ctrl-C`.** Expected: copies the current FEN (toast "FEN copied to clipboard").
@@ -184,9 +242,33 @@ enabled. Type commands into the command bar (or the analysis input).
       *Engine evaluation for last moves* (and *previous moves*), *Highlight all transpositions*,
       *Remove superfluous* (the listed items disappear), *Show context menu when no moves*, *Reorder
       variations* (Bump up/down works per the manual's example), *Position info*.
-- [ ] **T3.8 Position info + Study chapter coverage depth.** With *Position info* and a depth set,
-      right-click a move in a study → *Position info*. Expected: move counts, branches, and coverage
-      percentage are shown.
+- [ ] **T3.8 Position info — full panel (expanded this week).** Right-click a move in an analysis /
+      study → *Position info*. Expected: a dialog headed "move number + SAN + glyphs" (at the root the
+      header is *Position info*), one row per `(label, value)` pair, grouped:
+      **tree stats** — Ply, Moves so far, Following main moves, Following total moves, Following
+      branches, Coverage (only with *Study chapter coverage depth* > 0 in a study with Explorer, e.g.
+      `73%`; 0 when the chapter does not follow Explorer lines); **basics** — Opening (plain text, or a
+      `target=_blank` link to `/opening/<name>` when the node itself has the name and the page carries
+      that Explorer anchor), Game phase (Opening / Middlegame / Endgame), Legal moves, Tension;
+      **structure** — Pawn structure (technical key, with the named structure as a link on a **second
+      line** when *Show pawn structures* runs and that name has a url), Euwe-Kramer formation (linked
+      when available), Weak squares (`W 3 / B 1`), Coordination (`W 44 / B 25`), K-MAPS (White) shown
+      from **White's** point of view with explicit signs (`K+32 M+10 A-5 P+12 S-8`) regardless of board
+      orientation; **engine rows** — Sharpness (labelled `Explorer` or `engine` by source), Position
+      difficulty (`5.3 (c 0.62 d 8.5)`), Last move brilliancy and Last move interestingness — each one
+      category per line inside the value cell, sorted by score, top line prefixed `!! ` when the move
+      qualified. The dialog must open **before** the slow metrics resolve (slow rows show a spinner
+      placeholder that is replaced in place, and removed if the metric turned out unavailable); no row
+      may ever print `undefined`, and a failing metric must only log a console warning.
+- [ ] **T3.8a Position info — live-game cheat guard + engine depth.** (a) Open the dialog while a game
+      is running — in play, on the analysis board of an ongoing game, or on an imported game whose status
+      is still running: only the tree stats, Opening and Game phase rows may appear. From Legal moves
+      onwards (tension, pawn structure, Euwe-Kramer, weak squares, coordination, K-MAPS, sharpness,
+      position difficulty, brilliancy, interestingness) there must be **no row and no spinner
+      placeholder**, and the Stockfish search must not run. (b) *Engine depth for position info (0 = no
+      engine)* (advanced, default 12): with it set, the engine rows come from a single local search at
+      that depth (multiPV 4, bounded time, engine left off afterwards); set it to `0` and the engine
+      rows fall back to cloud eval / Explorer values only.
 - [ ] **T3.9 Repertoire display.** Load a *White repertoire PGN* / *Black repertoire PGN*, enable
       *Mark moves in repertoire* / *Mark deviations* / *Show repertoire arrows after deviation*.
       Expected: repertoire moves/deviations are marked.
@@ -239,6 +321,18 @@ chapters.
       the configured count).
 - [ ] **T4.14 Styling & editing study comments.** Test *Styling for study comments* and *Improved
       editing for study comments*. Expected: custom styles apply and editing is improved.
+- [ ] **T4.14a Multiple `cls:` classes in one comment (new).** Write a `cls:` token with comma-separated
+      classes — `cls:red,bold,italic`, `cls:underline,lightblue`, etc. — in a study comment and in a
+      chapter name. Expected: **every** class applies to the same span (the text is red *and* bold *and*
+      italic), chapter names keep their colour with all classes and the `cls:` token stripped from the
+      displayed name; `cls:none` / `cls:clear` leave the text unstyled and unknown/empty tokens are
+      ignored.
+- [ ] **T4.14b Ink pen button while typing (new).** In a writable study on a node that has comment text,
+      the styling button (ink quill) must appear next to the comments button, and must **reappear while
+      you type** into the comment textarea — typing fires no redraw/chapter event, so the tool listens to
+      the textarea's `input` event instead. It must stay attached when lichess rebuilds the textarea,
+      rapid keystrokes must collapse into one repaint (debounced), and it must be gone when the node has
+      no comments. Turning *Styling for study comments* off removes both the observer and the listener.
 - [ ] **T4.15 Download all studies of a player.** Expected: a link to download all studies of a
       player.
 - [ ] **T4.16 Download broadcast PGN.** Expected: a broadcast can be downloaded as PGN.
@@ -269,15 +363,19 @@ chapters.
 - [ ] **T6.2 Live friends page.** Expected: real-time updates; filters (online/playing/active/muted);
       TV icon per friend; mute/unmute per friend; one-click unblock on Blocked page; total count in
       title; links to Followers and Favorite Opponents; crosstable score on Favorite Opponents.
-- [ ] **T6.3 Sound/voice alert when friends start playing.** *Default alerts state for new friends
-      playing* is **Muted** by default, and each friend can override it with a stored state. Expected:
-      with no friend toggled, nothing fires and no game status is fetched; set it to **Unmuted** and a
-      friend starting a game in a selected time control alerts; clicking a friend's bell on the live
-      friends page stores the opposite of the default for that friend and makes it override the default
-      (one friend alerts while the rest stay silent, and the other way round); clicking it again returns
-      the friend to the default; the bell icon style and its title (*Unmute playing alert* / *Mute
-      playing alert*) always show the friend's effective state, and the hide-muted filter hides exactly
-      those friends.
+- [ ] **T6.3 Sound/voice alert when friends start playing.** *Default playing alerts state for newly
+      added friends* (the new `muteFriendsNotifications` single-select, shipped default **Unmuted**), with
+      each friend able to override it through a state stored in local storage. Expected: with no friend
+      toggled, the default rules — so at **Unmuted** a friend starting a game in a selected time control
+      alerts, and at **Muted** nothing fires, no voice plays and no game-status is fetched; clicking a
+      friend's bell on the live friends page stores the **opposite of the default** for that friend and
+      makes it override the default (one friend alerts while the rest stay silent, and the other way round);
+      clicking it again returns the friend to the default; the bell icon style and its title (*Unmute
+      playing alert* / *Mute playing alert*) always show the friend's effective state, and the hide-muted
+      filter hides exactly those friends.
+      **Flag:** the Oct 19 feature note (`HISTORY.md`) and the `friendsMute.check.js` harness both describe
+      the default as **Muted**, while `tools/friendsPlaying/tool.js` ships `defaultValue: 'unmuted'`.
+      Confirm with the author which is intended, then align the preference, T6.3 and H.2.
 - [ ] **T6.4 Go to Analysis on game end.** Test *loss* / *draw* / *win* / *Request analysis button*.
       Expected: the analysis page opens automatically for the selected outcome(s).
 - [ ] **T6.5 Play layout (+ elements).** Test *Normal* / *Hide left side* / *Hide chat*; and
@@ -302,7 +400,14 @@ chapters.
 - [ ] **T6.16 Customize chat buttons.** Expected: the configured chat buttons appear (auto whisper,
       add/prepend move, etc.).
 - [ ] **T6.17 Chat/forum options.** Test *Paste image support* (uploads via Imgur/ImgBB), *Large one
-      emoji message*, *Refresh on new message*, *Reactions tooltip on mobile*. Expected: each works.
+      emoji message*, *Refresh on new message*, *Reactions tooltip on mobile*, and the **upload image
+      button** on the inbox chat and biography textareas (new — mobile browsers get neither paste events
+      nor a readable clipboard). Expected: the button appears once per textarea (never on a non-textarea
+      target), opens a picker (File System Access picker when the browser has one, otherwise the browse
+      dialog of a detached input that never lands in the page and skips folders), asks for exactly one
+      image, and the picked file goes through the same Imgur/ImgBB pipeline as a paste — markdown image
+      form inside a markdown textarea, plain URL outside. A closed/dismissed picker, an empty pick or a
+      non-image pick must upload nothing; the paste handlers must still work alongside it.
 - [ ] **T6.18 Team/Study chat options.** Test *Highlight URLs*, *No length limit*, *Image support*,
       *Team chat notifications*, *Auto whisper button*, *Auto add move button*, *Insert move button*.
 - [ ] **T6.19 Remove chat link warning.** Expected: the warning when posting a link in chat is removed.
@@ -341,7 +446,10 @@ chapters.
       *Specify rating interval*. Expected: the rating graph slider behaves accordingly.
 - [ ] **T7.15 Game list options.** Test *Filter aborted*, *Filter analysed*, *Filter titled
       opponents*, *Color by players*, *Go direct to analysis*, *Selection*, *More info button*,
-      *Remove games*, *Text filter*, *Show scores*. Expected: game lists respond to each.
+      *Remove games*, *Text filter*, *Show scores*, *Compact* (compact game list — each row collapses to
+      a 3-column header / versus / result+metadata grid with the mini-board as a hover tooltip; after
+      this week's column tweak the versus column must stay the widest, with metadata right-aligned and
+      nothing clipped on hover). Expected: game lists respond to each.
 - [ ] **T7.16 Lobby page elements.** Toggle each element (Side streams/spotlights/timeline, Play
       grid/buttons, Play bullet/blitz/rapid/classical, TV, Blog, Daily puzzle, Support, Feed,
       Tournaments, Leaderboard, Winners, About, Extra counters, Recent games). Expected: the lobby
@@ -441,6 +549,31 @@ chapters.
 These are gitignored scratch scripts under `test/` (`build.bat` excludes the folder). They assert
 code behaviour without lichess.org, so they are the fastest regression signal after a change.
 
+**Harness status as of v2.5.3 (Oct 21) — run before trusting the expectations below.** `node test/fixFen.check.js`
+and `node test/positionDifficulty.check.js` are green (116 and 69 `PASS` lines, exit 0). The other three
+are **red against the current tree**, and their expectations predate this week's final wording/behaviour —
+re-sync them with the shipped code before using them as a regression signal:
+- `friendsMute.check.js` (H.2) → exit 1, 7 failures. Shipped `muteFriendsNotifications` has
+  `defaultValue: 'unmuted'` (not `muted`), the option label reads "Default playing alerts state for
+  newly added friends", and the two value labels are just "Muted" / "Unmuted". The muted-by-default
+  assertions ("default (muted): no sound, no voice / no game-status fetch / silent reason is muted")
+  follow from that default, so they fail with it.
+- `commentStylingInputListener.check.js` (H.3) → exit 1, `passed: 10 failed: 3`. The tool now re-attaches
+  the textarea listener through a **body observer on `.study__comments`**, not on `textarea#comment-text`,
+  so "body observer watches the comment textarea for rebuilds" plus the two rebuild-follow-up checks fail.
+- `uploadImageButton.check.js` (H.4) → exit 1, plus it **throws** inside the mocked
+  `ChatForumBlogsTool.start` (the new `addUploadImageButton` uses `container.find(...)`, which the scratch
+  cash mock's query matcher does not implement); separately `uploadImageButtonTitle` ships as
+  "LiChess Tools - upload image" while the check expects "Upload image".
+
+| Check | Script | Status |
+| --- | --- | --- |
+| H.1 FEN repair | `node test/fixFen.check.js` | ✅ green (116 PASS, exit 0) |
+| H.2 Friends alert tri-state | `node test/friendsMute.check.js` | ❌ red — 7 failures, see note |
+| H.3 Comment styling listener | `node test/commentStylingInputListener.check.js` | ❌ red — `passed: 10 failed: 3` |
+| H.4 Upload image button | `node test/uploadImageButton.check.js` | ❌ red — 1 label + mock throws |
+| H.5 Position difficulty | `node test/positionDifficulty.check.js` | ✅ green (69 PASS, exit 0) |
+
 - [ ] **H.1 FEN repair (`MoveGen.fixFen`, issues #1202 + #1816).** `node test/fixFen.check.js`.
       Expected: only `PASS` lines, exit code 0. Covers rank-1/8 pawn promotion, one king per side,
       non-adjacent kings, bogus castling/en-passant fields, field-count preservation, `fixFen` being
@@ -450,15 +583,19 @@ code behaviour without lichess.org, so they are the fastest regression signal af
       capture → cleared), the piece-value tool's rebuilt FEN and the position identity key
       (`getFenPosition`, which used to drop the castling and en-passant fields for counterless FENs).
 - [ ] **H.2 Friends alert tri-state (`friendsPlaying`, issue #1494).** `node test/friendsMute.check.js`.
-      Expected: only `PASS` lines, exit code 0.
+      Expected (contract): only `PASS` lines, exit code 0. **Currently red** — 7 failures, see the status
+      note above. Asserts the `muteFriendsNotifications` single-select, the per-player stored override in
+      `LiChessTools.friendsAlertStatus`, and the alert/fetch behaviour per default state.
 - [ ] **H.3 Comment styling button while typing (`commentStyling`, issue #1884).** `node test/commentStylingInputListener.check.js`.
-      Expected: `passed: 13   failed: 0`, exit code 0. Instantiates the real `CommentStylingTool` against a
+      Expected (contract): `passed: 13   failed: 0`. **As of Oct 21 it reports `passed: 10 failed: 3`** —
+      the three rebuild assertions are stale, see the status note above. Instantiates the real `CommentStylingTool` against a
       mocked cash/browser layer and asserts that a textarea `input` event runs `debouncedAddCommentClasses`
       (so the styling button reappears while typing), that the listener is re-attached when lichess rebuilds
       the textarea, that rapid keystrokes collapse into one pass, and that disabling the preference removes
       both the observer and the listener.
 - [ ] **H.4 Upload image button for chat and biography (`chatForumBlogs`, issue #1348).** `node test/uploadImageButton.check.js`.
-      Expected: `passed: 52   failed: 0`, exit code 0. Instantiates the real `ChatForumBlogsTool` against a
+      Expected (contract): `passed: 52   failed: 0`. **As of Oct 21 it throws in the mocked `start()` and
+      reports a label failure** — see the status note above. Instantiates the real `ChatForumBlogsTool` against a
       mocked cash/browser layer and asserts that the Lichess-markup button (`button-empty` + `upload-image`
       span, translateable title) is added exactly once per textarea target (inbox chat, biography) and never
       to the non-textarea target, that the button opens a picker (the File System Access picker when present,
@@ -472,6 +609,19 @@ code behaviour without lichess.org, so they are the fastest regression signal af
       uploads nothing, and that an empty pick, a dismissed dialog and a non-image pick upload nothing
       (the first logged or silent, the others announcing the message), and that disabling the preference
       removes both buttons and every listener.
+- [ ] **H.5 Position difficulty metric (`PositionDifficultyEvaluator`, `cevalLineOptions.difficulty`).** `node test/positionDifficulty.check.js`.
+      Expected: only `PASS` lines — 69 of them, `failed: 0` — exit code 0. Covers the skew-symmetric
+      `mu` term (ordering, zero on ties, large-value dampening), the generalized Kendall-tau complexity
+      (1 on identical lists, −1 reversed, invariant to relabelling, symmetric, bounded in [-1,1], 0 for
+      flat/spreadless lists without dividing by zero), the piecewise `delta` integral across 0 and below
+      zero and finite under mate scores, the `nu` damping (1 with no gap, `exp(-harmonicMean)`, stronger
+      with deeper gaps), the weighted `swing` (zero when depths agree, undampened settled gaps, crosses
+      mid-pair, weighted by the shallower depth `w(d)=d/3`), the identity difficulty = complexity ×
+      effective depth, unchanged/empty/insufficient series (one depth, depths sharing no move, single
+      move, empty → null), that `difficulty` is a declared `cevalLineOptions` value and is read, that the
+      ceval collector still runs when only `difficulty` is on, that the badge is drawn and redrawn on
+      `lichessTools.redraw` only when the option is on, that the badge is styled in `tool.css`, and that
+      all four manifests stay valid JSON and load the new `PositionDifficultyEvaluator` module.
 
 
 
@@ -485,6 +635,16 @@ code behaviour without lichess.org, so they are the fastest regression signal af
 4. `Ctrl-RightArrow`, `Ctrl-Space`, `i/m/b`, `.`+digit all work.
 5. Open a Study → chapter nav + interactive lesson still work.
 6. Lobby / profile / forum / blog pages render without layout breakage.
+7. Game analysis with extra charting: chart hover shows a single tooltip, legend labels sit flush, and
+   the good-moves chip still cycles moves (`Shift`-click restricts to interesting/brilliant).
+8. `Shift-G` jumps only to interesting/brilliant moves; `g` still cycles good/brilliant/interesting/win-star.
+9. Analysis board with a deep local eval: the *Position difficulty* badge renders in the eval area; the
+   *Position info* dialog fills every metric group with no `undefined` rows and stays tree-stats-only on
+   an ongoing game.
+10. Headless: `node test/fixFen.check.js` and `node test/positionDifficulty.check.js` must exit 0. The
+    H.2–H.4 harnesses (`friendsMute`, `commentStylingInputListener`, `uploadImageButton`) are **currently
+    red** against this week's tree — see the harness status note in that section, and do not count them as
+    a pass until their expectations are re-synced with the shipped code.
 
 
 
