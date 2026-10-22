@@ -8,7 +8,7 @@
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'brilliancy', 'hidden'],
         defaultValue: 'ceval,db,highlightList',
         advanced: true
       }
@@ -27,6 +27,7 @@
         'explorerEval.bardp': 'Bar precision',
         'explorerEval.spoa': 'Stronger Player Outcome Average',
         'explorerEval.sharpness': 'Sharpness column',
+        'explorerEval.brilliancy': 'Brilliancy column',
         'explorerEval.hidden': 'Hidden',
         'fromCevalTitle': 'LiChess Tools - from computer eval, depth %s',
         'fromStatsTitle': 'LiChess Tools - from winning stats',
@@ -37,6 +38,9 @@
         'sharpnessText': '%s',
         'sharpnessTitle': 'Sharpness: %s',
         'sharpnessHeaderTitle': 'LiChess Tools - Move sharpness',
+        'brilliancyText': '%s',
+        'brilliancyTitle': 'Brilliancy: %s',
+        'brilliancyHeaderTitle': 'LiChess Tools - Move brilliancy',
         'winMarginTitle': 'Win margin: %s%',
         'spoaTitle': 'LiChess Tools - Stronger Player Outcome Average'
       },
@@ -50,6 +54,7 @@
         'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.spoa': 'Media Rezultatelor Juc\u0103torilor mai Buni',
         'explorerEval.sharpness': 'Coloan\u0103 periculozitate',
+        'explorerEval.brilliancy': 'Coloan\u0103 str\u0103lucire',
         'explorerEval.evalRows': 'R\u00e2nduri din evaluare',
         'explorerEval.highlightList': 'Eviden\u0163iaz\u0103 mut\u0103ri din list\u0103',
         'explorerEval.hidden': 'Ascunde',
@@ -62,6 +67,9 @@
         'sharpnessText': '%s',
         'sharpnessTitle': 'Periculozitate: %s',
         'sharpnessHeaderTitle': 'LiChess Tools - Periculozitatea mut\u0103rii',
+        'brilliancyText': '%s',
+        'brilliancyTitle': 'Str\u0103lucire: %s',
+        'brilliancyHeaderTitle': 'LiChess Tools - Str\u0103lucirea mut\u0103rii',
         'winMarginTitle': 'Marj\u0103 victorie: %s%',
         'spoaTitle': 'LiChess Tools - Media Rezultatelor Juc\u0103torilor mai Buni'
       }
@@ -672,6 +680,135 @@
     };
     showSharpnessDebounced = this.lichessTools.debounce(this.showSharpness, 100);
 
+    brilliancyCache = new LiChessTools.MaxSizedMap(500);
+    brilliancyBudget = 50;
+
+    wdlToEval = (item) => {
+      if (!item) return null;
+      const white = item.white || 0, draws = item.draws || 0, black = item.black || 0;
+      const total = white + draws + black;
+      if (total < 10) return null;
+      const wr = (white + draws / 2) / total;
+      const cp = Math.max(-1000, Math.min(1000, Math.round(-Math.log(1 / wr - 1) * 330)));
+      return { cp };
+    };
+
+    brilliancyKey = (fen, san, evalBefore, evalAfter) => fen + ' ' + san + ' ' + (evalBefore.cp ?? evalBefore.mate) + '/' + (evalAfter.cp ?? evalAfter.mate);
+
+    computeBrilliancy = (fen, san, evalBefore, evalAfter, co) => {
+      const lt = this.lichessTools;
+      const key = this.brilliancyKey(fen, san, evalBefore, evalAfter);
+      const cached = this.brilliancyCache.get(key);
+      if (cached) return cached;
+      let result = { score: null };
+      try {
+        const analyser = new LiChessTools.BrilliantMoveAnalyzer({ fen, san, evalBefore, evalAfter }, { co });
+        const res = analyser.computeUberBrilliance();
+        result = {
+          score: res.score,
+          isBrilliant: !!res.isBrilliant,
+          types: Object.keys(res.byType)
+            .map((name) => ({ label: analyser.types?.[name]?.label ?? name, fit: res.byType[name]?.fit ?? 0 }))
+            .filter((category) => category.fit > 0)
+            .sort((x, y) => y.fit - x.fit),
+        };
+      } catch (err) {
+        lt.global.console.warn('explorerEval brilliancy', err);
+      }
+      this.brilliancyCache.set(key, result);
+      return result;
+    };
+
+    setBrilliancy = (elem, result, trans) => {
+      if (result?.score == null || result.score <= 0) {
+        elem.textSafe('').removeAttrSafe('title').toggleClassSafe('lichessTools-brilliancy-brilliant', false);
+        return;
+      }
+      const types = result.types?.length
+        ? '\r\n' + result.types.map((category) => category.label + ': ' + category.fit.toFixed(1)).join('\r\n')
+        : '';
+      elem
+        .textSafe(trans.pluralSame('brilliancyText', result.score.toFixed(1)))
+        .attr('title', trans.pluralSame('brilliancyTitle', result.score) + types)
+        .toggleClassSafe('lichessTools-brilliancy-brilliant', !!result.isBrilliant);
+    };
+
+    showBrilliancy = async () => {
+      if (!this.options.brilliancy) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const analysis = lichess?.analysis;
+      if (!analysis.explorer?.enabled()) return;
+      if (lt.isGamePlaying()) return;
+      const current = analysis.explorer?.current();
+      const explorerMoves = current?.moves;
+      if (!explorerMoves?.length) return;
+      const container = $('section.explorer-box table.moves');
+      if (!container.length) return;
+      if (!lt.inViewport(container)) {
+        this.showBrilliancyDebounced();
+        return;
+      }
+      const fen = analysis.node.fen;
+      const evalBefore = this.wdlToEval(current);
+      if (!evalBefore) return;
+      const co = await lt.chessops();
+      if (!co) return;
+      const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
+      if (!ch) return;
+      const tasks = [];
+      $('tr[data-uci]', container).each((i, e) => {
+        if ($('td:has(div.bar)', e).toggleClassSafe('lichessTools-bar', true).length) {
+          if (!$('td.lichessTools-showBrilliancy', e).length) {
+            $('<td>')
+              .addClass('lichessTools-showBrilliancy')
+              .appendTo(e);
+          }
+        }
+        const uci = $(e).attr('data-uci');
+        const elem = $('td.lichessTools-showBrilliancy', e);
+        if (!uci || !elem.length) return;
+        const evalAfter = this.wdlToEval(explorerMoves.find(m => m.uci == uci));
+        if (!evalAfter) return;
+        tasks.push({ uci, elem, evalAfter });
+      });
+      const started = lt.global.performance.now();
+      let unfinished = false;
+      let shown = 0;
+      for (const task of tasks) {
+        let san;
+        try {
+          san = co.san.makeSan(ch, co.parseUci(task.uci));
+        } catch (err) {
+          continue;
+        }
+        if (!san || san == '--') continue;
+        if (this.brilliancyCache.has(this.brilliancyKey(fen, san, evalBefore, task.evalAfter))
+          || lt.global.performance.now() - started < this.brilliancyBudget) {
+          const result = this.computeBrilliancy(fen, san, evalBefore, task.evalAfter, co);
+          if (result?.score > 0) shown++;
+          this.setBrilliancy(task.elem, result, trans);
+        } else {
+          unfinished = true;
+        }
+      }
+      if (shown) {
+        if (!$('th.lichessTools-showBrilliancy', container).length) {
+          $('<th>')
+            .addClass('lichessTools-showBrilliancy')
+            .text(lt.icon.GemStone)
+            .attr('title', trans.noarg('brilliancyHeaderTitle'))
+            .appendTo($('thead tr', container));
+        }
+      } else if (!unfinished) {
+        $('.lichessTools-showBrilliancy', container).remove();
+      }
+      if (unfinished) lt.requestAF(() => this.showBrilliancy(), 'explorerEval_showBrilliancy');
+    };
+    showBrilliancyDebounced = this.lichessTools.debounce(this.showBrilliancy, 100);
+
 
     async start() {
       const lt = this.lichessTools;
@@ -692,6 +829,7 @@
         bardp: lt.isOptionSet(value, 'bardp'),
         spoa: lt.isOptionSet(value, 'spoa'),
         sharpness: lt.isOptionSet(value, 'sharpness'),
+        brilliancy: lt.isOptionSet(value, 'brilliancy'),
         hidden: lt.isOptionSet(value, 'hidden'),
         get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp || this.spoa); }
       };
@@ -717,6 +855,13 @@
       if (this.options.sharpness) {
         lt.pubsub.on('lichessTools.redraw', this.showSharpnessDebounced);
         this.showSharpness();
+      }
+      lt.pubsub.off('lichessTools.redraw', this.showBrilliancyDebounced);
+      $('th.lichessTools-showBrilliancy,td.lichessTools-showBrilliancy').remove();
+      if (this.options.brilliancy) {
+        this.brilliancyCache.clear();
+        lt.pubsub.on('lichessTools.redraw', this.showBrilliancyDebounced);
+        this.showBrilliancy();
       }
     }
 

@@ -1317,7 +1317,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2637,7 +2644,14 @@
     "positionInfoSharpnessEngine": "引擎",
     "positionInfoPositionDifficulty": "局面难度",
     "positionInfoLastMoveBrilliancy": "上一步绝佳度",
-    "positionInfoLastMoveInteresting": "上一步精彩度"
+    "positionInfoLastMoveInteresting": "上一步精彩度",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3957,7 +3971,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5277,7 +5298,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6597,7 +6625,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7917,7 +7952,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9237,7 +9279,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10557,7 +10606,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11877,7 +11933,14 @@
     "positionInfoSharpnessEngine": "μηχανή",
     "positionInfoPositionDifficulty": "Δυσκολία θέσης",
     "positionInfoLastMoveBrilliancy": "Εξαιρετικότητα τελευταίας κίνησης",
-    "positionInfoLastMoveInteresting": "Ενδιαφέρον τελευταίας κίνησης"
+    "positionInfoLastMoveInteresting": "Ενδιαφέρον τελευταίας κίνησης",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13197,7 +13260,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14517,7 +14587,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15837,7 +15914,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17157,7 +17241,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18477,7 +18568,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19797,7 +19895,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -21117,7 +21222,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -22437,7 +22549,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23757,7 +23876,14 @@
     "positionInfoSharpnessEngine": "motor",
     "positionInfoPositionDifficulty": "Dificultatea poziției",
     "positionInfoLastMoveBrilliancy": "Strălucirea ultimei mutări",
-    "positionInfoLastMoveInteresting": "Cât de interesantă ultima mutare"
+    "positionInfoLastMoveInteresting": "Cât de interesantă ultima mutare",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Strălucire: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Strălucirea mutării",
+    "sharpnessSettingText": "Periculozitate",
+    "sharpnessSettingTitle": "Coloană periculozitate mutare",
+    "brilliancySettingText": "Strălucire",
+    "brilliancySettingTitle": "Coloană strălucire mutare"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25077,7 +25203,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26397,7 +26530,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27717,7 +27857,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29037,7 +29184,14 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30357,6 +30511,13 @@
     "positionInfoSharpnessEngine": "engine",
     "positionInfoPositionDifficulty": "Position difficulty",
     "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness"
+    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "brilliancyText": "%s",
+    "brilliancyTitle": "Brilliancy: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
+    "sharpnessSettingText": "Sharpness",
+    "sharpnessSettingTitle": "Move sharpness column",
+    "brilliancySettingText": "Brilliancy",
+    "brilliancySettingTitle": "Move brilliancy column"
   }
 }

@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Oct
+
+- brilliancy Explorer column (hidden when nothing to show)
+- sharpness and brilliancy buttons in Explorer settings
+
 20 Oct
 
 - position difficulty option in ceval

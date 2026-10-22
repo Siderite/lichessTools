@@ -25,6 +25,8 @@ When the explorer config is open and the user is logged-in, the tool creates a `
 Each button toggles the corresponding tool's preference via `setOption()`:
 - **lichessTools-moveEvaluation**: Toggles `explorerEval` — adds/removes 'hidden' option to show/hide move evaluation column
 - **lichessTools-gambits**: Toggles `explorerGambits` — enables/disables gambits column
+- **lichessTools-sharpness**: Toggles `explorerEval` — adds/removes the 'sharpness' value to show the sharpness column
+- **lichessTools-brilliancy**: Toggles `explorerEval` — adds/removes the 'brilliancy' value to show the brilliancy column (GemStone header icon)
 - **lichessTools-explorerPractice**: Toggles `explorerPractice` — enables/disables practice button against explorer moves
 - **lichessTools-moreGames**: Toggles `explorerMoreGames` — enables/disables showing more games in Recent Games
 - **lichessTools-meButton**: Toggles `openingExplorerUsers` — adds/removes 'switchWithMe' option to switch player with user's own identity
@@ -52,7 +54,7 @@ The tool wraps `explorer.config.toggleOpen` with id `'explorerSettings'`:
 
 - Requires logged-in user (`lt.getUserId()`) — disabled if not logged in
 - Only shows when `explorerSettings` preference is true
-- Buttons are disabled during game playing (`lt.isGamePlaying()`) for moveEvaluation, gambits, and explorerPractice buttons
+- Buttons are disabled during game playing (`lt.isGamePlaying()`) for moveEvaluation, gambits, sharpness, brilliancy and explorerPractice buttons
 
 ## Debounce
 

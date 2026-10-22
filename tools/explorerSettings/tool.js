@@ -24,6 +24,10 @@
         'moveEvaluationSettingTitle': 'Move evaluation column',
         'gambitsSettingText': 'Gambits',
         'gambitsSettingTitle': 'Number of gambits column',
+        'sharpnessSettingText': 'Sharpness',
+        'sharpnessSettingTitle': 'Move sharpness column',
+        'brilliancySettingText': 'Brilliancy',
+        'brilliancySettingTitle': 'Move brilliancy column',
         'explorerPracticeSettingText': 'Practice',
         'explorerPracticeSettingTitle': 'Button to practice against Explorer moves',
         'meButtonSettingText': 'Me button',
@@ -41,6 +45,10 @@
         'moveEvaluationSettingTitle': 'Coloan\u0103 cu evaluare mut\u0103ri',
         'gambitsSettingText': 'Gambituri',
         'gambitsSettingTitle': 'Coloan\u0103 cu num\u0103r gambituri',
+        'sharpnessSettingText': 'Periculozitate',
+        'sharpnessSettingTitle': 'Coloan\u0103 periculozitate mut\u0103rii',
+        'brilliancySettingText': 'Str\u0103lucire',
+        'brilliancySettingTitle': 'Coloan\u0103 str\u0103lucire mut\u0103rii',
         'explorerPracticeSettingText': 'Antrenament',
         'explorerPracticeSettingTitle': 'Buton pentru antrenament contra mut\u0103ri din Explorator',
         'meButtonSettingText': 'Button Eu',
@@ -93,6 +101,28 @@
                 this.showSettingsDirect();
               }))
         }
+        if (lt.tools.ExplorerEvalTool) {
+          choices
+            .append($('<button class="lichessTools-sharpness">').text(trans.noarg('sharpnessSettingText')).attr('title', trans.noarg('sharpnessSettingTitle'))
+              .on('click', ev => {
+                ev.preventDefault();
+                const value = lt.currentOptions.getValue('explorerEval');
+                const sharpness = lt.isOptionSet(value, 'sharpness');
+                this.setOption('explorerEval', sharpness ? value.split(',').filter(s => s != 'sharpness').join(',') : value + ',sharpness');
+                this.showSettingsDirect();
+              }))
+        }
+        if (lt.tools.ExplorerEvalTool) {
+          choices
+            .append($('<button class="lichessTools-brilliancy">').text(trans.noarg('brilliancySettingText')).attr('title', trans.noarg('brilliancySettingTitle'))
+              .on('click', ev => {
+                ev.preventDefault();
+                const value = lt.currentOptions.getValue('explorerEval');
+                const brilliancy = lt.isOptionSet(value, 'brilliancy');
+                this.setOption('explorerEval', brilliancy ? value.split(',').filter(s => s != 'brilliancy').join(',') : value + ',brilliancy');
+                this.showSettingsDirect();
+              }))
+        }
         if (lt.tools.ExplorerPracticeTool) {
           choices
             .append($('<button class="lichessTools-explorerPractice">').text(trans.noarg('explorerPracticeSettingText')).attr('title', trans.noarg('explorerPracticeSettingTitle'))
@@ -137,6 +167,16 @@
         .prop('disabled', lt.isGamePlaying());
       value = lt.currentOptions.getValue('explorerGambits');
       $('button.lichessTools-gambits', section)
+        .attr('aria-pressed', value.toString())
+        .prop('disabled', lt.isGamePlaying());
+      value = lt.currentOptions.getValue('explorerEval');
+      value = lt.isOptionSet(value, 'sharpness');
+      $('button.lichessTools-sharpness', section)
+        .attr('aria-pressed', value.toString())
+        .prop('disabled', lt.isGamePlaying());
+      value = lt.currentOptions.getValue('explorerEval');
+      value = lt.isOptionSet(value, 'brilliancy');
+      $('button.lichessTools-brilliancy', section)
         .attr('aria-pressed', value.toString())
         .prop('disabled', lt.isGamePlaying());
       value = lt.currentOptions.getValue('explorerPractice');

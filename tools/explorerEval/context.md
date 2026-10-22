@@ -51,23 +51,34 @@ On game tables (`section.explorer-box .data table.games`) → calculates Stronge
 - Winner == key → +1, no winner → +0.5
 - Result as percentage with title "LiChess Tools - Stronger Player Outcome Average"
 
+### Brilliancy Column (`brilliancy`)
+
+Adds a `th`/`td` column with class `lichessTools-showBrilliancy` to `table.moves` (GemStone icon in the header, title `brilliancyHeaderTitle`). Like the Gambits column, the whole column stays away while nothing is to show: the `th` is appended only once at least one row has a value, and when a finished pass produced no value at all every `.lichessTools-showBrilliancy` cell inside the table is removed. The cell value is `BrilliantMoveAnalyzer.computeUberBrilliance().score` (0-100, one decimal) rendered through `brilliancyText`; the cell title is `brilliancyTitle` followed by one line per entry of `byType` whose `fit` is above 0 (`label: fit.toFixed(1)`, label from `analyser.types[name].label`), sorted by fit descending. A zero score leaves the cell blank.
+
+Partial credit below a type's interval comes from `_fit()`, and `_fit()` collapses to 0 when an essential principle of the type (see `necessaryPrinciples()`) is a hard 0 in `values` — `1.e4` gives up nothing so `sacrifice` is 0 and every sacrifice type scores 0, and a capture is not a quiet move so the quiet type scores 0. An essential principle at 0 also means the weighted average cannot reach the interval, so this never hides a type that actually applies; the gradient stays for moves whose sacrifice is real but incomplete (Explorer counts for a clearly inferior move also give `bestMove` = 0, which zeroes those types the same way). `multiPv` is never passed to the analyzer, so `onlyMove` and `regainsMaterial` stay null and the `combination` type never applies.
+
+The san for the analyzer comes from ChessOps (`co.san.makeSan` over the node FEN position). Moves are computed inside a `brilliancyBudget` ms time budget per pass (50 ms); rows left over continue on the next animation frame through `lt.requestAF`. Results are cached in `brilliancyCache` (MaxSizedMap 500) keyed by fen + san + the two evals, so redraws stay cheap. `lichessTools-brilliancy-brilliant` is toggled on the cell when the score is brilliant.
+
 ### Cache System
 
 `cache[fen]` Map stores result moves per FEN. `cache404` nested Map caches 404 paths for quick rejection.
 
 ## Dependencies
 
-- EmitRedraw, ChessOps
+- EmitRedraw, ChessOps, BrilliantMoveAnalyzer (core script), MoveGen, Material, Scoring, MaxSizedMap
 
 ## Preferences
 
-- `explorerEval` — multiple type: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'hidden'], default: 'ceval,db,highlightList'
+- `explorerEval` — multiple type: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'brilliancy', 'hidden'], default: 'ceval,db,highlightList'
 
 ## Key Methods
 
 - `prepareEvaluations()` → creates th/td columns in explorer table
 - `showEvaluations(result)` → displays evaluation text/classes/titles on moves
 - `showSPOA()` → calculates and displays SPOA on game tables
+- `wdlToEval(item)` → Explorer counts to `{ cp }`
+- `computeBrilliancy(fen, san, evalBefore, evalAfter, co)` → cached UberBrilliance score + the types whose interval holds
+- `showBrilliancy()` → adds the GemStone column with the brilliancy score per explorer move
 - `doEvaluation()` → fetches ChessDb/Lichess/ceval data, caches results
 - `rebind()` → wraps explorer.setNode/onNewCeval functions
 - `async start()` → sets up redraw listener, wraps functions

@@ -616,11 +616,14 @@ class BrilliantMoveAnalyzer {
 
   /**
    * Maps a type's weighted average to 0..100: the baseline = 0, the interval's lower edge = uberThreshold, its upper
-   * edge = 100. Above the upper edge (only when hi < 1) it falls off again.
+   * edge = 100. Above the upper edge (only when hi < 1) it falls off again. Below the lower edge the mapping is only a
+   * proximity hint: a type whose essential principles came back exactly 0 does not describe the move at all (a pawn
+   * push that gives up nothing is no sacrifice, a capture is no quiet move), and the hint collapses to 0 there.
    */
-  _fit(score, [lo, hi], weights) {
+  _fit(score, [lo, hi], weights, values = null) {
     const T = this.options.uberThreshold, clamp = (x) => Math.min(1, Math.max(0, x));
     if (score < lo) {
+      if (this._essentialZero(weights, lo, values)) return 0;
       const b = this._baseline(weights);
       return lo > b ? T * clamp((score - b) / (lo - b)) : 0;
     }
@@ -629,9 +632,21 @@ class BrilliantMoveAnalyzer {
   }
 
   /**
+   * True when `values` kills an essential principle outright: an essential one is a principle whose share of the
+   * weight is larger than what the interval can absorb (see necessaryPrinciples()), so a hard 0 on it can only mean
+   * the type does not describe the move. A principle that is unknown (null) is not a hard 0.
+   */
+  _essentialZero(weights, lo, values) {
+    if (!values) return false;
+    const total = Object.values(weights).reduce((s, w) => s + w, 0);
+    return Object.entries(weights).some(([name, w]) => w > 0 && w / total > 1 - lo && values[name] === 0);
+  }
+
+  /**
    * Runs every type and returns the best fit as a 0..100 score. Anything at or above `threshold` is brilliant.
    * `type` is the most specific type whose interval holds (mating > quiet > positional > combination > sacrifice);
-   * when none holds it is the closest one. Returns
+   * when none holds it is the closest one that still describes the move (an essential principle at hard 0 rules the
+   * type out, so a plain pawn push gets score 0 and no type at all). Returns
    * { score, isBrilliant, threshold, type, label, inInterval: [types whose interval holds], byType, disqualified }
    */
   computeUberBrilliance() {
@@ -643,8 +658,8 @@ class BrilliantMoveAnalyzer {
         iweights[k] = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(k) ? 0 : t.weights[k];
       }
       byType[name] = { score: r.score,
-        fit: r.applicable ? this._fit(r.score, r.interval, t.weights) : 0,
-        ifit: r.applicable ? this._fit(r.interestingScore, [r.interval[0] * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT, 1], iweights) : 0,
+        fit: r.applicable ? this._fit(r.score, r.interval, t.weights, r.values) : 0,
+        ifit: r.applicable ? this._fit(r.interestingScore, [r.interval[0] * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT, 1], iweights, r.values) : 0,
         inInterval: r.inInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
     }
     const names = Object.keys(byType);

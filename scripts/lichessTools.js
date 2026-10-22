@@ -218,6 +218,7 @@
       CyrillicCapitalLetterI: '\u0418',
       Ladder: '\uD83E\uDE9C',
       WhiteFourPointedStar: '\u2727',
+      GemStone: '\uD83D\uDC8E',
 
 
       toEntity: function(s) {

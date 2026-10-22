@@ -128,8 +128,16 @@ The "Extra analysis charting" feature is under *Analysis/Study → Extra analysi
 - [ ] **T1.12 Local eval (not logged in).** Expected: local analysis chart works logged out.
 - [ ] **T1.13 Show evaluation of explorer moves.** Open the Explorer; enable each source in turn
       (*From computer eval*, *From ChessDb*, *From Lichess*, *From winning stats*, *Rows from eval*,
-      *Bar precision*, *SPOA*, *Sharpness Column*) and *Highlight list moves*. Expected: rows show the
-      configured eval / bars / columns.
+      *Bar precision*, *SPOA*, *Sharpness Column*, *Brilliancy Column*) and *Highlight list moves*. Expected: rows show the
+      configured eval / bars / columns — the Brilliance column has a GemStone header, appears only when at least one
+      move in the row list has a value (like the Gambits column), and hovering a
+      value lists the brilliancy score plus every brilliancy type that actually applies to the move, and a real but
+      incomplete sacrifice shows its lower partial score; a move that earns no brilliancy at all (an ordinary
+      developing move such as *1.e4*, or a rook lift) shows nothing — no zero, no "Quiet sacrifice" guess.
+- [ ] **T1.13a Explorer settings buttons for the columns.** Open the Explorer config panel. Expected: *Sharpness*
+      and *Brilliancy* buttons show in the LiChess Tools choices next to *Evaluation*, *Gambits*, *Practice*,
+      *More games* and *Me*; each click flips just its own column on/off, the button press state follows the
+      option, and both are disabled while a game is running.
 - [ ] **T1.14 Show K-MAPS.** Expected: a K-MAPS analysis of the position is displayed.
 - [ ] **T1.15 Show pawn structures.** Enable (+ *Only named structures* / *Fuzzy search*). Expected:
       the current pawn structure name appears.
@@ -550,7 +558,9 @@ These are gitignored scratch scripts under `test/` (`build.bat` excludes the fol
 code behaviour without lichess.org, so they are the fastest regression signal after a change.
 
 **Harness status as of v2.5.3 (Oct 21) — run before trusting the expectations below.** `node test/fixFen.check.js`
-and `node test/positionDifficulty.check.js` are green (116 and 69 `PASS` lines, exit 0). The other three
+and `node test/positionDifficulty.check.js` are green (116 and 69 `PASS` lines, exit 0), and as of Oct 22
+`node test/brilliancyColumn.check.js` and `node test/explorerSettingsColumnButtons.check.js` are green too
+(`passed: 87   failed: 0` and `passed: 30   failed: 0`). The other three
 are **red against the current tree**, and their expectations predate this week's final wording/behaviour —
 re-sync them with the shipped code before using them as a regression signal:
 - `friendsMute.check.js` (H.2) → exit 1, 7 failures. Shipped `muteFriendsNotifications` has
@@ -573,6 +583,8 @@ re-sync them with the shipped code before using them as a regression signal:
 | H.3 Comment styling listener | `node test/commentStylingInputListener.check.js` | ❌ red — `passed: 10 failed: 3` |
 | H.4 Upload image button | `node test/uploadImageButton.check.js` | ❌ red — 1 label + mock throws |
 | H.5 Position difficulty | `node test/positionDifficulty.check.js` | ✅ green (69 PASS, exit 0) |
+| H.6 Explorer brilliancy column | `node test/brilliancyColumn.check.js` | ✅ green (`passed: 87 failed: 0`, exit 0) |
+| H.7 Explorer settings column buttons | `node test/explorerSettingsColumnButtons.check.js` | ✅ green (`passed: 30 failed: 0`, exit 0) |
 
 - [ ] **H.1 FEN repair (`MoveGen.fixFen`, issues #1202 + #1816).** `node test/fixFen.check.js`.
       Expected: only `PASS` lines, exit code 0. Covers rank-1/8 pawn promotion, one king per side,
@@ -622,6 +634,28 @@ re-sync them with the shipped code before using them as a regression signal:
       ceval collector still runs when only `difficulty` is on, that the badge is drawn and redrawn on
       `lichessTools.redraw` only when the option is on, that the badge is styled in `tool.css`, and that
       all four manifests stay valid JSON and load the new `PositionDifficultyEvaluator` module.
+- [ ] **H.6 Explorer brilliancy column (`explorerEval.brilliancy`, issue #1869).** `node test/brilliancyColumn.check.js`.
+      Expected: `passed: 87   failed: 0`, exit code 0. Loads the real `BrilliantMoveAnalyzer`, the chessops bundle
+      and the `explorerEval` tool, and asserts that `wdlToEval` maps Explorer win/loss/draw counts to `{ cp }`
+      (clamped, rejects samples under ten games, never emits `mate`), that the analyzer receives only fen + san +
+      the two evals (**no `multiPv`**, so `lines`/`onlyMove`/`regainsMaterial` stay null and no `combination` type
+      applies), that the score is the analyzer's best `byType` fit and the tooltip lists exactly the entries above
+      0 (`label: fit`, sorted by fit) — `_fit()` gives partial credit only while no essential principle (`necessaryPrinciples`)
+      is a hard 0, so `1.e4` (`sacrifice` = 0) and the rook lift score 0 and leave the cell blank, while a real
+      incomplete sacrifice keeps its partial score (43.2 for the Qxc3 counts 600/200/200 → 400/500/100) —, that the
+      collapse never touches a type whose interval holds, that a capture never lists the quiet type, that the
+      cache serves the same move twice, and that castling SAN (`O-O`), an unparsable FEN and the disabled-explorer
+      path behave, and — driven over a cash-like mock of the moves table — that the GemStone header and the value cells
+      appear only when some row has a value (an all-empty pass leaves no `th`, no `td` and no extra cells on the rows,
+      and a repeated pass adds no duplicates).
+- [ ] **H.7 Explorer settings buttons for the columns (`explorerSettings`, issues #1869).** `node test/explorerSettingsColumnButtons.check.js`.
+      Expected: `passed: 30   failed: 0`, exit code 0. Instantiates the real `ExplorerSettingsTool` against a cash/DOM
+      mock of the Explorer config panel and asserts the *Sharpness* and *Brilliancy* buttons land in the same choices
+      row in order after *Evaluation* / *Gambits* (before *Practice* / *More games* / *Me button*), carry the
+      `lichessTools-sharpness` / `lichessTools-brilliancy` classes with the "Move sharpness column" / "Move brilliancy
+      column" titles, that a click flips only that one value of the multiple `explorerEval` option (the other values and
+      the other buttons stay put), that `aria-pressed` follows the option and `disabled` follows `lt.isGamePlaying()`,
+      that repeated passes neither duplicate the section nor the buttons, and that the ro-RO labels exist.
 
 
 
@@ -641,10 +675,13 @@ re-sync them with the shipped code before using them as a regression signal:
 9. Analysis board with a deep local eval: the *Position difficulty* badge renders in the eval area; the
    *Position info* dialog fills every metric group with no `undefined` rows and stays tree-stats-only on
    an ongoing game.
-10. Headless: `node test/fixFen.check.js` and `node test/positionDifficulty.check.js` must exit 0. The
+10. Headless: `node test/fixFen.check.js`, `node test/positionDifficulty.check.js`, `node test/brilliancyColumn.check.js`
+    and `node test/explorerSettingsColumnButtons.check.js` must exit 0. The
     H.2–H.4 harnesses (`friendsMute`, `commentStylingInputListener`, `uploadImageButton`) are **currently
     red** against this week's tree — see the harness status note in that section, and do not count them as
     a pass until their expectations are re-synced with the shipped code.
+11. Explorer config panel: the *Sharpness* and *Brilliancy* buttons flip only their own `explorerEval` value,
+    their pressed state follows the option, and both are greyed out while a game is running.
 
 
 
