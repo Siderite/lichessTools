@@ -1700,7 +1700,11 @@
 
     setChart = chart => {
       this._chart = chart;
-      chart.options.plugins.tooltip = { ...chart.options.plugins.tooltip, filter: t => t.datasetIndex === 0 };
+      if (chart?.options?.plugins?.tooltip) {
+        chart.options.plugins.tooltip.filter = (t)=>t.datasetIndex === 0;
+      } else {
+        chart.options.plugins.tooltip = { filter: t => t.datasetIndex === 0 };
+      }
       this.generateCharts();
     };
 
