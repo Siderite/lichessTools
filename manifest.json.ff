@@ -229,6 +229,8 @@
         "tools/skipMoveCommand/tool.js",
         "tools/searchMovesCommand/tool.js",
 
+        "tools/genLineCommand/tool.js",
+
         "tools/localDatabase/tool.js",
         "tools/puzzleIndex/tool.js",
 
@@ -393,6 +395,8 @@
         "tools/hideBoardCommand/tool.css",
         "tools/pieceValueCommand/tool.css",
         "tools/searchMovesCommand/tool.css",
+
+        "tools/genLineCommand/tool.css",
 
         "tools/puzzleIndex/tool.css",
 

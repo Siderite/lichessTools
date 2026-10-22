@@ -168,6 +168,7 @@ lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadPositionCommand);
 lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 lichessTools.loadTool(LiChessTools.Tools.SearchMovesCommand);
+lichessTools.loadTool(LiChessTools.Tools.GenLineCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);

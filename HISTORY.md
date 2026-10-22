@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - brilliancy Explorer column (hidden when nothing to show)
 - sharpness and brilliancy buttons in Explorer settings
+- /genline command
 
 20 Oct
 

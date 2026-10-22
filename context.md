@@ -74,7 +74,9 @@ wrapFunction receives an object as parameter that contains the id of the wrappin
 
 ## CLI Commands System
 
-The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` and handles them when `/command` is typed in the CLI input (`#clinput`). Each command has a `handle(val)` method and optional `getHelp()` text. Commands include: /hideboard, /trapvalue, /piecevalue, /copyPgn, /readGame, /readPosition, /skipMove, /searchMoves.
+The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` and handles them when `/command` is typed in the CLI input (`#clinput`). Each command has a `handle(val)` method and optional `getHelp()` text. Commands include: /hideboard, /trapvalue, /piecevalue, /copyPgn, /readGame, /readPosition, /skipMove, /searchMoves, /genline (and a bare `/stop` that several commands claim without returning truthy, so the chain keeps iterating).
+
+`handle` must answer synchronously: `cliCommands/tool.js:86` awaits `handle` and only then blurs the input and calls `stopPropagation()`, so while that await is suspended the page's own Enter handler has already answered the input with "unknown command". Long work is therefore deferred (`lt.global.setTimeout(() => this.run(...), 100)` in `readGameCommand/tool.js:158`, delay 0 in `genLineCommand/tool.js:1250`) and `handle` returns truthy on the same tick. A `handle` that returns falsy leaves the chain iterating to the other commands, which is how the bare `/stop` aliases coexist.
 
 ## URL-based Features
 

@@ -1324,7 +1324,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2646,12 +2651,17 @@
     "positionInfoLastMoveBrilliancy": "上一步绝佳度",
     "positionInfoLastMoveInteresting": "上一步精彩度",
     "brilliancyText": "%s",
-    "brilliancyTitle": "Brilliancy: %s",
-    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
-    "sharpnessSettingText": "Sharpness",
-    "sharpnessSettingTitle": "Move sharpness column",
-    "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancyTitle": "绝佳度: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - 着法绝佳度",
+    "sharpnessSettingText": "尖锐度",
+    "sharpnessSettingTitle": "着法尖锐度列",
+    "brilliancySettingText": "绝佳度",
+    "brilliancySettingTitle": "着法绝佳度列",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3978,7 +3988,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5305,7 +5320,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6632,7 +6652,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7959,7 +7984,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9252,41 +9282,46 @@
     "muteFriendsNotifications.unmuted": "Son activé",
     "uploadImageButtonTitle": "LiChess Tools – importer une image",
     "uploadImageMissingText": "Aucune image n'a été sélectionnée",
-    "cevalLineOptions.difficulty": "Position difficulty",
-    "positionDifficultyTitle": "LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)",
-    "nextBrilliant": "Next interesting/brilliant",
-    "options.analysisContextActionsEngineDepth": "Engine depth for position info (0 = no engine)",
+    "cevalLineOptions.difficulty": "Difficulté de la position",
+    "positionDifficultyTitle": "LiChess Tools - difficulté de la position $difficulty (complexité $complexity x profondeur $depth)",
+    "nextBrilliant": "Prochain coup intéressant/brillant",
+    "options.analysisContextActionsEngineDepth": "Profondeur du moteur d'analyse pour les infos de position (0 = aucun moteur)",
     "positionInfoPly": "Ply",
-    "positionInfoMovesSoFar": "Moves so far",
-    "positionInfoFollowingMainMoves": "Following main moves",
-    "positionInfoFollowingTotalMoves": "Following total moves",
-    "positionInfoFollowingBranches": "Following branches",
-    "positionInfoCoverage": "Coverage",
-    "positionInfoOpening": "Opening",
-    "positionInfoGamePhase": "Game phase",
-    "positionInfoPhaseOpening": "Opening",
-    "positionInfoPhaseMiddleGame": "Middlegame",
-    "positionInfoPhaseEndGame": "Endgame",
-    "positionInfoLegalMoves": "Legal moves",
+    "positionInfoMovesSoFar": "Coups joués jusqu'ici",
+    "positionInfoFollowingMainMoves": "Coups principaux suivants",
+    "positionInfoFollowingTotalMoves": "Tous les coups suivants",
+    "positionInfoFollowingBranches": "Branches suivantes",
+    "positionInfoCoverage": "Couverture",
+    "positionInfoOpening": "Ouverture",
+    "positionInfoGamePhase": "Phase de la partie",
+    "positionInfoPhaseOpening": "Ouverture",
+    "positionInfoPhaseMiddleGame": "Milieu de partie",
+    "positionInfoPhaseEndGame": "Finale",
+    "positionInfoLegalMoves": "Coups autorisés",
     "positionInfoTension": "Tension",
-    "positionInfoPawnStructure": "Pawn structure",
-    "positionInfoEuweKramerFormation": "Euwe-Kramer formation",
-    "positionInfoWeakSquares": "Weak squares",
+    "positionInfoPawnStructure": "Structure de pions",
+    "positionInfoEuweKramerFormation": "Formation Euwe-Kramer",
+    "positionInfoWeakSquares": "Cases faibles",
     "positionInfoCoordination": "Coordination",
-    "positionInfoKmapsWhite": "K-MAPS (White)",
-    "positionInfoSharpness": "Sharpness",
-    "positionInfoSharpnessExplorer": "Explorer",
-    "positionInfoSharpnessEngine": "engine",
-    "positionInfoPositionDifficulty": "Position difficulty",
-    "positionInfoLastMoveBrilliancy": "Last move brilliancy",
-    "positionInfoLastMoveInteresting": "Last move interestingness",
+    "positionInfoKmapsWhite": "K-MAPS (Blancs)",
+    "positionInfoSharpness": "Tranchant",
+    "positionInfoSharpnessExplorer": "Explorateur",
+    "positionInfoSharpnessEngine": "moteur d'analyse",
+    "positionInfoPositionDifficulty": "Difficulté de la position",
+    "positionInfoLastMoveBrilliancy": "Dernier coup brillant",
+    "positionInfoLastMoveInteresting": "Intérêt du dernier coup",
     "brilliancyText": "%s",
-    "brilliancyTitle": "Brilliancy: %s",
-    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
-    "sharpnessSettingText": "Sharpness",
-    "sharpnessSettingTitle": "Move sharpness column",
-    "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancyTitle": "Coups brillants : %s",
+    "brilliancyHeaderTitle": "LiChess Tools - coup brillant",
+    "sharpnessSettingText": "Tranchant",
+    "sharpnessSettingTitle": "Colonne des coups tranchants",
+    "brilliancySettingText": "Coups brillants",
+    "brilliancySettingTitle": "Colonne coups brillants",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10613,7 +10648,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -11935,12 +11975,17 @@
     "positionInfoLastMoveBrilliancy": "Εξαιρετικότητα τελευταίας κίνησης",
     "positionInfoLastMoveInteresting": "Ενδιαφέρον τελευταίας κίνησης",
     "brilliancyText": "%s",
-    "brilliancyTitle": "Brilliancy: %s",
-    "brilliancyHeaderTitle": "LiChess Tools - Move brilliancy",
-    "sharpnessSettingText": "Sharpness",
-    "sharpnessSettingTitle": "Move sharpness column",
-    "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancyTitle": "Εξαιρετικές κινήσεις: %s",
+    "brilliancyHeaderTitle": "LiChess Tools - Εξαιρετικές κινήσεις",
+    "sharpnessSettingText": "Οξύτητα",
+    "sharpnessSettingTitle": "Στήλη κινήσεων ευκρίνειας",
+    "brilliancySettingText": "Εξαιρετική κίνηση",
+    "brilliancySettingTitle": "Στήλη εξαιρετικών κινήσεων",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13267,7 +13312,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14594,7 +14644,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -15921,7 +15976,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17248,7 +17308,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -18575,7 +18640,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -19902,7 +19972,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -21229,7 +21304,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -22556,7 +22636,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -23883,7 +23968,12 @@
     "sharpnessSettingText": "Periculozitate",
     "sharpnessSettingTitle": "Coloană periculozitate mutare",
     "brilliancySettingText": "Strălucire",
-    "brilliancySettingTitle": "Coloană strălucire mutare"
+    "brilliancySettingTitle": "Coloană strălucire mutare",
+    "options.genLineCommand": "Comandă: generează linii",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\n  [stop:mate,noexplorer,repeat,filterfail]\n  chain = common rare sharp win brilliant gambit eval\n  mate weighted random - prima metrică cu\n  candidați câștigă, apoi linia din motor\n  implicit: w:brilliant,win,eval b:common*4 min:100 share:5%\n  depth:24 lines:200 retry:6 pace:2 new\n  stop:mate,noexplorer,repeat - doar /genline continuă\nGenerează linii automat",
+    "genLineCommand.stopTitle": "LiChess Tools - oprește generare linii",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - opțiune /genline necunoscută:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - %s linii generate"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -25210,7 +25300,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -26537,7 +26632,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -27864,7 +27964,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -29191,7 +29296,12 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -30518,6 +30628,11 @@
     "sharpnessSettingText": "Sharpness",
     "sharpnessSettingTitle": "Move sharpness column",
     "brilliancySettingText": "Brilliancy",
-    "brilliancySettingTitle": "Move brilliancy column"
+    "brilliancySettingTitle": "Move brilliancy column",
+    "options.genLineCommand": "Command: generate lines",
+    "genLineCommand.helpText": "/genline [w:<chain>[*n]] [b:<chain>[*n]] [min:N] [share:N%]\r\n  [new|tree] [depth:P] [lines:N] [retry:S] [pace:S|off]\r\n  [stop:mate,noexplorer,repeat,filterfail]\r\n  chain = common rare sharp win brilliant gambit eval\r\n  mate weighted random - the first metric with\r\n  candidates wins, then the engine line\r\n  defaults: w:brilliant,win,eval b:common*4 min:100 share:5%\r\n  depth:24 lines:200 retry:6 pace:2 new\r\n  stop:mate,noexplorer,repeat - bare /genline resumes\r\nGenerate lines automatically",
+    "genLineCommand.stopTitle": "LiChess Tools - stop generating lines",
+    "genLineCommand.badTokenAnnounce": "LiChess Tools - unknown /genline option:",
+    "genLineCommand.doneAnnounce": "LiChess Tools - generated %s lines"
   }
 }

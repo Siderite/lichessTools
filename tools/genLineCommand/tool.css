@@ -1,0 +1,34 @@
+/* the toggle sits in the analyse controls bar (under the move list), so it exists even when the
+   Explorer box is closed - it inherits the page's own button.fbt look */
+body.lichessTools div.analyse__controls button.lichessTools-genLineCommand {
+  flex: 0 1 2em;
+  min-width: 2em;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+body.lichessTools div.analyse__controls button.lichessTools-genLineCommand.active:before {
+  color: black;
+  transform: scale(1.2);
+}
+
+html.dark body.lichessTools div.analyse__controls button.lichessTools-genLineCommand.active:before {
+  color: white;
+}
+
+body.lichessTools.mobile div.analyse__controls button.lichessTools-genLineCommand:not(.active):hover {
+  color: initial;
+  background: initial;
+}
+
+body.lichessTools dialog.lichessTools-genLineDialog .dialog-content > div {
+  display: block;
+  white-space: pre-wrap;
+  font-size: 0.9em;
+  margin: 0 0 2px;
+}
+
+body.lichessTools dialog.lichessTools-genLineDialog .dialog-content > div span:last-child {
+  margin-left: 0.8em;
+  word-break: all;
+}
