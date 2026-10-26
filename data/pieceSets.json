@@ -1127,6 +1127,13 @@
     },
     {
       "category": "chesscom",
+      "name": "Neo Angle",
+      "url": "https://assets-themes.chess.com/image/8qetl/150/",
+      "type": "png",
+      "cap": "wn"
+    },
+    {
+      "category": "chesscom",
       "name": "Game Room",
       "url": "https://images.chesscomfiles.com/chess-themes/pieces/game_room/150/",
       "type": "png",
