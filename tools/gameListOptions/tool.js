@@ -129,7 +129,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).attr('href');
-                  return href ? href.substr(1,8) : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let info = new Map();
@@ -146,7 +147,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
               container.find('article:has(.metadata:not(.lichessTools-extraInfo)) .game-row__overlay')
                 .each((i,e)=>{
                   const href = $(e).attr('href');
-                  const gameId = href ? href.substr(1,8) : null;
+                  const gameId = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   const game = info.get(gameId);
                   if (!game) return;
 
@@ -191,7 +192,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  return href ? href.substr(1,8) : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let pgns = '';
@@ -219,7 +221,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  return href?href.substr(1,8):null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let pgns = [];
@@ -250,9 +253,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  const id = href
-                    ? href.substr(1,8)
-                    : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   return { id: id, el: $(e).closest('article') };
                 })
                 .filter(item=>!!item.id);
@@ -279,9 +280,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  const id = href
-                    ? href.substr(1,8)
-                    : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   return { id: id, el: $(e).closest('article') };
                 })
                 .filter(item=>!!item.id);

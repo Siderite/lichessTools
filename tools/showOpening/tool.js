@@ -85,7 +85,7 @@
             gameId = '';
             continue;
           }
-          const m = /\/game\/([^\/#\?]+)/.exec(href);
+          const m = /(?:\/game)?\/([^\/#\?]+)/.exec(href);
           gameId = m?.[1];
           if (!gameId) {
             fen = '';
@@ -93,7 +93,7 @@
             continue;
           } else {
             if (gameId=='broadcast') {
-              gameId = href.match(/\/game\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
+              gameId = href.match(/(?:\/game)?\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
             }
           }
         }

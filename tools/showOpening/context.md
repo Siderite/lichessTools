@@ -62,7 +62,7 @@ Core function that retrieves opening for an element:
 Processes: `a[href].mini-game`, `div.boards>a[href]`, `.study__multiboard a.mini-game`, `div.mini-game`.
 - Checks document hidden, body .playing, showStaticAnalysis false + cevalEnabled → skip.
 - If eval checkbox unchecked on study multi-board → skip.
-- Gets FEN from `data-state` or board position. Extracts gameId from href (special handling for 'broadcast').
+- Gets FEN from `data-state` or board position. Extracts gameId from href via `/(?:\/game)?\/([^\/#\?]+)/` (accepts `/game/<id>` and legacy `/<id>`; when that first segment is `broadcast`, the href's last two segments are used instead).
 - Calls `withOpening(gameId, el, undefined, fen, true)` (isMini=true).
 - Creates `.lichessTools-opening` span appended to container. TextSafe with opening, title = opening.
 - If `el.gameTime` and no `.lichessTools-time` element + closest('#miniGame') → adds time span.

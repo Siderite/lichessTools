@@ -40,7 +40,7 @@ Triggered on the `lichessTools.uiApi.socket.events.endData` event:
     - Icon: `lt.icon.BarChart`
     - Text: "Request a computer analysis"
   - When clicked:
-    - Extracts game ID from analysis href via regex `/\/(?<id>[^\/?#\s]+)/`.
+    - Extracts game ID from analysis href via regex `/^\/game\/(?<id>[^\/?#\s]+)/` (no request is made when the href is the plain `/analysis` link, since it has no `/game/` prefix).
     - Calls `lt.api.game.requestAnalysis(gameId)` to request server computer analysis.
     - Sets storage `analysis.panel` to `"computer-analysis"` (raw=true).
     - Navigates to the analysis page.

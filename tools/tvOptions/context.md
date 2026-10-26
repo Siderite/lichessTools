@@ -35,7 +35,7 @@ Wraps `lt.uiApi.overrides.tvGamesOnFinish`:
 ### TV Page Features
 
 On `/tv` page (`div.game__meta section`):
-- **Link**: wraps header in `<a>` with href to gameId (with color suffix if isBlack)
+- **Link**: wraps header in `<a>` with href `/game/<gameId>/white` or `/game/<gameId>/black` (black when `isBlack`; only when the header is not already inside an `<a>`)
 - **Bookmark**: adds star bookmark link to `/bookmark/[gameId]` inside setup div
 - **User TV History**: fetches user's 2 finished games via API, displays as mini-games in `round__underboard` with "Previously on [user] TV" header
 

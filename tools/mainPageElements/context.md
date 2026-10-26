@@ -65,7 +65,7 @@ Feed relocation: if side enabled + timeline disabled + feed enabled → move fee
 
 Requires userId and `recentGames` option enabled:
 1. Fetches `lt.api.game.getUserGamesJson(userId, { moves: false, max: 8 })`. Sorts by lastMoveAt/createdAt descending.
-2. For each game extracts: id, variant (→variantClass), perf (→timeControlClass), white/black names, userWhite flag, opponentId, ratings (opponentRating, yourRating, deltaRating), href (`/id` or `/id/black`). Winner → resultClass (win/loss).
+2. For each game extracts: id, variant (→variantClass), perf (→timeControlClass), white/black names, userWhite flag, opponentId, ratings (opponentRating, yourRating, deltaRating), href (`/game/<id>` or `/game/<id>/black`). Winner → resultClass (win/loss).
 3. Fetches `lt.api.user.getUsers` for unique opponent IDs → adds opponentName (title + username).
 4. Creates `<div class="lichessTools-recentGames>` with header text "recentGamesHeaderText". InsertAfter `.lobby__start`.
 5. For each result: creates `<a class="game>` with variant/result/timeControl classes, white toggle, href, title (yourRating + deltaRating if applicable), span text (opponentName + opponentRating). `lichess.powertip.manualGame` on each.

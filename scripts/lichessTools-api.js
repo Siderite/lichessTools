@@ -378,7 +378,7 @@
         async getMini(gameId, color) {
           const lt = this.lichessTools;
           const html = await lt.net.fetch({
-            url: '/{gameId}' + (color?.toLowerCase() == 'white' ? '/white' : '/black') + '/mini',
+            url: '/game/{gameId}' + (color?.toLowerCase() == 'white' ? '/white' : '/black') + '/mini',
             args: { gameId }
           });
           return html;
@@ -407,7 +407,7 @@
 
           const flip = (el)=>{
             const elem = $(el);
-            const id = /\/game\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
+            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
             const state = elem.attr('data-state');
             elem
               .attr('href','/game/'+id+'/black')
@@ -423,7 +423,7 @@
           };
 
           for (const elem of result) {
-            const id = $(elem).attr('href').slice(1);
+            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
             const color = gameData.find(d=>d.id==id).color;
             if (color?.toLowerCase()=='black') flip(elem);
             elem.gameId = id;

@@ -23,7 +23,7 @@ The **GameListOptionsTool** adds filters, selection checkboxes, analysis links, 
 - **analysis**: two checkboxes for "Only analysed" / "Only not analysed" — container class toggles `lichessTools-gameListOptions-analysis`/`noAnalysis` (storage persists)
 - **titledOpponents**: filter titled opponents — checkbox + container class toggle `lichessTools-gameListOptions-titledOpponents` (storage persists)
 - **select**: selection checkboxes on each article.game-row — triggers refreshActions when checked
-- **analysisLink**: analysis direct links — container class toggle, overlay href modified to /gameId8/+black/white suffix, contextmenu opens original href in _blank, data-orig-href stored
+- **analysisLink**: analysis direct links — container class toggle, overlay href rewritten to /game/<gameId8> (plus /black when the mini-board is orientation-black), contextmenu opens original href in _blank, original href kept in data-orig-href
 - **color**: color by players — container class toggle `lichessTools-gameListOptions-color` (storage persists), each article gets CSS variable `--playersColor = #crc24(players.join('|)).toString(16).padStart(6,'0)+'20`
 - **extraInfo**: more info button — fetches pgns with accuracy via API batch (300 per batch, 2000ms timeout between batches), displays accuracy/acpl/inaccuracy/mistake/blunder counts on metadata span
 - **remove**: delete games/remove bookmarks buttons — on imported page (/@/user/imported) or bookmarks page (/@/user/bookmark): dialog confirm question → API deleteImported/removeBookmark per item, removes article element, reloads page after 100ms timeout between deletions
@@ -38,12 +38,12 @@ Creates `div.lichessTools-gameListOptions` before gamesContainer in search__resu
 
 ### Selection & RefreshActions (`refreshActions`)
 When checkboxes checked: adds buttons to filters area:
-- **copy**: Clipboard icon, title "Download selected games as PGN" — fetches IDs from checked inputs → next a href substr(1,8) → batch 300 per batch with timeout 2000ms + '\r\n' separator → API getPgns(moves/tags/clocks/evals/opening/accuracy/literate=true) → writeToClipboard + download lichessTools_+toTimeString().pgn
+- **copy**: Clipboard icon, title "Download selected games as PGN" — fetches IDs from checked inputs → next a href, id parsed by regex `^(?:\/game)?\/(?<gameId>[^\/#\?]{8})` (accepts `/game/<id>` and legacy `/<id>`) → batch 300 per batch with timeout 2000ms + '\r\n' separator → API getPgns(moves/tags/clocks/evals/opening/accuracy/literate=true) → writeToClipboard + download lichessTools_+toTimeString().pgn
 - **csv**: Document icon, title "Download selected games as CSV" — same ID extraction → batch fetch with pgnInJson/division/ndjson=true → getCsv conversion → writeToClipboard + download .csv
 - **delete**: Trash icon — on imported page: dialog confirm "Are you sure you want to delete %s games?" → API deleteImported per item, removes article, reloads; on bookmarks page: dialog confirm "Are you sure you want to remove %s bookmarks?" → API removeBookmark per item, removes article, reloads
 
 ### ExtraInfo Button
-Container has article .metadata:not(.lichessTools-extraInfo): button BarChart icon — fetches IDs from game-row__overlay href substr(1,8) → batch 300 with timeout 2000ms between → API getPgns(ndjson=true,accuracy=true,moves=false,tags=false,clocks=false,evals=false,opening=false,literate=false) → info Map per gameId → each article metadata span gets lichessTools-extraInfo class + title (Accuracy: accText / ACPL: acplText / Inaccuracies/mistakes/blunders White:whiteMoves/Black:blackMoves) + text accText
+Container has article .metadata:not(.lichessTools-extraInfo): button BarChart icon — fetches IDs from game-row__overlay href, id parsed by the same `^(?:\/game)?\/(?<gameId>[^\/#\?]{8})` regex → batch 300 with timeout 2000ms between → API getPgns(ndjson=true,accuracy=true,moves=false,tags=false,clocks=false,evals=false,opening=false,literate=false) → info Map per gameId → each article metadata span gets lichessTools-extraInfo class + title (Accuracy: accText / ACPL: acplText / Inaccuracies/mistakes/blunders White:whiteMoves/Black:blackMoves) + text accText
 
 ### CSV Conversion (`getCsv`)
 Header row with 23 columns: id,rated,variant,speed,perf,createdAt,lastMoveAt,status,white/black names/ratings/diffs/winner,eco/opening,clock initial/increment/totalTime,middle/end,pgn/moves,clocks. dateString format UTCFullYear-UTCMonth+1padStart(2,'0)-UTCDate padStart(2,'0) UTCHours:UTCMinutes:UTCSeconds. csvString quotes with "" replacement for containing ",\r\n characters.
@@ -61,7 +61,7 @@ playerElems from versus div.player span:first-child/a.user-link → text trim �
 playerElems clone → find .utitle:not([data-bot]) → isTitledPlayer = length > 0 → titleEl removed → isUserId check (userId match) → !isUserId && isTitledPlayer → article toggled lichessTools-hasTitledOpponent.
 
 ### AnalysisLink Modification
-Container class analysisLink: overlay href modified to /gameId8/+black/white suffix, contextmenu bound rightClickGame, data-orig-href stored. Not analysisLink: removes href modification, off contextmenu, removeAttr data-orig-href.
+Container class analysisLink: overlay href rewritten to /game/<gameId8> (plus /black when the mini-board is orientation-black), contextmenu bound rightClickGame, original href kept in data-orig-href. Not analysisLink: removes href modification, off contextmenu, removeAttr data-orig-href.
 
 ### Text Filter Splitting
 Regex `"quoted" | unquoted` matchAll → groups.quoted or groups.unquoted → filter non-empty → each article text lowercase includes any split → toggled lichessTools-textFiltered if !includes.
