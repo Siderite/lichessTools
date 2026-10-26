@@ -1130,7 +1130,25 @@
       "name": "Neo Angle",
       "url": "https://assets-themes.chess.com/image/8qetl/150/",
       "type": "png",
-      "cap": "wn"
+      "cap": "wn",
+      "hashes": {
+        "wp": "NDTLh3FqnpUycXEyMjIUCA==",
+        "bp": "NGvLNGmFluqOEoYGFgRMMA==",
+        "wn": "zYY2s5l6ZoQycXF5yXlyHA==",
+        "bn": "32wgl2iBlvqOMxMbCxuOTA==",
+        "wb": "OJ7HkXhqx5QycXFpaSIyEA==",
+        "bb": "nGjHF2mFluqOFwaOjoZMDA==",
+        "wr": "k4ecjWpqlJcycWFxcmlVFg==",
+        "br": "smKMl2uBlP6OMwOWlisPDg==",
+        "wq": "lJS1nWtrlJQycWFhaeiqKQ==",
+        "bq": "lmKVxWmFlr6OMwOWKysXFw==",
+        "wk": "tTOTsGlolpcycWHUltQzMg==",
+        "bk": "sk6wh2mxluqOIyMXMRMWTA=="
+      },
+      "coordinates": {
+        "x": 21,
+        "y": 21
+      }
     },
     {
       "category": "chesscom",
