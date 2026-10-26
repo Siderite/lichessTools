@@ -25,66 +25,68 @@
 
     getSquarePosition = (square) => {
       const transform = square.style?.transform;
-      const m = /translate\(\s*(?<x>\d+(?:\.\d+)?)px\s*,\s*(?<y>\d+(?:\.\d+)?)px\s*\)/.exec(transform);
-      if (!m) return null;
-      const position = { left: +m.groups.x, top: +m.groups.y };
-      return position;
+      if (!transform) return null;
+      let m = /translate(?:3d)?\(\s*(-?\d+(?:\.\d+)?)px\s*,\s*(-?\d+(?:\.\d+)?)px/.exec(transform);
+      if (m) return { left: +m[1], top: +m[2] };
+      m = /matrix\(([^)]+)\)/.exec(transform);
+      if (m) {
+        const parts = m[1].split(',');
+        if (parts.length>=6) return { left: +parts[4], top: +parts[5] };
+      }
+      m = /matrix3d\(([^)]+)\)/.exec(transform);
+      if (m) {
+        const parts = m[1].split(',');
+        if (parts.length>=16) return { left: +parts[12], top: +parts[13] };
+      }
+      return null;
     };
 
     processBoardsDirect = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+      const bodyClass = $('body').attr('class') || '';
       $('cg-container').each((i,e)=>{
-        const containerWidth = e.clientWidth;
-        if (!containerWidth) return;
         const container = $(e);
+        const containerWidth = e.clientWidth;
+        if (!containerWidth) {
+          container.find('.lichessTools-lastMoveArrow').remove();
+          return;
+        }
         const q = 800/containerWidth;
         container.toggleClassSafe('lichessTools-boardStyle',true);
 
-        const selectedKey = container.find('square.selected:not([style*="hidden"],[style*="display: none"])').prop('cgKey');
+        const selectedKey = container.find('square.selected').filter((i,s)=>{
+          const square = $(s);
+          return square.css('display') != 'none' && square.css('visibility') != 'hidden';
+        }).prop('cgKey');
         container.find('piece')
           .each((i,e)=>{
             $(e).toggleClassSafe('selected',!!(selectedKey && e.cgKey==selectedKey));
           });
 
-        const lastMoves = container.find('.last-move:not([style*="hidden"],[style*="display: none"])').get();
+        const lastMoves = container.find('square.last-move').filter((i,s)=>{
+          const square = $(s);
+          return square.css('display') != 'none' && square.css('visibility') != 'hidden';
+        }).get();
         let arrow = container.find('.lichessTools-lastMoveArrow');
-        if (lastMoves.length==2) {
-          $(lastMoves[0])
-            .attrSafe('dest',true)
-            .attrSafe('orig',null);
-          $(lastMoves[1])
-            .attrSafe('dest',null)
-            .attrSafe('orig',true);
-
-          const destKey = lastMoves[0]?.cgKey;
-          const origKey = lastMoves[1]?.cgKey;
-          container.find('piece.moved')
-            .each((i,e)=>{
-              $(e).toggleClassSafe('moved',e.cgKey==destKey);
-            });
-          const piece = container.find('piece')
-                          .filter((i,e)=>e.cgKey===destKey)
-                          .toggleClassSafe('moved',true)
-                          .get()[0];
-          const cgPiece = piece?.cgPiece
-            ? piece.cgPiece.split(' ')
-            : [destKey?.endsWith('1')?'white':'black','king'];
-          const isBlackTurn = cgPiece[0]=='white';
-          const lastMovedPiece = cgPiece[1];
-
-          if (e.usesArrow !== false)
-          {
-            const halfSquare = containerWidth/16;
-            const pos = lastMoves
-                            .map(s=>this.getSquarePosition(s))
-                            .filter(r=>r)
-                            .map(r=>({ x:q*(r.left+halfSquare), y:q*(r.top+halfSquare) }));
-            if (pos.length!=2) return;
-            const dest = pos[0];
-            const orig = pos[1];
-            if (!arrow.length) {
-              arrow = $(`<svg class="lichessTools-lastMoveArrow" viewBox="0 0 800 800">
+        if (arrow.length > 1) {
+          const keep = $(arrow[0]);
+          arrow.filter((j,a)=>j).remove();
+          arrow = keep;
+        }
+        if (e.__ltArrowClass != bodyClass) {
+          e.__ltArrowClass = bodyClass;
+          e.usesArrow = undefined;
+        }
+        const ensureArrow = () => {
+          let existing = container.find('.lichessTools-lastMoveArrow');
+          if (existing.length > 1) {
+            const keep = $(existing[0]);
+            existing.filter((j,a)=>j).remove();
+            return keep;
+          }
+          if (existing.length) return existing;
+          return $(`<svg class="lichessTools-lastMoveArrow" viewBox="0 0 800 800">
         <defs>
           <linearGradient id="arrowGradient" gradientUnits="userSpaceOnUse">
             <stop offset="0%" class="stop-0" />
@@ -96,29 +98,88 @@
         </defs>
         <line class="arrow-line" />
       </svg>`).appendTo(container);
-            }
-            const dist = Math.sqrt(Math.pow(dest.x-orig.x,2)+Math.pow(dest.y-orig.y,2));
-            const shortener = dist==0 ? 1 : (dist - 50/q)/dist;
-            const shorterDest = {
-              x: Math.round(orig.x+(dest.x-orig.x)*shortener),
-              y: Math.round(orig.y+(dest.y-orig.y)*shortener)
-            };
-            arrow.find('.arrow-line')
-              .attrSafe('x1',orig.x)
-              .attrSafe('y1',orig.y)
-              .attrSafe('x2',shorterDest.x)
-              .attrSafe('y2',shorterDest.y);
-            arrow.find('#arrowGradient')
-              .attrSafe('x1',orig.x)
-              .attrSafe('y1',orig.y)
-              .attrSafe('x2',shorterDest.x)
-             .attrSafe('y2',shorterDest.y);
-            const isCastle = cgPiece[1] == 'king' && Math.abs(destKey[0].charCodeAt(0)-origKey[0].charCodeAt(0))>1; //TODO not perfect, breaks in certain positions in Chess960
-            arrow.toggleClassSafe('castle',isCastle);
+        };
+        if (lastMoves.length==2) {
+          let pieceAt = {};
+          container.find('piece').each((i,p)=>{
+            if (p.cgKey) pieceAt[p.cgKey] = p;
+          });
+          const lastKeys = [lastMoves[0]?.cgKey, lastMoves[1]?.cgKey];
+          let destIndex = 0;
+          const hasPiece = [!!(lastKeys[0] && pieceAt[lastKeys[0]]), !!(lastKeys[1] && pieceAt[lastKeys[1]])];
+          if (hasPiece[1] && !hasPiece[0]) destIndex = 1;
+          const movedPiece = container.find('piece.moved').get()[0];
+          if (movedPiece?.cgKey) {
+            if (lastKeys[1] == movedPiece.cgKey) destIndex = 1;
+            else if (lastKeys[0] == movedPiece.cgKey) destIndex = 0;
           }
+          const origIndex = destIndex ? 0 : 1;
+          for (let index = 0; index < 2; index++) {
+            const square = $(lastMoves[index]);
+            square.attrSafe('dest', index == destIndex ? true : null);
+            square.attrSafe('orig', index == origIndex ? true : null);
+          }
+
+          const destKey = lastKeys[destIndex];
+          const origKey = lastKeys[origIndex];
           if (e.usesArrow === undefined) {
-            e.usesArrow = arrow.css('display') != 'none';
-            if (!e.usesArrow) arrow.remove();
+            const candidate = ensureArrow();
+            const shown = candidate.css('display') != 'none';
+            if (!shown) candidate.remove();
+            e.usesArrow = shown;
+            arrow = shown ? candidate : container.find('.lichessTools-lastMoveArrow');
+          } else if (e.usesArrow === false) {
+            if (arrow.length) arrow.remove();
+            arrow = container.find('.lichessTools-lastMoveArrow');
+          } else if (!arrow.length) {
+            arrow = ensureArrow();
+          }
+
+          container.find('piece.moved')
+            .each((i,p)=>{
+              $(p).toggleClassSafe('moved',p.cgKey==destKey);
+            });
+          const destPiece = pieceAt[destKey];
+          if (destPiece) $(destPiece).toggleClassSafe('moved',true);
+          const cgPiece = destPiece?.cgPiece
+            ? destPiece.cgPiece.split(' ')
+            : [destKey?.endsWith('1') ? 'white' : 'black', 'king'];
+          const isBlackTurn = cgPiece[0] == 'white';
+          const lastMovedPiece = cgPiece[1];
+
+          if (e.usesArrow !== false) {
+            const halfSquare = containerWidth/16;
+            const pos = [lastMoves[destIndex], lastMoves[origIndex]]
+              .map(s=>this.getSquarePosition(s))
+              .filter(r=>r)
+              .map(r=>({ x:q*(r.left+halfSquare), y:q*(r.top+halfSquare) }));
+            if (pos.length == 2) {
+              if (!arrow.length) arrow = ensureArrow();
+              const dest = pos[0];
+              const orig = pos[1];
+              const dist = Math.sqrt(Math.pow(dest.x-orig.x,2)+Math.pow(dest.y-orig.y,2));
+              const shortener = dist == 0 ? 1 : (dist - 50/q)/dist;
+              const shorterDest = {
+                x: Math.round(orig.x+(dest.x-orig.x)*shortener),
+                y: Math.round(orig.y+(dest.y-orig.y)*shortener)
+              };
+              arrow.find('.arrow-line')
+                .attrSafe('x1',orig.x)
+                .attrSafe('y1',orig.y)
+                .attrSafe('x2',shorterDest.x)
+                .attrSafe('y2',shorterDest.y);
+              arrow.find('#arrowGradient')
+                .attrSafe('x1',orig.x)
+                .attrSafe('y1',orig.y)
+                .attrSafe('x2',shorterDest.x)
+                .attrSafe('y2',shorterDest.y);
+              const fileDiff = destKey && origKey ? Math.abs(destKey[0].charCodeAt(0)-origKey[0].charCodeAt(0)) : 0;
+              const isCastle = lastMovedPiece == 'king' && (fileDiff > 1 || Math.abs(dest.x-orig.x)>200);
+              arrow.toggleClassSafe('castle',isCastle);
+            } else if (arrow.length) {
+              arrow.remove();
+              arrow = container.find('.lichessTools-lastMoveArrow');
+            }
           }
           const side = isBlackTurn ? 'black' : 'white';
           const prevSide = container.attr('sideToPlay');
@@ -137,7 +198,10 @@
             .attrSafe('lastMoveSquare',destKey);
             
         } else {
-          arrow.remove();
+          if (arrow.length) arrow.remove();
+          container.find('square.last-move')
+            .attrSafe('dest',null)
+            .attrSafe('orig',null);
           container
             .attrSafe('sideToPlay','white')
             .removeAttrSafe('lastMovedPiece')
@@ -156,13 +220,13 @@
       this.logOption('Board style', value);
       const $ = lt.$;
       $('body').observer()
-        .off('square.last-move,square.selected',this.processBoards);
+        .off('square.last-move,square.selected,body,cg-wrap',this.processBoards);
       $('.lichessTools-lastMoveArrow').remove();
       $('cg-container').toggleClassSafe('lichessTools-boardStyle',false);
       lt.uiApi.events.off('ply', this.processBoards);
       if (value) {
         $('body').observer()
-          .on('square.last-move,square.selected',this.processBoards, { attributes: true });
+          .on('square.last-move,square.selected,body,cg-wrap',this.processBoards, { attributes: true });
         lt.uiApi.events.on('ply', this.processBoards);
         this.processBoards();
       }
