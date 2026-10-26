@@ -386,6 +386,7 @@
 
         async getMinis(gameData) {
           const lt = this.lichessTools;
+          const $ = lt.$;
           const ids = gameData.map(d=>d.id);
           let url='';
           const result = [];
@@ -423,7 +424,7 @@
           };
 
           for (const elem of result) {
-            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
+            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec($(elem).attr('href')).groups.gameId;
             const color = gameData.find(d=>d.id==id).color;
             if (color?.toLowerCase()=='black') flip(elem);
             elem.gameId = id;
