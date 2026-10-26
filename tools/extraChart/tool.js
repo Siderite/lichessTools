@@ -854,7 +854,19 @@
     };
 
     prevBrilliant = null;
+    _generateChartsRunning = false;
+
     generateCharts = async (forced) => {
+      if (this._generateChartsRunning) return;
+      this._generateChartsRunning = true;
+      try {
+        return await this.generateChartsInternal(forced);
+      } finally {
+        this._generateChartsRunning = false;
+      }
+    };
+
+    generateChartsInternal = async (forced) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;

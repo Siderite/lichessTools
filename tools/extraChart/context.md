@@ -55,7 +55,7 @@ Upgrade note: `accuracyPlus` was added as a new option in v2.4.5.
 2. Subscribe to `lichessTools.esmLoaded` to wrap the ACPL module's `acpl` function; when a chart is created, store it and call `generateCharts()`.
 3. Poll every 1 s: `generateCharts()` + `generateTicks()` (gauge).
 4. On chapter change (if brilliant enabled) force-regenerate.
-5. `generateCharts()`:
+5. `generateCharts()` is a thin `_generateChartsRunning` re-entry guard wrapper (issue #1890: `setChart()` calls `generateCharts()` while the outer call is still mid-flight, and when the cached container is stale `inViewport()` returns 0 and nulls `this._chart`, the nested call would re-acquire the chart and loop forever, freezing the page); the body is `generateChartsInternal()`:
    - Locate chart container (`div.study__server-eval.ready` or `#acpl-chart-container`).
    - Obtain Chart.js instance (server chart or local-created canvas).
    - Compute data series for each enabled metric from `analysis.mainline` (or current branch for local).
@@ -177,3 +177,4 @@ Heavy geometric/attack calculations use `LiChessTools.MaxSizedMap` (size limits 
 - Smoothing preference exists but the `smooth()` method currently returns points unchanged (previous spike-removal logic is commented out).
 - Disabling Local on a page that only has the local chart removes the chart; re-enable only from Preferences.
 - `ChessPositionValuator` is a clean chessops port of Raccoon (GPL v3) — keep attribution.
+- `generateCharts()` must keep the `_generateChartsRunning` re-entry guard (issue #1890): `setChart()` and the `esmLoaded` `acpl` wrapper call it while a generation is mid-flight; all callers use the guarded wrapper, never `generateChartsInternal()`.
