@@ -186,7 +186,7 @@
             const [opponentRating, yourRating, deltaRating] = userWhite 
               ? [+game.players?.black?.rating || '',+game.players?.white?.rating || '',+game.players?.white?.ratingDiff || '']
               : [+game.players?.white?.rating || '',+game.players?.black?.rating || '',+game.players?.black?.ratingDiff || ''];
-            const href = '/' + id + (userWhite?'':'/black');
+            const href = '/game/' + id + (userWhite?'':'/black');
             const winner = game.winner;
             let resultClass = '';
             if (winner === 'white') resultClass = userWhite?'win':'loss';

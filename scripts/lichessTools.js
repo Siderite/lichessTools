@@ -787,7 +787,7 @@
       const tvChannel = isTv && this.location.getTvChannel();
       const urlUser = this.location.getUrlUser();
       const analysisUrl = $('div.buttons a.analysis,bo3 a.analysis').attr('href') || '';
-      const mAnalysis = /^\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
+      const mAnalysis = /^\/game\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
       const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
         isTv: isTv,

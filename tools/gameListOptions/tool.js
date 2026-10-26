@@ -610,9 +610,9 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
           const isBlack = $(e).find('.game-row__board .mini-board').is('.orientation-black');
           const elem = $(e).find('a.game-row__overlay');
           const href = elem.attr('href');
-          const m = /^\/(?<gameId>[^\/]+)/.exec(href);
+          const m = /^\/game\/(?<gameId>[^\/]+)/.exec(href);
           const xref = m
-            ? '/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
+            ? '/game/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
             : href;
           elem
             .on('contextmenu',this.rightClickGame)

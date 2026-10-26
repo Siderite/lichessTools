@@ -407,10 +407,10 @@
 
           const flip = (el)=>{
             const elem = $(el);
-            const id = elem.attr('href').slice(1);
+            const id = /\/game\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
             const state = elem.attr('data-state');
             elem
-              .attr('href','/'+id+'/black')
+              .attr('href','/game/'+id+'/black')
               .attr('data-state',state.replace(',white,',',black,'));
             const [blackPlayer,board,whitePlayer] = elem.children('span').get();
             $(blackPlayer).find('.mini-game__clock--black')

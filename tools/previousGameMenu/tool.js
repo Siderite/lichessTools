@@ -34,7 +34,7 @@
       if (prevGames.length && index==prevGames.length-1) return;
       lt.arrayRemoveAll(prevGames, g => !g.id || g.id == gameId);
 
-      lt.debug && lt.global.console.debug('Putting /' + gameId + '/' + orientation + ' in history');
+      lt.debug && lt.global.console.debug('Putting /game/' + gameId + '/' + orientation + ' in history');
 
       prevGames.push({ id: gameId, orientation: orientation });
       if (prevGames.length > 10) {
@@ -42,7 +42,7 @@
       }
       lt.currentOptions.prevGames = prevGames;
       lt.saveOptions(lt.currentOptions);
-      $('a.lichessTools-previousGame').attr('href', '/' + gameId + '/' + orientation);
+      $('a.lichessTools-previousGame').attr('href', '/game/' + gameId + '/' + orientation);
     };
 
     async start() {
@@ -80,7 +80,7 @@
       }
       const game = games[index - 1];
       if (game) {
-        item.attr('href', '/' + game.id + '/' + game.orientation);
+        item.attr('href', '/game/' + game.id + '/' + game.orientation);
         const f = ()=>{
           lichess.powertip?.manualGame(item[0]);
           item

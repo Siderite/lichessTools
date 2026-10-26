@@ -238,7 +238,7 @@
         let gameElem = elems.find(e=>e.gameId == id);
         if (!gameElem) {
           gameElem = $('<a>')
-                       .attr('href','/'+id)
+                       .attr('href','/game/'+id)
                        .attr('data-live',id)
                        .attr('data-state',challenge.challengerIsWhite ? ',white,' : ',black,')
                        .addClass('mini-game mini-game--init mini-game-'+id)
@@ -511,7 +511,7 @@
             const orientation = userId?.toLowerCase()==challenge?.white?.lichessId?.toLowerCase() ? 'white' : 'black';
             if (challenge.gameId) {
               $('<a class="glpt">')
-                .attr('href', '/'+challenge.gameId+'/'+orientation)
+                .attr('href', '/game/'+challenge.gameId+'/'+orientation)
                 .text(text)
                 .attr('title',trans.noarg('goToGameTitle'))
                 .appendTo(group);

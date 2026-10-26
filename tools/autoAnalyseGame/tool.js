@@ -75,7 +75,7 @@
               .on('click',async (ev)=>{
                 const href = $('a.fbt.analysis').attr('href');
                 if (!href) return;
-                const m = /^\/(?<id>[^\/?#\s]+)/.exec(href);
+                const m = /^\/game\/(?<id>[^\/?#\s]+)/.exec(href);
                 if (m) {
                   await lt.api.game.requestAnalysis(m.groups.id);
                 }

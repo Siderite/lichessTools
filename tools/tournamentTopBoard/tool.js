@@ -37,7 +37,7 @@
         return;
       }
       const orientation = data.featured.orientation || 'white';
-      const newLocation = `/${gameId}/${orientation}#tournament=${this.tourId}`;
+      const newLocation = `/game/${gameId}/${orientation}#tournament=${this.tourId}`;
       lt.location.set(newLocation);
     };
 
