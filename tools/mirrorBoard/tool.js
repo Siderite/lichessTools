@@ -1,8 +1,6 @@
 (() => {
   class MirrorBoardTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
-
     preferences = [
       {
         name: 'mirrorBoard',
@@ -41,8 +39,7 @@
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('mirrorBoard');
-      this.logOption('Sticky analysis', value);
-      const lichess = lt.lichess;
+      this.logOption('Mirror board', value);
       const $ = lt.$;
       const trans = lt.translator;
       $('.board-editor__tools .actions button.lichessTools-mirrorBoard').remove();

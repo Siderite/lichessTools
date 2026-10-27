@@ -39,7 +39,6 @@
 
     skipMoveIfPossible = async () => {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -102,7 +101,6 @@
 
     async start() {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('skipMoveCommand');
       this.options = { enabled: value };

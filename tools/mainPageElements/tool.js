@@ -1,8 +1,6 @@
 (() => {
   class MainPageElementsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties','ChessOps'];
-
     preferences = [
       {
         name: 'mainPageElements',
@@ -285,6 +283,8 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const console = lt.global.console;
+      const Intl = lt.global.Intl;
       const trans = lt.translator;
       const countersElem = $('.lobby__counters');
       if (!countersElem.length) return;
@@ -428,8 +428,8 @@
       if (this.options.extraCounters) {
         this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,1000);
       }
+      $(lt.global).off('hashchange', this.hashChange);
       if (!this.options.app) {
-        $(lt.global).off('hashchange', this.hashChange);
         $(lt.global).on('hashchange', this.hashChange);
       }
       this.applyLobbyElements();
