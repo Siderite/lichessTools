@@ -28,6 +28,10 @@ body.lichessTools dialog.lichessTools-obsSetup {
   background: #000000E0;
 }
 
+body.lichessTools dialog.lichessTools-obsSetup div.dialog-content {
+  padding: 0;
+}
+
 body.lichessTools dialog.lichessTools-obsSetup button.close-button {
   transform: none;
 }

@@ -104,7 +104,9 @@
         </div>
     </div>
 `)
-        .appendTo('body');
+        .appendTo('body')
+        .each((i,e)=>e.showModal());
+
       $('div.dialog-content>h2').text(trans.noarg('obsSetupText'));
       $('label[data-for="url"]', dialog).text(trans.noarg('urlInputLabel'));
       $('label[data-for="password"]', dialog).text(trans.noarg('passwordInputLabel'));

@@ -296,7 +296,8 @@
         </div>
     </div>
 `)
-        .appendTo('body');
+        .appendTo('body')
+        .each((i,e)=>e.showModal());
 
       $('div.dialog-content>h2').text(trans.noarg('pgnEditorText'));
       const textarea = $('textarea', dialog)

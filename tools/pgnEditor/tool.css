@@ -17,6 +17,10 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper {
   display: flex;
 }
 
+body.lichessTools dialog.lichessTools-pgnEditor div.dialog-content {
+  padding: 0;
+}
+
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
   height: calc(100vh - 4em - 36px);
   flex-grow: 1;
