@@ -196,13 +196,13 @@ html.dark body.lichessTools.lichessTools-extendedInteractiveLesson div.analyse__
   }
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleGreen"] line,
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleRed"] line {
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleGreen"] g[opacity] > line,
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes-below g[cgHash*="paleRed"] g[opacity] > line {
   stroke: #15781B;
   marker-end: url(#arrowhead-pg);
 }
 
-body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g.lichessTools-threat line {
+body.lichessTools.lichessTools-extendedInteractiveLesson svg.cg-shapes g.lichessTools-threat g[opacity] > line {
   stroke: #882020;
   opacity: 0.7;
   marker-end: url(#arrowhead-pr);
