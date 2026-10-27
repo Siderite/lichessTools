@@ -763,7 +763,7 @@
           setTimeout(() => checkState(resolve), 1000);
           return;
         }
-        const state = analysis.ceval.state;
+        const state = analysis.ceval?.state;
         if (state <= 1) {
           this.doEvaluation();
           setTimeout(() => checkState(resolve), 1000);
@@ -1017,6 +1017,7 @@
       if (analysis.practice || analysis.study?.practice) return;
       const customEngineDepth = lt.currentOptions.getValue('customEngineLevel');
       const ceval = analysis.ceval;
+      if (!ceval) return;
       if (!analysis.cevalEnabled() || analysis.threatMode()) {
         this.setTerminationsEvaluation(false);
         this.setLineEvaluation(false);

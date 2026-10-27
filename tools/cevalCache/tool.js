@@ -67,7 +67,9 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(fen, true);
+      const ceval = analysis.ceval;
+      if (!ceval) return { dbKey };
+      const key = ceval.storedPv()+'|'+ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(fen, true);
       const dbKey = 'lichessTools/evalCache/'+key;
       const data = await lt.storage.get(dbKey,{ db: true, raw: true });
       return { dbKey, data };

@@ -585,12 +585,12 @@
       const analysis = lichess.analysis;
       const ceval = analysis?.ceval;
       if (ceval) {
-        analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
+        ceval.selectEngine = lt.unwrapFunction(ceval.selectEngine,'cevalLineOptions-moreLines');
         if (this.options.moreLines) {
           main
             .observer()
             .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
-          analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
+          ceval.selectEngine = lt.wrapFunction(ceval.selectEngine,{
             id: 'cevalLineOptions-moreLines',
             after: ($this, result,...args)=> {
               this.handleExternalEngine();
