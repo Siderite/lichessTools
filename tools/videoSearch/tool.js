@@ -59,7 +59,14 @@
 </form>`)
         .appendTo('body');
 
-      $('dialog .dialog-content')
+      dialog.find('button.close-button')
+        .on('click',()=>{
+          dialog
+            .each((i,e)=>e.close('cancel'))
+            .remove();
+        });
+
+      dialog.find('.dialog-content')
         .append($('<h2>').text(trans.noarg('videoSearchHeader')))
         .append(lt.spinnerHtml)
         .append($('<a class="blurb" target="_blank">')

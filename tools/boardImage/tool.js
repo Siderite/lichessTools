@@ -246,6 +246,14 @@
     </div>
 </form>`)
         .appendTo('body');
+
+      dialog.find('button.close-button')
+        .on('click',()=>{
+          dialog
+            .each((i,e)=>e.close('cancel'))
+            .remove();
+        });
+
       $('dialog .dialog-content').append(canvas);
       dialog[0].showModal();
     };
@@ -255,7 +263,9 @@
       ev?.preventDefault();
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('dialog.lichessTools-boardImage').remove();
+      $('dialog.lichessTools-boardImage')
+        .each((i,e)=>e.close('cancel'))
+        .remove();
     };
 
     enhanceButtonDirect = () => {
