@@ -43,7 +43,7 @@
       if (!html) return;
       $('div.angles a[data-tab]').removeClass('active');
       $('div.angles a[data-tab="timeline"]').addClass('active');
-      lichess.asset.loadCssPath('bits.slist');
+      lt.loadCss('bits.slist');
       $('div.angle-content')
         .empty()
         .append($(html).find('table.slist'));

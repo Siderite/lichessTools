@@ -678,7 +678,7 @@
       const $ = lt.$;
       if (!$('#dasher_app *').length) return;
       if (!$('#dasher_app a.lichessTools-preferences').length) {
-        lichess.asset.loadCssPath('user.account');
+        lt.loadCss('user.account');
         const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
           .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
@@ -746,7 +746,7 @@
       let $this = this;
       const f = function () {
         if (lt.location.hash?.startsWith('#lichessTools')) {
-          lichess.asset.loadCssPath('user.account');
+          lt.loadCss('user.account');
           openPreferences();
           const fc = () => {
             const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(lt.location.hash);

@@ -74,7 +74,7 @@
       if (lt.location.hash != '#obsSetup') {
         lt.global.history.replaceState(null, null, '#obsSetup');
       }
-      lichess.asset.loadCssPath('bits.dialog');
+      lt.loadCss('bits.dialog');
       const dialog = $('<dialog class="lichessTools-obsSetup">')
         .append(`
     <div class="close-button-anchor">

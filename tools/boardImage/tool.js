@@ -233,7 +233,7 @@
       });
       await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
-      lichess.asset.loadCssPath('bits.dialog');
+      lt.loadCss('bits.dialog');
       const dialog = $('<dialog class="lichessTools-boardImage">')
         .append(`<form>
     <div class="close-button-anchor">

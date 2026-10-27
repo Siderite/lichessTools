@@ -28,6 +28,7 @@
     handlePly = async (ply) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
+      if (!analysis.ceval) return;
       const node = analysis.node;
       const key = analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(node.fen, true);
       const dbKey = 'lichessTools/evalCache/'+key;

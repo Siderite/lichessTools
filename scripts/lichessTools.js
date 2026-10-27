@@ -1678,6 +1678,16 @@
       return prev?.color;
     };
 
+    loadCss = (key)=>{
+      const lt = this;
+      const asset = lt.lichess.asset;
+      if (asset.loadCssPath) {
+        return asset.loadCssPath(key);
+      } else {
+        return asset.loadCss({key});
+      }
+    };
+
     clone = (obj) => {
       if (!obj) return obj;
       return this.global.JSON.parse(this.global.JSON.stringify(obj));

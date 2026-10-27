@@ -44,8 +44,8 @@
       const analysis = lichess.analysis;
       const fen = analysis.node.fen;
       $('dialog.lichessTools-videoSearch').remove();
-      lichess.asset.loadCssPath('bits.dialog');
-      lichess.asset.loadCssPath('bits.video');
+      lt.loadCss('bits.dialog');
+      lt.loadCss('bits.video');
       const dialog = $('<dialog class="lichessTools-videoSearch video">')
         .append(`<form>
     <div class="close-button-anchor">

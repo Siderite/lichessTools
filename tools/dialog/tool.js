@@ -15,7 +15,7 @@
           .addClass('lichessTools-dialog');
         view = dialog.find('.dialog-content');
       } else {
-        lichess.asset.loadCssPath('bits.dialog');
+        lt.loadCss('bits.dialog');
         dialog = $('<dialog class="lichessTools-dialog">')
           .toggleClass('touch-scroll', lt.isTouchDevice());
         if (options.parent) dialog.css('position', 'absolute');
