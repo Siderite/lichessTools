@@ -46,7 +46,7 @@
       $('dialog.lichessTools-videoSearch').remove();
       lt.loadCss('bits.dialog');
       lt.loadCss('bits.video');
-      const dialog = $('<dialog class="lichessTools-videoSearch video">')
+      const dialog = $('<dialog class="lichessTools-videoSearch video" closedby="none">')
         .append(`<form>
     <div class="close-button-anchor">
         <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#videoSearch" target="_blank"></a>

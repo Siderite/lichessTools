@@ -21,6 +21,11 @@ body.lichessTools dialog.lichessTools-pgnEditor div.dialog-content {
   padding: 0;
 }
 
+body.lichessTools dialog.lichessTools-pgnEditor div.dialog-content>h2{
+  font-size: 2em;
+  padding: 0.25em;
+}
+
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper textarea {
   height: calc(100vh - 4em - 36px);
   flex-grow: 1;
@@ -31,12 +36,20 @@ body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
   display: flex;
   flex-direction: column;
   min-width: 12em;
+  height: calc(100vh - 4em - 36px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons::-webkit-scrollbar {
+  display: none;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
   position: relative;
   text-align: left;
   display: block;
+  width: 100%;
 }
 
 body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button span {
@@ -85,10 +98,13 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons {
     width: 3.5em;
     min-width: auto;
+    overflow-x: visible;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button {
     min-height: 2.75em;
+    min-width: 3em;
+    width: 3em;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button:before {
@@ -101,14 +117,19 @@ body.lichessTools dialog.lichessTools-pgnEditor a.help-button:hover {
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons label {
     position: fixed;
-    top: 86vh;
+    bottom: -0.5em;
     left: 0;
     width: 100%;
   }
 
+  body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons > div:has(button.lichessTools-mobileActive) {
+    min-height: 3em;
+  }
+
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button.lichessTools-mobileActive {
     width: 13em;
-    left: calc(100% - 13em);
+    right: 0;
+    position: absolute;
   }
 
   body.lichessTools dialog.lichessTools-pgnEditor div.input-wrapper div.buttons button.lichessTools-mobileActive span {

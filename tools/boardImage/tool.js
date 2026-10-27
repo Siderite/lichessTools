@@ -234,7 +234,7 @@
       await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
       lt.loadCss('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-boardImage">')
+      const dialog = $('<dialog class="lichessTools-boardImage" closedby="none">')
         .append(`<form>
     <div class="close-button-anchor">
         <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#boardImage" target="_blank"></a>

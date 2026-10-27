@@ -75,7 +75,7 @@
         lt.global.history.replaceState(null, null, '#obsSetup');
       }
       lt.loadCss('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-obsSetup">')
+      const dialog = $('<dialog class="lichessTools-obsSetup" closedby="none">')
         .append(`
     <div class="close-button-anchor">
         <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>

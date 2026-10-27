@@ -256,7 +256,7 @@
 
       $('dialog.lichessTools-pgnEditor').trigger('close').remove();
       lt.loadCss('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-pgnEditor">')
+      const dialog = $('<dialog class="lichessTools-pgnEditor" closedby="none">')
         .on('close',()=>{
           lt.global.document.title = this._prevTitle;
           $('body').toggleClassSafe('lichessTools-page',false);
@@ -298,6 +298,9 @@
 `)
         .appendTo('body')
         .each((i,e)=>e.showModal());
+
+      dialog.find('.buttons button')
+        .wrap('<div>');
 
       $('div.dialog-content>h2').text(trans.noarg('pgnEditorText'));
       const textarea = $('textarea', dialog)
