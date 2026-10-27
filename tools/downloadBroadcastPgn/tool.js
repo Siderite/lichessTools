@@ -34,7 +34,7 @@
       if (!study) return;
       const container = $('.study__side div[role=tablist],.relay-tour__side__header');
       if (!container.length) return;
-      let button = $('span.lichessTools-downloadBroadcastPgn', container);
+      let button = $('a.lichessTools-downloadBroadcastPgn', container);
       if (!this.options.enabled) {
         button.remove();
         return;
