@@ -201,6 +201,13 @@
           const styles = lt.global.getComputedStyle(board[0], '::before');
           backgroundImage = styles.getPropertyValue('background-image');
         }
+        if (backgroundImage && backgroundImage !== 'unset') {
+          const match = backgroundImage.match(/url\(\s*(['"]?)(?<url>.*?)\1\s*\)/i);
+          if (match) {
+            const absolute = new URL(match.groups.url, location.href).href;
+            backgroundImage = `url("${absolute}")`;
+          }
+        }
         $('html').css('--board-background', backgroundImage||'unset');
       }
       $('body').toggleClassSafe('lichessTools-hasBoardBackground', !!backgroundImage);
