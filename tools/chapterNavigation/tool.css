@@ -231,4 +231,8 @@ body.lichessTools .lichessTools-chapterNavigation-panel .link.edge.empty {
   visibility: hidden;
 }
 
+body.lichessTools .relay-tour__side .lichessTools-chapterNavigation-panel {
+  display: none;
+}
+
 
