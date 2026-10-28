@@ -75,8 +75,9 @@
         lt.global.history.replaceState(null, null, '#obsSetup');
       }
       const dialog = await lt.dialog({
+        header: $('<h2>').text(trans.noarg('obsSetupText')),
         help: 'https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration',
-        closedBy: 'none'
+        noDrag: true
       });
       const $dialog = $(dialog)
         .addClass('lichessTools-obsSetup');
@@ -102,7 +103,6 @@
 `);
       dialog.showModal();
 
-      $dialog.find('.dialog-content > h2').text(trans.noarg('obsSetupText'));
       $('label[data-for="url"]', dialog).text(trans.noarg('urlInputLabel'));
       $('label[data-for="password"]', dialog).text(trans.noarg('passwordInputLabel'));
       $('input[name="password"] + .togglePassword', dialog)

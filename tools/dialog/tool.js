@@ -6,16 +6,13 @@
       const $ = lt.$;
       const lichess = lt.lichess;
       const document = lt.global.document;
+      options = { closeButton: !options.noCloseButton, ...options };
 
       const dialogWrapper = await lt.uiApi.dialog.domDialog(options);
       const dialog = $(dialogWrapper.dialog)
         .addClass('lichessTools-dialog');
       const view = dialog.find('.dialog-content');
 
-      // Extras layered on top of the Lichess-owned <dialog>.
-      if (options.closedBy) {
-        dialog.attr('closedby', options.closedBy);
-      }
       if (options.noCloseButton) {
         dialog.find('button.close-button').remove();
       }
@@ -165,6 +162,7 @@
       // <dialog>, so while this dialog is open we swallow Escape at capture phase - ahead of
       // listener order, so neither Lichess nor LiChess Tools key handlers see it.
       if (options.noEscClose) {
+        dialog.attr('closedby', 'none');
         const escBlocker = (ev) => {
           if (!dialog[0]?.open) {
             detachEsc();

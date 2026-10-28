@@ -258,8 +258,8 @@
       const dialog = await lt.dialog({
         header: $('<h2>').text(trans.noarg('pgnEditorText')),
         help: 'https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor',
-        closedBy: 'none',
-        noEscClose: true
+        noEscClose: true,
+        noDrag: true
       });
       const $dialog = $(dialog)
         .addClass('lichessTools-pgnEditor')

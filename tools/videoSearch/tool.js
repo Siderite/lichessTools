@@ -48,7 +48,6 @@
       const dialog = await lt.dialog({
         header: $('<h2>').text(trans.noarg('videoSearchHeader')),
         help: 'https://siderite.dev/blog/lichess-tools---user-manual#videoSearch',
-        closedBy: 'none',
         noDrag: true
       });
       const $dialog = $(dialog)

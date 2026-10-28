@@ -234,8 +234,7 @@
       await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
       const dialog = await lt.dialog({
-        help: 'https://siderite.dev/blog/lichess-tools---user-manual#boardImage',
-        closedBy: 'none'
+        help: 'https://siderite.dev/blog/lichess-tools---user-manual#boardImage'
       });
       const $dialog = $(dialog)
         .addClass('lichessTools-boardImage');
