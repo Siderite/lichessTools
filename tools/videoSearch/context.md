@@ -7,6 +7,7 @@ The **VideoSearchTool** adds a "Videos" button to the analysis board that search
 ## Dependencies
 
 - `EmitRedraw` — dependency
+- `Dialog` — dependency (the videos modal is created with `await lt.dialog`)
 
 ## Preferences
 
@@ -24,13 +25,13 @@ The **VideoSearchTool** adds a "Videos" button to the analysis board that search
 1. Prevents default action.
 2. Gets the current FEN from `analysis.node.fen`.
 3. Removes any existing `dialog.lichessTools-videoSearch`.
-4. Loads Lichess CSS paths `bits.dialog` and `bits.video`.
-5. Creates a modal dialog (`dialog.lichessTools-videoSearch video`) with a close button, a help link to the user manual (#videoSearch section), and a scrollable content area.
+4. Loads the Lichess CSS path `bits.video` only — dialog CSS comes from the Dialog tool's `tools/dialog/tool.css`.
+5. Creates the modal with `await lt.dialog({ header: <h2>, help: <user manual #videoSearch URL>, closedBy: 'none', noDrag: true })` and adds the `lichessTools-videoSearch` and `video` classes to the Lichess-owned `<dialog>` via `addClass`; Lichess's `domDialog` supplies the close button and the factory appends the help link into its `.close-button-anchor`.
 6. Appends a header (`videoSearchHeader`), a spinner, and a "See more at ChessInsights.ai" blurb link (`https://chess-insights.app/`).
 7. Calls `lt.api.chessinsights.getVideos(fen)` asynchronously:
    - If `data.matches` has items, builds a list of video cards (`a.card`), each with a YouTube thumbnail (`https://img.youtube.com/vi/{videoId}/0.jpg`), title, author, and channel link.
    - Otherwise shows the "No videos found" message.
-8. Replaces the spinner with the result content and shows the modal via `dialog[0].showModal()`.
+8. Replaces the spinner with the result content (`$(content).replaceAll($dialog.find('.dialog-content .spinner'))`) and shows the modal via `dialog.showModal()` — the factory returns a DOM node, so DOM queries go through the Cash wrapper `$dialog`.
 
 ### Close Dialog (`closeDialog`)
 

@@ -25,7 +25,8 @@ On dialog close event:
 
 ## Dependencies
 
-None explicitly listed. Depends on `LiChessTools.loadChessPursuit`, Dialog tool.
+- `Dialog` — **declared** dependency (`dependencies = ['Dialog']`); both dialogs are created with `await lt.dialog({ header: ... })`.
+- `LiChessTools.loadChessPursuit` — loads the game into the dialog's `.dialog-content`.
 
 ## Preferences
 

@@ -1,4 +1,4 @@
-html:has(body.lichessTools > dialog.lichessTools-obsSetup) {
+html:has(body.lichessTools dialog.lichessTools-obsSetup) {
   overflow-y: hidden;
 }
 
@@ -30,27 +30,10 @@ body.lichessTools dialog.lichessTools-obsSetup {
 
 body.lichessTools dialog.lichessTools-obsSetup div.dialog-content {
   padding: 0;
-}
-
-body.lichessTools dialog.lichessTools-obsSetup button.close-button {
-  transform: none;
-}
-
-body.lichessTools dialog.lichessTools-obsSetup a.help-button {
-  position: absolute;
-  top: 4px;
-  right: 2em;
-  width: 40px;
-  height: 40px;
-  z-index: 111;
-  color: #ccc;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-body.lichessTools dialog.lichessTools-obsSetup a.help-button:hover {
-  color: #1b78d0;
+  min-width: auto;
+  min-height: auto;
+  max-width: none;
+  max-height: none;
 }
 
 body.lichessTools dialog.lichessTools-obsSetup .scrollable {

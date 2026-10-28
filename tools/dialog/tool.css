@@ -12,7 +12,6 @@ body.lichessTools dialog.lichessTools-dialog {
   transition: none;
   transition-property: none;
   animation: none;
-  -transform: none;
 }
 
 body.lichessTools dialog.lichessTools-dialog:backdrop {
@@ -30,6 +29,7 @@ body.lichessTools dialog.lichessTools-dialog .dialog-header {
   justify-content: center;
   align-items: center;
   user-select: none;
+  color: var(--c-font);
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
@@ -69,6 +69,32 @@ body.lichessTools dialog.lichessTools-dialog .dialog-content {
   min-height: 20px;
   max-width: 90vw;
   max-height: 90vh;
+}
+
+body.lichessTools dialog.lichessTools-dialog button.close-button {
+  transform: none;
+  border-radius: 50%;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+
+body.lichessTools dialog.lichessTools-dialog a.help-button {
+  position: absolute;
+  top: 4px;
+  right: 2em;
+  width: 40px;
+  height: 40px;
+  z-index: 111;
+  color: #ccc;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+body.lichessTools dialog.lichessTools-dialog a.help-button:hover {
+  color: #1b78d0;
 }
 
 body.lichessTools dialog.lichessTools-dialog.dragged .dialog-content,

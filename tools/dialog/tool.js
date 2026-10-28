@@ -7,37 +7,23 @@
       const lichess = lt.lichess;
       const document = lt.global.document;
 
-      let dialog;
-      let view;
-      if (!options.useLT) {
-        const dialogWrapper = await lt.uiApi.dialog.domDialog(options);
-        dialog = $(dialogWrapper.dialog)
-          .addClass('lichessTools-dialog');
-        view = dialog.find('.dialog-content');
-      } else {
-        lt.loadCss('bits.dialog');
-        dialog = $('<dialog class="lichessTools-dialog">')
-          .toggleClass('touch-scroll', lt.isTouchDevice());
-        if (options.parent) dialog.css('position', 'absolute');
+      const dialogWrapper = await lt.uiApi.dialog.domDialog(options);
+      const dialog = $(dialogWrapper.dialog)
+        .addClass('lichessTools-dialog');
+      const view = dialog.find('.dialog-content');
 
-        if (!options.noCloseButton) {
-          $('<div class="close-button-anchor">')
-            .append($('<button class="close-button" aria-label="Close">')
-              .attr('data-icon', lt.icon.X)
-              .on('click', () => dialog[0]?.close())
-            )
-            .appendTo(dialog);
-        }
-
-        view = $('<div class="dialog-content">');
-        if (options.class) {
-          options.class.split(/[\. ]/).filter(x => x).forEach(cls => view.addClass(cls));
-        }
-        if (options.htmlText) view.html(options.htmlText);
-
-        const scrollable = $(`<div class="${options.noScrollable ? 'not-' : ''}scrollable">`)
-          .append(view)
-          .appendTo(dialog);
+      // Extras layered on top of the Lichess-owned <dialog>.
+      if (options.closedBy) {
+        dialog.attr('closedby', options.closedBy);
+      }
+      if (options.noCloseButton) {
+        dialog.find('button.close-button').remove();
+      }
+      if (options.help) {
+        $('<a class="help-button" aria-label="Help" target="_blank">')
+          .attr('href', options.help)
+          .attr('data-icon', lt.icon.InfoCircle)
+          .appendTo(dialog.find('.close-button-anchor'));
       }
 
       const emitPlacement = lt.debounce(() => {
@@ -175,8 +161,34 @@
           }
         });
 
-      if (options.useLT) {
-        dialog.appendTo(options.parent || 'body');
+      // Escape-close suppression (opt-in): Lichess's page-level Escape handler closes any open
+      // <dialog>, so while this dialog is open we swallow Escape at capture phase - ahead of
+      // listener order, so neither Lichess nor LiChess Tools key handlers see it.
+      if (options.noEscClose) {
+        const escBlocker = (ev) => {
+          if (!dialog[0]?.open) {
+            detachEsc();
+            return;
+          }
+          if (ev.key == 'Escape' || ev.keyCode == 27) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            ev.stopImmediatePropagation();
+          }
+        };
+        const attachEsc = () => {
+          document.addEventListener('keydown', escBlocker, true);
+          document.addEventListener('keyup', escBlocker, true);
+        };
+        const detachEsc = () => {
+          document.removeEventListener('keydown', escBlocker, true);
+          document.removeEventListener('keyup', escBlocker, true);
+        };
+        dialog
+          .on('toggle', (ev) => {
+            if (ev.newState == 'open') attachEsc();
+          })
+          .on('close', () => detachEsc());
       }
 
       return dialog[0];

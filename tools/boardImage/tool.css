@@ -9,25 +9,12 @@ body.lichessTools dialog.lichessTools-boardImage canvas {
   max-height:100%;
 }
 
-body.lichessTools dialog.lichessTools-boardImage button.close-button {
-  transform: none;
-}
-
-body.lichessTools dialog.lichessTools-boardImage a.help-button {
-  position: absolute;
-  top: 4px;
-  right: 2em;
-  width: 40px;
-  height: 40px;
-  z-index: 111;
-  color: #ccc;
-  font-size: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-body.lichessTools dialog.lichessTools-boardImage a.help-button:hover {
-  color: #1b78d0;
+body.lichessTools dialog.lichessTools-boardImage div.dialog-content {
+  padding: 0;
+  min-width: auto;
+  min-height: auto;
+  max-width: none;
+  max-height: none;
 }
 
 body.lichessTools .copyables .pgn:has(.is-error) {

@@ -7,6 +7,7 @@ The **BoardImageTool** provides a better exported board image (screenshot) funct
 ## Dependencies
 
 - `EmitRedraw` — dependency
+- `Dialog` — dependency (the screenshot modal is created with `await lt.dialog`)
 
 ## Preferences
 
@@ -94,13 +95,11 @@ Creates a canvas screenshot of the board when clicking on a board image link:
 ### Dialog Display
 
 - Removes any existing `dialog.lichessTools-boardImage`.
-- Loads Lichess dialog CSS path (`bits.dialog`).
-- Creates modal dialog with:
-  - Close button (X icon, formmethod=dialog).
-  - Help link to user manual (#boardImage section).
-  - Scrollable content area.
-- Appends canvas to dialog content.
-- Shows modal via `dialog[0].showModal()`.
+- Creates the modal with `await lt.dialog({ help: <user manual #boardImage URL>, closedBy: 'none' })`, then adds `lichessTools-boardImage` to the Lichess-owned `<dialog>` with `$(dialog).addClass(...)`.
+- Lichess's `domDialog` supplies the close button (X icon) and its `.close-button-anchor`; the factory appends the help link (`a.help-button`) into that anchor. The tool rebinds `button.close-button` to `close('cancel')` + remove.
+- Appends the canvas into the Lichess-owned `div.dialog-content`.
+- Shows the modal via `dialog.showModal()` — the factory returns a DOM node, so there is no `dialog[0]` step.
+- No `loadCss('bits.dialog')`: dialog styling comes from `tools/dialog/tool.css`, and `tools/boardImage/tool.css` resets `div.dialog-content` sizing so the canvas is not capped at 90vw/90vh.
 
 ### Close Dialog (`closeDialog`)
 

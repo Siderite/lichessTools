@@ -1,6 +1,8 @@
 (() => {
   class ChessPursuitTool extends LiChessTools.Tools.ToolBase {
 
+    dependencies = ['Dialog'];
+
     preferences = [
       {
         name: 'chessPursuit',

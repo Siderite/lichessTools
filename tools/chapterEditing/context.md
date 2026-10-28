@@ -39,7 +39,7 @@ On writable study at `#chapter-name`:
 
 ## Dependencies
 
-- EmitRedraw, EmitChapterChange, PgnEditor
+- EmitRedraw, EmitChapterChange, PgnEditor, Dialog
 
 ## Preferences
 

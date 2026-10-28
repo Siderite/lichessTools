@@ -6,7 +6,7 @@ Integrates lichess study broadcasts with Open Broadcaster Software (OBS) via Web
 
 ## Dependencies
 
-`EmitChapterChange`, `EmitRedraw`
+`EmitChapterChange`, `EmitRedraw`, `Dialog`
 
 ## Preferences
 
@@ -61,9 +61,8 @@ Button behavior:
 
 ## OBS Setup Dialog
 
-`showObsSetup()` creates a `<dialog class="lichessTools-obsSetup>` with:
-- Help button (link to siderite.dev blog manual)
-- Close button
+`showObsSetup()` creates the dialog with `await lt.dialog({ help: <siderite.dev manual URL #obsIntegration>, closedBy: 'none' })` and adds `lichessTools-obsSetup` to the Lichess-owned `<dialog>` via `$(dialog).addClass(...)`:
+- Help link (`a.help-button`) is appended by the factory into Lichess's `.close-button-anchor`; the close button (`button.close-button`) is Lichess's own
 - Scrollable content area with:
   - **Mappings section**: default scene label + select dropdown, then per-chapter labels + select dropdowns. Each select maps chapter → OBS scene name.
   - **Advanced section**: URL input, password input (with toggle eye icon to show/hide), options text input.
@@ -73,7 +72,7 @@ Dialog hash: `#obsSetup`. Hashchange handler closes dialog when hash changes awa
 
 ### saveSetup(dialog)
 
-Extracts values from dialog inputs, builds setup object with mappings from select dropdowns (only non-empty values). Saves to storage dict keyed by studyId. Clears optionsSet flag, closes dialog.
+Signature unchanged, but because `lt.dialog` returns a DOM node the body wraps it (`const $dialog = $(dialog)`) and reads values via `$dialog.find(...)` — the same re-wrap applies at every `lt.dialog` call site, including pgnEditor. Extracts values from the dialog inputs, builds a setup object with mappings from the select dropdowns (only non-empty values), saves it to storage keyed by studyId, clears the optionsSet flag and closes the dialog.
 
 ### getSetup()
 

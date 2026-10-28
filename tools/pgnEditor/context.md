@@ -21,6 +21,7 @@ Entry points:
 - `ChessOps` - chessops library for `parsePgn` / `makePgn`, SAN play, FEN generation (`startingPosition`, `parseSan`, `makeSanAndPlay`, `makeFen`)
 - `Stockfish` - local engine for Evaluate (end-position comments)
 - `ExportPGN` - used by the Analysis action-menu "send to PGN Editor" link
+- `Dialog` - the `lt.dialog` factory that builds the full-screen dialog (see `tools/dialog/context.md`)
 
 Optional interaction with `ShowPawnStructureTool` for pawn-structure search keys.
 
@@ -30,11 +31,13 @@ Single boolean `pgnEditor` (category `analysis`, not advanced, default true).
 
 ## UI Structure
 
-- HTML `<dialog class="lichessTools-pgnEditor">` covering the page
+- HTML `<dialog class="lichessTools-dialog lichessTools-pgnEditor">` covering the page — the element is Lichess-owned (built by `lt.dialog` → `lt.uiApi.dialog.domDialog`) and `lichessTools-pgnEditor` is added with `$(dialog).addClass(...)`
+- All the tool's markup lives inside the Lichess-owned `div.dialog-content`; `tool.css` resets that box (`padding: 0; min-width/min-height: auto; max-width/max-height: none`) so the full-screen layout escapes the base dialog sheet's `90vw/90vh` cap
 - Large textarea (autofocus, no spellcheck)
 - Vertical button column: Merge, Normalize, Denormalize, Split, Search, Result, Cut, Evaluate, Commands, Count, Cancel, Upload, Download, Copy, Undo, Redo, Clear
 - Status label under buttons (game count, progress, errors)
-- Help link to user manual; close button restores previous document title and body class
+- The factory call is `await lt.dialog({ header: <h2>, help, closedBy: 'none', noEscClose: true })`: Lichess's `domDialog` supplies the close button (`button.close-button`), and the factory appends the help link (`a.help-button`) into its `.close-button-anchor`; the tool's `on('close')` handler restores the previous document title and body class
+- Escape does **not** close the dialog (`noEscClose: true`) - the factory swallows Escape while the dialog is open, so Lichess's Esc-to-close handler cannot fire. Exit paths: the close button, or the Cancel button to stop a running operation
 - Mobile: first tap marks button active (expands label), second tap runs the action (`mobileFirstTap`)
 - Body gets class `lichessTools-page` while open; overflow locked on html
 

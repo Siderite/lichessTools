@@ -1,7 +1,7 @@
 (() => {
   class PgnEditorTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['ChessOps', 'Stockfish', 'ExportPGN']
+    dependencies = ['ChessOps', 'Stockfish', 'ExportPGN', 'Dialog']
 
     preferences = [
       {
@@ -255,20 +255,19 @@
       lt.global.document.title = trans.noarg('pgnEditorTitle');
 
       $('dialog.lichessTools-pgnEditor').trigger('close').remove();
-      lt.loadCss('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-pgnEditor" closedby="none">')
+      const dialog = await lt.dialog({
+        header: $('<h2>').text(trans.noarg('pgnEditorText')),
+        help: 'https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor',
+        closedBy: 'none',
+        noEscClose: true
+      });
+      const $dialog = $(dialog)
+        .addClass('lichessTools-pgnEditor')
         .on('close',()=>{
           lt.global.document.title = this._prevTitle;
           $('body').toggleClassSafe('lichessTools-page',false);
-        })
-        .append(`
-    <div class="close-button-anchor">
-        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
-        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close"/>
-    </div>
-    <div class="scrollable">
-        <div class="dialog-content">
-            <h2></h2>
+        });
+      $dialog.find('.dialog-content').append(`
             <div class="input-wrapper">
               <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
@@ -293,16 +292,12 @@
                 <label></label>
               </div>
             </div>
-        </div>
-    </div>
-`)
-        .appendTo('body')
-        .each((i,e)=>e.showModal());
+`);
+      dialog.showModal();
 
-      dialog.find('.buttons button')
+      $dialog.find('.buttons button')
         .wrap('<div>');
 
-      $('div.dialog-content>h2').text(trans.noarg('pgnEditorText'));
       const textarea = $('textarea', dialog)
         .attr('placeholder', trans.noarg('pastePGNs'))
         .on('drop', ev => {
@@ -546,7 +541,7 @@
         .on('click', ev => {
           ev.preventDefault();
           this.stopOperations();
-          dialog.trigger('close').remove();
+          $dialog.trigger('close').remove();
           if (lt.location.hash == '#pgnEditor') {
             lt.global.history.pushState(null, null, ' ');
           }

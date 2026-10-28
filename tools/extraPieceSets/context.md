@@ -7,6 +7,7 @@ The **ExtraPieceSetsTool** adds custom chess piece visual sets (PNG/SVG images) 
 ## Dependencies
 
 - **D3** — used for building visual representations (tree/grid) of piece sets in a dialog modal
+- **Dialog** — declared dependency; the "Piece sets" modal is opened with `await lt.dialog({ header: ... })`
 
 ## Preferences
 

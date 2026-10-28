@@ -21,14 +21,3 @@ body.lichessTools.mobile div.analyse__controls button.lichessTools-genLineComman
   background: initial;
 }
 
-body.lichessTools dialog.lichessTools-genLineDialog .dialog-content > div {
-  display: block;
-  white-space: pre-wrap;
-  font-size: 0.9em;
-  margin: 0 0 2px;
-}
-
-body.lichessTools dialog.lichessTools-genLineDialog .dialog-content > div span:last-child {
-  margin-left: 0.8em;
-  word-break: all;
-}
