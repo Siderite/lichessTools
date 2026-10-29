@@ -1,13 +1,14 @@
 (function(cash) {
 
 cash.cached = function (selector, duration = 10000) {
+  const $ = cash;
   if (typeof (selector) !== 'string' || !(+duration)) {
     throw new Error('Selector can only be a string and duration must be specified');
   }
   const cache = cash.__cache || (cash.__cache = new Map());
   let item = cache.get(selector);
   if (!item?.time || Date.now() - item.time > item.duration) {
-    item = { value: cash(selector), time: Date.now(), duration: duration }
+    item = { value: $(selector), time: Date.now(), duration: duration }
     cache.set(selector, item);
   } else if (window.lichessTools?.debug > 2) {
     console.debug('Getting ' + selector + ' from $ cache');
@@ -16,8 +17,9 @@ cash.cached = function (selector, duration = 10000) {
 };
 
 cash.fn.toggleDisplay = function (value, important) {
+  const $ = cash;
   this.each((i, e) => {
-    const curr = this.css('display');
+    const curr = $(e).css('display');
     e.initDisplay = e.initDisplay || curr;
     const isHidden = curr == 'none';
     const isInitHidden = e.initDisplay == 'none';
@@ -85,7 +87,7 @@ cash.fn.selectText = function(start,length) {
 }
 
 cash.fn.insertText = function(value, focus) {
-  if (!value) return;
+  if (!value) return this;
   this.each((i,e)=>{
     const start = e.selectionStart;
     const end = e.selectionEnd;
@@ -130,12 +132,14 @@ cash.fn.toggleClassSafe = function(className, value) {
 }
 
 cash.fn.appendSpan = function(text) {
+  const $ = cash;
   if (text===undefined) text='';
   $('<span>').text(text).appendTo(this);
   return this;
 }
 
 cash.createToggle = function(id,text,title,name) {
+  const $ = cash;
   const result = $(`<label class="cmn-toggle-wrap" title="${cash('<div>').attr('title',title)[0].getAttribute('title')}">
 	<span class="cmn-toggle" role="button">
 		<input id="${id}" type="checkbox"/>
@@ -145,7 +149,7 @@ cash.createToggle = function(id,text,title,name) {
 </label>`)
   .addClass(id);
   if (name===true) name=id;
-  if (name) result.find('#'+id).attr('name',id);
+  if (name) result.find('#'+id).attr('name',name);
   return result;
 }
 
@@ -193,7 +197,7 @@ class Observer {
       });
       observer.__selector = selector;
       observer.__func = func;
-      observer.__option = options;
+      observer.__options = options;
       observer.dispose = function() {
         observer.disconnect();
         const index = observers.indexOf(observer);
@@ -240,7 +244,6 @@ class Observer {
     return this;
   }
 }
-Observer.cache = new Map();
 
 cash.fn.observer = function () {
   const observer = new Observer(this);
