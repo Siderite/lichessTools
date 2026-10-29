@@ -689,6 +689,18 @@
       lt.assertPathSet(node);
       this._analysedNode = node;
       analysis.userJumpIfCan(node.path);
+      // After a partial evaluate-then-stop-then-restart, Lichess may leave the
+      // ceval idle on the previous node (state == 2). Force the engine toward
+      // the configured customEngineLevel for the freshly-jumped node so the
+      // run resumes immediately instead of sitting idle until the user presses
+      // '+'. Mirrors the goDeeper fallback path in CustomEngineLevelTool.
+      const customEngineDepth = +lt.currentOptions.getValue('customEngineLevel') || 0;
+      if (customEngineDepth && analysis.ceval) {
+        analysis.node.autoDeeper = Math.max(analysis.node.autoDeeper || 0, customEngineDepth);
+        const ceval = analysis.ceval;
+        if (ceval.canGoDeeper) ceval.goDeeper();
+        else if (ceval.isDeeper) ceval.isDeeper(true);
+      }
       lt.analysisRedraw();
     };
 
