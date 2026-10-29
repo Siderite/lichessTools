@@ -4,6 +4,14 @@ History of features added to LiChess Tools in time (reversed order)
 
 - /page URLs for Preferences and PGN Editor
 
+28 Oct
+
+- dialog revamp
+
+26 Oct
+
+- Neo Angle pieces
+
 22 Oct
 
 - brilliancy Explorer column (hidden when nothing to show)
