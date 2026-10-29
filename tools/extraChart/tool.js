@@ -1737,6 +1737,19 @@
 
     forceGenerateCharts = () => this.generateCharts(true);
 
+    // issue #1864: redraw fires on every ply / analysis.change / chat.resize / board class
+    // change, so calling generateCharts(true) on each one would be very expensive. Only
+    // recompute when the analysis orientation actually flipped; the 1 s poll still picks
+    // up any other change (mainline edits, ceval updates) at its own pace.
+    handleFlipRedraw = () => {
+      const analysis = this.lichessTools?.lichess?.analysis;
+      if (!analysis) return;
+      const orientation = analysis.getOrientation?.();
+      if (orientation == this.lastOrientation) return;
+      this.lastOrientation = orientation;
+      this.forceGenerateCharts();
+    };
+
     calculateAccuracy = (nodes, startPly, endPly) => {
       const lt = this.lichessTools;
       const startIndex = startPly ? nodes.findIndex(n=>n.ply == startPly) : 0;
@@ -2026,6 +2039,21 @@
       lt.pubsub.off('lichessTools.chapterChange', this.forceGenerateCharts);
       if (this.options.brilliant) {
         lt.pubsub.on('lichessTools.chapterChange', this.forceGenerateCharts);
+      }
+      // issue #1864: flipping the board fires lichessTools.redraw (via analysis.redraw /
+      // analysis.reloadData / the .cg-wrap orientation class check in emitRedraw). Without
+      // this hook the accuracy and brilliance lines only re-derive when the 1 s polling tick
+      // happens to force the regeneration, so the chart looks stale until up to ~1 s later.
+      // Do NOT force a regeneration on every redraw - ply / analysis.change / chat.resize
+      // fire it constantly. handleFlipRedraw below only calls forceGenerateCharts when the
+      // analysis orientation actually differs from the value we recorded last, so the extra
+      // work is bounded to one recompute per flip.
+      lt.pubsub.off('lichessTools.redraw', this.handleFlipRedraw);
+      if (this.options.needsChart) {
+        this.lastOrientation = lichess?.analysis?.getOrientation?.();
+        lt.pubsub.on('lichessTools.redraw', this.handleFlipRedraw);
+      } else {
+        this.lastOrientation = null;
       }
 
       $('main.analyse').observer()
