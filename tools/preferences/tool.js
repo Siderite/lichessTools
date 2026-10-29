@@ -1,7 +1,29 @@
 (() => {
-  class PreferencesTool extends LiChessTools.Tools.ToolBase {
+  class PreferencesTool extends LiChessTools.Tools.PageToolBase {
 
     dependencies = ['DetectThirdParties'];
+
+    // The hash of the page: '#<pref>#<filter>', both optional.
+    pageHash = /^#(?<pref>[^\/?&#]*)(#(?<filter>.*))?$/;
+    // The hash of the legacy locations: '#lichessTools[/<pref>][#<filter>]'.
+    legacyHash = /^#lichessTools(?:\/(?<pref>[^\/?&#]*))?(#(?<filter>.*))?$/;
+
+    hashFromLegacy = (hash) => {
+      const m = this.legacyHash.exec(hash);
+      if (!m) return hash;
+      const { pref, filter } = m.groups;
+      if (!pref && !filter) return '';
+      return '#' + (pref || '') + (filter ? '#' + filter : '');
+    };
+
+    pageUrl = '/page/ltPreferences';
+    pageClass = 'preferences';
+    pageCss = ['user.account'];
+    // The old ways of reaching the preferences, now redirected onto the page.
+    pageAliases = [
+      { url: '/team/all', test: this.legacyHash, convert: this.hashFromLegacy },
+      { url: '/account/preferences/display', test: this.legacyHash, convert: this.hashFromLegacy },
+    ];
 
     preferences = [
       {
@@ -119,8 +141,10 @@
       const isOptionSet = lt.isOptionSet;
       const isLoggedIn = !!lt.getUserId();
 
-      const container = $('div.page-menu__content');
-      container.empty();
+      const main = $('main.lichessTools-preferences');
+      if (!main.length) return;
+      main.empty();
+      const container = $('<div class="lichessTools-preferences">').appendTo(main);
       lt.global.document.title = trans.noarg('lichessToolsPreferences');
 
       $('body').toggleClassSafe('lichessTools-page',true);
@@ -324,8 +348,7 @@
       let saved = $('p.saved', container);
       saved = saved.length ? saved.clone() : $('<p class="saved text none">').attr('data-icon',lt.icon.Checkmark).text(trans.noarg('preferencesSaved'));
       container
-        .append(html)
-        .addClass('lichessTools-preferences');
+        .append(html);
 
       $('.prefFilter').each((i,e)=>e.focus());
 
@@ -659,7 +682,7 @@
       const lt = this.lichessTools;
       const trans = lt.translator;
       const $ = lt.$;
-      $('div.page-menu__content section[data-pref]').each((i, e) => {
+      $('main.lichessTools-preferences section[data-pref]').each((i, e) => {
         const pref = $(e).attr('data-pref');
         $('<a>')
           .addClass('lichessTools-infoIcon')
@@ -682,7 +705,7 @@
         const isLoggedIn = !!lt.getUserId();
         const elem = $('<a class="text lichessTools-preferences">')
           .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
-          .attr('href', '/team/all#lichessTools')
+          .attr('href', this.pageUrl)
           .attr('title', trans.noarg('lichessToolsPreferences'))
           .append($('<span>').text(trans.noarg('lichessTools')))
           .append($.createToggle('toggleLiChessTools','',trans.noarg('toggleLiChessToolsTitle'),true)
@@ -736,50 +759,43 @@
 
       this.checkGlobalSwitch();
 
-      const isTeams = lt.location.isAllTeamsListPage()
       lt.global.clearInterval(this.interval);
-      this.interval = lt.global.setInterval(this.addPreferencesMenu,500);
+      this.interval = lt.global.setInterval(this.addPreferencesMenu, 500);
 
-      if (!isTeams || $('a.lichessTools-menu').length) return;
-      const openPreferences = this.openPreferences;
+      if (this.redirectPageAliases()) return;
+      if (!this.isPage()) return;
 
-      let $this = this;
-      const f = function () {
-        if (lt.location.hash?.startsWith('#lichessTools')) {
-          lt.loadCss('user.account');
-          openPreferences();
-          const fc = () => {
-            const m = /#lichessTools(\/(?<pref>[^\/\?&#]*))?(#(?<filter>.+))?$/.exec(lt.location.hash);
-            const pref = m?.groups?.pref;
-            const filter = m?.groups?.filter;
-            if (filter) {
-              const elem = $('input.prefFilter');
-              if (elem.val() != filter) {
-                elem.val(filter);
-                elem.trigger('input');
-              }
-            }
-            if (pref && pref != $this._lastScrolled) {
-              const elem = $('[data-pref="' + pref + '"]');
-              if (!elem.length) {
-                lt.global.setTimeout(fc, 500);
-                return;
-              }
-              elem.parents().add(elem).show();
-              elem[0]?.scrollIntoView();
-              $this._lastScrolled = pref;
-            }
-          };
-          fc();
-        } else {
-          if ($('.lichessTools-preferences').length) {
-            lt.location.reload();
+      await this.preparePage(false);
+      this.openPreferences();
+
+      const applyHash = () => {
+        const fc = () => {
+        const m = this.pageHash.exec(lt.location.hash);
+        const pref = m?.groups?.pref;
+        const filter = m?.groups?.filter;
+        if (filter) {
+          const elem = $('input.prefFilter');
+          if (elem.val() != filter) {
+            elem.val(filter);
+            elem.trigger('input');
           }
         }
+        if (pref && pref != this._lastScrolled) {
+          const elem = $('[data-pref="' + pref + '"]');
+          if (!elem.length) {
+            lt.global.setTimeout(fc, 500);
+            return;
+          }
+          elem.parents().add(elem).show();
+          elem[0]?.scrollIntoView();
+          this._lastScrolled = pref;
+        }
+        };
+        fc();
       };
-      $(lt.global).on('hashchange', f);
+      $(lt.global).on('hashchange', applyHash);
 
-      f();
+      applyHash();
     }
 
   }

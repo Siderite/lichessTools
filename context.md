@@ -19,6 +19,7 @@ The extension uses a layered architecture:
    - Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
    - Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
 3. **ToolBase** — Every tool extends this class with `init()` and `start()` methods. Each tool defines its own `preferences` array (name, category, type, possibleValues, defaultValue).
+   - **PageToolBase** (also in `lichessTools-toolBase.js`) — extends ToolBase for tools that own a whole page instead of an element on a Lichess page. Such a tool declares `pageClass` (the class put on the page container, which its css keys off — the tool key) and `pageUrl` (the path, independent of the class name), optional `pageAliases` (legacy urls/hashes that redirect there) and `pageCss` (Lichess stylesheets the page needs, loaded in parallel); `preparePage()` takes the 404 shell's `main` over, tags it `lichessTools-<pageClass>` and clears it, leaving a spinner that the tool's `initPageEvents()` takes away at the end of its render. Tool pages today: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`.
 
 ### Sub-systems
 
@@ -80,8 +81,8 @@ The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` 
 
 ## URL-based Features
 
+- `/page/...` — tool pages that own the whole page: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`. Old links still work: `PageToolBase.pageAliases` redirects them (`/team/all#lichessTools`, `/account/preferences/display#lichessTools`, `#pgnEditor`).
 - `#readgame` — Read games in analysis/study mode
-- `/team/all#lichessTools` — Preferences page
 - Hash-based navigation for followers page (`#followers`)
 
 ## Mobile Support

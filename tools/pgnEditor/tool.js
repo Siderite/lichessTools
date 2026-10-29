@@ -1,7 +1,14 @@
 (() => {
-  class PgnEditorTool extends LiChessTools.Tools.ToolBase {
+  class PgnEditorTool extends LiChessTools.Tools.PageToolBase {
 
-    dependencies = ['ChessOps', 'Stockfish', 'ExportPGN', 'Dialog']
+    dependencies = ['ChessOps', 'Stockfish', 'ExportPGN'];
+
+    pageUrl = '/page/pgnEditor';
+    pageClass = 'pgnEditor';
+    // The editor used to open on whatever page you were on, through a hash.
+    pageAliases = [
+      { test: /^#pgnEditor$/, convert: () => '' },
+    ];
 
     preferences = [
       {
@@ -212,11 +219,11 @@
       await lt.timeout(1);
       if (!this.history) this.history = [];
       const undo = val >= 0;
-      $('dialog.lichessTools-pgnEditor .buttons button[data-role="undo"]')
+      $('main.lichessTools-pgnEditor .buttons button[data-role="undo"]')
         .toggleClassSafe('disabled', !undo)
         .prop('disabled', !undo);
       const redo = val + 1 < this.history.length;
-      $('dialog.lichessTools-pgnEditor .buttons button[data-role="redo"]')
+      $('main.lichessTools-pgnEditor .buttons button[data-role="redo"]')
         .toggleClassSafe('disabled', !redo)
         .prop('disabled', !redo);
       lt.storage.set('LichessTools.pgnEditor.historyIndex', this.historyIndex, { session: true });
@@ -251,23 +258,14 @@
 
       $('body').toggleClassSafe('lichessTools-page',true);
 
-      this._prevTitle ||= lt.global.document.title;
       lt.global.document.title = trans.noarg('pgnEditorTitle');
 
-      $('dialog.lichessTools-pgnEditor').trigger('close').remove();
-      const dialog = await lt.dialog({
-        header: $('<h2>').text(trans.noarg('pgnEditorText')),
-        help: 'https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor',
-        noEscClose: true,
-        noDrag: true
-      });
-      const $dialog = $(dialog)
-        .addClass('lichessTools-pgnEditor')
-        .on('close',()=>{
-          lt.global.document.title = this._prevTitle;
-          $('body').toggleClassSafe('lichessTools-page',false);
-        });
-      $dialog.find('.dialog-content').append(`
+      const page = await this.preparePage();
+      if (!page) return;
+
+      page.append(`
+            <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#pgnEditor" target="_blank"></a>
+            <h2><span>${trans.noarg('pgnEditorText')}</span></h2>
             <div class="input-wrapper">
               <textarea autofocus spellcheck="false" autocomplete="false"></textarea>
               <div class="buttons">
@@ -293,12 +291,14 @@
               </div>
             </div>
 `);
-      dialog.showModal();
 
-      $dialog.find('.buttons button')
+      page.find('.buttons button')
         .wrap('<div>');
 
-      const textarea = $('textarea', dialog)
+      // A page has no engine behind it, so evaluating a line is not offered there.
+      if (!lichess?.analysis) page.find('[data-role="evaluate"]').remove();
+
+      const textarea = $('textarea', page)
         .attr('placeholder', trans.noarg('pastePGNs'))
         .on('drop', ev => {
           ev.preventDefault();
@@ -339,7 +339,7 @@
         .on('focus', ev=> {
           $('.lichessTools-mobileActive').removeClass('lichessTools-mobileActive');
         });
-      $('[data-role="merge"]', dialog)
+      $('[data-role="merge"]', page)
         .attr('title', trans.noarg('btnMergeTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -349,7 +349,7 @@
         })
         .find('span')
         .text(trans.noarg('btnMergeText'));
-      $('[data-role="normalize"]', dialog)
+      $('[data-role="normalize"]', page)
         .attr('title', trans.noarg('btnNormalizeTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -358,7 +358,7 @@
         })
         .find('span')
         .text(trans.noarg('btnNormalizeText'));
-      $('[data-role="denormalize"]', dialog)
+      $('[data-role="denormalize"]', page)
         .attr('title', trans.noarg('btnDenormalizeTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -367,7 +367,7 @@
         })
         .find('span')
         .text(trans.noarg('btnDenormalizeText'));
-      $('[data-role="split"]', dialog)
+      $('[data-role="split"]', page)
         .attr('title', trans.noarg('btnSplitTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -376,7 +376,7 @@
         })
         .find('span')
         .text(trans.noarg('btnSplitText'));
-      $('[data-role="search"]', dialog)
+      $('[data-role="search"]', page)
         .attr('title', trans.noarg('btnSearchTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -385,7 +385,7 @@
         })
         .find('span')
         .text(trans.noarg('btnSearchText'));
-      $('[data-role="keepFound"]', dialog)
+      $('[data-role="keepFound"]', page)
         .attr('title', trans.noarg('btnKeepFoundTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -394,7 +394,7 @@
         })
         .find('span')
         .text(trans.noarg('btnKeepFoundText'));
-      $('[data-role="cutStuff"]', dialog)
+      $('[data-role="cutStuff"]', page)
         .attr('title', trans.noarg('btnCutStuffTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -403,7 +403,7 @@
         })
         .find('span')
         .text(trans.noarg('btnCutStuffText'));
-      $('[data-role="count"]', dialog)
+      $('[data-role="count"]', page)
         .attr('title', trans.noarg('btnCountTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -412,7 +412,7 @@
         })
         .find('span')
         .text(trans.noarg('btnCountText'));
-      $('[data-role="evaluate"]', dialog)
+      $('[data-role="evaluate"]', page)
         .attr('title', trans.noarg('btnEvaluateTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -421,7 +421,7 @@
         })
         .find('span')
         .text(trans.noarg('btnEvaluateText'));
-      $('[data-role="command"]', dialog)
+      $('[data-role="command"]', page)
         .attr('title', trans.noarg('btnCommandTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -430,7 +430,7 @@
         })
         .find('span')
         .text(trans.noarg('btnCommandText'));
-      $('[data-role="cancel"]', dialog)
+      $('[data-role="cancel"]', page)
         .attr('title', trans.noarg('btnCancelTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -439,7 +439,7 @@
         })
         .find('span')
         .text(trans.noarg('btnCancelText'));
-      $('[data-role="copy"]', dialog)
+      $('[data-role="copy"]', page)
         .attr('title', trans.noarg('btnCopyTitle'))
         .on('click', async ev => {
           ev.preventDefault();
@@ -452,7 +452,7 @@
         })
         .find('span')
         .text(trans.noarg('btnCopyText'));
-      $('[data-role="upload"]', dialog)
+      $('[data-role="upload"]', page)
         .attr('title', trans.noarg('btnUploadTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -496,7 +496,7 @@
         })
         .find('span')
         .text(trans.noarg('btnUploadText'));
-      $('[data-role="download"]', dialog)
+      $('[data-role="download"]', page)
         .attr('title', trans.noarg('btnDownloadTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -510,7 +510,7 @@
         })
         .find('span')
         .text(trans.noarg('btnDownloadText'));
-      $('[data-role="undo"]', dialog)
+      $('[data-role="undo"]', page)
         .attr('title', trans.noarg('btnUndoTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -519,7 +519,7 @@
         })
         .find('span')
         .text(trans.noarg('btnUndoText'));
-      $('[data-role="redo"]', dialog)
+      $('[data-role="redo"]', page)
         .attr('title', trans.noarg('btnRedoTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -528,7 +528,7 @@
         })
         .find('span')
         .text(trans.noarg('btnRedoText'));
-      $('[data-role="clear"]', dialog)
+      $('[data-role="clear"]', page)
         .attr('title', trans.noarg('btnClearTitle'))
         .on('click', ev => {
           ev.preventDefault();
@@ -537,35 +537,28 @@
         })
         .find('span')
         .text(trans.noarg('btnClearText'));
-      $('button.close-button', dialog)
-        .on('click', ev => {
-          ev.preventDefault();
-          this.stopOperations();
-          $dialog.trigger('close').remove();
-          if (lt.location.hash == '#pgnEditor') {
-            lt.global.history.pushState(null, null, ' ');
-          }
-        });
-      this._label = $('dialog.lichessTools-pgnEditor .buttons label');
+      this._label = $('main.lichessTools-pgnEditor .buttons label');
       this.toggleCancel(false);
-      if (lt.location.hash != '#pgnEditor') {
-        lt.global.history.pushState(null, null, '#pgnEditor');
-      }
       if (!this.history) {
         await lt.timeout(1);
         this.loadHistory();
       }
       if (showPgnText) {
         this.addTextToHistory(showPgnText);
-      }
-      if (!lichess.analysis) {
-        lt.location.set('/analysis#pgnEditor');
-        return;
+      } else {
+        // The analysis page hands the game over to the editor through storage,
+        // because it cannot keep a copy of it while the browser changes page.
+        const handoff = lt.storage.get('LichessTools.pgnEditor.pendingPgn');
+        if (handoff) {
+          lt.storage.remove('LichessTools.pgnEditor.pendingPgn');
+          this.addTextToHistory(handoff);
+        }
       }
       const text = this.history[this.historyIndex] || '';
       $(textarea).val(text);
       this.setHistoryIndex(this.historyIndex);
       this.countPgn();
+      this.initPageEvents(page);
     };
 
     getWriter = ()=>{
@@ -761,10 +754,10 @@ https://www.chessable.com/course/${courseId}/ } *`)
     toggleCancel = (value) => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('dialog.lichessTools-pgnEditor button:not([data-role="cancel"])')
+      $('main.lichessTools-pgnEditor button:not([data-role="cancel"])')
         .toggleClassSafe('disabled', !!value)
         .prop('disabled', !!value);
-      $('dialog.lichessTools-pgnEditor button[data-role="cancel"]')
+      $('main.lichessTools-pgnEditor button[data-role="cancel"]')
         .toggleClassSafe('disabled', !value)
         .prop('disabled', !value);
     };
@@ -792,7 +785,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      const text = $('dialog.lichessTools-pgnEditor textarea').val();
+      const text = $('main.lichessTools-pgnEditor textarea').val();
       const co = await lt.chessops();
       const games = co.pgn.parsePgn(text).filter(g => g.headers.get('FEN') || g.moves?.children?.length);
       this.warnVariants(games);
@@ -2427,14 +2420,9 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
-      const dialog = $('dialog.lichessTools-pgnEditor');
-      if (lt.location.hash == '#pgnEditor') {
-        if (!dialog.length) {
-          this.showPgnEditor();
-        }
-      } else {
-        $('dialog.lichessTools-pgnEditor').trigger('close').remove();
-      }
+      if (lt.location.hash != '#pgnEditor') return;
+      if (this.isPage()) return;
+      this.gotoPage('');
     };
 
     analysisControls = () => {
@@ -2455,11 +2443,13 @@ https://www.chessable.com/course/${courseId}/ } *`)
         .attr('data-icon', lt.icon.EditorialCoronis)
         .attr('title', trans.noarg('sendToPgnEditorTitle'))
         .text(trans.noarg('sendToPgnEditorText'))
-        .attr('href', '/analysis#pgnEditor')
+        .attr('href', this.pageUrl)
         .on('click', async ev => {
           ev.preventDefault();
           const pgn = await lt.exportPgn('', { copyToClipboard: false, exportClock: true, exportEval: true, exportTags: true });
-          this.showPgnEditor(pgn);
+          // The editor lives on another page now, so the game is left behind for it to pick up.
+          lt.storage.set('LichessTools.pgnEditor.pendingPgn', pgn);
+          this.gotoPage('');
         })
         .appendTo(container);
     }
@@ -2488,10 +2478,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       }
 
       $(lt.global).off('hashchange', this.hashchange);
-      if (!value) {
-        $('dialog.lichessTools-pgnEditor').trigger('close').remove();
-        return;
-      }
+      if (!value) return;
 
       const container = $('#topnav section a[href="/analysis"]+div[role="group"]');
       if (!container.find('.lichessTools-pgnEditor').length) {
@@ -2499,17 +2486,16 @@ https://www.chessable.com/course/${courseId}/ } *`)
           .addClass('lichessTools-pgnEditor')
           .text(trans.noarg('pgnEditorText'))
           .attr('title', trans.noarg('pgnEditorTitle'))
-          .attr('href', '/analysis#pgnEditor')
+          .attr('href', this.pageUrl)
           .on('click', ev => {
             if (ev.shiftKey || ev.ctrlKey) return;
-            ev.preventDefault();
-            this.showPgnEditor();
             $('nav#topnav').trigger('mouseout');
           })
           .appendTo(container);
       }
       $(lt.global).on('hashchange', this.hashchange);
-      this.hashchange();
+      if (this.redirectPageAliases()) return;
+      if (this.isPage()) await this.showPgnEditor();
     }
 
   }

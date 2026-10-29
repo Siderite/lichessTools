@@ -1,7 +1,10 @@
 (() => {
-  class LichessLaddersTool extends LiChessTools.Tools.ToolBase {
+  class LichessLaddersTool extends LiChessTools.Tools.PageToolBase {
 
     dependencies = ['AddNotifications'];
+
+    pageUrl = '/page/lichessLadders';
+    pageClass = 'lichessLadders';
 
     preferences = [
       {
@@ -274,13 +277,10 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      if (!lt.location.isLichessLaddersSummary()) return;
+      const main = await this.preparePage();
+      if (!main) return;
 
       lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
-      const main = $('#main-wrap main')
-        .empty()
-        .attr('class','lichessTools-lichessLadders')
-        .append(lt.spinnerHtml);
 
       const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId())
         .catch(e=>lt.announce(trans.noarg('laddersError')));
@@ -447,7 +447,7 @@
           .appendTo(main);
         await displayChallenges(liveChallenges,section);
       }
-      lt.uiApi.initializeDom(main[0]);
+      this.initPageEvents(main);
     };
 
     async start() {

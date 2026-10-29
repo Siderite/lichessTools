@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **PreferencesTool** renders the LiChess Tools preferences UI on the teams "all teams" page (via the `#lichessTools` hash), manages the global enable/disable switch and the advanced-preferences toggle, and adds a preferences menu item to the dasher app. It reads every other tool's `preferences` array and renders controls (radio, checkbox, number, select, text, folder, file) grouped by category.
+The **PreferencesTool** renders the LiChess Tools preferences UI on its own page (`/page/ltPreferences`, tagged `main.lichessTools-preferences`), manages the global enable/disable switch and the advanced-preferences toggle, and adds a preferences menu item to the dasher app. It reads every other tool's `preferences` array and renders controls (radio, checkbox, number, select, text, folder, file) grouped by category.
 
 ## Dependencies
 
@@ -93,7 +93,7 @@ On change (debounced 500 ms):
 
 ## Design Notes for Future Changes
 
-- Preferences page hijacks the Teams "all teams" page DOM; hash routing is required.
+- Preferences live on their own route (`/page/ltPreferences`); the legacy `/team/all#lichessTools` and `/account/preferences/display#lichessTools` links redirect there through `pageAliases`. The hash carries `#<pref>#<filter>`; the css hook is the class `lichessTools-preferences`, which is the tool's `pageClass`, not a piece of the url.
 - CSS must remain usable without `body.lichessTools` so users can re-enable the extension when globally off.
 - `applyOptions` vs `saveOptions` distinction matters for global/advanced switches (immediate full apply).
 - "All off" does not clear hidden prefs without `offValue`; global enable flag is separate from individual feature prefs.

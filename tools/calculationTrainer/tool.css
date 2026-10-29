@@ -101,6 +101,10 @@ body.lichessTools dialog.lichessTools-calculationTrainer button.back:hover {
   color: var(--c-font-dim);
 }
 
+body.lichessTools dialog.lichessTools-calculationTrainer .isStart button.back {
+  display: none;
+}
+
 body.lichessTools dialog.lichessTools-calculationTrainer div.actions {
   display: flex;
   justify-content: space-between;

@@ -138,7 +138,7 @@
       };
       lt.uiApi.events.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
-        .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
+        .attr('href', '/page/ltPreferences#forkBehavior')
         .attr('target', '_blank')
         .attr('title', trans.noarg('options.forkBehavior'))
         .attr('data-icon', lt.icon.InfoCircle)
