@@ -2,45 +2,26 @@
 
 ## Overview
 
-**LiChess Tools** is a browser extension (Manifest V3 for Chrome/Edge and V2 for Firefox) developed by Siderite that adds dozens of functionalities to [lichess.org](https://lichess.org). It works on Chrome, Firefox, Edge, and Brave browsers. Version 2.4.226 as of the codebase.
+**LiChess Tools** is a browser extension (Manifest V3 for Chrome/Edge and V2 for Firefox) developed by Siderite that adds dozens of functionalities to [lichess.org](https://lichess.org). It works on Chrome, Firefox, Edge, and Brave browsers. Version 2.5.9 as of the codebase.
 
 The extension injects content scripts into `*://lichess.org/*`, `*://lichess.dev/*`, and `*://testy.lichess.dev/*` at `document_start` and `document_end`. It also has a service worker background for handling requests that require browser-level access (image uploads, window creation, file fetching).
 
 ## Architecture
 
-### Core Infrastructure (`scripts/`)
+### Infrastructure (`scripts/`)
 
-The extension uses a layered architecture:
+The extension is built around a single global `LiChessTools` object (`scripts/lichessTools.js`) that orchestrates everything:
 
-1. **Cash** — A custom jQuery-like DOM manipulation library (`cash.min.js`, `cash.extra.js`). All tools use `$` for DOM queries, element creation, event binding, etc.
-2. **LiChessTools** — The main singleton object (`lichessTools.js`) that orchestrates everything:
-   - Holds references to all sub-systems (Api, Comm, Cache, Storage, Chessground, Analysis, Lichess UI API)
-   - Manages current options/preferences via `lt.currentOptions`
-   - Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
-   - Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
-3. **ToolBase** — Every tool extends this class with `init()` and `start()` methods. Each tool defines its own `preferences` array (name, category, type, possibleValues, defaultValue).
-   - **PageToolBase** (also in `lichessTools-toolBase.js`) — extends ToolBase for tools that own a whole page instead of an element on a Lichess page. Such a tool declares `pageClass` (the class put on the page container, which its css keys off — the tool key) and `pageUrl` (the path, independent of the class name), optional `pageAliases` (legacy urls/hashes that redirect there) and `pageCss` (Lichess stylesheets the page needs, loaded in parallel); `preparePage()` takes the 404 shell's `main` over, tags it `lichessTools-<pageClass>` and clears it, leaving a spinner that the tool's `initPageEvents()` takes away at the end of its render. Tool pages today: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`.
+- Holds references to all sub-systems (Api, Comm, Cache, Storage, Chessground, Analysis, Lichess UI API)
+- Manages current options/preferences via `lt.currentOptions`
+- Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
+- Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
 
-### Sub-systems
+Per-file details live in the sub-summaries, not in this document:
 
-| System | File | Purpose |
-|--------|------|---------|
-| **Api** | `lichessTools-api.js` | Lichess API wrappers: blog, study, puzzle, user, game, team, streamer, evaluation (cloud-eval + chessdb), notification, flair, timeline, relation (friends/followers), tournament, chessagine, lichessladders. All functions are memoized with caching. |
-| **Comm** | `lichessTools-comm.js` | Tab-to-service-worker communication via CustomEvents (`LichessTools.send` → service worker handler → `LichessTools.receive`). Handles: getFile, fetchText, getDataUrl, getChromeUrl, deleteImage (imgur/imgbb), getHeadData, openWindow. |
-| **Comm Proxy** | `lichessTools-comm-proxy.js` | Content script listener that receives `LichessTools.send` events and forwards them to the service worker via `chrome.runtime.sendMessage`, then dispatches `LichessTools.receive`. |
-| **Cache** | `lichessTools-cache.js` | General caching system with session/local persistence, expiry tracking, semaphore for API rate limiting. `memoizeAsyncFunction()` wraps async functions with cache lookup + lock/release. |
-| **Storage** | `lichessTools-storage.js` | localStorage/sessionStorage wrapper with optional indexedDB support, JSON compression (zip/unzip), storage event listening, fire events with sri nonce. |
-| **Network** | `lichessTools-network.js` | HTTP fetch wrappers with URL templating, credential handling, status ignoring. |
-| **IndexedDbStorage** | `lichessTools-indexedDbStorage.js` | IndexedDB fallback for folder/file picker storage. |
-| **APISemaphore** | `lichessTools-apiSemaphore.js` | API rate limiting semaphore to prevent flooding lichess APIs. |
-| **MaxSizedMap** | `lichessTools-maxSizedMap.js` | Map with size limit enforcement. |
-| **Translator** | `lichessTools-translator.js` | Internationalization (en-US, ro-RO primary; Dutch, Arabic, Chinese Simplified added later). |
-| **Location** | `lichessTools-location.js` | Location (page URL) services. |
-| **Service Worker** | `service_worker.js` | Handles service-worker-level operations: OBS WebSocket integration, image upload to imgur/imgbb, file fetching from extension assets, window creation, data URL conversion. |
-
-### Tool Loading Order (`lichessTools-init.js`)
-
-Tools are loaded in a specific order that reflects dependencies. Infrastructure tools (EmitCeval, EmitRedraw, InterceptEventHandlers, FixAbortController, etc.) load first, then feature tools, then command tools, finally Preferences and KeyShortcuts.
+- [`scripts/context.md`](./scripts/context.md) — every file in `scripts/`: the Cash library, `ToolBase`/`PageToolBase`, the sub-systems (`Api`, `Comm`, `Cache`, `Storage`, `Network`, ...), the 13-file chess-metrics library, the loaders and the service worker.
+- [`data/context.md`](./data/context.md) — every dataset in `data/`, how it is shaped and which tools consume it.
+- `tools/<tool-key>/context.md` — notes for individual tools (currently `crowdin`, `showKmaps`, `wikiFen`).
 
 ## Preferences System
 
@@ -134,4 +115,4 @@ Each tool lives in `tools/<name>/tool.js` (and optionally `tool.css`). Every too
 5. Has `init()` and `async start()` methods
 6. In `start()`, reads the preference value, binds/unbinds event handlers, modifies DOM, wraps/unwrap Lichess functions
 
-Tools are loaded in `lichessTools-init.js` following dependency order.
+Tools are loaded in `lichessTools-init.js` following dependency order; the full load sequence (including the infrastructure-first, commands-last order and the four content-script blocks) is in [`scripts/context.md`](./scripts/context.md).
