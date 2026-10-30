@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+30 Oct
+
+- PGN Editor back to popup mode because of Stockfish
+
 29 Oct
 
 - /page URLs for Preferences and PGN Editor

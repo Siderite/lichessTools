@@ -2,27 +2,26 @@
 
 ## Purpose
 
-The `pgnEditor` tool (folder `tools/pgnEditor/`) provides a full page (`/page/pgnEditor`) for bulk PGN manipulation: merge, normalize/denormalize transpositions, split variations, search/filter, cut metadata or branches, evaluate end positions with Stockfish, and import/export. It is the recommended place for multi-game PGN work (repertoires, player game collections, study preparation). Category: Analysis. Default: enabled.
+The `pgnEditor` tool (folder `tools/pgnEditor/`) provides a full-screen dialog for bulk PGN manipulation: merge, normalize/denormalize transpositions, split variations, search/filter, cut metadata or branches, evaluate end positions with Stockfish, and import/export. It is the recommended place for multi-game PGN work (repertoires, player game collections, study preparation). Category: Analysis. Default: enabled.
 
 Entry points:
 - Tools menu item "PGN Editor"
-- `/page/pgnEditor` — the page itself; the legacy `#pgnEditor` hash on any page redirects there (`pageAliases`)
-- "PGN Editor" link in the Analysis action menu that exports the current analysis PGN and hands it to the page through `LichessTools.pgnEditor.pendingPgn`
+- URL hash `#pgnEditor` (opens dialog; if not on analysis/study, navigates to Analysis Board first when Evaluate is needed)
+- "PGN Editor" link in the Analysis action menu that exports the current analysis PGN into the editor
 
 ## Files
 
 | File | Role |
 |------|------|
-| `tool.js` | Class `PgnEditorTool` (extends `PageToolBase`): page render, history, all operations, search, evaluate, write-back |
-| `tool.css` | Page layout (`main.lichessTools-pgnEditor`), button column, mobile two-tap activation, help link |
+| `tool.js` | Class `PgnEditorTool`: UI dialog, history, all operations, search, evaluate, write-back |
+| `tool.css` | Full-screen dialog layout, button column, mobile two-tap activation, help link |
 
 ## Dependencies
 
 - `ChessOps` - chessops library for `parsePgn` / `makePgn`, SAN play, FEN generation (`startingPosition`, `parseSan`, `makeSanAndPlay`, `makeFen`)
 - `Stockfish` - local engine for Evaluate (end-position comments)
 - `ExportPGN` - used by the Analysis action-menu "send to PGN Editor" link
-
-The `Dialog` tool is no longer a dependency: the editor owns its page instead of a dialog.
+- `Dialog` - the `lt.dialog` factory that builds the full-screen dialog (see `tools/dialog/context.md`)
 
 Optional interaction with `ShowPawnStructureTool` for pawn-structure search keys.
 
@@ -32,15 +31,15 @@ Single boolean `pgnEditor` (category `analysis`, not advanced, default true).
 
 ## UI Structure
 
-- The tool owns the page: `preparePage()` clears the 404 shell's `main` and tags it `main.lichessTools-pgnEditor`; the css hides any other main content (`html[data-page-href*="/page/pgnEditor"] main:not(.lichessTools-pgnEditor)`)
-- Page content: an `a.help-button`, an `<h2>` title and `div.input-wrapper` (textarea + `div.buttons` column)
+- HTML `<dialog class="lichessTools-dialog lichessTools-pgnEditor">` covering the page — the element is Lichess-owned (built by `lt.dialog` → `lt.uiApi.dialog.domDialog`) and `lichessTools-pgnEditor` is added with `$(dialog).addClass(...)`
+- All the tool's markup lives inside the Lichess-owned `div.dialog-content`; `tool.css` resets that box (`padding: 0; min-width/min-height: auto; max-width/max-height: none`) so the full-screen layout escapes the base dialog sheet's `90vw/90vh` cap
 - Large textarea (autofocus, no spellcheck)
 - Vertical button column: Merge, Normalize, Denormalize, Split, Search, Result, Cut, Evaluate, Commands, Count, Cancel, Upload, Download, Copy, Undo, Redo, Clear
 - Status label under buttons (game count, progress, errors)
-- The dialog plumbing is gone: no `lt.dialog`, no `showModal`, no close button, no `history.pushState('#pgnEditor')`. Leaving the page is how the editor is closed; the document title is set while on the page and the next page restores its own.
-- The Evaluate button is removed on the page (`lichess.analysis` is absent there), because evaluation needs the analysis engine.
+- The factory call is `await lt.dialog({ header: <h2>, help, closedBy: 'none', noEscClose: true })`: Lichess's `domDialog` supplies the close button (`button.close-button`), and the factory appends the help link (`a.help-button`) into its `.close-button-anchor`; the tool's `on('close')` handler restores the previous document title and body class
+- Escape does **not** close the dialog (`noEscClose: true`) - the factory swallows Escape while the dialog is open, so Lichess's Esc-to-close handler cannot fire. Exit paths: the close button, or the Cancel button to stop a running operation
 - Mobile: first tap marks button active (expands label), second tap runs the action (`mobileFirstTap`)
-- Body gets class `lichessTools-page` while on the page; html overflow locked
+- Body gets class `lichessTools-page` while open; overflow locked on html
 
 ## History / Persistence
 
@@ -171,9 +170,9 @@ Parses games (ignores empty no-tag no-move), counts games and total SAN nodes; u
 
 ## Analysis Integration
 
-- On analysis pages, injects link in `.action-menu__tools` that exports current PGN (clock, eval, tags) via `lt.exportPgn`, stores it under `LichessTools.pgnEditor.pendingPgn` and navigates to the page.
+- On analysis pages, injects link in `.action-menu__tools` that exports current PGN (clock, eval, tags) via `lt.exportPgn` and opens the editor with that text.
 - Watches redraw / wraps action-menu toggle so the link stays present.
-- `hashchange` redirects a legacy `#pgnEditor` hash to the page; on the page it does nothing.
+- Hash change listener opens/closes dialog for `#pgnEditor`.
 
 ## Error and Edge Handling
 
