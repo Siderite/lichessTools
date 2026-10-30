@@ -1,67 +1,86 @@
-body.lichessTools input.lichessTools-editButtons {
-  text-decoration: underline;
-}
-
-body.lichessTools input.lichessTools-deleteButtons {
-  color: red;
-}
-
-body.lichessTools section.mchat div.mchat__presets span.lichessTools-deleteButton {
-  display: none;
-}
-
-body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-deleteButton {
-  display: inline;
-}
-
-body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span.lichessTools-deleteButton {
-  display: inline;
-}
-
-body.lichessTools section.mchat div.mchat__presets span.lichessTools-addButton {
-  display: none;
-}
-
-body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-addButton {
-  display: inline;
-}
-
-body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span.lichessTools-addButton.lichessTools-disabled {
-  opacity: 0.1;
-}
-
-body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:not([data-role]) {
-  border: dashed 1px gray;
-}
-
-body.lichessTools section.mchat.lichessTools-editButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red;
-}
-
-body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:not([data-role]) {
-  border: dashed 1px red;
-}
-
-body.lichessTools section.mchat.lichessTools-deleteButtons div.mchat__presets span:hover:not([data-role]) {
-  background-color: red;
-}
-
-body.lichessTools div.mchat__presets span[data-role] {
+body.lichessTools section.mchat div.mchat__presets span[data-role] {
   max-width: 30px;
   padding: 1px;
 }
 
-body.lichessTools .lichessTools-jiggle {
-  animation: lichessTools-jiggle 0.1s infinite;
-  transform: rotate(-1deg);
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .dialog-content {
+  padding: 0.5em 1em;
+  min-width: 24em;
 }
 
-@keyframes lichessTools-jiggle {
-  0% {
-    transform: rotate(-0.5deg);
-  }
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .buttons-group {
+  margin: 0.5em 0;
+  padding: 0.5em;
+}
 
-  50% {
-    transform: rotate(0.5deg);
-  }
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .buttons-group h3 {
+  margin: 0;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .group-actions {
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons button {
+  border: none;
+  border-radius: 2px;
+  padding: 2px 4px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .group-actions button {
+  margin-inline-end: 0.4em;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons button:hover {
+  background-color: #00000020;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .delete-button:hover {
+  color: var(--c-error);
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .button-row {
+  display: flex;
+  align-items: center;
+  margin: 0.2em 0;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons .button-row:hover {
+  background-color: #00000010;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons input {
+  font: inherit;
+  border: 1px solid var(--c-border);
+  border-radius: 3px;
+  padding: 2px 0.4em;
+  margin: 0;
+  background: var(--c-bg-zebra2);
+  color: var(--c-font);
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons input.label-input {
+  flex: 0 0 5em;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons input.text-input {
+  flex: 1 1 auto;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons input::placeholder {
+  color: var(--c-font-dim);
+  opacity: 1;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-customChatButtons input:focus {
+  border-color: var(--c-accent);
 }
