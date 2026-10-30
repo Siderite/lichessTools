@@ -241,6 +241,13 @@
     display: none;
   }
 
+  body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__player {
+    max-width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-inline: 0;
+  }
+
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:last-child .advice-summary__player {
     flex-direction: row-reverse;
   }
@@ -261,9 +268,9 @@
     height: 1.5rem;
     max-width: 12em;
     white-space: nowrap;
-    align-items: center;
+    align-items: left;
     justify-content: start;
-    margin-left: 1em;
+    margin-left: 0;
   }
 
   body.lichessTools.lichessTools-gameAnalysisLayout:not(.lichessTools-hideLeftSide) .advice-summary .advice-summary__side:first-child .symbol strong,
