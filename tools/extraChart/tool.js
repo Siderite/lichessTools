@@ -1728,7 +1728,9 @@
       m.acpl = lt.wrapFunction(m.acpl, {
         id: 'extraChart',
         after: ($this, res) => {
+          if (this._chart) return;
           res?.then(chart => {
+            if (chart?.canvas && $(chart.canvas).closest('dialog').length) return;
             this.setChart(chart);
           });
         }
