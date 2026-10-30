@@ -48,13 +48,13 @@
     _lagCache = new Map();
     getLag = async (username) => {
       const lt = this.lichessTools;
-      const $ = lt.$;
       let item = this._lagCache.get(username);
       if (item && Date.now() - item.time <= this.opponentLagFrequency) {
         return item.value;
       }
       const data = await lt.api.user.getUserStatus([username], { withSignal: true });
-      const lagRating = data[0]?.signal;
+      const lagRating = data?.[0]?.signal;
+      if (!lagRating && lagRating!==0) return null;
       const lag = [750, 500, 300, 150, 75][lagRating];
       item = { time: Date.now(), value: lag };
       this._lagCache.set(username, item);
@@ -77,7 +77,7 @@
         .eachAsync(async (i, e) => {
           const href = $(e).attr('href');
           if (!href) return;
-          const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
+          const hrefUserId = /\/([^\/\?]*?)$/.exec(href)?.[1]?.toLowerCase();
           if (!hrefUserId) return;
           const isPlayer = hrefUserId?.toLowerCase() == userId?.toLowerCase();
           if (!isPlayer) {
@@ -86,6 +86,7 @@
           const lag = isPlayer
             ? this._lag
             : await this.getLag(hrefUserId);
+          if (lag === null) return;
           const latency = this._latency;
           if (this.options.chart) {
             this.refreshLagChart(e, lag, latency);

@@ -152,7 +152,7 @@
           e.checkedPlayerWarning = true;
           const href = $(e).attr('href');
           if (!href) return;
-          const hrefUserId = /\/([^\/\?]*?)$/.exec(href)[1]?.toLowerCase();
+          const hrefUserId = /\/([^\/\?]*?)$/.exec(href)?.[1]?.toLowerCase();
           if (!hrefUserId) return;
           const isPlayer = hrefUserId?.toLowerCase() == userId.toLowerCase();
           if (isPlayer) return;
