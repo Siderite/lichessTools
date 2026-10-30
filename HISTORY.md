@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - PGN Editor back to popup mode because of Stockfish
 - chat buttons editor
+- FEN directed distance function
 
 29 Oct
 
