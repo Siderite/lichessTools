@@ -26,7 +26,7 @@
       return Math.min(100, Math.max(0, raw + 1));
     }
     static wdlToSharpness(w, d, l) {
-      return Math.round(Math.min(w, l) / 50 * 333 / d * Scoring.sigmoid((w + l) / 1000));
+      return Math.round(Math.min(w, l) / 50 * 333 / (d||1) * Scoring.sigmoid((w + l) / 1000));
     }
     static ramp(x, zero, full) {
       return Math.min(1, Math.max(0, (x - zero) / (full - zero)));

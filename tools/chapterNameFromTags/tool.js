@@ -33,12 +33,16 @@
     getPgn = async (studyId, chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      let pgn;
-      const study = lichess.analysis?.study;
-      if (lt.exportPgn && study && study.data.id==studyId && study.data.chapter.id==chapterId) {
-        pgn = await lt.exportPgn('');
+      let pgn = null;
+      try {
+        pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
+      } catch(e) {
+        lt.global.console.warn('Could not get Chapter PGN from API', studyId, chapterId, e);
+        const study = lichess.analysis?.study;
+        if (lt.exportPgn && study && study.data.id==studyId && study.data.chapter.id==chapterId) {
+          pgn = await lt.exportPgn('');
+        }
       }
-      pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
       return pgn;
     };
 
@@ -48,6 +52,11 @@
       const $ = lt.$;
       let pgn = await this.getPgn(studyId, chapterId);
       if (!pgn) return;
+      const co = await lt.chessops();
+      if (!co) {
+        lt.global.console.warn('Chessops could not be loaded!');
+        return;
+      }
       const trans = lt.translator;
       const event = lt.getPgnTag(pgn, 'Event');
       const white = lt.getPgnTag(pgn, 'White');
@@ -68,8 +77,6 @@
         const text = white + ' - ' + black;
         names.push(text);
       }
-      const co = await lt.chessops();
-      if (!co) return;
       const { parsePgn } = co.pgn;
       const { parseFen } = co.fen;
       const game = parsePgn(pgn)[0];

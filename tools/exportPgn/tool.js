@@ -74,7 +74,6 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
       const Math = lt.global.Math;
-      const navigator = lt.global.navigator;
       const trans = lt.translator;
 
       function fixCrazySan(san) {
@@ -155,7 +154,7 @@
           };
           groups.push(group);
         }
-        const evl = node.ceval || node.eval;
+        const evl = lt.getNodeCeval(node);
         if (options.exportEval && evl) {
           const group = {
             type: 'eval',
@@ -243,7 +242,7 @@
 
         for (let i = 1; i < node.children.length; i++) {
           const child = node.children[i];
-          child.id = node.path + child.id;
+          child.path = node.path + child.id;
           s += ` (${plyPrefix(child)}${fixCrazySan(child.san)}`;
           s += renderGlyphs(child);
           s += renderComments(child);

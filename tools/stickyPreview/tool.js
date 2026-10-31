@@ -27,26 +27,18 @@
 
     get previousOverride() {
       const lt = this.lichessTools;
-      return lt.storage.get('LichessTools.previousOverride', { raw: true }) || 'analyse';
+      return lt.storage.get('LiChessTools.previousOverride', { raw: true }) || 'analyse';
     }
 
     set previousOverride(value) {
       const lt = this.lichessTools;
-      lt.storage.set('LichessTools.previousOverride', value, { raw: true });
+      lt.storage.set('LiChessTools.previousOverride', value, { raw: true });
     }
-
-    previewHandler = () => {
-      const lt = this.lichessTools;
-      const lichess = lt.lichess;
-      const study = lichess.analysis?.study;
-      this.previousOverride = study?.vm?.gamebookOverride;
-    };
 
     keepPreviewOn = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const study = lichess.analysis?.study;
-      const $ = lt.$;
       if (!study) return;
       const override = study.vm.gamebookOverride;
       if (this.previousOverride == 'play' && override != this.previousOverride) {
@@ -55,20 +47,6 @@
           lt.analysisRedraw();
         }, 100);
       }
-    };
-
-    bindButtons = () => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const lichess = lt.lichess;
-      const study = lichess.analysis?.study;
-      if (!study) return;
-      const previewButton = $('button.preview');
-      previewButton.off('click', this.previewHandler);
-      previewButton.on('click', this.previewHandler);
-      const analysisButton = $('.feedback button.analyse');
-      analysisButton.off('click', this.previewHandler);
-      analysisButton.on('click', this.previewHandler);
     };
 
     async start() {

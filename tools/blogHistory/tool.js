@@ -77,6 +77,7 @@
     processBlogCards = ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
+      const lichess = lt.lichess;
       const trans = lt.translator;
       const cards = $('a.ublog-post-card');
       if (!cards.length) return;
@@ -91,7 +92,7 @@
           this.ensureLogs();
           let item = this._logs.get(key);
           if (item) {
-            const time = new Date(item.lastVisit).toLocaleDateString(lt.lichess?.displayLocale);
+            const time = new Date(item.lastVisit).toLocaleDateString(lichess?.displayLocale||lt.intl.lang);
             const checkmark = $('<div class="lichessTools-visited">')
               .attr('title',trans.pluralSame('visitedTitle', time))
               .attr('data-icon',lt.icon.Eye)
@@ -122,6 +123,7 @@
         .observer()
         .off('.ublog-post__like',this.processVisited);
       $('.lichessTools-visited').remove();
+      $('a.ublog-post-card').prop('_initVisit',false);
       if (this.options.showVisited) {
         const meta = $('.ublog-post__meta');
         if (meta.length) {
