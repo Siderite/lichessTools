@@ -8,6 +8,10 @@ body.lichessTools .lseeks.lichessTools-filterOpen > .create {
   display: none;
 }
 
+body.lichessTools button.lichessTools-filterToggle.gamesFiltered:before {
+  content: var(--icon-Cogs);
+}
+
 body.lichessTools .lichessTools-rangePair {
   display: flex;
   flex-direction: column;
