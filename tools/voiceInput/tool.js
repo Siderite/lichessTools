@@ -31,7 +31,7 @@
       const lt = this.lichessTools;
 
       const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
+        lt.global.SpeechRecognition || lt.global.webkitSpeechRecognition;
 
       if (!SpeechRecognition) {
         return;
@@ -60,10 +60,29 @@
     }
 
     startInput = ()=>{
-      this.transcript = null;
-      if (!this.recognition) return;
+      if (this._inputStarted) return;
+      const recognition = this.recognition || this.getSpeechRecognition();
+      if (!recognition) return;
+      recognition.lang = 'en-US';
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      recognition.onresult = (ev)=>{
+        let transcript = '';
+        for (let i = ev.resultIndex; i < ev.results.length; i++) {
+          transcript += ev.results[i][0].transcript;
+          this.emit({ name: 'input', text: transcript });
+        }
+      };
+      recognition.onerror = (ev)=>{
+        this.emit({ name:'error',error: ev.error,message: ev.message });
+      };
+      recognition.onend = ()=>{
+        this._inputStarted = false;
+        this.recognition = null;
+      };
+      this.recognition = recognition;
       this._inputStarted = true;
-      this.recognition.start();
+      recognition.start();
     };
 
     endInput = ()=>{
@@ -113,6 +132,7 @@
       let button = container.find('.lichessTools-voiceInput');
       if (button.length) return;
 
+      this.off('error');
       this.on('error',()=>{
         button.toggleClassSafe('lichessTools-error',true);
         lt.global.clearTimeout(this.errorTimeout);
@@ -121,6 +141,7 @@
         },2000);
       });
 
+      this.off('input');
       this.on('input',ev=>{
         const text = ev.text;
         if (text?.length) {
@@ -154,30 +175,6 @@
         .off('.study__comments',this.setupStudyComments);
 
       if (this.options.isSet) {
-        if (!this.recognition) {
-          const recognition = this.getSpeechRecognition();
-          if (recognition) {
-            recognition.lang = "en-US";
-            recognition.continuous = true;
-            recognition.interimResults = false;
-
-            recognition.onresult = (ev)=>{
-              let transcript = "";
-
-              for (let i = ev.resultIndex; i < ev.results.length; i++) {
-                transcript += ev.results[i][0].transcript;
-              }
-
-              this.transcript = transcript;
-              this.emit({ name: 'input',text: transcript });
-            };
-
-            recognition.onerror = (ev)=>{
-              this.emit({ name: 'error',error: ev.error,message: ev.message });
-            };
-            this.recognition = recognition;
-          }
-        }
         if (this.recognition && this.options.studyComments) {
           $('body').observer()
             .on('.study__comments',this.setupStudyComments);

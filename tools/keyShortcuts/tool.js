@@ -148,7 +148,7 @@
     freezeBoard = () => {
       const lt = this.lichessTools;
       if (this.makeMoveMode != 'general' || lt.isBindingDisabled?.(['`','!then','f'])) {
-        this.oldHandlers['f']();
+        this.oldHandlers['f']?.();
         return;
       }
       this.clearMoveMode();
@@ -159,6 +159,7 @@
       }
       this.renderFreeze();
     };
+
     renderFreeze = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -182,8 +183,7 @@
         if (lt.tools.ExplorerPracticeTool.isRunning && !lt.isBindingDisabled?.(['h'])) {
           $('.lichessTools-hideExplorerMovesButton').trigger('click');
         } else {
-          const f = this.oldHandlers['h'];
-          if (f) f();
+          this.oldHandlers['h']?.();
         }
         return;
       }
@@ -288,8 +288,7 @@
         lt.bindKeyHandler('i', () => lt.jumpToGlyphSymbols('?!'));
         lt.bindKeyHandler('m', () => {
           if (analysis?.retro || lt.isBindingDisabled?.(['m']) || analysis?.keyboardMove) {
-            const oldHandler = this.oldHandlers.m;
-            if (oldHandler) oldHandler();
+            this.oldHandlers['m']?.();
             return;
           }
           lt.jumpToGlyphSymbols('?');
@@ -342,13 +341,9 @@
         lt.bindKeyHandler('shift+t', this.switchExplorerTabs);
       } else {
         if (this.oldHandlers) {
-          lt.bindKeyHandler('i', this.oldHandlers['i'], true);
-          lt.bindKeyHandler('m', this.oldHandlers['m'], true);
-          lt.bindKeyHandler('b', this.oldHandlers['b'], true);
-          lt.bindKeyHandler('f', this.oldHandlers['f'], true);
-          lt.bindKeyHandler('r', this.oldHandlers['r'], true);
-          for (let i = 1; i <= 9; i++) {
-            const combo = i.toString();
+          const toRestore = ['i','m','b','f','r'];
+          for (let i = 1; i <= 9; i++) toRestore.push(String(i));
+          for (combo of toRestore) {
             if (this.oldHandlers[combo]) lt.bindKeyHandler(combo, this.oldHandlers[combo], true);
           }
         }
@@ -380,13 +375,6 @@
       analysis.userJumpIfCan(nodes[index]);
       lt.analysisRedraw();
     };
-
-    handleEditorAction = (index) => {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      const container = $('div.board-editor__tools .actions');
-      container.children().eq(index).trigger('click');
-    }
 
     search = ()=>{
       const lt = this.lichessTools;
@@ -437,11 +425,14 @@
           canvas.toBlob(resolve, 'image/png');
         });
 
-        await lt.global.navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blob })
-        ]);
-
-        lt.announce(trans.noarg('ImageCopiedToClipboard'),undefined,undefined,'.lichessTools-boardImage');
+        try {
+          await lt.global.navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          lt.announce(trans.noarg('ImageCopiedToClipboard'),undefined,undefined,'.lichessTools-boardImage');
+        } catch(e) {
+          lt.announce(trans.noarg('clipboardDenied'));
+        }
         return;
       }
 
@@ -449,9 +440,13 @@
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
       if (!fen) return;
 
-      event.clipboardData.setData('text/plain', fen);
       event.preventDefault();
-      lt.announce(trans.noarg('FENCopiedToClipboard'));
+      try {
+        event.clipboardData.setData('text/plain', fen);
+        lt.announce(trans.noarg('FENCopiedToClipboard'));
+      } catch(e) {
+        lt.announce(trans.noarg('clipboardDenied'));
+      }
     };
 
     canCopy = ()=>{
@@ -468,16 +463,12 @@
         lt.unbindKeyHandler(combo);
         lt.unbindKeyHandler('shift+' + combo);
       }
-      lt.unbindKeyHandler('c');
-      lt.unbindKeyHandler('p');
       if (this.options.enabled) {
         for (let i = 1; i <= 8; i++) {
           const combo = i.toString();
           lt.bindKeyHandler(combo, () => this.handleEditorDigit(i, true));
           lt.bindKeyHandler('shift+' + combo, () => this.handleEditorDigit(i, false));
         }
-        lt.bindKeyHandler('p', () => this.handleEditorAction(0));
-        lt.bindKeyHandler('c', () => this.handleEditorAction(1));
       }
     }
 
@@ -502,7 +493,9 @@
       const handler = lt.getKeyHandler('h');
       if (!handler) {
         // Lichess loads the hamburger handler with a delay
-        lt.global.setTimeout(this.bindHKeyForGeneral,100);
+        if (++this.hRetries < 20) {
+          lt.global.setTimeout(this.bindHKeyForGeneral,100);
+        }
         return;
       }
       if (!this.oldHandlers['h']) {

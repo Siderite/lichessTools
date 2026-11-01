@@ -79,79 +79,79 @@
               }
             }
           }
-          if (!this._siteI18n) {
+          if (this._siteI18nLang !== this.lang) {
             this._siteI18n = { ...this[this.defaultLanguage], ...this[this.lang], ...this[this.lang+'-crowdin'] };
+            this._siteI18nLang = this.lang;
           }
           return this._siteI18n;
         }
       };
     }
 
-      format(str, args) {
-        if (args?.length) {
-          if (str.includes('%s')) {
-            str = str.replace('%s', args[0]);
-          } else {
-            for (let i = 0; i < args.length; i++) {
-              str = str.replace('%' + (i + 1) + '$s', args[i]);
-            }
-          }
+    format(str, args) {
+      if (!args?.length) return str;
+      return str.replace(/%(?:(\d+)\$)?s/g, (m, n) => {
+        const i = n ? +n - 1 : 0;
+        return i < args.length ? args[i] : m;
+      });
+    }
+
+    find(key) {
+      const lt = this.lichessTools;
+      const dict = lt.intl.siteI18n;
+      const result = dict[key];
+      if (result) return result;
+      const i18n = lt.global?.i18n || {};
+      const section = Object.values(i18n).find(v=>typeof v[key] === 'string');
+      if (section) return section[key];
+    }
+
+    noarg(key) {
+      const lt = this.lichessTools;
+      const result = this.find(key);
+      if (result!==undefined) return result;
+      if (!['soundVoice.'].find(v=>key.startsWith(v))) { // dynamic values
+        lt.global.console.warn('Translation not found for key ',key);
+      }
+      return key;
+    }
+
+    plural(key, count, ...args) {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const quantity = (o) => 1 == o ? 'one' : 'other';
+      const dict = lt.intl.siteI18n;
+      const str =
+        this.find(`${key}:${quantity(count)}`) || this.find(`${key}:other`) || this.find(key) || this.find(`${key}:one`);
+      const result = str ? this.format(str, args) : null;
+      if (result!==undefined) return result;
+      lt.global.console.warn('Plural translation not found for key ',key);
+      return key;
+    }
+
+    pluralSame(key, count, ...args) {
+      return this.plural(key, count, count, ...args);
+    }
+
+    vdom(key, ...args) {
+      const str = this.noarg(key);
+      return str ? this.list(str,args) : [key];
+    }
+
+    list(str, args) {
+      const segments = str.split(/(%(?:\d\$)?s)/g);
+      if (!args?.length) return segments;
+      const singlePlaceholder = segments.indexOf('%s');
+      if (singlePlaceholder !== -1) {
+        segments[singlePlaceholder] = args[0];
+      } else {
+        for (let i = 0; i < args.length; i++) {
+          const placeholder = segments.indexOf('%' + (i + 1) + '$s');
+          if (placeholder !== -1) segments[placeholder] = args[i];
         }
-        return str;
       }
-
-      noarg(key) {
-        const lt = this.lichessTools;
-        const dict = lt.intl.siteI18n;
-        const result = dict[key];
-        if (result) return result;
-        const i18n = lt.global?.i18n || {};
-        const section = Object.values(i18n).find(v=>typeof v[key] === 'string');
-        if (section) return section[key];
-        if (!['soundVoice.'].find(v=>key.startsWith(v))) { // dynamic values
-          lt.global.console.warn('Translation not found for key ',key);
-        }
-        return key;
-      }
-
-      plural(key, count, ...args) {
-        const lt = this.lichessTools;
-        const lichess = lt.lichess;
-        const quantity = (o) => 1 == o ? "one" : "other";
-        const dict = lt.intl.siteI18n;
-        const str =
-          dict[`${key}:${quantity(count)}`] || dict[`${key}:other`] || dict[key] || dict[`${key}:one`]
-          || this.format(`${key}:${quantity(count)}`) || this.format(`${key}:other`) || this.format(key) || this.format(`${key}:one`);
-        const result = str ? this.format(str, args) : null;
-        if (result) return result;
-        lt.global.console.debug('Plural not found for key ',key);
-        return key;
-      }
-
-      pluralSame(key, count, ...args) {
-        return this.plural(key, count, count, ...args);
-      }
-
-      vdom(key, ...args) {
-        const str = this.noarg(key);
-        return str ? this.list(str,args) : [key];
-      }
-
-      list(str, args) {
-        const segments = str.split(/(%(?:\d\$)?s)/g);
-        if (!args?.length) return segments;
-        const singlePlaceholder = segments.indexOf('%s');
-        if (singlePlaceholder !== -1) {
-          segments[singlePlaceholder] = args[0];
-        } else {
-          for (let i = 0; i < args.length; i++) {
-            const placeholder = segments.indexOf('%' + (i + 1) + '$s');
-            if (placeholder !== -1) segments[placeholder] = args[i];
-          }
-        }
-        return segments;
-      }
-
+      return segments;
+    }
   }
 
   LiChessTools.Translator = Translator;

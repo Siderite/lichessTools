@@ -68,8 +68,9 @@
       transpositions = transpositions.filter(n => n != currNode);
       const noDuplicates = lt.transpositionBehavior?.groupSameMove;
       const transpoData = transpositions.map(n => n.uci).join(',') + (noDuplicates ? 'ND' : 'D');
-      if (fork[0]?.dataset?.transpositions == transpoData) return;
-      fork.data('transpositions', transpoData);
+      const transpoJson = lt.global.JSON.stringify(transpoData);
+      if (fork.data('transpositions')==transpoJson) return;
+      fork.data('transpositions', transpoJson);
       fork.empty();
 
       const addForkMove = (targetElem, path, child, isNextMove) => {

@@ -182,6 +182,9 @@
           }
         }
         clearValues = false;
+      } catch (err) {
+        lt.global.console.debug('pieceValueCommand', err);
+        this.stopRequested = true;
       } finally {
         $('.cg-wrap .spinner').remove();
         if (clearValues) {
@@ -271,6 +274,8 @@
         });
       } else {
         lt.unregisterCommand && lt.unregisterCommand('pieceValueCommand');
+        this.stopRequested = true;
+        this.clearValues();
       }
     }
   }

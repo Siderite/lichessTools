@@ -1442,8 +1442,10 @@
       };
 
       text = (text||'').replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      const withColors = options.pieceColors !== false;
       for (const ch in unicode) {
-        text = text.replaceAll(ch, unicode[ch]+', ');
+        const uname = withColors ? unicode[ch] : unicode[ch].replace(/^(white|black) /,'');
+        text = text.replaceAll(ch, uname+', ');
       }
       if (options?.stripEmoji) {
         text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
@@ -1458,10 +1460,13 @@
                         .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
         return host+' URL ';
       });
+      if (options.dotDecimalWord) text = text.replaceAll(/\b(\d+)\.(\d+)/g,'$1point$2');
+      if (options.periodsToCommas) text = text.replaceAll(/[\r\n.]+/g,',');
       text = text.replaceAll(/#(?<black>-)?(?<moves>\d+)/gi,(...args)=>{
         const m = args.at(-1);
         return 'mate in '+m.moves+' for '+(m.black?'black':'white');
       });
+      let firstMovePlaced = false;
       text = text.replaceAll(regChessMove,(...arr)=>{
         const result = [];
         const g = arr.at(-1);
@@ -1472,12 +1477,12 @@
           if ([...g.number.matchAll(/\./g)].length==3) result.push(', black moves');
         }
         if (g.move) {
-          const sanWords = g.move
+          let sanWords = g.move
             .split('')
             .map(c => {
               if (c === 'x') return 'takes';
               if (c === '+') return 'check';
-              if (c === '#') return 'checkmate';
+              if (c === '#') return options?.briefMateWord?'mate':'checkmate';
               if (c === '=') return 'promotes to';
               if (c === '@') return 'at';
               if (c === '0') return 'O';
@@ -1486,7 +1491,8 @@
               if (code > 96 && code < 105) return c.toUpperCase(); // a-h
               return pieces[c.toLowerCase()] ?? c;
             })
-            .join(' ')
+            .join(' ');
+          if (options?.fileAid) sanWords = sanWords.replace(/A (?=\d)/g,'A-').replace(/A (?=[A-H] \d)/g,'A-');
           result.push(sanWords);
         }
         if (g.glyph) {
@@ -1494,40 +1500,45 @@
           if (ann) result.push(', '+ann);
         }
         return result.join(' ')
-            .replace('O - O - O', 'long castle')
-            .replace('O - O', 'short castle')
+            .replace('O - O - O', options?.castlePhrase!==false?'long castle':'castles long')
+            .replace('O - O', options?.castlePhrase!==false?'short castle':'castles')
             .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
             .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
             .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
             .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
             .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
             .replace(/(\d) H (\d)/, '$1H$2')
-            +', ';
+            + (options?.glyphsAfterMove && !firstMovePlaced ? (firstMovePlaced = true, ', \u0001') : ', ');
       });
       if (options.readAnnotations && (options.glyphs?.length || options.isCheck || options.isMate)) {
         const additional = (options.glyphs || [])
           .map(g=>{
             let name = g.name;
-            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            if (name?.toLowerCase() == 'dubious move' && !options.keepDubiousMoveName) name='inaccuracy';
             return name || annotations[g.symbol]
           })
           .concat([
             options.isCheck?'check':'',
-            options.isMate?'checkmate':''
+            options.isMate?(options?.briefMateWord?'mate':'checkmate'):''
           ])
           .filter(g=>g)
+          .filter(g=>!text.toLowerCase().includes(g.toLowerCase()))
           .join(', ');
         if (!text) {
           text = additional;
-        } else {
-          if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+        } else if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+          if (options?.glyphsAfterMove && text.includes('\u0001')) {
+            text = text.replace('\u0001', additional + ', ');
+          } else if (options?.glyphsAfter) {
+            text = `${text.replace(/, $/,'')}, ${additional}`;
+          } else {
             text = `${additional}, ${text}`;
           }
         }
       }
 
       text = text.replaceAll(/lichess/gi,'lee chess');
-      return text;
+      return text.replaceAll('\u0001','');
     };
 
     play = async (path, volume) => {
