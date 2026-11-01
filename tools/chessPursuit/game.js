@@ -1052,11 +1052,12 @@
       // ---- Visibility change (pause when tab is hidden) ----
       document.addEventListener('visibilitychange', () => {
         const isActive = !document.hidden;
-        if (isActive && !this.isDocumentActive) {
+        const wasActive = this.isDocumentActive;
+        this.isDocumentActive = isActive;
+        if (isActive && !wasActive) {
           this.lastTime = Date.now();
           this.tic();
         }
-        this.isDocumentActive = isActive;
       });
     }
 

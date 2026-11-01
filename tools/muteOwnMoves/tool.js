@@ -29,9 +29,12 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       const sound = lichess?.sound;
-      if (!sound?.saySan) return;
       const value = lt.currentOptions.getValue('muteOwnMoves');
       this.logOption('Mute speech for own moves', value);
+      if (!sound?.saySan) {
+        lt.global.warn('Could not find sound.saySan');
+        return;
+      }
       sound.saySan = lt.unwrapFunction(sound.saySan, 'muteOwnMoves');
       if (!value) return;
       sound.saySan = lt.wrapFunction(sound.saySan, {

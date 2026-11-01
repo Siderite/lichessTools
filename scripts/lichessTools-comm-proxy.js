@@ -8,11 +8,26 @@ const handleLocally = async (detail) => {
       return await response.json();
     }
     case 'fetchText': {
-      const { url, retries, ...options } = detail.options || {};
+      const { url, retries: rawRetries, ...options } = detail.options || {};
+      const retries = Math.max(1, +rawRetries || 1);
       if (!url) return;
-      const response = await fetch(url,options);
-      if (!response.ok) return;
-      return { text: await response.text() };
+      let text = null;
+      let delay = 0;
+      for (let i=0; i<retries; i++) {
+        if (delay) await new Promise(resolve => this.global.setTimeout(resolve, delay));
+        delay += 500;
+        try {
+          const response = await fetch(url,options);
+          if (response?.ok) {
+            text = await response.text();
+            break;
+          }
+        } catch(e) {
+          console.warn('Error trying to fetch',url,e);
+        }
+      }
+      if (text === null) return;
+      return { text };
     }
     case 'getVersion': {
       return { version: chrome.runtime.getManifest().version };
@@ -66,7 +81,7 @@ window.addEventListener('LichessTools.send', async (ev) => {
     }
   }
   const newDetail=JSON.stringify(Array.isArray(response) ? { result: response, uid: uid } : { ...response, uid: uid });
-  const customEvent = new CustomEvent("LichessTools.receive", {
+  const customEvent = new CustomEvent('LichessTools.receive', {
     detail: newDetail,
     bubbles: true,
     cancelable: true,

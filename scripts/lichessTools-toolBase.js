@@ -75,9 +75,11 @@
     }
 
     loadPageCss = async () => {
+      if (this.__pageCssLoaded) return;
       const lt = this.lichessTools;
       // The sheets are independent, so they load at once.
       await Promise.all(this.pageCss.map((key) => lt.loadCss(key)));
+      this.__pageCssLoaded = true;
     };
 
     // Takes the page over for this tool: leaves when the url is a legacy one, loads the
@@ -94,6 +96,7 @@
       const container = $(this.pageContainer);
       if (!container.length) return null;
       container.empty().attr('class', 'lichessTools-' + this.pageClass);
+      this.pageSpinner?.remove();
       this.pageSpinner = null;
       if (spinner) {
         this.pageSpinner = $(lt.spinnerHtml);
@@ -107,7 +110,7 @@
     // spinner that preparePage left behind is taken away there too.
     initPageEvents(container) {
       const lt = this.lichessTools;
-      if (lt.uiApi?.initializeDom) lt.uiApi.initializeDom(container[0]);
+      if (container.length) lt.uiApi?.initializeDom?.(container[0]);
       this.pageSpinner?.remove();
       this.pageSpinner = null;
     }
