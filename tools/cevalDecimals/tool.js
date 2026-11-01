@@ -41,8 +41,8 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-        if (!showStaticAnalysis && !analysis?.cevalEnabled()) return;
+        const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+        if (!showMainlineAnalysis && !analysis?.cevalEnabled()) return;
         const trans = lt.translator;
         const ceval = analysis.node.ceval || analysis.node.eval;
         if (ceval) {
@@ -78,8 +78,8 @@
         const lichess = lt.lichess;
         const $ = lt.$;
         const analysis = lichess?.analysis;
-        const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-        if (!showStaticAnalysis) return;
+        const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+        if (!showMainlineAnalysis) return;
         const replacements = [];
         const traverse = (node, path) => {
           let evl = node.eval;
@@ -150,7 +150,7 @@
       analysis.settings.set = lt.wrapFunction(analysis.settings.set, {
         id: 'cevalDecimals',
         after: ($this,result,...args)=>{
-          if (args?.[0]!='showStaticAnalysis') return;
+          if (args?.[0]!='showMainlineAnalysis') return;
 
           $('.lichessTools-cevalDecimals').remove();
           this.showDecimals();

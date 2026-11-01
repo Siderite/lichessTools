@@ -167,8 +167,8 @@
       const node = analysis?.node;
       if (!node) return;
 
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      $('body').toggleClassSafe('lichessTools-compOff',!showStaticAnalysis && !analysis?.cevalEnabled());
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      $('body').toggleClassSafe('lichessTools-compOff',!showMainlineAnalysis && !analysis?.cevalEnabled());
       const chessground = lt.getChessground();
       if (!chessground) return;
       const glyphs = node.glyphs || (node.glyphs = []);

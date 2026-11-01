@@ -203,12 +203,12 @@
       const prevNode = path.length>=2 ? analysis.tree.nodeAtPath(path.slice(0,-2)) : null;
       const prev2Node = path.length>=4 ? analysis.tree.nodeAtPath(path.slice(0,-4)) : null;
       const engineDepth = this.options.engineDepth;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
       const gameData = analysis?.data?.game;
       const gameStatusId = Number(gameData?.status?.id ?? 21);
       const gameOngoing = !!gameData && gameData.id != 'synthetic' && gameStatusId <= 20;
       const hidePositionMetrics = lt.isGamePlaying() || $.cached('body').is('.playing') || gameOngoing
-        || (showStaticAnalysis === false && !analysis?.cevalEnabled());
+        || (showMainlineAnalysis === false && !analysis?.cevalEnabled());
       const allowPositionMetrics = !hidePositionMetrics;
       const signed = (v,dec)=> (v>0?'+':'') + v.toFixed(dec);
       const metric = (label,fn)=>{

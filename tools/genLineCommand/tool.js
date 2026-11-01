@@ -209,9 +209,9 @@
       const $ = lt.$;
       const analysis = lt.lichess?.analysis;
       if (!analysis) return { ok:false, reason:'context' };
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
       if ($.cached('body').is('.playing') || lt.isGamePlaying()) return { ok:false, reason:'context' };
-      if (showStaticAnalysis === false && !analysis?.cevalEnabled()) return { ok:false, reason:'context' };
+      if (showMainlineAnalysis === false && !analysis?.cevalEnabled()) return { ok:false, reason:'context' };
       if (analysis.gamebookPlay?.() || analysis.practice?.running() || analysis.study?.practice || analysis.threatMode())
         return { ok:false, reason:'context' };
       if (!analysis.explorer?.allowed || !analysis.explorer?.enabled()

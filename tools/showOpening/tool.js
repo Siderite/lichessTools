@@ -41,8 +41,8 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
         $('.lichessTools-opening').remove();
         return;
       }
@@ -298,8 +298,8 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
         $('.lichessTools-opening').remove();
         return;
       }

@@ -242,8 +242,8 @@
       const analysis = lichess.analysis;
       const $ = lt.$;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) {
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
         $('.lichessTools-kmaps').remove();
         return;
       }
