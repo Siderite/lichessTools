@@ -58,6 +58,8 @@
     }
 
     clearCrossTable = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
       $('.analyse__underboard .ctable').removeClass('lichessTools-show');
     };
 
@@ -92,13 +94,18 @@
             .text(trans.noarg('reviewTabText'));
           $('button[data-panel="move-times"]').trigger('click');
           $('button[data-panel="computer-analysis"]').trigger('click');
-          this.tracker ||= new ElementPositionTracker($('.analyse__side .game__meta__players')[0],this.handleGamePlayers);
+          const playersElem = $('.analyse__side .game__meta__players')[0];
+          if (playersElem) {
+            this.tracker ||= new ElementPositionTracker(playersElem,this.handleGamePlayers);
+          }
         }
         $('.analyse__underboard .ctable .current,.analyse__underboard .ctable .current a')
           .on('click',this.toggleCrossTable);
         body.addEventListener('pointerup',this.clearCrossTable, { capture: true });
         $('.computer-analysis form').on('submit',this.setReviewTab);
-        $('.analyse__puzzle br').replaceWith('<span>&nbsp;</span><br>');
+        if (!$('.analyse__puzzle span.lichessTools-puzzleSpacer').length) {
+          $('.analyse__puzzle br').replaceWith('<span class="lichessTools-puzzleSpacer">&nbsp;</span><br>');
+        }
         if (!$('a.lichessTools-gameAnalysisLayout-toggle').length) {
           $('<a class="lichessTools-gameAnalysisLayout-toggle">')
             .text(trans.noarg('layoutToggleButtonText'))
@@ -114,6 +121,7 @@
       } else {
         $('a.lichessTools-gameAnalysisLayout-toggle').remove();
         this.tracker?.stop();
+        this.tracker = null;
         lt.arrayRemoveAll(chat.allTabs,t=>t.key=='review');
         chat.redraw();
       }
