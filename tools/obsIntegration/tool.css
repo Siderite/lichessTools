@@ -11,7 +11,7 @@ body.lichessTools span.lichessTools-obsSetup.disabled {
   opacity: 0.5;
 }
 
-.togglePassword {
+body.lichessTools dialog.lichessTools-obsSetup .togglePassword {
   cursor: pointer;
   float: right;
   margin-right: 10px;

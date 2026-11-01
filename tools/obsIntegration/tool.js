@@ -82,7 +82,6 @@
       const $dialog = $(dialog)
         .addClass('lichessTools-obsSetup');
       $dialog.find('.dialog-content').append(`
-            <h2></h2>
             <div class="input-wrapper">
               <div class="mappings"></div>
               <div class="advanced">
@@ -202,7 +201,7 @@
       const defaults = {
         url: 'ws://127.0.0.1:4455',
         password: undefined,
-        options: undefined,
+        connectOptions: undefined,
         mappings: {
         },
         disabled: true
@@ -326,6 +325,7 @@
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const dialog = $('dialog.lichessTools-obsSetup');
       if (lt.location.hash == '#obsSetup') {
         if (!dialog.length) {

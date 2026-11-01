@@ -385,8 +385,8 @@
         markdownShortcuts: lt.isOptionSet(value, 'markdownShortcuts'),
         get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip || this.markdownShortcuts },
       };
-      if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       lt.global.clearInterval(this.interval);
+      if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       this.getImagePastingElements()
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
@@ -394,7 +394,7 @@
           e.imagePastingInit = false;
         });
       $('button.lichessTools-uploadImageButton').remove();
-      $('lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
+      $('.lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
       if (this.options.pasteImages || this.options.bigEmoji) {
         this.interval = lt.global.setInterval(this.initControls, 1000);
         this.initControls();
