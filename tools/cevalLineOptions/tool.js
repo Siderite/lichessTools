@@ -201,7 +201,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      const isExternalEngine = !!analysis?.ceval?.engines?.external;
+      const isExternalEngine = !!analysis?.ceval?.engines?.external();
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
