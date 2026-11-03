@@ -64,7 +64,7 @@
       if (!study) return;
       if (!node) node = analysis.tree.root;
       lt.assertPathSet(node);
-      if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
+      if (!chapterId) chapterId = study.chapters.editForm.editedChapterId;
       if (!chapterId) return;
       for (const comment of node.comments || []) {
         await lt.timeout(300);
@@ -88,7 +88,7 @@
       if (!study) return;
       if (!node) node = analysis.tree.root;
       if (node.path === undefined) return;
-      if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
+      if (!chapterId) chapterId = study.chapters.editForm.editedChapterId;
       if (!chapterId) return;
       for (const glyph of node.glyphs || []) {
         await lt.timeout(300);
@@ -110,7 +110,7 @@
       if (!analysis) return;
       const study = analysis.study;
       if (!study) return;
-      if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
+      if (!chapterId) chapterId = study.chapters.editForm.editedChapterId;
       if (!chapterId) return;
       for (const tag of study.data?.chapter?.tags || []) {
         await lt.timeout(300);
@@ -132,7 +132,7 @@
       if (!study) return;
       if (!node) node = analysis.tree.root;
       if (node.path === undefined) return;
-      if (!chapterId) chapterId = study.chapters.editForm.current()?.id;
+      if (!chapterId) chapterId = study.chapters.editForm.editedChapterId;
       if (!chapterId) return;
       if (node.shapes?.length) {
         await lt.timeout(300);
@@ -208,8 +208,12 @@
               oldHandler();
               break;
           }
-          study.chapters.editForm.current(null);
-          study.chapters.editForm.redraw();
+          $('dialog:has(.chapter-edit)')
+            .each((i,e)=>e.close())
+            .remove();
+          analysis.chessground.redrawAll();
+          //study.chapters.editForm.toggle(study.chapters.editForm.editedChapterId);
+          //study.chapters.editForm.redraw();
         })
         .insertAfter(button);
       button.remove();
@@ -296,12 +300,13 @@
       study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
         id: 'chapterClearArtifacts',
         after: ($this, result, data) => {
+          $this.editedChapterId = data?.id;
           const interval = lt.global.setInterval(() => {
             const currentChapterId = study.currentChapter()?.id;
             if (!currentChapterId) return;
-            const studyChapterId = study.chapters?.editForm?.current()?.id;
+            const studyChapterId = data?.id;
             if (currentChapterId !== studyChapterId) return;
-            const modal = $('div.dialog-content.edit-' + currentChapterId);
+            const modal = $('div.dialog-content.chapter-edit');
             if (!modal.length) return;
             lt.global.clearInterval(interval);
             this.setupButtons();
