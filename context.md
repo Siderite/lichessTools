@@ -62,7 +62,10 @@ The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` 
 
 ## URL-based Features
 
-- `/page/...` — tool pages that own the whole page: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`. Old links still work: `PageToolBase.pageAliases` redirects them (`/team/all#lichessTools`, `/account/preferences/display#lichessTools`, `#pgnEditor`).
+- `/page/...` — tool pages that own the whole page: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`. While such a path loads the tab
+  stays empty rather than showing "Page not found": the singleton `init()` empties the title
+  Lichess puts in, and the render states its own. Old links
+  still work: `PageToolBase.pageAliases` redirects them (`/team/all#lichessTools`, `/account/preferences/display#lichessTools`, `#pgnEditor`).
 - `#readgame` — Read games in analysis/study mode
 - Hash-based navigation for followers page (`#followers`)
 

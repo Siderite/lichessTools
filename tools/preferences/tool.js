@@ -19,6 +19,9 @@
     pageUrl = '/page/ltPreferences';
     pageClass = 'preferences';
     pageCss = ['user.account'];
+    // The tab title, held over Lichess's 404 shell by PageToolBase from init until a
+    // render owns it.
+    pageTitle = 'lichessToolsPreferences';
     // The old ways of reaching the preferences, now redirected onto the page.
     pageAliases = [
       { url: '/team/all', test: this.legacyHash, convert: this.hashFromLegacy },
@@ -145,7 +148,7 @@
       if (!main.length) return;
       main.empty();
       const container = $('<div class="lichessTools-preferences">').appendTo(main);
-      lt.global.document.title = trans.noarg('lichessToolsPreferences');
+      lt.global.document.title = this.pageTitleText();
 
       $('body').toggleClassSafe('lichessTools-page',true);
 

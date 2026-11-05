@@ -1801,6 +1801,11 @@
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
+      // The title of a tool page has to be in place before the title of Lichess's 404
+      // shell paints in the tab, so it goes in here, before the options wait for a store.
+      for (const tool of this.tools) {
+        tool?.guardPageTitle?.();
+      }
       this.currentOptions = await this.getOptions(true);
       for (const tool of this.tools) {
         if (!tool?.init) continue;

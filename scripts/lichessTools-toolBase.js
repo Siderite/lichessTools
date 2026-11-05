@@ -43,6 +43,13 @@
     // The spinner preparePage leaves in the container while the page is filled in; `initPageEvents`
     // takes it away when the tool is done.
     pageSpinner = null;
+    // The translation key of the title the tab shows for the page. Lichess answers an
+    // unknown path with a 404 shell that carries a title of its own; the tab is kept empty
+    // of it until the render states the page title.
+    pageTitle = null;
+    // The observer guardPageTitle installs while the document loads; preparePage releases
+    // it once the page has been taken over.
+    pageTitleGuard = null;
 
     // A tool page has no subpaths and no parameters, so owning one is an exact path match.
     isPage(url = this.pageUrl) {
@@ -74,6 +81,43 @@
       return false;
     }
 
+    // The title of the page in the language the page declares so far. The guard runs
+    // before the community translations are read, so the title may be the English one
+    // until the render states it again, now with every dictionary in place.
+    pageTitleText() {
+      const lt = this.lichessTools;
+      if (!this.pageTitle) return null;
+      return lt.translator?.noarg?.(this.pageTitle) || this.pageTitle;
+    }
+
+    // A path Lichess does not know answers with a 404 shell that puts its own title in the
+    // tab while the page is still parsing, long before the render states the real one. The
+    // tab is kept empty while that is going on: a title that is not the one the tool renders
+    // is emptied the moment it lands, so the tab shows the address rather than "Page not
+    // found". The title the tool renders passes through, and one that landed before this
+    // runs is emptied on the spot.
+    guardPageTitle() {
+      if (!this.pageTitle || !this.isPage()) return;
+      const global = this.lichessTools.global;
+      const document = global.document;
+      if (!document) return;
+      const keepTabEmpty = () => {
+        if (!document.title || document.title == this.pageTitleText()) return;
+        document.title = '';
+      };
+      keepTabEmpty();
+      if (!global.MutationObserver) return;
+      const observer = new global.MutationObserver(keepTabEmpty);
+      observer.observe(document.documentElement || document, {childList: true, subtree: true, characterData: true});
+      this.pageTitleGuard = observer;
+    }
+
+    // The render states the title itself, so the early guard has no reason to stay on.
+    clearPageTitleGuard() {
+      this.pageTitleGuard?.disconnect();
+      this.pageTitleGuard = null;
+    }
+
     loadPageCss = async () => {
       if (this.__pageCssLoaded) return;
       const lt = this.lichessTools;
@@ -92,6 +136,8 @@
       if (!this.pageUrl || !this.pageClass) return null;
       if (this.redirectPageAliases()) return null;
       if (!this.isPage()) return null;
+      // The shell has had its title emptied by now, and the render states the real one.
+      this.clearPageTitleGuard();
       await this.loadPageCss();
       const container = $(this.pageContainer);
       if (!container.length) return null;

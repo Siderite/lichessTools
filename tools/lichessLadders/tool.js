@@ -5,6 +5,9 @@
 
     pageUrl = '/page/lichessLadders';
     pageClass = 'lichessLadders';
+    // The tab title, held over Lichess's 404 shell by PageToolBase from init until a
+    // render owns it.
+    pageTitle = 'lichessLaddersPageTitle';
 
     preferences = [
       {
@@ -280,7 +283,7 @@
       const main = await this.preparePage();
       if (!main) return;
 
-      lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
+      lt.global.document.title = this.pageTitleText();
 
       const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId())
         .catch(e=>lt.announce(trans.noarg('laddersError')));

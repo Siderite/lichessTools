@@ -100,3 +100,6 @@ On change (debounced 500 ms):
 - Folder/file prefs store browser File System Access API handles in IndexedDB, not paths in the options JSON; backup JSON will not recreate those handles.
 - Category order array is the source of truth for display order; new categories need an entry there.
 - Deep-link scroll retries until the section exists (advanced/filter may delay visibility).
+- The tab title comes from `pageTitle = 'lichessToolsPreferences'`; the singleton `init()` keeps
+  the tab empty of Lichess's 404 title while the document loads, and `openPreferences` states the
+  title through `pageTitleText()` once the render runs (the dictionaries are in by then).
