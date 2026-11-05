@@ -232,6 +232,8 @@
 
         "tools/genLineCommand/tool.js",
 
+        "tools/recordsDbStore/tool.js",
+        "tools/recordsDbUi/tool.js",
         "tools/localDatabase/tool.js",
         "tools/puzzleIndex/tool.js",
 
@@ -280,6 +282,7 @@
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",
+        "tools/recordsDbUi/tool.css",
         "tools/feedback/tool.css",
         "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",

@@ -111,8 +111,17 @@ Each tool lives in `tools/<name>/tool.js` (and optionally `tool.css`). Every too
 1. Extends `LiChessTools.Tools.ToolBase`
 2. Defines `dependencies` array (other tools it depends on)
 3. Defines `preferences` array
-4. Defines `intl` for translations
+4. Defines `intl` for translations - key shapes: `options.<name>` labels a preference (and `options.<category>` its
+   category), `<name>.<value>` labels a preference value, and **no other key may contain a dot** - every other string
+   is flat camelCase (`studyDbMissingStudy`, `accessReadonly`), composed as `prefix + camel(word)` when built live
 5. Has `init()` and `async start()` methods
 6. In `start()`, reads the preference value, binds/unbinds event handlers, modifies DOM, wraps/unwrap Lichess functions
+7. Comments say why the code is the way it is, never where it came from: no `PR` or lila/lts paths, no
+   `sec N`/`P N.N` step numbers, no `file.ts:123` line references
+8. `tool.js` and `tool.css` ship packed and keep LF endings, while every `.md` in the repo keeps CRLF,
+   ASCII and a hard wrap at 100 columns
+9. A comment inside a method body stays one short line; narration that needs room lives at class-field
+   level above the members it introduces
+
 
 Tools are loaded in `lichessTools-init.js` following dependency order; the full load sequence (including the infrastructure-first, commands-last order and the four content-script blocks) is in [`scripts/context.md`](./scripts/context.md).

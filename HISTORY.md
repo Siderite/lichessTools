@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+05 Nov
+
+- Records DB tool and study UI
+
 30 Oct
 
 - PGN Editor back to popup mode because of Stockfish
