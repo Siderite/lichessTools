@@ -20,7 +20,7 @@
       },
       {
         name: 'recordsDbCapture',
-        category: 'filesystem',
+        category: 'general',
         type: 'single',
         possibleValues: [false, true],
         defaultValue: true,
@@ -30,12 +30,12 @@
 
     intl = {
       'en-US': {
-        'options.filesystem': 'Local files',
+        'options.general': 'General',
         'options.recordsDbHarvest': 'Records database',
         'options.recordsDbCapture': 'Automatically harvest records from opened items'
       },
       'ro-RO': {
-        'options.filesystem': 'Fi\u015fiere locale',
+        'options.general': 'General',
         'options.recordsDbHarvest': 'Baz\u0103 \u00eenregistr\u0103ri',
         'options.recordsDbCapture': 'Colecteaz\u0103 date automat din articole deschise'
       }
