@@ -567,13 +567,19 @@
   const XLINK_NS = 'http://www.w3.org/1999/xlink';
 
   // Piece ids (used in SVG defs and the checkBoard) - PGN piece names:
-  // White (enemy, checks the hero) is uppercase; Black (hero's side, blocks) is lowercase.
+  // uppercase letters are the White army, lowercase the Black one.
   const PIECE = {
     KING_W: 'K', QUEEN_W: 'Q', ROOK_W: 'R', BISHOP_W: 'B', KNIGHT_W: 'N', PAWN_W: 'P',
     KING_B: 'k', QUEEN_B: 'q', ROOK_B: 'r', BISHOP_B: 'b', KNIGHT_B: 'n', PAWN_B: 'p',
     LAND_MINE_W: 'L', LAND_MINE_B: 'l', WAR_BEAR_W: 'W', WAR_BEAR_B: 'w',
     CASTLE_W: 'C', CASTLE_B: 'c',
   };
+
+  // The side the hero drives: Black by default, swapped by @side/white. The army
+  // on the other side attacks the hero and the army on his own side blocks the
+  // way, so a White hero is chased by the lowercase pieces.
+  const DEFAULT_HERO_SIDE = 'black';
+  const HERO_SIDES = ['black', 'white'];
 
   // Other SVG ids.
   const SVG_IDS = {
@@ -884,6 +890,29 @@
     }
   }
 
+  // @side/white or @side/black: swap the king the hero drives, and with it the
+  // army that attacks and the army that blocks. It is a level-wide switch, so
+  // declare it once, before the first block.
+  class SideDirective extends Directive {
+    constructor(game) { super(game, 'side'); }
+
+    matches(head) {
+      return head === this.keyword || head.startsWith(this.keyword + ' ');
+    }
+
+    parse(ctx) {
+      const side = (
+        ctx.trigger || ctx.head.slice(this.keyword.length).trim() || DEFAULT_HERO_SIDE
+      ).trim().toLowerCase();
+      if (!HERO_SIDES.includes(side)) {
+        console.error('Unknown Chess Pursuit side: ' + side);
+        return null;
+      }
+      this.game.heroSide = side;
+      return null;
+    }
+  }
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
@@ -929,6 +958,7 @@
       this.registerDirective(new LossDirective(this));
       this.registerDirective(new CheckpointDirective(this));
       this.registerDirective(new ShowThreatDirective(this));
+      this.registerDirective(new SideDirective(this));
     }
 
     /** Register a directive. Accepts a Directive instance or a class (which is
@@ -996,6 +1026,7 @@
       this.isDocumentActive = true;
       this.removedPieces = [];
       this.lastRowIndex = null;
+      this.heroSide = DEFAULT_HERO_SIDE;
       this.player = null;
       this.playerAnimDuration = 0.05;
       this.pieceMoveDuration = 0.3;
@@ -1589,12 +1620,12 @@
 
       // Place player
       if (startCheckPointIndex === 0) {
-        this.player = this.addPieceAt(this.Piece.KING_B, 5, 4).piece;
+        this.player = this.addPieceAt(this.heroKingType(), 5, 4).piece;
         this.progress = 2; // Hide starting pawn row
       } else {
         this.progress = this.checkPoints[startCheckPointIndex];
         this.player = this.addPieceAt(
-          this.Piece.KING_B,
+          this.heroKingType(),
           this.progress,
           3
         ).piece;
@@ -2010,7 +2041,7 @@
         cell = {};
         this.checkBoard[row][col] = cell;
       }
-      if (cell.wall || (cell.piece && this.isBlackPiece(cell.piece.type))) {
+      if (cell.wall || (cell.piece && this.isHeroPiece(cell.piece.type))) {
         return;
       }
       const threateningCell = this.getThreateningCell(row, col);
@@ -2113,17 +2144,20 @@
 
     getThreateningCell(row, col) {
       let threateningCell;
-      //land mines (and white war bears) - stepping on one is death
+      // Enemy land mines (and war bears) - stepping on one is death.
       threateningCell =
-        this.getCellWithPieceAt(row, col, this.Piece.LAND_MINE_W) ||
-        this.getCellWithPieceAt(row, col, this.Piece.WAR_BEAR_W);
+        this.getCellWithPieceAt(row, col, this.enemyType(this.Piece.LAND_MINE_W)) ||
+        this.getCellWithPieceAt(row, col, this.enemyType(this.Piece.WAR_BEAR_W));
       if (threateningCell) {
         return threateningCell;
       }
-      //White pawns (enemy) - Black pawns never check
+      // Enemy pawns attack the rank in front of them, so a White pawn sits one
+      // row above the square it attacks and a Black pawn one row below.
+      const pawnRow = this.heroSide === 'black' ? row + 1 : row - 1;
+      const pawnType = this.enemyType(this.Piece.PAWN_W);
       threateningCell =
-        this.getCellWithPieceAt(row + 1, col - 1, this.Piece.PAWN_W) ||
-        this.getCellWithPieceAt(row + 1, col + 1, this.Piece.PAWN_W);
+        this.getCellWithPieceAt(pawnRow, col - 1, pawnType) ||
+        this.getCellWithPieceAt(pawnRow, col + 1, pawnType);
       if (threateningCell) {
         return threateningCell;
       }
@@ -2141,14 +2175,15 @@
       return this.findKnightThreat(row, col);
     }
 
-    /** Find a threatening white rook along any orthogonal line. */
+    /** Find a threatening rook along any orthogonal line. */
     findRookThreat(row, col) {
+      const rookType = this.enemyType(this.Piece.ROOK_W);
       let cell;
       // left
       for (let j = col - 1; j >= 0; j--) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.ROOK_W) {
+          if (cell.piece.type === rookType) {
             return cell;
           } else {
             break;
@@ -2159,7 +2194,7 @@
       for (let j = col + 1; j <= this.NUM_CELLS; j++) {
         cell = this.getCellWithPieceAt(row, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.ROOK_W) {
+          if (cell.piece.type === rookType) {
             return cell;
           } else {
             break;
@@ -2170,7 +2205,7 @@
       for (let i = row + 1; i <= row + this.NUM_CELLS; i++) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.ROOK_W) {
+          if (cell.piece.type === rookType) {
             return cell;
           } else {
             break;
@@ -2181,7 +2216,7 @@
       for (let i = row - 1; i >= row - this.NUM_CELLS; i--) {
         cell = this.getCellWithPieceAt(i, col);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.ROOK_W) {
+          if (cell.piece.type === rookType) {
             return cell;
           } else {
             break;
@@ -2191,14 +2226,15 @@
       return undefined;
     }
 
-    /** Find a threatening white bishop along any diagonal. */
+    /** Find a threatening bishop along any diagonal. */
     findBishopThreat(row, col) {
+      const bishopType = this.enemyType(this.Piece.BISHOP_W);
       let cell;
       // diag bottom-left
       for (let j = col - 1, i = row - 1; j >= 0; j--, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.BISHOP_W) {
+          if (cell.piece.type === bishopType) {
             return cell;
           } else {
             break;
@@ -2209,7 +2245,7 @@
       for (let j = col + 1, i = row - 1; j < this.NUM_CELLS; j++, i--) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.BISHOP_W) {
+          if (cell.piece.type === bishopType) {
             return cell;
           } else {
             break;
@@ -2220,7 +2256,7 @@
       for (let j = col - 1, i = row + 1; j >= 0; j--, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.BISHOP_W) {
+          if (cell.piece.type === bishopType) {
             return cell;
           } else {
             break;
@@ -2231,7 +2267,7 @@
       for (let j = col + 1, i = row + 1; j < this.NUM_CELLS; j++, i++) {
         cell = this.getCellWithPieceAt(i, j);
         if (cell && cell.piece) {
-          if (cell.piece.type === this.Piece.BISHOP_W) {
+          if (cell.piece.type === bishopType) {
             return cell;
           } else {
             break;
@@ -2241,17 +2277,18 @@
       return undefined;
     }
 
-    /** Find a threatening white knight on any L-shaped square. */
+    /** Find a threatening knight on any L-shaped square. */
     findKnightThreat(row, col) {
+      const knightType = this.enemyType(this.Piece.KNIGHT_W);
       return (
-        this.getCellWithPieceAt(row + 2, col - 1, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row - 2, col - 1, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row + 2, col + 1, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row - 2, col + 1, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row + 1, col - 2, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row - 1, col - 2, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row + 1, col + 2, this.Piece.KNIGHT_W) ||
-        this.getCellWithPieceAt(row - 1, col + 2, this.Piece.KNIGHT_W)
+        this.getCellWithPieceAt(row + 2, col - 1, knightType) ||
+        this.getCellWithPieceAt(row - 2, col - 1, knightType) ||
+        this.getCellWithPieceAt(row + 2, col + 1, knightType) ||
+        this.getCellWithPieceAt(row - 2, col + 1, knightType) ||
+        this.getCellWithPieceAt(row + 1, col - 2, knightType) ||
+        this.getCellWithPieceAt(row - 1, col - 2, knightType) ||
+        this.getCellWithPieceAt(row + 1, col + 2, knightType) ||
+        this.getCellWithPieceAt(row - 1, col + 2, knightType)
       );
     }
 
@@ -2265,17 +2302,20 @@
       }
     }
 
-    isBlackPiece(type) {
-      return (
-        type === this.Piece.KING_B ||
-        type === this.Piece.QUEEN_B ||
-        type === this.Piece.ROOK_B ||
-        type === this.Piece.BISHOP_B ||
-        type === this.Piece.KNIGHT_B ||
-        type === this.Piece.PAWN_B ||
-        type === this.Piece.WAR_BEAR_B ||
-        type === this.Piece.LAND_MINE_B
-      );
+    /** True for the pieces on the hero's own side: they block the way. */
+    isHeroPiece(type) {
+      return this.pieceScheme(type) === this.heroSide;
+    }
+
+    /** The letter of `type`'s kind on the army attacking the hero. */
+    enemyType(type) {
+      // Piece letters carry their colour: uppercase is White, lowercase Black.
+      return this.heroSide === 'white' ? type.toLowerCase() : type.toUpperCase();
+    }
+
+    /** The king the player drives for the side in effect in this level. */
+    heroKingType() {
+      return this.heroSide === 'white' ? this.Piece.KING_W : this.Piece.KING_B;
     }
 
     /** 'white' for uppercase pieces, 'black' for lowercase (includes castles). */

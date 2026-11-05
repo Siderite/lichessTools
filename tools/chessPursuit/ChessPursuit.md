@@ -2,6 +2,10 @@
 
 **You are the Black King (k).** You run up the board while the **White pieces** (uppercase letters) chase you. Reach the top — or a castle — to win!
 
+*(Want the other side? Write `@side/white` before your first board and you drive the
+**White king** instead: the lowercase pieces come after you, the uppercase ones are your
+walls. Everything else in this guide stays the same - see **§1** and **§5**.)*
+
 The whole game lives in **one file**: `ChessPursuit.dat`. Change the file, change the game.
 
 There are only **three kinds of lines**:
@@ -27,6 +31,9 @@ Every board row is exactly **8 letters**. Each letter is one square.
 **UPPERCASE = the White army (your enemies).** They attack squares. Step on an attacked square and you get captured.
 
 **lowercase = the Black army (your friends).** They block you like walls.
+
+*(Play `@side/white` and these two roles swap: uppercase becomes your walls, lowercase the
+army that comes after you - the letters keep their colours, only your side changes.)*
 
 | Letter | Piece |
 | --- | --- |
@@ -245,6 +252,7 @@ Some `@` lines are not speech — they are **commands**. They are part of the sc
 | `@show` | make the king visible again |
 | `@checkpoint` | a save point — die, and you restart here |
 | `@showThreat P` | highlight every square that piece attacks (here: all pawns) |
+| `@side/white` / `@side/black` | drive the **White** or **Black** king - write it **above your first board** (see *Playing as the White king*) |
 
 Example:
 
@@ -273,6 +281,29 @@ Give me back my queen!
 Here the king is held until the block is in view, then the view flattens, the scroll stops, and the speech plays.
 
 > The screen starts **stopped**. Use `@start` to make it chase the player.
+
+### Playing as the White king
+
+`@side/white` is not spoken by anyone - it picks the side for the **whole level**, so write it
+**once, before your first board**. `@side/black` is what you get when you write no `@side` at all.
+
+```
+@side/white
+
+........
+........
+........
+...r....
+........
+...R....
+........
+........
+```
+
+You now climb as the **White king**. The letters on the board keep their colours, only your role
+flips: the **lowercase army** (`r`) is the one hunting you, and the uppercase letters (`R`) are
+your own walls. Black pawns `p` attack the rank **above** them, so they threaten from the rank
+below - the mirror of what the white pawns did before.
 
 ---
 
@@ -391,6 +422,7 @@ What happens:
 | `@iso` / `@2d` | 3D / flat view |
 | `@stop` / `@start` | stop / start scrolling |
 | `@checkpoint` | save point |
+| `@side/white` | you drive the White king instead - write it above the first board |
 | `@showThreat R` | highlight rook threats |
 | `@win/8-rank` | win when reaching rank 8 |
 | `@loss/1-rank` | lose on rank 1 |
