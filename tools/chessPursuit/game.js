@@ -913,6 +913,96 @@
     }
   }
 
+  class ArgumentDirective extends Directive {
+    /** The "/"-separated arguments in the order written. parseDirective folds a
+     * trailing all-digit part into state, so it is put back here before either
+     * subclass reads its arguments: "@sound/move/<slots>/3" still yields three. */
+    args(ctx) {
+      const list = ctx.trigger === null ? [] : String(ctx.trigger).split('/');
+      if (ctx.state !== null) list.push(String(ctx.state));
+      return list;
+    }
+  }
+
+  // @sound/<key>/<slot values>/<copies>: declares a sound for the whole level,
+  // or replaces one of the game's own keys (check, move, capture, checkmate,
+  // win). Applied while parsing rather than as a script beat, so the sound is
+  // ready before any beat asks for it. One line builds one variant, and the
+  // last @sound for a key wins - add() clears the key first (game.js:444).
+  class SoundDirective extends ArgumentDirective {
+    constructor(game) { super(game, 'sound'); }
+
+    /** The comma-separated sfxr slot values, blank ones as 0 the way SoundParams
+     * does (game.js:194). null when a value is not a number. */
+    readSlots(text) {
+      const slots = [];
+      for (const part of String(text).split(',')) {
+        const value = part.trim();
+        if (!value) {
+          slots.push(0);
+          continue;
+        }
+        const number = Number(value);
+        if (isNaN(number)) return null;
+        slots.push(number);
+      }
+      return slots;
+    }
+
+    parse(ctx) {
+      const args = this.args(ctx);
+      const key = args.length > 0 ? args[0].trim() : '';
+      const slots = args.length > 1 ? this.readSlots(args[1]) : null;
+      if (!key || !slots) {
+        console.error('Chess Pursuit: @sound skipped - it needs a key and a ' +
+          'comma-separated list of slot values.');
+        return null;
+      }
+      if (slots.length > 24) {
+        console.error('Chess Pursuit: @sound ' + key + ' carries ' + slots.length +
+          ' values but the engine reads 24, so the extra ones were dropped.');
+        slots.length = 24;
+      }
+      let count = args.length > 2 ? parseInt(args[2], 10) : 1;
+      if (!(count >= 1)) {
+        console.error('Chess Pursuit: @sound ' + key + ' copy count is not a whole ' +
+          'number of 1 or more, so one copy was built.');
+        count = 1;
+      }
+      this.game.audio.add(key, count, [slots]);
+      return null;
+    }
+  }
+
+  // @play/<key>: plays that sound when the script reaches the line, the same
+  // kind of beat as @2d or @stop. The key is one of the game's own sounds or
+  // one @sound declares anywhere in the file.
+  class PlayDirective extends ArgumentDirective {
+    constructor(game) { super(game, 'play'); }
+
+    parse(ctx) {
+      const args = this.args(ctx);
+      return {
+        kind: 'action',
+        directive: this,
+        action: this.keyword,
+        key: args.length ? args[0].trim() : '',
+      };
+    }
+
+    play(beat) {
+      const pool = this.game.audio.sounds[beat.key];
+      if (!pool || !pool.length) {
+        console.error('Chess Pursuit: @play ' + beat.key + ' found no sound under ' +
+          'that key; declare it with @sound or name a shipped key (check, move, ' +
+          'capture, checkmate, win).');
+      } else {
+        this.game.audio.play(beat.key);
+      }
+      this.game.advanceBeat();
+    }
+  }
+
   class ChessPursuitGame {
     constructor() {
       this.projection = new Projection();
@@ -959,6 +1049,8 @@
       this.registerDirective(new CheckpointDirective(this));
       this.registerDirective(new ShowThreatDirective(this));
       this.registerDirective(new SideDirective(this));
+      this.registerDirective(new SoundDirective(this));
+      this.registerDirective(new PlayDirective(this));
     }
 
     /** Register a directive. Accepts a Directive instance or a class (which is
