@@ -447,6 +447,7 @@
           tick: 0,
           count: count,
           pool: [],
+          ms: this.soundLengthMs(params),
         });
         for (let i = 0; i < count; i++) {
           const audio = new Audio(this.generateSoundUrl(params));
@@ -455,12 +456,19 @@
       });
     }
 
+    // samples / 44100: the wav header pins that rate (see generateSoundUrl), so the
+    // length is known at build time without waiting for the audio element to load
+    soundLengthMs(settings) {
+      this.generator.params = new SoundParams(settings);
+      return this.generator.getApproxLength() * 1000 / 44100;
+    }
+
     toggleMute(value) {
       this.isMute = value === undefined ? !this.isMute : !!value;
     }
 
     play(key) {
-      if (this.isMute) return;
+      if (this.isMute) return 0;
       const sound = this.sounds[key];
       const soundData =
         sound.length > 1
@@ -468,6 +476,7 @@
           : sound[0];
       soundData.pool[soundData.tick].play();
       soundData.tick = (soundData.tick + 1) % soundData.count;
+      return soundData.ms;
     }
 
     downloadWav(key) {
@@ -974,30 +983,55 @@
     }
   }
 
-  // @play/<key>: plays that sound when the script reaches the line, the same
-  // kind of beat as @2d or @stop. The key is one of the game's own sounds or
-  // one @sound declares anywhere in the file.
+  // @play/<key> or @play/<key>,<key>[...][/wait]: plays those sounds when the script
+  // reaches the line, the same kind of beat as @2d or @stop. Keys are the game's
+  // own sounds or any one @sound declares anywhere in the file. Comma-separated
+  // keys play one after the other, each waiting for the previous one to finish.
+  // A trailing /wait also keeps the NEXT @play line behind the last cue, which
+  // makes "@play/a/wait" then "@play/b" behave as "@play/a,b".
   class PlayDirective extends ArgumentDirective {
     constructor(game) { super(game, 'play'); }
 
     parse(ctx) {
       const args = this.args(ctx);
+      const wait = args.length > 1 && String(args[1]).toLowerCase() === 'wait';
+      if (args.length > 1 && !wait) {
+        console.error('Chess Pursuit: @play ' + args[0] + ' - the argument after ' +
+          'the key must be wait, so "' + args[1] + '" was ignored.');
+      }
       return {
         kind: 'action',
         directive: this,
         action: this.keyword,
         key: args.length ? args[0].trim() : '',
+        hold: wait,
       };
     }
 
     play(beat) {
-      const pool = this.game.audio.sounds[beat.key];
-      if (!pool || !pool.length) {
-        console.error('Chess Pursuit: @play ' + beat.key + ' found no sound under ' +
-          'that key; declare it with @sound or name a shipped key (check, move, ' +
-          'capture, checkmate, win).');
-      } else {
-        this.game.audio.play(beat.key);
+      const keys = String(beat.key)
+        .split(',')
+        .map((part) => part.trim())
+        .filter((part) => part.length);
+      if (!keys.length) {
+        console.error('Chess Pursuit: @play needs a sound key.');
+        this.game.advanceBeat();
+        return;
+      }
+      const queueStart = this.game.soundQueue.length;
+      keys.forEach((key) => {
+        const pool = this.game.audio.sounds[key];
+        if (!pool || !pool.length) {
+          console.error('Chess Pursuit: @play ' + key + ' found no sound under ' +
+            'that key; declare it with @sound or name a shipped key (check, move, ' +
+            'capture, checkmate, win).');
+          return;
+        }
+        this.game.soundQueue.push({ key: key, hold: true });
+      });
+      // only the cue a line ends with holds the next line back, unless /wait says so
+      if (this.game.soundQueue.length > queueStart) {
+        this.game.soundQueue[this.game.soundQueue.length - 1].hold = beat.hold;
       }
       this.game.advanceBeat();
     }
@@ -1149,6 +1183,8 @@
       this.scriptBusy = false;
       this.scrollingStopped = true;
       this.blockWait = null;
+      this.soundQueue = [];
+      this.soundWaitUntil = 0;
       this.pendingGameOver = null;
       this.pendingGameOverText = null;
       this.boardRendered = false;
@@ -2650,6 +2686,8 @@
       this.activeBeat = -1;
       this.scriptBusy = false;
       this.blockWait = null;
+      this.soundQueue = [];
+      this.soundWaitUntil = 0;
       this.activeScript = [];
 
       // Prepare next update
@@ -2674,6 +2712,7 @@
     tic() {
       this.input.processInput();
       if (!this.gameIsOver) {
+        this.updateSoundChain(Date.now());
         if (this.scriptBusy) {
           this.updateScript();
         } else {
@@ -2711,6 +2750,17 @@
             this.restart();
           }
         }
+      }
+    }
+
+    // start queued @play sounds once the cue ahead of them has finished; the
+    // chain also drains while a dialog beat is up, so no script sound is dropped
+    updateSoundChain(now) {
+      while (this.soundQueue.length && now >= this.soundWaitUntil) {
+        const cue = this.soundQueue.shift();
+        const ms = this.audio.play(cue.key);
+        // slack for the wav decode the element does before the audio starts
+        this.soundWaitUntil = cue.hold && ms > 0 ? now + ms + 80 : 0;
       }
     }
 
