@@ -73,13 +73,3 @@ studio readout warns about the same lines the engine would skip.
 - Muted `play` returns 0, so a muted run plays the whole chain in one frame.
 - The game's own `move` / `capture` / `check` / `checkmate` / `win` calls do not join
   the chain, so they can overlap a queued cue.
-
-### Sound lab exports
-
-- `site/chessPursuit/sfxr-core.js` has `soundLine(name, count, slots)`, which prints a
-  paste-ready `@sound` line; the studio lab prints it as a `level:` readout line under
-  the `add()` line, and `site/chessPursuit/sfxr-convert.html` prints it in both paste
-  directions.
-- The lab readout also prints the sound length in ms, which is how long a
-  `/wait` holds the next cue back.
-
