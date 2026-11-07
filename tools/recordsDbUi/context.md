@@ -179,7 +179,8 @@ under the site header, which replaced the PR's fixed `400×480` rect) and `offse
 ### `StudyList` — deleted by P11, kept here as history
 The flat list model lost its user when §18.9 removed the four tabs. The tree content owns what it used to own: selection
 (`content.selected`, fed by the row click and the native `input.tree-select` checkbox), the haystack filter (`content.filters`
-and `filterChanged()`, which bumps `revision` and repaints), the paint count (the header prints shown/total, and §18.11.5
+and `filterChanged()`, which bumps `revision` and repaints), the one count label (the header prints `Items: %s`
+for the items a filter leaves, and §18.11.5
 keeps every folder “dim” rather than dropping it), and the `recordsDbMaxResults` ceiling where the engine scores
 candidates. `infiniteScroll`, the boundary observers and `disposeObservers()` are gone — the tree paints what it holds. The
 popup plumbing survives on its own: `popupPreviews` is a WeakMap keyed by the row element, `popupShown` names the
@@ -214,9 +215,12 @@ paints what it holds, so the painted count moves with the filter, never with a c
 Disclosure has two owners: a folder's caret calls `toggle()` for that row, and the actions rack's fold chip
 calls `toggleAllExpanded()` over `folderNodes()` - the same reading as the caret, so one press opens the
 whole tree while any folder is still closed and folds it once every one is open. Both are view state:
-the shape is view state the window blob carries: `freeze()` writes the open folders and the selected
-rows as `{path, key}` records, and `load()` re-adopts only the rows the blob still names by path and
-key, so a folder the tree changed shape under just stays folded.
+the shape is view state the window blob carries: `frozenView()` writes the open folders and the
+selected rows as name chains (`shapeChains`), and `restoreView()` re-adopts only the chains the
+rebuilt tree still has, so a folder the tree changed shape under just stays folded. A content that
+has not read its tree yet names no shape at all rather than an empty one, and `saveWindows` carries
+a `view` or a `scroll` a new row leaves out from the blob it replaces - so opening the window on a
+fresh page before its tree is read cannot spend the shape the page before left behind.
 Gone is proof, not absence: `.record-missing` and the header's missing count follow `meta.deadAt`, the stamp Add
 leaves after a 404 harvest, and `refreshCaches` carries a stamped study onto its chapter leaves through `goneNodes`
 so `isGone` answers both the count and the paint. A leaf the mirror never saw is uncaptured - it keeps its row
@@ -226,6 +230,27 @@ tree names stays put: `treeStudyIds()`
 hands its study ids to `SyncCtrl.setTreeIds` on every load and save, so a study you do not own keeps its capture
 (chapters, tags, chips) and its tooltip answers on the pages where you are not standing on the study, while a
 leaf that leaves the tree drops its capture with it.
+
+A cold row answers hover with one read: `hoverRead` spends `row.read` for a study row the mirror has
+never seen, capped at `recordsDbHoverReadLimit` (25) per page and spaced by `recordsDbHoverReadDelayMs`
+(300 ms), and it stays silent while `recordsDbCapture` is off. The read goes through `SyncCtrl.store`
+and `SyncCtrl.persist`, so the tooltip that follows answers that row on the next hover and on every
+page that comes after it - the cap is what keeps resting the pointer on a 496-row tree from spending
+496 requests.
+
+Painting has no page any more (§18.20, 2026-11-06): `results` is the whole `rows`, and there is no
+`visible` counter, no `hasMore`, no `hiddenCount` and no `loadMore`. A tree taller than the dialog
+only grows the `.studies` scrollbar, so opening a folder can never park rows below a fold the user
+cannot reach. The click-to-load line (`.tree-more`, its `Hidden by the filter: %s` label and the
+intl key behind it) is gone - nothing is hidden by paging any more, and what a filter hides is a
+filter's own business, still painted as a dim row (§18.11.5).
+
+The tree states its size once: one `.tree-counts` label reads `Items: %s` for the items the filter
+leaves, and its `title` spells the breakdown one kind per line (`Studies: 496`, `Chapters: 20`, ...)
+from the plural labels `recordsDbCount<Kind>`. Eight kind lines could not fit a header with eight
+kinds, and a bare count read `1501 Study`; the words now carry the plural. Harness: 515 -> 539,
+mutation-tested by putting a page back in `results` (caught) and by a filter-blind total (caught).
+
 The capture reaches the mirror *late*, never absent: `SyncCtrl.load` reads the member blob first and the
 captures blob after it, off the critical path, so a row can be painted before the study it names has a
 record. `refreshCaches` stamps `hayRevision = sync.publishRevision` and `bookmarkView` refreshes whenever

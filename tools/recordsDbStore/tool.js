@@ -837,7 +837,31 @@
     }
 
     saveWindows = async (storedTabs) => {
-      await this.write(() => this.writeBlob(this.keys.windows, storedTabs));
+      // The blob is rewritten whole, so a part the page cannot see has to come from the blob
+      // itself: `view` is the shape the user left and `scroll` is where the wheel had stopped. A
+      // row that names one of them says what it holds; a row that names neither keeps the old
+      // one rather than erasing it. That is what lets a page open the window before its tree has
+      // been read without spending the shape the page before left behind.
+      const carriedParts = ['view', 'scroll'];
+      const previous = await this.readBlob(this.keys.windows) || [];
+      const last = {};
+      for (const row of previous) {
+        const kind = row?.kind;
+        if (!kind) continue;
+        for (const part of carriedParts)
+          if (row[part] !== undefined) last[kind + ' ' + part] = row[part];
+      }
+      const rows = (storedTabs || []).map((row) => {
+        const filled = { ...row };
+        const kind = row?.kind;
+        if (!kind) return filled;
+        for (const part of carriedParts) {
+          if (filled[part] === undefined && last[kind + ' ' + part] !== undefined)
+            filled[part] = last[kind + ' ' + part];
+        }
+        return filled;
+      });
+      await this.write(() => this.writeBlob(this.keys.windows, rows));
     };
 
     async ensureSyncMeta() {
@@ -877,6 +901,10 @@
       // What the tree names, set once its content has loaded the tree - a role-less capture is
       // persisted only for those ids, and the capture blob is pruned to exactly them.
       this.treeIds = null;
+      // A capture that arrives before the tree has a name to answer waits here rather than being
+      // dropped: a record that only lives in the mirror is gone on the next page reload, and the
+      // row tooltip needs it the moment the tree loads and names that study.
+      this.pendingCaptures = new Set();
       this.frame;
       this.request;
       this.updating = false;
@@ -1056,9 +1084,14 @@
     }
 
     // The tree names the studies whose capture the local db must keep, so the blob stays exactly
-    // what the rows need. Until the tree is known, role-less captures stay mirror-only.
+    // what the rows need. Until the tree is known, a role-less capture waits in `pendingCaptures`
+    // rather than being dropped, and this call writes the waiters the tree names.
     async setTreeIds(ids) {
       this.treeIds = ids instanceof Set ? ids : new Set(ids || []);
+      // The tree now has a name for every waiting capture, so the ones it names are worth a file.
+      for (const studyId of this.pendingCaptures) this.pendingUpdates.add(studyId);
+      this.pendingCaptures.clear();
+      if (this.pendingUpdates.size) await this.integrateUpdates();
       return await this.idbStudy.pruneCaptures(this.treeIds);
     }
 
@@ -1079,7 +1112,8 @@
               memberUpdates.push({ type: 'delete', studyId });
               // The member blob stays the user's own list. A study the tree holds keeps its facts
               // in the capture blob instead - one it does not is mirror-only for that page.
-              if (this.treeIds?.has(studyId)) captureUpdates.push({ type: 'upsert', study });
+              if (this.treeIds === null) this.pendingCaptures.add(studyId);
+              else if (this.treeIds.has(studyId)) captureUpdates.push({ type: 'upsert', study });
             }
           }
           if (memberUpdates.length) await this.idbStudy.storeMemberAll(memberUpdates);

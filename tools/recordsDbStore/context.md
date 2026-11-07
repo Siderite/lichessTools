@@ -68,6 +68,17 @@ the member blob keeps its meaning (the user's own list), a study the tree filed 
 search on every page, and a leaf the mirror never saw is uncaptured rather than gone; the proof that a read
 found nothing lives on the leaf as `meta.deadAt`.
 
+The name arrives late, so a capture cannot be dropped on the spot: `start()` captures the study the
+page carries before any tree has loaded, so `treeIds` is still null and the record would sit in the
+mirror alone - it would answer that page's tooltip and be gone on the next page reload. Such a
+study waits in `pendingCaptures` instead, and `setTreeIds` moves the waiters back into `pendingUpdates`
+before it prunes, so the load that names the tree writes the captures it names.
+
+The window blob is rewritten whole, so a part a page cannot see has to come from the blob itself:
+`saveWindows` carries a `view` or a `scroll` a new row leaves out over the row of the same kind it
+replaces. A content that has not read its tree names neither, and that is what keeps a page that opens
+the window before its tree is read from spending the shape the page before left behind.
+
 ### Harvest (`RecordsHarvester`)
 - `groups()` → the five personal list groups of `StudyBits.scala`: `mine`, `member`, `public`, `private`, `likes`,
   walked in `?page=N` order at `updated` until a page yields no `div.study.paginated` card.

@@ -23,7 +23,7 @@ body.lichessTools > .lichessTools-recordsDbUi {
 }
 
 body.lichessTools dialog.lichessTools-recordsDbUi > .scrollable {
-  height: 100%;
+  height: calc(100% - 2em);
   max-height: none;
   overflow: visible;
 }
@@ -406,7 +406,7 @@ body.lichessTools .lichessTools-recordsDbUi .tree-header {
   font-size: 0.85rem;
   color: var(--c-font, #d0d0cc);
 }
-body.lichessTools .lichessTools-recordsDbUi .tree-kind {
+body.lichessTools .lichessTools-recordsDbUi .tree-counts {
   display: flex;
   gap: 0.25rem;
   align-items: baseline;
@@ -425,10 +425,6 @@ body.lichessTools .lichessTools-recordsDbUi .tree-empty {
 body.lichessTools .lichessTools-recordsDbUi .tree-note {
   font-size: 0.85rem;
   color: var(--c-font, #d0d0cc);
-}
-body.lichessTools .lichessTools-recordsDbUi .tree-more {
-  font-size: 0.8rem;
-  color: var(--c-grayish, #8a9aab);
 }
 
 /* The three chips live in the filters rack; a chip with nothing to choose stays dim */

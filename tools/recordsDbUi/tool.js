@@ -5,13 +5,34 @@
 
   // How many records the filter scores at most - the product owns this number, so it is edited
   // here rather than carried as a preference.
-  const recordsDbMaxResults = 1000;
+  const recordsDbMaxResults = 10000;
 
   // A leaf that opens something leaves this key behind for the page it lands on. It lives in
   // `sessionStorage`, so only the trip inside the same tab carries it, and only a trip younger
   // than `treeHandoffMs` is spent - see `openLeaf` and `RecordsDbCtrl.handoff`.
   const treeHandoffKey = 'LichessTools.collectionTree.openFromTree';
   const treeHandoffMs = 5000;
+  // The back button carries no mark of its own, and the study hash already means a bookmark and a
+  // ply, so it cannot spell "the window was open here". The pages that had the window open are kept
+  // as a short url trail in `sessionStorage` instead: the next page whose url is in the trail is a
+  // page the user came back to, and the window comes with it.
+  const treeReturnKey = 'LichessTools.collectionTree.cameFrom';
+  const treeReturnTrail = 3;
+  const treeReturnMs = 5 * 60 * 1000;
+  // Which page ran last: reloading the page you are on is not a way back, so the trail is only read
+  // as a return when the page that ran had a different url.
+  const treePageKey = 'LichessTools.collectionTree.page';
+  // The shape and the wheel are state only this page can see, so they are written as the tree
+  // changes - at most once every `windowStateSaveMs`, so dragging through a big tree cannot rewrite
+  // the blob on every step. A page being left without another call gets one flush from `pagehide`
+  // and `beforeunload`, the same channel `puzzleHistory` and `moveListOptions` flush on.
+  const windowStateSaveMs = 10 * 1000;
+
+  // A row the mirror has never seen spends one read on hover, so its tooltip answers from the
+  // next hover on. The reads are spaced like the harvested pages and capped per page, so resting
+  // the pointer on a 496-row tree cannot spend 496 requests.
+  const recordsDbHoverReadLimit = 25;
+  const recordsDbHoverReadDelayMs = 300;
 
   // Intl keys are flat camelCase, so a state or a kind spells its own capital.
   const camel = (word) => word.charAt(0).toUpperCase() + word.slice(1);
@@ -62,7 +83,15 @@
         'recordsDbEmptyNote': 'The tree is empty',
         'recordsDbMissingStudy': 'Study missing from the database',
         'recordsDbStudyGone': 'That study no longer exists',
-        'recordsDbHiddenCount': 'Hidden by the filter',
+        'recordsDbItemsCount': 'Items: %s',
+        'recordsDbCountStudy': 'Studies: %s',
+        'recordsDbCountChapter': 'Chapters: %s',
+        'recordsDbCountGame': 'Games: %s',
+        'recordsDbCountPosition': 'Positions: %s',
+        'recordsDbCountPuzzle': 'Puzzles: %s',
+        'recordsDbCountBlog': 'Blogs: %s',
+        'recordsDbCountBlogPost': 'Blog posts: %s',
+        'recordsDbCountForumPost': 'Forum posts: %s',
         'recordsDbPressAgain': 'Press again to drop what is selected',
         'recordsDbDeleteQuestion': 'Delete selected?',
         'recordsDbRestoreQuestion': 'Replace the tree from file?',
@@ -123,7 +152,15 @@
         'recordsDbEmptyNote': 'Arborele este gol',
         'recordsDbMissingStudy': 'Studiul lipse\u015fte din baza de date',
         'recordsDbStudyGone': 'Acest studiu nu mai exist\u0103',
-        'recordsDbHiddenCount': 'Ascunse de filtru',
+        'recordsDbItemsCount': 'Elem: %s',
+        'recordsDbCountStudy': 'Studie: %s',
+        'recordsDbCountChapter': 'Capitole: %s',
+        'recordsDbCountGame': 'Partide: %s',
+        'recordsDbCountPosition': 'Positie: %s',
+        'recordsDbCountPuzzle': 'Probleme: %s',
+        'recordsDbCountBlog': 'Bloghe: %s',
+        'recordsDbCountBlogPost': 'Post blog: %s',
+        'recordsDbCountForumPost': 'Post forum: %s',
         'recordsDbPressAgain': 'Apas\u0103 din nou pentru plasarea selec\u0163iei',
         'recordsDbDeleteQuestion': '\u015eterge cele selectate?',
         'recordsDbRestoreQuestion': '\u00cenlocuire arbore din fi\u015fier?',
@@ -183,9 +220,12 @@
         await ctrl.close();
         ctrl.removeToggle();
       }
+
       // The hand-off is spent on every page load, before anything else decides: a flag nobody
-      // spends would otherwise reopen the window on the next visit of that study.
+      // spends would otherwise reopen the window on the next visit of that study. The url trail is
+      // spent the same way, for the same reason - it is the back button's only signal.
       const arrived = ctrl ? await ctrl.handoff() : false;
+      const returned = ctrl ? await ctrl.returned() : false;
       if (value === false || !ctrl) return;
       if (!ctrl.canOpen()) {
         // The store already captured the study; only the window is short.
@@ -194,10 +234,12 @@
       }
       await ctrl.load();
       await ctrl.installToggle();
-      // A row of the tree opened this study, so the window comes with the trip - the user never
-      // hunts for the toggle on a page they reached by opening a row.
-      if (arrived) {
-        this.logOption('Opened from tree', true);
+      // A row of the tree opened this study, or the user came back to a page that had the window
+      // open on it, so the window comes with the trip - the user never hunts for the toggle on a
+      // page they reached from the tree or from the back button.
+      if (arrived || returned) {
+        if (arrived) this.logOption('Opened from tree', true);
+        if (returned) this.logOption('Came back to a page that had the window', true);
         await ctrl.open();
       }
     }
@@ -260,6 +302,13 @@
 
     async load() {}
 
+    // The tree engine is not a tool, so it has no `logOption` of its own; the page's own console
+    // line is what a live page is checked with, printed in the same colour the tools use.
+    logState(label, value) {
+      const lt = this.lichessTools;
+      lt.global?.console?.log(label + ' %c' + value, 'color:#9980FF');
+    }
+
     // The window blob asks every content for the shape a user left behind; only a tree has a
     // shape to hand over, so the base says nothing was left.
     frozenView() {
@@ -313,9 +362,10 @@
       this.hayRevision;
       // Leaves a read proved gone - the proof lives on the leaf, never on a missing record.
       this.goneNodes = new Set();
+      // Studies this page already spent a hover read on, so one gesture cannot ask twice.
+      this.hoverReads = new Set();
       this.recordCache = new Map();
       this.editing;
-      this.visible = 50;
       this.anchor;
       this.message;
       this.revision = 0;
@@ -569,17 +619,10 @@
       return visit(this.entries, []);
     }
 
+    // The whole tree paints: a tree taller than the dialog only grows its scrollbar, so opening
+    // a folder can never move rows out of reach below the fold.
     get results() {
-      return this.rows.slice(0, this.visible);
-    }
-
-    get hasMore() {
-      return this.rows.length > this.visible;
-    }
-
-    // One visible page of results, so any overflow past it is stated.
-    hiddenCount() {
-      return Math.max(0, this.rows.length - this.visible);
+      return this.rows;
     }
 
     // The header prints one line per kind present, plus `shown / total` and the filed/database
@@ -626,6 +669,40 @@
         else this.treeStudyIds(node.children || [], ids);
       }
       return ids;
+    }
+
+    // A row the mirror has never seen gets its facts on hover: one read per study per page,
+    // capped and spaced like the harvested pages, and the read is persisted, so the tooltip that
+    // follows answers on every later page as well. A row that stays uncaptured keeps its row.
+    hoverRead(node) {
+      const lt = this.lichessTools;
+      if (!lt.currentOptions.getValue('recordsDbCapture')) return false;
+      const row = this.registry[node.kind];
+      if (!row?.serviced || !row.read) return false;
+      if (this.hoverReads.has(node.id) || this.hoverReads.size >= recordsDbHoverReadLimit) return false;
+      this.hoverReads.add(node.id);
+      const harvest = async () => {
+        try {
+          if (lt.net.slowMode) await lt.timeout(1000);
+          else if (this.hoverReads.size > 1) await lt.timeout(recordsDbHoverReadDelayMs);
+          const record = await row.read(node.id, this.signal);
+          if (this.signal?.aborted) return;
+          if (record?.absent) {
+            node.meta = { ...node.meta ?? {}, deadAt: Date.now() };
+            this.refreshCaches();
+            this.onChange();
+            return;
+          }
+          if (!record) return;
+          this.sync.store(record);
+          this.sync.persist(node.id);
+        } catch (failure) {
+          // The row stays uncaptured, and a later hover is allowed to ask again.
+          this.hoverReads.delete(node.id);
+        }
+      };
+      harvest();
+      return true;
     }
 
     filedCount() {
@@ -699,15 +776,7 @@
     }
 
     filterChanged() {
-      this.visible = 50;
       this.revision++;
-      this.onChange();
-    }
-
-    async loadMore() {
-      const hidden = this.hiddenCount();
-      if (!hidden) return;
-      this.visible += Math.min(50, hidden);
       this.onChange();
     }
 
@@ -754,48 +823,67 @@
       this.onChange();
     }
 
-    // The shape the user left, written into the window blob at `freeze`: each row is its path plus
-    // its own name or id, so a tree that changed shape since the save cannot park an open folder
-    // or a selected row on a row that merely happens to hold the same slot.
-    frozenView() {
-      const expanded = [];
-      const selected = [];
-      const walk = (nodes, path) => nodes.forEach((node, index) => {
-        const at = path.concat([index]);
-        const key = this.folder(node) ? node.name : node.id;
-        if (key !== undefined && key !== '') {
-          if (this.expanded.has(node)) expanded.push({ path: at, key });
-          if (this.selected.has(node)) selected.push({ path: at, key });
-        }
-        walk(node.children || [], at);
+    // The shape the user left, written into the window blob at `freeze`: each row is the chain of
+    // names and ids that leads to it, so the next page finds the same row whatever the tree did to
+    // its order in the meantime - a drag or a rename re-sorts with the record names the previous
+    // page had never seen, and a position would land the folder on the row that took its slot. A
+    // row that names nothing falls back to its slot in its parent, so a chain always exists.
+    shapeChains(nodes) {
+      const chains = new Map();
+      const walk = (list, chain) => list.forEach((node, index) => {
+        const named = this.folder(node) ? node.name : node.id;
+        const key = named === undefined || named === '' ? 'slot' + index : named;
+        const full = chain.concat([key]);
+        chains.set(node, full);
+        walk(node.children || [], full);
       });
-      walk(this.entries, []);
+      walk(nodes, []);
+      return chains;
+    }
+
+    // Only a tree that has been read has a shape to hand over. A page that opens the window
+    // before its content is read has no opinion, so it must not answer with an empty shape -
+    // that would spend the shape the page before left in the blob.
+    frozenView() {
+      if (!this.loaded) return undefined;
+      const chains = this.shapeChains(this.entries);
+      const expanded = [...this.expanded].map((node) => chains.get(node)).filter(Boolean);
+      const selected = [...this.selected].map((node) => chains.get(node)).filter(Boolean);
+      // A row of the shape that is not in the tree any more is dropped from the write: the next page
+      // cannot name it, and a shape made only of such rows writes nothing at all. The line spells the
+      // rows that went, so a live page can see whether its own state drifted or the write did.
+      const missing = [...this.expanded, ...this.selected].filter((node) => !chains.has(node));
+      if (missing.length)
+        this.logState('Old shape rows dropped', [missing.length, this.expanded.size + this.selected.size].join('/') + ' ' + missing.map((node) => String(node?.name ?? node?.id ?? node?.kind ?? '?')).join(','));
       return { expanded, selected };
     }
 
-    // The other half of that round trip: a load walks the tree it just rebuilt and keeps only the
-    // rows the blob still names, so a stale path leaves its folder collapsed rather than opening
-    // the wrong one.
+    // The other half of the round trip: the walk names the rows the rebuilt tree has by the same
+    // chains, and only the ones the blob still carries come back - a chain the tree no longer has
+    // simply leaves that folder collapsed. The count goes to the log because a page can only be
+    // checked where it ran: a short number here says the shape is being lost in the page, not in
+    // this tool.
     restoreView(storedRows) {
       const view = (storedRows || []).find((row) => row?.kind === this.kind)?.view;
-      const usable = (list) => Array.isArray(list) ? list : [];
+      const usable = (list) => Array.isArray(list) ? list.filter((chain) => Array.isArray(chain)) : [];
       const openFolders = usable(view?.expanded);
       const keptRows = usable(view?.selected);
-      const named = (node, at, record) => {
-        const key = this.folder(node) ? node.name : node.id;
-        if (key === undefined || key === '' || record?.key !== key) return false;
-        return Array.isArray(record.path) && record.path.length === at.length &&
-          at.every((step, depth) => record.path[depth] === step);
-      };
+      const rows = (storedRows || []).filter((row) => row?.kind === this.kind);
+      // A row for this tab with no shape in it means the page that wrote it had no tree read yet,
+      // so the shape it carried was never put down - the carry in `saveWindows` is what answers
+      // for that page, and this line says when it did not.
+      if (rows.length && !view)
+        this.logState('Shape missing from the blob', [this.kind, rows.length].join(' '));
+      const chains = this.shapeChains(this.entries);
       const expanded = new Set();
       const selected = new Set();
-      const walk = (nodes, path) => nodes.forEach((node, index) => {
-        const at = path.concat([index]);
-        if (openFolders.some((record) => named(node, at, record))) expanded.add(node);
-        if (keptRows.some((record) => named(node, at, record))) selected.add(node);
-        walk(node.children || [], at);
+      chains.forEach((chain, node) => {
+        const key = chain.join(' / ');
+        if (openFolders.some((record) => record.join(' / ') === key)) expanded.add(node);
+        if (keptRows.some((record) => record.join(' / ') === key)) selected.add(node);
       });
-      walk(this.entries, []);
+      if (openFolders.length && expanded.size < openFolders.length)
+        this.logState('Tree folders lost', [openFolders.length - expanded.size, openFolders.length].join('/'));
       this.expanded = expanded;
       this.selected = selected;
     }
@@ -1818,6 +1906,10 @@
             })
             .on('mouseout', () => schedulePopupHide());
         }
+      } else if (!folder && !dead && entry.kind == 'study') {
+        // The mirror has never seen this row, so hover spends the read that gives it chapters -
+        // the tooltip answers the moment the read lands, on this row and on every later page.
+        li.on('mouseover', (ev) => content.hoverRead(entry));
       }
 
       // The row's own jump affordance sits at its right end as a link icon. Enter and double click
@@ -1876,16 +1968,20 @@
 
     const shownCounts = content.kindCounts();
     const treeTotal = content.filedCount();
+    const shownTotal = Object.values(shownCounts).reduce((sum, count) => sum + count, 0);
     const header = $('<div class="tree-header">');
-    for (const kind of content.presentKinds()) {
-      const line = $('<span class="tree-kind">').attr('data-kind', kind);
-      line.text(shownCounts[kind] + ' ' + kindLabel(kind));
-      header.append(line);
-    }
-    // The per-kind lines already say how many rows are painted, so no second tally repeats them,
-    // and the capture state is not the user's decision - the tooltip answers as soon as the
-    // mirror lands. What stays in the header is only what the tree cannot show by itself: an
-    // empty tree, a leaf a read proved gone, a restore waiting, a confirm armed.
+    // One count label for the whole tree: the total is the only number that always fits, and the
+    // per-kind breakdown waits in its title, one kind per line, so eight kinds cannot push the
+    // header open. The words carry the plural, so a big count reads `Studies: 496`.
+    const countsLine = $('<span class="tree-counts">');
+    const kindLines = content.presentKinds().map((kind) =>
+      trans.pluralSame('recordsDbCount' + camel(kind), shownCounts[kind] ?? 0));
+    countsLine.text(trans.pluralSame('recordsDbItemsCount', shownTotal));
+    countsLine.attr('title', kindLines.join('\n'));
+    header.append(countsLine);
+    // What stays in the header is only what the tree cannot show by itself: an empty tree, a leaf
+    // a read proved gone, a restore waiting, a confirm armed. The capture state is not the user's
+    // decision - the tooltip answers as soon as the mirror lands.
     if (!treeTotal) {
       const emptyLine = $('<span class="tree-empty">');
       emptyLine.text(trans.noarg('recordsDbEmptyNote'));
@@ -1923,13 +2019,8 @@
       error.append($('<button type="button">').text(trans.noarg('recordsDbRetry')).on('click', () => content.error?.retry?.()));
       body.append(error);
     }
-    if (content.hasMore) {
-      // One visible page where the four-tab UI had hasMore/cursor paging - the overflow is stated.
-      const more = $('<div class="tree-more">');
-      more.text(trans.pluralSame('recordsDbHiddenCount', content.hiddenCount()));
-      more.append($('<button type="button">').text(trans.noarg('recordsDbRetry')).on('click', () => content.loadMore()));
-      body.append(more);
-    }
+    // Nothing states an overflow: the tree paints every row it holds, so a tree taller than the
+    // dialog only grows its scrollbar.
     const end = $('<div class="bookmark-end">')
       .on('dragover', (ev) => dragOver(ev))
       .on('dragleave', clearDrop)
@@ -2167,8 +2258,22 @@
       this.contents = contents;
       this.geometry = geometry;
       this.windowFrame;
-      this.redraw = () => this.windowFrame?.redraw();
+      // A repaint means the tree changed, so the state is offered to the blob as it happens - the
+      // throttle keeps a drag through a big tree from writing a branch-sized blob on every step.
+      this.redraw = async () => {
+        this.windowFrame?.redraw();
+        await this.saveState();
+      };
       this.unwatch = owner.store.syncCtrl.watch(this.redraw);
+      this.stateSaved = 0;
+    }
+
+    // The state goes to the blob at most every `windowStateSaveMs`; a page being left flushes once
+    // through the unload listeners instead, and `close` writes it whatever the clock says.
+    async saveState() {
+      if (Date.now() - this.stateSaved < windowStateSaveMs) return;
+      this.stateSaved = Date.now();
+      return this.owner.save();
     }
 
     async show() {
@@ -2185,21 +2290,32 @@
     dispose() {
       const windowFrame = this.windowFrame;
       this.unwatch();
+      // The offset is read before the frame is taken off the page - after the close there is
+      // nothing left to read it from, and the next page would restore the top of the tree.
+      this.scrollOffset = windowFrame?.scrolled() ?? this.scrollOffset;
       this.windowFrame = undefined;
       windowFrame?.close();
     }
 
-    // The fail-soft shape: the blob keeps its `{kind, active, geometry, view}` rows, so an older
-    // blob still parses and a newer one that names a kind this tool no longer has simply fails the
-    // kind test in `load`. `view` is the shape the user left - the open folders and the selected
-    // rows - and only a content that owns a shape fills it.
+    // The fail-soft shape: the blob keeps its `{kind, active, geometry, view, scroll}` rows, so an
+    // older blob still parses and a newer one that names a kind this tool no longer has simply fails
+    // the kind test in `load`. `view` is the shape the user left - the open folders and the selected
+    // rows - and only a content that owns a shape fills it. `scroll` is where the wheel had stopped.
+    // A part a page cannot see is left out of the row rather than written empty: `saveWindows`
+    // carries the part the page before left, so a write that knows less never erases it.
     freeze() {
-      return this.contents.map((content) => ({
-        kind: content.kind,
-        active: true,
-        geometry: { ...this.geometry },
-        view: content.frozenView(),
-      }));
+      const scrollOf = () => this.windowFrame?.scrolled() ?? this.scrollOffset;
+      return this.contents.map((content) => {
+        const view = content.frozenView();
+        const scroll = scrollOf();
+        return {
+          kind: content.kind,
+          active: true,
+          geometry: { ...this.geometry },
+          ...(view ? { view } : {}),
+          ...(scroll ? { scroll } : {}),
+        };
+      });
     }
 
     setGeometry(rect) {
@@ -2234,6 +2350,11 @@
       this.scrollHost;
       this.treeHost;
       this.typedBox;
+      // The scrollers a paint rebuilds, and the offset a window comes back with from another page.
+      // A fresh scroller starts at the top, so both have to be carried: the live offset across a
+      // repaint, and the blob's offset onto the first paint.
+      this.scrollerSelectors = ['.content-frame', '.body', 'ul.studies'];
+      this.scrollRestore = ctrl.scrollRestore;
       // What the page calls when the viewport changes. The event hands the callback a receiver of
       // its own - the browser and cash's `trigger` both call it detached - so a class method
       // forwarded as `this.fit` would read `undefined.geometry` and throw on every resize. This
@@ -2300,11 +2421,42 @@
       // already carries the textbox keeps it. A rebuilt textbox is taken off the page for a moment,
       // and a moment off the page is enough to lose the keyboard on it - typing "Par" one keystroke
       // at a time then answered "raP".
+      // The scroll offsets are read before the swap for the same reason: the fresh scrollers that
+      // come back under the host have no memory of where the wheel had stopped, so a row click -
+      // which repaints before it navigates - would jump the whole tree back to the top.
+      const scrolled = this.scrollRestore ?? this.scrolled();
       const view = contentView(content, host, box);
       if (!view?.length) return;
       if (!this.treeHost) host.appendTo(this.scrollHost);
       this.treeHost = host;
       this.typedBox = box;
+      this.scrollRestore = undefined;
+      this.restoreScroll(scrolled);
+    }
+
+    // Where the wheel had stopped inside the window. Only the scrollers this tool owns are read,
+    // and the raw node is taken with `[0]` because the offset lives on the element.
+    scrolled() {
+      const dialog = this.frame?.dialog;
+      if (!dialog?.length) return undefined;
+      return this.scrollerSelectors.map((selector) => {
+        const scroller = dialog.find(selector)?.[0];
+        return scroller ? { selector, top: scroller.scrollTop || 0 } : undefined;
+      }).filter(Boolean);
+    }
+
+    // The offsets go back on the scrollers that replaced them, clamped to what the fresh subtree
+    // can actually show - a row the tree lost since leaves the wheel near the bottom rather than
+    // throwing the window off the page.
+    restoreScroll(offsets) {
+      const dialog = this.frame?.dialog;
+      if (!offsets?.length || !dialog?.length) return;
+      for (const offset of offsets) {
+        const scroller = dialog.find(offset.selector)?.[0];
+        if (!scroller) continue;
+        const room = (scroller.scrollHeight || 0) - (scroller.clientHeight || 0);
+        scroller.scrollTop = room > 0 ? Math.min(offset.top, room) : offset.top;
+      }
     }
 
     redraw() {
@@ -2431,6 +2583,37 @@
       return studyMatch?.[1];
     }
 
+    // The scroll offsets the blob carries for the first content row this tool still has.
+    storedScroll(stored) {
+      for (const row of stored || []) {
+        if (!this.contents.some((content) => content.kind === row?.kind)) continue;
+        return Array.isArray(row?.scroll) ? row.scroll : undefined;
+      }
+      return undefined;
+    }
+
+    // The back half of `rememberPage`: a page whose url is in the trail is a page the user came
+    // back to. The page key spells which page ran last, so reloading the page you are on is not a
+    // way back - only arriving from a different url is. The entry is spent, so a further visit of
+    // that study is a manual call again.
+    async returned() {
+      const lt = this.lichessTools;
+      const href = lt.location?.href;
+      const left = await lt.storage.get(treePageKey, { session: true });
+      await lt.storage.set(treePageKey, href || '', { session: true });
+      if (!href || left === href) return false;
+      const trail = await lt.storage.get(treeReturnKey, { session: true });
+      if (!trail?.length) return false;
+      const at = trail.findIndex(
+        (entry) => entry?.href === href && Date.now() - (entry?.at ?? 0) < treeReturnMs,
+      );
+      if (at < 0) return false;
+      const rest = [...trail];
+      rest.splice(at, 1);
+      await lt.storage.set(treeReturnKey, rest, { session: true });
+      return true;
+    }
+
     // The one-shot hand-off `openLeaf` leaves before it navigates: it is read and dropped in the
     // same breath, so a flag nobody spent cannot reopen the window on a later visit of that study.
     // Only a trip younger than `treeHandoffMs` that names the study this page carries is spent -
@@ -2468,6 +2651,44 @@
       if (this.windows.some((ctrl) => ctrl.windowFrame)) return;
       if (!this.windowContents.size) await this.load();
       for (const ctrl of this.windows) await ctrl.show();
+      await this.rememberPage();
+      this.listenLeave();
+    }
+
+    // The page that now carries an open window hands its url to the trail: the back button brings a
+    // page change, and the study hash is already spent on bookmark + ply, so the whole url (hash
+    // included) is what gets compared later - nothing is spelled into it.
+    async rememberPage() {
+      const lt = this.lichessTools;
+      const href = lt.location?.href;
+      if (!href) return;
+      const remembered = await lt.storage.get(treeReturnKey, { session: true });
+      const trail = [...(remembered || [])].filter(
+        (entry) => entry?.href !== href && Date.now() - (entry?.at ?? 0) < treeReturnMs,
+      );
+      trail.push({ href, at: Date.now() });
+      await lt.storage.set(treeReturnKey, trail.slice(-treeReturnTrail), { session: true });
+    }
+
+    // The page that now carries an open window starts watching for its own end: a back button, a
+    // tab switch or a reload never calls the tool again, so the shape and the wheel have to reach
+    // the blob from the unload channel - the one channel that runs on the page being left.
+    listenLeave() {
+      const lt = this.lichessTools;
+      if (this.leaveHandler) return;
+      this.leaveHandler = () => {
+        if (this.windowContents.size) void this.save();
+      };
+      lt.global.addEventListener('pagehide', this.leaveHandler);
+      lt.global.addEventListener('beforeunload', this.leaveHandler);
+    }
+
+    stopLeave() {
+      const lt = this.lichessTools;
+      if (!this.leaveHandler) return;
+      lt.global.removeEventListener('pagehide', this.leaveHandler);
+      lt.global.removeEventListener('beforeunload', this.leaveHandler);
+      this.leaveHandler = undefined;
     }
 
     async close() {
@@ -2478,6 +2699,7 @@
         for (const content of this.windowContents.get(ctrl)) content.destroy();
       }
       this.windowContents.clear();
+      this.stopLeave();
     }
 
     async toggle() {
@@ -2513,13 +2735,15 @@
       const lt = this.lichessTools;
       if (this.windowContents.size) return;
       const contents = [...this.contents];
-      const geometry = this.storedGeometry(await this.store.idbStudy.loadWindows()) ?? this.initialGeometry();
+      const stored = await this.store.idbStudy.loadWindows();
+      const geometry = this.storedGeometry(stored) ?? this.initialGeometry();
       const ctrl = new WindowCtrl(this, contents, fitWindow(geometry, windowViewport(lt)));
+      ctrl.scrollRestore = this.storedScroll(stored);
       this.windowContents.set(ctrl, contents);
       for (const content of contents) content.onChange = ctrl.redraw;
     }
 
-    save() {
+    async save() {
       const stored = this.windows.flatMap((ctrl) => ctrl.freeze());
       return this.store.idbStudy.saveWindows(stored);
     }
