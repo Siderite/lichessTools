@@ -353,21 +353,6 @@
       return composed;
     }
 
-    // The kind chip and the header count need the kinds actually on the tree - the leaf kinds,
-    // not the branches, so a study branch holding chapter leaves offers a `chapter` state too.
-    presentKinds() {
-      const present = new Set();
-      const walk = (nodes) => {
-        for (const node of nodes || []) {
-          if (node?.kind) present.add(node.kind);
-          walk(node.children || []);
-        }
-      };
-      for (const kind of this.blobKinds) walk(this.trees.get(kind) || []);
-      return collectionKindOrder.filter((kind) => present.has(kind));
-    }
-
-
     // One kind's leaves and folders inside a tree - what the restore preview quotes per kind, so
     // the header's line and the write that follows count the same pass.
     countKind(nodes, kind) {
@@ -623,9 +608,7 @@
       this.mergeStudyMetadata = mergeStudyMetadata;
       this.matchesMetadata = matchesMetadata;
       this.isRecordsDbAvailable = isRecordsDbAvailable;
-      this.studyHaystack = studyHaystack;
       this.chapterHaystack = chapterHaystack;
-      this.pruneCollection = pruneCollection;
       this.collectionFolder = collectionFolder;
     }
   }
@@ -660,13 +643,10 @@
         captures: 'lichessTools/LT/recordsDb-captures',
       };
       this.writes = Promise.resolve(null);
-      // { studies: Map<studyId,StudyData>, complete: boolean }
-      this.memberState = null;
-      this.historyState = null;
-      this.captureState = null;
-      this.memberWrite = null;
-      this.historyWrite = null;
-      this.captureWrite = null;
+      // One live Map per study blob, read lazily and flushed onto the serial write chain: `member`
+      // holds the user's own list plus a `complete` proof, `captures` what the tree filed, `history`
+      // the visits the mirror carries.
+      this.slots = { member: { state: null, write: null }, history: { state: null, write: null }, captures: { state: null, write: null } };
     }
 
     async readBlob(key) {
@@ -694,117 +674,53 @@
       return result;
     }
 
-    flushMember = async () => {
-      const state = this.memberState;
+    // The three study blobs are one machine: a Map keyed by studyId, read once and kept until the
+    // next flush, with a burst of updates collapsed onto the serial write chain so two tabs cannot
+    // interleave a half-written store. Only the blob shape differs - `member` carries `complete`
+    // beside the list, `captures` wraps its list and `history` is bare.
+    async ensure(which) {
+      const slot = this.slots[which];
+      if (slot.state) return slot.state;
+      const blob = await this.readBlob(this.keys[which]) || {};
+      const entries = new Map((Array.isArray(blob) ? blob : blob.studies || []).map((study) => [study.studyId, study]));
+      slot.state = which == 'member' ? { studies: entries, complete: !!blob.complete } : entries;
+      return slot.state;
+    }
+
+    // The live Map, however the blob spells it.
+    entries(which) {
+      const state = this.slots[which].state;
+      return which == 'member' ? state.studies : state;
+    }
+
+    flush(which) {
+      const state = this.slots[which].state;
       if (!state) return;
-      await this.writeBlob(this.keys.member, { studies: [...state.studies.values()], complete: state.complete });
-    };
-
-    flushHistory = async () => {
-      const state = this.historyState;
-      if (!state) return;
-      await this.writeBlob(this.keys.history, [...state.values()]);
-    };
-
-    async ensureMember() {
-      if (this.memberState) return this.memberState;
-      const blob = await this.readBlob(this.keys.member) || { studies: [], complete: false };
-      this.memberState = {
-        studies: new Map((blob.studies || []).map((study) => [study.studyId, study])),
-        complete: !!blob.complete,
-      };
-      return this.memberState;
+      const studies = [...this.entries(which).values()];
+      return this.writeBlob(this.keys[which], which == 'history' ? studies : { studies, ...(which == 'member' ? { complete: state.complete } : {}) });
     }
 
-    async ensureHistory() {
-      if (this.historyState) return this.historyState;
-      const blob = await this.readBlob(this.keys.history) || [];
-      this.historyState = new Map((blob || []).map((study) => [study.studyId, study]));
-      return this.historyState;
-    }
-
-
-
-
-    async updatePosition(path, position) {
-      const lt = this.lichessTools;
-      if (!lt.getUserId() || !isRecordsDbAvailable(lt.location.pathname)) return;
-      await this.write(async () => {
-        await this.ensureHistory();
-        const entry = this.historyState.get(position?.studyId);
-        if (!entry || entry.recordsDbExcluded || !entry.visit || entry.visit.chapterId !== position.chapterId) return;
-        if (entry.visit.path === path && entry.visit.orientation === position.orientation) return;
-        entry.visit = { ...entry.visit, path, orientation: position.orientation };
-        await this.flushHistory();
-      });
-    }
-
-    async storeMember(update) {
-      await this.storeMemberAll([update]);
-    }
-
-    async storeMemberAll(updates) {
-      const state = await this.ensureMember();
+    async storeEntries(which, updates) {
+      const state = await this.ensure(which);
+      const entries = this.entries(which);
       for (const update of updates) {
-        if (update?.type === 'delete') state.studies.delete(update.studyId);
-        else if (update?.type === 'complete') state.complete = true;
-        else if (update?.type === 'upsert') state.studies.set(update.study.studyId, update.study);
-        else throw new Error('bad records db update: ' + update?.type);
+        if (update?.type === 'delete') entries.delete(update.studyId);
+        else if (update?.type === 'complete' && which == 'member') state.complete = true;
+        else if (update?.type === 'upsert') entries.set(update.study?.studyId, update.study);
+        else throw new Error('bad records db update: ' + which + ' ' + update?.type);
       }
+      const slot = this.slots[which];
       // A burst that is not awaited collapses into the write that is already on the chain.
-      if (this.memberWrite) return this.memberWrite;
-      const chained = this.write(this.flushMember);
-      this.memberWrite = chained.catch(() => null).then(() => { this.memberWrite = null; });
+      if (slot.write) return slot.write;
+      const chained = this.write(() => this.flush(which));
+      slot.write = chained.catch(() => null).then(() => { slot.write = null; });
       return chained;
     }
 
-    async getMember(onBatch, signal) {
-      const state = await this.ensureMember();
-      const studies = [...state.studies.values()].sort((left, right) => right.updatedAt - left.updatedAt);
-      if (onBatch) {
-        for (let i = 0; i < studies.length; i += 250) {
-          if (signal?.aborted) break;
-          onBatch(studies.slice(i, i + 250));
-        }
-      }
-      return { studies, complete: state.complete };
-    }
-
-
-    // A study the tree holds that is not the user's own still needs its whole picture: the tooltip
-    // lists chapters, the access and visibility chips answer, the search haystack covers them. Those
-    // facts live in the mirror only, so a page change would lose them. This blob holds them for the
-    // leaves the tree names - `recordsDb-member` keeps its meaning (the user's own list) untouched.
-    async ensureCaptures() {
-      if (this.captureState) return this.captureState;
-      const blob = await this.readBlob(this.keys.captures) || { studies: [] };
-      this.captureState = new Map((blob.studies || []).map((study) => [study.studyId, study]));
-      return this.captureState;
-    }
-
-    flushCaptures = async () => {
-      const state = this.captureState;
-      if (!state) return;
-      await this.writeBlob(this.keys.captures, { studies: [...state.values()] });
-    };
-
-    async storeCapturesAll(updates) {
-      const state = await this.ensureCaptures();
-      for (const update of updates) {
-        if (update?.type === 'delete') state.delete(update.studyId);
-        else if (update?.type === 'upsert') state.set(update.study.studyId, update.study);
-        else throw new Error('bad records capture update: ' + update?.type);
-      }
-      // The same collapse as the member blob: a burst rewrites the capture file once.
-      if (this.captureWrite) return this.captureWrite;
-      const chained = this.write(this.flushCaptures);
-      this.captureWrite = chained.catch(() => null).then(() => { this.captureWrite = null; });
-      return chained;
-    }
-
-    async getCaptures(onBatch, signal) {
-      const state = await this.ensureCaptures();
-      const studies = [...state.values()].sort((left, right) => right.updatedAt - left.updatedAt);
+    // The whole store newest first, fed 250 at a time so a long read can be dropped mid-blob.
+    async page(which, onBatch, signal) {
+      await this.ensure(which);
+      const studies = [...this.entries(which).values()].sort((left, right) => right.updatedAt - left.updatedAt);
       if (onBatch) {
         for (let i = 0; i < studies.length; i += 250) {
           if (signal?.aborted) break;
@@ -814,10 +730,43 @@
       return studies;
     }
 
+
+
+
+    async updatePosition(path, position) {
+      const lt = this.lichessTools;
+      if (!lt.getUserId() || !isRecordsDbAvailable(lt.location.pathname)) return;
+      await this.write(async () => {
+        await this.ensure('history');
+        const entry = this.slots.history.state.get(position?.studyId);
+        if (!entry || entry.recordsDbExcluded || !entry.visit || entry.visit.chapterId !== position.chapterId) return;
+        if (entry.visit.path === path && entry.visit.orientation === position.orientation) return;
+        entry.visit = { ...entry.visit, path, orientation: position.orientation };
+        await this.flush('history');
+      });
+    }
+
+    async storeMember(update) {
+      await this.storeEntries('member', [update]);
+    }
+
+    // The blob's own proof of a complete list rides out with the member read.
+    getMember = async (onBatch, signal) => ({
+      studies: await this.page('member', onBatch, signal),
+      complete: this.slots.member.state.complete,
+    });
+    getCaptures = async (onBatch, signal) => await this.page('captures', onBatch, signal);
+    storeMemberAll = async (updates) => await this.storeEntries('member', updates);
+    storeCapturesAll = async (updates) => await this.storeEntries('captures', updates);
+
+    // A study the tree holds that is not the user's own still needs its whole picture: the tooltip
+    // lists chapters, the access and visibility chips answer, the search haystack covers them. Those
+    // facts live in the mirror only, so a page change would lose them. This blob holds them for the
+    // leaves the tree names - `recordsDb-member` keeps its meaning (the user's own list) untouched.
     // A capture the tree no longer names has no row to serve, so it is dead weight.
     async pruneCaptures(keepIds) {
-      const state = await this.ensureCaptures();
-      const drops = [...state.keys()].filter((studyId) => !keepIds?.has(studyId)).map((studyId) => ({ type: 'delete', studyId }));
+      await this.ensure('captures');
+      const drops = [...this.entries('captures').keys()].filter((studyId) => !keepIds?.has(studyId)).map((studyId) => ({ type: 'delete', studyId }));
       if (!drops.length) return 0;
       await this.storeCapturesAll(drops);
       return drops.length;
@@ -941,9 +890,7 @@
         ? mergeStudyMetadata(cached, incoming)
         : cached && this.pendingUpdates.has(incoming.studyId)
           ? mergeStudyMetadata(incoming, cached)
-          : {
-              ...(cached && (cached.metadataRevision ?? -1) > (incoming.metadataRevision ?? -1) ? cached : incoming),
-            };
+          : { ...(cached && (cached.metadataRevision ?? -1) > (incoming.metadataRevision ?? -1) ? cached : incoming) };
       delete study.matchingChapterIds;
       delete study.matchingChapterFields;
       if (cached) for (const key of Object.keys(cached)) delete cached[key];
@@ -966,18 +913,16 @@
       this.error = undefined;
       this.publish();
       try {
-        const cache = await this.idbStudy.getMember((batch) => {
+        // Both blobs feed the mirror the same way: a batch lands, the revision moves.
+        const feed = (batch) => {
           if (!active()) return;
           for (const study of batch) this.store(study);
           this.publish();
-        }, request.signal);
+        };
+        const cache = await this.idbStudy.getMember(feed, request.signal);
         // What the tree filed that is not the user's own is not in the member blob, so the mirror
         // would come back blind on every page - the capture blob feeds it the same way.
-        const captures = active() ? await this.idbStudy.getCaptures((batch) => {
-          if (!active()) return;
-          for (const study of batch) this.store(study);
-          this.publish();
-        }, request.signal) : [];
+        const captures = active() ? await this.idbStudy.getCaptures(feed, request.signal) : [];
         if (active()) {
           for (const study of cache.studies) this.store(study);
           for (const study of captures) this.store(study);

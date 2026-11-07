@@ -141,7 +141,9 @@ needles; both stayed put.
 
 ## Shape counts
 
-tool.js 2,838 lines - the resize machine left for `tools/dialog/tool.js` while the delegation,
+tool.js 2,809 lines (2,838 before the pass that wrote the six tree walks and the eight rack
+button heads once, with no harness line moved) - the resize machine left for `tools/dialog/tool.js`
+while the delegation,
 the caret climb and the double-click pair grew it; a drag now moves the window without touching its
 size, `moveWindow` takes the content floor the machine measured, the remembered box carries the
 screen corner it was nearest to, and the window's box is written the factory's way (a centre and a

@@ -360,17 +360,21 @@
       return this.recordCache.get(node);
     }
 
+    // Every walk that only counts or collects rides here: one predicate for every node, in paint
+    // order, and a folder is walked into whatever it holds. The walks that need a parent's record
+    // or a row's path keep their own.
+    eachNode(nodes, visit) {
+      for (const node of nodes || []) {
+        visit(node);
+        this.eachNode(node.children || [], visit);
+      }
+    }
+
     // Which kinds are on the tree - the kind chip walks these, so a study tree never offers a
     // games state.
     presentKinds() {
       const present = new Set();
-      const walk = (nodes) => {
-        for (const node of nodes || []) {
-          if (node?.kind) present.add(node.kind);
-          walk(node.children || []);
-        }
-      };
-      walk(this.entries);
+      this.eachNode(this.entries, (node) => present.add(node?.kind));
       return this.store.collectionKinds.filter((kind) => present.has(kind));
     }
 
@@ -586,13 +590,9 @@
     // counts.
     kindCounts() {
       const counts = {};
-      const walk = (nodes) => {
-        for (const node of nodes) {
-          if (!this.folder(node) && this.passes(node)) counts[node.kind] = (counts[node.kind] || 0) + 1;
-          walk(node.children || []);
-        }
-      };
-      walk(this.entries);
+      this.eachNode(this.entries, (node) => {
+        if (!this.folder(node) && this.passes(node)) counts[node.kind] = (counts[node.kind] || 0) + 1;
+      });
       return counts;
     }
 
@@ -606,13 +606,9 @@
 
     missingCount() {
       let missing = 0;
-      const walk = (nodes) => {
-        for (const node of nodes || []) {
-          if (!this.folder(node) && this.isGone(node)) missing++;
-          walk(node.children || []);
-        }
-      };
-      walk(this.entries);
+      this.eachNode(this.entries, (node) => {
+        if (!this.folder(node) && this.isGone(node)) missing++;
+      });
       return missing;
     }
 
@@ -620,11 +616,9 @@
     // opening a study you do not own costs a record for a row that needs one, not an unbounded
     // file - and a leaf that leaves the tree loses its capture with it.
     treeStudyIds(nodes = this.entries, ids = new Set()) {
-      for (const node of nodes || []) {
-        if (this.folder(node)) this.treeStudyIds(node.children, ids);
-        else if (node.kind == 'study') ids.add(node.id);
-        else this.treeStudyIds(node.children || [], ids);
-      }
+      this.eachNode(nodes, (node) => {
+        if (node.kind == 'study') ids.add(node.id);
+      });
       return ids;
     }
 
@@ -664,24 +658,17 @@
 
     filedCount() {
       let leaves = 0;
-      const walk = (nodes) => {
-        for (const node of nodes || []) {
-          if (!this.folder(node)) leaves++;
-          walk(node.children || []);
-        }
-      };
-      walk(this.entries);
+      this.eachNode(this.entries, (node) => {
+        if (!this.folder(node)) leaves++;
+      });
       return leaves;
     }
 
     // Every folder the tree holds, in paint order - what the fold-all chip counts and acts on.
     folderNodes(nodes = this.entries, found = []) {
-      for (const node of nodes || []) {
-        if (this.folder(node)) {
-          found.push(node);
-          this.folderNodes(node.children || [], found);
-        } else this.folderNodes(node.children || [], found);
-      }
+      this.eachNode(nodes, (node) => {
+        if (this.folder(node)) found.push(node);
+      });
       return found;
     }
 
@@ -932,11 +919,11 @@
     // checked where it ran: a short number here says the shape is being lost in the page, not in
     // this tool.
     restoreView(storedRows) {
-      const view = (storedRows || []).find((row) => row?.kind === this.kind)?.view;
+      const rows = (storedRows || []).filter((row) => row?.kind === this.kind);
+      const view = rows[0]?.view;
       const usable = (list) => Array.isArray(list) ? list.filter((chain) => Array.isArray(chain)) : [];
       const openFolders = usable(view?.expanded);
       const keptRows = usable(view?.selected);
-      const rows = (storedRows || []).filter((row) => row?.kind === this.kind);
       // A row for this tab with no shape in it means the page that wrote it had no tree read yet,
       // so the shape it carried was never put down - the carry in `saveWindows` is what answers
       // for that page, and this line says when it did not.
@@ -1813,6 +1800,11 @@
     const chipLive = (which) => which == 'kind' ? content.presentKinds().length > 1 : content.chipApplicable(which);
     const chipName = (which) => trans.noarg('filters' + (which == 'kind' ? 'Kind' : which == 'access' ? 'Access' : 'Visibility'));
 
+    const rackButton = (cls, label, title = label) =>
+      $('<button class="btn-rack__btn ' + cls + '" type="button">')
+        .attr('title', trans.noarg(title))
+        .text(trans.noarg(label));
+
     const chipButton = (which) => {
       const states = which == 'kind' ? ['all'].concat(content.presentKinds()) : chipStates[which];
       const current = content.filters[which];
@@ -1852,10 +1844,7 @@
     // Select (the mode that grows the checkboxes), Delete (count + confirm), New folder.
     const actionsRack = $('<div class="rack-actions">');
 
-    const addButton = $('<button class="btn-rack__btn btn-add">')
-      .attr('type', 'button')
-      .attr('title', trans.noarg('recordsDbAdd'))
-      .text(trans.noarg('recordsDbAdd'));
+    const addButton = rackButton('btn-add', 'recordsDbAdd');
     addButton.on('click', async (ev) => {
       await content.addCurrentStudy();
     });
@@ -1863,18 +1852,12 @@
     if (!content.canAdd()) addButton.attr('hidden', '');
     actionsRack.append(addButton);
 
-    const selectButton = $('<button class="btn-rack__btn btn-select">')
-      .attr('type', 'button')
-      .attr('title', trans.noarg(content.selectMode ? 'recordsDbSelectOn' : 'recordsDbSelectOff'))
-      .text(trans.noarg('recordsDbSelect'));
+    const selectButton = rackButton('btn-select', 'recordsDbSelect', content.selectMode ? 'recordsDbSelectOn' : 'recordsDbSelectOff');
     if (content.selectMode) selectButton.addClass('active');
     selectButton.on('click', () => content.setSelect(!content.selectMode));
     actionsRack.append(selectButton);
 
-    const deleteButton = $('<button class="btn-rack__btn btn-delete">')
-      .attr('type', 'button')
-      .attr('title', trans.noarg('recordsDbDelete'))
-      .text(trans.noarg('recordsDbDelete'));
+    const deleteButton = rackButton('btn-delete', 'recordsDbDelete');
     // The first press of the fallback arms the bar, so the chip stays live while a bar is armed.
     if (!content.selected.size && !content.confirmBar) deleteButton.attr('disabled', 'disabled');
     deleteButton.on('click', async (ev) => {
@@ -1882,10 +1865,7 @@
     });
     actionsRack.append(deleteButton);
 
-    const newFolderButton = $('<button class="btn-rack__btn btn-newfolder">')
-      .attr('type', 'button')
-      .attr('title', trans.noarg('recordsDbNewFolder'))
-      .text(trans.noarg('recordsDbNewFolder'));
+    const newFolderButton = rackButton('btn-newfolder', 'recordsDbNewFolder');
     if (lt.icon.NewFolder !== undefined) newFolderButton.attr('data-icon', lt.icon.NewFolder);
     // The name is asked by `createFolder` through the page's dialog prompt.
     newFolderButton.on('click', async (ev) => {
@@ -1896,10 +1876,7 @@
     // Rename sits beside New folder and is live only when exactly one folder is selected, so the
     // gesture cannot guess which folder the user meant.
     const selectedFolders = [...content.selected].filter((entry) => content.folder(entry));
-    const renameButton = $('<button class="btn-rack__btn btn-rename" type="button">')
-      .attr('type', 'button')
-      .attr('title', trans.noarg('recordsDbRename'))
-      .text(trans.noarg('recordsDbRename'));
+    const renameButton = rackButton('btn-rename', 'recordsDbRename');
     if (selectedFolders.length === 1)
       renameButton.on('click', async (ev) => {
         await content.renameFolder(selectedFolders[0]);
@@ -1912,9 +1889,7 @@
     const foldTargets = content.folderNodes();
     const foldAll = foldTargets.length > 0 && foldTargets.every((folder) => content.expanded.has(folder));
     const foldKey = foldAll ? 'recordsDbCollapseAll' : 'recordsDbExpandAll';
-    const foldButton = $('<button class="btn-rack__btn btn-fold" type="button">')
-      .attr('title', trans.noarg(foldKey))
-      .text(trans.noarg(foldKey));
+    const foldButton = rackButton('btn-fold', foldKey);
     if (foldTargets.length) foldButton.on('click', (ev) => content.toggleAllExpanded());
     else foldButton.attr('disabled', 'disabled');
     actionsRack.append(foldButton);
@@ -2086,15 +2061,11 @@
     // writes the tree the user sees and "Restore" replaces the whole tree with it - there is no
     // per-branch half-action left to explain.
     const backupRack = $('<div class="rack-backup">');
-    const backupButton = $('<button class="btn-rack__btn btn-backup" type="button">')
-      .attr('title', trans.noarg('recordsDbBackup'))
-      .text(trans.noarg('recordsDbBackup'));
+    const backupButton = rackButton('btn-backup', 'recordsDbBackup');
     backupButton.on('click', async (ev) => {
       await content.downloadTree();
     });
-    const restoreButton = $('<button class="btn-rack__btn btn-restore" type="button">')
-      .attr('title', trans.noarg('recordsDbRestoreTree'))
-      .text(trans.noarg('recordsDbRestoreTree'));
+    const restoreButton = rackButton('btn-restore', 'recordsDbRestoreTree');
     restoreButton.on('click', async (ev) => {
       try {
         const picker = $('<input class="tree-restore-file" type="file">')
