@@ -22,12 +22,6 @@ body.lichessTools > .lichessTools-recordsDbUi {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-body.lichessTools dialog.lichessTools-recordsDbUi > .scrollable {
-  height: calc(100% - 2em);
-  max-height: none;
-  overflow: visible;
-}
-
 body.lichessTools dialog.lichessTools-recordsDbUi .dialog-content {
   height: 100%;
   min-height: 0;
@@ -476,10 +470,6 @@ body.lichessTools .lichessTools-recordsDbUi .confirm-bar {
   border: 1px solid var(---licChess-red, #d05454);
   border-radius: 0.3rem;
   padding: 0.25rem;
-}
-body.lichessTools .lichessTools-recordsDbUi .button-empty {
-  color: var(--c-grayish, #8a9aab);
-  font-style: italic;
 }
 
 /* A dead leaf gets its own mark, and a folder whose leaves are all hidden goes dim instead

@@ -1,6 +1,6 @@
 (() => {
 
-  let nextTabId = 0;
+  let nextContentId = 0;
   const recordsDragType = 'application/x-lichess-records-db';
 
   // How many records the filter scores at most - the product owns this number, so it is edited
@@ -36,7 +36,9 @@
 
   // Intl keys are flat camelCase, so a state or a kind spells its own capital.
   const camel = (word) => word.charAt(0).toUpperCase() + word.slice(1);
-  let recordsDbModule;
+  // The one tool instance the helpers below reach for their engine, their dialog and their window
+  // handler - set in `init`, and the same instance every page keeps.
+  let recordsDbInstance;
 
   class RecordsDbUiTool extends LiChessTools.Tools.ToolBase {
 
@@ -199,22 +201,22 @@
     async init() {
       const lt = this.lichessTools;
       if (!lt.recordsDbHarvest) return;
-      if (!recordsDbModule) {
-        recordsDbModule = new RecordsDbModule(lt);
-        recordsDbModule.recordsDbCtrl = new RecordsDbCtrl(lt, lt.recordsDbHarvest);
-        recordsDbModule.windowEventHandler = new WindowEventHandler(lt);
-        recordsDbModule.navigation = new RecordsNavigation(lt);
-        recordsDbModule.searchEngine = new RecordsSearchEngine(lt, lt.recordsDbHarvest);
-        recordsDbModule.highlightMatch = highlightMatch;
+      // The engines live on the tool itself: the classes below are not tools, so they reach their
+      // search engine, their navigation and their window handler through this one instance.
+      if (!recordsDbInstance) {
+        recordsDbInstance = this;
+        this.recordsDbCtrl = new RecordsDbCtrl(lt, lt.recordsDbHarvest);
+        this.windowEventHandler = new WindowEventHandler(lt);
+        this.navigation = new RecordsNavigation(lt);
+        this.searchEngine = new RecordsSearchEngine(lt, lt.recordsDbHarvest);
       }
-      this.module = recordsDbModule;
     }
 
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('recordsDbUi');
       this.logOption('Records database', value);
-      const ctrl = recordsDbModule?.recordsDbCtrl;
+      const ctrl = recordsDbInstance?.recordsDbCtrl;
       // Close whatever the last page left open before deciding again.
       if (ctrl) {
         await ctrl.close();
@@ -245,103 +247,25 @@
     }
 
     canOpen() {
-      return !!recordsDbModule?.recordsDbCtrl?.canOpen();
+      return !!recordsDbInstance?.recordsDbCtrl?.canOpen();
     }
 
   }
 
 
-  class RecordsDbModule {
-    constructor(lichessTools) {
-      this.lichessTools = lichessTools;
-      this.maxResults = recordsDbMaxResults;
-      this.recordsDbCtrl;
-      this.windowEventHandler;
-      this.navigation;
-      this.searchEngine;
-    }
-  }
+  // The tree content reads the store's tree and owns the shape the window shows. It replaces the
+  // tab base and its module holder: the page has exactly one content, and the engines it needs are
+  // the tool's own fields.
 
-  // The tab base shared by every content ----------------------------------------------------------
-
-  // `abstract` stays a doc comment: `kind`/`label` are set by every concrete tab.
-  class TabContentCtrl {
-
+  // The tree is one content, so it owns the read lifetime, the repaint hook and the shape write
+  // that the tab base used to hand out to several.
+  class BookmarkTabContent {
     constructor(lichessTools, store) {
       this.lichessTools = lichessTools;
       this.store = store;
       this.sync = store.syncCtrl;
-      this.kind = undefined;
-      this.label = undefined;
-      this.icon = undefined;
-      this.id = 'lichessTools-recordsDbUi-tab-' + nextTabId++;
-      this.closable = false;
-      this.signal;
-      this.lifetime;
-      this.loaded = false;
-      this.onChange = () => {};
-    }
-
-    async init() {
-      const lt = this.lichessTools;
-      if (this.lifetime) return;
-      const AbortControllerClass = (lt.global.AbortController || AbortController);
-      this.lifetime = new AbortControllerClass();
-      this.signal = this.lifetime.signal;
-      if (this.loaded) return;
-      const signal = this.signal;
-      await this.load();
-      if (!signal.aborted) this.loaded = true;
-    }
-
-    destroy() {
-      this.lifetime?.abort();
-      this.lifetime = undefined;
-      this.onChange = () => {};
-    }
-
-    async load() {}
-
-    // The tree engine is not a tool, so it has no `logOption` of its own; the page's own console
-    // line is what a live page is checked with, printed in the same colour the tools use.
-    logState(label, value) {
-      const lt = this.lichessTools;
-      lt.global?.console?.log(label + ' %c' + value, 'color:#9980FF');
-    }
-
-    // The window blob asks every content for the shape a user left behind; only a tree has a
-    // shape to hand over, so the base says nothing was left.
-    frozenView() {
-      return undefined;
-    }
-
-    get loading() {
-      return false;
-    }
-
-    // `exhausted` is written by the paging path below (a result list pages, a static list never
-    // does), so the stub needs a setter to accept the write and keep the default "nothing left
-    // to load".
-    get exhausted() {
-      return this.exhaustedSlot ?? true;
-    }
-
-    set exhausted(value) {
-      this.exhaustedSlot = value;
-    }
-
-    get error() {
-      return undefined;
-    }
-  }
-
-
-
-  class BookmarkTabContent extends TabContentCtrl {
-    constructor(lichessTools, store) {
-      super(lichessTools, store);
       this.kind = 'treeTab';
-      this.icon = lichessTools.icon.Book;
+      this.id = 'lichessTools-recordsDbUi-content-' + nextContentId++;
       // The tree is curated - empty is the normal first state, and the header makes it legible.
       this.entries = [];
       // The last snapshot of each branch: what the blobs held, so a load can merge it and a save
@@ -365,12 +289,46 @@
       // Studies this page already spent a hover read on, so one gesture cannot ask twice.
       this.hoverReads = new Set();
       this.recordCache = new Map();
+      // The nodes the current paint put on the page: the tree host answers a pointer or a key by
+      // looking the hit element up here, so the row handlers live on the host and a repaint over a
+      // thousand rows registers nothing that could outlive the rows it replaces.
+      this.rowIndex = new WeakMap();
       this.editing;
       this.anchor;
       this.message;
       this.revision = 0;
       this.writes = Promise.resolve();
     }
+
+    // One lifetime per load: the abort signal it hands `load()` so a page that leaves mid-read
+    // cannot finish a stale read and paint over the state the leaving page had saved.
+    async init() {
+      const lt = this.lichessTools;
+      if (this.lifetime) return;
+      const AbortControllerClass = (lt.global.AbortController || AbortController);
+      this.lifetime = new AbortControllerClass();
+      this.signal = this.lifetime.signal;
+      if (this.loaded) return;
+      const signal = this.signal;
+      await this.load();
+      if (!signal.aborted) this.loaded = true;
+    }
+
+    // The window is going away: the read that may still be running is stopped, and the repaint
+    // hook is taken off the sync watch's hand so a late idb write cannot repaint a dead window.
+    destroy() {
+      this.lifetime?.abort();
+      this.lifetime = undefined;
+      this.onChange = () => {};
+    }
+
+    // The tree engine is not a tool, so it has no `logOption` of its own; the page's own console
+    // line is what a live page is checked with, printed in the same colour the tools use.
+    logState(label, value) {
+      const lt = this.lichessTools;
+      lt.global?.console?.log(label + ' %c' + value, 'color:#9980FF');
+    }
+
 
     // The registry is the store's, so the tree never hardcodes what a kind means.
     get registry() {
@@ -382,11 +340,11 @@
     }
 
     get error() {
-      return this.tabError;
+      return this.loadError;
     }
 
     set error(value) {
-      this.tabError = value;
+      this.loadError = value;
     }
 
     folder(node) {
@@ -555,9 +513,9 @@
         this.refreshCaches();
         this.hits = undefined;
       }
-      const engine = recordsDbModule?.searchEngine;
+      const engine = recordsDbInstance?.searchEngine;
       if (!engine) return;
-      const page = await engine.run({ order: 'relevant', study: { text: query } }, { cursor: 0, size: recordsDbModule.maxResults });
+      const page = await engine.run({ order: 'relevant', study: { text: query } }, { cursor: 0, size: recordsDbMaxResults });
       const hits = new Map();
       for (const item of page.items) hits.set(item.studyId, item.matchingChapterFields);
       this.hits = hits;
@@ -746,17 +704,92 @@
         });
     }
 
-    // The tree host a window paints into, carrying the listeners that belong to the tree itself. The
-    // frame keeps it, so a paint only swaps the pieces under it and the filters rack that carries the
-    // textbox stays whole.
+    // The tree host a window paints into, carrying the listeners that belong to the tree itself.
+    // One listener per event lives here and answers through `rowIndex`, so a repaint replaces a
+    // thousand rows without registering anything on them: per-row listeners would leave their
+    // entries behind in any page-wide listener table and pin the rows they sat on.
     viewHost() {
       const lt = this.lichessTools;
       const $ = lt.$;
       const host = $('<div class="record-list">');
-      listData(host, this.id);
+      // A row click selects; the chips a row wears answer first, and a click that hits a link,
+      // a control or the textbox belongs to whatever owns it.
+      const rowClick = async (ev) => {
+        const info = this.rowTarget(ev);
+        if (!info) return;
+        if (info.chip == 'toggle') return this.toggle(info.entry);
+        if (info.chip == 'retry') return this.error?.retry?.();
+        if (info.chip == 'open') {
+          if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+          ev.preventDefault?.();
+          await this.openLeaf(info.entry);
+          return;
+        }
+        if (!info.row || info.chip) return;
+        const hit = $(ev.target);
+        if (hit.closest('a').length || hit.closest('button').length || hit.closest('input').length || hit.closest('form').length) return;
+        this.select(info.entry, ev);
+      };
+      const rowDoubleClick = async (ev) => {
+        const info = this.rowTarget(ev);
+        if (!info?.row || info.chip) return;
+        if ($(ev.target).closest('button').length) return;
+        ev.preventDefault?.();
+        if (info.folder) this.toggle(info.entry);
+        else if (!info.dead) await this.openLeaf(info.entry);
+      };
+      const rowKeyDown = async (ev) => {
+        const info = this.rowTarget(ev);
+        if (!info?.row || info.chip) return;
+        if ($(ev.target).closest('a').length || $(ev.target).closest('button').length || $(ev.target).closest('input').length) return;
+        if (ev.key === ' ') {
+          ev.preventDefault?.();
+          this.select(info.entry, ev);
+        } else if (ev.key === 'Enter') {
+          ev.preventDefault?.();
+          if (info.folder) this.toggle(info.entry);
+          else if (!info.dead) await this.openLeaf(info.entry);
+        }
+      };
+      const rowDragStart = (ev) => {
+        const info = this.rowTarget(ev);
+        if (!ev.dataTransfer || !info?.row || info.chip || info.dead) return;
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry)));
+      };
+      const rowMouseOver = (ev) => {
+        const info = this.rowTarget(ev);
+        if (!info?.row || info.chip) return;
+        if (info.preview) {
+          // A row arriving spends a hide the pointer left on a nearby tooltip, then shows this
+          // row's chapters - one gesture, one tooltip.
+          cancelPopupHide();
+          showStudyPopup(info.node);
+        } else if (info.cold) this.hoverRead(info.entry);
+      };
+      const rowMouseOut = (ev) => {
+        const info = this.rowTarget(ev);
+        if (info?.row && info.preview && !info.chip) schedulePopupHide();
+      };
       return host
+        .on('dragend', (ev) => {
+          const info = this.rowTarget(ev);
+          if (info) this.dropInto(ev, info.row, info.node);
+        })
         .on('dragend', clearDrop)
         .on('dragleave', clearDrop)
+        .on('dragover', (ev) => {
+          const info = this.rowTarget(ev);
+          if (info) this.dragOver(ev, info.row, info.node);
+        })
+        .on('drop', (ev) => {
+          const info = this.rowTarget(ev);
+          if (info) this.dropInto(ev, info.row, info.node);
+        })
+        .on('dragstart', rowDragStart)
+        .on('click', rowClick)
+        .on('dblclick', rowDoubleClick)
+        .on('keydown', rowKeyDown)
         .on('keydown', async (ev) => {
           if ($(ev.target).closest('input').length) return;
           if (ev.key === 'Delete') {
@@ -772,7 +805,9 @@
             for (const row of this.results) this.selected.add(row.entry);
             this.onChange();
           }
-        });
+        })
+        .on('mouseover', rowMouseOver)
+        .on('mouseout', rowMouseOut);
     }
 
     filterChanged() {
@@ -930,6 +965,70 @@
       };
       visit(this.entries, []);
       return { kind: 'tree', paths };
+    }
+
+    // The row a hit element falls on: the row itself, one of its children, or one of the chips a
+    // row wears. A press lands on the icon inside a chip rather than on the chip, so the answer
+    // climbs to the nearest button before it looks for the row.
+    rowTarget(ev) {
+      if (!ev || !ev.target) return undefined;
+      const hit = this.lichessTools.$(ev.target);
+      if (!hit.length) return undefined;
+      const direct = this.rowIndex.get(hit[0]);
+      if (direct) return direct;
+      const button = hit.closest('button');
+      if (button.length) {
+        const chip = this.rowIndex.get(button[0]);
+        if (chip) return chip;
+      }
+      const li = hit.closest('li');
+      return li.length ? this.rowIndex.get(li[0]) : undefined;
+    }
+
+    // The drop half of a drag: the upper half of a row inserts before it, the lower half of a
+    // folder drops inside it, otherwise after the row next sibling. The node is the element the
+    // marker sits on - the row the pointer fell on, or the marker at the end of the tree.
+    insertionTarget(ev, row, node) {
+      if (!row) return { parent: undefined, before: undefined, position: 'before' };
+      const { entry, path } = row;
+      const parent = path.length > 1 ? this.at(path.slice(0, -1)) : undefined;
+      const rect = node?.getBoundingClientRect?.() || { top: 0, height: 0 };
+      if (ev.clientY < rect.top + rect.height / 2) return { parent, before: entry, position: 'before' };
+      if (!this.folder(entry)) return { parent, before: entry, position: 'after' };
+      // A folder with nothing in it has no first child to land before, so the drop appends inside
+      // it - the half-rule is the same, only the marker it names is missing.
+      return { parent: entry, before: entry.children?.[0], position: 'inside' };
+    }
+
+    carriedPayload(ev) {
+      const lt = this.lichessTools;
+      const transfer = ev?.dataTransfer;
+      if (!transfer || !(transfer.types || []).includes(recordsDragType)) return undefined;
+      const raw = transfer.getData(recordsDragType);
+      return raw ? typeof raw == 'string' ? lt.jsonParse(raw) : raw : undefined;
+    }
+
+    dragOver(ev, row, node) {
+      const transfer = ev?.dataTransfer;
+      if (!transfer || !(transfer.types || []).includes(recordsDragType)) return;
+      ev.preventDefault?.();
+      ev.stopPropagation?.();
+      clearDrop();
+      const target = this.insertionTarget(ev, row, node);
+      const marked = this.lichessTools.$(node);
+      if (marked.length) marked.attr('data-bookmark-drop', target.position);
+      transfer.dropEffect = transfer.effectAllowed === 'copy' ? 'copy' : 'move';
+    }
+
+    dropInto(ev, row, node) {
+      const payload = this.carriedPayload(ev);
+      if (!payload || ev._recordsDbDrop) return;
+      ev.preventDefault?.();
+      ev.stopPropagation?.();
+      ev._recordsDbDrop = true;
+      clearDrop();
+      const target = this.insertionTarget(ev, row, node);
+      this.drop(payload, target.parent, target.before);
     }
 
     // The containment rule, spelled once: only a leaf that names its parent may sit inside a
@@ -1229,7 +1328,7 @@
       if (node.kind == 'study' || node.kind == 'chapter') {
         // The honest degradation stays: same study switches chapter in place, another study
         // navigates.
-        const navigation = recordsDbModule?.navigation;
+        const navigation = recordsDbInstance?.navigation;
         if (!navigation) return false;
         await navigation.load(node.kind == 'study' ? node.id : node.meta?.studyId, node.kind == 'chapter' ? node.id : undefined);
       } else {
@@ -1378,7 +1477,7 @@
       const lt = this.lichessTools;
       const cursor = Math.max(0, page?.cursor ?? 0);
       const size = Math.max(1, page?.size ?? 50);
-      const ceiling = Math.max(size, recordsDbModule?.maxResults ?? size);
+      const ceiling = recordsDbMaxResults;
       if (signal?.aborted) return { items: [], nextCursor: cursor };
       const { order, study: studyQuery, chapter: chapterQuery } = search;
       const now = Date.now();
@@ -1461,18 +1560,17 @@
     const href = '/study/' + study.studyId + (position?.chapterId ? '/' + position.chapterId : '');
     return {
       href,
-      navigate: () => recordsDbModule.navigation.load(study.studyId, position?.chapterId),
+      navigate: () => recordsDbInstance.navigation.load(study.studyId, position?.chapterId),
     };
-  }
-
-  function listData(node, tabId) {
-    return node.attr('data-key', tabId);
   }
 
 
 
   const popupId = 'lichessTools-recordsContentPreview';
   const popupPreviews = new WeakMap();
+  // The chapter links a tooltip shows: the tooltip answers a click through this, so a tooltip
+  // rebuilt on every hover registers one handler for itself rather than one per chapter.
+  const popupLinks = new WeakMap();
   // The pointer leaves a side for one pointer move before it enters the other, so a hide is
   // scheduled and cancelled rather than run. See `schedulePopupHide` below.
   const popupLeaveMs = 150;
@@ -1488,7 +1586,7 @@
   }
 
   function popupNode() {
-    const lt = recordsDbModule?.lichessTools;
+    const lt = recordsDbInstance?.lichessTools;
     if (!lt) return undefined;
     const found = lt.$('#' + popupId);
     if (found.length) return found;
@@ -1499,6 +1597,15 @@
     // tooltip stays up (that is what lets the wheel scroll a chapter list longer than the box),
     // and leaving the tooltip hides the tooltip the pointer just left.
     fresh
+      .on('click', (ev) => {
+        const link = popupLinks.get(ev.target);
+        if (!link) return;
+        const { entry, anchor } = link;
+        if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey || !entry.navigate) return;
+        ev.preventDefault();
+        hideStudyPopup(anchor);
+        entry.navigate();
+      })
       .on('mouseover mousemove', () => {
         // The row's `mouseout` fired first and scheduled the hide; arriving here spends it.
         cancelPopupHide();
@@ -1509,7 +1616,7 @@
   }
 
   function showStudyPopup(anchor, items, title) {
-    const lt = recordsDbModule?.lichessTools;
+    const lt = recordsDbInstance?.lichessTools;
     if (!lt) return;
     const anchors = lt.$(anchor);
     if (!anchors.length) return;
@@ -1545,12 +1652,7 @@
       const item = lt.$('<li>');
       if (entry.href) {
         const link = lt.$('<a>').attr('href', entry.href).text(entry.name);
-        link.on('click', (ev) => {
-          if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey || !entry.navigate) return;
-          ev.preventDefault();
-          hideStudyPopup(node);
-          entry.navigate();
-        });
+        popupLinks.set(link[0], { entry, anchor: node });
         item.append(link);
       } else item.text(entry.name);
       list.append(item);
@@ -1564,7 +1666,7 @@
   // to it, so nothing can scroll it. Either side schedules a hide instead, and a `mouseover` on
   // either side spends it. The window left is one pointer move, never a readable one.
   function schedulePopupHide() {
-    const lt = recordsDbModule?.lichessTools;
+    const lt = recordsDbInstance?.lichessTools;
     if (!lt || !popupShown || hideTimeout) return;
     hideTimeout = lt.global.setTimeout(() => {
       hideTimeout = null;
@@ -1574,14 +1676,14 @@
 
   function cancelPopupHide() {
     if (!hideTimeout) return;
-    const lt = recordsDbModule?.lichessTools;
+    const lt = recordsDbInstance?.lichessTools;
     if (lt) lt.global.clearTimeout(hideTimeout);
     hideTimeout = null;
   }
 
   function hideStudyPopup(anchor) {
     cancelPopupHide();
-    const lt = recordsDbModule?.lichessTools;
+    const lt = recordsDbInstance?.lichessTools;
     if (!lt || !popupShown) return;
     if (anchor) {
       // Only the anchor that owns the tooltip may take it away - a second row's focusout must not
@@ -1598,7 +1700,7 @@
 
   function studyPublicIcon(entry) {
     if (!entry || entry.visibility !== 'public') return undefined;
-    const lt = recordsDbModule.lichessTools;
+    const lt = recordsDbInstance.lichessTools;
     const $ = lt.$;
     return $('<span class="record-public">')
       .attr('title', lt.translator.noarg('recordsDbPublicStudy'))
@@ -1631,7 +1733,7 @@
 
 
   function highlightMatch(text, terms) {
-    const $ = recordsDbModule.lichessTools.$;
+    const $ = recordsDbInstance.lichessTools.$;
     const source = String(text ?? '');
     const parts = [];
     let offset = 0;
@@ -1651,12 +1753,12 @@
   // A drop marker is a claim one row makes for the moment it is dragged over; only one row may hold
   // it, so every marker on the page is cleared before a new one is set.
   function clearDrop() {
-    const marked = recordsDbModule.lichessTools.$('.lichessTools-recordsDbUi [data-bookmark-drop]');
+    const marked = recordsDbInstance.lichessTools.$('.lichessTools-recordsDbUi [data-bookmark-drop]');
     if (marked.length) marked.removeAttr('data-bookmark-drop');
   }
 
   function bookmarkView(content, host, box) {
-    const lt = recordsDbModule.lichessTools;
+    const lt = recordsDbInstance.lichessTools;
     const trans = lt.translator;
     const $ = lt.$;
     const registry = content.registry;
@@ -1666,50 +1768,6 @@
     // rebuilds on every publish, and this is what makes that rebuild answer the mirror it now sees
     // rather than the cache the first paint left behind.
     if (content.hayRevision !== content.sync.publishRevision) content.refreshCaches();
-
-    // The `insertion` over the merged tree: upper half of a row inserts before it, the lower
-    // half of a folder drops inside it, otherwise after the row next sibling.
-    const insertion = (ev, row) => {
-      if (!row) return { parent: undefined, before: undefined, position: 'before' };
-      const { entry, path } = row;
-      const parent = path.length > 1 ? content.at(path.slice(0, -1)) : undefined;
-      const rect = ev.currentTarget?.getBoundingClientRect?.() || { top: 0, height: 0 };
-      if (ev.clientY < rect.top + rect.height / 2) return { parent, before: entry, position: 'before' };
-      if (!content.folder(entry)) return { parent, before: entry, position: 'after' };
-      // A folder with nothing in it has no first child to land before, so the drop appends inside
-      // it - the half-rule is the same, only the marker it names is missing.
-      return { parent: entry, before: entry.children?.[0], position: 'inside' };
-    };
-
-    const carried = (ev) => {
-      const transfer = ev?.dataTransfer;
-      if (!transfer || !(transfer.types || []).includes(recordsDragType)) return undefined;
-      const raw = transfer.getData(recordsDragType);
-      return raw ? typeof raw == 'string' ? lt.jsonParse(raw) : raw : undefined;
-    };
-
-    const dragOver = (ev, row) => {
-      const transfer = ev?.dataTransfer;
-      if (!transfer || !(transfer.types || []).includes(recordsDragType)) return;
-      ev.preventDefault?.();
-      ev.stopPropagation?.();
-      clearDrop();
-      const target = insertion(ev, row);
-      const node = $(ev.currentTarget);
-      if (node.length) node.attr('data-bookmark-drop', target.position);
-      transfer.dropEffect = transfer.effectAllowed === 'copy' ? 'copy' : 'move';
-    };
-
-    const dropInto = (ev, row) => {
-      const payload = carried(ev);
-      if (!payload || ev._recordsDbDrop) return;
-      ev.preventDefault?.();
-      ev.stopPropagation?.();
-      ev._recordsDbDrop = true;
-      clearDrop();
-      const target = insertion(ev, row);
-      content.drop(payload, target.parent, target.before);
-    };
 
     const chipStates = {
       // Every writeable study is already readable, so the access pair is `Writable` vs `Readonly`
@@ -1851,6 +1909,11 @@
       // A folder is never dropped - it stays and goes dim when nothing in it is shown.
       if (folder && shown === 0) li.addClass('folder-empty');
       if (folder) li.attr('data-expanded', String(expanded));
+      // The node this paint put on the page, keyed for the tree host's one listener per event. The
+      // chips a row wears copy this answer with a chip marker, so a click on a caret or an open
+      // link stays the row's own rather than a handler the row would have to carry.
+      const indexed = { row, entry, folder, dead, node: li[0], preview: false, cold: false };
+      content.rowIndex.set(li[0], indexed);
 
       // Select grows a plain `<input type="checkbox">` - a native control costs no markup budget
       // and takes no extra row width, which is what the styled `form-check` span did badly. Its
@@ -1867,7 +1930,7 @@
         const toggle = $('<button class="bookmark-toggle" type="button">')
           .attr('title', trans.noarg(expanded ? 'recordsDbCollapseFolder' : 'recordsDbExpandFolder'));
         toggle.append($('<svg focusable="false" viewBox="0 0 10 10"><path d="M2 1L8 5L2 9Z" fill="currentColor"></path></svg>'));
-        toggle.on('click', (ev) => content.toggle(entry));
+        content.rowIndex.set(toggle[0], { ...indexed, chip: 'toggle' });
         li.append(toggle);
       } else {
         // A leaf wears the page's own mark - the study's flair when the mirror has one, else the
@@ -1897,19 +1960,12 @@
         if (preview) {
           for (const [name, value] of Object.entries(preview.attrs)) li.attr(name, value);
           popupPreviews.set(li[0], { items: preview.items, title: preview.title });
-          li
-            .on('mouseover', (ev) => {
-              // A row arriving spends a hide the pointer left on a nearby tooltip, then shows
-              // this row's chapters - one gesture, one tooltip.
-              cancelPopupHide();
-              showStudyPopup(ev.currentTarget);
-            })
-            .on('mouseout', () => schedulePopupHide());
+          indexed.preview = true;
         }
       } else if (!folder && !dead && entry.kind == 'study') {
         // The mirror has never seen this row, so hover spends the read that gives it chapters -
         // the tooltip answers the moment the read lands, on this row and on every later page.
-        li.on('mouseover', (ev) => content.hoverRead(entry));
+        indexed.cold = true;
       }
 
       // The row's own jump affordance sits at its right end as a link icon. Enter and double click
@@ -1919,49 +1975,10 @@
           .attr('title', trans.noarg('recordsDbOpenLink'));
         if (lt.icon.Link !== undefined) jump.attr('data-icon', lt.icon.Link);
         else jump.text(trans.noarg('recordsDbOpenLink'));
-        jump.on('click', async (ev) => {
-          if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
-          ev.preventDefault?.();
-          await content.openLeaf(entry);
-        });
+        content.rowIndex.set(jump[0], { ...indexed, chip: 'open' });
         li.append(jump);
       }
 
-      li
-        .on('click', (ev) => {
-          const hit = $(ev.target);
-          if (hit.closest('a').length || hit.closest('button').length || hit.closest('input').length || hit.closest('form').length) return;
-          content.select(entry, ev);
-        })
-        .on('dblclick', async (ev) => {
-          // Double click opens a study; on a folder it stays the disclosure.
-          const hit = $(ev.target);
-          if (hit.closest('button').length) return;
-          ev.preventDefault?.();
-          if (folder) content.toggle(entry);
-          else if (!dead) await content.openLeaf(entry);
-        })
-        .on('keydown', async (ev) => {
-          const hit = $(ev.target);
-          if (hit.closest('a').length || hit.closest('button').length || hit.closest('input').length) return;
-          if (ev.key === ' ') {
-            ev.preventDefault?.();
-            content.select(entry, ev);
-          } else if (ev.key === 'Enter') {
-            // Keyboard Enter keeps the behaviour, and Enter on a leaf is the open chip's path.
-            ev.preventDefault?.();
-            if (folder) content.toggle(entry);
-            else if (!dead) await content.openLeaf(entry);
-          }
-        })
-        .on('dragstart', (ev) => {
-          if (!ev.dataTransfer) return;
-          ev.dataTransfer.effectAllowed = 'move';
-          ev.dataTransfer.setData(recordsDragType, JSON.stringify(content.drag(entry)));
-        })
-        .on('dragover', (ev) => dragOver(ev, row))
-        .on('dragleave', clearDrop)
-        .on('dragend drop', (ev) => dropInto(ev, row));
       return li;
     };
 
@@ -2016,15 +2033,17 @@
     if (content.error) {
       const error = $('<div class="error">');
       error.text(content.error.message);
-      error.append($('<button type="button">').text(trans.noarg('recordsDbRetry')).on('click', () => content.error?.retry?.()));
+      const retryButton = $('<button type="button">').text(trans.noarg('recordsDbRetry'));
+      content.rowIndex.set(retryButton[0], { row: undefined, entry: undefined, folder: false, dead: false, node: retryButton[0], preview: false, cold: false, chip: 'retry' });
+      error.append(retryButton);
       body.append(error);
     }
     // Nothing states an overflow: the tree paints every row it holds, so a tree taller than the
     // dialog only grows its scrollbar.
-    const end = $('<div class="bookmark-end">')
-      .on('dragover', (ev) => dragOver(ev))
-      .on('dragleave', clearDrop)
-      .on('dragend drop', (ev) => dropInto(ev));
+    // The marker at the end of the tree: a drop there is a root drop, so it carries the answer the
+    // host dispatches with no row behind it.
+    const end = $('<div class="bookmark-end">');
+    content.rowIndex.set(end[0], { row: undefined, entry: undefined, folder: false, dead: false, node: end[0], preview: false, cold: false });
     if (!content.entries.length) end.append($('<span class="status">').text(trans.noarg('recordsDbEmptyNote')));
     body.append(end);
 
@@ -2165,7 +2184,7 @@
       event._recordsDbEscape = true;
       event.preventDefault?.();
       event.stopPropagation?.();
-      if (!this.cancel(ctrl)) ctrl.owner.closeWindow(ctrl);
+      if (!this.cancel(ctrl)) ctrl.owner.close();
     }
 
     // The gate, trimmed to the resize strips: only a primary press begins a gesture, and a finger
@@ -2173,7 +2192,7 @@
     // the gate while a right or middle click never does.
     start(source, event) {
       const lt = this.lichessTools;
-      source.owner.bringToFront(source);
+      source.windowFrame?.setOrder(0);
       if (!event || !event.isPrimary || this.gesture) return;
       if (event.button !== 0 && event.button !== -1) return;
       const $ = lt.$;
@@ -2253,9 +2272,9 @@
 
 
   class WindowCtrl {
-    constructor(owner, contents, geometry) {
+    constructor(owner, content, geometry) {
       this.owner = owner;
-      this.contents = contents;
+      this.content = content;
       this.geometry = geometry;
       this.windowFrame;
       // A repaint means the tree changed, so the state is offered to the blob as it happens - the
@@ -2276,9 +2295,9 @@
       return this.owner.save();
     }
 
+    // The window is the one the owner holds, so showing it is only building its frame once.
     async show() {
       if (this.windowFrame) return true;
-      if (!this.owner.hasWindow(this)) return false;
       this.windowFrame = new WindowFrame(this);
       if (!await this.windowFrame.show()) {
         this.windowFrame = undefined;
@@ -2304,27 +2323,20 @@
     // A part a page cannot see is left out of the row rather than written empty: `saveWindows`
     // carries the part the page before left, so a write that knows less never erases it.
     freeze() {
-      const scrollOf = () => this.windowFrame?.scrolled() ?? this.scrollOffset;
-      return this.contents.map((content) => {
-        const view = content.frozenView();
-        const scroll = scrollOf();
-        return {
-          kind: content.kind,
-          active: true,
-          geometry: { ...this.geometry },
-          ...(view ? { view } : {}),
-          ...(scroll ? { scroll } : {}),
-        };
-      });
+      const view = this.content.frozenView();
+      const scroll = this.windowFrame?.scrolled() ?? this.scrollOffset;
+      return [{
+        kind: this.content.kind,
+        active: true,
+        geometry: { ...this.geometry },
+        ...(view ? { view } : {}),
+        ...(scroll ? { scroll } : {}),
+      }];
     }
 
     setGeometry(rect) {
       this.geometry = rect;
       this.owner.save();
-    }
-
-    get activeContentCtrl() {
-      return this.contents[0];
     }
 
     focusContent() {
@@ -2382,10 +2394,10 @@
         return false;
       }
       this.frame = { dialog: root, view: root.find('.dialog-content') };
-      const handler = recordsDbModule.windowEventHandler;
+      const handler = recordsDbInstance.windowEventHandler;
       root
         .on('close', () => {
-          if (!this.closed && this.ctrl.windowFrame === this) this.ctrl.owner.closeWindow(this.ctrl);
+          if (!this.closed && this.ctrl.windowFrame === this) this.ctrl.owner.close();
         })
         .on('keydown', (ev) => handler.keyDown(this.ctrl, ev));
       const handle = root.children('.dialog-header');
@@ -2395,7 +2407,7 @@
           const rect = this.frame.dialog[0]?.getBoundingClientRect?.();
           if (rect) this.apply({ left: rect.x, top: rect.y, width: rect.width, height: rect.height });
         });
-      await this.ctrl.owner.mount(this.ctrl);
+      await this.ctrl.owner.mount();
       if (this.closed || this.ctrl.windowFrame !== this) return false;
       this.render();
       this.fit();
@@ -2413,7 +2425,7 @@
         this.inner.appendTo(this.frame.view);
         this.scrollHost = this.inner.find('.content-frame');
       }
-      const content = this.ctrl.activeContentCtrl;
+      const content = this.ctrl.content;
       const host = this.treeHost || content?.viewHost();
       const box = this.typedBox || content?.newFilterBox();
       // The tree host, its filters rack and its textbox belong to the window, not to the paint: a
@@ -2425,7 +2437,7 @@
       // come back under the host have no memory of where the wheel had stopped, so a row click -
       // which repaints before it navigates - would jump the whole tree back to the top.
       const scrolled = this.scrollRestore ?? this.scrolled();
-      const view = contentView(content, host, box);
+      const view = bookmarkView(content, host, box);
       if (!view?.length) return;
       if (!this.treeHost) host.appendTo(this.scrollHost);
       this.treeHost = host;
@@ -2470,7 +2482,7 @@
     // under the page's own scroll host, and the five resize strips sit in the border box.
     innerHost() {
       const ctrl = this.ctrl;
-      const handler = recordsDbModule.windowEventHandler;
+      const handler = recordsDbInstance.windowEventHandler;
       const $ = ctrl.owner.lichessTools.$;
       const inner = $('<div class="inner-content">')
         .on('pointerdown', (ev) => handler.start(ctrl, ev))
@@ -2491,7 +2503,7 @@
     close() {
       if (this.closed) return;
       this.closed = true;
-      recordsDbModule.windowEventHandler.cancel(this.ctrl);
+      recordsDbInstance.windowEventHandler.cancel(this.ctrl);
       const lt = this.ctrl.owner.lichessTools;
       try {
         lt.global.window.removeEventListener('resize', this.resizeHandler);
@@ -2508,7 +2520,7 @@
 
     fit() {
       if (this.closed || !this.frame) return;
-      recordsDbModule.windowEventHandler.cancel(this.ctrl);
+      recordsDbInstance.windowEventHandler.cancel(this.ctrl);
       this.apply(fitWindow(this.ctrl.geometry, windowViewport(this.ctrl.owner.lichessTools)));
     }
 
@@ -2534,32 +2546,18 @@
     }
   }
 
-  function contentView(content, host, box) {
-    return content?.kind == 'treeTab' ? bookmarkView(content, host, box) : undefined;
-  }
-
-
   class RecordsDbCtrl {
     constructor(lichessTools, store) {
       this.lichessTools = lichessTools;
       this.store = store;
-      this.contents = [new BookmarkTabContent(lichessTools, store)];
-      this.windowContents = new Map();
+      // The page has one content, and it holds the one window the toggle opens.
+      this.content = new BookmarkTabContent(lichessTools, store);
+      this.window;
       this.toggleButton;
     }
 
-    get windows() {
-      return [...this.windowContents.keys()];
-    }
-
-    hasWindow(ctrl) {
-      return this.windowContents.has(ctrl);
-    }
-
     clearSelection() {
-      for (const contents of this.windowContents.values()) {
-        for (const content of contents) content.clearSelection();
-      }
+      this.content.clearSelection();
     }
 
     // A phone is not excluded: the store captured the study there too, and the window answers a
@@ -2583,10 +2581,10 @@
       return studyMatch?.[1];
     }
 
-    // The scroll offsets the blob carries for the first content row this tool still has.
+    // The scroll offsets the blob carries for the row this tool still has.
     storedScroll(stored) {
       for (const row of stored || []) {
-        if (!this.contents.some((content) => content.kind === row?.kind)) continue;
+        if (row?.kind != this.content.kind) continue;
         return Array.isArray(row?.scroll) ? row.scroll : undefined;
       }
       return undefined;
@@ -2628,29 +2626,21 @@
       return flag.studyId === this.pageStudyId();
     }
 
-    async mount(ctrl) {
-      if (!this.hasWindow(ctrl)) return;
-      if (!this.canOpen()) return this.closeWindow(ctrl);
-      this.bringToFront(ctrl);
-      const contents = this.windowContents.get(ctrl);
-      await Promise.all(contents.map((content) => content.init()));
-      ctrl.focusContent();
-    }
-
-    bringToFront(ctrl) {
-      const contents = this.windowContents.get(ctrl);
-      if (!contents) return;
-      this.windowContents.delete(ctrl);
-      this.windowContents.set(ctrl, contents);
-      let order = 0;
-      for (const studyWindow of this.windows) studyWindow.windowFrame?.setOrder(order++);
+    // The window's frame is up, so the content reads its tree and the window takes focus. The
+    // frame's order is stamped here: the css keeps the single window under the analysis panels.
+    async mount() {
+      if (!this.window) return;
+      if (!this.canOpen()) return this.close();
+      this.window.windowFrame?.setOrder(0);
+      await this.content.init();
+      this.window.focusContent();
     }
 
     async open() {
       if (!this.canOpen()) return;
-      if (this.windows.some((ctrl) => ctrl.windowFrame)) return;
-      if (!this.windowContents.size) await this.load();
-      for (const ctrl of this.windows) await ctrl.show();
+      if (this.window?.windowFrame) return;
+      if (!this.window) await this.load();
+      await this.window.show();
       await this.rememberPage();
       this.listenLeave();
     }
@@ -2677,7 +2667,7 @@
       const lt = this.lichessTools;
       if (this.leaveHandler) return;
       this.leaveHandler = () => {
-        if (this.windowContents.size) void this.save();
+        if (this.window?.windowFrame) void this.save();
       };
       lt.global.addEventListener('pagehide', this.leaveHandler);
       lt.global.addEventListener('beforeunload', this.leaveHandler);
@@ -2692,29 +2682,17 @@
     }
 
     async close() {
-      if (!this.windowContents.size) return;
+      if (!this.window) return;
       await this.save();
-      for (const ctrl of this.windows) {
-        ctrl.dispose();
-        for (const content of this.windowContents.get(ctrl)) content.destroy();
-      }
-      this.windowContents.clear();
+      this.window.dispose();
+      this.content.destroy();
+      this.window = undefined;
       this.stopLeave();
     }
 
     async toggle() {
-      if (this.windows.some((ctrl) => ctrl.windowFrame)) await this.close();
+      if (this.window?.windowFrame) await this.close();
       else await this.open();
-    }
-
-    closeWindow(ctrl) {
-      const contents = this.windowContents.get(ctrl);
-      if (!contents) return;
-      // `recordsDbWindowCount` is gone: there is one window and closing it closes the whole state.
-      if (this.windowContents.size === 1) return this.close();
-      ctrl.dispose();
-      this.windowContents.delete(ctrl);
-      this.save();
     }
 
     // The fail-soft rule for the geometry blob: every number finite and positive, and a row
@@ -2723,7 +2701,7 @@
     storedGeometry(stored) {
       for (const row of stored || []) {
         const geometry = row?.geometry;
-        if (!this.contents.some((content) => content.kind === row?.kind)) continue;
+        if (row?.kind != this.content.kind) continue;
         if (!geometry || !['left', 'top', 'width', 'height'].every((key) => Number.isFinite(geometry[key]))) continue;
         if (geometry.width <= 0 || geometry.height <= 0) continue;
         return { ...geometry };
@@ -2733,19 +2711,16 @@
 
     async load() {
       const lt = this.lichessTools;
-      if (this.windowContents.size) return;
-      const contents = [...this.contents];
+      if (this.window) return;
       const stored = await this.store.idbStudy.loadWindows();
       const geometry = this.storedGeometry(stored) ?? this.initialGeometry();
-      const ctrl = new WindowCtrl(this, contents, fitWindow(geometry, windowViewport(lt)));
-      ctrl.scrollRestore = this.storedScroll(stored);
-      this.windowContents.set(ctrl, contents);
-      for (const content of contents) content.onChange = ctrl.redraw;
+      this.window = new WindowCtrl(this, this.content, fitWindow(geometry, windowViewport(lt)));
+      this.window.scrollRestore = this.storedScroll(stored);
+      this.content.onChange = this.window.redraw;
     }
 
     async save() {
-      const stored = this.windows.flatMap((ctrl) => ctrl.freeze());
-      return this.store.idbStudy.saveWindows(stored);
+      return this.store.idbStudy.saveWindows(this.window?.freeze() ?? []);
     }
 
 

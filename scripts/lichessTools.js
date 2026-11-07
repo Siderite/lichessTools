@@ -359,8 +359,8 @@
       if (!arr?.length) return result;
       const kept = [];
       for (const item of arr) {
-        const arr = await asyncPredicate(item) ? result : kept;
-        arr.push(item);
+        const target = await asyncPredicate(item) ? result : kept;
+        target.push(item);
       }
       arr.length = 0;
       arr.push(...kept);
@@ -372,8 +372,8 @@
       if (!arr?.length) return result;
       const kept = [];
       for (const item of arr) {
-        const arr = predicate(item) ? result : kept;
-        arr.push(item);
+        const target = predicate(item) ? result : kept;
+        target.push(item);
       }
       arr.length = 0;
       arr.push(...kept);
