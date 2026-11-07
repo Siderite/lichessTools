@@ -171,6 +171,11 @@
       }
     }
 
+    announce = (msg)=>{
+      const lt = this.lichessTools;
+      return lt.announce(msg,undefined,undefined,'dialog.lichessTools-pgnEditor');
+    };
+
     historyIndex = -1;
     history = null;
     setText = (control, text) => {
@@ -505,7 +510,7 @@
           if (!text) return;
           this.runOperation('download', () => {
             lt.download(text,'pgnEditor_' + lt.toTimeString(new Date()) + '.pgn','application/x-chess-pgn');
-            lt.announce(trans.noarg('downloadedText'));
+            this.announce(trans.noarg('downloadedText'));
           });
         })
         .find('span')
@@ -783,7 +788,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
                                       ? 'standard'
                                       : v);
       if (new Set(variants).size>1) {
-        lt.announce(trans.noarg('multipleVariantsMessage'));
+        this.announce(trans.noarg('multipleVariantsMessage'));
       }
     };
 
@@ -977,6 +982,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       let games = parsePgn(text);
       const initialNumberOfGames = games.length;
       games = await this.mergePgnText(text, options);
+      if (!games) return;
 
       await this.writeGames(textarea, games);
 
@@ -1012,7 +1018,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1072,7 +1078,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1140,7 +1146,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
       const trans = lt.translator;
 
       if (!lichess.analysis) {
-        lt.announce(trans.noarg('evaluateNeedsAnalysis'));
+        this.announce(trans.noarg('evaluateNeedsAnalysis'));
         return;
       }
 
@@ -1183,7 +1189,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1282,7 +1288,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1319,7 +1325,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
         fenText += gameIndex + '\r\n' + [...fenSet].join('\r\n') + '\r\n\r\n';
       }
       lt.download(fenText,'pgnEditor_fens_' + lt.toTimeString(new Date()) + '.txt');
-      lt.announce(trans.noarg('downloadedText'));
+      this.announce(trans.noarg('downloadedText'));
     };
 
     normalizePgn = async (textarea) => {
@@ -1350,7 +1356,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1441,7 +1447,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
@@ -1581,7 +1587,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
 
       let m = /^\s*select\s+(?<start>\d+)(?:\s+(?<count>\d+))?\s*/.exec(commandText);
       if (!m) {
-        lt.announce(trans.noarg('selectGamesSyntaxText'));
+        this.announce(trans.noarg('selectGamesSyntaxText'));
         return;
       }
       let start = +m.groups.start-1;
@@ -2313,7 +2319,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
             const message = trans.noarg('illegalMove').replace(/%(\d)/g, m => {
               return data[+m[1] - 1];
             });
-            lt.announce(message);
+            this.announce(message);
             break;
           } else throw ex;
         }
