@@ -712,6 +712,37 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const host = $('<div class="record-list">');
+      // Two presses of the same row inside the double-click window are one open gesture. The
+      // browser's own `dblclick` cannot be the only answer: the first press repaints the row, and
+      // a browser keys a double click on the element under the pointer, so a press that hands over
+      // a new row never fires the event. The pair is read here as well, and the gesture runs on the
+      // press that closes it - a plain press only selects, so the pair is what opens the row.
+      const pressWindowMs = 500;
+      const rowPress = new Map();
+      const rowOpened = new Map();
+      const openGesture = async (info) => {
+        if (info.folder) this.toggle(info.entry);
+        else if (!info.dead) await this.openLeaf(info.entry);
+      };
+      // True when this press closes a pair; a closed pair leaves no press behind, so a third press
+      // is a fresh single press rather than another pair.
+      const closePress = (entry, at = Date.now()) => {
+        const last = rowPress.get(entry);
+        if (last !== undefined && at - last < pressWindowMs) {
+          rowPress.delete(entry);
+          rowOpened.set(entry, at);
+          if (rowOpened.size > 64) rowOpened.clear();
+          return true;
+        }
+        rowPress.set(entry, at);
+        if (rowPress.size > 64) rowPress.clear();
+        return false;
+      };
+      // The gesture a pair already ran: a browser that does fire its `dblclick` must not run it again.
+      const openedPress = (entry, at = Date.now()) => {
+        const opened = rowOpened.get(entry);
+        return opened !== undefined && at - opened < pressWindowMs;
+      };
       // A row click selects; the chips a row wears answer first, and a click that hits a link,
       // a control or the textbox belongs to whatever owns it.
       const rowClick = async (ev) => {
@@ -728,6 +759,10 @@
         if (!info.row || info.chip) return;
         const hit = $(ev.target);
         if (hit.closest('a').length || hit.closest('button').length || hit.closest('input').length || hit.closest('form').length) return;
+        if (closePress(info.entry)) {
+          await openGesture(info);
+          return;
+        }
         this.select(info.entry, ev);
       };
       const rowDoubleClick = async (ev) => {
@@ -735,8 +770,8 @@
         if (!info?.row || info.chip) return;
         if ($(ev.target).closest('button').length) return;
         ev.preventDefault?.();
-        if (info.folder) this.toggle(info.entry);
-        else if (!info.dead) await this.openLeaf(info.entry);
+        if (openedPress(info.entry)) return;
+        await openGesture(info);
       };
       const rowKeyDown = async (ev) => {
         const info = this.rowTarget(ev);
@@ -747,8 +782,7 @@
           this.select(info.entry, ev);
         } else if (ev.key === 'Enter') {
           ev.preventDefault?.();
-          if (info.folder) this.toggle(info.entry);
-          else if (!info.dead) await this.openLeaf(info.entry);
+          await openGesture(info);
         }
       };
       const rowDragStart = (ev) => {
