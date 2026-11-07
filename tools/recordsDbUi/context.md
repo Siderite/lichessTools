@@ -68,6 +68,17 @@ tooltip links grew that array before and now grow nothing.
   `closest('button')` guard hands it over, and the folder just does not
   move. The window harness now drives the caret as a gesture twice, on
   the button and on its icon child.
+- A double click is read from its two presses, not only from `dblclick`.
+  The first press repaints the row, and a browser keys its double click
+  on the element under the pointer, so a row handed over mid-gesture
+  fires nothing at all. `rowClick` records each press
+  and, within `pressWindowMs` (500ms, the browser's own window), runs
+  `openGesture` on the press that closes the pair and leaves no press
+  behind, so a third press starts fresh. The native `dblclick` handler
+  stays for rows that never repaint, and `openedPress` keeps the gesture
+  from running twice inside the window. Outside the window a press is
+  ordinary: `select` clears and re-adds, so the row simply stays
+  selected and nothing opens.
 - Every gesture is its own event object. The drag handlers stop
   propagation, so reusing the dragover object for `dragleave` skips the
   host handler; the leave test now builds its own event.
@@ -107,7 +118,8 @@ needles; both stayed put.
 
 ## Shape counts
 
-tool.js 2,813 lines - the delegation and the caret climb add about 70
-lines over the previous shape, so this work is a correctness and repaint
-cost fix, not a shrink. The window harness 1,770 lines; the harvest
-harness 549; tool.css 537. Neither harness reports a missing intl key.
+tool.js 2,846 lines - the delegation, the caret climb and the double-click
+pair add about a hundred lines over the shape before this work, so this
+work is a correctness and repaint cost fix, not a shrink. The window
+harness 1,833 lines; the harvest harness 548; tool.css 536 (counts as
+`Get-Content` returns them). Neither harness reports a missing intl key.

@@ -738,7 +738,7 @@
         if (rowPress.size > 64) rowPress.clear();
         return false;
       };
-      // The gesture a pair already ran: a browser that does fire its `dblclick` must not run it again.
+      // A gesture a pair already ran: a browser that does fire `dblclick` must not run it twice.
       const openedPress = (entry, at = Date.now()) => {
         const opened = rowOpened.get(entry);
         return opened !== undefined && at - opened < pressWindowMs;
