@@ -24,10 +24,10 @@ to the tool itself, and the free helpers read the engines off that one instance.
 | `RecordsNavigation` | class | 1382-1410 | 29 | row -> study page navigation |
 | popup + row helpers | 17 free fns | 1413-1604 | 192 | jump link, tab key, tooltips, drag payload, match highlighting |
 | `bookmarkView` | free fn | 1607-2049 | 443 | the whole paint of the tree view |
-| geometry helpers | 5 free fns | 2051-2101 | 51 | viewport, clamp, fit, resize edges |
-| `WindowEventHandler` | class | 2103-2202 | 100 | pointer gestures for moving and resizing |
+| geometry helpers | 5 free fns | 2051-2101 | 51 | viewport, clamp, fit, the resize policy |
+| `DialogResize` (dialog tool) | class | outside this file | - | the five edge strips and the gesture a grab drives |
 | `WindowCtrl` | class | 2204-2279 | 76 | window state: geometry, scroll, the blob write |
-| `WindowFrame` | class | 2281-2477 | 197 | the DOM: dialog, hosts, scrollers, resize strips |
+| `WindowFrame` | class | 2281-2477 | 197 | the DOM: dialog, hosts, scrollers, the resize policy |
 | `RecordsDbCtrl` | class | 2479-2740 | 262 | the page shell: one window, the toggle, the trail, close |
 
 Totals: 8 classes, 18 free functions, 120 members (the 8 constructors aside), 102
@@ -37,7 +37,7 @@ functions account for 2663 lines; the rest is comments.
 ```mermaid
 graph TD
   Tool["RecordsDbUiTool<br/>option + intl + init/start<br/>carries the four engines"] -->|"recordsDbCtrl"| DB["RecordsDbCtrl<br/>page shell"]
-  Tool -->|"windowEventHandler"| EH["WindowEventHandler<br/>gestures"]
+  Tool -->|"dialog factory"| DR["DialogResize<br/>five edge strips"]
   Tool -->|"navigation"| Nav["RecordsNavigation"]
   Tool -->|"searchEngine"| Engine["RecordsSearchEngine"]
   DB -->|"content"| Content["BookmarkTabContent<br/>the tree"]
@@ -60,13 +60,13 @@ outside this file constructs any of these classes; the only outside reader is
 classDiagram
   LiChessToolsToolsToolBase <|-- RecordsDbUiTool
   RecordsDbUiTool --> RecordsDbCtrl : init()
-  RecordsDbUiTool --> WindowEventHandler
+  RecordsDbUiTool ..> DialogResize : resizable policy
   RecordsDbUiTool --> RecordsNavigation
   RecordsDbUiTool --> RecordsSearchEngine
   RecordsDbCtrl --> BookmarkTabContent : one content
   RecordsDbCtrl --> WindowCtrl : one window
   WindowCtrl --> WindowFrame : one
-  WindowFrame ..> WindowEventHandler : pointer and key listeners
+  WindowFrame ..> DialogResize : begin + resize hooks
   WindowCtrl ..> BookmarkTabContent : frozenView()
   WindowFrame ..> bookmarkView : render()
 ```
@@ -211,7 +211,7 @@ harness lines that named the old shape edited in the same pass. JS went 2837 ->
 
 | Cut | Weight | What replaced it |
 | --- | --- | --- |
-| `RecordsDbModule` | 10 lines, 5 fields, one hop on every engine read | the tool carries `recordsDbCtrl`, `windowEventHandler`, `navigation`, `searchEngine`; `init()` sets `recordsDbInstance = this`, and `maxResults` folded into the `recordsDbMaxResults` const |
+| `RecordsDbModule` | 10 lines, 5 fields, one hop on every engine read | the tool carries `recordsDbCtrl`, `navigation`, `searchEngine`; `init()` sets `recordsDbInstance = this`, and `maxResults` folded into the `recordsDbMaxResults` const |
 | `TabContentCtrl` | 69 lines, 10 members, one subclass | `BookmarkTabContent` owns `init`, `destroy`, `logState`, its own `load`, its `error` get/set and the `frozenView` write |
 | the base stubs: `get loading`, `get`/`set exhausted` + `exhaustedSlot`, `frozenView` stub, `closable`, `icon`, `label` | inside the 69 above | nothing reads any of them - the paging path they served went with the results tab |
 | `listData` + its call at `viewHost` | 4 lines | the `data-key` attribute was written and read by nobody; `this.id` stays because it names the filter textbox's element id |
@@ -231,9 +231,9 @@ Three traps that the pass had to keep, so the next reader need not repeat them:
   `var(---records-db-frame-order, 900)` (css 20) is a different number from
   the one it writes. The loop over several windows was dead shape; the write is
   not, so it survives as `setOrder(0)` in `mount()` and in
-  `WindowEventHandler.start()`.
-- `resize-e/w/s/se/sw` and `.mobile` look unused to a string search but are live:
-  2426 writes `class="resize"` and 2427 `addClass('resize-' + edge)`, and
+  the dialog factory's `DialogResize.begin()`.
+- `dialog-resize-e/w/s/se/sw` and `.mobile` look unused to a string search but are live:
+  `tools/dialog/tool.js` writes `class="dialog-resize"` and `addClass('dialog-resize-' + edge)`, and
   `body.lichessTools.mobile` is lichess's own class.
 - 37 intl keys look unused to a string search and are all live, because the
   labels are composed: `'kind' + camel(kind)`, `which + camel(state)`,
@@ -247,8 +247,8 @@ them:
   `var(---records-db-frame-order, 900)` (css 20, 342) is a different number from
   the one it writes - order starts at 0. The loop over one window is dead shape;
   the write itself is not, so the fix is one call at paint time, not a deletion.
-- `resize-e/w/s/se/sw` and `.mobile` in the CSS look unused to a string search
-  but are live: 2485 builds `addClass('resize-' + edge)`, and `body.lichessTools.mobile`
+- `dialog-resize-e/w/s/se/sw` and `.mobile` in the dialog sheet look unused to a string search
+  but are live: `tools/dialog/tool.js` builds `addClass('dialog-resize-' + edge)`, and `body.lichessTools.mobile`
   is lichess's own class.
 - 37 intl keys look unused to a string search and are all live, because the
   labels are composed: 1720 `'kind' + camel(kind)`, 1721 `which + camel(state)`,
@@ -337,7 +337,7 @@ step 2 reaches lower, and it needs a decision per row of section 8.
 headers at two spaces of indent, members at four, so each range is a real extent
 rather than a guess. `test/_tmp_deadcheck.mjs` counted identifier mentions in
 `tool.js` and matched CSS class names against the JS text. After the pass
-`test/_tmp_cssdead.mjs` re-ran the CSS token scan - only the `resize-*` compounds
+`test/_tmp_cssdead.mjs` re-ran the CSS token scan - only the `dialog-resize-*` compounds
 and `.mobile` looked dead, and both are live - and `test/_tmp_members.mjs`
 counted members and constructor fields at the current line numbers. All were
 scratch probes and are deleted; the numbers above are what they printed.

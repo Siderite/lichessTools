@@ -65,54 +65,6 @@ body.lichessTools .lichessTools-recordsDbUi .body {
   overflow: auto;
 }
 
-/* The five resize strips sit inside the border box (`overflow: hidden` clips anything
-   outside) and stay invisible until the `windowEventHandler` takes pointer gestures over
-   them. */
-body.lichessTools .lichessTools-recordsDbUi .resize {
-  position: absolute;
-  z-index: 1;
-}
-
-body.lichessTools .lichessTools-recordsDbUi .resize-e {
-  right: 0;
-  top: 2rem;
-  bottom: 1.5rem;
-  width: 0.75rem;
-  cursor: ew-resize;
-}
-
-body.lichessTools .lichessTools-recordsDbUi .resize-w {
-  left: 0;
-  top: 2rem;
-  bottom: 1.5rem;
-  width: 0.75rem;
-  cursor: ew-resize;
-}
-
-body.lichessTools .lichessTools-recordsDbUi .resize-s {
-  left: 1.5rem;
-  right: 1.5rem;
-  bottom: 0;
-  height: 0.75rem;
-  cursor: ns-resize;
-}
-
-body.lichessTools .lichessTools-recordsDbUi .resize-se {
-  right: 0;
-  bottom: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  cursor: se-resize;
-}
-
-body.lichessTools .lichessTools-recordsDbUi .resize-sw {
-  left: 0;
-  bottom: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  cursor: sw-resize;
-}
-
 body.lichessTools .lichessTools-recordsDbUi .record-list {
   display: flex;
   flex-direction: column;
@@ -203,38 +155,20 @@ body.lichessTools button.records-db-button:is(:focus-visible,:hover) {
   text-shadow: 0 0 1px var(--c-accent), 0 0 2px var(--c-accent), 0 0 4px var(--c-accent), 0 0 8px var(--c-accent);
 }
 
-body.lichessTools .lichessTools-recordsDbUi.dragging {
+body.lichessTools .lichessTools-recordsDbUi.resizing {
   cursor: grabbing;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
 }
 
 
-/* A phone keeps the window. The header becomes a thumb grab and the five resize strips widen
-   into tap bands; `touch-action: none` keeps a dragging finger from panning the page instead. */
+/* A phone keeps the window and gives the header a thumb grab; the five resize bands widen into tap
+   bands in the dialog sheet, which styles them for every resizable dialog. */
 body.lichessTools.mobile .lichessTools-recordsDbUi {
   min-width: 280px;
 }
 
 body.lichessTools.mobile dialog.lichessTools-recordsDbUi > .dialog-header {
   min-height: 2.5rem;
-  touch-action: none;
-}
-
-body.lichessTools.mobile .lichessTools-recordsDbUi .resize-e,
-body.lichessTools.mobile .lichessTools-recordsDbUi .resize-w {
-  width: 1.5rem;
-  touch-action: none;
-}
-
-body.lichessTools.mobile .lichessTools-recordsDbUi .resize-s {
-  height: 1.5rem;
-  touch-action: none;
-}
-
-body.lichessTools.mobile .lichessTools-recordsDbUi .resize-se,
-body.lichessTools.mobile .lichessTools-recordsDbUi .resize-sw {
-  width: 1.5rem;
-  height: 1.5rem;
   touch-action: none;
 }
 

@@ -8,6 +8,7 @@ body.lichessTools:has(dialog.lichessTools-dialog.resizing) {
 }
 
 body.lichessTools dialog.lichessTools-dialog {
+  box-sizing: border-box;
   margin-top: 0;
   transition: none;
   transition-property: none;
@@ -37,21 +38,18 @@ body.lichessTools dialog.lichessTools-dialog .dialog-header.draggable {
 }
 
 body.lichessTools dialog.lichessTools-dialog.resizing {
-  cursor: nw-resize;
+  cursor: grabbing;
 }
 
 body.lichessTools dialog.lichessTools-dialog.dragged {
   cursor: move;
 }
 
+/* The five edge strips: invisible grab bands just inside the dialog's own border box, each carrying
+   the cursor of the edge it moves. They stay invisible because they are only ever a place to press. */
 body.lichessTools dialog.lichessTools-dialog .dialog-resize {
   position: absolute;
-  height: 16px;
-  width: 16px;
-  background: #80808040;
-  right: 0;
-  bottom: 0;
-  cursor: nw-resize;
+  z-index: 1;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -59,8 +57,61 @@ body.lichessTools dialog.lichessTools-dialog .dialog-resize {
   -ms-user-select: none;
 }
 
-body.lichessTools dialog.lichessTools-dialog .dialog-resize:hover {
-  background: #80808080;
+body.lichessTools dialog.lichessTools-dialog .dialog-resize-e {
+  right: 0;
+  top: 2rem;
+  bottom: 1.5rem;
+  width: 0.75rem;
+  cursor: ew-resize;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize-w {
+  left: 0;
+  top: 2rem;
+  bottom: 1.5rem;
+  width: 0.75rem;
+  cursor: ew-resize;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize-s {
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 0;
+  height: 0.75rem;
+  cursor: ns-resize;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize-se {
+  right: 0;
+  bottom: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: se-resize;
+}
+
+body.lichessTools dialog.lichessTools-dialog .dialog-resize-sw {
+  left: 0;
+  bottom: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: sw-resize;
+}
+
+/* A phone takes the same bands into tap-wide strips, and keeps `touch-action: none` so a thumb held
+   on a band drags the dialog rather than panning the page. */
+body.lichessTools.mobile dialog.lichessTools-dialog .dialog-resize-e,
+body.lichessTools.mobile dialog.lichessTools-dialog .dialog-resize-w {
+  width: 1.5rem;
+}
+
+body.lichessTools.mobile dialog.lichessTools-dialog .dialog-resize-s {
+  height: 1.5rem;
+}
+
+body.lichessTools.mobile dialog.lichessTools-dialog .dialog-resize-se,
+body.lichessTools.mobile dialog.lichessTools-dialog .dialog-resize-sw {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 body.lichessTools dialog.lichessTools-dialog .dialog-content {
@@ -97,8 +148,9 @@ body.lichessTools dialog.lichessTools-dialog a.help-button:hover {
   color: #1b78d0;
 }
 
-body.lichessTools dialog.lichessTools-dialog.dragged .dialog-content,
-body.lichessTools dialog.lichessTools-dialog.resizing .dialog-content {
+/* Only a header drag takes the content away - an edge grab leaves it live, the strips ride above it
+   on the dialog's own border box. */
+body.lichessTools dialog.lichessTools-dialog.dragged .dialog-content {
   pointer-events: none;
   opacity: 0.25;
 }

@@ -53,6 +53,29 @@ tooltip links grew that array before and now grow nothing.
   waits; browse mode - the mode the scroll crash happened in - is clean.
 - The restore picker's `change` grows the array once per restore press.
 
+## The resize moved to the dialog tool
+
+The five edge strips, the gesture gate, the pointer capture and the box apply are the dialog
+factory's (`tools/dialog/tool.js`: `DialogResize`), not this tool's - every resizable dialog gets the
+same machine and the same signals: the `resizing` class while a grab moves, the debounced
+`lichessTools.setDialogPlacement` emit on release, and the click the browser fires under the strip
+when a press ends. What stays here is the window's own policy, handed over as `resizable: {begin,
+resize}`: `begin` lifts the window forward so its strips stay hit-testable, and `resize(proposed,
+edge, dx, dy, base)` runs `moveWindow`/`fitWindow` against the viewport and stores the size on the
+blob before the machine puts it on the page. Escape is not the machine's: `escapeKey` closes the
+window, and `noEscClose` is what keeps the browser's own Escape close from doing it first.
+
+## Where the window is remembered
+
+The blob keeps the box the user left twice: as absolute numbers, and as the screen corner it was
+nearest to with the two gaps to that corner (`anchorBox` writes it at `freeze`, `rememberedBox` reads
+it at `load`). A page whose viewport has since changed size puts the window back the same distance
+from the corner the user had put it against, so a window parked against a corner survives a screen
+change instead of sliding to coordinates of a screen that is no longer there. A remembered box that
+no longer fits is clamped back in by `fitWindow`, which resizes and repositions it; a page too small
+to hold the window at its own minimum at all (`windowCanHold`) drops the row and the page's own
+placement answers. A row an older version wrote carries no anchor and is taken where it was written.
+
 ## Gesture notes the harnesses encode
 
 - `fireEvent` walks ancestors and rewrites `currentTarget` per hop, so a hit
@@ -118,8 +141,15 @@ needles; both stayed put.
 
 ## Shape counts
 
-tool.js 2,846 lines - the delegation, the caret climb and the double-click
-pair add about a hundred lines over the shape before this work, so this
-work is a correctness and repaint cost fix, not a shrink. The window
-harness 1,833 lines; the harvest harness 548; tool.css 536 (counts as
-`Get-Content` returns them). Neither harness reports a missing intl key.
+tool.js 2,838 lines - the resize machine left for `tools/dialog/tool.js` while the delegation,
+the caret climb and the double-click pair grew it; a drag now moves the window without touching its
+size, `moveWindow` takes the content floor the machine measured, the remembered box carries the
+screen corner it was nearest to, and the window's box is written the factory's way (a centre and a
+size with `left`/`top`, the opposite edges at `unset`, the page min/max at their initial values) so a
+tool that re-applies a placement onto the dialog can take either edge without the box going over
+constrained. The window harness 2,024 lines (it evaluates the dialog factory, so the moved machine
+is exercised rather than stubbed, and it runs a header drag, a grab that hits the content floor, a
+reopen on another screen that keeps the corner gaps, reads the written box back, and checks the machine
+gave the content its own size too); the harvest
+harness 548; tool.css 470, the five resize bands live in
+`tools/dialog/tool.css`. Neither harness reports a missing intl key.

@@ -202,11 +202,10 @@
       const lt = this.lichessTools;
       if (!lt.recordsDbHarvest) return;
       // The engines live on the tool itself: the classes below are not tools, so they reach their
-      // search engine, their navigation and their window handler through this one instance.
+      // search engine and their navigation through this one instance.
       if (!recordsDbInstance) {
         recordsDbInstance = this;
         this.recordsDbCtrl = new RecordsDbCtrl(lt, lt.recordsDbHarvest);
-        this.windowEventHandler = new WindowEventHandler(lt);
         this.navigation = new RecordsNavigation(lt);
         this.searchEngine = new RecordsSearchEngine(lt, lt.recordsDbHarvest);
       }
@@ -2145,9 +2144,8 @@
     return host;
   }
 
-  // The window geometry: min width, the five resize edges, the clamp ------------------------------
+  // The window geometry: min width and the clamp ---------------------------------------------------
   const minWindowWidth = 280;
-  const resizeEdges = ['e', 'se', 's', 'sw', 'w'];
 
 
 
@@ -2189,121 +2187,65 @@
     };
   }
 
-  function moveWindow(rect, dx, dy, edge, viewport) {
+  function moveWindow(rect, dx, dy, edge, viewport, floor) {
     if (!edge) return fitWindow({ ...rect, left: rect.left + dx, top: rect.top + dy }, viewport);
     const inset = Math.min(8, viewport.width / 4, viewport.height / 4);
     const minTop = Math.max(inset, viewport.top);
-    const minHeight = Math.min(160, Math.max(0, viewport.height - inset - minTop));
+    const minWidth = Math.max(minWindowWidth, floor?.width ?? 0);
+    const minHeight = Math.max(Math.min(160, Math.max(0, viewport.height - inset - minTop)), floor?.height ?? 0);
     let { left } = rect;
     let right = left + rect.width;
     let bottom = rect.top + rect.height;
-    if (edge.includes('w')) left = clamp(left + dx, { min: inset, max: right - minWindowWidth });
-    if (edge.includes('e')) right = clamp(right + dx, { min: left + minWindowWidth, max: viewport.width - inset });
+    if (edge.includes('w')) left = clamp(left + dx, { min: inset, max: right - minWidth });
+    if (edge.includes('e')) right = clamp(right + dx, { min: left + minWidth, max: viewport.width - inset });
     if (edge.includes('s')) bottom = clamp(bottom + dy, { min: rect.top + minHeight, max: viewport.height - inset });
     return { left, top: rect.top, width: right - left, height: bottom - rect.top };
   }
 
 
-  class WindowEventHandler {
-    constructor(lichessTools) {
-      this.lichessTools = lichessTools;
-      this.gesture;
-    }
 
-    keyDown(ctrl, event) {
-      if (!event || event.key !== 'Escape') return;
-      // Cash reaches the frame and the inner content, so the memo keeps Escape one action - unwind
-      // a gesture, otherwise close the window.
-      if (event._recordsDbEscape) return;
-      event._recordsDbEscape = true;
-      event.preventDefault?.();
-      event.stopPropagation?.();
-      if (!this.cancel(ctrl)) ctrl.owner.close();
-    }
 
-    // The gate, trimmed to the resize strips: only a primary press begins a gesture, and a finger
-    // counts as one - a touch contact reports no button (`-1`), so both it and a left press open
-    // the gate while a right or middle click never does.
-    start(source, event) {
-      const lt = this.lichessTools;
-      source.windowFrame?.setOrder(0);
-      if (!event || !event.isPrimary || this.gesture) return;
-      if (event.button !== 0 && event.button !== -1) return;
-      const $ = lt.$;
-      const capture = $(event.target);
-      const edge = capture.attr('data-resize');
-      if (!edge) return;
-      const bounds = capture[0]?.getBoundingClientRect?.();
-      event.preventDefault?.();
-      this.gesture = {
-        source,
-        edge,
-        rect: { ...source.geometry },
-        moved: false,
-        capture,
-        pointerId: event.pointerId,
-        x: event.clientX,
-        y: event.clientY,
-        offsetX: event.clientX - (bounds?.left ?? event.clientX),
-        offsetY: event.clientY - (bounds?.top ?? event.clientY),
-      };
-      capture[0]?.setPointerCapture?.(event.pointerId);
-    }
 
-    move(event) {
-      const lt = this.lichessTools;
-      const gesture = this.gesture;
-      if (!gesture || !event || gesture.pointerId !== event.pointerId) return;
-      if (!gesture.moved) {
-        if (Math.hypot(event.clientX - gesture.x, event.clientY - gesture.y) < 6) return;
-        gesture.moved = true;
-        gesture.source.windowFrame?.frame?.dialog.addClass('dragging');
-      }
-      gesture.source.windowFrame?.apply(
-        moveWindow(
-          gesture.rect,
-          event.clientX - gesture.x,
-          event.clientY - gesture.y,
-          gesture.edge,
-          windowViewport(lt),
-        ),
-      );
-    }
 
-    // The release, minus the transfer branch: a resize that moved re-saves the geometry, so a
-    // reload restores the size the user just set.
-    async end(event) {
-      const gesture = this.gesture;
-      if (!gesture || !event || gesture.pointerId !== event.pointerId) return;
-      this.move(event);
-      this.clear();
-      if (gesture.moved) gesture.source.owner.save();
-    }
-
-    pointerCancel(event) {
-      if (event && event.pointerId === this.gesture?.pointerId) this.cancel();
-    }
-
-    // The unwind, so Escape mid-resize closes instead of committing the new size.
-    cancel(ctrl) {
-      if (!this.gesture || (ctrl && this.gesture.source !== ctrl)) return false;
-      const gesture = this.gesture;
-      this.clear();
-      gesture.source.windowFrame?.apply(gesture.rect);
-      return true;
-    }
-
-    clear() {
-      const gesture = this.gesture;
-      if (!gesture) return;
-      this.gesture = undefined;
-      gesture.capture[0]?.style?.removeProperty?.('cursor');
-      gesture.source.windowFrame?.frame?.dialog?.removeClass('dragging');
-      if (gesture.capture[0]?.hasPointerCapture?.(gesture.pointerId)) gesture.capture[0].releasePointerCapture(gesture.pointerId);
-    }
+  // What the user left, kept by the screen corner it was nearest to: the two gaps to that corner
+  // are what the page remembers, so a page whose viewport has since changed size puts the window
+  // back the same distance from the corner the user was working to rather than at absolute
+  // coordinates of a screen that is no longer there. The corner is named by its edge first: `br`
+  // is bottom right, and `dx` is the gap to the left or right edge, `dy` the gap to top or bottom.
+  function anchorBox(rect, viewport) {
+    const centreX = rect.left + rect.width / 2;
+    const centreY = rect.top + rect.height / 2;
+    const side = centreX < viewport.width / 2 ? 'l' : 'r';
+    const edge = centreY < viewport.height / 2 ? 't' : 'b';
+    return {
+      corner: edge + side,
+      dx: side == 'l' ? rect.left : viewport.width - rect.left - rect.width,
+      dy: edge == 't' ? rect.top : viewport.height - rect.top - rect.height,
+    };
   }
 
+  // The remembered box put back where its anchor says it is on this page. A row an older version
+  // wrote carries no anchor and is taken where it was written.
+  function rememberedBox(row, viewport) {
+    const { left, top, width, height } = row.geometry;
+    const anchor = row.anchor;
+    if (!anchor || !Number.isFinite(anchor.dx) || !Number.isFinite(anchor.dy)) return { left, top, width, height };
+    const corner = anchor.corner;
+    return {
+      left: corner?.[1] == 'r' ? viewport.width - anchor.dx - width : left,
+      top: corner?.[0] == 'b' ? viewport.height - anchor.dy - height : top,
+      width,
+      height,
+    };
+  }
 
+  // Whether a page can hold the window at its own minimum at all. Below this there is nothing of
+  // the user's size to put back, and the page's own placement is the honest answer.
+  function windowCanHold(viewport) {
+    const inset = Math.min(8, viewport.width / 4, viewport.height / 4);
+    const availableHeight = Math.max(0, viewport.height - inset - Math.max(inset, viewport.top));
+    return viewport.width - 2 * inset >= minWindowWidth && availableHeight >= 160;
+  }
 
   class WindowCtrl {
     constructor(owner, content, geometry) {
@@ -2356,6 +2298,8 @@
     // rows - and only a content that owns a shape fills it. `scroll` is where the wheel had stopped.
     // A part a page cannot see is left out of the row rather than written empty: `saveWindows`
     // carries the part the page before left, so a write that knows less never erases it.
+    // The corner the box was nearest to is written alongside it, which is what lets a page whose
+    // viewport has since changed size put the window back at the same gaps from that corner.
     freeze() {
       const view = this.content.frozenView();
       const scroll = this.windowFrame?.scrolled() ?? this.scrollOffset;
@@ -2363,6 +2307,7 @@
         kind: this.content.kind,
         active: true,
         geometry: { ...this.geometry },
+        anchor: anchorBox(this.geometry, windowViewport(this.owner.lichessTools)),
         ...(view ? { view } : {}),
         ...(scroll ? { scroll } : {}),
       }];
@@ -2411,6 +2356,10 @@
     async show() {
       const lt = this.ctrl.owner.lichessTools;
       const trans = lt.translator;
+      // The window is resizable through the dialog factory's own machine: the viewport it sits in,
+      // its minimum and where the size is remembered are this window's decisions, so they go over as
+      // the machine's policy - `begin` lifts the window forward for the gesture, `resize` gets the box
+      // the grabbed edge proposes and answers with the box that lands on the page.
       const dialog = await lt.dialog({
         class: 'records-db',
         modal: false,
@@ -2419,6 +2368,10 @@
         closedBy: 'none',
         noEscClose: true,
         header: false,
+        resizable: {
+          begin: () => this.setOrder(0),
+          resize: (rect, edge, dx, dy, base) => this.resizeTo(rect, edge, dx, dy, base),
+        },
       });
       if (!dialog) return false;
       const $ = lt.$;
@@ -2428,18 +2381,27 @@
         return false;
       }
       this.frame = { dialog: root, view: root.find('.dialog-content') };
-      const handler = recordsDbInstance.windowEventHandler;
       root
         .on('close', () => {
           if (!this.closed && this.ctrl.windowFrame === this) this.ctrl.owner.close();
         })
-        .on('keydown', (ev) => handler.keyDown(this.ctrl, ev));
+        .on('keydown', (ev) => this.escapeKey(ev));
       const handle = root.children('.dialog-header');
       if (handle.length)
         handle.on('pointerup', () => {
           if (!this.frame) return;
           const rect = this.frame.dialog[0]?.getBoundingClientRect?.();
-          if (rect) this.apply({ left: rect.x, top: rect.y, width: rect.width, height: rect.height });
+          const kept = this.ctrl.geometry;
+          if (!rect || !kept) return;
+          // A drag moves the window - it never resizes it. The box the drag left is taken by its
+          // centre, so the size the window keeps is the size that stays on the page, and a
+          // measured border box never feeds back into the written content box.
+          this.apply({
+            left: rect.x + rect.width / 2 - kept.width / 2,
+            top: rect.y + rect.height / 2 - kept.height / 2,
+            width: kept.width,
+            height: kept.height,
+          });
         });
       await this.ctrl.owner.mount();
       if (this.closed || this.ctrl.windowFrame !== this) return false;
@@ -2512,32 +2474,19 @@
 
 
 
-    // The hosts the window keeps for its whole life: the gesture listeners hang on `div.inner-content`
-    // under the page's own scroll host, and the five resize strips sit in the border box.
+    // The hosts the window keeps for its whole life: `div.inner-content` sits under the page's own
+    // scroll host and `div.content-frame` under it is the scroll host. The gesture listeners and the
+    // resize strips belong to the dialog the factory built, so a paint never carries them.
     innerHost() {
-      const ctrl = this.ctrl;
-      const handler = recordsDbInstance.windowEventHandler;
-      const $ = ctrl.owner.lichessTools.$;
-      const inner = $('<div class="inner-content">')
-        .on('pointerdown', (ev) => handler.start(ctrl, ev))
-        .on('pointermove', (ev) => handler.move(ev))
-        .on('pointerup', (ev) => handler.end(ev))
-        .on('pointercancel', (ev) => handler.pointerCancel(ev))
-        .on('lostpointercapture', (ev) => handler.pointerCancel(ev))
-        .on('keydown', (ev) => handler.keyDown(ctrl, ev));
+      const $ = this.ctrl.owner.lichessTools.$;
+      const inner = $('<div class="inner-content">');
       $('<div class="content-frame">').appendTo(inner);
-      for (const edge of resizeEdges) {
-        inner.append($('<span class="resize">')
-          .addClass('resize-' + edge)
-          .attr('data-resize', edge));
-      }
       return inner;
     }
 
     close() {
       if (this.closed) return;
       this.closed = true;
-      recordsDbInstance.windowEventHandler.cancel(this.ctrl);
       const lt = this.ctrl.owner.lichessTools;
       try {
         lt.global.window.removeEventListener('resize', this.resizeHandler);
@@ -2554,7 +2503,6 @@
 
     fit() {
       if (this.closed || !this.frame) return;
-      recordsDbInstance.windowEventHandler.cancel(this.ctrl);
       this.apply(fitWindow(this.ctrl.geometry, windowViewport(this.ctrl.owner.lichessTools)));
     }
 
@@ -2563,12 +2511,50 @@
       const lt = this.ctrl.owner.lichessTools;
       rect = fitWindow(rect, windowViewport(lt));
       this.ctrl.setGeometry(rect);
-      this.frame.dialog.css({
-        left: rect.left + rect.width / 2 + 'px',
-        top: rect.top + rect.height / 2 + 'px',
-        width: rect.width + 'px',
-        height: rect.height + 'px',
-      });
+      const node = this.frame.dialog[0];
+      if (!node) return;
+      const set = (name, value) => {
+        if (node.style?.setProperty) node.style.setProperty(name, value);
+        else node.style[name] = value;
+      };
+      // The centre plus the size, written the way the dialog factory writes a box (`left`/`top` name
+      // the centre, the opposite edges go to `unset`, the page's min/max go to their initial values) -
+      // tools that re-apply a placement write the same way, and a priority write or a lone edge would
+      // hold against their `unset` and leave the dialog over constrained.
+      set('left', rect.left + rect.width / 2 + 'px');
+      set('top', rect.top + rect.height / 2 + 'px');
+      set('width', rect.width + 'px');
+      set('height', rect.height + 'px');
+      set('right', 'unset');
+      set('bottom', 'unset');
+      set('min-width', 'auto');
+      set('min-height', 'auto');
+      set('max-width', 'none');
+      set('max-height', 'none');
+    }
+
+    // The size policy the dialog machine hands over for an edge grab: the grabbed edge moves, the
+    // window keeps its minimum and stays inside the page, and the size the user left is remembered
+    // on the blob so a reload restores it. The box the machine grew to the content's floor comes in
+    // as the window's own minimum, so the remembered size is the size that lands on the page.
+    resizeTo(proposed, edge, dx, dy, base) {
+      if (this.closed || !this.frame) return proposed;
+      const viewport = windowViewport(this.ctrl.owner.lichessTools);
+      const wanted = { width: proposed.width, height: proposed.height };
+      const rect = fitWindow(moveWindow(base, dx, dy, edge, viewport, wanted), viewport);
+      this.ctrl.setGeometry(rect);
+      return rect;
+    }
+
+    // Escape closes the window. The dialog itself is kept from the Escape by `noEscClose`, so this
+    // is the window's own decision, and the memo keeps one key press to one action.
+    escapeKey(event) {
+      if (!event || event.key !== 'Escape') return;
+      if (event._recordsDbEscape) return;
+      event._recordsDbEscape = true;
+      event.preventDefault?.();
+      event.stopPropagation?.();
+      this.ctrl.owner.close();
     }
 
     setOrder(order) {
@@ -2731,14 +2717,19 @@
 
     // The fail-soft rule for the geometry blob: every number finite and positive, and a row
     // naming a kind this tool no longer renders is ignored - a blob an older version wrote with
-    // four tabs then simply loads the default box rather than throwing on page load.
-    storedGeometry(stored) {
+    // four tabs then simply loads the default box rather than throwing on page load. The remembered
+    // box is put back at the corner gaps it was saved with, so a page whose viewport has changed
+    // size keeps the window the same distance from the corner the user had put it against; only a
+    // page that cannot hold the window at its own minimum at all falls back to the page's own
+    // placement, and a box that no longer fits is clamped back in by `fitWindow`.
+    storedGeometry(stored, viewport) {
       for (const row of stored || []) {
         const geometry = row?.geometry;
         if (row?.kind != this.content.kind) continue;
         if (!geometry || !['left', 'top', 'width', 'height'].every((key) => Number.isFinite(geometry[key]))) continue;
         if (geometry.width <= 0 || geometry.height <= 0) continue;
-        return { ...geometry };
+        if (!windowCanHold(viewport)) continue;
+        return rememberedBox(row, viewport);
       }
       return undefined;
     }
@@ -2747,8 +2738,9 @@
       const lt = this.lichessTools;
       if (this.window) return;
       const stored = await this.store.idbStudy.loadWindows();
-      const geometry = this.storedGeometry(stored) ?? this.initialGeometry();
-      this.window = new WindowCtrl(this, this.content, fitWindow(geometry, windowViewport(lt)));
+      const viewport = windowViewport(lt);
+      const geometry = this.storedGeometry(stored, viewport) ?? this.initialGeometry();
+      this.window = new WindowCtrl(this, this.content, fitWindow(geometry, viewport));
       this.window.scrollRestore = this.storedScroll(stored);
       this.content.onChange = this.window.redraw;
     }
