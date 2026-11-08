@@ -10,3 +10,76 @@ body.lichessTools a.lichessTools-puzzleTotal:before {
   position: absolute;
   left: -1.25em;
 }
+
+body.lichessTools main.puzzle .puzzle__tools:has(.material) {
+  position: relative;
+  overflow: visible;
+  z-index: 106;
+}
+
+body.lichessTools main.puzzle .material {
+  --material-gap: 2em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+body.lichessTools main.puzzle .material-top {
+  left: 0;
+  right: auto;
+  top: calc(-1 * var(--material-gap));
+  bottom: auto;
+}
+
+body.lichessTools main.puzzle .material-bottom {
+  left: 0;
+  right: auto;
+  bottom: calc(-1 * var(--material-gap));
+  top: auto;
+}
+
+body.lichessTools main.puzzle .material score {
+  margin-inline-start: 0.5em;
+  line-height: 1;
+}
+
+body.lichessTools main.puzzle mpiece {
+  font-size: 1.75em;
+}
+
+body.lichessTools main.puzzle mpiece.queen:before {
+  content: var(--icon-BlackChessQueen);
+}
+
+body.lichessTools main.puzzle mpiece.rook:before {
+  content: var(--icon-BlackChessRook);
+}
+
+body.lichessTools main.puzzle mpiece.bishop:before {
+  content: var(--icon-BlackChessBishop);
+}
+
+body.lichessTools main.puzzle mpiece.knight:before {
+  content: var(--icon-BlackChessKnight);
+}
+
+body.lichessTools main.puzzle mpiece.pawn:before {
+  content: var(--icon-BlackChessPawn);
+}
+
+/* under 800px the strips sit beside the board, so they only clear it slightly */
+@media (max-width: 799.3px) {
+  body.lichessTools main.puzzle .puzzle__board:has(.material) {
+    position: relative;
+    overflow: visible;
+  }
+
+  body.lichessTools:not(.masked):not(:has(.site-buttons .shown)) main.puzzle .puzzle__board:has(.material) {
+    z-index: 106;
+  }
+
+  body.lichessTools main.puzzle .puzzle__board .material {
+    --material-gap: 2em;
+  }
+}

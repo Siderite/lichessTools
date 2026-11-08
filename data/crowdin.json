@@ -1398,7 +1398,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2799,7 +2800,8 @@
     "recordsDbCountPuzzle": "谜题：%s",
     "recordsDbCountBlog": "博客：%s",
     "recordsDbCountBlogPost": "博客文章：%s",
-    "recordsDbCountForumPost": "论坛帖子：%s"
+    "recordsDbCountForumPost": "论坛帖子：%s",
+    "puzzleOptions.material": "Show material difference"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4200,7 +4202,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5601,7 +5604,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7002,7 +7006,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8403,7 +8408,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9804,7 +9810,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11205,7 +11212,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12606,7 +12614,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14007,7 +14016,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15408,7 +15418,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16809,7 +16820,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18210,7 +18222,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19611,7 +19624,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21012,7 +21026,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22413,7 +22428,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23814,7 +23830,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25215,7 +25232,8 @@
     "recordsDbCountPuzzle": "Probleme: %s",
     "recordsDbCountBlog": "Bloguri: %s",
     "recordsDbCountBlogPost": "Postări pe blog: %s",
-    "recordsDbCountForumPost": "Postări pe forum: %s"
+    "recordsDbCountForumPost": "Postări pe forum: %s",
+    "puzzleOptions.material": "Arată diferență material"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26616,7 +26634,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28017,7 +28036,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29418,7 +29438,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -30819,7 +30840,8 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32220,6 +32242,7 @@
     "recordsDbCountPuzzle": "Puzzles: %s",
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s"
+    "recordsDbCountForumPost": "Forum posts: %s",
+    "puzzleOptions.material": "Show material difference"
   }
 }

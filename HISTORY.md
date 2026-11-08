@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+08 Nov
+
+- show material in puzzles
+
 05 Nov
 
 - Records DB tool and study UI
