@@ -101,6 +101,7 @@ body .is2d cg-board::before {
       // upload button uses, and the browse dialog is what mobile browsers answer with.
       const lt = this.lichessTools;
       const $ = lt.$;
+      const trans = lt.translator;
       if (lt.global.showOpenFilePicker) {
         try {
           const handles = await lt.global.showOpenFilePicker({

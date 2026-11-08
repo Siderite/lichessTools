@@ -24,9 +24,10 @@ When customBoardUrl is set:
 While the prompt dialog is open, the board behind it already shows the candidate
 URL through `--board-background`, and each combo item shows its own option
 through `--background`:
-- tool.css defines a preview rule
-  `body.lichessTools.lichessTools-hasBoardBackground:not(.lichessTools-theme_gridBoard):has(dialog[open].lichessTools-customBoard) .is2d cg-board::before { background-image: var(--board-background); }`
-  gated by a `has()` on the open prompt, so the real style stays untouched.
+- tool.css defines a preview rule that keys off `:has(dialog[open].lichessTools-customBoard)`
+  and sets `.is2d cg-board::before` background to `var(--board-background)`, gated to
+  `body.lichessTools.lichessTools-hasBoardBackground` and excluding the grid-board theme,
+  so the real style is untouched.
 - Combo items (`.combo-list .combo-item`) layer a translucent overlay over
   `var(--background)` so each option previews its own board image, and hover/highlight
   lift them via `filter: drop-shadow(...)`.
@@ -47,7 +48,7 @@ On `#dasher_app .sub.board.d2 .list`:
 - Clicking any other board button clears `customBoardUrl`/`currentOptions.customBoardImage`
   before activating that board.
 - `chooseCustomBoardImageUrl()` calls `lt.uiApi.dialog.prompt` with `dialogActions`
-  combo (select → set body `--board-background`), a `change/paste` input listener
+  combo (select to set body `--board-background`), a `change/paste` input listener
   that validates `URL.canParse(val)`, and a `focus input` observer that sets
   `--background` per combo item for preview.
 - Boards.json data is fetched via `lt.comm.getData('boards.json')` asynchronously;
@@ -73,8 +74,8 @@ Clicking it:
   the dialog open so the user can retry or hit Cancel/OK.
 - On image it awaits `fileToDataUrl(file)`, previews the picked image via
   `$('body').css('--board-background', url("${dataUrl}"))`, and sets
-  `input.val(dataUrl)`; Lichess's own `input change → close('ok')` action listener
-  then resolves the prompt, so no manual `dialog.close('ok')` is called.
+  `input.val(dataUrl)`; Lichess's own input change listener then closes with
+  'ok', so no manual `dialog.close('ok')` is called.
 - Accepted mime types in `isImageFile`: `image/jpeg`, `image/jpg`, `image/gif`,
   `image/png`, `image/apng`, `image/tiff`, `image/webp`, `image/svg+xml`,
   `image/jpgx`, `image/avif`.
@@ -82,11 +83,12 @@ Clicking it:
 ### More Button Toggle
 
 On `button.more` in board list parent:
-- Click → toggles collapsed state, manages customBoardImage button visibility
+- Click - toggles collapsed state, manages customBoardImage button visibility
 
 ### Existing Board Buttons Customization
 
-Each existing board button gets click handler that clears customBoardUrl and activates the selected board.
+Each existing board button gets a click handler that clears customBoardUrl
+before activating the selected board.
 
 ### Recovery Observer
 
@@ -95,18 +97,48 @@ MutationObserver on html link[rel="stylesheet"][href*="/site."] and cg-board:
 
 ## Dependencies
 
-None explicitly listed. Depends on `lt.uiApi.dialog`, `lt.comm.getData`.
+`lt.uiApi.dialog.prompt`, `lt.comm.getData('boards.json')`,
+`lt.global.showOpenFilePicker`, `FileReader`, `URL.canParse`, `lt.storage`,
+`lt.tools.ThemesTool?.setBoardVariables(true)`.
 
 ## Preferences
 
-- `customBoardImage` — text type, default '', offValue: '', advanced/true, category: appearance
+- `customBoardImage` - text type, default `''`, offValue `''`, advanced true,
+  category `appearance`.
+
+## Intl Keys
+
+en-US / ro-RO: `options.appearance`, `options.customBoardImage`,
+`customBoardUrlPrompt`, `invalidUrl`, `customBoardImageUrlText`,
+`customBoardImageUrlTitle`, `uploadBoardButtonText` (en "Upload", ro
+"Lencarca" with diacritics in source), `notAnImageError` ("Not an image!" /
+"Nu e imagine!"), and `imageFiles` ("Image files" / "Imagini") as the
+picker's type description.
 
 ## Key Methods
 
-- `updateBoardImage(forced)` → injects CSS style for custom board image
-- `chooseCustomBoardImageUrl()` → opens dialog prompt with combo filtering for URL input, and injects the Upload button
-- `addCustomBoard()` → manages board selection buttons in dasher app
-- `async init()` → sets up recovery observers for style restoration
-- `pickBoardImageFile()` → opens the image picker (File System Access or browse dialog)
-- `fileToDataUrl(file)` → wraps `FileReader.readAsDataURL` in a Promise
-- `isImageFile(file)` → checks the file's mime type against the supported image list
+- `updateBoardImage(forced)` - injects the `<style id="lichessTools-customBoardImage">`
+  rule and stores the `!important` init variant in `lt.storage`.
+- `chooseCustomBoardImageUrl()` - async; opens `lt.uiApi.dialog.prompt` (the
+  show promise is captured first and awaited after the DOM is patched), fetches
+  boards.json via `lt.comm.getData`, injects the combo `<option>`s and the
+  Upload button into the freshly rendered prompt, and returns the input's value
+  which is validated by `URL.canParse` before being stored as the new custom
+  URL. A combo select sets body `--board-background`; a `change`/`paste` on the
+  input re-validates and re-previews; a `focus input` observer sets
+  `--background` per combo item so each option previews its own board image.
+- `addCustomBoard()` - manages dasher board list buttons and the
+  `button.lichessTools-customBoardImage` entry.
+- `async init()` - observers that restore the style from
+  `lt.storage.customBoardImage-lastStyle` when a Lichess stylesheet or `cg-board`
+  is added.
+- `pickBoardImageFile()` - returns the picked `File`/`Blob` or null; uses
+  `lt.global.showOpenFilePicker` (id `lt-customBoardImage-upload`,
+  single-pick, startIn `pictures`, image extensions `.png .jpg .jpeg .gif .webp
+  .tif .tiff .apng .svg .jpgx .avif`), otherwise the browse dialog opened by
+  clicking a detached `<input type="file" accept="image/*"/>`; AbortError maps
+  to null.
+- `fileToDataUrl(file)` - Promise wrapper around `FileReader.readAsDataURL`.
+- `isImageFile(file)` - accepts `image/jpeg`, `image/jpg`, `image/gif`,
+  `image/png`, `image/apng`, `image/tiff`, `image/webp`, `image/svg+xml`,
+  `image/jpgx`, `image/avif`.
