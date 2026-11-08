@@ -15,6 +15,10 @@ body.lichessTools #dasher_app .board .list button.lichessTools-customBoardImage 
   white-space:nowrap;
 }
 
+body.lichessTools dialog[open].lichessTools-customBoard::backdrop {
+  background-color: #80808040;
+}
+
 body.lichessTools dialog[open].lichessTools-customBoard .combo-list {
   width: min(40ch, 90%);
   justify-self: center;
@@ -41,6 +45,12 @@ body.lichessTools dialog[open].lichessTools-customBoard .combo-list .combo-item.
 body.lichessTools dialog[open].lichessTools-customBoard,
 body.lichessTools dialog[open].lichessTools-customBoard div.scrollable {
   overflow: visible;
+}
+
+body.lichessTools dialog[open].lichessTools-customBoard .dialog-content > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 body.lichessTools.mobile:has(dialog[open].lichessTools-customBoard) #dasher_app {

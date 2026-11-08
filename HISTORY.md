@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 08 Nov
 
 - show material in puzzles
+- upload custom board image
 
 05 Nov
 

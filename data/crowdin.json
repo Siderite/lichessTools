@@ -1399,7 +1399,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2801,7 +2804,10 @@
     "recordsDbCountBlog": "博客：%s",
     "recordsDbCountBlogPost": "博客文章：%s",
     "recordsDbCountForumPost": "论坛帖子：%s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4203,7 +4209,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5605,7 +5614,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7007,7 +7019,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8409,7 +8424,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9811,7 +9829,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11213,7 +11234,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12615,7 +12639,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14017,7 +14044,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15419,7 +15449,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16821,7 +16854,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18223,7 +18259,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19625,7 +19664,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21027,7 +21069,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22429,7 +22474,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23831,7 +23879,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25233,7 +25284,10 @@
     "recordsDbCountBlog": "Bloguri: %s",
     "recordsDbCountBlogPost": "Postări pe blog: %s",
     "recordsDbCountForumPost": "Postări pe forum: %s",
-    "puzzleOptions.material": "Arată diferență material"
+    "puzzleOptions.material": "Arată diferență material",
+    "uploadBoardButtonText": "Încarcă",
+    "notAnImageError": "Nu e imagine!",
+    "imageFiles": "Imagini"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26635,7 +26689,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28037,7 +28094,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29439,7 +29499,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -30841,7 +30904,10 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32243,6 +32309,9 @@
     "recordsDbCountBlog": "Blogs: %s",
     "recordsDbCountBlogPost": "Blog posts: %s",
     "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference"
+    "puzzleOptions.material": "Show material difference",
+    "uploadBoardButtonText": "Upload",
+    "notAnImageError": "Not an image!",
+    "imageFiles": "Image files"
   }
 }

@@ -19,7 +19,10 @@
         'customBoardUrlPrompt':'Enter your board image URL',
         'invalidUrl':'Invalid URL',
         'customBoardImageUrlText':'Custom board',
-        'customBoardImageUrlTitle':'LiChess Tools - custom board'
+        'customBoardImageUrlTitle':'LiChess Tools - custom board',
+        'uploadBoardButtonText': 'Upload',
+        'notAnImageError': 'Not an image!',
+        'imageFiles': 'Image files'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -27,7 +30,10 @@
         'customBoardUrlPrompt':'Introdu URL-ul imaginii tablei',
         'invalidUrl':'URL nevalid',
         'customBoardImageUrlText':'Tabl\u0103 personalizat\u0103',
-        'customBoardImageUrlTitle':'LiChess Tools - tabl\u0103 personalizat\u0103'
+        'customBoardImageUrlTitle':'LiChess Tools - tabl\u0103 personalizat\u0103',
+        'uploadBoardButtonText': '\u00cencarc\u0103',
+        'notAnImageError': 'Nu e imagine!',
+        'imageFiles': 'Imagini'
       }
     }
 
@@ -69,6 +75,59 @@ body .is2d cg-board::before {
       }
     };
 
+    isImageFile = (file) => [
+      'image/jpeg',
+      'image/jpg',
+      'image/gif',
+      'image/png',
+      'image/apng',
+      'image/tiff',
+      'image/webp',
+      'image/svg+xml',
+      'image/jpgx',
+      'image/avif'
+    ].includes(file?.type);
+
+    fileToDataUrl = (file) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    pickBoardImageFile = async () => {
+      // The picker the Upload button offers: File System Access picker when the browser has one,
+      // otherwise the browse dialog a clicked <input type=file> opens - the same idiom the chat
+      // upload button uses, and the browse dialog is what mobile browsers answer with.
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.showOpenFilePicker) {
+        try {
+          const handles = await lt.global.showOpenFilePicker({
+            id: 'lt-customBoardImage-upload',
+            multiple: false,
+            startIn: 'pictures',
+            types: [{
+              description: trans.noarg('imageFiles'),
+              accept: { 'image/*': ['.png','.jpg','.jpeg','.gif','.webp','.tif','.tiff','.apng','.svg','.jpgx','.avif'] }
+            }],
+          });
+          const file = await handles?.[0]?.getFile();
+          return file instanceof Blob ? file : null;
+        } catch (e) {
+          const reason = e?.type || e?.name || '';
+          lt.global.console.debug('File picker closed: '+reason+' '+e?.message);
+          if (/AbortError/.test(reason)) return null;
+        }
+      }
+      const files = await new Promise((resolve) => {
+        $('<input type="file" accept="image/*"/>')
+          .on('change cancel',(e)=>resolve(e.target?.files ?? []))
+          .trigger('click');
+      });
+      return Array.from(files ?? []).find((file)=>file instanceof Blob) ?? null;
+    };
+
     chooseCustomBoardImageUrl = async ()=>{
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -84,8 +143,8 @@ body .is2d cg-board::before {
             await lt.timeout(50);
             continue;
           }
-          $('dialog[open]')
-            .addClass('lichessTools-customBoard');
+          const openDialog = $('dialog[open]');
+          openDialog.addClass('lichessTools-customBoard');
           input
             .makeCombo({ 
                noFilter: false,
@@ -115,6 +174,25 @@ body .is2d cg-board::before {
                 $(e).css('--background',`url("${o.value}")`);
               });
           });
+
+          const uploadHost = openDialog.find('.dialog-content');
+          if (uploadHost.length && !uploadHost.find('.lichessTools-customBoardUploadButton').length) {
+            const uploadButton = $('<button class="button button-empty lichessTools-customBoardUploadButton">')
+              .text(trans.noarg('uploadBoardButtonText'))
+              .on('click', async ()=>{
+                if (!openDialog.prop('open')) return;
+                const file = await this.pickBoardImageFile();
+                if (!this.isImageFile(file)) {
+                  lt.announce(trans.noarg('notAnImageError'));
+                  return;
+                }
+                const dataUrl = await this.fileToDataUrl(file);
+                if (!dataUrl || !openDialog.prop('open')) return;
+                $('body').css('--board-background',`url("${dataUrl}")`);
+                input.val(dataUrl);
+              })
+              .insertBefore('button.ok');
+          }
 
           break;
         }
