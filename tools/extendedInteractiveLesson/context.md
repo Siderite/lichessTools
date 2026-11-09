@@ -30,10 +30,11 @@ The **ExtendedInteractiveLessonTool** extends Lichess's Interactive Lesson (game
 ### Path enumeration (`getCurrentPath`)
 
 - Traverse permanent visible children to leaves.
-- Skip leaves whose node list fails `areBadGlyphNodes` when ignoreBadGlyphs is on.
+- Skip leaves whose node list fails `isExcludedPath` (bad glyphs when ignoreBadGlyphs is on).
+- Lines starting at a node commented `prc:0` are excluded always, with no preference to set.
 - Sequential: first unfinished path.
 - Spaced repetition: random among unfinished (not done by interval).
-- Keep existing `currentPath` if still valid (exists, permanent, leaf, not bad-glyph, not done).
+- Keep existing `currentPath` if still valid (exists, permanent, leaf, not excluded, not done).
 
 ### Done criteria (`isDonePath`)
 
@@ -98,4 +99,6 @@ Collapsible header "Extended Interactive lesson" on `.gamebook-edit` reduces edi
 - `returnToPreview` can conflict with flow completion goals if the entry path is not the root.
 - Fast interactive skips comments after they have been seen a few times in the current page session only (`seen` Map is not persisted).
 - Bad-glyph filter uses glyph ids 2, 4, 6 on the learner's side of the path only.
+- `isExcludedPath` = bad glyphs (option-gated) + `hasZeroPrcComment` on any node of the line.
+- A `prc:0` comment on a branch start drops that line from variation counts and progress, always.
 - Node versioning is essential: without it, temporary analysis nodes could be treated as valid lesson moves.

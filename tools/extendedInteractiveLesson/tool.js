@@ -146,7 +146,7 @@
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-                .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]));
+                .filter(c => this.isPermanentNode(c) && !this.isExcludedPath([c]));
               if (nextMoves.length) {
                 if (!this._inConfirm) {
                   this._inConfirm = true;
@@ -188,7 +188,7 @@
           }
         }
         const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-          .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]))
+          .filter(c => this.isPermanentNode(c) && !this.isExcludedPath([c]))
         const nextMoves = allNextMoves
           .filter(c => !inFlow || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
@@ -439,6 +439,18 @@
         .find(g=>[2,4,6].includes(g.id));
     };
 
+    hasZeroPrcComment = (node) => {
+      if (!node?.comments?.length) return false;
+      for (const comment of node.comments) {
+        const match = /prc:\s*(\d+(?:\.\d+)?)/i.exec(comment.text);
+        if (match && +match[1] === 0) return true;
+      }
+      return false;
+    };
+
+    isExcludedPath = (nodeList) => this.areBadGlyphNodes(nodeList)
+      || !!nodeList.find(n => this.hasZeroPrcComment(n));
+
     loadChapterPaths = (defaultValue) => {
       const lt = this.lichessTools;
       if (!this._paths) {
@@ -473,7 +485,7 @@
         if (nodeList.map(n=>n.id).join('') == paths.currentPath // line exists
           && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
           && !nodeList.at(-1).children?.length // and the last node does not have kids
-          && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
+          && !this.isExcludedPath(nodeList)) // and no bad glyphs on your side, and no prc:0 mark
         {
           currentPath = paths.currentPath;
         }
@@ -485,7 +497,7 @@
         if (!refreshChapterPaths && this.options.flow.sequential && currentPaths.length) return;
         const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
-        if (!nextMoves.length && !this.areBadGlyphNodes(nodeList)) {
+        if (!nextMoves.length && !this.isExcludedPath(nodeList)) {
           allPaths.push(path);
           if (!this.isDonePath(path)) {
             currentPaths.push(path);
@@ -559,7 +571,7 @@
         const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length) {
-          if (this.areBadGlyphNodes(nodeList)) {
+          if (this.isExcludedPath(nodeList)) {
             delete paths[node.path];
           } else {
             if (!paths[node.path]) {
