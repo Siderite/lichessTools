@@ -96,6 +96,7 @@
 
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
+        "tools/trophyCabinet/tool.js",
         "tools/feedback/tool.js",
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
@@ -282,6 +283,7 @@
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",
+        "tools/trophyCabinet/tool.css",
         "tools/recordsDbUi/tool.css",
         "tools/feedback/tool.css",
         "tools/quietModeAllTabs/tool.css",

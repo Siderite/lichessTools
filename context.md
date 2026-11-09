@@ -21,7 +21,7 @@ Per-file details live in the sub-summaries, not in this document:
 
 - [`scripts/context.md`](./scripts/context.md) — every file in `scripts/`: the Cash library, `ToolBase`/`PageToolBase`, the sub-systems (`Api`, `Comm`, `Cache`, `Storage`, `Network`, ...), the 13-file chess-metrics library, the loaders and the service worker.
 - [`data/context.md`](./data/context.md) — every dataset in `data/`, how it is shaped and which tools consume it.
-- `tools/<tool-key>/context.md` — notes for individual tools (currently `crowdin`, `showKmaps`, `wikiFen`).
+- `tools/<tool-key>/context.md` — notes for individual tools (currently `crowdin`, `showKmaps`, `wikiFen`, `trophyCabinet`).
 
 ## Preferences System
 
@@ -101,6 +101,15 @@ The `themes/tool.js` loads user-supplied custom CSS themes from `tools/themes/*.
 ## Quiet Mode
 
 `quietModeAllTabs` — When a game is playing on any tab, silence all notifications/sound alerts on other tabs. Manual toggle button available.
+
+## Trophy Cabinet
+
+`trophyCabinet` - `div.trophies.packed` always gets a "50 x" gold cup summary pill at any
+viewport width, and clicking it opens the collapsed chips (one per award kind, prefixed "N x"
+for copies, each with a big icon and its label orbiting on a slow 3d ring) in an `lt.dialog`
+modal. The modal sizes itself for four chips on a line - twelve chips lay out 4 x 3 - and
+falls back to 90vw x 90vh when the viewport cannot give that width. A row with no awards is
+left untouched.
 
 ## Global Switch
 

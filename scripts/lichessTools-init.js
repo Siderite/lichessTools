@@ -11,6 +11,7 @@ lichessTools.loadTool(LiChessTools.Tools.MuteOwnMoves);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);
+lichessTools.loadTool(LiChessTools.Tools.TrophyCabinet);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.Feedback);
 

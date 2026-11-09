@@ -1402,7 +1402,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2807,7 +2810,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4212,7 +4218,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5617,7 +5626,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7022,7 +7034,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8427,7 +8442,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9820,19 +9838,22 @@
     "kindBlogPost": "Article de blogue",
     "kindForumPost": "Message dans forum",
     "recordsDbButtonTitle": "LiChess Tools - fenêtre de la base de données des enregistrements",
-    "recordsDbItemsCount": "Items: %s",
-    "recordsDbCountStudy": "Studies: %s",
-    "recordsDbCountChapter": "Chapters: %s",
-    "recordsDbCountGame": "Games: %s",
-    "recordsDbCountPosition": "Positions: %s",
-    "recordsDbCountPuzzle": "Puzzles: %s",
-    "recordsDbCountBlog": "Blogs: %s",
-    "recordsDbCountBlogPost": "Blog posts: %s",
-    "recordsDbCountForumPost": "Forum posts: %s",
-    "puzzleOptions.material": "Show material difference",
-    "uploadBoardButtonText": "Upload",
-    "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "recordsDbItemsCount": "Éléments : %s",
+    "recordsDbCountStudy": "Études : %s",
+    "recordsDbCountChapter": "Chapitres : %s",
+    "recordsDbCountGame": "Parties : %s",
+    "recordsDbCountPosition": "Positions : %s",
+    "recordsDbCountPuzzle": "Problèmes : %s",
+    "recordsDbCountBlog": "Blogues : %s",
+    "recordsDbCountBlogPost": "Articles de blogue : %s",
+    "recordsDbCountForumPost": "Message dans forum : %s",
+    "puzzleOptions.material": "Afficher la différence matérielle",
+    "uploadBoardButtonText": "Importer",
+    "notAnImageError": "Ce n'est pas une image !",
+    "imageFiles": "Fichiers image",
+    "options.trophyCabinet": "Vitrine des trophées",
+    "trophyCabinetTitle": "LiChess Tools - vitrine des trophées",
+    "trophyCabinetHeader": "Vitrine des trophées"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11237,7 +11258,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12642,7 +12666,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14047,7 +14074,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15452,7 +15482,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16857,7 +16890,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18262,7 +18298,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19667,7 +19706,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21072,7 +21114,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22477,7 +22522,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23882,7 +23930,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25287,7 +25338,10 @@
     "puzzleOptions.material": "Arată diferență material",
     "uploadBoardButtonText": "Încarcă",
     "notAnImageError": "Nu e imagine!",
-    "imageFiles": "Imagini"
+    "imageFiles": "Imagini",
+    "options.trophyCabinet": "Vitrină trofee",
+    "trophyCabinetTitle": "LiChess Tools - vitrină trofee",
+    "trophyCabinetHeader": "Vitrină trofee"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26692,7 +26746,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28097,7 +28154,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29502,7 +29562,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -30907,7 +30970,10 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32312,6 +32378,9 @@
     "puzzleOptions.material": "Show material difference",
     "uploadBoardButtonText": "Upload",
     "notAnImageError": "Not an image!",
-    "imageFiles": "Image files"
+    "imageFiles": "Image files",
+    "options.trophyCabinet": "Trophy cabinet",
+    "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
+    "trophyCabinetHeader": "Trophy cabinet"
   }
 }

@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+09 Nov
+
+- trophy cabinet
+
 08 Nov
 
 - show material in puzzles
