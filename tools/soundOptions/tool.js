@@ -6,7 +6,7 @@
         name: 'soundOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['noMove', 'flickerSound','volumeBar'],
+        possibleValues: ['noMove', 'flickerSound','volumeBar','noBerserk'],
         defaultValue: false,
         advanced: true
       },
@@ -59,6 +59,7 @@
         'soundOptions.noMove': 'No move sounds',
         'soundOptions.flickerSound': 'Time flicker sound',
         'soundOptions.volumeBar': 'Main menu volume bar',
+        'soundOptions.noBerserk': 'No berserk sound',
         'options.timeAlert': 'Time alert (minutes)',
         'options.speakSeconds': 'Read seconds alert threshold',
         'timeAlert.s30': '0:30',
@@ -86,6 +87,7 @@
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'soundOptions.flickerSound': 'Sunet la salt de timp',
         'soundOptions.volumeBar': 'Bar\u0103 volum \u00een meniul principal',
+        'soundOptions.noBerserk': 'F\u0103r\u0103 sunet de berserk',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
         'options.speakSeconds': 'Limit\u0103 alert\u0103 citire secunde',
         'timeAlert.s30': '0:30',
@@ -317,6 +319,7 @@
       this.logOption('Speak seconds threshold', speakSeconds);
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),
+        noBerserk: lt.isOptionSet(soundOptions, 'noBerserk'),
         flickerSound: lt.isOptionSet(soundOptions, 'flickerSound'),
         volumeBar: lt.isOptionSet(soundOptions, 'volumeBar'),
         times: [30,60,90,120,180,300].map(s=>({
@@ -344,6 +347,18 @@
             id: 'soundOptions',
             before: ($this, ...args) => {
               if (this.options.noMove) return false;
+            }
+          });
+        }
+      }
+      // the berserk mode sting startles players, but only that key gets muted
+      if (lichess.sound?.play) {
+        lichess.sound.play = lt.unwrapFunction(lichess.sound.play, 'soundOptions');
+        if (this.options.noBerserk) {
+          lichess.sound.play = lt.wrapFunction(lichess.sound.play, {
+            id: 'soundOptions',
+            before: ($this, key) => {
+              if (this.options.noBerserk && key=='berserk') return false;
             }
           });
         }

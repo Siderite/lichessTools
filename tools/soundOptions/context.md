@@ -11,6 +11,12 @@ Controls Lichess sound behavior with multiple options: disable move sounds, time
 Wraps `lichess.sound.move`:
 - Before call: returns false if `noMove` option enabled (prevents move sound)
 
+### Berserk Sound Mute
+
+Wraps `lichess.sound.play` (the site calls it as `site.sound.play('berserk')`):
+- Before call: returns false only when the key is `berserk`, so every other effect (move
+  already covered by `noMove`, capture, genericNotify, theme notifications) still plays
+
 ### Time Flicker Sound
 
 MutationObserver on `.rclock-bottom *, .rclock-top *` in `.playing .round__app`:
@@ -51,7 +57,7 @@ None explicitly listed. Depends on `lichess.sound`, `lt.comm.getData`.
 
 ## Preferences
 
-- `soundOptions` — multiple type: ['noMove', 'flickerSound', 'volumeBar'], default: false
+- `soundOptions` — multiple type: ['noMove', 'flickerSound', 'volumeBar', 'noBerserk'], default: false
 - `soundThemes` — multiple type: ['mortalKombat', 'chessPursuit', 'starWars', 'superMario', 'chesscom'], default: true
 - `soundVolume` — number type, default 70
 - `soundVoice` — select type (voices loaded dynamically), default 0

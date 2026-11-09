@@ -4,6 +4,7 @@ History of features added to LiChess Tools in time (reversed order)
 
 - trophy cabinet
 - configurable threshold to speak time left
+- option to mute the berserk mode sound
 
 08 Nov
 

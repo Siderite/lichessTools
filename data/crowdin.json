@@ -1406,7 +1406,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2815,7 +2816,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4224,7 +4226,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5633,7 +5636,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7042,7 +7046,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8451,7 +8456,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9860,7 +9866,8 @@
     "options.trophyCabinet": "Vitrine des trophées",
     "trophyCabinetTitle": "LiChess Tools - vitrine des trophées",
     "trophyCabinetHeader": "Vitrine des trophées",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11269,7 +11276,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12678,7 +12686,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14087,7 +14096,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15496,7 +15506,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16905,7 +16916,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18314,7 +18326,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19723,7 +19736,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21132,7 +21146,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22541,7 +22556,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23950,7 +23966,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25359,7 +25376,8 @@
     "options.trophyCabinet": "Vitrină trofee",
     "trophyCabinetTitle": "LiChess Tools - vitrină trofee",
     "trophyCabinetHeader": "Vitrină trofee",
-    "options.speakSeconds": "Limită alertă citire secunde"
+    "options.speakSeconds": "Limită alertă citire secunde",
+    "soundOptions.noBerserk": "Fără sunet de berserk"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26768,7 +26786,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28177,7 +28196,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29586,7 +29606,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -30995,7 +31016,8 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32404,6 +32426,7 @@
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
     "trophyCabinetHeader": "Trophy cabinet",
-    "options.speakSeconds": "Read seconds alert threshold"
+    "options.speakSeconds": "Read seconds alert threshold",
+    "soundOptions.noBerserk": "No berserk sound"
   }
 }
