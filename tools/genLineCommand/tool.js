@@ -497,7 +497,7 @@
       const analysis = lt.lichess.analysis;
       const opts = this.opts;
       const filter = opts.filter[side] || {};
-      const turn = data.fen.split(' ')[1] == 'b' ? -1 : 1;
+      const turn = lt.getTurnSign(lt.getTurnFromFen(data.fen));
       const inTree = analysis.visibleChildren(analysis.node).map(c=>c.uci);
       const nodeOk = !filter.min || data.total >= filter.min;
       if (nodeOk) {
@@ -680,7 +680,7 @@
         return true;
       }
       await this.enrichMoves(data);
-      const side = analysis.node.ply % 2 ? 'b' : 'w';
+      const side = lt.getTurnFromNode(analysis.node) == 'black' ? 'b' : 'w';
       const reason = this.stopReason(data, item);
       if (reason) {
         this.closeLine(item, reason);

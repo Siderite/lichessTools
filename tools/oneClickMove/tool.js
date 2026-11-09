@@ -104,7 +104,7 @@
       const variant = this.getVariant(board.closest('div.round__app, main'));
       const orientation = board.closest('.cg-wrap').is('.orientation-black') ? 'black' : 'white';
       const fen = lt.getPositionFromBoard(board.closest('cg-container'), true);
-      const turn = / b\b/.test(fen) ? 'black' : 'white';
+      const turn = lt.getTurnFromFen(fen) || 'white';
       if (this.options.onlyOrientation && orientation != turn) return;
       const getSquare = orientation == 'white'
         ? res => String.fromCharCode(97 + res.x) + (8 - res.y)

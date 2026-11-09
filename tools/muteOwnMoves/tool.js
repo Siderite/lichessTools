@@ -42,7 +42,7 @@
         before: ($this, ...args) => {
           const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
           if (!fen) return;
-          const isBlackTurn = / b\b/.test(fen);
+          const isBlackTurn = lt.getTurnFromFen(fen) == 'black';
           const isBlackOrientation = analysis?.getOrientation?.() == 'black' || $('.main-board .cg-wrap').is('.orientation-black');
           // after your own move it is the opponent's turn
           if (isBlackTurn != isBlackOrientation) return false;

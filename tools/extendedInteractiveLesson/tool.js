@@ -430,11 +430,11 @@
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return false;
-      const yourSide = (analysis.turnColor()=='white') ^ gp.isMyMove()
-           ? ' w '
-           : ' b ';
+      const yourSide = ((analysis.turnColor()=='white') ^ gp.isMyMove())
+           ? 'white'
+           : 'black';
       return !!nodeList
-        .filter(n=>n.fen.includes(yourSide))
+        .filter(n=>lt.getTurnFromFen(n.fen) == yourSide)
         .flatMap(n=>n.glyphs||[])
         .find(g=>[2,4,6].includes(g.id));
     };

@@ -182,7 +182,7 @@
       const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       this.info=null;
 
-      let side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
+      let side = lt.getTurnSign(lt.getTurnFromFen(node.fen));
       if (node.ceval?.depth >= depth) {
         this.info = node.ceval;
         side = 1;

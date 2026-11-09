@@ -217,10 +217,10 @@
       const metricAsync = async (label,fn)=>{
         try { return await fn(); } catch (e) { lt.global.console.warn('positionInfo '+label,e); return null; }
       };
-      const moveNumber = lt.global.Math.floor((ply + 1) / 2);
+      const moveNumber = lt.getMoveNumber(ply);
       let header;
       if (moveNumber>0 && node.san) {
-        header = moveNumber + (ply % 2 == 1 ? '. ' : '...');
+        header = lt.getSanPrefix(ply) + (lt.getTurnFromPly(ply) === 'black' ? ' ' : '');
         header += '<san>'+node.san+'</san>';
         if (node.glyphs?.length) {
           header += node.glyphs.map(g=>g.symbol).join('');
@@ -449,7 +449,7 @@
         });
       }
       const lines = [...linesByPv.values()].sort((x,y)=> x.multipv - y.multipv);
-      return { fen, side: fen.split(/\s+/)?.[1] == 'b' ? -1 : 1, series, lines };
+      return { fen, side: lt.getTurnSign(lt.getTurnFromFen(fen)), series, lines };
     };
 
     normalizeCeval = (ev)=>{
@@ -520,7 +520,7 @@
       const explorer = analysis?.explorer;
       const explorerCache = explorer?.cache;
       if (!explorerCache) return null;
-      const side = analysis.getOrientation() == 'black' ? 1 : 0;
+      const side = analysis.getOrientation() == 'black' ? 'white' : 'black';
 
       const recurse = async (n, depth) => {
         if (depth <= 0) return 1.0;
@@ -548,7 +548,7 @@
 
         const byUci = new Map();
         for (const m of expl.moves) {
-          if ((n.ply % 2 == side) && !n.children.find(c=>c.uci==m.uci)) continue;
+          if ((lt.getMoverFromNode(n) == side) && !n.children.find(c=>c.uci==m.uci)) continue;
           const games = (m.white || 0) + (m.draws || 0) + (m.black || 0);
           if (games > 0) {
             byUci.set(m.uci, games);

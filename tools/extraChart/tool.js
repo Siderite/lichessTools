@@ -159,10 +159,8 @@
     };
 
     getNodeTurn = (node) => {
-      const isWhite = node.fen
-        ? node.fen.includes(' w ')
-        : node.ply % 2 == 0;
-      return isWhite ? 1 : -1;
+      const lt = this.lichessTools;
+      return lt.getTurnSign(lt.getTurnFromNode(node));
     };
 
     heuristic = node => {
@@ -1875,7 +1873,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       const isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
-      const localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
+      const localLine = this.getLocalLine().filter(n=>n.ply && lt.getMoverFromNode(n) == (isWhite ? 'white' : 'black'));
       if (!localLine.length) return;
       const dict = new Map();
       for (const node of localLine) {

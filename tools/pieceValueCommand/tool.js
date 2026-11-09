@@ -68,7 +68,7 @@
         await lt.timeout(100);
       }
       await sf.stop();
-      const turn = fen.includes(' b ') ? -1 : 1;
+      const turn = lt.getTurnSign(lt.getTurnFromFen(fen));
       const result = LiChessTools.ChessMetrics.getCentipawnOnlyValue(this.info) * turn;
       this.info=null;
       this.lastInfo=null;
@@ -156,7 +156,7 @@
             const roleLetter = LiChessTools.ChessMetrics.ROLE_LETTERS[piece.role];
             const ch = piece.color === 'white' ? roleLetter.toUpperCase() : roleLetter;
             board.take(sq);
-            if (this.invalidBecauseCheck(board, fen.split(' ')[1]=='b')) {
+            if (this.invalidBecauseCheck(board, lt.getTurnFromFen(fen) == 'black')) {
               board.set(sq, piece);
               continue;
             }
@@ -221,7 +221,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.current) return;
-      const turn = this.current.fen.split(' ')[1]=='b' ? -1 : 1;
+      const turn = lt.getTurnSign(lt.getTurnFromFen(this.current.fen));
       const val = LiChessTools.ChessMetrics.getCentipawnOnlyValue(info) * turn;
       this.displayValue(this.current.e, this.current.baseEval - val, this.current.ch, true);
     };

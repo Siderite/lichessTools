@@ -80,7 +80,7 @@
           .attr('p', path)
           .append($('<index>')
                     .addClass('sbhint' + child.ply)
-                    .text(prefix + Math.ceil(child.ply / 2) + (child.ply % 2 ? '.' : '...')))
+                    .text(prefix + lt.getSanPrefix(child.ply)))
           .append($('<san>').text(child.san))
           .on('mouseover', function () {
             $('.analyse__fork move').removeClass('selected');

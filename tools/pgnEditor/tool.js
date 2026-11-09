@@ -1218,7 +1218,7 @@ https://www.chessable.com/course/${courseId}/ } *`)
               break;
             }
             await sf.stop();
-            const side = fen.split(' ')[1] == 'b' ? -1 : 1;
+            const side = lt.getTurnSign(lt.getTurnFromFen(fen));
             const evalText = "eval: " + (info.mate!==undefined ? '#' + (side * info.mate) : ((side * info.cp) > 0 ? '+' : '') + (side * info.cp / 100).toFixed(decimals));
             node.data.comments = [...comments, evalText];
             this.writeNote(trans.pluralSame('evaluatingMoves', totalMoves));

@@ -68,7 +68,7 @@
       }
       if (isBlack === undefined) {
         const fen = analysis?.node?.fen || lt.getPositionFromBoard($('div.main-board'), true);
-        isBlack = / b\b/.test(fen);
+        isBlack = lt.getTurnFromFen(fen) == 'black';
       }
       if (isPlaying !== false) {
         isPlaying = !$('.result-wrap .result,.study__player .result,.game__meta .status').length;
@@ -80,7 +80,8 @@
     setIcon = lichessTools.debounce(this.setIconDirect,300);
 
     handlePly = (ply) => {
-      this.setIcon(ply % 2 == 1, true);
+      const lt = this.lichessTools;
+      this.setIcon(lt.getTurnFromPly(ply) == 'black', true);
     }
 
     async start() {

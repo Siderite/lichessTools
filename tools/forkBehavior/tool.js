@@ -42,9 +42,8 @@
       const lt = this.lichessTools;
       length = length || 0;
       let result = '';
-      if (!length || move.ply % 2 == 1) {
-        const moveNumber = Math.floor((move.ply + 1) / 2);
-        result += moveNumber + (move.ply % 2 == 1 ? '.' : '...');
+      if (!length || lt.getMoverFromNode(move) == 'white') {
+        result += lt.getSanPrefix(move.ply);
       }
       result += move.san;
       if (move.glyphs?.length) {

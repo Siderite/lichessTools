@@ -17,6 +17,25 @@ The extension is built around a single global `LiChessTools` object (`scripts/li
 - Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
 - Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
 
+### Turn / side to move (`lt.getTurn*`)
+
+The side to move is decided in one place, never re-encoded per tool. The vocabulary is
+the strings `'white'` / `'black'`; a FEN answers when it has one, ply is only a fallback.
+
+- `lt.getTurnFromFen(fen)` -- the strict turn field of a FEN (`'white'`, `'black'`, or
+  `undefined` when there is none). Unlike `fen.includes(' b')` it never matches an
+  en-passant square on the b-file, nor variant text.
+- `lt.getTurnFromPly(ply)` -- side to move at a position ply count; ply 0 is white.
+- `lt.getTurnFromNode(node)` -- FEN first, ply as fallback. A study chapter rooted at a
+  start FEN answers from the FEN, which ply parity alone gets wrong.
+- `lt.getMoverFromNode(node)` -- the colour that played `node.san`, the opposite of the
+  side to move at that node.
+- `lt.getOppositeTurn(turn)` -- flips a colour; an unknown turn flips to `'white'`.
+- `lt.getTurnSign(turn)` -- `+1` for white, `-1` for black, the engine-eval orientation.
+- `lt.getMoveNumber(ply)` / `lt.getSanPrefix(ply, separator)` -- PGN move numbering
+  (`12.` for a white move, `12...` for a black one).
+- `lt.getMoveColor(index)` -- colour of a 1-based PGN move index, which is not a ply.
+
 Per-file details live in the sub-summaries, not in this document:
 
 - [`scripts/context.md`](./scripts/context.md) — every file in `scripts/`: the Cash library, `ToolBase`/`PageToolBase`, the sub-systems (`Api`, `Comm`, `Cache`, `Storage`, `Network`, ...), the 13-file chess-metrics library, the loaders and the service worker.

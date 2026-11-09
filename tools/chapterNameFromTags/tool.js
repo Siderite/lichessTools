@@ -91,8 +91,8 @@
       pgn = '';
       while (node.children.length==1 && ply<13) {
         node = node.children[0];
-        if (ply%2==1) {
-          pgn+=' '+Math.ceil(ply/2)+'.';
+        if (lt.getMoveColor(ply) == 'white') {
+          pgn+=' '+lt.getMoveNumber(ply)+'.';
         } else {
           pgn+=' ';
         }
@@ -102,19 +102,19 @@
       names.push(pgn);
       if (node.children.length && ply<13) {
         let child = node.children[0];
-        if (ply%2==1) {
-          pgn+=' '+Math.ceil(ply/2)+'.';
+        if (lt.getMoveColor(ply) == 'white') {
+          pgn+=' '+lt.getMoveNumber(ply)+'.';
         } else {
-          pgn+=pgn?' ':(' '+Math.ceil(ply/2)+'... ');
+          pgn+=pgn?' ':(' '+lt.getMoveNumber(ply)+'... ');
         }
         pgn+=child.data.san;
         for (let i=1; i<node.children.length && i<10; i++) {
           child = node.children[i];
           let childPgn =' (';
-          if (ply%2==1) {
-            childPgn+=' '+Math.ceil(ply/2)+'.';
+          if (lt.getMoveColor(ply) == 'white') {
+            childPgn+=' '+lt.getMoveNumber(ply)+'.';
           } else {
-            childPgn+=' '+Math.ceil(ply/2)+'... ';
+            childPgn+=' '+lt.getMoveNumber(ply)+'... ';
           }
           childPgn+=child.data.san;
           childPgn+=')';

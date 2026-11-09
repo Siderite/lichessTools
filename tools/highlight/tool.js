@@ -48,11 +48,11 @@
       const toHighlight = new Set();
       const toInvert = new Set();
       if (this.options.lastMove && this.state?.lastMoves?.length) {
-        const orientation = analysis.getOrientation() == 'white' ? 0 : 1;
+        const orientation = analysis.getOrientation() == 'white' ? 'white' : 'black';
         for (const node of this.state.lastMoves) {
           const elem = lt.getElementForNode(node);
           if (!elem) continue;
-          const inverted = (node.ply%2 == 0) != orientation;
+          const inverted = lt.getMoverFromNode(node) != orientation;
           toHighlight.add(elem);
           if (inverted) toInvert.add(elem);
         }

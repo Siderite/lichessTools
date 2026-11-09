@@ -1102,8 +1102,9 @@
       if (!arr.length) return;
       arr.sort((n1, n2) => n1.nodeIndex - n2.nodeIndex);
       const index = analysis.node.nodeIndex;
-      const plyColor = color === 'white' ? 1 : 0;
-      return arr.find(n => n.ply % 2 === plyColor && n.nodeIndex > index) || arr.find(n => n.ply % 2 === plyColor);
+      const moverColor = color === 'white' ? 'white' : 'black';
+      return arr.find(n => this.getMoverFromNode(n) === moverColor && n.nodeIndex > index)
+        || arr.find(n => this.getMoverFromNode(n) === moverColor);
     };
 
     analysisRedraw = ()=>{
@@ -1153,6 +1154,30 @@
       
       return result;
     };
+
+    getTurnFromFen = (fen) => {
+      if (!fen) return;
+      const field = String(fen).trim().split(/\s+/)[1];
+      if (field === 'w' || field === 'b') return field === 'w' ? 'white' : 'black';
+    };
+
+    getTurnFromPly = (ply) => Number.isInteger(ply) ? (ply % 2 ? 'black' : 'white') : null;
+
+    getTurnFromNode = (node) => node?.fen
+      ? this.getTurnFromFen(node.fen) || this.getTurnFromPly(node.ply)
+      : this.getTurnFromPly(node?.ply);
+
+    getMoverFromNode = (node) => this.getOppositeTurn(this.getTurnFromNode(node));
+
+    getOppositeTurn = (turn) => turn === 'white' ? 'black' : 'white';
+
+    getTurnSign = (turn) => turn === 'black' ? -1 : 1;
+
+    getMoveNumber = (ply) => Math.floor((ply + 1) / 2);
+
+    getSanPrefix = (ply, separator) => `${Math.floor((ply + 1) / 2)}${ply % 2 === 1 ? '.' : '...'}${separator ?? ''}`;
+
+    getMoveColor = (moveIndex) => moveIndex % 2 ? 'white' : 'black';
 
     getPositionFromBoard = (el, asFen) => {
       if (!el) return;

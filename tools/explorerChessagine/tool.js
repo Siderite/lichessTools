@@ -55,7 +55,8 @@
         moves:[]
       };
       const wdl = result.data?.uciEval?.rawWdl || { win:0, draw:1, loss:0 };
-      const turnColor = fen.includes(' w') ? 'black' : 'white';
+      // the WDL the engine reports is for the position after the entry FEN's move
+      const turnColor = lt.getOppositeTurn(lt.getTurnFromFen(fen));
       explorerItem.white = Math.round(SCALE * (turnColor=='white' ? wdl.win : wdl.loss));
       explorerItem.draws = Math.round(SCALE * wdl.draw);
       explorerItem.black = Math.round(SCALE * (turnColor=='white' ? wdl.loss : wdl.win));

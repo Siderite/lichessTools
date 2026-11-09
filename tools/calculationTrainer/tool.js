@@ -216,7 +216,7 @@
         if (this.options.eval) {
           const ceval = { mate: info[0].mate?.[0], cp: info[0].cp?.[0] };
           const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
-          const side = fen.split(' ')[1] == 'b' ? -1 : 1;
+          const side = lt.getTurnSign(lt.getTurnFromFen(fen));
           const evalText = (ceval.mate!==undefined ? '#' + (side * ceval.mate) : ((side * ceval.cp) > 0 ? '+' : '') + (side * ceval.cp / 100).toFixed(decimals));
           score
             .append($('<span>')

@@ -364,7 +364,7 @@
         if (node.isSlow === undefined) {
           glyphsTool.processSlow(node);
         }
-        if (node.isSlow && node.ply % 2 == !black) {
+        if (node.isSlow && lt.getMoverFromNode(node) == (black ? 'black' : 'white')) {
           nodes.push(path);
         }
       }

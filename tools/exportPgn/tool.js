@@ -83,7 +83,7 @@
 
       function plyPrefix(node) {
         if (!options.exportPly) return '';
-        return `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
+        return lt.getSanPrefix(node.ply, ' ');
       }
 
       function centisecondsToClock(cs) {
@@ -206,15 +206,15 @@
 
         const first = node.children[0];
         first.path = node.path + first.id;
-        const isBlackTurn = first.ply % 2 === 1;
-        if (forcePly || isBlackTurn) s += plyPrefix(first);
+        const moverIsWhite = lt.getMoverFromNode(first) === 'white';
+        if (forcePly || moverIsWhite) s += plyPrefix(first);
         s += fixCrazySan(first.san);
 
         s += renderGlyphs(first);
         s += renderComments(first);
 
         const metaTokens = [];
-        metaTokens.push(isBlackTurn?'$white':'$black');
+        metaTokens.push(moverIsWhite?'$white':'$black');
         if (!first.children?.length) {
           metaTokens.push('$leaf');
         }

@@ -456,7 +456,7 @@
       $('table.moves tr.sum td.lichessTools-explorerEval').remove();
       const fen = analysis.node.fen;
       const path = analysis.path;
-      const whosMove = analysis.node.ply % 2 ? -1 : 1;
+      const whosMove = lt.getTurnSign(lt.getTurnFromNode(analysis.node));
       let result = this.cache[fen] || { moves: [] };
       if (this.getCached404(path)) {
         result = { moves: [] };

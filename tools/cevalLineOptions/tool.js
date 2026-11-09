@@ -104,7 +104,7 @@
           : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
-        const turn = fen.includes(' b') ? 1 : 0;
+        const turn = lt.getTurnFromFen(fen) == 'black' ? 1 : 0;
         const comp = side ^ turn;
 
         const dict = new Map();
