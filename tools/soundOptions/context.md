@@ -23,7 +23,8 @@ At specific thresholds (30s, 60s, 90s, 120s, 180s, 300s):
 
 ### Speak Seconds
 
-When time ≤ 5 seconds and `speak5` enabled: speaks the floor of seconds via speech synthesis (stops previous speaking first)
+When time <= the `speakSeconds` preference (default 5) and `speak5` enabled: speaks the floor of
+seconds via speech synthesis (stops previous speaking first)
 
 ### Behind Time Alert
 
@@ -55,6 +56,7 @@ None explicitly listed. Depends on `lichess.sound`, `lt.comm.getData`.
 - `soundVolume` — number type, default 70
 - `soundVoice` — select type (voices loaded dynamically), default 0
 - `timeAlert` — multiple type: ['s30','s60','s90','s120','s180','s300','beep','speak5', 'behind'], default: false
+- `speakSeconds` — number type, default 5, advanced: threshold for the speak5 seconds alert
 
 ## Key Methods
 

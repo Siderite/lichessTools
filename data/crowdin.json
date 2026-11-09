@@ -888,7 +888,7 @@
     "evaluateLineText": "تقييم التحركات السابقة",
     "evaluateLineTitle": "أدوات شطرنج الحياة - تقييم جميع التحركات السابقة",
     "showOpening.showInAnalysisTitle": "عنوان صفحة مجلس التحليل",
-    "timeAlert.speak5": "قراءة الثواني عندما يكون أقل من 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "استمر!",
     "options.downloadBroadcastPgn": "تحميل بث PGN",
     "downloadBroadcastTitle": "أدوات شطرنج الحياة - تحميل بث PGN",
@@ -1405,7 +1405,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2296,7 +2297,7 @@
     "evaluateLineText": "评估先前着法",
     "evaluateLineTitle": "LiChess Tools - 评估所有先前着法",
     "showOpening.showInAnalysisTitle": "在分析棋盘页面标题中",
-    "timeAlert.speak5": "剩余秒数少于 6 时朗读",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "继续！",
     "options.downloadBroadcastPgn": "下载转播 PGN",
     "downloadBroadcastTitle": "LiChess Tools - 下载转播 PGN",
@@ -2813,7 +2814,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -3704,7 +3706,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -4221,7 +4223,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5112,7 +5115,7 @@
     "evaluateLineText": "Vyhodnotit předchozí tahy",
     "evaluateLineTitle": "LiChess Tools - vyhodnotit všechny předchozí tahy",
     "showOpening.showInAnalysisTitle": "V Analysis Board titulek stránky",
-    "timeAlert.speak5": "Číst sekundy, když je to méně než 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Jdi dál!",
     "options.downloadBroadcastPgn": "Stáhnout vysílání PGN",
     "downloadBroadcastTitle": "LiChess Tools - stáhnout vysílání PGN",
@@ -5629,7 +5632,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -6520,7 +6524,7 @@
     "evaluateLineText": "Eerdere zetten evalueren",
     "evaluateLineTitle": "LiChess Tools - evaluatie van alle vorige zetten",
     "showOpening.showInAnalysisTitle": "In bord van Analyse pagina titel",
-    "timeAlert.speak5": "Lees seconden wanneer minder dan 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Doorgaan!",
     "options.downloadBroadcastPgn": "Verstuur PGN downloaden",
     "downloadBroadcastTitle": "LiChess Tools - zend signaal PGN downloaden",
@@ -7037,7 +7041,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -7928,7 +7933,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -8445,7 +8450,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9336,7 +9342,7 @@
     "evaluateLineText": "Évaluer les coups précédents",
     "evaluateLineTitle": "LiChess Tools - Évaluer tous les coups précédents",
     "showOpening.showInAnalysisTitle": "Dans le titre de la page de l'échiquier d'analyse",
-    "timeAlert.speak5": "Lire les secondes quand moins de 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Continuez !",
     "options.downloadBroadcastPgn": "Télécharger le PGN de la diffusion",
     "downloadBroadcastTitle": "LiChess Tools - télécharger le PGN de la diffusion",
@@ -9853,7 +9859,8 @@
     "imageFiles": "Fichiers image",
     "options.trophyCabinet": "Vitrine des trophées",
     "trophyCabinetTitle": "LiChess Tools - vitrine des trophées",
-    "trophyCabinetHeader": "Vitrine des trophées"
+    "trophyCabinetHeader": "Vitrine des trophées",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -10744,7 +10751,7 @@
     "evaluateLineText": "Vorherige Züge bewerten",
     "evaluateLineTitle": "LiChess Tools - bewerte alle vorherigen Züge",
     "showOpening.showInAnalysisTitle": "In AnalyseBoard Seitentitel",
-    "timeAlert.speak5": "Sekunden lesen, wenn weniger als 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Weiter!",
     "options.downloadBroadcastPgn": "Download Sendung PGN",
     "downloadBroadcastTitle": "LiChess Tools - Download Broadcast PGN",
@@ -11261,7 +11268,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12152,7 +12160,7 @@
     "evaluateLineText": "Αξιολόγηση προηγούμενων κινήσεων",
     "evaluateLineTitle": "LiChess Tools - αξιολόγηση όλων των προηγούμενων κινήσεων",
     "showOpening.showInAnalysisTitle": "Στον τίτλο σελίδας πίνακα ανάλυσης",
-    "timeAlert.speak5": "Διαβάστε δευτερόλεπτα όταν είναι λιγότερο από 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Πήγαινε!",
     "options.downloadBroadcastPgn": "Λήψη PGN εκπομπής",
     "downloadBroadcastTitle": "LiChess Tools - λήψη PGN αναμετάδοσης",
@@ -12669,7 +12677,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -13560,7 +13569,7 @@
     "evaluateLineText": "Valuta le mosse precedenti",
     "evaluateLineTitle": "LiChess Tools - valutare tutte le mosse precedenti",
     "showOpening.showInAnalysisTitle": "Nel titolo della pagina della scheda di analisi",
-    "timeAlert.speak5": "Leggere i secondi quando sono inferiori a 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Continua!",
     "options.downloadBroadcastPgn": "Scarica trasmissione PGN",
     "downloadBroadcastTitle": "LiChess Tools - Scarica trasmissione PGN",
@@ -14077,7 +14086,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -14968,7 +14978,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -15485,7 +15495,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16376,7 +16387,7 @@
     "evaluateLineText": "Evaluer tidligere trekk",
     "evaluateLineTitle": "LiChess Tools - evaluer alle tidligere trekk",
     "showOpening.showInAnalysisTitle": "I Analysebrettsidetittel",
-    "timeAlert.speak5": "Les sekunder når under 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Stå på!",
     "options.downloadBroadcastPgn": "Last ned sending-PGN",
     "downloadBroadcastTitle": "LiChess Tools - last ned sending-PGN",
@@ -16893,7 +16904,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17784,7 +17796,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -18301,7 +18313,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19192,7 +19205,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -19709,7 +19722,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -20600,7 +20614,7 @@
     "evaluateLineText": "Oceń poprzednie ruchy",
     "evaluateLineTitle": "LiChess Tools ‒ oceń wszystkie poprzednie ruchy",
     "showOpening.showInAnalysisTitle": "W tytule strony podczas analizy partii",
-    "timeAlert.speak5": "Odczytuj czas, gdy mniej niż 6 sekund",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Kontynuuj!",
     "options.downloadBroadcastPgn": "Pobierz PGN transmisji",
     "downloadBroadcastTitle": "LiChess Tools ‒ pobierz PGN transmisji",
@@ -21117,7 +21131,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22008,7 +22023,7 @@
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "LiChess Tools - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
-    "timeAlert.speak5": "Ler segundos quando inferior a 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Continuar!",
     "options.downloadBroadcastPgn": "Baixar PGN de transmissão",
     "downloadBroadcastTitle": "LiChess Tools - baixar PGN de transmissão",
@@ -22525,7 +22540,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23416,7 +23432,7 @@
     "evaluateLineText": "Avaliar movimentos anteriores",
     "evaluateLineTitle": "LiChess Tools - avaliar todos os movimentos anteriores",
     "showOpening.showInAnalysisTitle": "Título da página em Análise do Board",
-    "timeAlert.speak5": "Ler segundos quando inferior a 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Continuar!",
     "options.downloadBroadcastPgn": "Baixar PGN de transmissão",
     "downloadBroadcastTitle": "LiChess Tools - baixar PGN de transmissão",
@@ -23933,7 +23949,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -24824,7 +24841,7 @@
     "evaluateLineText": "Evaluează mutările precedente",
     "evaluateLineTitle": "LiChess Tools - evaluează toate mutările precedente",
     "showOpening.showInAnalysisTitle": "În titlul paginii Tablă de Analiză",
-    "timeAlert.speak5": "Citește secundele când mai puține de 6",
+    "timeAlert.speak5": "Citește secundele când sub limită",
     "continueFromHere": "Continuă!",
     "options.downloadBroadcastPgn": "Descarcă PGN-ul transmisiunii",
     "downloadBroadcastTitle": "LiChess Tools - descarcă PGN-ul transmisiunii",
@@ -25341,7 +25358,8 @@
     "imageFiles": "Imagini",
     "options.trophyCabinet": "Vitrină trofee",
     "trophyCabinetTitle": "LiChess Tools - vitrină trofee",
-    "trophyCabinetHeader": "Vitrină trofee"
+    "trophyCabinetHeader": "Vitrină trofee",
+    "options.speakSeconds": "Limită alertă citire secunde"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26232,7 +26250,7 @@
     "evaluateLineText": "Оценить предыдущие ходы",
     "evaluateLineTitle": "LiChess Tools - оценить все предыдущие ходы",
     "showOpening.showInAnalysisTitle": "В заголовке страницы аналитической доски",
-    "timeAlert.speak5": "Читать секунды, когда меньше 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Далее!",
     "options.downloadBroadcastPgn": "Скачать PGN трансляции",
     "downloadBroadcastTitle": "LiChess Tools - скачать PGN трансляции",
@@ -26749,7 +26767,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -27640,7 +27659,7 @@
     "evaluateLineText": "Evaluar movimientos anteriores",
     "evaluateLineTitle": "LiChess Tools - evaluar todas las jugadas anteriores",
     "showOpening.showInAnalysisTitle": "En el título de la página del foro de análisis",
-    "timeAlert.speak5": "Leer segundos cuando menos de 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "¡Continuar!",
     "options.downloadBroadcastPgn": "Descargar difusión PGN",
     "downloadBroadcastTitle": "LiChess Tools - descarga PGN",
@@ -28157,7 +28176,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29048,7 +29068,7 @@
     "evaluateLineText": "முந்தைய நகர்வுகளை மதிப்பிடுங்கள்",
     "evaluateLineTitle": "LiChess Tools - முந்தைய அனைத்து நகர்வுகளையும் மதிப்பிடுங்கள்",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -29565,7 +29585,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -30456,7 +30477,7 @@
     "evaluateLineText": "Önceki hamleleri değerlendir",
     "evaluateLineTitle": "LiChess Tools - tüm önceki hamleleri değerlendir",
     "showOpening.showInAnalysisTitle": "Analiz Tahtasındaki sayfa başlığı",
-    "timeAlert.speak5": "6'dan az olduğunda saniyeyi oku",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Devam!",
     "options.downloadBroadcastPgn": "Yayın PGN'sini indir",
     "downloadBroadcastTitle": "LiChess Tools - Yayın PGN'sini indir",
@@ -30973,7 +30994,8 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -31864,7 +31886,7 @@
     "evaluateLineText": "Evaluate previous moves",
     "evaluateLineTitle": "LiChess Tools - evaluate all previous moves",
     "showOpening.showInAnalysisTitle": "In Analysis Board page title",
-    "timeAlert.speak5": "Read seconds when less than 6",
+    "timeAlert.speak5": "Read seconds when under the threshold",
     "continueFromHere": "Go on!",
     "options.downloadBroadcastPgn": "Download broadcast PGN",
     "downloadBroadcastTitle": "LiChess Tools - download broadcast PGN",
@@ -32381,6 +32403,7 @@
     "imageFiles": "Image files",
     "options.trophyCabinet": "Trophy cabinet",
     "trophyCabinetTitle": "LiChess Tools - Trophy cabinet",
-    "trophyCabinetHeader": "Trophy cabinet"
+    "trophyCabinetHeader": "Trophy cabinet",
+    "options.speakSeconds": "Read seconds alert threshold"
   }
 }

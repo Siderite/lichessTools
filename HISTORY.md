@@ -3,6 +3,7 @@ History of features added to LiChess Tools in time (reversed order)
 09 Nov
 
 - trophy cabinet
+- configurable threshold to speak time left
 
 08 Nov
 
