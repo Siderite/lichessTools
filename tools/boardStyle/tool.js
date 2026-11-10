@@ -144,7 +144,7 @@
           const cgPiece = destPiece?.cgPiece
             ? destPiece.cgPiece.split(' ')
             : [destKey?.endsWith('1') ? 'white' : 'black', 'king'];
-          const isBlackTurn = cgPiece[0] == 'white';
+          const sideToMove = lt.getOppositeTurn(cgPiece[0]);
           const lastMovedPiece = cgPiece[1];
 
           if (e.usesArrow !== false) {
@@ -181,10 +181,9 @@
               arrow = container.find('.lichessTools-lastMoveArrow');
             }
           }
-          const side = isBlackTurn ? 'black' : 'white';
           const prevSide = container.attr('sideToPlay');
           const prevDestKey = container.attr('lastMoveSquare');
-          if (side!=prevSide) {
+          if (sideToMove != prevSide) {
             const prevPiece = container.attr('lastMovedPiece');
             if (prevPiece && prevDestKey==destKey) {
               container.attrSafe('lastPieceCaptured',prevPiece);
@@ -193,7 +192,7 @@
             }
           }
           container
-            .attrSafe('sideToPlay',side)
+            .attrSafe('sideToPlay',sideToMove)
             .attrSafe('lastMovedPiece',lastMovedPiece)
             .attrSafe('lastMoveSquare',destKey);
             
