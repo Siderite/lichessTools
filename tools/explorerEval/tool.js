@@ -1,14 +1,14 @@
 (() => {
   class ExplorerEvalTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'ChessOps'];
+    dependencies = ['EmitRedraw', 'ChessOps', 'Stockfish'];
 
     preferences = [
       {
         name: 'explorerEval',
         category: 'analysis',
         type: 'multiple',
-        possibleValues: ['ceval', 'db', 'lichess', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'brilliancy', 'hidden'],
+        possibleValues: ['ceval', 'db', 'lichess', 'localEngine', 'stats', 'evalRows', 'highlightList', 'bardp', 'spoa', 'sharpness', 'brilliancy', 'hidden'],
         defaultValue: 'ceval,db,highlightList',
         advanced: true
       }
@@ -22,6 +22,7 @@
         'explorerEval.stats': 'From winning stats',
         'explorerEval.db': 'From ChessDb',
         'explorerEval.lichess': 'From Lichess',
+        'explorerEval.localEngine': 'Auto eval',
         'explorerEval.evalRows': 'Rows from eval',
         'explorerEval.highlightList': 'Highlight list moves',
         'explorerEval.bardp': 'Bar precision',
@@ -33,6 +34,7 @@
         'fromStatsTitle': 'LiChess Tools - from winning stats',
         'fromChessDbTitle': 'LiChess Tools - from ChessDb',
         'fromLichessTitle': 'LiChess Tools - from Lichess, depth %s',
+        'fromEngineTitle': 'LiChess Tools - from LiChess Tools engine, depth %s',
         'evaluationTitle': 'LiChess Tools - move evaluation',
         'evalWarning': 'LiChess Tools - pay attention',
         'sharpnessText': '%s',
@@ -51,6 +53,7 @@
         'explorerEval.stats': 'Din statistici',
         'explorerEval.db': 'De la ChessDb',
         'explorerEval.lichess': 'De la Lichess',
+        'explorerEval.localEngine': 'Auto evaluare',
         'explorerEval.bardp': 'Precizie bar\u0103',
         'explorerEval.spoa': 'Media Rezultatelor Juc\u0103torilor mai Buni',
         'explorerEval.sharpness': 'Coloan\u0103 periculozitate',
@@ -62,6 +65,7 @@
         'fromStatsTitle': 'LiChess Tools - din statistici',
         'fromChessDbTitle': 'LiChess Tools - de la ChessDb',
         'fromLichessTitle': 'LiChess Tools - de la Lichess, ad\u00e2ncime %s',
+        'fromEngineTitle': 'LiChess Tools - de la motor LiChess Tools, ad\u00e2ncime %s',
         'evaluationTitle': 'LiChess Tools - evaluare mutare',
         'evalWarning': 'LiChess Tools - aten\u0163ie',
         'sharpnessText': '%s',
@@ -291,6 +295,7 @@
               title = trans.noarg('fromChessDbTitle');
               break;
             case 5: title = trans.pluralSame('fromLichessTitle', move.depth); break;
+            case this.engineRank: title = trans.pluralSame('fromEngineTitle', move.depth); break;
           }
 
           explorerItem.cp = move.cp;
@@ -322,7 +327,8 @@
           .toggleClassSafe('lichessTools-bad', rank === 0)
           .toggleClassSafe('lichessTools-good', rank === 1)
           .toggleClassSafe('lichessTools-best', rank === 2)
-          .toggleClassSafe('lichessTools-cloud', rank === 5);
+          .toggleClassSafe('lichessTools-cloud', rank === 5)
+          .toggleClassSafe('lichessTools-engine', rank === this.engineRank);
         $('td.lichessTools-evalRow', e)
           .text(title);
         $(e)
@@ -438,7 +444,11 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       const analysis = lichess?.analysis;
-      if (!analysis.explorer?.enabled() || analysis.explorer?.loading()) return;
+      this.stopEngineIfPositionMoved();
+      if (!analysis.explorer?.enabled() || analysis.explorer?.loading()) {
+        this.stopEngineIfExplorerClosed();
+        return;
+      }
       if (lt.isGamePlaying()) return;
       const explorerMoves = analysis.explorer?.current()?.moves;
       if (!this.options.evalRows) {
@@ -458,7 +468,7 @@
       const path = analysis.path;
       const whosMove = lt.getTurnSign(lt.getTurnFromNode(analysis.node));
       let result = this.cache[fen] || { moves: [] };
-      if (this.getCached404(path)) {
+      if (this.getCached404(path) && !result.engineTried) {
         result = { moves: [] };
       }
       let newMoves = [];
@@ -563,17 +573,196 @@
           }
         });
       }
+      if (this.options.localEngine) {
+        this.fillMissingWithEngine(fen, result);
+      }
       if (result.moves?.length) {
         this.cache[fen] = result;
-        if (result.moves.find(m=>m.depth>15)) {
-          lt.arrayRemoveAll(result.moves, m=>m.depth<12);
+        if (result.moves.find(m => m.depth > 15 && m.rank != this.engineRank)) {
+          lt.arrayRemoveAll(result.moves, m => m.depth < 12 && m.rank != this.engineRank);
         }
       }
       lt.requestAF(()=>{
+        if (analysis?.node?.fen != fen) return;
         this.showEvaluations(result);
       },'explorerEval_showEvaluations');
     };
     doEvaluationDebounced = this.lichessTools.debounce(this.doEvaluation, 100);
+
+    engineRank = 6;
+    engineDepth = 16;
+    engineProgressMs = 100;
+    enginePaintMs = 500;
+    engineActive = null;
+    engineOptions = null;
+
+    engineNeedsDeeperValue = (entry, depth) => {
+      if (entry.rank == -1) return true;
+      return (entry.rank == null || entry.rank == this.engineRank) && (entry.depth || 0) < depth;
+    };
+
+    cancelEngineRun = () => {
+      if (!this.engineOptions) return;
+      this.engineOptions.cancelRequested = true;
+    };
+
+    stopEngineIfExplorerClosed = () => {
+      if (!this.engineOptions) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+      if (analysis?.explorer?.enabled()) return;
+      this.cancelEngineRun();
+    };
+
+    stopEngineIfPositionMoved = () => {
+      if (!this.engineOptions) return;
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+      if (this.engineActive == analysis?.node?.fen) return;
+      this.cancelEngineRun();
+      this.doEvaluationDebounced();
+    };
+
+    paintEngineValues = (result, fen) => {
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const analysis = lichess?.analysis;
+      if (analysis?.node?.fen != fen) return;
+      this.lichessTools.requestAF(() => {
+        this.showEvaluations(result);
+      }, 'explorerEval_showEvaluations_engine');
+    };
+    enginePaintDebounced = this.lichessTools.debounce(this.paintEngineValues, this.enginePaintMs);
+
+    fillMissingWithEngine = async (fen, result) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      if (this.engineActive) {
+        if (this.engineActive !== fen) {
+          this.cancelEngineRun();
+          this.doEvaluationDebounced();
+          return { retry: true, updated: false };
+        }
+        return { retry: false, updated: false };
+      }
+      const explorerMoves = analysis?.explorer?.current()?.moves;
+      if (!explorerMoves?.length) return { retry: false, updated: false };
+      if (!analysis?.explorer?.enabled()) return { retry: false, updated: false };
+      const targetDepth = +(lt.currentOptions.getValue('customEngineLevel')) || this.engineDepth;
+      const missing = [];
+      const missingSet = new Set();
+      const tried = result.engineTried || [];
+      const triedSet = new Set(tried);
+      for (const explorerMove of explorerMoves) {
+        const uci = explorerMove?.uci;
+        if (!uci || missingSet.has(uci)) continue;
+        const current = result.moves.find(m => m.uci == uci);
+        if (current && !this.engineNeedsDeeperValue(current, targetDepth)) continue;
+        const shallowEngineValue = current && current.rank == this.engineRank && (current.depth || 0) < targetDepth;
+        if (triedSet.has(uci) && !shallowEngineValue) continue;
+        missing.push(uci);
+        missingSet.add(uci);
+      }
+      if (!missing.length) return { retry: false, updated: false };
+      const sf = lt.stockfish;
+      if (!sf) return { retry: false, updated: false };
+      const moves = missing;
+      const searchedSet = new Set(moves);
+      let updated = false;
+      const mergeEngineLines = (lines) => {
+        let merged = false;
+        for (const i of lines || []) {
+          const uci = i?.pv?.[0];
+          if (!uci || !searchedSet.has(uci)) continue;
+          const cp = i.cp?.length ? +i.cp[0] : null;
+          const mate = i.mate?.length && i.mate[0] != '0' ? +i.mate[0] : null;
+          if (cp === null && mate === null) continue;
+          const depth = i.depth?.length ? +i.depth[0] : targetDepth;
+          const existing = result.moves.find(m => m.uci == uci);
+          if (existing) {
+            const deeper = depth >= (existing.depth || 0);
+            const replaceable = existing.rank == -1 || (existing.rank == null || existing.rank == this.engineRank) && deeper;
+            if (!replaceable) continue;
+            existing.depth = depth;
+            existing.cp = cp;
+            existing.mate = mate;
+            existing.rank = this.engineRank;
+          } else {
+            result.moves.push({
+              depth: depth,
+              uci: uci,
+              cp: cp,
+              mate: mate,
+              rank: this.engineRank
+            });
+          }
+          merged = true;
+        }
+        if (!merged) return false;
+        updated = true;
+        this.cache[fen] = result;
+        return true;
+      };
+      const options = {
+        pv: moves.length,
+        depth: targetDepth,
+        moves: moves,
+        cancelRequested: false,
+        progressMs: this.engineProgressMs,
+        onProgress: (lines) => {
+          if (!analysis?.explorer?.enabled()) {
+            this.cancelEngineRun();
+            return;
+          }
+          if (analysis?.node?.fen != fen) {
+            this.cancelEngineRun();
+            return;
+          }
+          if (!lines?.length) return;
+          try {
+            if (mergeEngineLines(lines)) this.enginePaintDebounced(result, fen);
+          } catch (ex) {}
+        }
+      };
+      this.engineOptions = options;
+      this.engineActive = fen;
+      let info;
+      let engineGuard = true;
+      const stopIfExplorerGone = async () => {
+        while (engineGuard) {
+          await lt.timeout(500);
+          if (!engineGuard) return;
+          if (!analysis?.explorer?.enabled()) {
+            this.cancelEngineRun();
+            return;
+          }
+          if (analysis?.node?.fen != fen) {
+            this.cancelEngineRun();
+            return;
+          }
+        }
+      };
+      const guardTask = stopIfExplorerGone();
+      try {
+        info = await sf.evaluate(fen, options);
+      } catch (ex) {
+        info = null;
+      } finally {
+        engineGuard = false;
+        this.engineActive = null;
+        this.engineOptions = null;
+      }
+      await guardTask;
+      if (options.cancelRequested) return { retry: false, updated: updated };
+      if (analysis?.node?.fen != fen) return { retry: false, updated: updated };
+      if (!analysis?.explorer?.enabled()) return { retry: false, updated: updated };
+      result.engineTried = [...tried, ...moves];
+      mergeEngineLines(info);
+      if (updated) this.paintEngineValues(result, fen);
+      return { retry: false, updated: updated };
+    };
 
     rebind = () => {
       const lt = this.lichessTools;
@@ -582,16 +771,28 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const explorer = analysis.explorer;
+      this.stopEngineIfExplorerClosed();
+      this.stopEngineIfPositionMoved();
       if (!this.options.isSet) {
         explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerEval');
+        explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerEval');
       } else {
         if (!lt.isWrappedFunction(explorer.setNode, 'explorerEval')) {
           explorer.setNode = lt.wrapFunction(explorer.setNode, {
             id: 'explorerEval',
             after: async ($this, result, ...args) => {
+              this.stopEngineIfPositionMoved();
               if (!explorer.lastStream) return;
               await explorer.lastStream.promise;
               this.doEvaluationDebounced();
+            }
+          });
+        }
+        if (!lt.isWrappedFunction(explorer.config.toggleOpen, 'explorerEval')) {
+          explorer.config.toggleOpen = lt.wrapFunction(explorer.config.toggleOpen, {
+            id: 'explorerEval',
+            after: ($this, result, ...args) => {
+              this.stopEngineIfExplorerClosed();
             }
           });
         }
@@ -824,6 +1025,7 @@
         stats: lt.isOptionSet(value, 'stats'),
         db: lt.isOptionSet(value, 'db') || lt.isOptionSet(value, 'chessdb'),
         lichess: lt.isOptionSet(value, 'lichess'),
+        localEngine: lt.isOptionSet(value, 'localEngine'),
         evalRows: lt.isOptionSet(value, 'evalRows'),
         highlightList: lt.isOptionSet(value, 'highlightList'),
         bardp: lt.isOptionSet(value, 'bardp'),
@@ -831,8 +1033,9 @@
         sharpness: lt.isOptionSet(value, 'sharpness'),
         brilliancy: lt.isOptionSet(value, 'brilliancy'),
         hidden: lt.isOptionSet(value, 'hidden'),
-        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.stats || this.evalRows || this.bardp || this.spoa); }
+        get isSet() { return !this.hidden && (this.ceval || this.db || this.lichess || this.localEngine || this.stats || this.evalRows || this.bardp || this.spoa); }
       };
+      if (this.engineOptions && !this.options.localEngine) this.cancelEngineRun();
       const lichess = lt.lichess;
       const $ = lt.$;
       const explorer = lichess?.analysis?.explorer;

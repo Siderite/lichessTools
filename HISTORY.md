@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Nov
+
+- Auto evaluate Explorer moves
+
 09 Nov
 
 - trophy cabinet

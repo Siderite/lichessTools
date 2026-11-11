@@ -29,11 +29,11 @@ The tool extends `LiChessTools.Tools.ToolBase`. It creates a `Stockfish` instanc
 - `pv` (multiPV count, default 1)
 - `depth` (search depth, default 16)
 - `moves` (searchMoves filter)
-- `cancelRequested` (abort flag)
+- `cancelRequested` (abort flag; a cancelled call still sends `stop` before returning, so the engine really halts)
 - `onProgress` (callback called with the info collected so far while the search is still running)
 - `progressMs` (how often that callback fires, default 1000)
 
-流程: setMultiPv → setDepth → setSearchMoves → setPosition → start → listen for `info` events (collect cp/mate values per multipv) → the same values are handed to `options.onProgress` through a debounce (`progressMs`) so a caller can show the score at the depth reached so far → listen for `bestmove` → stop → return collected info array.
+Flow: setMultiPv → setDepth → setSearchMoves → setPosition → start → listen for `info` events (collect cp/mate values per multipv) → the same values are handed to `options.onProgress` through a debounce (`progressMs`) so a caller can show the score at the depth reached so far → listen for `bestmove` → stop → return collected info array. If `cancelRequested` is set while waiting, the call sends `stop` and returns nothing, so a cancelled search leaves no engine running.
 
 ### Event Parsing
 

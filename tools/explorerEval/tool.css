@@ -132,6 +132,14 @@ body.lichessTools .explorer-box .moves td.lichessTools-showBrilliancy {
   font-size: smaller;
 }
 
+body.lichessTools td.lichessTools-explorerEval.lichessTools-engine {
+  color: #603060;
+}
+
+html.dark body.lichessTools td.lichessTools-explorerEval.lichessTools-engine {
+  color: #A080C0;
+}
+
 body.lichessTools .explorer-box .moves td.lichessTools-brilliancy-brilliant {
   color: var(--c-good);
   font-weight: bold;
