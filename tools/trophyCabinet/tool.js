@@ -29,7 +29,24 @@
       }
     }
 
-    // count the css reads out into the summary; the cabinet itself is only built on click
+    // the cup the pill draws and the icon a trophy that brings nothing of its own stands in for;
+    // the hashed asset url answers the same path always, so it is worked out once and kept
+    get defaultIconUrl() {
+      if (this._defaultIconUrl === undefined) {
+        const lt = this.lichessTools;
+        this._defaultIconUrl = lt.assetUrl('images/trophy/Gold-Cup.png');
+      }
+      return this._defaultIconUrl;
+    }
+
+    // what the cabinet shows: the awards of the row that opened it, then the trophies another tool
+    // handed over. The row pass runs on every click, so its list is rebuilt; the other one stays,
+    // because a tool adds its trophies once.
+    lichessTrophies = [];
+    customTrophies = [];
+
+    // count the css reads out into the summary; a trophy another tool added keeps the pill drawn
+    // even on a row that holds no award
     setTrophySummary = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -39,7 +56,7 @@
         this._applyingTrophySummary = true;
         $('body div.trophies.packed').each((i,e)=>{
           const packed = $(e);
-          const count = packed.find('.trophy,.shield-trophy').length;
+          const count = packed.find('.trophy,.shield-trophy').length + this.getCustomTrophyCount();
           let summary = packed.find('.lichessTools-trophySummary');
           if (!this.options.enabled || !count) {
             packed.removeAttrSafe('data-lt-trophies');
@@ -50,7 +67,7 @@
           if (!summary.length) {
             summary = $('<span class="lichessTools-trophySummary"><img class="lichessTools-trophyCup"/></span>')
               .appendTo(packed);
-            summary.find('img').attrSafe('src',lt.assetUrl('images/trophy/Gold-Cup.png'));
+            summary.find('img').attrSafe('src',this.defaultIconUrl);
             summary.on('click',(ev)=>{
               ev.preventDefault();
               ev.stopPropagation();
@@ -64,6 +81,53 @@
       } finally {
         this._applyingTrophySummary = false;
       }
+    };
+
+    // the trophies of both sources, in the order the cabinet shows them
+    getCabinetTrophies = () => this.lichessTrophies.concat(this.customTrophies);
+
+    // how many copies the trophies another tool added stand for; the pill writes it out beside the
+    // awards the row holds, so the number counts what the cabinet shows
+    getCustomTrophyCount = () => this.customTrophies.reduce((sum,trophy)=>sum+trophy.count,0);
+
+    // one trophy into the cabinet, and the door every trophy goes through. The lichess flag says the
+    // icon is an award element the site drew, so the chip keeps that art and the icon font it comes
+    // with; without the flag the caller brings a character (icon), an image (iconUrl), or neither,
+    // and the gold cup stands in. text is the label that wraps around the icon on the ring, title
+    // the tooltip (text when unset) and linkUrl where a click goes (no click when unset). A
+    // disabled tool takes nothing, so a caller only needs lt.tools.TrophyCabinetTool?.addTrophy(...)
+    addTrophy = (trophy,lichessTrophy) => {
+      if (!this.options?.enabled || !trophy) return;
+      const $ = this.lichessTools.$;
+      const node = lichessTrophy ? $(trophy.node || trophy) : undefined;
+      if (lichessTrophy && !node.length) return;
+      const icon = lichessTrophy ? undefined : trophy.icon;
+      const iconUrl = lichessTrophy
+        ? undefined
+        : (trophy.iconUrl || (icon ? undefined : this.defaultIconUrl));
+      const list = lichessTrophy ? this.lichessTrophies : this.customTrophies;
+      const text = lichessTrophy
+        ? (trophy.text || (node.attr('aria-label') || node.attr('title') || ''))
+        : String(trophy.text ?? '');
+      const key = lichessTrophy ? undefined : (String(icon||'')+'|'+String(iconUrl||'')+'|'+text);
+      if (!lichessTrophy) {
+        for (const kept of list) {
+          if (kept.key != key) continue;
+          kept.count++;
+          return;
+        }
+      }
+      list.push({
+        lichess: !!lichessTrophy,
+        node,
+        icon,
+        iconUrl,
+        text,
+        title: lichessTrophy ? text : String(trophy.title ?? text),
+        linkUrl: lichessTrophy ? undefined : (trophy.linkUrl || undefined),
+        count: Math.max(1,Number(trophy.count)||1),
+        key,
+      });
     };
 
     // identical awards collapse into one chip, the dialog only ever shows one per kind
@@ -88,29 +152,44 @@
       return groups;
     };
 
-    // one chip per award kind; the cabinet shows one chip per kind
-    buildTrophyChips = (groups,target) => {
+    // one chip per trophy: a Lichess chip carries the site's own award element, a custom one the
+    // character or the image the caller gave it. The label rides the ring around the icon, and a
+    // trophy with a link becomes an anchor, which is what makes the whole chip answer a click.
+    buildTrophyChips = (trophies,target) => {
       const $ = this.lichessTools.$;
-      for (const group of groups) {
-        const node = $(group.node);
-        const label = node.attr('aria-label') || node.attr('title') || '';
-        const chip = $('<span class="lichessTools-trophyChip">')
-          .append($('<span class="lichessTools-trophyIcon">').append(node.clone()))
+      for (const trophy of trophies) {
+        const chip = $(trophy.linkUrl ? '<a class="lichessTools-trophyChip">' : '<span class="lichessTools-trophyChip">')
           .appendTo(target);
-        chip
-          .attrSafe('title',label);
-        const ring = $('<span class="lichessTools-trophyRing">')
-          .appendTo(chip)
-          .attrSafe('aria-hidden','true');
-        const chars = Array.from(label);
-        chars.forEach((char,i)=>{
-          const charEl = $('<i class="lichessTools-trophyChar">').text(char);
-          charEl.appendTo(ring);
-          charEl[0].style.setProperty('--lt-i',String(i));
-        });
-        ring[0].style.setProperty('--lt-n',String(chars.length));
-        if (chars.length > 24) ring.addClass('lichessTools-trophyWideRing');
-        if (group.count > 1) chip.attrSafe('data-lt-count',group.count);
+        if (trophy.linkUrl) {
+          chip
+            .attrSafe('href',String(trophy.linkUrl))
+            .attrSafe('target','_blank');
+        }
+        const icon = $('<span class="lichessTools-trophyIcon">').appendTo(chip);
+        if (trophy.lichess) icon.append(trophy.node.clone());
+        else if (trophy.iconUrl) icon.append(
+          $('<img class="lichessTools-trophyImg"/>')
+            .attrSafe('src',String(trophy.iconUrl))
+            .attrSafe('alt',trophy.title)
+        );
+        else icon.append(
+          $('<span class="lichessTools-trophyGlyph">').textSafe(String(trophy.icon||''))
+        );
+        if (trophy.title) chip.attrSafe('title',trophy.title);
+        const chars = Array.from(trophy.text);
+        if (chars.length) {
+          const ring = $('<span class="lichessTools-trophyRing">')
+            .appendTo(chip)
+            .attrSafe('aria-hidden','true');
+          chars.forEach((char,i)=>{
+            const charEl = $('<i class="lichessTools-trophyChar">').text(char);
+            charEl.appendTo(ring);
+            charEl[0].style.setProperty('--lt-i',String(i));
+          });
+          ring[0].style.setProperty('--lt-n',String(chars.length));
+          if (chars.length > 24) ring.addClass('lichessTools-trophyWideRing');
+        }
+        if (trophy.count > 1) chip.attrSafe('data-lt-count',trophy.count);
       }
     };
 
@@ -159,8 +238,12 @@
       const $ = lt.$;
       const trans = lt.translator;
       $('dialog.lichessTools-trophyCabinet').remove();
-      const groups = this.getCabinetGroups(packed);
-      if (!groups.length) return;
+      // the row's awards come through the same door a custom trophy uses, flagged so each chip keeps
+      // the art the site drew for it
+      this.lichessTrophies = [];
+      for (const group of this.getCabinetGroups(packed)) this.addTrophy(group,true);
+      const trophies = this.getCabinetTrophies();
+      if (!trophies.length) return;
       const dialog = await lt.dialog({
         header: $('<h2>').textSafe(trans.noarg('trophyCabinetHeader')),
         help: 'https://siderite.dev/blog/lichess-tools---user-manual#trophyCabinet',
@@ -180,11 +263,11 @@
             .each((i,e)=>e.close('cancel'))
             .remove();
         });
-      this.buildTrophyChips(groups,content);
+      this.buildTrophyChips(trophies,content);
       const chips = content.find('.lichessTools-trophyChip');
       const header = $dialog.find('.dialog-header').get(0);
       const sizing = chips.length
-        ? this.getCabinetSizing(dialog,content.get(0),chips.get(0),header,groups.length)
+        ? this.getCabinetSizing(dialog,content.get(0),chips.get(0),header,trophies.length)
         : undefined;
       // custom properties go out through style.setProperty, which takes a string only: cash
       // hands the raw value on, so a number here can be dropped by the engine and leave the

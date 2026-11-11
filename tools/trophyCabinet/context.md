@@ -9,7 +9,9 @@ summary ("50 x" plus a gold cup icon) and opens the whole award collection as a
 cabinet box sizes itself for four chips on a line, falling back to 90vw x 90vh when the
 viewport cannot give that width. Twelve chips therefore sit 4 x 3 on a desktop and 2 x 6
 on a phone. The number of awards gates nothing: any row that holds at least one award
-gets the pill, and only a row with no awards at all is left untouched.
+gets the pill, and a row that holds none still gets one as soon as another tool has handed
+a trophy to the cabinet through `addTrophy`. Such a trophy brings its own icon (a character
+or an image), its label, and an optional tooltip and link.
 
 ## Preferences
 
@@ -28,20 +30,23 @@ Runs for every `div.trophies.packed` on the page.
 
 1. Counts the awards with `packed.find('.trophy,.shield-trophy')`, which covers
    plain awards, the shields and the awards the site already wrapped in a
-   `div.stacked`.
+   `div.stacked`. The number adds the copies of the trophies another tool handed
+   over through `addTrophy`, so the pill counts what the cabinet shows.
    The row Lichess renders for a heavy winner is four unclassed perf anchors, each
    wrapping the classed span, then one `div.stacked` holding the marathon awards,
    then the shield, coach and streamer badges. Those elements are the count: the
    trophies the user API lists, plus the profile badges the API leaves out.
-2. When the tool is off, or the row holds no awards at all, the
-   `data-lt-trophies` attribute is dropped from the row and any summary
-   element is removed, so the profile renders as Lichess wrote it. The count
-   does not gate the pill - any number of awards gets one at any width.
+2. When the tool is off, or the row holds neither an award nor a copy of a trophy a
+   caller added, the `data-lt-trophies` attribute is dropped from the row and any
+   summary element is removed, so the profile renders as Lichess wrote it. The count
+   does not gate the pill - any number of awards gets one at any width, and one
+   custom trophy gets one on a row that holds no award.
 3. Otherwise the row gets `data-lt-trophies=count`, and a
    `span.lichessTools-trophySummary` is created once inside the row, holding an
-   `img.lichessTools-trophyCup` whose `src` comes from
-   `lt.assetUrl('images/trophy/Gold-Cup.png')` - the hashed Lichess asset, so
-   prod and testing both resolve the right file.
+   `img.lichessTools-trophyCup` whose `src` comes from `this.defaultIconUrl` - the
+   tool property that resolves `lt.assetUrl('images/trophy/Gold-Cup.png')` once and
+   keeps the hashed Lichess asset url, so prod and testing both read the right file.
+   That property is also the stand-in icon a trophy without one of its own gets.
 4. The summary keeps `data-lt-trophies=count` (the css writes the number out of it) and
    `title` = `trans.noarg('trophyCabinetTitle')`, a translated "LiChess Tools - Trophy
    cabinet" tooltip.
@@ -60,9 +65,34 @@ Returns the award kinds in page order, each with the number of copies.
 - The first DOM node of a kind is kept, so the chip can reuse the site element
   and its icon font.
 
+### Add Trophy (`addTrophy`)
+
+`addTrophy(trophy,lichessTrophy)` is the door every trophy goes through, and it answers the
+disabled case itself: with the option off it takes nothing and returns, so a caller never has
+to ask. Another tool reaches it as `lt.tools.TrophyCabinetTool?.addTrophy(...)`, declaring
+`dependencies = ['TrophyCabinet']` so the tool has started and `options.enabled` is settled.
+
+- With the flag the icon is an award the site drew: `trophy.node` (or the element itself) is
+  kept on the entry, so the chip clones that art and the icon font it comes with. The label
+  falls back to the award's own `aria-label`/`title`.
+- Without the flag the caller brings `{ icon, iconUrl, text, title, linkUrl }`: `icon` is a
+  character and `iconUrl` an image, and neither being set gives the gold cup from
+  `defaultIconUrl`. `text` is the label that wraps around the icon on the ring, `title` the
+  tooltip (the text when unset) and `linkUrl` where clicking the chip goes - the chip is
+  then built as an anchor with `target=_blank`, so the cabinet stays open; with no link a
+  click does nothing.
+- A custom trophy seen again only bumps `count`, keyed by `icon|iconUrl|text`, the way
+  identical awards collapse; the Lichess kinds were already collapsed by `getCabinetGroups`.
+- Entries go to `customTrophies`, which lives across opens because a tool adds its trophies
+  once, or to `lichessTrophies`, which `openTrophyCabinet` rebuilds from the row on every
+  click. `getCabinetTrophies` hands both over in that order and `getCustomTrophyCount` adds
+  up the custom copies for the pill.
+
 ### Open Trophy Cabinet (`openTrophyCabinet`)
 
-1. Removes a cabinet dialog left open by an earlier click.
+1. Removes a cabinet dialog left open by an earlier click, then feeds the row's awards
+   through `addTrophy(group,true)` so both sources share one door, and stops when no trophy
+   is left to show.
 2. Builds the dialog with `lt.dialog({ header, help, noDrag: true })`, re-wraps it in cash and
    gives it `lichessTools-trophyCabinet`, which every css rule keys on.
 3. An inline `width: 90vw` probe is set, then `dialog.showModal()` opens the real modal - the
@@ -70,10 +100,11 @@ Returns the award kinds in page order, each with the number of copies.
    the widest the viewport allows, so the chips are flowed into the room the box can reach.
 4. `button.close-button` closes and removes the dialog, following the shared
    dialog idiom.
-5. `.dialog-content` is filled by `buildTrophyChips(groups,content)`, one chip per kind.
-6. `getCabinetSizing(dialog,content,chip,header,groups.length)` reads that laid-out box back in
+5. `.dialog-content` is filled by `buildTrophyChips(trophies,content)`, one chip per trophy of
+   `getCabinetTrophies()` - the row's awards first, then the ones another tool added.
+6. `getCabinetSizing(dialog,content,chip,header,trophies.length)` reads that laid-out box back in
    px - one chip, one line of the content, the dialog border and the header - and works out how
-   many chips fit on a line at that room: never more than four, never more than the kinds. The
+   many chips fit on a line at that room: never more than four, never more than the trophies. The
    counts and the sizes go onto the dialog as `--lt-cols`, `--lt-rows`, `--lt-step`, `--lt-line`,
    `--lt-gapx`, `--lt-gapy`, `--lt-framex`, `--lt-framey` and `--lt-header` through
    `style.setProperty`, which takes a string only - cash hands the raw value on, so a number
@@ -83,14 +114,17 @@ Returns the award kinds in page order, each with the number of copies.
 
 ### Build Trophy Chips (`buildTrophyChips`)
 
-Appends one chip per group into the target it is given - in this tool the dialog's
-`.dialog-content`. A chip is
-`span.lichessTools-trophyChip` holding `span.lichessTools-trophyIcon` (the cloned site
-award) and `span.lichessTools-trophyRing`, which holds one `<i class="lichessTools-trophyChar">`
-per label character. The ring carries `--lt-n` (the character count) and each letter
-`--lt-i` (its index), the only thing the ring geometry needs; a label over 24 characters
-also gets `lichessTools-trophyWideRing`. The chip carries `title`, and only a kind with
-several copies gets `data-lt-count`, which the css writes the "N x " prefix out of.
+Appends one chip per trophy into the target it is given - in this tool the dialog's
+`.dialog-content`. A chip is `span.lichessTools-trophyChip`, or `a.lichessTools-trophyChip`
+when the trophy has a link so the whole chip answers the click, holding
+`span.lichessTools-trophyIcon` - the cloned site award for a Lichess trophy,
+`span.lichessTools-trophyGlyph` for a character icon, or `img.lichessTools-trophyImg` for an
+image - and `span.lichessTools-trophyRing`, which holds one `<i class="lichessTools-trophyChar">`
+per label character and is skipped when the trophy has no label. The ring carries `--lt-n` (the
+character count) and each letter `--lt-i` (its index), the only thing the ring geometry needs; a
+label over 24 characters also gets `lichessTools-trophyWideRing`. The chip carries `title`, its
+tooltip, and only a trophy with several copies gets `data-lt-count`, which the css writes the
+"N x " prefix out of.
 
 ## Page Scope
 
@@ -128,6 +162,12 @@ Everything visual lives in `tools/trophyCabinet/tool.css`:
   are ignored. The glyph host is sized off the icon square and its `::before` inherits that
   size; the shield is the one award the site draws over the whole box, so it is given a
   narrower one. The only `!important` in the sheet is the content height pin below.
+- The icon square holds the site's award, a caller's image (`img.lichessTools-trophyImg`, kept
+  whole by the icon's `img` rule) or a caller's character (`span.lichessTools-trophyGlyph`),
+  drawn at the size the site draws its own award glyphs at and given the chip's colour, so a
+  custom trophy reads as big as a Lichess one and a linked chip keeps its letters pale.
+- The chip rule clears `text-decoration`, so the chip of a trophy that has a link - an anchor -
+  shows no underline under its "N x " prefix or its ring letters.
 - `.dialog-content` height is pinned to `auto` with `!important` and capped at 90vh less a little
   for the header: the dialog machinery writes a pixel height onto that box inline, and a
   stylesheet height cannot beat an inline one. With the pin the content is the stack of rows it

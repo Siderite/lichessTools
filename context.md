@@ -128,7 +128,9 @@ viewport width, and clicking it opens the collapsed chips (one per award kind, p
 for copies, each with a big icon and its label orbiting on a slow 3d ring) in an `lt.dialog`
 modal. The modal sizes itself for four chips on a line - twelve chips lay out 4 x 3 - and
 falls back to 90vw x 90vh when the viewport cannot give that width. A row with no awards is
-left untouched.
+left untouched, unless another tool has handed a trophy over with `addTrophy({ icon, iconUrl,
+text, title, linkUrl })` - flagged when the icon is a site award - which keeps the pill drawn
+and shows the chip with its own icon, label, tooltip and link.
 
 ## Global Switch
 

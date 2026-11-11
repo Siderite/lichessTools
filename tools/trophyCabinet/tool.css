@@ -167,7 +167,8 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet .dialog-
 }
 
 /* the chip and the ring share one 3d space; the sizes below are the box the tool measures in
-   laid-out pixels - .dialog-content is a flex row, so the chip stays a fixed 8em x 6em box */
+   laid-out pixels - .dialog-content is a flex row, so the chip stays a fixed 8em x 6em box. A chip
+   whose trophy has a link is an anchor, and it keeps no underline under its count or its letters */
 body.lichessTools .lichessTools-trophyChip {
   position: relative;
   display: inline-flex;
@@ -178,6 +179,7 @@ body.lichessTools .lichessTools-trophyChip {
   height: 6em;
   transform-style: preserve-3d;
   text-align: center;
+  text-decoration: none;
   text-shadow: none;
   font-family: 'Roboto','Noto Sans',sans-serif;
   white-space: nowrap;
@@ -208,12 +210,30 @@ body.lichessTools .lichessTools-trophyIcon {
   object-position: center;
 }
 
-/* an image award fills the same square, kept whole */
+/* an image award fills the same square, kept whole - the site's own or one a caller handed over */
 body.lichessTools .lichessTools-trophyIcon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
+}
+
+/* a custom icon is a character, so it is drawn at the size the site draws its own award glyphs at
+   and keeps the chip's colour rather than the one a linked chip would give its letters */
+body.lichessTools .lichessTools-trophyIcon .lichessTools-trophyGlyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 100%;
+  height: 100%;
+  font-size: 1.66em;
+  line-height: 1;
+  text-align: center;
+  text-shadow: none;
+  color: var(--c-font,#d0d0cc);
+  white-space: pre;
 }
 
 /* the site sizes each award glyph differently, so the two sizes below are pinned -
