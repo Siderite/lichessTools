@@ -46,7 +46,8 @@
     customTrophies = [];
 
     // count the css reads out into the summary; a trophy another tool added keeps the pill drawn
-    // even on a row that holds no award
+    // even on a row that holds no award. The row is the one under .box__top; .trophies on its own
+    // also matches the awards of the site's own modal
     setTrophySummary = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -54,7 +55,7 @@
       if (this._applyingTrophySummary) return;
       try {
         this._applyingTrophySummary = true;
-        $('body div.trophies.packed').each((i,e)=>{
+        $('body .box__top > .trophies').each((i,e)=>{
           const packed = $(e);
           const count = packed.find('.trophy,.shield-trophy').length + this.getCustomTrophyCount();
           let summary = packed.find('.lichessTools-trophySummary');
@@ -288,6 +289,11 @@
       dialog.style?.removeProperty('width');
     };
 
+    async init() {
+      if (!this.lichessTools.currentOptions?.getValue('trophyCabinet')) return;
+      this.setInitClass('lichessTools-trophyCabinetHold');
+    }
+
     async start() {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -295,10 +301,11 @@
       this.logOption('Trophy cabinet', value);
       this.options = { enabled: !!value };
 
-      $('body').observer().off('.trophies.packed',this.setTrophySummary);
+      $('body').observer().off('.box__top > .trophies',this.setTrophySummary);
+      lt.global.setTimeout(()=>$('body').removeClass('lichessTools-trophyCabinetHold'),500);
       this.setTrophySummary();
       if (!value) return;
-      $('body').observer().on('.trophies.packed',this.setTrophySummary,{ characterData: false });
+      $('body').observer().on('.box__top > .trophies',this.setTrophySummary,{ characterData: false });
     }
 
   }

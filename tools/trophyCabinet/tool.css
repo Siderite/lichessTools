@@ -13,12 +13,21 @@
 }
 
 /* the awards never get recolored or blurred, only laid out */
-body.lichessTools .trophies.packed :is(.trophy,.shield-trophy) {
+body.lichessTools .trophies :is(.trophy,.shield-trophy) {
   filter: none;
 }
 
+/* the row goes blank while the init class sits on the body, which is from the first frame the page
+   exists until the reveal scheduled in start, 500 ms after the count. The space is kept so nothing
+   jumps, the card row is the one under .box__top, and the cabinet is a dialog element, so this
+   hides no part of the cabinet. */
+body.lichessTools-trophyCabinetHold .box__top > .trophies,
+body.lichessTools-trophyCabinetHold .lichessTools-trophySummary {
+  visibility: hidden;
+}
+
 /* the row folds into the pill at any viewport - the awards live in the cabinet */
-body.lichessTools div.trophies.packed[data-lt-trophies] {
+body.lichessTools div.trophies[data-lt-trophies] {
   display: flex;
   align-items: center;
   gap: .3em;
@@ -40,7 +49,7 @@ body.lichessTools div.trophies.packed[data-lt-trophies] {
 }
 
 /* the awards themselves stay on the cabinet page, the row only keeps the summary */
-body.lichessTools div.trophies.packed[data-lt-trophies]>:not(.lichessTools-trophySummary) {
+body.lichessTools div.trophies[data-lt-trophies]>:not(.lichessTools-trophySummary) {
   display: none;
 }
 
@@ -302,10 +311,8 @@ body.lichessTools .lichessTools-trophyChip:hover {
   z-index: 2;
 }
 
-/* a grab on a chip stops the ring so the label can actually be read */
-body.lichessTools .lichessTools-trophyChip:hover .lichessTools-trophyRing {
-  animation-play-state: paused;
-}
+/* the pointer on a chip only lifts it - the ring keeps turning, because a label that moves can
+   still be read and a frozen one would stop the whole cabinet under the cursor */
 
 @media (prefers-reduced-motion: reduce) {
 

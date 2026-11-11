@@ -130,7 +130,10 @@ modal. The modal sizes itself for four chips on a line - twelve chips lay out 4 
 falls back to 90vw x 90vh when the viewport cannot give that width. A row with no awards is
 left untouched, unless another tool has handed a trophy over with `addTrophy({ icon, iconUrl,
 text, title, linkUrl })` - flagged when the icon is a site award - which keeps the pill drawn
-and shows the chip with its own icon, label, tooltip and link.
+and shows the chip with its own icon, label, tooltip and link. A body class the core `init` puts
+there as soon as a body exists keeps the row blank from that frame, and `start` counts first then
+schedules that class off 500 ms later, the window being what lets tools whose own `start` runs
+after this one hand in their trophies before the row shows the pill's number.
 
 ## Global Switch
 

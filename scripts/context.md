@@ -37,6 +37,12 @@ Order matters because each file only appends itself to one global namespace as i
 ## `ToolBase` and `PageToolBase` (`lichessTools-toolBase.js`)
 
 - `ToolBase` — the base every tool extends: `get name()` (constructor name minus the trailing `Tool`), `logOption(label, value)` (violet console log used in `start()` traces), and empty `async init()` / `async start()` hooks.
+
+- `ToolBase.setInitClass(className, timeout)` records `_initClassName` and `_initClassTimeout` for
+  the core: after the tools load, `init()` counts the tool `init()`s that ended (`endedCount` against
+  `totalCount`) and polls for a body every 10 ms, then puts each recorded class on the body once. A
+  `timeout` makes the core remove the class that many ms later; without one the tool's own `start()`
+  is expected to drop it. The pass is skipped when `enableLichessTools === false`.
 - `PageToolBase extends ToolBase` — tools that own an entire page instead of an element on a Lichess page:
   - fields: `pageUrl` (owned path; Lichess answers unknown paths with a 404 shell that gets taken over), `pageAliases` (entries `{url, test?, convert?}` — an entry without `url` matches any page, letting a tool release a hash it used to hijack), `pageCss` (Lichess stylesheets loaded together through `lt.loadCss`), `pageContainer` (default `'#main-wrap main'`), `pageClass` (class put on the container and the key its css uses — the tool key, so the tool may rename its page freely), `pageSpinner`, `pageTitle` (translation key of the tab title, kept empty of Lichess's
     404 title until the render states it) and `pageTitleGuard` (the observer that empties

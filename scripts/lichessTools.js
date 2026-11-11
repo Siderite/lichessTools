@@ -1822,7 +1822,10 @@
       $('html').attr('data-page-href',this.location.href);
       this.api.init();
       const setTimeout = this.global.setTimeout;
+      const setInterval = this.global.setInterval;
+      const clearInterval = this.global.clearInterval;
       const console = this.global.console;
+      const document = this.global.document;
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
@@ -1832,15 +1835,41 @@
         tool?.guardPageTitle?.();
       }
       this.currentOptions = await this.getOptions(true);
+      let totalCount = 0;
+      let endedCount = 0;
       for (const tool of this.tools) {
         if (!tool?.init) continue;
+        totalCount++;
         try {
           // init all tools at the same time, don't await
-          tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
+          tool.init()
+            .catch(e => { setTimeout(() => { throw e; }, 100); })
+            .finally(()=>{ endedCount++; });
         } catch (e) {
+          endedCount++;
           setTimeout(() => { throw e; }, 100);
         }
       }
+      const checkBody = ()=>{
+        if (this.currentOptions?.enableLichessTools === false) {
+          clearInterval(bodyInterval);
+          return;
+        }
+        if (!document.body) return;
+        const body = $(document.body);
+        for (const tool of this.tools) {
+          const cls = tool._initClassName;
+          if (!cls) continue;
+          tool._initClassName = null;
+          body.addClass(cls);
+          if (+tool._initClassTimeout) {
+            setTimeout(()=>body.removeClass(cls),tool._initClassTimeout);
+          }
+        }
+        if (endedCount == totalCount) clearInterval(bodyInterval);
+      };
+      const bodyInterval = setInterval(checkBody,10);
+      checkBody();
     }
 
     async start(lichess) {

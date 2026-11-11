@@ -18,6 +18,11 @@
 
     async start() {
     }
+
+    setInitClass(className, timeout) {
+      this._initClassName = className;
+      this._initClassTimeout = timeout;
+    }
   }
 
   // Inheriting from the local ToolBase; tools outside this file see it as LiChessTools.Tools.PageToolBase.

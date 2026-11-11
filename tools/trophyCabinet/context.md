@@ -24,9 +24,24 @@ or an image), its label, and an optional tooltip and link.
 
 ## Behavior
 
+### Hold The Row (`init`, `setInitClass`)
+
+Nothing of the row may paint before its count is written, so the blank is not tied to the row
+rendering: the class goes on the body before Lichess has drawn anything. `init` runs at
+`document_start` and returns straight away on `!lt.currentOptions?.getValue('trophyCabinet')`, so
+a tool that is off asks for nothing. When it is on, it calls
+`this.setInitClass('lichessTools-trophyCabinetHold')` - the `ToolBase` setter that only records the
+class name - and the core `init()` waits for a body on a 10 ms interval, putting every tool's
+recorded class on it in one pass. Passing a timeout as the second argument would let the core
+remove the class on its own schedule; none is passed here, so `start` owns the reveal: it counts
+first and then schedules the class off 500 ms later, which is the window tools whose own `start`
+runs after this one get to hand in their trophies through `addTrophy` before the row shows. Each
+later `addTrophy` refreshes the number beside the pill, so the count follows the cabinet. The blank
+only stays when `start` never runs, which is when the page object never arrived.
+
 ### Set Trophy Summary (`setTrophySummary`)
 
-Runs for every `div.trophies.packed` on the page.
+Runs for every `.box__top > .trophies` row inside `body`.
 
 1. Counts the awards with `packed.find('.trophy,.shield-trophy')`, which covers
    plain awards, the shields and the awards the site already wrapped in a
@@ -76,10 +91,10 @@ to ask. Another tool reaches it as `lt.tools.TrophyCabinetTool?.addTrophy(...)`,
   kept on the entry, so the chip clones that art and the icon font it comes with. The label
   falls back to the award's own `aria-label`/`title`.
 - Without the flag the caller brings `{ icon, iconUrl, text, title, linkUrl }`: `icon` is a
-  character and `iconUrl` an image, and neither being set gives the gold cup from
-  `defaultIconUrl`. `text` is the label that wraps around the icon on the ring, `title` the
-  tooltip (the text when unset) and `linkUrl` where clicking the chip goes - the chip is
-  then built as an anchor with `target=_blank`, so the cabinet stays open; with no link a
+  character and `iconUrl` an image (the image wins when both are given), and neither being set
+  gives the gold cup from `defaultIconUrl`. `text` is the label that wraps around the icon on the
+  ring, `title` the tooltip (the text when unset) and `linkUrl` where clicking the chip goes - the
+  chip is then built as an anchor with `target=_blank`, so the cabinet stays open; with no link a
   click does nothing.
 - A custom trophy seen again only bumps `count`, keyed by `icon|iconUrl|text`, the way
   identical awards collapse; the Lichess kinds were already collapsed by `getCabinetGroups`.
@@ -87,6 +102,9 @@ to ask. Another tool reaches it as `lt.tools.TrophyCabinetTool?.addTrophy(...)`,
   once, or to `lichessTrophies`, which `openTrophyCabinet` rebuilds from the row on every
   click. `getCabinetTrophies` hands both over in that order and `getCustomTrophyCount` adds
   up the custom copies for the pill.
+- A custom add redraws the pill through `setTrophySummary` on the spot, so a row that holds no
+  award of its own draws one the moment a trophy arrives - the observer alone would wait for a
+  row change that never comes.
 
 ### Open Trophy Cabinet (`openTrophyCabinet`)
 
@@ -128,30 +146,38 @@ tooltip, and only a trophy with several copies gets `data-lt-count`, which the c
 
 ## Page Scope
 
-- Only the profile awards row (`div.trophies.packed`) inside `body`.
+- Only the awards row of the profile card (`.box__top > .trophies`) inside `body`. The parent is
+  what keeps the rules off the awards of the site's own modal, and `.packed` is not reliable.
 - The dialog is the shared `dialog.lichessTools-dialog` element.
 
 ## Event Handling
 
 When enabled:
 
-- Observer on `body` watching `.trophies.packed` (no `characterData`) calls
-  `setTrophySummary`.
-- `setTrophySummary()` runs once immediately to catch rows already in the DOM.
-- A click on the summary opens the cabinet dialog; the summary is visible at every width,
-  so the cabinet is reachable from any viewport.
+- `init` records the body class and the core `init()` puts it on the body as soon as one exists, so
+  the row stays hidden from that frame until `start` reveals it with the count in hand.
+- Observer on `body` watching `.box__top > .trophies` (no `characterData`) calls `setTrophySummary`
+  on row mutations; `start` drops the earlier binding, schedules the class off 500 ms later, counts
+  and rebinds. `addTrophy` calls `setTrophySummary` straight after a custom trophy, which is what
+  draws a pill on a row the page never changes.
+- A click on the summary opens the cabinet dialog; the summary is visible at every width, so the
+  cabinet is reachable from any viewport.
 
 When disabled:
 
-- The observer binding is removed and `setTrophySummary()` strips the
-  `data-lt-trophies` attributes and any summary element.
+- `init` records nothing, so the row is never hidden. `start` still schedules the class off (a no-op
+  on a class never set), removes the observer binding and calls `setTrophySummary()`, which strips
+  the `data-lt-trophies` attributes and any summary element, so the profile renders as Lichess wrote
+  it.
 
 ## CSS Contract
 
 Everything visual lives in `tools/trophyCabinet/tool.css`:
 
-- `div.trophies.packed[data-lt-trophies]` becomes a pill and hides every child
-  that is not the summary.
+- `div.trophies[data-lt-trophies]` becomes a pill and hides every child that is not the summary;
+  the attribute is only ever written on a card row.
+- While `body.lichessTools-trophyCabinetHold` is on the body, `.box__top > .trophies` and the
+  summary sit at `visibility: hidden`, so the row keeps its space and nothing of it paints.
 - The fold rules - the pill, hiding the awards, the enlarged summary and the cup - are plain
   rules, so the row reads the same at every viewport.
 - The chip, the icon, the ring and the letters are styled off their class alone, so one set
@@ -223,4 +249,5 @@ Everything visual lives in `tools/trophyCabinet/tool.css`:
   sits on `.dialog-content` in the cabinet; no tool sets a depth, so chips stay at z=0 and
   the letters pass around them. The chip keeps no overflow, since a clip would flatten that
   context - the fixed radius is what keeps the letters inside the box.
-- Hovering a chip pauses its ring, and `prefers-reduced-motion` freezes the ring at its tilt.
+- Hovering a chip lifts it and its ring keeps turning; `prefers-reduced-motion` freezes the ring
+  at its tilt.
