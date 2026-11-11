@@ -115,6 +115,7 @@
         for (const kept of list) {
           if (kept.key != key) continue;
           kept.count++;
+          this.setTrophySummary();
           return;
         }
       }
@@ -129,6 +130,7 @@
         count: Math.max(1,Number(trophy.count)||1),
         key,
       });
+      this.setTrophySummary();
     };
 
     // identical awards collapse into one chip, the dialog only ever shows one per kind
