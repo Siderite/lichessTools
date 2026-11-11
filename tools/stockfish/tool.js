@@ -183,10 +183,14 @@
         sf.setMultiPv(pv);
         sf.setDepth(depth);
         if (moves) sf.setSearchMoves(moves);
+        const reportProgress = options.onProgress && +options.progressMs
+          ? lt.debounce(() => options.onProgress([...lastInfo]), +options.progressMs)
+          : null;
         sf.on('info', i => { 
           if (i.cp === undefined && i.mate === undefined) return;
           const ipv = i.multipv?.[0] || 1;
           lastInfo[ipv-1] = i;
+          reportProgress?.();
         });
         sf.on('bestmove', i => {
           info = lastInfo;
@@ -197,6 +201,7 @@
           await lt.timeout(100);
         }
         if (options.cancelRequested) {
+          await sf.stop();
           return;
         }
         await sf.stop();
