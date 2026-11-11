@@ -40,7 +40,7 @@ const handleLocally = async (detail) => {
 
 const sendToBackground = (detail) => {
   return new Promise((resolve,reject) => {
-    const pointer = globalThis.setTimeout(()=>reject(new Error('Background response timeout')),3000);
+    const pointer = globalThis.setTimeout(()=>reject(new Error('Background response timeout')),10000);
     Promise.resolve(chrome.runtime.sendMessage(detail)).then(response=>{
       globalThis.clearTimeout(pointer);
       resolve(response);
