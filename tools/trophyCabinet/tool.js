@@ -45,6 +45,13 @@
     lichessTrophies = [];
     customTrophies = [];
 
+    // the fold only pays off once the row holds enough awards to be worth a pill of its own; with
+    // fewer the profile keeps showing them as Lichess wrote them. A trophy another tool added draws
+    // the pill whatever the count, because the cabinet is the only place those trophies show up.
+    summaryMinCount = 5;
+    // whether this row deserves the pill right now: enough awards, or a trophy another tool added
+    summaryWorth = (awards,custom) => custom > 0 || awards + custom > this.summaryMinCount;
+
     // count the css reads out into the summary; a trophy another tool added keeps the pill drawn
     // even on a row that holds no award. The row is the one under .box__top; .trophies on its own
     // also matches the awards of the site's own modal
@@ -57,13 +64,15 @@
         this._applyingTrophySummary = true;
         $('body .box__top > .trophies').each((i,e)=>{
           const packed = $(e);
-          const count = packed.find('.trophy,.shield-trophy').length + this.getCustomTrophyCount();
+          const custom = this.getCustomTrophyCount();
+          const awards = packed.find('.trophy,.shield-trophy').length;
           let summary = packed.find('.lichessTools-trophySummary');
-          if (!this.options.enabled || !count) {
+          if (!this.options.enabled || !this.summaryWorth(awards,custom)) {
             packed.removeAttrSafe('data-lt-trophies');
             summary.remove();
             return;
           }
+          const count = awards + custom;
           packed.attrSafe('data-lt-trophies',count);
           if (!summary.length) {
             summary = $('<span class="lichessTools-trophySummary"><img class="lichessTools-trophyCup"/></span>')
@@ -90,6 +99,19 @@
     // how many copies the trophies another tool added stand for; the pill writes it out beside the
     // awards the row holds, so the number counts what the cabinet shows
     getCustomTrophyCount = () => this.customTrophies.reduce((sum,trophy)=>sum+trophy.count,0);
+
+    // is a row on the page worth folding right now; the reveal only waits when it is, so a profile
+    // that keeps its awards as Lichess wrote them drops the body class straight away
+    summaryWorthwhile = () => {
+      if (!this.options?.enabled) return false;
+      const lt = this.lichessTools;
+      const custom = this.getCustomTrophyCount();
+      let worth = false;
+      lt.$('body .box__top > .trophies').each((i,e)=>{
+        if (this.summaryWorth(lt.$(e).find('.trophy,.shield-trophy').length,custom)) worth = true;
+      });
+      return worth;
+    };
 
     // one trophy into the cabinet, and the door every trophy goes through. The lichess flag says the
     // icon is an award element the site drew, so the chip keeps that art and the icon font it comes
@@ -304,8 +326,15 @@
       this.options = { enabled: !!value };
 
       $('body').observer().off('.box__top > .trophies',this.setTrophySummary);
-      lt.global.setTimeout(()=>$('body').removeClass('lichessTools-trophyCabinetHold'),500);
       this.setTrophySummary();
+      // the row only goes blank again when a pill is due: the window is what lets the tools whose
+      // own start runs after this one hand trophies in before it shows. With nothing to reveal the
+      // profile goes back to Lichess's render straight away.
+      if (this.summaryWorthwhile()) {
+        lt.global.setTimeout(()=>{
+          $('body').removeClass('lichessTools-trophyCabinetHold');
+        },500);
+      } else $('body').removeClass('lichessTools-trophyCabinetHold');
       if (!value) return;
       $('body').observer().on('.box__top > .trophies',this.setTrophySummary,{ characterData: false });
     }

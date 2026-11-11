@@ -107,8 +107,8 @@ body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet {
     90vh,
     calc(var(--lt-rows) * var(--lt-line) - var(--lt-gapy) + var(--lt-framey) +
       var(--lt-header) + 1px));
-  min-width: calc(var(--lt-step) - var(--lt-gapx) + var(--lt-framex));
-  min-height: calc(var(--lt-line) - var(--lt-gapy) + var(--lt-framey) + var(--lt-header));
+  min-width: 26em;
+  min-height: 13em;
   max-width: 90vw;
   max-height: 90vh;
   display: flex;

@@ -8,10 +8,11 @@ summary ("50 x" plus a gold cup icon) and opens the whole award collection as a
 <trophy>". The pill shows at any viewport width - wide screens included - and the
 cabinet box sizes itself for four chips on a line, falling back to 90vw x 90vh when the
 viewport cannot give that width. Twelve chips therefore sit 4 x 3 on a desktop and 2 x 6
-on a phone. The number of awards gates nothing: any row that holds at least one award
-gets the pill, and a row that holds none still gets one as soon as another tool has handed
-a trophy to the cabinet through `addTrophy`. Such a trophy brings its own icon (a character
-or an image), its label, and an optional tooltip and link.
+on a phone. The fold only pays off on a row worth it: more than five awards, counting the ones
+the row holds and the custom ones together, draws the pill, and a single custom trophy draws one
+whatever the count, so a row holding no award of its own still opens the cabinet. Five awards
+or fewer leave the row exactly as Lichess wrote it. Such a trophy brings its own icon (a
+character or an image), its label, and an optional tooltip and link.
 
 ## Preferences
 
@@ -33,11 +34,14 @@ a tool that is off asks for nothing. When it is on, it calls
 `this.setInitClass('lichessTools-trophyCabinetHold')` - the `ToolBase` setter that only records the
 class name - and the core `init()` waits for a body on a 10 ms interval, putting every tool's
 recorded class on it in one pass. Passing a timeout as the second argument would let the core
-remove the class on its own schedule; none is passed here, so `start` owns the reveal: it counts
-first and then schedules the class off 500 ms later, which is the window tools whose own `start`
-runs after this one get to hand in their trophies through `addTrophy` before the row shows. Each
-later `addTrophy` refreshes the number beside the pill, so the count follows the cabinet. The blank
-only stays when `start` never runs, which is when the page object never arrived.
+remove the class on its own schedule; none is passed here, so `start` owns the reveal: it calls
+`setTrophySummary` first, then asks `summaryWorthwhile` whether any row on the page is worth
+folding. A row that is due a pill gets the class off 500 ms later, which is the window tools
+whose own `start` runs after this one get to hand in their trophies through `addTrophy` before
+the row shows; a row that is not gets the class off straight away, so a light profile is never
+left blank. Each later `addTrophy` refreshes the number beside the pill, so the count follows
+the cabinet. The blank only stays when `start` never runs, which is when the page object never
+arrived.
 
 ### Set Trophy Summary (`setTrophySummary`)
 
@@ -51,11 +55,11 @@ Runs for every `.box__top > .trophies` row inside `body`.
    wrapping the classed span, then one `div.stacked` holding the marathon awards,
    then the shield, coach and streamer badges. Those elements are the count: the
    trophies the user API lists, plus the profile badges the API leaves out.
-2. When the tool is off, or the row holds neither an award nor a copy of a trophy a
-   caller added, the `data-lt-trophies` attribute is dropped from the row and any
-   summary element is removed, so the profile renders as Lichess wrote it. The count
-   does not gate the pill - any number of awards gets one at any width, and one
-   custom trophy gets one on a row that holds no award.
+2. When the tool is off, or the row is not worth folding - `summaryWorth(awards,custom)`, true
+   once `custom` is over zero or `awards + custom` beats `summaryMinCount` (5) - the
+   `data-lt-trophies` attribute is dropped from the row and any summary element is removed, so
+   the profile renders as Lichess wrote it. A profile of five awards or fewer keeps its awards
+   showing; a single custom trophy draws the pill on any row, including one holding no award.
 3. Otherwise the row gets `data-lt-trophies=count`, and a
    `span.lichessTools-trophySummary` is created once inside the row, holding an
    `img.lichessTools-trophyCup` whose `src` comes from `this.defaultIconUrl` - the
@@ -157,9 +161,10 @@ When enabled:
 - `init` records the body class and the core `init()` puts it on the body as soon as one exists, so
   the row stays hidden from that frame until `start` reveals it with the count in hand.
 - Observer on `body` watching `.box__top > .trophies` (no `characterData`) calls `setTrophySummary`
-  on row mutations; `start` drops the earlier binding, schedules the class off 500 ms later, counts
-  and rebinds. `addTrophy` calls `setTrophySummary` straight after a custom trophy, which is what
-  draws a pill on a row the page never changes.
+  on row mutations; `start` drops the earlier binding, counts first, then takes the class off 500
+  ms later when a pill is due or straight away when it is not, and rebinds. `addTrophy` calls
+  `setTrophySummary` straight after a custom trophy, which is what draws a pill on a row the page
+  never changes.
 - A click on the summary opens the cabinet dialog; the summary is visible at every width, so the
   cabinet is reachable from any viewport.
 

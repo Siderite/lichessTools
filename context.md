@@ -127,13 +127,15 @@ The `themes/tool.js` loads user-supplied custom CSS themes from `tools/themes/*.
 viewport width, and clicking it opens the collapsed chips (one per award kind, prefixed "N x"
 for copies, each with a big icon and its label orbiting on a slow 3d ring) in an `lt.dialog`
 modal. The modal sizes itself for four chips on a line - twelve chips lay out 4 x 3 - and
-falls back to 90vw x 90vh when the viewport cannot give that width. A row with no awards is
-left untouched, unless another tool has handed a trophy over with `addTrophy({ icon, iconUrl,
-text, title, linkUrl })` - flagged when the icon is a site award - which keeps the pill drawn
-and shows the chip with its own icon, label, tooltip and link. A body class the core `init` puts
-there as soon as a body exists keeps the row blank from that frame, and `start` counts first then
-schedules that class off 500 ms later, the window being what lets tools whose own `start` runs
-after this one hand in their trophies before the row shows the pill's number.
+falls back to 90vw x 90vh when the viewport cannot give that width. A row holding five awards
+or fewer is left as Lichess wrote it, unless another tool has handed a trophy over with
+`addTrophy({ icon, iconUrl, text, title, linkUrl })` - flagged when the icon is a site award -
+which draws the pill whatever the count and shows the chip with its own icon, label, tooltip and
+link; more than five awards, counting the custom copies in, gets the pill on its own. A body class
+the core `init` puts there as soon as a body exists keeps the row blank from that frame, and `start`
+counts first then drops that class 500 ms later when a pill is due - the window being what lets
+tools whose own `start` runs after this one hand in their trophies before the row shows the pill's
+number - or straight away when the row keeps Lichess's render.
 
 ## Global Switch
 
