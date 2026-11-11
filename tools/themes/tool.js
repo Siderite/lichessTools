@@ -155,6 +155,11 @@
       const is3d = $('#main-wrap').is('.is3d');
       const boardImage = lt.currentOptions.getValue('customBoardImage');
       if (boardImage && !is3d) {
+        // customBoardImage can hold the uploadedImagePlaceholder sentinel when the
+        // blob lives in IndexedDB; hand ThemesTool the resolved data url (or null
+        // if the blob is missing) so the CSS var never points at the sentinel.
+        const customBoard = lt.tools?.CustomBoardImageTool;
+        if (customBoard) return (await customBoard.resolveBoardUrl(boardImage)) || null;
         return boardImage;
       }
 
