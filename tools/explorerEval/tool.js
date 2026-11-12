@@ -445,6 +445,7 @@
       const $ = lt.$;
       const analysis = lichess?.analysis;
       this.stopEngineIfPositionMoved();
+      this.stopEngineIfRunUnneeded();
       if (!analysis.explorer?.enabled() || analysis.explorer?.loading()) {
         this.stopEngineIfExplorerClosed();
         return;
@@ -601,6 +602,31 @@
       return (entry.rank == null || entry.rank == this.engineRank) && (entry.depth || 0) < depth;
     };
 
+    engineMissingMoves = (fen, result) => {
+      const lt = this.lichessTools;
+      const analysis = lt.lichess?.analysis;
+      if (this.options && !this.options.localEngine) return [];
+      if (!analysis?.explorer?.enabled()) return [];
+      const explorerMoves = analysis?.explorer?.current()?.moves;
+      if (!explorerMoves?.length) return [];
+      const targetDepth = +(lt.currentOptions.getValue('customEngineLevel')) || this.engineDepth;
+      const missing = [];
+      const missingSet = new Set();
+      const tried = result.engineTried || [];
+      const triedSet = new Set(tried);
+      for (const explorerMove of explorerMoves) {
+        const uci = explorerMove?.uci;
+        if (!uci || missingSet.has(uci)) continue;
+        const current = result.moves.find(m => m.uci == uci);
+        if (current && !this.engineNeedsDeeperValue(current, targetDepth)) continue;
+        const shallowEngineValue = current && current.rank == this.engineRank && (current.depth || 0) < targetDepth;
+        if (triedSet.has(uci) && !shallowEngineValue) continue;
+        missing.push(uci);
+        missingSet.add(uci);
+      }
+      return missing;
+    };
+
     cancelEngineRun = () => {
       if (!this.engineOptions) return;
       this.engineOptions.cancelRequested = true;
@@ -625,6 +651,16 @@
       this.doEvaluationDebounced();
     };
 
+    stopEngineIfRunUnneeded = () => {
+      if (!this.engineOptions) return;
+      const fen = this.engineActive;
+      if (!fen) return;
+      const result = this.cache?.[fen];
+      if (!result) return;
+      if (this.engineMissingMoves(fen, result).length) return;
+      this.cancelEngineRun();
+    };
+
     paintEngineValues = (result, fen) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
@@ -647,25 +683,13 @@
         }
         return { retry: false, updated: false };
       }
-      const explorerMoves = analysis?.explorer?.current()?.moves;
-      if (!explorerMoves?.length) return { retry: false, updated: false };
-      if (!analysis?.explorer?.enabled()) return { retry: false, updated: false };
       const targetDepth = +(lt.currentOptions.getValue('customEngineLevel')) || this.engineDepth;
-      const missing = [];
-      const missingSet = new Set();
-      const tried = result.engineTried || [];
-      const triedSet = new Set(tried);
-      for (const explorerMove of explorerMoves) {
-        const uci = explorerMove?.uci;
-        if (!uci || missingSet.has(uci)) continue;
-        const current = result.moves.find(m => m.uci == uci);
-        if (current && !this.engineNeedsDeeperValue(current, targetDepth)) continue;
-        const shallowEngineValue = current && current.rank == this.engineRank && (current.depth || 0) < targetDepth;
-        if (triedSet.has(uci) && !shallowEngineValue) continue;
-        missing.push(uci);
-        missingSet.add(uci);
+      const missing = this.engineMissingMoves(fen, result);
+      if (!missing.length) {
+        this.cancelEngineRun();
+        return { retry: false, updated: false };
       }
-      if (!missing.length) return { retry: false, updated: false };
+      const tried = result.engineTried || [];
       const sf = lt.stockfish;
       if (!sf) return { retry: false, updated: false };
       const moves = missing;
@@ -730,7 +754,7 @@
       this.engineActive = fen;
       let info;
       let engineGuard = true;
-      const stopIfExplorerGone = async () => {
+      const stopIfRunStale = async () => {
         while (engineGuard) {
           await lt.timeout(500);
           if (!engineGuard) return;
@@ -742,9 +766,13 @@
             this.cancelEngineRun();
             return;
           }
+          if (!this.engineMissingMoves(fen, result).length) {
+            this.cancelEngineRun();
+            return;
+          }
         }
       };
-      const guardTask = stopIfExplorerGone();
+      const guardTask = stopIfRunStale();
       try {
         info = await sf.evaluate(fen, options);
       } catch (ex) {
@@ -773,6 +801,7 @@
       const explorer = analysis.explorer;
       this.stopEngineIfExplorerClosed();
       this.stopEngineIfPositionMoved();
+      this.stopEngineIfRunUnneeded();
       if (!this.options.isSet) {
         explorer.setNode = lt.unwrapFunction(explorer.setNode, 'explorerEval');
         explorer.config.toggleOpen = lt.unwrapFunction(explorer.config.toggleOpen, 'explorerEval');
