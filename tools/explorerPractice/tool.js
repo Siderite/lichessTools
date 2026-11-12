@@ -182,7 +182,7 @@
       const depth = +(lt.currentOptions.getValue('customEngineLevel')) || 20;
       this.info=null;
 
-      let side = node.fen.split(' ')[1] == 'b' ? -1 : 1;
+      let side = lt.getTurnSign(lt.getTurnFromFen(node.fen));
       if (node.ceval?.depth >= depth) {
         this.info = node.ceval;
         side = 1;
@@ -205,7 +205,7 @@
       const info={...this.info};
 
       const boardSign = analysis.getOrientation() == 'black' ? -1 : 1;
-      const winValue = (info.mate?.[0] === '0' ? -10000 : lt.getCentipawns(info)) * boardSign * side;
+      const winValue = (info.mate?.[0] === '0' ? -10000 : LiChessTools.ChessMetrics.getCentipawnOnlyValue(info)) * boardSign * side;
 
       const glyph = {
         symbol: lt.icon.NeutralFace,

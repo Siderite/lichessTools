@@ -1,7 +1,7 @@
 (() => {
   class ChapterEditingTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw', 'EmitChapterChange', 'PgnEditor'];
+    dependencies = ['EmitRedraw', 'EmitChapterChange', 'PgnEditor', 'Dialog'];
 
     preferences = [
       {
@@ -190,11 +190,13 @@
       if (!ids?.length) return;
    
       const editForm = lt.lichess.analysis.study.chapters.editForm;
-      editForm.current({
-       "id": ids,
+      const data = {
+       "id": ids[0],
        "name": "Bulk Edit",
        "orientation": "white"
-      });
+      };
+      editForm.toggle(data);
+      editForm.editedChapterId = ids;
       editForm.redraw();
       lt.global.setTimeout(()=>{
         $('#chapter-name')
@@ -219,10 +221,12 @@
       const study = lt.lichess.analysis.study;
       const studyChapters = study.chapters;
       const editForm = studyChapters.editForm;
+      const ids = editForm.editedChapterId;
+      if (!ids) throw new Error('Could not determine chapter Ids to edit!');
+      editForm.editedChapterId = null;
       switch(ev) {
         case 'deleteChapter':
           try {
-            const ids = rest;
             for (const id of ids) {
               await editForm.send(ev,id);
               await lt.timeout(500);
@@ -239,7 +243,6 @@
         case 'editChapter':
           try {
             const chapters = studyChapters.list.all();
-            const ids=rest.id;
             for (const id of ids) {
               const existingData = await editForm.chapterConfig(id);
               if (!existingData) continue;
@@ -360,7 +363,7 @@
                   .on('click',async (ev2)=>{
                     ev2.preventDefault();
                     const studyId = study.data?.id;
-                    const chapterId = study.chapters.editForm.current()?.id;
+                    const chapterId = study.chapters.editForm.editedChapterId;
                     if (!chapterId) return;
                     const existingPgn = await lt.api.study.getChapterPgn(studyId, chapterId);
                     const newPgn = $('.lichessTools-mergePgn textarea').val();
@@ -437,14 +440,10 @@
             if (!this.options.bulk) return;
             switch (ev) {
               case 'deleteChapter':
-                if (Array.isArray(rest?.[0])) {
-                  this.handleSendEvent(ev,...rest);
-                  return false;
-                }
-                break;
               case 'editChapter':
-                if (Array.isArray(rest?.[0]?.id)) {
-                  this.handleSendEvent(ev,...rest);
+                const ids = $this.editedChapterId;
+                if (Array.isArray(ids)) {
+                  this.handleSendEvent(ev, ...rest);
                   return false;
                 }
                 break;
@@ -462,6 +461,7 @@
         study.chapters.editForm.toggle = lt.wrapFunction(study.chapters.editForm.toggle, {
           id: 'chapterEditing',
           after: ($this, result, data) => {
+            $this.editedChapterId = data?.id;
             lt.global.setTimeout(this.refreshChapterEditControls, 500);
           }
         });

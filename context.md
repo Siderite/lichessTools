@@ -2,44 +2,45 @@
 
 ## Overview
 
-**LiChess Tools** is a browser extension (Manifest V3 for Chrome/Edge and V2 for Firefox) developed by Siderite that adds dozens of functionalities to [lichess.org](https://lichess.org). It works on Chrome, Firefox, Edge, and Brave browsers. Version 2.4.226 as of the codebase.
+**LiChess Tools** is a browser extension (Manifest V3 for Chrome/Edge and V2 for Firefox) developed by Siderite that adds dozens of functionalities to [lichess.org](https://lichess.org). It works on Chrome, Firefox, Edge, and Brave browsers. Version 2.5.9 as of the codebase.
 
 The extension injects content scripts into `*://lichess.org/*`, `*://lichess.dev/*`, and `*://testy.lichess.dev/*` at `document_start` and `document_end`. It also has a service worker background for handling requests that require browser-level access (image uploads, window creation, file fetching).
 
 ## Architecture
 
-### Core Infrastructure (`scripts/`)
+### Infrastructure (`scripts/`)
 
-The extension uses a layered architecture:
+The extension is built around a single global `LiChessTools` object (`scripts/lichessTools.js`) that orchestrates everything:
 
-1. **Cash** — A custom jQuery-like DOM manipulation library (`cash.min.js`, `cash.extra.js`). All tools use `$` for DOM queries, element creation, event binding, etc.
-2. **LiChessTools** — The main singleton object (`lichessTools.js`) that orchestrates everything:
-   - Holds references to all sub-systems (Api, Comm, Cache, Storage, Chessground, Analysis, Lichess UI API)
-   - Manages current options/preferences via `lt.currentOptions`
-   - Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
-   - Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
-3. **ToolBase** — Every tool extends this class with `init()` and `start()` methods. Each tool defines its own `preferences` array (name, category, type, possibleValues, defaultValue).
+- Holds references to all sub-systems (Api, Comm, Cache, Storage, Chessground, Analysis, Lichess UI API)
+- Manages current options/preferences via `lt.currentOptions`
+- Provides utility functions: debounce, timeout, traverse tree, emit events, wrap/unwrap functions
+- Has a pubsub system for event broadcasting (`lichessTools.redraw`, `lichessTools.chapterChange`, etc.)
 
-### Sub-systems
+### Turn / side to move (`lt.getTurn*`)
 
-| System | File | Purpose |
-|--------|------|---------|
-| **Api** | `lichessTools-api.js` | Lichess API wrappers: blog, study, puzzle, user, game, team, streamer, evaluation (cloud-eval + chessdb), notification, flair, timeline, relation (friends/followers), tournament, chessagine, lichessladders. All functions are memoized with caching. |
-| **Comm** | `lichessTools-comm.js` | Tab-to-service-worker communication via CustomEvents (`LichessTools.send` → service worker handler → `LichessTools.receive`). Handles: getFile, fetchText, getDataUrl, getChromeUrl, deleteImage (imgur/imgbb), getHeadData, openWindow. |
-| **Comm Proxy** | `lichessTools-comm-proxy.js` | Content script listener that receives `LichessTools.send` events and forwards them to the service worker via `chrome.runtime.sendMessage`, then dispatches `LichessTools.receive`. |
-| **Cache** | `lichessTools-cache.js` | General caching system with session/local persistence, expiry tracking, semaphore for API rate limiting. `memoizeAsyncFunction()` wraps async functions with cache lookup + lock/release. |
-| **Storage** | `lichessTools-storage.js` | localStorage/sessionStorage wrapper with optional indexedDB support, JSON compression (zip/unzip), storage event listening, fire events with sri nonce. |
-| **Network** | `lichessTools-network.js` | HTTP fetch wrappers with URL templating, credential handling, status ignoring. |
-| **IndexedDbStorage** | `lichessTools-indexedDbStorage.js` | IndexedDB fallback for folder/file picker storage. |
-| **APISemaphore** | `lichessTools-apiSemaphore.js` | API rate limiting semaphore to prevent flooding lichess APIs. |
-| **MaxSizedMap** | `lichessTools-maxSizedMap.js` | Map with size limit enforcement. |
-| **Translator** | `lichessTools-translator.js` | Internationalization (en-US, ro-RO primary; Dutch, Arabic, Chinese Simplified added later). |
-| **Location** | `lichessTools-location.js` | Location (page URL) services. |
-| **Service Worker** | `service_worker.js` | Handles service-worker-level operations: OBS WebSocket integration, image upload to imgur/imgbb, file fetching from extension assets, window creation, data URL conversion. |
+The side to move is decided in one place, never re-encoded per tool. The vocabulary is
+the strings `'white'` / `'black'`; a FEN answers when it has one, ply is only a fallback.
 
-### Tool Loading Order (`lichessTools-init.js`)
+- `lt.getTurnFromFen(fen)` -- the strict turn field of a FEN (`'white'`, `'black'`, or
+  `undefined` when there is none). Unlike `fen.includes(' b')` it never matches an
+  en-passant square on the b-file, nor variant text.
+- `lt.getTurnFromPly(ply)` -- side to move at a position ply count; ply 0 is white.
+- `lt.getTurnFromNode(node)` -- FEN first, ply as fallback. A study chapter rooted at a
+  start FEN answers from the FEN, which ply parity alone gets wrong.
+- `lt.getMoverFromNode(node)` -- the colour that played `node.san`, the opposite of the
+  side to move at that node.
+- `lt.getOppositeTurn(turn)` -- flips a colour; an unknown turn flips to `'white'`.
+- `lt.getTurnSign(turn)` -- `+1` for white, `-1` for black, the engine-eval orientation.
+- `lt.getMoveNumber(ply)` / `lt.getSanPrefix(ply, separator)` -- PGN move numbering
+  (`12.` for a white move, `12...` for a black one).
+- `lt.getMoveColor(index)` -- colour of a 1-based PGN move index, which is not a ply.
 
-Tools are loaded in a specific order that reflects dependencies. Infrastructure tools (EmitCeval, EmitRedraw, InterceptEventHandlers, FixAbortController, etc.) load first, then feature tools, then command tools, finally Preferences and KeyShortcuts.
+Per-file details live in the sub-summaries, not in this document:
+
+- [`scripts/context.md`](./scripts/context.md) — every file in `scripts/`: the Cash library, `ToolBase`/`PageToolBase`, the sub-systems (`Api`, `Comm`, `Cache`, `Storage`, `Network`, ...), the 13-file chess-metrics library, the loaders and the service worker.
+- [`data/context.md`](./data/context.md) — every dataset in `data/`, how it is shaped and which tools consume it.
+- `tools/<tool-key>/context.md` — notes for individual tools (currently `crowdin`, `showKmaps`, `wikiFen`, `trophyCabinet`).
 
 ## Preferences System
 
@@ -74,12 +75,17 @@ wrapFunction receives an object as parameter that contains the id of the wrappin
 
 ## CLI Commands System
 
-The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` and handles them when `/command` is typed in the CLI input (`#clinput`). Each command has a `handle(val)` method and optional `getHelp()` text. Commands include: /hideboard, /trapvalue, /piecevalue, /copyPgn, /readGame, /readPosition, /skipMove, /searchMoves.
+The `CliCommandsTool` registers commands via `lt.registerCommand(key, command)` and handles them when `/command` is typed in the CLI input (`#clinput`). Each command has a `handle(val)` method and optional `getHelp()` text. Commands include: /hideboard, /trapvalue, /piecevalue, /copyPgn, /readGame, /readPosition, /skipMove, /searchMoves, /genline (and a bare `/stop` that several commands claim without returning truthy, so the chain keeps iterating).
+
+`handle` must answer synchronously: `cliCommands/tool.js:86` awaits `handle` and only then blurs the input and calls `stopPropagation()`, so while that await is suspended the page's own Enter handler has already answered the input with "unknown command". Long work is therefore deferred (`lt.global.setTimeout(() => this.run(...), 100)` in `readGameCommand/tool.js:158`, delay 0 in `genLineCommand/tool.js:1250`) and `handle` returns truthy on the same tick. A `handle` that returns falsy leaves the chain iterating to the other commands, which is how the bare `/stop` aliases coexist.
 
 ## URL-based Features
 
+- `/page/...` — tool pages that own the whole page: `/page/lichessLadders`, `/page/ltPreferences`, `/page/pgnEditor`, `/page/calculationTrainer`. While such a path loads the tab
+  stays empty rather than showing "Page not found": the singleton `init()` empties the title
+  Lichess puts in, and the render states its own. Old links
+  still work: `PageToolBase.pageAliases` redirects them (`/team/all#lichessTools`, `/account/preferences/display#lichessTools`, `#pgnEditor`).
 - `#readgame` — Read games in analysis/study mode
-- `/team/all#lichessTools` — Preferences page
 - Hash-based navigation for followers page (`#followers`)
 
 ## Mobile Support
@@ -106,6 +112,7 @@ The `themes/tool.js` loads user-supplied custom CSS themes from `tools/themes/*.
 
 - `friendsList` — Online friends display in menu/button/friends box
 - `friendsPlaying` — Sound alerts when friends start playing (configurable by time control)
+- Alerts state default for new friends (`muteFriendsNotifications`, default `muted`): friends with no recorded state follow it; per-player muted/unmuted overrides live in local storage `LiChessTools.friendsAlertStatus`; no extra filter or button is added to the friends page
 - Followers page (`#followers`) with new follower notifications
 - Crosstable scores on opponents pages
 - Mute/unmute per-player alert toggles
@@ -113,6 +120,22 @@ The `themes/tool.js` loads user-supplied custom CSS themes from `tools/themes/*.
 ## Quiet Mode
 
 `quietModeAllTabs` — When a game is playing on any tab, silence all notifications/sound alerts on other tabs. Manual toggle button available.
+
+## Trophy Cabinet
+
+`trophyCabinet` - `div.trophies.packed` always gets a "50 x" gold cup summary pill at any
+viewport width, and clicking it opens the collapsed chips (one per award kind, prefixed "N x"
+for copies, each with a big icon and its label orbiting on a slow 3d ring) in an `lt.dialog`
+modal. The modal sizes itself for four chips on a line - twelve chips lay out 4 x 3 - and
+falls back to 90vw x 90vh when the viewport cannot give that width. A row holding five awards
+or fewer is left as Lichess wrote it, unless another tool has handed a trophy over with
+`addTrophy({ icon, iconUrl, text, title, linkUrl })` - flagged when the icon is a site award -
+which draws the pill whatever the count and shows the chip with its own icon, label, tooltip and
+link; more than five awards, counting the custom copies in, gets the pill on its own. A body class
+the core `init` puts there as soon as a body exists keeps the row blank from that frame, and `start`
+counts first then drops that class 500 ms later when a pill is due - the window being what lets
+tools whose own `start` runs after this one hand in their trophies before the row shows the pill's
+number - or straight away when the row keeps Lichess's render.
 
 ## Global Switch
 
@@ -126,8 +149,17 @@ Each tool lives in `tools/<name>/tool.js` (and optionally `tool.css`). Every too
 1. Extends `LiChessTools.Tools.ToolBase`
 2. Defines `dependencies` array (other tools it depends on)
 3. Defines `preferences` array
-4. Defines `intl` for translations
+4. Defines `intl` for translations - key shapes: `options.<name>` labels a preference (and `options.<category>` its
+   category), `<name>.<value>` labels a preference value, and **no other key may contain a dot** - every other string
+   is flat camelCase (`studyDbMissingStudy`, `accessReadonly`), composed as `prefix + camel(word)` when built live
 5. Has `init()` and `async start()` methods
 6. In `start()`, reads the preference value, binds/unbinds event handlers, modifies DOM, wraps/unwrap Lichess functions
+7. Comments say why the code is the way it is, never where it came from: no `PR` or lila/lts paths, no
+   `sec N`/`P N.N` step numbers, no `file.ts:123` line references
+8. `tool.js` and `tool.css` ship packed and keep LF endings, while every `.md` in the repo keeps CRLF,
+   ASCII and a hard wrap at 100 columns
+9. A comment inside a method body stays one short line; narration that needs room lives at class-field
+   level above the members it introduces
 
-Tools are loaded in `lichessTools-init.js` following dependency order.
+
+Tools are loaded in `lichessTools-init.js` following dependency order; the full load sequence (including the infrastructure-first, commands-last order and the four content-script blocks) is in [`scripts/context.md`](./scripts/context.md).

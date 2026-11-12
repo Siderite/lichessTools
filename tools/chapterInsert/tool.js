@@ -127,7 +127,7 @@
       this._prevChapters = study.chapters.list.all().map(c=>c.id);
       lt.pubsub.on('lichessTools.chapterChange',this.onChapterChange);
 
-      study.chapters.newForm.toggle = lt.wrapFunction(study.chapters.newForm.toggle, {
+      study.chapters.newForm.open = lt.wrapFunction(study.chapters.newForm.open, {
         id: 'chapterInsert',
         after: ($this, result, data) => {
           const interval = lt.global.setInterval(() => {

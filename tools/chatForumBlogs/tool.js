@@ -8,14 +8,15 @@
         name: 'chatForumBlogs',
         category: 'comm',
         type: 'multiple',
-        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage','reactionsTooltip'],
-        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip',
+        possibleValues: ['pasteImages', 'bigEmoji', 'refreshOnMessage', 'reactionsTooltip', 'markdownShortcuts'],
+        defaultValue: 'pasteImages,bigEmoji,refreshOnMessage,reactionsTooltip,markdownShortcuts',
         needsLogin: true
       }
     ];
 
     upgrades = [
-      { name:'chatForumBlogs', value:'reactionsTooltip', version: '2.4.203', type: 'new' }
+      { name:'chatForumBlogs', value:'reactionsTooltip', version: '2.4.203', type: 'new' },
+      { name:'chatForumBlogs', value:'markdownShortcuts', version: '2.5.0', type: 'new' }
     ];
 
 
@@ -27,7 +28,10 @@
         'chatForumBlogs.bigEmoji': 'Large one emoji message',
         'chatForumBlogs.refreshOnMessage': 'Refresh on new message',
         'chatForumBlogs.reactionsTooltip': 'Reactions tooltip on mobile',
+        'chatForumBlogs.markdownShortcuts': 'Keyboard shortcuts in forums',
         'pastingError': 'There was an error generating the image URL',
+        'uploadImageButtonTitle': 'LiChess Tools - upload image',
+        'uploadImageMissingText': 'No image was selected',
         'deleteImageButtonTitle': 'LiChess Tools - delete image',
         'deleteImageQuestion': 'Are you sure you want to delete this image for everybody?',
         'imageDeletedSuccessfully': 'Image deleted'
@@ -39,7 +43,10 @@
         'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
         'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
         'chatForumBlogs.reactionsTooltip': 'Tooltip la reac\u016fii pe mobil',
+        'chatForumBlogs.markdownShortcuts': 'Scurt\u0103turi taste \u00een forumuri',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii',
+        'uploadImageButtonTitle': 'LiChess Tools - \u00eenc\u0103rcare imagine',
+        'uploadImageMissingText': 'Nici o imagine selectat\u0103',
         'deleteImageButtonTitle': 'LiChess Tools - \u015fterge imaginea',
         'deleteImageQuestion': 'Sigur \u015fterg imaginea pentru toat\u0103 lumea?',
         'imageDeletedSuccessfully': 'Imaginea a fost \u015ftears\u0103'
@@ -129,6 +136,85 @@
       }
     };
 
+    pickImageFile = async () => {
+      // The picker the button offers: Chrome/Edge File System Access picker, else the browse dialog.
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      if (lt.global.showOpenFilePicker) {
+        try {
+          const handles = await lt.global.showOpenFilePicker({
+            id: 'lt-chatForumBlogs-uploadImage',
+            multiple: false,
+            startIn: 'pictures',
+            types: [{ accept: { 'image/*': ['.png','.jpg','.jpeg','.gif','.webp','.tif','.tiff','.apng'] } }],
+          });
+          const file = await handles?.[0]?.getFile();
+          return file instanceof Blob ? file : null;
+        } catch (e) {
+          const reason = e?.type || e?.name || '';
+          lt.global.console.debug('File picker closed: '+reason+' '+e?.message);
+          if (/AbortError/.test(reason)) return null; // Escape closed the picker, nothing more to offer.
+          // The picker is unavailable or errored in this browser: fall back to the browse dialog below.
+        }
+      }
+      const files = await new Promise((resolve) => {
+        $('<input type="file" accept="image/*"/>')
+          .on('change cancel',(e)=>resolve(e.target?.files ?? []))
+          .trigger('click');
+      });
+      return Array.from(files ?? []).find((file)=>file instanceof Blob) ?? null;
+    };
+
+    uploadImageFile = async (textarea, file) => {
+      // Feeds the picked file to the same pipeline a paste uses, so pasting stays untouched.
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      if (!this.isImage(file)) {
+        lt.announce(trans.noarg('uploadImageMissingText'));
+        return;
+      }
+      const ev = {
+        type: 'paste',
+        currentTarget: textarea,
+        target: textarea,
+        clipboardData: {
+          files: [ file ],
+          types: [ file.type ],
+          getData: ()=>null,
+        },
+        dataTransfer: null,
+        defaultPrevented: false,
+        preventDefault: ()=>{},
+        stopPropagation: ()=>{},
+      };
+      await this.pasteImage(ev);
+    };
+
+    addUploadImageButton = (el) => {
+      // Lichess' own upload button markup, for the textareas where Lichess has none.
+      const lt = this.lichessTools;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const trans = lt.translator;
+      if (el?.tagName != 'TEXTAREA') return;
+      const parent = $(el).parent()[0];
+      if (parent) {
+        // One button per container, and no button if Lichess already has its own upload button there.
+        const container = $(parent);
+        if (container.find('button.lichessTools-uploadImageButton').length) return;
+        if (container.find('.upload-image').length) return;
+      }
+      const button = $('<button class="button-empty lichessTools-uploadImageButton" type="button"><span class="upload-image"></span></button>')
+        .css('--mask-url',`url("${lichess.asset.url('images/buttons/add-photo-outline-material.svg')}")`)
+        .attr('title',trans.noarg('uploadImageButtonTitle'))
+        .insertAfter(el);
+      $(button).on('click',async ev=>{
+        ev.preventDefault();
+        await this.uploadImageFile(el, await this.pickImageFile());
+      });
+      return button;
+    };
+
     initControls = () => {
       const lt = this.lichessTools;
       const $ = lt.$;
@@ -140,6 +226,7 @@
             e.imagePastingInit = true;
             $(e).on('paste drop', this.pasteImage);
             $(e).on('dragover', ev=>ev.preventDefault());
+            this.addUploadImageButton(e);
           });
 
         let imageData = null;
@@ -219,11 +306,71 @@
     };
     refreshChat = lichessTools.debounce(this.refreshChatDirect,3000);
 
+    handleMarkdownShortcuts = (ev) => {
+      if (ev.defaultPrevented) return;
+      if (!(ev.ctrlKey || ev.metaKey) || ev.altKey || ev.shiftKey) return;
+      const key = ev.key?.toLowerCase();
+      let marker = null;
+      if (key === 'b') {
+        marker = '**';
+      } else if (key === 'i') {
+        marker = '_';
+      } else {
+        return;
+      }
+      const target = ev.target;
+      if (target?.tagName !== 'TEXTAREA' || !target.matches('textarea.markdown-content-textarea')) return;
+      if (target.selectionStart === target.selectionEnd) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      this.toggleMarkdown(target, marker);
+    };
+
+    toggleMarkdown = (textarea, marker) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const otherMarker = marker === '**' ? '_' : '**';
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const text = textarea.value;
+      const selected = text.substring(start, end);
+      const before = text.substring(0, start);
+      const after = text.substring(end);
+
+      const direct = before.endsWith(marker) && after.startsWith(marker);
+      const outer = before.endsWith(marker + otherMarker) && after.startsWith(otherMarker + marker);
+      const inner = before.endsWith(otherMarker + marker) && after.startsWith(marker + otherMarker);
+
+      let newValue, newStart, newEnd;
+      if (direct || outer || inner) {
+        const stripLength = direct ? marker.length : marker.length + otherMarker.length;
+        const newBefore = direct
+          ? before.substring(0, before.length - marker.length)
+          : before.substring(0, before.length - stripLength) + otherMarker;
+        const newAfter = direct
+          ? after.substring(marker.length)
+          : otherMarker + after.substring(stripLength);
+        newValue = newBefore + selected + newAfter;
+        newStart = start - marker.length;
+        newEnd = end - marker.length;
+      } else {
+        newValue = before + marker + selected + marker + after;
+        newStart = start + marker.length;
+        newEnd = end + marker.length;
+      }
+
+      textarea.value = newValue;
+      textarea.setSelectionRange(newStart, newEnd);
+      textarea.focus();
+      $(textarea).trigger('input');
+    };
+
 
     async start() {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      $.cached('body').off('keydown', this.handleMarkdownShortcuts);
       const value = lt.currentOptions.getValue('chatForumBlogs');
       this.logOption('Inbox chat', value);
       if (!lt.getUserId()) {
@@ -235,17 +382,19 @@
         bigEmoji: lt.isOptionSet(value, 'bigEmoji'),
         refreshOnMessage: lt.isOptionSet(value, 'refreshOnMessage'),
         reactionsTooltip: lt.isOptionSet(value, 'reactionsTooltip'),
-        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip },
+        markdownShortcuts: lt.isOptionSet(value, 'markdownShortcuts'),
+        get isSet() { return this.pasteImages || this.bigEmoji || this.refreshOnMessage || this.reactionsTooltip || this.markdownShortcuts },
       };
-      if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       lt.global.clearInterval(this.interval);
+      if (!this.isInboxOrForumOrProfileOrTeamEdit()) return;
       this.getImagePastingElements()
         .each((i, e) => {
           $(e).off('paste drop', this.pasteImage);
           $(e).off('dragover', ev=>ev.preventDefault());
           e.imagePastingInit = false;
         });
-      $('lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
+      $('button.lichessTools-uploadImageButton').remove();
+      $('.lichessTools-bigEmoji').removeClass('lichessTools-bigEmoji');
       if (this.options.pasteImages || this.options.bigEmoji) {
         this.interval = lt.global.setInterval(this.initControls, 1000);
         this.initControls();
@@ -270,6 +419,9 @@
               .appendTo(e);
           }
         });
+      }
+      if (this.options.markdownShortcuts) {
+        $.cached('body').on('keydown', this.handleMarkdownShortcuts);
       }
     }
 

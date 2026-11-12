@@ -1,0 +1,470 @@
+
+body.lichessTools .lichessTools-recordsDbUi {
+  border-radius: 8px;
+  background: var(--c-bg-fourth, #181818);
+  color: var(--c-font, #d0d0cc);
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+
+body.lichessTools > .lichessTools-recordsDbUi {
+  position: fixed;
+  margin: 0;
+  width: 22rem;
+  height: 24rem;
+  min-width: 280px;
+  max-width: 100vw;
+  max-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: var(---records-db-frame-order, 900);
+  border: 1px solid var(--c-border, #3a3a3a);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.lichessTools dialog.lichessTools-recordsDbUi .dialog-content {
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  max-width: none;
+  padding: 0;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+body.lichessTools dialog.lichessTools-recordsDbUi > .dialog-header {
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .inner-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+
+body.lichessTools .lichessTools-recordsDbUi .content-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.5rem 0.75rem;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  max-height: stretch;
+}
+
+body.lichessTools .lichessTools-recordsDbUi ul.studies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.record-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.record-row.selected {
+  background: var(--c-highlight-accent, #2d4f6b);
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.record-row:focus-visible {
+  outline: 2px solid var(--c-btn-rack-accent, #6e7a80);
+  outline-offset: 1px;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-content {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .bookmark-name {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 18rem;
+  text-overflow: ellipsis;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-chapter,
+body.lichessTools .lichessTools-recordsDbUi .record-chapter-count {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--c-bg-app, #232323);
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-public {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .error {
+  color: var(--c-error, #d05454);
+  font-size: 0.8rem;
+}
+
+
+
+
+body.lichessTools button.records-db-button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: .5em .2em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+body.lichessTools button.records-db-button:is(:focus-visible,:hover) {
+  text-shadow: 0 0 1px var(--c-accent), 0 0 2px var(--c-accent), 0 0 4px var(--c-accent), 0 0 8px var(--c-accent);
+}
+
+body.lichessTools .lichessTools-recordsDbUi.resizing {
+  cursor: grabbing;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+}
+
+
+/* A phone keeps the window and gives the header a thumb grab; the five resize bands widen into tap
+   bands in the dialog sheet, which styles them for every resizable dialog. */
+body.lichessTools.mobile .lichessTools-recordsDbUi {
+  min-width: 280px;
+}
+
+body.lichessTools.mobile dialog.lichessTools-recordsDbUi > .dialog-header {
+  min-height: 2.5rem;
+  touch-action: none;
+}
+
+
+
+
+body.lichessTools .lichessTools-recordsDbUi .bookmark-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+
+
+
+body.lichessTools .lichessTools-recordsDbUi .bookmarks-body {
+  display: flex;
+  flex-direction: column;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .bookmarks-body > .studies {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row {
+  position: relative;
+  padding-inline-start: calc(4px + var(---bookmark-depth, 0) * 12px);
+}
+
+body.lichessTools .lichessTools-recordsDbUi .bookmark-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-font-dim, #90908c);
+}
+
+body.lichessTools .lichessTools-recordsDbUi .bookmark-toggle svg {
+  width: 10px;
+  height: 10px;
+}
+
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-expanded='true'] > .bookmark-toggle svg {
+  transform: rotate(90deg);
+}
+
+
+body.lichessTools .lichessTools-recordsDbUi .bookmark-end {
+  position: relative;
+  flex: 1 0 48px;
+  text-align: center;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop]::after,
+body.lichessTools .lichessTools-recordsDbUi .bookmark-end[data-bookmark-drop]::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset-inline: calc(4px + var(---bookmark-depth, 0) * 12px) 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--c-primary, #8a9aab);
+  pointer-events: none;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop='before']::after,
+body.lichessTools .lichessTools-recordsDbUi .bookmark-end[data-bookmark-drop]::after {
+  top: -1px;
+  bottom: auto;
+}
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop='inside']::after {
+  inset-inline-start: calc(16px + var(---bookmark-depth, 0) * 12px);
+}
+
+
+/* The chapter tooltip hangs off the whole row, so the row is what answers the hover - the
+   cursor and the highlight say "this row is showing its chapters" rather than a tiny widget
+   saying it. */
+body.lichessTools .lichessTools-recordsDbUi li.record-row[data-popup] {
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+
+  body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-popup]:hover,
+  body.lichessTools .lichessTools-recordsDbUi .record-chapter-count:hover {
+    color: var(--c-font-clear, #e8e8e4);
+  }
+}
+
+body.lichessTools #lichessTools-recordsContentPreview {
+  position: absolute;
+  visibility: hidden;
+  z-index: calc(var(---records-db-frame-order, 900) + 100);
+  width: max-content;
+  max-width: min(320px, calc(100vw - 16px));
+  overflow-y: auto;
+  /* Scrolling inside the tooltip stops at the tooltip - it does not chain into the tree or the
+     page behind it, which is the whole point of reading a chapter list here */
+  overscroll-behavior: contain;
+  padding: 8px;
+  border: 1px solid var(--c-border-dark, #302e2c);
+  border-radius: var(--box-radius-size, 4px);
+  background: var(--c-bg-higher, #3a3a39);
+  color: var(--c-font, #d0d0cc);
+  box-shadow: 0 4px 12px #0003;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview.record-popup-show {
+  visibility: visible;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview.popup-s {
+  transform: translateX(-50%);
+}
+
+body.lichessTools #lichessTools-recordsContentPreview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview li {
+  padding: 4px;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview hr {
+  margin: 8px 0 6px;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview a {
+  display: block;
+  color: inherit;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview a:hover,
+body.lichessTools #lichessTools-recordsContentPreview a:focus-visible {
+  color: var(--c-primary, #8a9aab);
+}
+
+/* The toggle on a phone is a touch target: it grows to a thumb-sized box rather than hiding. */
+body.lichessTools.mobile button.records-db-button {
+  display: inline-block;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+}
+
+
+/* The header: one line per fact the view counts, each dim when it has nothing to say */
+body.lichessTools .lichessTools-recordsDbUi .tree-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: baseline;
+  font-size: 0.85rem;
+  color: var(--c-font, #d0d0cc);
+}
+body.lichessTools .lichessTools-recordsDbUi .tree-counts {
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+}
+body.lichessTools .lichessTools-recordsDbUi .tree-missing {
+  font-size: 0.8rem;
+  color: var(--c-grayish, #8a9aab);
+}
+body.lichessTools .lichessTools-recordsDbUi .tree-missing {
+  color: var(---licChess-red, #d05454);
+}
+body.lichessTools .lichessTools-recordsDbUi .tree-empty {
+  font-style: italic;
+  color: var(--c-grayish, #8a9aab);
+}
+body.lichessTools .lichessTools-recordsDbUi .tree-note {
+  font-size: 0.85rem;
+  color: var(--c-font, #d0d0cc);
+}
+
+/* The three chips live in the filters rack; a chip with nothing to choose stays dim */
+body.lichessTools .lichessTools-recordsDbUi .rack-filters,
+body.lichessTools .lichessTools-recordsDbUi .rack-actions,
+body.lichessTools .lichessTools-recordsDbUi .rack-backup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+}
+body.lichessTools .lichessTools-recordsDbUi button.chip {
+  border: 1px solid var(--c-border, #3a3a3a);
+  border-radius: 0.3rem;
+  background: var(--c-bg-fourth, #181818);
+  color: var(--c-font, #d0d0cc);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8rem;
+}
+body.lichessTools .lichessTools-recordsDbUi button.chip.chip-dim {
+  color: var(--c-grayish, #8a9aab);
+  border: 1px solid var(--c-border-dark, #302e2c);
+}
+body.lichessTools .lichessTools-recordsDbUi input.tree-filter {
+  color: var(--c-font, #d0d0cc);
+  background: var(--c-bg-second, #1b1b1b);
+  border: 1px solid var(--c-border, #3a3a3a);
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.35rem;
+  font-size: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Select grows a native `<input type="checkbox">`, so the row only gives it size and colour
+   - the control's own box is the browser's, which is what keeps the row narrow. */
+body.lichessTools .lichessTools-recordsDbUi input.tree-select {
+  width: 14px;
+  height: 14px;
+  margin-inline-end: 6px;
+  color: var(--c-grayish, #8a9aab);
+}
+
+/* The confirmation bars, armed only while a press waits for its twin */
+body.lichessTools .lichessTools-recordsDbUi .confirm-bar {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  border: 1px solid var(---licChess-red, #d05454);
+  border-radius: 0.3rem;
+  padding: 0.25rem;
+}
+
+/* A dead leaf gets its own mark, and a folder whose leaves are all hidden goes dim instead
+   of away - a folder is never dropped. */
+body.lichessTools .lichessTools-recordsDbUi li.record-row.record-missing {
+  color: var(---licChess-red, #d05454);
+}
+body.lichessTools .lichessTools-recordsDbUi li.record-row.folder-empty {
+  color: var(--c-grayish, #8a9aab);
+}
+
+/* The row's jump affordance is a link icon at its right end, so it reads as a target of its
+   own and not as the title; the icon is the row's only nav widget. */
+body.lichessTools .lichessTools-recordsDbUi button.btn-row-open {
+  background: none;
+  border: 0;
+  color: var(--c-btn-rack-accent, #6e7a80);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  margin: 0 0 0 0.35rem;
+  opacity: 0.75;
+  padding: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+}
+
+body.lichessTools .lichessTools-recordsDbUi button.btn-row-open:focus-visible {
+  outline: 2px solid var(--c-btn-rack-accent, #6e7a80);
+  outline-offset: 1px;
+}
+
+@media (hover: hover) {
+  body.lichessTools .lichessTools-recordsDbUi button.btn-row-open:hover {
+    opacity: 1;
+  }
+}
+
+/* While a restore waits to be confirmed, the header shows what the file holds */
+body.lichessTools .lichessTools-recordsDbUi .tree-restore-count {
+  font-size: 0.8rem;
+  color: var(--c-grayish, #8a9aab);
+}
+body.lichessTools .lichessTools-recordsDbUi input.tree-restore-file {
+  font-size: 0.8rem;
+}
+
+/* The action chips share the state chips box; Rename and Backup join them */
+body.lichessTools .lichessTools-recordsDbUi button.btn-add,
+body.lichessTools .lichessTools-recordsDbUi button.btn-delete,
+body.lichessTools .lichessTools-recordsDbUi button.btn-select,
+body.lichessTools .lichessTools-recordsDbUi button.btn-newfolder,
+body.lichessTools .lichessTools-recordsDbUi button.btn-rename,
+body.lichessTools .lichessTools-recordsDbUi button.btn-fold,
+body.lichessTools .lichessTools-recordsDbUi button.btn-backup,
+body.lichessTools .lichessTools-recordsDbUi button.btn-restore {
+  border: 1px solid var(--c-border, #3a3a3a);
+  border-radius: 0.3rem;
+  background: var(--c-bg-fourth, #181818);
+  color: var(--c-font, #d0d0cc);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8rem;
+}

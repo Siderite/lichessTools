@@ -25,17 +25,18 @@
     }
 
     async clearStore(key) {
-      const dbInfo = this.getDbInfo(key);
+      const dbInfo = this.getDbInfo(key, true);
       const db = await this.dbConnect(dbInfo);
       const store = db.transaction([dbInfo.storeName],'readwrite').objectStore(dbInfo.storeName);
       const result = store.clear();
       return await this.actionPromise(result,true);
     }
 
-    getDbInfo(key) {
-      const match=/^(?<dbName>[^\/]+?)\/(?<storeName>[^\/]+?)\/(?<itemName>[^\/]+)$/.exec(key);
+    getDbInfo(key, ignoreItem) {
+      const match=/^(?<dbName>[^\/]+?)\/(?<storeName>[^\/]+?)(?:\/(?<itemName>[^\/]+))?$/.exec(key);
       if (!match) throw new Error('Invalid db storage key: '+key);
       const { dbName, storeName, itemName } = match.groups;
+      if (!ignoreItem && !itemName) throw new Error('Item name cannot be empty');
       return { dbName, storeName, itemName };
     }
 

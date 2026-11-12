@@ -33,12 +33,16 @@
     getPgn = async (studyId, chapterId) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      let pgn;
-      const study = lichess.analysis?.study;
-      if (lt.exportPgn && study && study.data.id==studyId && study.data.chapter.id==chapterId) {
-        pgn = await lt.exportPgn('');
+      let pgn = null;
+      try {
+        pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
+      } catch(e) {
+        lt.global.console.warn('Could not get Chapter PGN from API', studyId, chapterId, e);
+        const study = lichess.analysis?.study;
+        if (lt.exportPgn && study && study.data.id==studyId && study.data.chapter.id==chapterId) {
+          pgn = await lt.exportPgn('');
+        }
       }
-      pgn = await lt.api.study.getChapterPgn(studyId, chapterId);
       return pgn;
     };
 
@@ -48,6 +52,11 @@
       const $ = lt.$;
       let pgn = await this.getPgn(studyId, chapterId);
       if (!pgn) return;
+      const co = await lt.chessops();
+      if (!co) {
+        lt.global.console.warn('Chessops could not be loaded!');
+        return;
+      }
       const trans = lt.translator;
       const event = lt.getPgnTag(pgn, 'Event');
       const white = lt.getPgnTag(pgn, 'White');
@@ -68,8 +77,6 @@
         const text = white + ' - ' + black;
         names.push(text);
       }
-      const co = await lt.chessops();
-      if (!co) return;
       const { parsePgn } = co.pgn;
       const { parseFen } = co.fen;
       const game = parsePgn(pgn)[0];
@@ -84,8 +91,8 @@
       pgn = '';
       while (node.children.length==1 && ply<13) {
         node = node.children[0];
-        if (ply%2==1) {
-          pgn+=' '+Math.ceil(ply/2)+'.';
+        if (lt.getMoveColor(ply) == 'white') {
+          pgn+=' '+lt.getMoveNumber(ply)+'.';
         } else {
           pgn+=' ';
         }
@@ -95,19 +102,19 @@
       names.push(pgn);
       if (node.children.length && ply<13) {
         let child = node.children[0];
-        if (ply%2==1) {
-          pgn+=' '+Math.ceil(ply/2)+'.';
+        if (lt.getMoveColor(ply) == 'white') {
+          pgn+=' '+lt.getMoveNumber(ply)+'.';
         } else {
-          pgn+=pgn?' ':(' '+Math.ceil(ply/2)+'... ');
+          pgn+=pgn?' ':(' '+lt.getMoveNumber(ply)+'... ');
         }
         pgn+=child.data.san;
         for (let i=1; i<node.children.length && i<10; i++) {
           child = node.children[i];
           let childPgn =' (';
-          if (ply%2==1) {
-            childPgn+=' '+Math.ceil(ply/2)+'.';
+          if (lt.getMoveColor(ply) == 'white') {
+            childPgn+=' '+lt.getMoveNumber(ply)+'.';
           } else {
-            childPgn+=' '+Math.ceil(ply/2)+'... ';
+            childPgn+=' '+lt.getMoveNumber(ply)+'... ';
           }
           childPgn+=child.data.san;
           childPgn+=')';

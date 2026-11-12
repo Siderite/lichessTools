@@ -27,11 +27,11 @@ Enhances study comment links: video popup (YouTube/Twitch/Vimeo via credentialle
 
 ## Video Click (handleVideoClick)
 
-- shiftKey/ctrlKey → skip. url=getVideoUrl(ev.target). If exists: prevents default; removes lichessTools-video dialog. supportsCredentialless = HTMLIFrameElement.prototype.hasOwnProperty('credentialless'). If not supported → console.warn, url=getVideoUrl(ev.target,true), lt.comm.openWindow(url); return. Dialog via lt.dialog header='', noClickAway:true, resizable:true, htmlText `<iframe width/height 100% frameborder=0 sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-top-navigation-by-user-activation" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src=url credentialless=""`. dialog.addClass lichessTools-video, on('close') remove. dialogPlacement from storage LichessTools.dialogPlacement → css left/right/top/bottom/width/height. dialog.show(); ensureInViewport().
+- shiftKey/ctrlKey → skip. url=getVideoUrl(ev.target). If exists: prevents default; removes lichessTools-video dialog. supportsCredentialless = HTMLIFrameElement.prototype.hasOwnProperty('credentialless'). If not supported → console.warn, url=getVideoUrl(ev.target,true), lt.comm.openWindow(url); return. Dialog via lt.dialog header='', noClickAway:true, resizable:true, htmlText `<iframe width/height 100% frameborder=0 sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-top-navigation-by-user-activation" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy" src=url credentialless=""`. dialog.addClass lichessTools-video, on('close') remove. dialogPlacement from storage LichessTools.dialogPlacement → the datum is converted back to a centre (left ?? innerWidth - right, top ?? innerHeight - bottom, because the -50% centring transform compensates for `left`/`top` only), that centre is clamped to half a box inside the viewport so a reopened dialog is never left hanging off the screen (a box wider than the screen is centred on that axis), and written as left/top + right/bottom unset + width/height + min/max initial on the dialog, with contentWidth/contentHeight onto `.dialog-content`. dialog.show(); ensureInViewport().
 
 ## Ensure InViewport
 
-- dialog=dialog.lichessTools-video; if lt.inViewport(dialog-header,true) < 0.5 → css left/top/right/bottom unset, dialog-content width/height unset.
+- dialog=dialog.lichessTools-video; if lt.inViewport(dialog-header,true) < 0.5 → css left/top/right/bottom/width/height unset on the dialog, and width/height unset on its `.dialog-content`.
 
 ## SetDialogPlacement (data)
 

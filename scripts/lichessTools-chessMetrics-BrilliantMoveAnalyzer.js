@@ -1,9 +1,10 @@
 (() => {
+
 /**
  * BrilliantMoveAnalyzer
  *
  * Scores one chess move on a set of "brilliancy principles", combines them with weights and checks whether the
- * result lies in an interval. Browser JavaScript; chessops must be loaded as the global `co` (or pass options.co).
+ * result lies in an interval. Browser JavaScript; chessops comes from LiChessTools.chessopsModule (or pass options.co).
  *
  *   const a = new BrilliantMoveAnalyzer({
  *     fen,                          // position before the move
@@ -29,7 +30,9 @@
  *   a.computeBrillianceCombination()         // sacrifice that the engine line wins back
  *   a.computeBrilliancePositional()          // sacrifice for lasting compensation
  *   a.computeBrillianceQuiet()               // sacrifice that is not a capture or a check
- *   // each returns { score, interval, inInterval, applicable, disqualified, isBrilliant, values, missing }
+ *   // each returns { score, interval, interestingInterval, inInterval, applicable, disqualified, isBrilliant,
+ *   //   interestingScore (null when the type carries no interesting signal), inInterestingInterval, isInteresting,
+ *   //   values, missing }
  *
  *   // 3. everything in one call
  *   a.computeUberBrilliance()       // { score: 0..100, isBrilliant: score >= 70, type, label, inInterval, interestingScore, isInteresting, interestingType, interestingLabel, inInterestingInterval, byType, disqualified }
@@ -40,21 +43,25 @@
  */
 class BrilliantMoveAnalyzer {
   // ---------------------------------------------------------------- constants
-  static VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 0 };
-  static ATTACKER_VALUE = { pawn: 1, knight: 3, bishop: 3, rook: 5, queen: 9, king: 2.5 }; // a king capturing is "cheap"
+  static VALUE = LiChessTools.Material.VALUE;
+  static ATTACKER_VALUE = LiChessTools.Material.ATTACKER_VALUE; // a king capturing is "cheap"
+
+  static get co() {
+    return LiChessTools.chessopsModule || null;
+  }
 
   static PRINCIPLES = [
     'bestMove', 'notAlreadyWinning', 'soundAfter',
     'sacrifice', 'heavySacrifice', 'compensation', 'regainsMaterial', 'lastingSacrifice',
     'surprise', 'quietMove', 'onlyMove', 'independence',
-    'matingAttack', 'attackerValue', 'checkOffer', 'comeback',
+    'matingAttack', 'attackerValue', 'checkOffer', 'comeback', 'savesDraw',
   ];
 
   // principles ignored when computing interesting
   static NI_PRINCIPLES = [
     'bestMove', 'soundAfter', 'compensation', 'regainsMaterial', 'lastingSacrifice', 'onlyMove', 'comeback'
   ];
-  static INTERESTING_INTERVAL_WEIGHT = 0.7; // the intervals are relaxed for interesting detection
+  static INTERESTING_INTERVAL_WEIGHT = 0.8; // the intervals are relaxed for interesting detection
 
   // Principles that nearly every good move satisfies; they form the baseline of a type's weighted sum.
   static PRECONDITIONS = ['bestMove', 'soundAfter', 'notAlreadyWinning', 'independence', 'quietMove'];
@@ -76,6 +83,10 @@ class BrilliantMoveAnalyzer {
     mateFull: 6,             // mate in this many moves or fewer: matingAttack() = 1 ...
     mateZero: 14,            // ... and 0 from this many
     comebackBelow: 45,       // comeback() only applies when the mover's win% was below this two plies earlier
+    drawLostZero: 40,        // savesDraw(): mover's win% before the move at which "was lost" = 0 ...
+    drawLostFull: 15,        // ... and fully lost (=1) at/below this
+    drawLow: 35,             // ... win% after at/below which the result is still losing (drawish = 0)
+    drawHigh: 65,            // ... win% after at/above which the result is winning (drawish = 0)
     uberThreshold: 70,       // computeUberBrilliance(): scores >= this are brilliant
   };
 
@@ -129,19 +140,26 @@ class BrilliantMoveAnalyzer {
       interval: [0.87, 1],
       requires: [],
     },
+    swindle: {
+      label: 'Draw swindle',
+      priority: 6,
+      about: 'A non-obvious move that saves a draw from a lost position.',
+      weights: { savesDraw: 24, bestMove: 18, onlyMove: 16, soundAfter: 14, notAlreadyWinning: 12, surprise: 8, independence: 8 },
+      interval: [0.85, 1],
+      requires: ['savesDraw'],
+    },
   };
 
   // ---------------------------------------------------------------- construction
   constructor(input, options = {}) {
     const { co: lib, types, ...rest } = options;
-    this.co = lib || (typeof co !== 'undefined' ? co : null);
-    if (!this.co) throw new Error('chessops is not loaded: expected a global `co` or options.co');
+    this.co = lib || BrilliantMoveAnalyzer.co;
+    if (!this.co) throw new Error('chessops is not loaded: pass options.co or load the chessops tool');
     this.options = { ...BrilliantMoveAnalyzer.DEFAULTS, ...rest };
     this.types = {};
     for (const [name, def] of Object.entries({ ...BrilliantMoveAnalyzer.TYPES, ...(types || {}) })) {
       this.types[name] = { ...(BrilliantMoveAnalyzer.TYPES[name] || {}), ...def };
     }
-    this._memo = {};
     this._init(input);
   }
 
@@ -191,7 +209,7 @@ class BrilliantMoveAnalyzer {
     if (ev.delivered) return 100;
     if (ev.mate != null) return ev.mate > 0 ? 100 : ev.mate < 0 ? 0 : 50;
     const cp = Math.min(1000, Math.max(-1000, ev.cp || 0));
-    return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
+    return LiChessTools.Scoring.centipawnsToWinPercentage(cp);
   }
   static _cp(ev) { // centipawns, mate = +-1000
     if (ev.delivered) return 1000;
@@ -204,7 +222,7 @@ class BrilliantMoveAnalyzer {
     return { cp: flip ? -ev.cp : ev.cp };
   }
   static _ramp(x, zero, full) { // 0 at `zero`, 1 at `full`, linear between, works in both directions
-    return Math.min(1, Math.max(0, (x - zero) / (full - zero)));
+    return LiChessTools.Scoring.ramp(x, zero, full);
   }
   static _r(value, raw) { return { value, raw: raw || {} }; }
 
@@ -219,15 +237,7 @@ class BrilliantMoveAnalyzer {
     return null;
   }
   _legal(pos) {
-    const out = [];
-    for (const [from, dests] of pos.allDests()) {
-      const p = pos.board.get(from);
-      for (const to of dests) {
-        const r = this.co.squareRank(to);
-        out.push(p.role === 'pawn' && (r === 0 || r === 7) ? { from, to, promotion: 'queen' } : { from, to });
-      }
-    }
-    return out;
+    return LiChessTools.MoveGen.legalMoves(pos);
   }
   _uci(pos, m) { // Lichess writes castling as the king's two-square move, chessops as king-takes-rook
     const p = pos.board.get(m.from), t = pos.board.get(m.to);
@@ -238,8 +248,7 @@ class BrilliantMoveAnalyzer {
     return this.co.makeUci(m);
   }
   _material(pos, color) {
-    const V = BrilliantMoveAnalyzer.VALUE;
-    return Object.keys(V).reduce((s, r) => s + V[r] * pos.board.pieces(color, r).size(), 0);
+    return LiChessTools.Material.value(pos.board, color, BrilliantMoveAnalyzer.VALUE);
   }
   _balance(pos) { return this._material(pos, this.mover) - this._material(pos, this.other); } // mover minus opponent
   /** Most material (in pawns) the side to move wins by captures alone. Standing pat = 0. */
@@ -297,7 +306,12 @@ class BrilliantMoveAnalyzer {
     if (!lines.length) return null;
     return lines.sort((a, b) => b.win - a.win); // stable: engine order is kept for equal win%
   }
-  _once(key, fn) { return key in this._memo ? this._memo[key] : (this._memo[key] = fn()); }
+  _once(key, fn) {
+    if (!this._memoize) {
+      this._memoize = LiChessTools.Cache.memoize((k, f) => f(), { key: (k) => k });
+    }
+    return this._memoize(key, fn);
+  }
 
   // ---------------------------------------------------------------- shared analysis (lazy, cached)
   /** Material bookkeeping in pawns, from the mover's side. sacrifice = material given up once captures are resolved. */
@@ -511,6 +525,23 @@ class BrilliantMoveAnalyzer {
     return B._r(Math.min(1, Math.max(0, (this.wAfter - this.wTwoBefore) / 30)), { winPctTwoBefore: this.wTwoBefore, winPctAfter: this.wAfter });
   }
 
+  // 17. The move saves a draw from a lost position (a "swindle"): clearly lost before, drawn -- not winning -- after.
+  //     Returns null when the mover was not clearly lost, so the principle is left out of the sum.
+  savesDraw() {
+    const B = BrilliantMoveAnalyzer, o = this.options;
+    if (this.wBefore == null || this.wAfter == null) return B._r(null);
+    const wasLost = B._ramp(this.wBefore, o.drawLostZero, o.drawLostFull);
+    if (wasLost <= 0) return B._r(null);
+    const drawish = this._drawish(this.wAfter);
+    return B._r(Math.min(1, wasLost * drawish), { winPctBefore: this.wBefore, winPctAfter: this.wAfter, wasLost, drawish });
+  }
+  /** Closeness of a win% to a dead draw: 1 at 50, 0 at/outside [drawLow, drawHigh]. */
+  _drawish(w) {
+    const o = this.options;
+    if (w <= o.drawLow || w >= o.drawHigh) return 0;
+    return 1 - Math.abs(w - 50) / (o.drawHigh - 50);
+  }
+
   // ---------------------------------------------------------------- running principles
   /** Why this move can never count as brilliant, whatever its score. */
   disqualifiers() {
@@ -557,11 +588,12 @@ class BrilliantMoveAnalyzer {
     const applicable = required.every((n) => values[n] != null);
     const score = used ? sum / used : 0;
     const [lo, hi] = interval;
+    const ilo = lo * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT; // relaxed lower edge for interesting
     const disqualified = this.disqualifiers();
     const inInterval = applicable && score >= lo && score <= hi;
-    const iscore = iused ? isum / iused : 0;
-    const inInterestingInterval = applicable && iscore >= lo && iscore <= hi;
-    return { score, interval: [lo, hi], inInterval, applicable, disqualified,
+    const iscore = iused ? isum / iused : null; // null: no interesting principle carried any weight, not a hard 0
+    const inInterestingInterval = applicable && iscore != null && iscore >= ilo && iscore <= hi;
+    return { score, interval: [lo, hi], interestingInterval: [ilo, hi], inInterval, applicable, disqualified,
       isBrilliant: inInterval && !disqualified.length,
       interestingScore: iscore,
       inInterestingInterval,
@@ -586,16 +618,20 @@ class BrilliantMoveAnalyzer {
    */
   _baseline(weights) {
     const total = Object.values(weights).reduce((s, w) => s + w, 0);
+    if (!total) return 0;
     return BrilliantMoveAnalyzer.PRECONDITIONS.reduce((s, n) => s + (weights[n] || 0), 0) / total;
   }
 
   /**
    * Maps a type's weighted average to 0..100: the baseline = 0, the interval's lower edge = uberThreshold, its upper
-   * edge = 100. Above the upper edge (only when hi < 1) it falls off again.
+   * edge = 100. Above the upper edge (only when hi < 1) it falls off again. Below the lower edge the mapping is only a
+   * proximity hint: a type whose essential principles came back exactly 0 does not describe the move at all (a pawn
+   * push that gives up nothing is no sacrifice, a capture is no quiet move), and the hint collapses to 0 there.
    */
-  _fit(score, [lo, hi], weights) {
+  _fit(score, [lo, hi], weights, values = null) {
     const T = this.options.uberThreshold, clamp = (x) => Math.min(1, Math.max(0, x));
     if (score < lo) {
+      if (this._essentialZero(weights, lo, values)) return 0;
       const b = this._baseline(weights);
       return lo > b ? T * clamp((score - b) / (lo - b)) : 0;
     }
@@ -604,9 +640,23 @@ class BrilliantMoveAnalyzer {
   }
 
   /**
+   * True when `values` kills an essential principle outright: an essential one is a principle whose share of the
+   * weight is larger than what the interval can absorb (see necessaryPrinciples()), so a hard 0 on it can only mean
+   * the type does not describe the move. A principle that is unknown (null) is not a hard 0.
+   */
+  _essentialZero(weights, lo, values) {
+    if (!values) return false;
+    const total = Object.values(weights).reduce((s, w) => s + w, 0);
+    if (!total) return false;
+    return Object.entries(weights).some(([name, w]) => w > 0 && w / total > 1 - lo && values[name] === 0);
+  }
+
+  /**
    * Runs every type and returns the best fit as a 0..100 score. Anything at or above `threshold` is brilliant.
    * `type` is the most specific type whose interval holds (mating > quiet > positional > combination > sacrifice);
-   * when none holds it is the closest one. Returns
+   * when none holds it is the closest one that still describes the move (an essential principle at hard 0 rules the
+   * type out, so a plain pawn push gets score 0 and no type at all). The interesting half is the same rule over the
+   * relaxed interval and the weights that leave out NI_PRINCIPLES. Returns
    * { score, isBrilliant, threshold, type, label, inInterval: [types whose interval holds], byType, disqualified }
    */
   computeUberBrilliance() {
@@ -618,9 +668,9 @@ class BrilliantMoveAnalyzer {
         iweights[k] = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(k) ? 0 : t.weights[k];
       }
       byType[name] = { score: r.score,
-        fit: r.applicable ? this._fit(r.score, r.interval, t.weights) : 0,
-        ifit: r.applicable ? this._fit(r.interestingScore, [r.interval[0] * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT, 1], iweights) : 0,
-        inInterval: r.inInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
+        fit: r.applicable ? this._fit(r.score, r.interval, t.weights, r.values) : 0,
+        ifit: r.applicable && r.interestingScore != null ? this._fit(r.interestingScore, r.interestingInterval, iweights, r.values) : 0,
+        inInterval: r.inInterval, inInterestingInterval: r.inInterestingInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
     }
     const names = Object.keys(byType);
     const disqualified = this.disqualifiers();
@@ -660,11 +710,17 @@ class BrilliantMoveAnalyzer {
   }
 
   // ---------------------------------------------------------------- tuning aid
-  /** Principles of a type that are individually necessary: normalized weight > 1 - interval[0]. */
-  static necessaryPrinciples(type) {
-    const t = BrilliantMoveAnalyzer.TYPES[type];
-    const total = Object.values(t.weights).reduce((s, w) => s + w, 0);
-    return Object.entries(t.weights).filter(([, w]) => w / total > 1 - t.interval[0]).map(([n]) => n);
+  /** The principles of a type that are individually necessary: normalized weight > 1 - interval[0]. */
+  necessaryPrinciples(type) {
+    const t = this.types[type];
+    if (!t) throw new Error('Unknown type: ' + type);
+    return BrilliantMoveAnalyzer._essentialPrinciples(t.weights, t.interval);
+  }
+  /** The rule over one weight/interval pair; this.types (TYPES merged with options.types) is what the caller passes. */
+  static _essentialPrinciples(weights, interval) {
+    const total = Object.values(weights).reduce((s, w) => s + w, 0);
+    if (!total) return [];
+    return Object.entries(weights).filter(([, w]) => w > 0 && w / total > 1 - interval[0]).map(([n]) => n);
   }
 }
 

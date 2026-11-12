@@ -129,8 +129,7 @@
             );
             invalid = [];
             const frags = text?.split(/[,\s+]/) || [];
-            const fenInfo = co.fen.parseFen(fen).unwrap();
-            const ch = co.Chess.fromSetup(fenInfo).unwrap();
+            const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
             for (const frag of frags) {
               if (!frag) continue;
               let move = co.san.parseSan(ch,frag);
@@ -217,7 +216,7 @@
         if (this.options.eval) {
           const ceval = { mate: info[0].mate?.[0], cp: info[0].cp?.[0] };
           const decimals = lt.currentOptions.getValue('cevalDecimals') ? 2 : 1;
-          const side = fen.split(' ')[1] == 'b' ? -1 : 1;
+          const side = lt.getTurnSign(lt.getTurnFromFen(fen));
           const evalText = (ceval.mate!==undefined ? '#' + (side * ceval.mate) : ((side * ceval.cp) > 0 ? '+' : '') + (side * ceval.cp / 100).toFixed(decimals));
           score
             .append($('<span>')
@@ -226,19 +225,18 @@
         }
 
         const data = info.map(i=>({
-          cp: lt.getCentipawns(i),
+          cp: LiChessTools.ChessMetrics.getCentipawnOnlyValue(i),
           uci: i.pv?.[0],
           hash: lt.hash(lt.global.JSON.stringify(i)),
           order: i.order
         }));
-        const best = lt.winPerc(this.options.manualChoice && historyItem.best
-          ? lt.getCentipawns(historyItem.best)
+        const best = LiChessTools.ChessMetrics.centipawnsToWinPercentage(this.options.manualChoice && historyItem.best
+          ? LiChessTools.ChessMetrics.getCentipawnOnlyValue(historyItem.best)
           : data[0].cp
         );
 
         data.sort((a,b)=>a.order-b.order);
-        const fenInfo = co.fen.parseFen(fen).unwrap();
-        const ch = co.Chess.fromSetup(fenInfo).unwrap();
+        const ch = LiChessTools.MoveGen.positionFromFen(fen, co);
 
         const buttonContainer = $('<div class="choices">')
           .appendTo(container);
@@ -259,8 +257,8 @@
             })
             .on('click',async ev=>{
               ev.preventDefault();
-              const winPerc = lt.winPerc(moveData.cp);
-              const moveAccuracy = lt.accuracy(best, winPerc);
+              const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(moveData.cp);
+              const moveAccuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(best, winPerc);
               historyItem.score = Math.round(moveAccuracy*10)/10;
               const ch2 = ch.clone();
               ch2.play(move);
@@ -275,8 +273,8 @@
                   .each((i,e)=>{
                     const btn = $(e);
                     const inf = data.find(d=>d.hash==btn.attr('data-hash'));
-                    const wp = lt.winPerc(inf.cp);
-                    const acc = lt.accuracy(best,wp);
+                    const wp = LiChessTools.ChessMetrics.centipawnsToWinPercentage(inf.cp);
+                    const acc = LiChessTools.ChessMetrics.winDeltaToAccuracy(best,wp);
                     const color = lt.getGradientColor(acc, [{ q: 70, color: '#FF2020' }, { q: 85, color: '#FFFF00' }, { q: 100, color: '#00FF00' }]);
                     btn
                       .css('background',color)
@@ -414,8 +412,9 @@
       const $ = lt.$;
       const dialog = $('dialog.lichessTools-calculationTrainer');
       if (lt.inViewport($('.dialog-header', dialog), true) < 0.5) {
-        $(dialog).css({ left: '', top: '', right: '', bottom: '' });
-        $('.dialog-content', dialog).css({ width: '', height: '' });
+        // Both halves of the box go back: the dialog's size and the room its content was given.
+        $(dialog).css({ left: '', top: '', right: '', bottom: '', width: '', height: '' });
+        dialog.find('.dialog-content').css({ width: '', height: '' });
       }
     }
 
@@ -467,14 +466,50 @@
             .addClass('lichessTools-calculationTrainer');
           const dialogPlacement = this.options.placement;
           if (dialogPlacement) {
-            $(dlg)
-              .css('left', dialogPlacement.left || 'unset')
-              .css('right', dialogPlacement.right || 'unset')
-              .css('top', dialogPlacement.top || 'unset')
-              .css('bottom', dialogPlacement.bottom || 'unset');
-            $('.dialog-content', dlg)
-              .css('width', dialogPlacement.width)
-              .css('height', dialogPlacement.height);
+            // The event names the centre from the edge the dialog is nearer. A `<dialog>` is centred by
+            // a -50% transform, which is what makes a `left` number land on that centre - and what makes
+            // a `right` number miss it by the whole box, the transform pulling the box inward on that
+            // edge too. So the datum goes back as a centre, the same write `DialogResize.apply` makes,
+            // with the content room the event carries written onto the content.
+            const box = $(dlg);
+            const innerWidth = lt.global.window?.innerWidth || 0;
+            const innerHeight = lt.global.window?.innerHeight || 0;
+            const boxWidth = parseFloat(dialogPlacement.width || '0') || 0;
+            const boxHeight = parseFloat(dialogPlacement.height || '0') || 0;
+            const centreX = dialogPlacement.left !== undefined
+              ? parseFloat(dialogPlacement.left)
+              : dialogPlacement.right !== undefined
+                ? innerWidth - parseFloat(dialogPlacement.right)
+                : undefined;
+            const centreY = dialogPlacement.top !== undefined
+              ? parseFloat(dialogPlacement.top)
+              : dialogPlacement.bottom !== undefined
+                ? innerHeight - parseFloat(dialogPlacement.bottom)
+                : undefined;
+            // The box that comes back is nudged inside the screen: a centre may not sit nearer an edge
+            // than half the box, so a placement the last session left hanging over the edge lands with
+            // its frame whole. A box that has no room to move on an axis is centred on that axis.
+            const snapCentre = (centre, size, viewport) =>
+              !Number.isFinite(centre) || !Number.isFinite(viewport) || viewport <= 0
+                ? centre
+                : size >= viewport
+                  ? viewport / 2
+                  : Math.min(Math.max(centre, size / 2), viewport - size / 2);
+            if (Number.isFinite(centreX))
+              box.css('left', snapCentre(centreX, boxWidth, innerWidth) + 'px').css('right', 'unset');
+            if (Number.isFinite(centreY))
+              box.css('top', snapCentre(centreY, boxHeight, innerHeight) + 'px').css('bottom', 'unset');
+            box
+              .css('width', dialogPlacement.width || 'unset')
+              .css('height', dialogPlacement.height || 'unset')
+              .css('min-width', 'auto')
+              .css('min-height', 'auto')
+              .css('max-width', 'none')
+              .css('max-height', 'none');
+            box
+              .find('.dialog-content')
+              .css('width', dialogPlacement.contentWidth || 'unset')
+              .css('height', dialogPlacement.contentHeight || 'unset');
           }
 
           lt.global.setTimeout(async ()=>{

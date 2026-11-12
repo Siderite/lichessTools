@@ -27,6 +27,10 @@ When cloud eval or local eval receives new data (`lichessTools.ceval`):
 - Stores `{ time: Date.now(), ...data }` in IndexedDB
 - If QuotaExceededError, removes entries older than 30 days
 
+### Clear Local Data Button
+
+A delegated click handler on `body` watches for the analysis action menu's "clear local data" button (`.action-menu__tools` child with the Trash `data-icon`). When clicked, it clears the entire `evalCache` IndexedDB object store alongside Lichess's own local data.
+
 ## Dependencies
 
 - EmitCeval
@@ -39,4 +43,5 @@ When cloud eval or local eval receives new data (`lichessTools.ceval`):
 
 - `handlePly(ply)` — restores cached eval on position navigation
 - `handleCeval(args)` — stores new eval data in IndexedDB
+- `clearCache()` — clears the `evalCache` IndexedDB object store
 - `async start()` — sets up event bindings

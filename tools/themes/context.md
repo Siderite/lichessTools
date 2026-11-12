@@ -64,7 +64,11 @@ CSS files loaded from extension assets at `tools/themes/<themeName>.css`.
 Sets CSS variable `--board-background` on html element:
 
 1. Gets board background image URL via `getBoardBackground`:
-   - If customBoardImage option enabled AND not 3D → returns customBoardImage value
+   - If customBoardImage option enabled AND not 3D → hands the value to
+     `lt.tools.CustomBoardImage.resolveBoardUrl(boardImage)` so an `uploadedImage`
+     sentinel is mapped to the IndexedDB data url (or null when the blob is
+     missing/corrupt); non-sentinel values pass through unchanged. When the
+     CustomBoardImage tool is not loaded, the value is returned as-is.
    - Otherwise: fetches `/dgt` HTML (if boardChanged) or uses existing html container
    - Extracts preloaded image links (`link[rel=preload][as=image]`) matching png/jpg/jpeg/svg extensions
    - Gets image size via Image.onload promise for each URL (width >100 filter)

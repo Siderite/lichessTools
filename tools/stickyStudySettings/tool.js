@@ -105,7 +105,7 @@
       study.setPath = lt.unwrapFunction(study.setPath, 'stickyStudySettings');
       lt.global.removeEventListener('beforeunload', this.saveStudyPositions);
       if (this.options.chapterForm) {
-        study.form.open.toggle = lt.wrapFunction(study.form.open.toggle, {
+        study.form.open = lt.wrapFunction(study.form.open, {
           id: 'stickyStudySettings',
           after: ($this, result, data) => {
             if (result) this.fillEditForm();

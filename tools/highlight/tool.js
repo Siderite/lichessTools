@@ -48,11 +48,11 @@
       const toHighlight = new Set();
       const toInvert = new Set();
       if (this.options.lastMove && this.state?.lastMoves?.length) {
-        const orientation = analysis.getOrientation() == 'white' ? 0 : 1;
+        const orientation = analysis.getOrientation() == 'white' ? 'white' : 'black';
         for (const node of this.state.lastMoves) {
           const elem = lt.getElementForNode(node);
           if (!elem) continue;
-          const inverted = (node.ply%2 == 0) != orientation;
+          const inverted = lt.getMoverFromNode(node) != orientation;
           toHighlight.add(elem);
           if (inverted) toInvert.add(elem);
         }
@@ -192,11 +192,13 @@
         const mainNode = analysis.nodeList.findLast((n, i) => n == analysis.mainline[i]);
         const mainBoard = lt.getBoardFromFen(mainNode.fen);
         const squares = [];
-        for (let x = 0; x < 8; x++) {
-          for (let y = 0; y < 8; y++) {
-            if (board[y][x] != mainBoard[y][x]) {
-              const sq = String.fromCharCode('a'.charCodeAt(0) + x) + (8 - y);
-              squares.push(sq);
+        if (board && mainBoard) {
+          for (let sq = 0; sq < 64; sq++) {
+            const a = board.get(sq);
+            const b = mainBoard.get(sq);
+            if (a?.role !== b?.role || a?.color !== b?.color) {
+              const x = sq & 7;
+              squares.push(String.fromCharCode('a'.charCodeAt(0) + x) + (1 + (sq >> 3)));
             }
           }
         }

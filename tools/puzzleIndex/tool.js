@@ -141,7 +141,7 @@
           return;
         }
         const fen = lichess.analysis.node.fen?.split(' ').slice(0,2).join(' ');
-        if (lt.isStartFen(fen)) return;
+        if (LiChessTools.ChessMetrics.isStartFen(fen)) return;
         this.searching=fen;
         let retry = false;
         if (this.options.puzzleIndex && !this.indexFile) {
@@ -159,7 +159,7 @@
 
         const $ = lt.$;
         const trans = lt.translator;
-        const reversedFen = lt.reverseFen(fen);
+        const reversedFen = LiChessTools.ChessMetrics.mirrorFen(fen);
 
         const searchItems = [];
         if (this.yourPuzzles) {

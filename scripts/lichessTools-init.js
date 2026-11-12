@@ -7,9 +7,11 @@ lichessTools.loadTool(LiChessTools.Tools.EmitCeval);
 lichessTools.loadTool(LiChessTools.Tools.EmitRedraw);
 lichessTools.loadTool(LiChessTools.Tools.EmitContentLoaded);
 lichessTools.loadTool(LiChessTools.Tools.SoundOptions);
+lichessTools.loadTool(LiChessTools.Tools.MuteOwnMoves);
 lichessTools.loadTool(LiChessTools.Tools.AddNotifications);
 lichessTools.loadTool(LiChessTools.Tools.AddToTeam);
 lichessTools.loadTool(LiChessTools.Tools.Dialog);
+lichessTools.loadTool(LiChessTools.Tools.TrophyCabinet);
 lichessTools.loadTool(LiChessTools.Tools.DailyQuote);
 lichessTools.loadTool(LiChessTools.Tools.Feedback);
 
@@ -65,6 +67,7 @@ lichessTools.loadTool(LiChessTools.Tools.Repertoire);
 lichessTools.loadTool(LiChessTools.Tools.CommentStyling);
 lichessTools.loadTool(LiChessTools.Tools.AnalysisContextActions);
 lichessTools.loadTool(LiChessTools.Tools.MovesFromTranspositions);
+lichessTools.loadTool(LiChessTools.Tools.VariationIndex);
 lichessTools.loadTool(LiChessTools.Tools.ExtendedInteractiveLesson);
 lichessTools.loadTool(LiChessTools.Tools.ExplorerPractice);
 lichessTools.loadTool(LiChessTools.Tools.ChapterClearArtifacts);
@@ -155,6 +158,7 @@ lichessTools.loadTool(LiChessTools.Tools.LichessLadders);
 lichessTools.loadTool(LiChessTools.Tools.BoardSaturate);
 lichessTools.loadTool(LiChessTools.Tools.CorrespondenceLobbyFilters);
 lichessTools.loadTool(LiChessTools.Tools.VideoSearch);
+lichessTools.loadTool(LiChessTools.Tools.StudyStats);
 
 
 lichessTools.loadTool(LiChessTools.Tools.HideBoardCommand);
@@ -165,8 +169,11 @@ lichessTools.loadTool(LiChessTools.Tools.ReadGameCommand);
 lichessTools.loadTool(LiChessTools.Tools.ReadPositionCommand);
 lichessTools.loadTool(LiChessTools.Tools.SkipMoveCommand);
 lichessTools.loadTool(LiChessTools.Tools.SearchMovesCommand);
+lichessTools.loadTool(LiChessTools.Tools.GenLineCommand);
 
 lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
+lichessTools.loadTool(LiChessTools.Tools.RecordsDbStore);
+lichessTools.loadTool(LiChessTools.Tools.RecordsDbUi);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);

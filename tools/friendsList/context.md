@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **FriendsListTool** is the core of the friends system. It shows online friends in the top menu, on the friends box, and adds a "live" friends/followers/opponents/blocked players page with filters, watch-game (TV) links, mute-play-alert buttons, unblock buttons, and crosstable scores. It relies on the `friendsPlaying` tool's `friendsPlaying` and `mutedPlayers` preferences for play alerts and muting.
+The **FriendsListTool** is the core of the friends system. It shows online friends in the top menu, on the friends box, and adds a "live" friends/followers/opponents/blocked players page with filters, watch-game (TV) links, mute-play-alert buttons, unblock buttons, and crosstable scores. It relies on the `friendsPlaying` tool's `friendsPlaying` preference for play alerts, and it asks the `friendsPlaying` tool (`lt.tools.FriendsPlayingTool.alertMuted`) for each player's effective alerts state, so the muted/unmuted decision is never duplicated here.
 
 ## Dependencies
 
@@ -18,7 +18,7 @@ The **FriendsListTool** is the core of the friends system. It shows online frien
 - **liveFriendsPage**:
   - name `liveFriendsPage`, category `friends`, type `single`, possibleValues `[false, true]`, defaultValue `true`, needsLogin `true`
 
-Also reads (from the `friendsPlaying` tool): `friendsPlaying` and `mutedPlayers`.
+Also reads (from the `friendsPlaying` tool): `friendsPlaying`. The effective per-player alerts state (muted / unmuted) is queried through `lt.tools.FriendsPlayingTool.alertMuted(user, alertStatusMap)` - friendsList never re-derives it from the `muteFriendsNotifications` default or from the `LiChessTools.friendsAlertStatus` storage map.
 
 ## Behavior
 
@@ -50,9 +50,9 @@ Listens to `lt.uiApi.onlineFriends.events`: `onlines`, `enters`, `leaves`, `play
 On the live page it builds a `div.lichessTools-livePageHeader` with:
 - **Friends/followers/opponents links** (only on the friends page): a followers link (`/@/<me>/following#followers`) and an opponents link (`/player/opponents`).
 - **Filter input** (`input.lichessTools-friendFilter`) that filters rows by name (debounced 200ms via `filterFriends`).
-- **Toggle buttons** (`icon` elements): hide-inactive (`Antichess` icon), hide-offline (`DiscOutline`), hide-not-playing (`AnalogTv`), and hide-muted (`BellOutline`, only on the friends page). Each toggles a class on `main`.
+- **Toggle buttons** (`icon` elements): hide-inactive (`Antichess` icon), hide-offline (`DiscOutline`), hide-not-playing (`AnalogTv`), and hide-muted (`BellOutline`, only on the friends page). Each toggles a class on `main`. There is no global alerts toggle in the page - the default state is a preference of the `friendsPlaying` tool, and per-player toggles live on each row.
 - **Row actions**: watch-games TV link (`AnalogTv`), mute-play-alert link (`BellOutline`, only when `friendsPlaying` enabled), unblock link (`NotAllowed`, only on blocked page). Rows older than a year get `lichessTools-inactive`.
-- Marks rows online/offline/playing/muted, and on the favorite-opponents page fetches crosstable data (`lt.api.user.getCrosstableBulk`) to show win/loss scores with `good`/`bad` coloring.
+- Marks rows online/offline/playing/muted, where `lichessTools-muted` is the effective state from `lt.tools.FriendsPlayingTool.alertMuted(user, alertStatusMap)` (the map is fetched once per pass with `alertStatusMap()`), and `a.lichessTools-mute` title flips between `enablePlayAlert` / `mutePlayAlert` on that same effective state. On the favorite-opponents page fetches crosstable data (`lt.api.user.getCrosstableBulk`) to show win/loss scores with `good`/`bad` coloring.
 
 ### Followers Page (`hashchange`)
 
@@ -65,7 +65,7 @@ On the live page it builds a `div.lichessTools-livePageHeader` with:
 
 ### Start
 
-- Reads `openFriends`, `liveFriendsPage`, `friendsPlaying`, `mutedPlayers`.
+- Reads `openFriends`, `liveFriendsPage` and `friendsPlaying`. It keeps no alerts state of its own; the muted/unmuted status of a row is queried from `friendsPlaying`.
 - If not logged in, returns.
 - Refreshes followers in the background when the extension is enabled.
 - Binds/unbinds online-friends events based on `openFriends`/`liveFriendsPage` settings.
@@ -79,4 +79,4 @@ Unbinds online-friends events, hashchange/scroll handlers, `contentLoaded` pubsu
 
 ## Internationalization (intl)
 
-Translations provided for en-US and ro-RO for the online friends count, friends menu, friends section options, watch games, mute/enable play alert, live friends page, hide-offline/not-playing/muted/inactive toggles, followers/opponents labels, friends/followers count titles, name filter, and unblock.
+Translations provided for en-US and ro-RO for the online friends count, friends menu, friends section options, watch games, mute/enable play alert, live friends page, hide-offline/not-playing/muted/inactive toggles, followers/opponents labels, friends/followers count titles, name filter, and unblock. The `muteFriendsNotifications` option labels (and its `muted`/`unmuted` value labels) live in the `friendsPlaying` tool intl.

@@ -42,9 +42,8 @@
       const lt = this.lichessTools;
       length = length || 0;
       let result = '';
-      if (!length || move.ply % 2 == 1) {
-        const moveNumber = Math.floor((move.ply + 1) / 2);
-        result += moveNumber + (move.ply % 2 == 1 ? '.' : '...');
+      if (!length || lt.getMoverFromNode(move) == 'white') {
+        result += lt.getSanPrefix(move.ply);
       }
       result += move.san;
       if (move.glyphs?.length) {
@@ -138,7 +137,7 @@
       };
       lt.uiApi.events.on('ply',f);
       $('<a class="lichessTools-infoIcon">')
-        .attr('href', '/account/preferences/display#lichessTools/forkBehavior')
+        .attr('href', '/page/ltPreferences#forkBehavior')
         .attr('target', '_blank')
         .attr('title', trans.noarg('options.forkBehavior'))
         .attr('data-icon', lt.icon.InfoCircle)

@@ -34,14 +34,14 @@ This ensures the featured game link includes the tournament context hash.
 
 Async function triggered on `endData` socket event:
 
-1. Extracts current gameId from pathname regex `/(?:\/g)?(?<gameId>\w{8})(?:\/|$)`
+1. Extracts current gameId via `lt.location.getUrlGameId()` (pathname regex `^\/(?:game\/)?(?<possibleGameId>\w{8})\b`, accepted only when a matching `a.bookmark[href^="/bookmark/<id>"]` anchor exists)
 2. Fetches tournament info via `lt.api.tournament.getInfo(this.tourId)`
 3. If tournament is finished → exits
 4. Gets featured game ID (`data.featured.id`)
 5. If no featured gameId OR current gameId == featured gameId:
    - Sets timeout to retry in 3000ms, returns
 6. Gets featured orientation (`data.featured.orientation` or defaults 'white')
-7. Redirects browser to new location: `/${gameId}/${orientation}#tournament=+this.tourId`
+7. Redirects browser to new location: `/game/${gameId}/${orientation}#tournament=${this.tourId}`
 
 ## Event Binding
 

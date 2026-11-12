@@ -28,6 +28,7 @@
     handlePly = async (ply) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
+      if (!analysis.ceval) return;
       const node = analysis.node;
       const key = analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(node.fen, true);
       const dbKey = 'lichessTools/evalCache/'+key;
@@ -66,10 +67,36 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
-      const key = analysis.ceval.storedPv()+'|'+analysis.ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(fen, true);
+      const ceval = analysis.ceval;
+      if (!ceval) return { dbKey };
+      const key = ceval.storedPv()+'|'+ceval.engines.active()?.id+'|'+analysis.variantKey+'|'+lt.getPositionFromFen(fen, true);
       const dbKey = 'lichessTools/evalCache/'+key;
       const data = await lt.storage.get(dbKey,{ db: true, raw: true });
       return { dbKey, data };
+    };
+
+    clearCache = async (ev) => {
+      const lt = this.lichessTools;
+      const dbStorage = lt.storage.getStore({ db: true, raw: true });
+      await dbStorage.clearStore('lichessTools/evalCache');
+      lt.global.console.debug('Ceval cache cleared');
+    };
+
+    bindClearData = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const buttonText = lichessTools.translator.noarg('clearLocalData');
+      if (!buttonText) {
+        lt.global.console.warn('Could not determine clearLocalData translation string!');
+      }
+      const button = $(`.action-menu__tools [data-icon="${lt.icon.Trash}"]`)
+                        .filter((i,e)=>$(e).text()==buttonText);
+      if (button.prop('__initClearData')) return;
+      button.prop('__initClearData',true)
+            .each((i,el)=>{
+              el.addEventListener('click', this.clearCache, { capture: true });
+            });
     };
 
     async start() {
@@ -87,9 +114,13 @@
       if (!analysis) return;
       lt.uiApi.events.off('ply', this.handlePly);
       lt.pubsub.off('lichessTools.ceval',this.handleCeval);
+      $('body').observer()
+        .off('.action-menu__tools',this.bindClearData);
       if (this.options.enabled) {
         lt.uiApi.events.on('ply', this.handlePly);
         lt.pubsub.on('lichessTools.ceval',this.handleCeval);
+        $('body').observer()
+          .on('.action-menu__tools',this.bindClearData);
       }
     }
 

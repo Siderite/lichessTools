@@ -29,75 +29,9 @@
       }
     };
 
-    pieces = {
-      'N': 'knight',
-      'B': 'bishop',
-      'R': 'rook',
-      'Q': 'queen',
-      'K': 'king'
-    };
-
-    glyphs = {
-      '!': 'good move',
-      '?': 'mistake',
-      '!!': 'brilliant',
-      '??': 'blunder',
-      '!?': 'interesting',
-      '?!': 'inaccuracy'
-    };
-
-    getReadText = (node) => {
-      const lt = this.lichessTools;
-      let text = node.san || '';
-      const glyph = node.glyphs?.at(0)?.symbol;
-      const glyphText = this.glyphs[glyph];
-      let commentText = lt.getNodeCommentsText(node) || '';
-      if (glyphText && !commentText.toLowerCase().includes(glyphText.toLowerCase())) {
-        text += ', ' + glyphText;
-      }
-      if (commentText) {
-        commentText = commentText.replace(/\b(\d+)\.(\d+)/g, '$1point$2');
-        text += ', ' + commentText;
-      }
-      text = text.replace(/[\r\n\.]+/g, ',');
-      const r = /(?:\b(?<piece>[NBRQK\u2654\u2655\u2656\u2657\u2658])?(?<start>[a-h])?(?:[1-8])?(?<takes>x)?(?<end>[a-h][1-8])(?:=(?<promotion>[NBRQK\u2654\u2655\u2656\u2657\u2658]))?|\b(?<castles>^O-O(?<long>-O)?))(?:(?<check>\+)|(?<mate>#))?/g;
-      const pieces = this.pieces;
-      text = text.replace(r, function (...args) {
-        const groups = args.at(-1);
-        let t = '';
-        if (groups.piece) {
-          t += pieces[groups.piece] + ' ';
-        }
-        t += (groups.start || '').replace(/\ba/g, 'a-');
-        if (groups.takes) {
-          t += ' takes ';
-        }
-        t += (groups.end || '').replace(/\ba/g, 'a-');
-        if (groups.promotion) {
-          t += ' promotes to ' + pieces[groups.promotion];
-        }
-        if (groups.check) {
-          t += ' check ';
-        }
-        if (groups.mate) {
-          t += ' mate ';
-        }
-        if (groups.castles) {
-          t += ' castles ';
-          if (groups.long) {
-            t += ' long ';
-          }
-        }
-        return t;
-      });
-      return text;
-    };
-
     instruments = [null, 'celesta', 'clav'];
     readGame = async (speed, voiceIndex, instrument) => {
       const lt = this.lichessTools;
-      const $ = lt.$;
-      const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
@@ -112,11 +46,18 @@
       while (this.reading && node) {
         analysis.userJump(path);
         lt.analysisRedraw();
-        const text = this.getReadText(node);
+        const san = node.san||'';
+        const comments = lt.getNodeCommentsText(node)||'';
+        const text = lt.getSpeakableText(san+(comments?' '+comments:''),{
+          readAnnotations: true, glyphs: node.glyphs,
+          isCheck: san.endsWith('+'), isMate: san.endsWith('#'),
+          dotDecimalWord: true, periodsToCommas: true, fileAid: true,
+          pieceColors: false, briefMateWord: true, castlePhrase: false, glyphsAfter: true, glyphsAfterMove: true
+        });
         const evl = lt.getNodeCeval(node);
         if (instrument && evl) {
           const side = analysis.getOrientation() == 'black' ? -1 : 1;
-          const cp = lt.getCentipawns(evl);
+          const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(evl);
           const q = 24 / (1 + Math.exp(-0.004 * cp * side));
           const sndIndex = parseInt(q).toString().padStart(3, '0');
           lt.play('instrument/' + instrument + '/c' + sndIndex + '.mp3', 0.05);
@@ -131,8 +72,10 @@
     };
 
     keyHandler = ev => {
+      const lt = this.lichessTools;
       if (ev.key == 'Escape') {
         this.reading = false;
+        lt.stopSpeaking();
       }
     };
 

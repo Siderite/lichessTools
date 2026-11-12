@@ -194,7 +194,7 @@
           .text(icon));
     };
 
-    getMoverColor = node => node.ply % 2 ? 'white' : 'black';
+    getMoverColor = node => this.lichessTools.getMoverFromNode(node);
 
     getPreparedText = repertoireMoves => [...repertoireMoves.values()].map(move => move.san).join(', ');
 

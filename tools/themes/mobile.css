@@ -112,6 +112,10 @@ body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-t
   margin-top: 0;
 }
 
+body.lichessTools.lichessTools-theme_mobile.mobile main.analyse:not(.has-relay-tour):has(.study__player-bot) .analyse-controls {
+  margin-top: 1em;
+}
+
 body.lichessTools.lichessTools-theme_mobile.mobile label.hbg[for="tn-tg"] span {
   display: none;
 }

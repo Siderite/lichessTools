@@ -6,7 +6,7 @@
         name: 'soundOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['noMove', 'flickerSound','volumeBar'],
+        possibleValues: ['noMove', 'flickerSound','volumeBar','noBerserk'],
         defaultValue: false,
         advanced: true
       },
@@ -38,6 +38,13 @@
         possibleValues: ['s30','s60','s90','s120','s180','s300','beep','speak5', 'behind'],
         defaultValue: false,
         advanced: true
+      },
+      {
+        name: 'speakSeconds',
+        category: 'play',
+        type: 'number',
+        defaultValue: 5,
+        advanced: true
       }
     ];
 
@@ -52,7 +59,9 @@
         'soundOptions.noMove': 'No move sounds',
         'soundOptions.flickerSound': 'Time flicker sound',
         'soundOptions.volumeBar': 'Main menu volume bar',
+        'soundOptions.noBerserk': 'No berserk sound',
         'options.timeAlert': 'Time alert (minutes)',
+        'options.speakSeconds': 'Read seconds alert threshold',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
         'timeAlert.s90': '1:30',
@@ -60,7 +69,7 @@
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Sound alert',
-        'timeAlert.speak5': 'Read seconds when less than 6',
+        'timeAlert.speak5': 'Read seconds when under the threshold',
         'timeAlert.behind': 'Alert when behind on time',
         'soundThemes.chessPursuit': 'Chess Pursuit',
         'soundThemes.mortalKombat': 'Mortal Kombat',
@@ -78,7 +87,9 @@
         'soundOptions.noMove': 'F\u0103r\u0103 sunet la mutare',
         'soundOptions.flickerSound': 'Sunet la salt de timp',
         'soundOptions.volumeBar': 'Bar\u0103 volum \u00een meniul principal',
+        'soundOptions.noBerserk': 'F\u0103r\u0103 sunet de berserk',
         'options.timeAlert': 'Alert\u0103 timp (minute)',
+        'options.speakSeconds': 'Limit\u0103 alert\u0103 citire secunde',
         'timeAlert.s30': '0:30',
         'timeAlert.s60': '1:00',
         'timeAlert.s90': '1:30',
@@ -86,7 +97,7 @@
         'timeAlert.s180': '3:00',
         'timeAlert.s300': '5:00',
         'timeAlert.beep': 'Alert\u0103 sonor\u0103',
-        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd mai pu\u0163ine de 6',
+        'timeAlert.speak5': 'Cite\u015fte secundele c\u00e2nd sub limit\u0103',
         'timeAlert.behind': 'Alert\u0103 c\u00e2nd \u00een urm\u0103 la timp',
         'soundThemes.chessPursuit': 'Urm\u0103rire \u00een \u015fah',
         'soundThemes.mortalKombat': 'Mortal Kombat',
@@ -143,7 +154,7 @@
         }
         break;
       }
-      if (this.options.speak5 && time<=5) {
+      if (this.options.speak5 && time<=this.options.speakSeconds) {
         const seconds = Math.floor(time);
         if (this.lastSpeak != seconds) {
           this.lastSpeak = seconds;
@@ -296,6 +307,7 @@
       if (Number.isNaN(soundVoice)) soundVaice = this.preferences.find(p=>p.name='soundVoice')?.defaultValue;
       lt.speechVoiceIndex = soundVoice;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
+      const speakSeconds = lt.currentOptions.getValue('speakSeconds');
       this.logOption('Sound options', soundOptions);
       this.logOption('Sound themes', soundThemes);
       if (customTheme) {
@@ -304,8 +316,10 @@
       this.logOption('Sound volume', soundVolume);
       this.logOption('Sound voice', soundVoice);
       this.logOption('Time alert', timeAlert);
+      this.logOption('Speak seconds threshold', speakSeconds);
       this.options = {
         noMove: lt.isOptionSet(soundOptions, 'noMove'),
+        noBerserk: lt.isOptionSet(soundOptions, 'noBerserk'),
         flickerSound: lt.isOptionSet(soundOptions, 'flickerSound'),
         volumeBar: lt.isOptionSet(soundOptions, 'volumeBar'),
         times: [30,60,90,120,180,300].map(s=>({
@@ -314,6 +328,7 @@
         })),
         beep: lt.isOptionSet(timeAlert, 'beep'),
         speak5: lt.isOptionSet(timeAlert, 'speak5'),
+        speakSeconds: +speakSeconds || this.preferences.find(p=>p.name=='speakSeconds')?.defaultValue || 5,
         behind: lt.isOptionSet(timeAlert, 'behind') 
       };
       if (!this.themeUrls) {
@@ -332,6 +347,18 @@
             id: 'soundOptions',
             before: ($this, ...args) => {
               if (this.options.noMove) return false;
+            }
+          });
+        }
+      }
+      // the berserk mode sting startles players, but only that key gets muted
+      if (lichess.sound?.play) {
+        lichess.sound.play = lt.unwrapFunction(lichess.sound.play, 'soundOptions');
+        if (this.options.noBerserk) {
+          lichess.sound.play = lt.wrapFunction(lichess.sound.play, {
+            id: 'soundOptions',
+            before: ($this, key) => {
+              if (this.options.noBerserk && key=='berserk') return false;
             }
           });
         }

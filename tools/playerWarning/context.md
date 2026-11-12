@@ -11,6 +11,7 @@ Shows warning indicators on opponent user links in the playing round page, detec
 
 - **isPlayingGame()**: Checks body is `.playing`.
 - **getTimeControl()**: Extracts time control from `div.game__meta div.setup` text via regex `(\d+)\+(\d+)`, converts via lt.getGameTime(m[0],true).
+- **getVariant()**: Checks `div.round__app` for a `variant-*` class (`chess960`, `antichess`, `kingOfTheHill`, `threeCheck`, `atomic`, `horde`, `racingKings`, `crazyhouse`); returns the variant or `standard` if none.
 
 - **timeControlSuspicion(data, options)**: Calculates sandbag suspicion score based on rating differences between blitz and slower time controls:
   - Options defaults: minGames=50, maxRD=500, blitzWeight=1.0, rapidWeight=1.5, classicalWeight=2.0
@@ -21,6 +22,7 @@ Shows warning indicators on opponent user links in the playing round page, detec
   - Returns {score: parseFloat(score.toFixed(1)), explanation: lines joined}
 
 - **refreshWarning()**: On redraw event (only if playing):
+  - Skips entirely if the game is a variant (`getVariant()` returns non-`standard`) since rating/disconnect/timecontrol warnings are standard-chess specific.
   - For each user-link in `round__app .ruser-top a.user-link` or `ruser-bottom`: checks e.checkedPlayerWarning flag (skip if already checked)
   - Extracts hrefUserId from href regex `/([^\/\?]*?)$`, lowercase
   - If isPlayer → skip; else: collects warnings

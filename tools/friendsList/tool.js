@@ -463,7 +463,8 @@
         this.updateFriendsPage();
         return;
       }
-      const mutedPlayers = this.options.mutedPlayers || [];
+      const alertsTool = lt.tools.FriendsPlayingTool;
+      const alertStatusMap = alertsTool?.alertStatusMap?.();
       for (const user in this.rows) {
         let friend = this.friends[user];
         if (!friend) {
@@ -474,7 +475,7 @@
       for (const user in this.rows) {
         const row = this.rows[user];
         if (!row) continue;
-        const isMuted = mutedPlayers.includes(user);
+        const isMuted = alertsTool?.alertMuted?.(user, alertStatusMap) ?? false;
         row.toggleClassSafe('lichessTools-muted', isMuted);
         $('a.lichessTools-mute', row)
           .attr('title', isMuted ? enablePlayingAlertTitle : mutePlayingAlertTitle);
@@ -754,8 +755,7 @@
       this.options = {
         openFriends: friendsBoxMode,
         liveFriendsPage: liveFriendsPage,
-        friendsPlaying: lt.currentOptions.getValue('friendsPlaying'),
-        mutedPlayers: lt.currentOptions.getValue('mutedPlayers')
+        friendsPlaying: lt.currentOptions.getValue('friendsPlaying')
       };
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');

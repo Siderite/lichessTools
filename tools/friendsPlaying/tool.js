@@ -12,12 +12,21 @@
         valuePrefix: 'gameType-',
         defaultValue: false,
         needsLogin: true
+      },
+      {
+        name: 'muteFriendsNotifications',
+        category: 'friends',
+        type: 'single',
+        possibleValues: ['muted', 'unmuted'],
+        defaultValue: 'unmuted',
+        needsLogin: true
       }
     ];
 
     intl = {
       'en-US': {
         'options.friends': 'Friends',
+        'options.muteFriendsNotifications': 'Default playing alerts state for newly added friends',
         'playing': '%s playing',
         'gameType-unknown': ',',
         'gameType-classical': 'Classical',
@@ -33,10 +42,13 @@
         'friendsPlaying.rapid': 'Rapid',
         'friendsPlaying.classical': 'Classical',
         'friendsPlaying.standard': 'Standard only',
-        'audioNotAllowedTitle': 'LiChess Tools - Audio allowed only after user action'
+        'audioNotAllowedTitle': 'LiChess Tools - Audio allowed only after user action',
+        'muteFriendsNotifications.muted': 'Muted',
+        'muteFriendsNotifications.unmuted': 'Unmuted'
       },
       'ro-RO': {
         'options.friends': 'Prieteni',
+        'options.muteFriendsNotifications': 'Starea implicit\u0103 a alertelor pentru prietenii nou ad\u0103uga\u0163i',
         'playing': 'Joac\u0103 %s',
         'gameType-unknown': ',',
         'gameType-classical': 'Clasic',
@@ -52,7 +64,9 @@
         'friendsPlaying.rapid': 'Rapid',
         'friendsPlaying.classical': 'Clasic',
         'friendsPlaying.standard': 'Doar Standard',
-        'audioNotAllowedTitle': 'LiChess Tools - Sunete permise doar dup\u0103 ac\u0163iune utilizator'
+        'audioNotAllowedTitle': 'LiChess Tools - Sunete permise doar dup\u0103 ac\u0163iune utilizator',
+        'muteFriendsNotifications.muted': 'Dezactivate',
+        'muteFriendsNotifications.unmuted': 'Activate'
       }
     }
 
@@ -78,13 +92,21 @@
       }
     };
 
+    defaultAlertStatus = ()=> this.lichessTools.currentOptions.getValue('muteFriendsNotifications') || 'muted';
+
+    alertStatusMap = ()=> this.lichessTools.storage.get('LiChessTools.friendsAlertStatus') || {};
+
+    alertStatus = (user, statusMap) => (statusMap ?? this.alertStatusMap())[user?.toLowerCase()] || this.defaultAlertStatus();
+
+    alertMuted = (user, statusMap) => this.alertStatus(user, statusMap) == 'muted';
+
     playFriendSound = async (username) => {
       if (!this.options.enabled) return;
       const lt = this.lichessTools;
       lt.debug && lt.global.console.debug(username + ' playing');
       const now = Date.now();
-      const isMuted = (lt.currentOptions.getValue('mutedPlayers') || []).includes(username?.toLowerCase());
-      let silent = isMuted ? 'muted' : '';
+      const status = this.alertStatus(username);
+      let silent = status == 'muted' ? 'muted' : '';
       if (!silent && lt.lichess.quietMode) {
         silent += 'quietMode';
       }
@@ -153,18 +175,18 @@
       //lt.lichess.sound.say(eventType, false, true, false); // Event name cannot be translated
     };
 
-    mutePlayer = async user => {
+    mutePlayer = user => {
       user = user?.toLowerCase();
       const lt = this.lichessTools;
-      const mutedPlayers = lt.currentOptions.getValue('mutedPlayers') || [];
-      if (mutedPlayers.includes(user)) {
-        lt.arrayRemoveAll(mutedPlayers, u => u == user);
+      const statusMap = this.alertStatusMap();
+      const status = this.alertStatus(user, statusMap);
+      const newStatus = status == 'muted' ? 'unmuted' : 'muted';
+      if (newStatus == this.defaultAlertStatus()) {
+        delete statusMap[user];
       } else {
-        mutedPlayers.push(user);
+        statusMap[user] = newStatus;
       }
-      lt.currentOptions.mutedPlayers = mutedPlayers;
-      await lt.saveOptions(lt.currentOptions);
-      lt.fireReloadOptions(true);
+      lt.storage.set('LiChessTools.friendsAlertStatus', statusMap);
     };
 
     async start() {
@@ -173,12 +195,27 @@
       if (!lichess || !lt.uiApi) return;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('friendsPlaying');
-      this.logOption('Friends playing alert', value);
-      this.options = { enabled: !!value };
-      const mutedPlayers = lt.currentOptions.getValue('mutedPlayers');
-      if (mutedPlayers?.length) {
-        this.logOption(' ... muted', mutedPlayers.join(','));
+      const alerts = this.alertStatusMap();
+      const legacyMutedPlayers = lt.currentOptions.getValue('mutedPlayers');
+      if (legacyMutedPlayers?.length) {
+        for (const legacyUser of legacyMutedPlayers) {
+          if (!alerts[legacyUser]) {
+            alerts[legacyUser] = 'muted';
+          }
+        }
+        lt.storage.set('LiChessTools.friendsAlertStatus', alerts);
+        delete lt.currentOptions.mutedPlayers;
+        await lt.saveOptions(lt.currentOptions);
       }
+      this.logOption('Friends playing alert', value);
+      this.logOption(' ... default for new friends', this.defaultAlertStatus());
+      for (const status of ['muted','unmuted']) {
+        const users = Object.keys(alerts).filter(u=>alerts[u]==status);
+        if (users.length) {
+          this.logOption(' ... ' + status, users.join(','));
+        }
+      }
+      this.options = { enabled: !!value, defaultAlertStatus: this.defaultAlertStatus() };
       if (!lt.getUserId()) {
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;

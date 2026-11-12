@@ -42,6 +42,7 @@
 
       // Convert dates to real Date objects and sort
       const entries = Array.from(teamMap.entries())
+        .filter(k=>k!='_deleted')
         .map(([dateStr, data]) => ({
           date: new Date(dateStr),
           value: data.nbMembers
@@ -168,14 +169,16 @@
 
       if (!isLeader) {
         if (teamData) {
-          console.warn('Deleting data for team name',teamName);
-          this.leaderTeams.delete(teamName);
+          console.warn('Not a leader: deleting data for team name',teamName);
+          //this.leaderTeams.delete(teamName);
+          teamData?.set('_deleted',true);
           this.saveLeaderTeams();
         }
         return;
       }
 
       if (teamData) {
+        teamData.delete('_deleted');
         const container = $('.team-show__content__col2');
         if (container.length) {
           const canvas = this.drawTeamChart(teamData, container.width());
@@ -206,15 +209,17 @@
         if (!existingData.get(timeKey)) {
           const teamData = await lt.api.team.getTeam(team);
           if (!teamData) {
-            console.warn('Deleting data for team ',team);
-            this.leaderTeams.delete(team);
+            console.warn('Team not found: deleting data for team',team);
+            //this.leaderTeams.delete(team);
+            existingData.set('_deleted',true);
             save = true;
             continue;
           }
+          existingData.delete('_deleted');
           existingData.set(timeKey,{ nbMembers: teamData.nbMembers });
           save = true;
         }
-        if (this.options.notification) {
+        if (this.options.notification && !existingData.get('_deleted')) {
           const [prev, curr] = [...existingData].slice(-2).map(a=>a[1]);
           if (prev && curr && !curr.notifSeen) {
             const currMembers = curr.nbMembers || 0;

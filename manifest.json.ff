@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "LiChess Tools, by Siderite",
-  "version": "2.4.256",
+  "version": "2.5.13",
   "description": "Turbocharge lichess.org with a ton of features",
   "author": "costin.manda@siderite.dev",
   "homepage_url": "https://siderite.dev/LiChessTools/",
@@ -34,7 +34,19 @@
         "scripts/lichessTools-indexedDbStorage.js",
         "scripts/lichessTools-apiSemaphore.js",
         "scripts/lichessTools-maxSizedMap.js",
-        "scripts/lichessTools-chessMetrics.js"
+        "scripts/lichessTools-chessMetrics-Material.js",
+        "scripts/lichessTools-chessMetrics-Scoring.js",
+        "scripts/lichessTools-chessMetrics-MoveGen.js",
+        "scripts/lichessTools-chessMetrics-FenDistance.js",
+        "scripts/lichessTools-chessMetrics-PawnStructure.js",
+        "scripts/lichessTools-chessMetrics-ChessMetrics.js",
+        "scripts/lichessTools-chessMetrics-EuweKramer.js",
+        "scripts/lichessTools-chessMetrics-BrilliantMoveAnalyzer.js",
+        "scripts/lichessTools-chessMetrics-ChessKmapsEvaluator.js",
+        "scripts/lichessTools-chessMetrics-ChessActivityEvaluator.js",
+        "scripts/lichessTools-chessMetrics-CoordinationCalculator.js",
+        "scripts/lichessTools-chessMetrics-ChessPositionValuator.js",
+        "scripts/lichessTools-chessMetrics-PositionDifficultyEvaluator.js"
       ],
       "matches": [
         "*://lichess.org/*",
@@ -82,10 +94,9 @@
         "tools/boardStyle/tool.js",
         "tools/gameAnalysisLayout/tool.js",
 
-        "tools/extraChart/raccoon.js",
-
         "tools/removeChatLinkWarning/tool.js",
         "tools/dialog/tool.js",
+        "tools/trophyCabinet/tool.js",
         "tools/feedback/tool.js",
         "tools/quietModeAllTabs/tool.js",
         "tools/ctrlSpaceForBestComputerMove/tool.js",
@@ -110,6 +121,7 @@
         "tools/commentStyling/tool.js",
         "tools/analysisContextActions/tool.js",
         "tools/movesFromTranspositions/tool.js",
+        "tools/variationIndex/tool.js",
         "tools/extendedInteractiveLesson/tool.js",
         "tools/chapterClearArtifacts/tool.js",
         "tools/chapterEditing/tool.js",
@@ -152,6 +164,7 @@
         "tools/mainPageElements/tool.js",
         "tools/resizeExplorer/tool.js",
         "tools/soundOptions/tool.js",
+        "tools/muteOwnMoves/tool.js",
         "tools/playLayout/tool.js",
         "tools/obsIntegration/tool.js",
         "tools/forkBehavior/tool.js",
@@ -207,6 +220,7 @@
         "tools/lichessLadders/tool.js",
         "tools/boardSaturate/tool.js",
         "tools/videoSearch/tool.js",
+        "tools/studyStats/tool.js",
 
         "tools/hideBoardCommand/tool.js",
         "tools/trapValueCommand/tool.js",
@@ -217,6 +231,10 @@
         "tools/skipMoveCommand/tool.js",
         "tools/searchMovesCommand/tool.js",
 
+        "tools/genLineCommand/tool.js",
+
+        "tools/recordsDbStore/tool.js",
+        "tools/recordsDbUi/tool.js",
         "tools/localDatabase/tool.js",
         "tools/puzzleIndex/tool.js",
 
@@ -259,10 +277,14 @@
         "tools/themes/chessbaseBorder.css",
         "tools/themes/grabHighlight.css",
         "tools/themes/arrowLastMove.css",
+        "tools/themes/flat.css",
+        "tools/themes/smallNetworkStatus.css",
 
         "tools/detectThirdParties/tool.css",
         "tools/cliCommands/tool.css",
         "tools/dialog/tool.css",
+        "tools/trophyCabinet/tool.css",
+        "tools/recordsDbUi/tool.css",
         "tools/feedback/tool.css",
         "tools/quietModeAllTabs/tool.css",
         "tools/friendsList/tool.css",
@@ -282,6 +304,7 @@
         "tools/commentStyling/tool.css",
         "tools/analysisContextActions/tool.css",
         "tools/movesFromTranspositions/tool.css",
+        "tools/variationIndex/tool.css",
         "tools/extendedInteractiveLesson/tool.css",
         "tools/chapterClearArtifacts/tool.css",
         "tools/chapterEditing/tool.css",
@@ -371,12 +394,15 @@
         "tools/lichessLadders/tool.css",
         "tools/boardSaturate/tool.css",
         "tools/videoSearch/tool.css",
+        "tools/studyStats/tool.css",
 
         "tools/tvOptions/tool.css",
 
         "tools/hideBoardCommand/tool.css",
         "tools/pieceValueCommand/tool.css",
         "tools/searchMovesCommand/tool.css",
+
+        "tools/genLineCommand/tool.css",
 
         "tools/puzzleIndex/tool.css",
 
@@ -431,6 +457,8 @@
     "tools/chessops/chessops.bundle.mjs",
     "tools/d3/d3.bundle.mjs",
     "tools/nouislider/nouislider.bundle.mjs",
-    "tools/fontIcons/lichessTools.woff2"
+    "tools/fontIcons/lichessTools.woff2",
+    "tools/chessPursuit/ChessPursuit.dat",
+    "tools/chessPursuit/ChessPursuit2.dat"
   ]
 }

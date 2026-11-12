@@ -118,7 +118,7 @@
           explorerItem = explorer.current();
           this.explorerItem(node, explorerItem || null);
         }
-        const isOpponentMove = node.ply % 2 === (orientation == 'black' ? 1 : 0);
+        const isOpponentMove = lt.getMoverFromNode(node) === (orientation == 'black' ? 'white' : 'black');
         const total = explorerItem.white + explorerItem.draws + explorerItem.black;
         if (node.ply && isOpponentMove && prevTotal) {
           probability *= moveProbability || (total / prevTotal);

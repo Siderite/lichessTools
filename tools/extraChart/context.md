@@ -12,7 +12,7 @@ It does not replace the native Lichess server-eval chart. It adds datasets to th
 |------|------|
 | `tool.js` | Main tool class `ExtraChartTool`, all metric computation, chart generation, glyph logic, accuracy-plus UI, legend, Christmas easter egg |
 | `tool.css` | Styling for chart container height, legend bar, gauge ticks, good-moves symbols, accuracy tooltip, Christmas text |
-| `raccoon.js` | Third-party chess engine (Raccoon by Michael Edegware). Bundled for positional evaluation used by the "Principled" metric via `LiChessTools.Evaluator` (if present); otherwise heuristic returns 0 |
+| — | Positional valuation (previously `raccoon.js`, Raccoon by Michael Edegware, GPL v3) moved to `LiChessTools.ChessPositionValuator` in `scripts/lichessTools-chessMetrics.js` |
 
 ## Dependencies
 
@@ -55,7 +55,8 @@ Upgrade note: `accuracyPlus` was added as a new option in v2.4.5.
 2. Subscribe to `lichessTools.esmLoaded` to wrap the ACPL module's `acpl` function; when a chart is created, store it and call `generateCharts()`.
 3. Poll every 1 s: `generateCharts()` + `generateTicks()` (gauge).
 4. On chapter change (if brilliant enabled) force-regenerate.
-5. `generateCharts()`:
+4b. On `lichessTools.redraw` (whenever any extra dataset line is enabled) check whether `analysis.getOrientation()` actually changed since the last check — this is the only cheap way to catch a board flip, since Lichess emits redraw on every ply/`analysis.change`/`chat.resize` too — and call `forceGenerateCharts` only then, so the Accuracy/Brilliance lines re-derive for the new orientation without paying a full recompute on every redraw; issue #1864.
+5. `generateCharts()` is a thin `_generateChartsRunning` re-entry guard wrapper (issue #1890: `setChart()` calls `generateCharts()` while the outer call is still mid-flight, and when the cached container is stale `inViewport()` returns 0 and nulls `this._chart`, the nested call would re-acquire the chart and loop forever, freezing the page); the body is `generateChartsInternal()`:
    - Locate chart container (`div.study__server-eval.ready` or `#acpl-chart-container`).
    - Obtain Chart.js instance (server chart or local-created canvas).
    - Compute data series for each enabled metric from `analysis.mainline` (or current branch for local).
@@ -73,7 +74,7 @@ All y-values for continuous lines are mapped into roughly [-1, +1] (Chart.js sca
 - Difference (White positive) scaled: `y = 2/(1+exp(-0.004*cp)) - 1`.
 
 ### Principled (`getPrincipledData`)
-- `heuristic(node)` = `LiChessTools.Evaluator.evaluate(fen)` (Raccoon-based positional score) minus raw material.
+- `heuristic(node)` = `LiChessTools.ChessPositionValuator.evaluate(fen)` (chessops-based positional score) minus raw material.
 - Same logistic scaling. Represents non-material positional quality (mobility, centralization, etc.).
 
 ### Max tension / Max potential
@@ -166,7 +167,7 @@ Heavy geometric/attack calculations use `LiChessTools.MaxSizedMap` (size limits 
 
 - Wraps Chart.js ACPL factory via `lt.wrapFunction` on the ESM module.
 - Uses analysis mainline / path, `node.ceval` / `node.eval`, Explorer cache, board orientation, FEN parsing helpers from core LiChessTools.
-- Publishes no custom events; listens to `esmLoaded` and `chapterChange`.
+- Publishes no custom events; listens to `esmLoaded`, `chapterChange` and `redraw`.
 - Christmas animation temporarily manipulates chart active elements and hover colors.
 
 ## Important Implementation Notes for Future Changes
@@ -176,4 +177,5 @@ Heavy geometric/attack calculations use `LiChessTools.MaxSizedMap` (size limits 
 - Brilliant glyphs are deliberately temporary (client-side only).
 - Smoothing preference exists but the `smooth()` method currently returns points unchanged (previous spike-removal logic is commented out).
 - Disabling Local on a page that only has the local chart removes the chart; re-enable only from Preferences.
-- Raccoon is GPL-licensed; keep attribution if the Evaluator path is used.
+- `ChessPositionValuator` is a clean chessops port of Raccoon (GPL v3) — keep attribution.
+- `generateCharts()` must keep the `_generateChartsRunning` re-entry guard (issue #1890): `setChart()` and the `esmLoaded` `acpl` wrapper call it while a generation is mid-flight; all callers use the guarded wrapper, never `generateChartsInternal()`.

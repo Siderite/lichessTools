@@ -79,6 +79,8 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
+      const ceval = analysis.ceval;
+      if (!ceval) return;
 
       const isExternalEngine = !!analysis?.ceval?.engines?.external;
 
@@ -87,14 +89,14 @@
         const targetDepth = isPractice
           ? this.options.practiceDepth || this.options.depth
           : this.options.depth;
-        const customDepth = analysis.ceval?.isInfinite || (analysis.ceval?.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
+        const customDepth = ceval.isInfinite || (ceval.isDeeper() && !analysis.node.autoDeeper) || (this.options.infiniteExternal && isExternalEngine)
           ? 99
           : (analysis.node.autoDeeper || targetDepth);
-        if (customDepth && analysis.cevalEnabled() && !analysis.ceval.showingCloud) {
+        if (customDepth && analysis.cevalEnabled() && !ceval.showingCloud) {
           const elem = $('div.ceval div.engine span.info');
-          const pattern = lt.global.i18n?.site?.depthX('\\d+');
+          const pattern = lt.global.i18n?.site?.depthX?.('\\d+');
           if (!pattern) {
-            lt.global.console.warn('Could not determine the pattern for depth regular expression');
+            lt.global.console.warn('Could not determine the pattern for depth regular expression (depthX)');
             // lichess keeps a reference to the actual node
             elem.replaceText(text=>{
               return text
@@ -278,43 +280,45 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (!analysis) return;
+      const ceval = analysis.ceval;
+      if (!ceval || !analysis.cevalEnabled()) return;
 
       const isPractice = analysis.practice?.running() || analysis.study?.practice;
       if (isPractice && !this.options.practice) return;
-      if (!analysis.cevalEnabled()) return;
 
       const node = work?.path
         ? analysis.tree.nodeAtPath(work.path)
-        : analysis.ceval.lastStarted?.steps?.at(-1);
+        : (analysis.node ?? ceval.lastStarted?.steps?.at(-1));
       if (!node) return;
 
       const targetDepth = isPractice 
         ? this.options.practiceDepth || this.options.depth
         : this.options.depth;
       const curDepth = analysis.threatMode()
-        ? analysis.ceval.curEval.depth
+        ? ceval.curEval.depth
         : node.ceval?.depth || evl?.depth;
-      const state = analysis.ceval.state;
+      const state = ceval.state;
       const isIdle = state == 0 || state == 2;
       const isExternalEngine = !!analysis?.ceval?.engines?.external;
       const noCloud = this.options.noCloud || (isExternalEngine && this.options.noCloudExternal);
 
-      if (analysis.ceval?.canGoDeeper && isIdle && analysis.ceval?.curEval) {
-        if ((analysis.ceval.showingCloud && noCloud) || (targetDepth && curDepth < (node.autoDeeper || targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
+      if ((ceval.canGoDeeper || (ceval.isDeeper && !ceval.isDeeper())) && isIdle && ceval.curEval) {
+        if ((ceval.showingCloud && noCloud) || (targetDepth && curDepth < Math.max(node.autoDeeper || 0, targetDepth)) || (this.options.infiniteExternal && isExternalEngine)) {
           if (!(node.autoDeeper > targetDepth)) {
             node.autoDeeper = targetDepth;
           }
-          analysis.ceval.goDeeper();
+          if (ceval.canGoDeeper) ceval.goDeeper();
+          else if (ceval.isDeeper) ceval.isDeeper(true);
           lt.analysisRedraw();
           return;
         }
       }
-      if (!analysis.ceval.showingCloud && (node.autoDeeper || !analysis.ceval.isDeeper())
-        && targetDepth && curDepth >= (node.autoDeeper || targetDepth) && (!this.options.infiniteExternal || !isExternalEngine)) {
+      if (!ceval.showingCloud && (node.autoDeeper || !ceval.isDeeper())
+        && targetDepth && curDepth >= Math.max(node.autoDeeper || 0, targetDepth) && (!this.options.infiniteExternal || !isExternalEngine)) {
         node.autoDeeper = undefined;
-        if (analysis.ceval.state == 3) {
-          analysis.ceval.worker?.stop();
-          analysis.ceval.download = undefined;
+        if (ceval.state == 3) {
+          ceval.worker?.stop();
+          ceval.download = undefined;
           if (analysis.node.ceval) {
             const depth = analysis.node.ceval.depth;
             if (analysis.practice?.running()) {
@@ -412,6 +416,8 @@
         analysis.evalCache.fetch = lt.unwrapFunction(analysis.evalCache.fetch, 'customEngineOptions');
         analysis.explorer.fetchTablebaseHit = lt.unwrapFunction(analysis.explorer.fetchTablebaseHit, 'customEngineOptions');
       }
+
+      if (!analysis.ceval) return;
 
       if (this.options.fix503) {
         if (!lt.isWrappedFunction(analysis.ceval.engineFailed, 'customEngineOptions')) {

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **BetterBestArrowTool** improves the best move arrow displayed on the chess board during analysis mode. It uses local computer evaluation (PVS - principal variation) to determine the best move instead of relying solely on cloud/lichess evaluation, especially when cloud eval depth is shallow (<15). It also optionally filters arrows based on orientation side.
+The **BetterBestArrowTool** improves the best move arrow displayed on the chess board during analysis mode. It uses local computer evaluation (PVS - principal variation) to determine the best move instead of relying solely on cloud/lichess evaluation, especially when cloud eval depth is shallow (<15). With the `justOrientation` option it shows the best move the orientation side *could have made*, only right after that side has moved (i.e. when it is now the opponent's turn).
 
 ## Dependencies
 
@@ -32,15 +32,19 @@ When `analysis.setAutoShapes` is called:
 5. Determines final best move:
    - If both cloud best AND local best exist AND node.ceval depth < 15 → uses **cloud best** (`ebest`) (cloud is deeper/more reliable)
    - Otherwise → uses **local best OR cloud best** (`cbest || ebest`)
-6. If `justOrientation` not enabled OR orientation differs from turn color:
+6. If `justOrientation` is not enabled, OR the orientation side has just moved (`orientation != turnColor`, i.e. it is now the opponent's turn):
    - If best differs from node.eval.best AND new local eval centipawns ≥ existing cloud centipawns AND new depth ≥ existing depth → updates `node.eval.best = best`.
    - If no node.eval exists (dangerous fallback): creates a synthetic eval object with `_originator: 'lichessTools'`, cp, mate, and best from local eval.
+
+   (So with `justOrientation` the arrow is only re-pointed right after the orientation side has moved; on that side's own turn the default arrow is left alone and removed by the `after` hook — see below.)
 7. Stores `currBest` for use in after hook.
 
 ### Orientation Filtering (`after` hook)
 
-When `justOrientation` enabled AND orientation matches turn color (user is viewing the side to move):
-- Removes all paleGreen arrows from autoShapes that match `currBest` (orig+dest == currBest). This prevents showing best move arrow when the user is not playing that side.
+The `justOrientation` option ("Only moves for orientation side") means: **show the best move the orientation side could have made, only right after it has moved.**
+
+- Right after the orientation side has moved (`orientation != turnColor`, the opponent is now to move): the `before` hook has already pointed the arrow at `best` — the move the orientation side *should* have played, derived from `prevNode`'s local PV — so the arrow stays visible.
+- On the orientation side's own turn (`orientation == turnColor`): removes the paleGreen arrows matching `currBest` (orig+dest == currBest) so the best move isn't revealed before the user has a chance to think.
 
 ## Body Class Toggle
 

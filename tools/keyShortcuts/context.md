@@ -64,7 +64,7 @@ explorer.enabled() → switch config.data.db between 'masters'/'lichess' → exp
 Binds key handlers for i/m/b/g/alt+i/alt+m/alt+b/alt+g: jump to glyph symbols. i→?! (inaccuracy), m→? (mistake — if analysis.retro calls oldHandler), b→?? (blunder), g→[!,!?!!,WhiteStar] (good/brilliant/interesting). alt variants with true parameter for opponent side.
 
 ### Slow Moves Jump (`jumpToSlowMoves(black)`)
-AdditionalGlyphsTool.options.slow active + !obsSetup span → traverses analysis.mainline, path accumulates node.id, processSlow(node if isSlow undefined), isSlow && ply%2==!black → nodes.push(path). index = nodes.indexOf(analysis.path) (index<0?0:index+1)%nodes.length → userJumpIfCan(nodes[index) + analysisRedraw.
+AdditionalGlyphsTool.options.slow active + !obsSetup span -> traverses analysis.mainline, path accumulates node.id, processSlow(node if isSlow undefined), isSlow && lt.getMoverFromNode(node)==(black?'black':'white') -> nodes.push(path). index = nodes.indexOf(analysis.path) (index<0?0:index+1)%nodes.length -> userJumpIfCan(nodes[index) + analysisRedraw.
 
 ### Editor Mode Keys (`bindKeysForEditor`)
 Unbinds 1-8 combos + shift+1-8 + c + p. If enabled: binds 1→handleEditorDigit(i,true), shift+1→handleEditorDigit(i,false). p→handleEditorAction(0), c→handleEditorAction(1). handleEditorDigit(index,mySide): creates mousedown/mmouseup event (clientX/Y=-100) on container (spare-bottom if mySide=true, spare-top if false) .no-square.eq(index-1). handleEditorAction(index): trigger container.children().eq(index).

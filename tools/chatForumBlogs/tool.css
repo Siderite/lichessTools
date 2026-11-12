@@ -49,3 +49,24 @@ body.lichessTools .reactions div.lichessTools-reactionsTooltip {
 body.lichessTools.mobile .reactions:focus-within div.lichessTools-reactionsTooltip {
   display:block;
 }
+
+body.lichessTools #form3-bio + button.lichessTools-uploadImageButton {
+  display: block;
+}
+
+body.lichessTools .msg-app__convo__post button.lichessTools-uploadImageButton {
+  margin-right: -1em;
+}
+
+body.lichessTools button.lichessTools-uploadImageButton > span.upload-image {
+  display: block;
+  color: var(--c-font);
+  background-color: var(--c-font-dimmer);
+  cursor: pointer;
+  padding: 0;
+  margin: 0.5em;
+  width: 2em;
+  height: 2em;
+  mask: var(--mask-url) 0 0/contain no-repeat;
+}
+

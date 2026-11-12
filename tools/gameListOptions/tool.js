@@ -8,7 +8,7 @@
         name: 'gameListOptions',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove', 'textFilter','showScore'],
+        possibleValues: ['aborted', 'analysis', 'titledOpponents', 'select', 'analysisLink', 'color', 'extraInfo', 'remove', 'textFilter', 'showScore', 'compactView'],
         defaultValue: 'select,analysis,analysisLink,color,aborted,extraInfo,remove',
         advanced: true
       }
@@ -33,12 +33,14 @@
         'gameListOptions.remove': 'Remove games',
         'gameListOptions.textFilter': 'Text filter',
         'gameListOptions.showScore': 'Show game results',
+        'gameListOptions.compactView': 'Compact view',
         'abortedGamesLabel': 'Show aborted:',
         'colorGamesLabel': 'Color by players:',
         'analysedGamesLabel': 'Only analysed:',
         'notAnalysedGamesLabel': 'Only not analysed:',
         'analysisLinkLabel': 'Click to analysis:',
         'titledOpponentsLabel': 'Only titled opponents:',
+        'compactViewLabel': 'Compact',
         'copyGamesButtonTitle': 'Download selected games as PGN',
         'csvGamesButtonTitle': 'Download selected games as CSV',
         'PGNCopiedToClipboard': 'PGN copied to clipboard',
@@ -75,11 +77,13 @@ Warning! If there are many games, Lichess might decide you are abusing their sys
         'gameListOptions.remove': 'Elimin\u0103 jocuri',
         'gameListOptions.textFilter': 'Filtru text',
         'gameListOptions.showScore': 'Arat\u0103 scorul partidelor',
+        'gameListOptions.compactView': 'Vizualizare compact\u0103',
         'abortedGamesLabel': 'Arat\u0103 anulate:',
         'colorGamesLabel': 'Culoare dup\u0103 juc\u0103tori:',
         'analysedGamesLabel': 'Doar analizate:',
         'notAnalysedGamesLabel': 'Doar neanalizate:',
         'titledOpponentsLabel': 'Doar adversari cu titlu:',
+        'compactViewLabel': 'Compact',
         'analysisLinkLabel': 'Click pentru analiz\u0103:',
         'copyGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca PGN',
         'csvGamesButtonTitle': 'Descarc\u0103 jocurile selectate ca CSV',
@@ -125,7 +129,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).attr('href');
-                  return href ? href.substr(1,8) : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let info = new Map();
@@ -142,7 +147,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
               container.find('article:has(.metadata:not(.lichessTools-extraInfo)) .game-row__overlay')
                 .each((i,e)=>{
                   const href = $(e).attr('href');
-                  const gameId = href ? href.substr(1,8) : null;
+                  const gameId = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   const game = info.get(gameId);
                   if (!game) return;
 
@@ -187,7 +192,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  return href ? href.substr(1,8) : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let pgns = '';
@@ -215,7 +221,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  return href?href.substr(1,8):null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
+                  return id || null;
                 })
                 .filter(id=>!!id);
               let pgns = [];
@@ -246,9 +253,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  const id = href
-                    ? href.substr(1,8)
-                    : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   return { id: id, el: $(e).closest('article') };
                 })
                 .filter(item=>!!item.id);
@@ -275,9 +280,7 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
                 .get()
                 .map((e)=>{
                   const href = $(e).next('a').attr('href');
-                  const id = href
-                    ? href.substr(1,8)
-                    : null;
+                  const id = /^(?:\/game)?\/(?<gameId>[^\/#\?]{8})/.exec(href)?.groups?.gameId;
                   return { id: id, el: $(e).closest('article') };
                 })
                 .filter(item=>!!item.id);
@@ -525,6 +528,22 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
           filters.find('#chkColor').trigger('change');
         }
       }
+      if (this.options.compactView) {
+        if (!$(container).find('#chkCompactView').length) {
+          filters
+            .prepend($('<input type="checkbox" id="chkCompactView"/>')
+              .on('change',ev=>{
+                const checked = !!ev.target.checked;
+                lt.storage.set('LiChessTools.gameListOptions.compactView',checked);
+                container.toggleClass('lichessTools-gameListOptions-compactView',checked);
+                $('body').trigger('scroll');
+              })
+              .prop('checked', !!lt.storage.get('LiChessTools.gameListOptions.compactView'))
+            )
+            .prepend($('<label for="chkCompactView"></label>').text(trans.noarg('compactViewLabel')));
+          filters.find('#chkCompactView').trigger('change');
+        }
+      }
       if (this.options.analysisLink) {
         if (!$(container).find('#chkAnalysisLink').length) {
           filters
@@ -590,9 +609,9 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
           const isBlack = $(e).find('.game-row__board .mini-board').is('.orientation-black');
           const elem = $(e).find('a.game-row__overlay');
           const href = elem.attr('href');
-          const m = /^\/(?<gameId>[^\/]+)/.exec(href);
+          const m = /^\/game\/(?<gameId>[^\/]+)/.exec(href);
           const xref = m
-            ? '/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
+            ? '/game/' + m.groups.gameId.slice(0,8) + (isBlack?'/black':'')
             : href;
           elem
             .on('contextmenu',this.rightClickGame)
@@ -647,7 +666,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
         remove: lt.isOptionSet(value, 'remove'),
         textFilter: lt.isOptionSet(value, 'textFilter'),
         showScore: lt.isOptionSet(value, 'showScore'),
-        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove || this.textFilter; }
+        compactView: lt.isOptionSet(value, 'compactView'),
+        get isSet() { return this.aborted || this.color || this.select || this.analysis || this.analysisLink || this.titledOpponents || this.extraInfo || this.remove || this.textFilter || this.compactView; }
       };
       $('div.search__result .lichessTools-gameListOptions').remove();
       $('.lichessTools-gameListOptions-select')
@@ -662,6 +682,8 @@ Aten\u0163ie! Dac\u0103 sunt multe partide, Lichess ar putea considera asta un a
         .removeClass('lichessTools-gameListOptions-analysis')
       $('.lichessTools-gameListOptions-analysisLink')
         .removeClass('lichessTools-gameListOptions-analysisLink')
+      $('.lichessTools-gameListOptions-compactView')
+        .removeClass('lichessTools-gameListOptions-compactView')
       lt.pubsub.off('lichessTools.redraw',this.processLists);
       lt.pubsub.off('lichessTools.contentLoaded',this.processLists);
       if (!this.options.isSet) return;

@@ -110,7 +110,7 @@
               if (!this.wikiUrls_dict)
                 return;
 
-              const plyPrefix = (node) => `${lt.global.Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
+              const plyPrefix = (node) => `${lt.getSanPrefix(node.ply)}${lt.getTurnFromPly(node.ply) == 'black' ? '_' : ''}`;
               const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
               const path = pathParts.join('/').replace(/[+!#?]/g, '') || '';
               if (pathParts.length > 30 || !path || path.length > 255 - 21)

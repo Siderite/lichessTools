@@ -1,7 +1,7 @@
 (() => {
   class ObsIntegrationTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitChapterChange', 'EmitRedraw'];
+    dependencies = ['EmitChapterChange', 'EmitRedraw', 'Dialog'];
 
     preferences = [
       {
@@ -74,16 +74,14 @@
       if (lt.location.hash != '#obsSetup') {
         lt.global.history.replaceState(null, null, '#obsSetup');
       }
-      lichess.asset.loadCssPath('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-obsSetup">')
-        .append(`
-    <div class="close-button-anchor">
-        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration" target="_blank"></a>
-        <button type="button" class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close"/>
-    </div>
-    <div class="scrollable">
-        <div class="dialog-content">
-            <h2></h2>
+      const dialog = await lt.dialog({
+        header: $('<h2>').text(trans.noarg('obsSetupText')),
+        help: 'https://siderite.dev/blog/lichess-tools---user-manual#obsIntegration',
+        noDrag: true
+      });
+      const $dialog = $(dialog)
+        .addClass('lichessTools-obsSetup');
+      $dialog.find('.dialog-content').append(`
             <div class="input-wrapper">
               <div class="mappings"></div>
               <div class="advanced">
@@ -101,11 +99,9 @@
                 <button id="btnSave" type="button" class="btn button"></button>
               </div>
             </div>
-        </div>
-    </div>
-`)
-        .appendTo('body');
-      $('div.dialog-content>h2').text(trans.noarg('obsSetupText'));
+`);
+      dialog.showModal();
+
       $('label[data-for="url"]', dialog).text(trans.noarg('urlInputLabel'));
       $('label[data-for="password"]', dialog).text(trans.noarg('passwordInputLabel'));
       $('input[name="password"] + .togglePassword', dialog)
@@ -174,14 +170,15 @@
     saveSetup = (dialog) => {
       const lt = this.lichessTools;
       const $ = lt.$;
+      const $dialog = $(dialog);
       const setup = {
-        url: dialog.find('input[name="url"]').val(),
-        password: dialog.find('input[name="password"]').val(),
-        connectOptions: dialog.find('input[name="options"]').val(),
+        url: $dialog.find('input[name="url"]').val(),
+        password: $dialog.find('input[name="password"]').val(),
+        connectOptions: $dialog.find('input[name="options"]').val(),
         mappings: {},
         disabled: false
       };
-      dialog.find('.mappings select').each((i, e) => {
+      $dialog.find('.mappings select').each((i, e) => {
         const sceneName = $(e).val();
         if (!sceneName) return;
         setup.mappings[$(e).attr('name')] = sceneName;
@@ -204,7 +201,7 @@
       const defaults = {
         url: 'ws://127.0.0.1:4455',
         password: undefined,
-        options: undefined,
+        connectOptions: undefined,
         mappings: {
         },
         disabled: true
@@ -328,6 +325,7 @@
 
     hashchange = (ev) => {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const dialog = $('dialog.lichessTools-obsSetup');
       if (lt.location.hash == '#obsSetup') {
         if (!dialog.length) {

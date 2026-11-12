@@ -31,6 +31,13 @@ body.lichessTools.mobile:has(.site-buttons div.lichessTools-onlineFriends) #user
   display: inline-block;
 }
 
+
+body.lichessTools #topnav section.lichessTools-onlineFriends {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
 body.lichessTools section.lichessTools-onlineFriends .data-count:after {
   top: 0.5em;
   left: unset;
@@ -55,6 +62,11 @@ body.lichessTools #topnav.hover section.lichessTools-onlineFriends div[role="gro
 
 body.lichessTools #topnav section.lichessTools-onlineFriends a {
   white-space: nowrap;
+}
+
+body.lichessTools #topnav section.lichessTools-onlineFriends div {
+  min-width: 100%;
+  top: 100%;
 }
 
 body.lichessTools #topnav section.lichessTools-onlineFriends>a.lichessTools-somePlaying {

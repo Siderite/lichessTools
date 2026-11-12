@@ -1,5 +1,82 @@
 History of features added to LiChess Tools in time (reversed order)
 
+11 Nov
+
+- Auto evaluate Explorer moves
+
+09 Nov
+
+- trophy cabinet
+- configurable threshold to speak time left
+- option to mute the berserk mode sound
+
+08 Nov
+
+- show material in puzzles
+- upload custom board image
+
+05 Nov
+
+- Records DB tool and study UI
+
+30 Oct
+
+- PGN Editor back to popup mode because of Stockfish
+- chat buttons editor
+- FEN directed distance function
+
+29 Oct
+
+- /page URLs for Preferences and PGN Editor
+
+28 Oct
+
+- dialog revamp
+
+26 Oct
+
+- Neo Angle pieces
+
+22 Oct
+
+- brilliancy Explorer column (hidden when nothing to show)
+- sharpness and brilliancy buttons in Explorer settings
+- /genline command
+
+20 Oct
+
+- position difficulty option in ceval
+- shift-click and shift-g to cycle just brilliant/interesting moves
+- expanded position info
+
+19 Oct
+
+- new friends playing alerts muted by default (preference sets the default state; per-player muted/unmuted stored in local storage)
+- upload image button in inbox chat and biography textareas, opening a file picker next to the paste (mobile browsers get neither paste events nor a clipboard to read)
+
+18 Oct
+
+- Chess Pursuit 2
+
+15 Oct
+
+- highlight pieces to move on second hit after a mistake was made
+- chapter overview panel
+- study stats tool
+- compact game list
+
+14 Oct
+
+- centralized page for chess openings
+
+13 Oct
+
+- flat theme
+- small network status theme
+- variation index tool
+- mute own moves tool
+- keyboard shortcuts for bold/italic in forums
+
 10 Oct
 
 - new brilliant move algorithm

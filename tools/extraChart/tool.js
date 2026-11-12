@@ -158,406 +158,17 @@
       endGame: '#707070'
     };
 
-    pieceMaterial = {
-      'k': 0,
-      'q': 900,
-      'r': 500,
-      'b': 310,
-      'n': 300,
-      'p': 100
-    };
-
     getNodeTurn = (node) => {
-      const isWhite = node.fen
-        ? node.fen.includes(' w ')
-        : node.ply % 2 == 0;
-      return isWhite ? 1 : -1;
+      const lt = this.lichessTools;
+      return lt.getTurnSign(lt.getTurnFromNode(node));
     };
 
-    simpleMaterial = (node, isTotal, side) => {
-      let result = 0;
-      if (!node.fen) return result;
-      const board = node.fen.split(' ')[0];
-      for (const ch of board) {
-        const p = this.pieceMaterial[ch.toLowerCase()];
-        if (p) {
-          const m = ch === ch.toUpperCase() ? 1 : -1;
-          if (!side || side == m) {
-            result += isTotal
-              ? p
-              : m * p;
-          }
-        }
-      }
-      return result;
-    };
-
-    evaluator = LiChessTools.Evaluator
-                  ? new LiChessTools.Evaluator()
-                  : { evaluate: (fen)=>0 };
     heuristic = node => {
-      return this.evaluator.evaluate(node.fen);
+      const co = LiChessTools.chessopsModule;
+      if (!co) return 0;
+      this._valuator ||= new LiChessTools.ChessPositionValuator(co);
+      return this._valuator.evaluate(node.fen);
     }
-
-    onBoard = (x, y) => x >= 0 && x < 8 && y >= 0 && y < 8;
-
-    pieceTension = (x, y, board, withSupport) => {
-      const underAttack = [];
-      const ch = board[y][x];
-      if (!ch) return underAttack;
-      const m = ch === ch.toUpperCase() ? 1 : -1;
-      switch (ch.toLowerCase()) {
-        case 'k':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx && !dy) continue;
-              if (!this.onBoard(x + dx, y + dy)) continue;
-              const pc = board[y + dy][x + dx];
-              if (!pc) continue;
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x + dx,
-                  y: y + dy,
-                  pc: pc
-                });
-              }
-            }
-          }
-          break;
-        case 'q':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx && !dy) continue;
-              const isDiagonal = dx && dy;
-              const isForward = dy === -m;
-              for (let i = 1; i < 8; i++) {
-                if (!this.onBoard(x + dx * i, y + dy * i)) break;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (isDiagonal && pc.toLowerCase() === 'b') continue;
-                  if (!isDiagonal && pc.toLowerCase() === 'r') continue;
-                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
-                    const ppc = this.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'r':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if ((dx && dy) || (!dx && !dy)) continue;
-              for (let i = 1; i < 8; i++) {
-                if (!this.onBoard(x + dx * i, y + dy * i)) break;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (pc.toLowerCase() === 'r') continue;
-                  if (pc.toLowerCase() === 'k') {
-                    const ppc = this.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'b':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx || !dy) continue;
-              const isForward = dy === -m;
-              for (let i = 1; i < 8; i++) {
-                if (!this.onBoard(x + dx * i, y + dy * i)) break;;
-                const pc = board[y + dy * i][x + dx * i];
-                if (!pc) continue;
-                const pm = pc === pc.toUpperCase() ? 1 : -1;
-                if (m != pm) {
-                  underAttack.push({
-                    m: m,
-                    sx: x,
-                    sy: y,
-                    spc: ch,
-                    x: x + dx * i,
-                    y: y + dy * i,
-                    pc: pc
-                  });
-                } else if (withSupport) {
-                  if (pc.toLowerCase() === 'q') continue;
-                  if (pc.toLowerCase() === 'b') continue;
-                  if ((isForward && pc.toLowerCase() === 'p') || pc.toLowerCase() === 'k') {
-                    const ppc = this.onBoard(x + dx * (i + 1), y + dy * (i + 1)) && board[y + dy * (i + 1)][x + dx * (i + 1)];
-                    if (ppc) {
-                      const ppm = ppc === ppc.toUpperCase() ? 1 : -1;
-                      if (m != ppm) {
-                        underAttack.push({
-                          m: m,
-                          sx: x,
-                          sy: y,
-                          spc: ch,
-                          x: x + dx * (i + 1),
-                          y: y + dy * (i + 1),
-                          pc: pc
-                        });
-                      }
-                    }
-                  }
-                }
-                break;
-              }
-            }
-          }
-          break;
-        case 'n':
-          for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-              if (!dx || !dy) continue;
-              if (this.onBoard(x + dx * 1, y + dy * 2)) {
-                const pc = board[y + dy * 2][x + dx * 1];
-                if (pc) {
-                  const pm = pc === pc.toUpperCase() ? 1 : -1;
-                  if (m != pm) {
-                    underAttack.push({
-                      m: m,
-                      sx: x,
-                      sy: y,
-                      spc: ch,
-                      x: x + dx * 1,
-                      y: y + dy * 2,
-                      pc: pc
-                    });
-                  }
-                }
-              }
-              if (this.onBoard(x + dx * 2, y + dy * 1)) {
-                const pc = board[y + dy * 1][x + dx * 2];
-                if (pc) {
-                  const pm = pc === pc.toUpperCase() ? 1 : -1;
-                  if (m != pm) {
-                    underAttack.push({
-                      m: m,
-                      sx: x,
-                      sy: y,
-                      spc: ch,
-                      x: x + dx * 2,
-                      y: y + dy * 1,
-                      pc: pc
-                    });
-                  }
-                }
-              }
-            }
-          }
-          break;
-        case 'p':
-          if (this.onBoard(x - 1, y - m)) {
-            const pc = board[y - m][x - 1];
-            if (pc) {
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x - 1,
-                  y: y - m,
-                  pc: pc
-                });
-              }
-            } else if (board.enpassant && board.enpassant.x == x - 1 && board.enpassant.y == y - m) {
-              const pm = -m;
-              underAttack.push({
-                m: m,
-                sx: x,
-                sy: y,
-                spc: ch,
-                x: x - 1,
-                y: y - m,
-                pc: pm == 1 ? 'P' : 'p'
-              });
-            }
-          }
-          if (this.onBoard(x + 1, y - m)) {
-            const pc = board[y - m][x + 1];
-            if (pc) {
-              const pm = pc === pc.toUpperCase() ? 1 : -1;
-              if (m != pm) {
-                underAttack.push({
-                  m: m,
-                  sx: x,
-                  sy: y,
-                  spc: ch,
-                  x: x + 1,
-                  y: y - m,
-                  pc: pc
-                });
-              }
-            } else if (board.enpassant && board.enpassant.x == x + 1 && board.enpassant.y == y - m) {
-              const pm = -m;
-              underAttack.push({
-                m: m,
-                sx: x,
-                sy: y,
-                spc: ch,
-                x: x + 1,
-                y: y - m,
-                pc: pm == 1 ? 'P' : 'p'
-              });
-            }
-          }
-          break;
-      }
-      return underAttack;
-    };
-
-    tensionCache = new LiChessTools.MaxSizedMap(10000);
-    tension = node => {
-      const fen = node.fen;
-      let result = this.tensionCache.get(fen);
-      if (result) return result;
-      const lt = this.lichessTools;
-      const board = lt.getBoardFromFen(node.fen);
-      const underAttack = [];
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ua = this.pieceTension(x, y, board, true);
-          underAttack.push.apply(underAttack, ua);
-        }
-      }
-      result = [...new Set(underAttack.map(i => i.x + ',' + i.y + '=' + i.pc))]
-                  .map(i => i.split('=')[1].toLowerCase())
-                  .reduce((acc, val) => this.pieceMaterial[val] + acc, 0);
-      this.tensionCache.set(fen,result);
-      return result;
-    };
-
-    capturingMoveCache = new LiChessTools.MaxSizedMap(10000);
-    getAllCapturingMoves = (board) => {
-      const lt = this.lichessTools;
-      const fen = lt.getFenFromBoard(board);
-      let result = this.capturingMoveCache.get(fen);
-      if (result) return result;
-      result = [];
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ua = this.pieceTension(x, y, board, false);
-          result.push.apply(result, ua);
-        }
-      }
-      this.capturingMoveCache.set(fen,result);
-      return result;
-    };
-
-    materialWonCache = new LiChessTools.MaxSizedMap(10000);
-    materialWon = (board, x, y) => {
-      const lt = this.lichessTools;
-      const Math = lt.global.Math;
-      const key = [lt.getFenFromBoard(board),x,y].join('|');
-      let result = this.materialWonCache.get(key);
-      if (result) return result;
-      board = lt.clone(board);
-      const ch = board[y][x];
-      if (!ch) return 0;
-      const side = ch === ch.toUpperCase() ? -1 : 1;
-      const moves = this.getAllCapturingMoves(board)
-        .filter(m => m.x == x && m.y == y && m.m == side)
-        .sort((m1, m2) => this.pieceMaterial[m1.spc.toLowerCase()] - this.pieceMaterial[m2.spc.toLowerCase()]);
-      const move = moves[0];
-      if (!move) return 0;
-      result = this.pieceMaterial[ch.toLowerCase()] * side; //capture piece
-      board[y][x] = move.spc;
-      board[move.sy][move.sx] = null;
-      result += this.materialWon(board, x, y);
-      result = Math.sign(result) != side ? 0 : result;
-      this.materialWonCache.set(key,result);
-      return result;
-    };
-
-    maxMaterialWonCache = new LiChessTools.MaxSizedMap(10000);
-    maxMaterialWon = (board, m) => {
-      const lt = this.lichessTools;
-      const Math = lt.global.Math;
-      const key = [lt.getFenFromBoard(board),m].join('|');
-      let result = this.maxMaterialWonCache.get(key);
-      if (result) return result;
-      let mx = 0;
-      for (let y = 0; y < 8; y++) {
-        for (let x = 0; x < 8; x++) {
-          const ch = board[y][x];
-          if (!ch) continue; // no piece
-          const pm = ch === ch.toUpperCase() ? 1 : -1;
-          if (pm == m) continue; // wrong turn
-          const mw = this.materialWon(board, x, y);
-          if (Math.sign(mw) == m && Math.abs(mw) > mx) {
-            mx = Math.abs(mw);
-          }
-        }
-      }
-      result = mx * m;
-      this.maxMaterialWonCache.set(key, result);
-      return result;
-    };
 
     smooth = (points) => {
       return points;
@@ -580,14 +191,19 @@
       return toRemove.length?this.smooth(points):points;*/
     }
 
+    chartSigmoid = (x) => {
+      const Math = this.lichessTools.global.Math;
+      return 2 / (1 + Math.exp(-0.004 * x)) - 1;
+    };
+
     getMaterialData = (mainline) => {
       const lt = this.lichessTools;
       const Math = lt.global.Math;
       return mainline
         .map((node, x) => {
-          const cp = this.simpleMaterial(node);
+          const cp = LiChessTools.ChessMetrics.simpleMaterial(node);
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply
           };
         });
@@ -599,11 +215,11 @@
       return mainline
         .map((node, x) => {
           const evl = this.heuristic(node);
-          const mat = this.simpleMaterial(node)
+          const mat = LiChessTools.ChessMetrics.simpleMaterial(node)
           let val = evl - mat;
           const cp = val * 2;
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply
           };
         })
@@ -612,7 +228,7 @@
 
     getCp = (evl, side = 1) => {
       const lt = this.lichessTools;
-      return lt.getCentipawns(evl) * side;
+      return LiChessTools.ChessMetrics.getCentipawnOnlyValue(evl) * side;
     };
 
     getLocalData = (mainline) => {
@@ -630,7 +246,7 @@
           if (!ceval) return null;
           const cp = this.getCp(ceval);
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply,
             path: path
           };
@@ -650,7 +266,7 @@
           const cps = node.ceval.pvs.slice(1).map(pv=>this.getCp(pv));
           const cp = cps.reduce((a,v)=>a+v,0)/cps.length;
           return {
-            y: 2 / (1 + Math.exp(-0.004 * cp)) - 1,
+            y: this.chartSigmoid(cp),
             x: node.ply,
             path: path
           };
@@ -694,8 +310,8 @@
           const evl = this.getNodeCeval(node);
           if (!evl) return null;
           const cp = this.getCp(evl, side);
-          const winPerc = lt.winPerc(cp);
-          const accuracy = lt.accuracy(prevWinPerc, winPerc);
+          const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
+          const accuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(prevWinPerc, winPerc);
           prevWinPerc = winPerc;
           const val = Math.max(Math.min(accuracy, 100), 0) / 50 - 1;
           prevVal = val;
@@ -719,7 +335,7 @@
           if (total == 0) return null;
           const q = 1000 / total;
           const [w, d, l] = [explorerItem.white * q, Math.max(explorerItem.draws, 1) * q, explorerItem.black * q];
-          const sharpness = Math.round(Math.min(w, l) / 50 * 333 / d * 1 / (1 + Math.exp(-(w + l) / 1000)));
+          const sharpness = LiChessTools.Scoring.wdlToSharpness(w, d, l);
           const val = Math.min(sharpness / 100, 0.9);
           return {
             y: val,
@@ -732,7 +348,7 @@
     getCoordData = (mainline) => {
       const lt = this.lichessTools;
       const analysis = lt.lichess.analysis;
-      this.coordinationCalculator ||= new CoordinationCalculator();
+      this.coordinationCalculator ||= new LiChessTools.CoordinationCalculator();
       return mainline
         .map((node, x) => {
           const coordination = this.coordinationCalculator.getCoordination(node.fen);
@@ -809,7 +425,7 @@
         .map((node, x) => {
           const index = evalData.findIndex(i => i.x == x);
           return {
-            y: index >= 0 ? allScores[index] / (M * 7) : 0,
+            y: index >= 0 ? Math.max(Math.min(allScores[index] / (M * 7), 1), -1) : 0,
             x: x
           };
         });
@@ -854,8 +470,8 @@
       const cp1 = this.getCp(this.getNodeCeval(node));
       const cp2 = this.getCp(this.getNodeCeval(prevNode));
       if (cp1 === undefined || cp2 === undefined) return;
-      const w1 = lt.winPerc(cp1);
-      const w2 = lt.winPerc(cp2);
+      const w1 = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp1);
+      const w2 = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp2);
       return (w1 - w2) * side;
     }
 
@@ -913,7 +529,7 @@
         .map((node, x) => {
           try {
             let result = null;
-            if (lt.isMate(node) || p2 === undefined) return result;
+            if (LiChessTools.ChessMetrics.isSanMate(node) || p2 === undefined) return result;
             const m = -this.getNodeTurn(node);
             const good = this.computeGood(m, node, p2);
             const bril = this.computeBrilliant(node, p2, p3, co);
@@ -998,8 +614,8 @@
       let maxX = 0;
       mainline
         .forEach((node, x) => {
-          const tension = this.tension(node);
-          const totalMaterial = this.simpleMaterial(node, true);
+          const tension = LiChessTools.ChessMetrics.tension(node, this.lichessTools);
+          const totalMaterial = LiChessTools.ChessMetrics.simpleMaterial(node, true);
           if (maxT < tension || (maxT == tension && maxM < totalMaterial)) {
             maxT = tension;
             maxX = node.ply;
@@ -1011,85 +627,16 @@
 
     getGamePhases = (mainline) => {
       const lt = this.lichessTools;
-      const Math = lt.global.Math;
       let middleGame = 0;
       let endGame = 0;
 
-      const majorsAndMinors = (board) => {
-        return board
-                 .flat()
-                 .filter(p=>'rnbq'.includes(p.toLowerCase()))
-                 .length;
-      };
-
-      const backrankSparse = (board) => {
-        return board[0].filter(p=>p).length<4
-               || board[7].filter(p=>p).length<4;
-      };
-
-      const score = (y) => {
-        return (white, black) => {
-          const w = Number(white);
-          const b = Number(black);
-
-          switch (true) {
-            case w === 0 && b === 0: return 0;
-            case w === 1 && b === 0: return 1 + (8 - y);
-            case w === 2 && b === 0: return y > 2 ? 2 + (y - 2) : 0;
-            case w === 3 && b === 0: return y > 1 ? 3 + (y - 1) : 0;
-            case w === 4 && b === 0: return y > 1 ? 3 + (y - 1) : 0; // group of 4 on homerow = 0
-            case w === 0 && b === 1: return 1 + y;
-            case w === 1 && b === 1: return 5 + Math.abs(4 - y);
-            case w === 2 && b === 1: return 4 + (y - 1);
-            case w === 3 && b === 1: return 5 + (y - 1);
-            case w === 0 && b === 2: return y < 6 ? 2 + (6 - y) : 0;
-            case w === 1 && b === 2: return 4 + (7 - y);
-            case w === 2 && b === 2: return 7;
-            case w === 0 && b === 3: return y < 7 ? 3 + (7 - y) : 0;
-            case w === 1 && b === 3: return 5 + (7 - y);
-            case w === 0 && b === 4: return y < 7 ? 3 + (7 - y) : 0;
-            default: return 0;
-          }
-        };
-      };
-
-      const mixednessRegions = [];
-      for (let y = 0; y <= 6; ++y) {
-        for (let x = 0; x <= 6; ++x) {
-          mixednessRegions.push({ x, y });
-        }
-      }
-
-      const countInSquare = (board, topX, topY) => {
-        let white = 0, black = 0;
-        for (let dy = 0; dy < 2; ++dy) {
-          for (let dx = 0; dx < 2; ++dx) {
-            const piece = board[topY + dy][topX + dx];
-            if (!piece) continue;
-            if (piece === piece.toUpperCase()) ++white;
-            else                               ++black;
-          }
-        }
-        return [white, black];
-      }
-
-      const mixedness = (board) => {
-        return mixednessRegions.reduce((acc, region) => {
-          const [w, b] = countInSquare(board, region.x, region.y);
-          return acc + score(7-region.y)(w, b);
-        }, 0);
-      };
-
       for (const node of mainline) {
-        const board = lt.getBoardFromFen(node.fen);
-        const mm = majorsAndMinors(board);
-        const bs = backrankSparse(board);
-        const mx = mixedness(board);
-        if (!middleGame && (mm <= 10 || bs || mx > 150)) {
+        const phase = LiChessTools.ChessMetrics.getGamePhase(node.fen, lt);
+        if (!middleGame && (phase === 'middleGame' || phase === 'endGame')) {
           middleGame = node.ply;
           continue;
         }
-        if (middleGame && mm <= 6) {
+        if (middleGame && phase === 'endGame') {
           endGame = node.ply;
           break;
         }
@@ -1109,7 +656,7 @@
         .forEach((node, x) => {
           const board = lt.getBoardFromFen(node.fen);
           const m = this.getNodeTurn(node);
-          const maxMaterial = Math.abs(this.maxMaterialWon(board, m));
+          const maxMaterial = Math.abs(LiChessTools.ChessMetrics.maxMaterialWon(board, m, lt));
           if (maxM < maxMaterial) {
             maxM = maxMaterial;
             maxX = node.ply;
@@ -1166,7 +713,7 @@
               .attr('title', trans.noarg('goodMovesTitle'))
               .on('click', (ev) => {
                 ev.preventDefault();
-                lt.jumpToGlyphSymbols(this.options.moreBrilliant ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
+                lt.jumpToGlyphSymbols(ev.shiftKey ? ['!?', '!!'] : ['!', '!?', '!!', lt.icon.WhiteStar], color);
               })
               .on('pointermove', (ev) => {
                 const chart = this._chart;
@@ -1305,7 +852,19 @@
     };
 
     prevBrilliant = null;
+    _generateChartsRunning = false;
+
     generateCharts = async (forced) => {
+      if (this._generateChartsRunning) return;
+      this._generateChartsRunning = true;
+      try {
+        return await this.generateChartsInternal(forced);
+      } finally {
+        this._generateChartsRunning = false;
+      }
+    };
+
+    generateChartsInternal = async (forced) => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
@@ -1968,7 +1527,7 @@
         }
       }
 
-      let middleGameText = lt.global.i18n?.site?.middlegame;
+      let middleGameText = trans.noarg('middlegame');
       if (!middleGameText) {
         lt.global.console.warn('Could not determine middlegame translation string!');
         middleGameText = 'Middlegame';
@@ -2025,7 +1584,7 @@
         }
       }
 
-      let endGameText = lt.global.i18n?.site?.endgame
+      let endGameText = trans.noarg('endgame');
       if (!endGameText) {
         lt.global.console.warn('Could not determine endgame translation string!');
         endGameText = 'Endgame';
@@ -2126,11 +1685,11 @@
 
       if (!lt.inViewport(container)) return;
 
-      const mat = this.simpleMaterial(node);
-      const material = 2 / (1 + Math.exp(-0.004 * mat)) - 1;
+      const mat = LiChessTools.ChessMetrics.simpleMaterial(node);
+      const material = this.chartSigmoid(mat);
       const evl = this.heuristic(node);
       const val = (evl - mat) * 2;
-      const principled = 2 / (1 + Math.exp(-0.004 * val)) - 1;
+      const principled = this.chartSigmoid(val);
       let matElem = $('tick.lichessTools-material', container);
       if (!matElem.length) {
         matElem = $('<tick>')
@@ -2151,7 +1710,11 @@
 
     setChart = chart => {
       this._chart = chart;
-      chart.options.plugins.tooltip = { ...chart.options.plugins.tooltip, filter: t => t.datasetIndex === 0 };
+      if (chart?.options?.plugins?.tooltip) {
+        chart.options.plugins.tooltip.filter = (t)=>t.datasetIndex === 0;
+      } else {
+        chart.options.plugins.tooltip = { filter: t => t.datasetIndex === 0 };
+      }
       this.generateCharts();
     };
 
@@ -2163,7 +1726,9 @@
       m.acpl = lt.wrapFunction(m.acpl, {
         id: 'extraChart',
         after: ($this, res) => {
+          if (this._chart) return;
           res?.then(chart => {
+            if (chart?.canvas && $(chart.canvas).closest('dialog').length) return;
             this.setChart(chart);
           });
         }
@@ -2171,6 +1736,19 @@
     };
 
     forceGenerateCharts = () => this.generateCharts(true);
+
+    // issue #1864: redraw fires on every ply / analysis.change / chat.resize / board class
+    // change, so calling generateCharts(true) on each one would be very expensive. Only
+    // recompute when the analysis orientation actually flipped; the 1 s poll still picks
+    // up any other change (mainline edits, ceval updates) at its own pace.
+    handleFlipRedraw = () => {
+      const analysis = this.lichessTools?.lichess?.analysis;
+      if (!analysis) return;
+      const orientation = analysis.getOrientation?.();
+      if (orientation == this.lastOrientation) return;
+      this.lastOrientation = orientation;
+      this.forceGenerateCharts();
+    };
 
     calculateAccuracy = (nodes, startPly, endPly) => {
       const lt = this.lichessTools;
@@ -2183,7 +1761,7 @@
         const evl = this.getNodeCeval(node);
         if (evl) {
           const cp = this.getCp(evl, 1);
-          initialWinPerc = lt.winPerc(cp);
+          initialWinPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
         }
       } 
 
@@ -2220,7 +1798,7 @@
           const evl = this.getNodeCeval(node);
           if (!evl) return;
           const cp = this.getCp(evl, 1);
-          const winPerc = lt.winPerc(cp);
+          const winPerc = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
           return { turn: turn, winPerc: winPerc }
         })
         .filter(wp=>wp!==undefined);
@@ -2261,7 +1839,7 @@
          ? [ next.winPerc , prev.winPerc]
          : [ prev.winPerc , next.winPerc];
 
-        const accuracy = lt.accuracy(expected, played);
+        const accuracy = LiChessTools.ChessMetrics.winDeltaToAccuracy(expected, played);
 
         weightedAccuracies.push({ accuracy, weight, color: prev.turn });
       }
@@ -2295,7 +1873,7 @@
       const $ = lt.$;
       const trans = lt.translator;
       const isWhite = $(el).closest('.advice-summary__side').has('.is.white').length ? 1 : 0;
-      const localLine = this.getLocalLine().filter(n=>n.ply && (n.ply % 2) == isWhite);
+      const localLine = this.getLocalLine().filter(n=>n.ply && lt.getMoverFromNode(n) == (isWhite ? 'white' : 'black'));
       if (!localLine.length) return;
       const dict = new Map();
       for (const node of localLine) {
@@ -2462,6 +2040,21 @@
       if (this.options.brilliant) {
         lt.pubsub.on('lichessTools.chapterChange', this.forceGenerateCharts);
       }
+      // issue #1864: flipping the board fires lichessTools.redraw (via analysis.redraw /
+      // analysis.reloadData / the .cg-wrap orientation class check in emitRedraw). Without
+      // this hook the accuracy and brilliance lines only re-derive when the 1 s polling tick
+      // happens to force the regeneration, so the chart looks stale until up to ~1 s later.
+      // Do NOT force a regeneration on every redraw - ply / analysis.change / chat.resize
+      // fire it constantly. handleFlipRedraw below only calls forceGenerateCharts when the
+      // analysis orientation actually differs from the value we recorded last, so the extra
+      // work is bounded to one recompute per flip.
+      lt.pubsub.off('lichessTools.redraw', this.handleFlipRedraw);
+      if (this.options.needsChart) {
+        this.lastOrientation = lichess?.analysis?.getOrientation?.();
+        lt.pubsub.on('lichessTools.redraw', this.handleFlipRedraw);
+      } else {
+        this.lastOrientation = null;
+      }
 
       $('main.analyse').observer()
         .off('.advice-summary__accuracy,.analyse__underboard,.analyse__round-training',this.initAccuracyPlus);
@@ -2474,412 +2067,6 @@
     }
 
   }
-
-  class CoordinationCalculator {
-  MOVE_CAP = 3; // treat up to 3 moves as their real cost
-  ISOLATED_PENALTY = 5; // anything >MOVE_CAP or unreachable => this penalty
-
-  fenToBoardCache = new LiChessTools.MaxSizedMap(10000);
-  parseFEN(fen) {
-    let board = this.fenToBoardCache.get(fen);
-    if (board) return board.map(r => r.slice()); // clone
-    const rows = fen.split(" ")[0].split("/");
-    board = Array.from({ length: 8 }, () => Array(8).fill(null));
-    for (let r = 0; r < 8; r++) {
-      let c = 0;
-      for (const ch of rows[r]) {
-        if (/\d/.test(ch)) {
-          c += Number(ch);
-        } else {
-          const isWhite = ch === ch.toUpperCase();
-          board[r][c++] = {
-            type: ch.toLowerCase(),
-            color: isWhite ? "w" : "b",
-          };
-        }
-      }
-    }
-    this.fenToBoardCache.set(fen,board);
-    return board;
-  }
-
-  inBounds(r, c) {
-    return r >= 0 && r < 8 && c >= 0 && c < 8;
-  }
-
-  squareAttackedBy(board, r, c, color) {
-    const attacks = [];
-
-    const directions = {
-      n: [
-        [-2, -1],
-        [-2, 1],
-        [-1, -2],
-        [-1, 2],
-        [1, -2],
-        [1, 2],
-        [2, -1],
-        [2, 1],
-      ],
-      b: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-      ],
-      r: [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-      q: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-      k: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-    };
-
-    const forward = color === "w" ? -1 : 1;
-
-    const pushAttack = (rr, cc) => {
-      if (this.inBounds(rr, cc)) attacks.push([rr, cc]);
-    };
-
-    if (board[r][c]?.type === "p") {
-      pushAttack(r + forward, c - 1);
-      pushAttack(r + forward, c + 1);
-      return attacks;
-    }
-
-    if (board[r][c]?.type === "n") {
-      for (const [dr, dc] of directions.n) {
-        pushAttack(r + dr, c + dc);
-      }
-      return attacks;
-    }
-
-    if (board[r][c]?.type === "k") {
-      for (const [dr, dc] of directions.k) {
-        pushAttack(r + dr, c + dc);
-      }
-      return attacks;
-    }
-
-    const isB = board[r][c]?.type === "b";
-    const isR = board[r][c]?.type === "r";
-    const isQ = board[r][c]?.type === "q";
-
-    const dirs = [];
-    if (isB || isQ) dirs.push(...directions.b);
-    if (isR || isQ) dirs.push(...directions.r);
-
-    for (const [dr, dc] of dirs) {
-      let rr = r + dr,
-        cc = c + dc;
-      while (this.inBounds(rr, cc)) {
-        pushAttack(rr, cc);
-        if (board[rr][cc] !== null) break;
-        rr += dr;
-        cc += dc;
-      }
-    }
-
-    return attacks;
-  }
-
-  computeControlMap(board, color) {
-    const control = Array.from({ length: 8 }, () => Array(8).fill(false));
-    for (let r = 0; r < 8; r++) {
-      for (let c = 0; c < 8; c++) {
-        if (board[r][c]?.color === color) {
-          const attacks = this.squareAttackedBy(board, r, c, color);
-          for (const [rr, cc] of attacks) control[rr][cc] = true;
-        }
-      }
-    }
-    return control;
-  }
-
-  movementTargets(board, r, c, control) {
-    const piece = board[r][c];
-    if (!piece) return [];
-
-    const color = piece.color;
-    const type = piece.type;
-
-    const results = [];
-
-    const tryPush = (rr, cc) => {
-      if (!this.inBounds(rr, cc)) return;
-      if (board[rr][cc] !== null) return; 
-      if (!control[rr][cc]) return;
-      results.push([rr, cc]);
-    };
-
-    const directions = {
-      n: [
-        [-2, -1],
-        [-2, 1],
-        [-1, -2],
-        [-1, 2],
-        [1, -2],
-        [1, 2],
-        [2, -1],
-        [2, 1],
-      ],
-      b: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-      ],
-      r: [
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-      q: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-      k: [
-        [-1, -1],
-        [-1, 1],
-        [1, -1],
-        [1, 1],
-        [-1, 0],
-        [1, 0],
-        [0, -1],
-        [0, 1],
-      ],
-    };
-
-    if (type === "n") {
-      for (const [dr, dc] of directions.n) tryPush(r + dr, c + dc);
-      return results;
-    }
-
-    if (type === "k") {
-      for (const [dr, dc] of directions.k) tryPush(r + dr, c + dc);
-      return results;
-    }
-
-    if (type === "b" || type === "r" || type === "q") {
-      const dirs = [];
-      if (type !== "r") dirs.push(...directions.b);
-      if (type !== "b") dirs.push(...directions.r);
-
-      for (const [dr, dc] of dirs) {
-        let rr = r + dr,
-          cc = c + dc;
-        while (this.inBounds(rr, cc)) {
-          if (board[rr][cc] !== null) break;
-          if (control[rr][cc]) results.push([rr, cc]);
-          rr += dr;
-          cc += dc;
-        }
-      }
-      return results;
-    }
-
-    return [];
-  }
-
-  bfsDistances(board, startR, startC, control) {
-    const dist = Array.from({ length: 8 }, () => Array(8).fill(Infinity));
-    const queue = [[startR, startC]];
-    dist[startR][startC] = 0;
-
-    while (queue.length) {
-      const [r, c] = queue.shift();
-      const d = dist[r][c];
-      const moves = this.movementTargets(board, r, c, control);
-      for (const [rr, cc] of moves) {
-        if (dist[rr][cc] > d + 1) {
-          dist[rr][cc] = d + 1;
-          queue.push([rr, cc]);
-        }
-      }
-    }
-
-    return dist;
-  }
-
-  computeConnectionMetric(fen) {
-    const board = this.parseFEN(fen);
-
-    const pieces = [];
-    for (let r = 0; r < 8; r++)
-      for (let c = 0; c < 8; c++)
-        if (board[r][c] && board[r][c].type !== "p")
-          pieces.push({ r, c, color: board[r][c].color });
-
-    const controlW = this.computeControlMap(board, "w");
-    const controlB = this.computeControlMap(board, "b");
-
-    const cost = [];
-
-    for (let i = 0; i < pieces.length; i++) {
-      const { r, c, color } = pieces[i];
-      const control = color === "w" ? controlW : controlB;
-
-      const dist = this.bfsDistances(board, r, c, control);
-
-      let best = Infinity;
-      for (let j = 0; j < pieces.length; j++) {
-        if (i === j) continue;
-        if (pieces[j].color !== color) continue;
-        const { r: rr, c: cc } = pieces[j];
-
-        const defending = this.detectMutualOrReachableDefense(
-          board,
-          pieces[i],
-          pieces[j],
-          dist,
-          color
-        );
-        if (defending < best) best = defending;
-      }
-
-      cost.push({
-        piece: pieces[i],
-        cost: best,
-      });
-    }
-
-    return cost;
-  }
-
-  detectMutualOrReachableDefense(board, A, B, distA, color) {
-    const immediateA = this.squareAttackedBy(board, B.r, B.c, color).some(
-      ([rr, cc]) => rr === A.r && cc === A.c
-    );
-    if (immediateA) return 0;
-
-    const attackSquares = this.squareAttackedBy(board, B.r, B.c, color);
-    let best = Infinity;
-    for (const [rr, cc] of attackSquares) {
-      if (distA[rr][cc] < best) best = distA[rr][cc];
-    }
-    return best;
-  }
-
-  computeConnectivityScoreCapped(fen) {
-    const board = this.parseFEN(fen);
-
-    const whitePieces = [];
-    const blackPieces = [];
-    for (let r = 0; r < 8; r++) {
-      for (let c = 0; c < 8; c++) {
-        if (board[r][c] && board[r][c].type !== "p") {
-          const entry = { r, c };
-          (board[r][c].color === "w" ? whitePieces : blackPieces).push(entry);
-        }
-      }
-    }
-
-    const controlW = this.computeControlMap(board, "w");
-    const controlB = this.computeControlMap(board, "b");
-
-    const scoreWhiteSum = this.computeSideScoreCapped(
-      board,
-      whitePieces,
-      controlW,
-      "w"
-    );
-    const scoreBlackSum = this.computeSideScoreCapped(
-      board,
-      blackPieces,
-      controlB,
-      "b"
-    );
-
-    const scoreWhiteAvg = whitePieces.length
-      ? scoreWhiteSum / whitePieces.length
-      : 0;
-    const scoreBlackAvg = blackPieces.length
-      ? scoreBlackSum / blackPieces.length
-      : 0;
-
-    return {
-      white: {
-        sum: scoreWhiteSum,
-        avg: scoreWhiteAvg,
-        pieces: whitePieces.length,
-      },
-      black: {
-        sum: scoreBlackSum,
-        avg: scoreBlackAvg,
-        pieces: blackPieces.length,
-      },
-    };
-  }
-
-  computeSideScoreCapped(board, pieces, control, color) {
-    let sum = 0;
-
-    for (let i = 0; i < pieces.length; i++) {
-      const A = pieces[i];
-
-      const dist = this.bfsDistances(board, A.r, A.c, control);
-
-      let best = Infinity;
-
-      for (let j = 0; j < pieces.length; j++) {
-        if (i === j) continue;
-        const B = pieces[j];
-        if (board[B.r][B.c] && board[B.r][B.c].color !== color) continue;
-
-        const cost = this.detectMutualOrReachableDefense(
-          board,
-          A,
-          B,
-          dist,
-          color
-        );
-
-        if (cost < best) best = cost;
-      }
-
-      if (best === Infinity || best > this.MOVE_CAP)
-        sum += this.ISOLATED_PENALTY;
-      else sum += best;
-    }
-
-    return sum;
-  }
-
-  getCoordination(fen) {
-    const result = this.computeConnectivityScoreCapped(fen);
-    const whiteVal = (5 - result.white.avg) * result.white.pieces;
-    const blackVal = (5 - result.black.avg) * result.black.pieces;
-    const coordination = (Math.min(50, whiteVal) - Math.min(50, blackVal))*2;
-    return coordination;
-  }
-}
 
   LiChessTools.Tools.ExtraChart = ExtraChartTool;
 })();

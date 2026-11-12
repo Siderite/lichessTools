@@ -74,7 +74,6 @@
       const analysis = lichess.analysis;
       if (!analysis) return;
       const Math = lt.global.Math;
-      const navigator = lt.global.navigator;
       const trans = lt.translator;
 
       function fixCrazySan(san) {
@@ -84,7 +83,7 @@
 
       function plyPrefix(node) {
         if (!options.exportPly) return '';
-        return `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
+        return lt.getSanPrefix(node.ply, ' ');
       }
 
       function centisecondsToClock(cs) {
@@ -155,7 +154,7 @@
           };
           groups.push(group);
         }
-        const evl = node.ceval || node.eval;
+        const evl = lt.getNodeCeval(node);
         if (options.exportEval && evl) {
           const group = {
             type: 'eval',
@@ -207,15 +206,15 @@
 
         const first = node.children[0];
         first.path = node.path + first.id;
-        const isBlackTurn = first.ply % 2 === 1;
-        if (forcePly || isBlackTurn) s += plyPrefix(first);
+        const moverIsWhite = lt.getMoverFromNode(first) === 'white';
+        if (forcePly || moverIsWhite) s += plyPrefix(first);
         s += fixCrazySan(first.san);
 
         s += renderGlyphs(first);
         s += renderComments(first);
 
         const metaTokens = [];
-        metaTokens.push(isBlackTurn?'$white':'$black');
+        metaTokens.push(moverIsWhite?'$white':'$black');
         if (!first.children?.length) {
           metaTokens.push('$leaf');
         }
@@ -243,7 +242,7 @@
 
         for (let i = 1; i < node.children.length; i++) {
           const child = node.children[i];
-          child.id = node.path + child.id;
+          child.path = node.path + child.id;
           s += ` (${plyPrefix(child)}${fixCrazySan(child.san)}`;
           s += renderGlyphs(child);
           s += renderComments(child);
@@ -367,7 +366,7 @@
           addTag(tags, 'StartFlipped', '1');
           addTag(tags, 'Orientation', 'Black');
         }
-        if (varNode?.fen && !lt.isStartFen(varNode.fen)) {
+        if (varNode?.fen && !LiChessTools.ChessMetrics.isStartFen(varNode.fen)) {
           addTag(tags, 'FEN', varNode.fen);
           if (options.exportTags) {
             addTag(tags, 'SetUp', '1');

@@ -26,7 +26,13 @@ The tool adds a button labeled "Calculation" in the top navigation bar (`#topnav
 ## Dialog Behavior
 
 When clicked, opens a resizable dialog with header "Calculation Trainer" and no scrollable content. The dialog:
-- Can be placed at custom positions (left/right/top/bottom) via `lichessTools.setDialogPlacement` pubsub event
+- Can be placed at custom positions (left/right/top/bottom) and given a size (width/height) via the
+  `lichessTools.setDialogPlacement` pubsub event - the event carries the dialog's own box and the room
+  its content was given (contentWidth/contentHeight) as px strings. The datum names a centre from the
+  nearer edge, and the -50% centring transform only compensates for `left`/`top`, so the saved placement
+  is converted back to a centre (left ?? innerWidth - right), clamped to half a box inside the viewport
+  so a reopened dialog lands whole on the screen, and written as left/top with the opposite edges unset,
+  the size, the min/max at their initial values, and the content pair onto `.dialog-content`
 - On close: cancels any pending Stockfish evaluation request and resets board to current position
 
 ## Training Interface (`trainPosition`)

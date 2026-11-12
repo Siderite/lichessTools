@@ -1,8 +1,6 @@
 (() => {
   class MainPageElementsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['DetectThirdParties','ChessOps'];
-
     preferences = [
       {
         name: 'mainPageElements',
@@ -157,7 +155,7 @@
         $('.lichessTools-recentGames').remove();
         const userId = lt.getUserId();
         if (userId && this.options.recentGames) {
-          const playAgainstComputerTitle = lt.global.i18n?.site?.playAgainstComputer || null;
+          const playAgainstComputerTitle = trans.noarg('playAgainstComputer');
           if (!playAgainstComputerTitle) {
             lt.global.console.warn('Could not determine playAgainstComputer translation string!');
           }
@@ -186,7 +184,7 @@
             const [opponentRating, yourRating, deltaRating] = userWhite 
               ? [+game.players?.black?.rating || '',+game.players?.white?.rating || '',+game.players?.white?.ratingDiff || '']
               : [+game.players?.white?.rating || '',+game.players?.black?.rating || '',+game.players?.black?.ratingDiff || ''];
-            const href = '/' + id + (userWhite?'':'/black');
+            const href = '/game/' + id + (userWhite?'':'/black');
             const winner = game.winner;
             let resultClass = '';
             if (winner === 'white') resultClass = userWhite?'win':'loss';
@@ -285,6 +283,8 @@
       const lt = this.lichessTools;
       const lichess = lt.lichess;
       const $ = lt.$;
+      const console = lt.global.console;
+      const Intl = lt.global.Intl;
       const trans = lt.translator;
       const countersElem = $('.lobby__counters');
       if (!countersElem.length) return;
@@ -428,8 +428,8 @@
       if (this.options.extraCounters) {
         this.extraCountersTimeout = lt.global.setTimeout(this.updateCounters,1000);
       }
+      $(lt.global).off('hashchange', this.hashChange);
       if (!this.options.app) {
-        $(lt.global).off('hashchange', this.hashChange);
         $(lt.global).on('hashchange', this.hashChange);
       }
       this.applyLobbyElements();

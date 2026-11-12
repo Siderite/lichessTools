@@ -22,7 +22,7 @@
           const sendResponse = this.sendResponses.get(detail?.uid);
           if (sendResponse) {
             this.sendResponses.delete(detail.uid);
-            sendResponse(detail);
+            sendResponse(Array.isArray(detail?.result) ? detail.result : detail);
           }
         });
         lt.cache.memoizeAsyncFunction(lt.comm, 'getDataUrl', { persist: 'session', interval: 1 * 86400 * 1000, resultFilter: (r)=>r?.dataUrl });

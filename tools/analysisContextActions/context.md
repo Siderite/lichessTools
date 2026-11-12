@@ -11,6 +11,8 @@ The **AnalysisContextActionsTool** adds extra options to the analysis/study tree
 - `ExportPGN` — used to export/copy branch as PGN
 - `DetectThirdParties` — dependency
 - `Dialog` — used for position info dialog display
+- `Stockfish` — local engine wrapper (`lt.stockfish`) used by the engine rows of the position info dialog
+- `ChessOps` — chessops module (`LiChessTools.chessopsModule`), used for SAN conversion, mobility and metric inputs
 
 ## Preferences
 
@@ -28,6 +30,14 @@ The **AnalysisContextActionsTool** adds extra options to the analysis/study tree
 - **possibleValues**: `[0, 1, 2, 3, 4, 5]`
 - **defaultValue**: `0` (disabled)
 - **advanced**: `true`
+
+### Tertiary Preference (Advanced)
+- **name**: `analysisContextActionsEngineDepth`
+- **category**: `analysis`
+- **type**: `number`
+- **defaultValue**: `12`
+- **advanced**: `true`
+- Search depth used by the engine rows of the Position Info dialog; `0` disables every engine row (page cloud eval / Explorer fallbacks still shown where available).
 
 ## Menu Items Added
 
@@ -93,13 +103,44 @@ The **AnalysisContextActionsTool** adds extra options to the analysis/study tree
 
 ### Position Info (`positionInfo`)
 - Adds a menu item "Position info" to the analysis context menu.
-- When clicked, shows a dialog with information about the selected position:
-  - **Ply**: half-move number
-  - **Moves so far**: full move count (ply/2)
-  - **Following main moves**: count of mainline children recursively
-  - **Following total moves**: count of all children recursively
-  - **Following branches**: count of sideline branches recursively
-- If `positionInfoCoverageDepth` preference is set (>0) and in a study with Explorer enabled: additionally shows tree coverage percentage computed via `computeTreeCoverage`.
+- **Cheat-risk rows are hidden in a live game / when static analysis is off** — the flag is
+  `hidePositionMetrics = lt.isGamePlaying() || $.cached('body').is('.playing') || gameOngoing || (showStaticAnalysis === false && !analysis?.cevalEnabled())`
+  with `showStaticAnalysis = analysis?.settings?.showStaticAnalysis` and
+  `gameOngoing = analysis.data.game` exists, `id != 'synthetic'` and `status.id <= 20` (the Lichess "still running" status range).
+  `lt.isGamePlaying()` is the repo helper (`analysis.ongoing || analysis.study?.practice`) — it is what fires on the analysis board of an ongoing game,
+  where the Lichess body does **not** carry `.playing`; the `body.playing` and `status.id` tests are belt-and-braces for game pages and for imported games.
+  While hidden (`allowPositionMetrics = false`), the dialog keeps only the tree stats (Ply, Moves so far, Following main/total/branches, Coverage), the Opening and the Game phase rows;
+  from Legal moves onwards (tension, pawn structure, Euwe-Kramer, weak squares, coordination, K-MAPS, sharpness, position difficulty, brilliancy, interestingness) no row and no spinner placeholder
+  is created, the Stockfish search is skipped (`engineOn = engineDepth > 0 && allowPositionMetrics`) and no metric runs — async values go through `setRowLazy(pair, ()=> …)`.
+- When clicked, shows a `Dialog` (class `lichessTools-positionInfo`, header = move number + SAN + glyphs, or `positionInfoText` for the root) with one row per metric; rows are rendered as explicit `(label, value)` DOM pairs inside `div.dialog-content` (`<div><span>label</span><span>value</span></div>`).
+- Every metric is wrapped in its own `try/catch` (`lt.global.console.warn` on failure); a row whose value is unavailable (null/undefined/empty/NaN) is skipped, never printed as `undefined`.
+- `dialog.showModal()` is called before the first potentially slow `await`; slow rows get a spinner placeholder (`lt.spinnerHtml`) that is filled in place as each result arrives (`fillRow` empties the value span, or removes the row when the value turned out unavailable).
+- **Tree stats group** (values identical to the previous `positionInfoOutputText` template):
+  - **Ply** (`positionInfoPly`): half-move number of the node.
+  - **Moves so far** (`positionInfoMovesSoFar`): `path.length/2`.
+  - **Following main moves** / **Following total moves** / **Following branches**: recursive child counts.
+  - **Coverage** (`positionInfoCoverage`): only when `positionInfoCoverageDepth` > 0 and inside a study with Explorer enabled; shown as `73%` via `computeTreeCoverage` (study chapter coverage of the Explorer move set — it is 0 when the chapter does not follow the Explorer lines).
+  - **Opening** (`positionInfoOpening`): the opening name of the node — `node.opening?.name` of the selected node, otherwise the nearest ancestor along `analysis.tree.getNodeList(path)` that has one (the `'*'` start-position sentinel is ignored). Rendered as a `target=_blank` link (`/opening/<name>` href taken from the Explorer title anchor `section.explorer-box div.data div.title a`, the same idiom `tools/showOpening` uses) only when the name comes from the node itself and the page actually carries that opening link; otherwise plain text.
+- **Position basics group** (synchronous, cheap):
+  - **Game phase** (`positionInfoGamePhase` → `positionInfoPhaseOpening`/`positionInfoPhaseMiddleGame`/`positionInfoPhaseEndGame`, from `ChessMetrics.getGamePhase(fen,lt)`).
+  - **Legal moves** (`positionInfoLegalMoves`): mobility via `MoveGen.positionFromFen(fen,co)` + `MoveGen.legalMoves`.
+  - **Tension** (`positionInfoTension`): unsigned pawns, `ChessMetrics.tension(node,lt)` (memoized by `node.fen`).
+- **Structure metrics group** (spinner rows):
+  - **Pawn structure** (`positionInfoPawnStructure`): the technical pawn-structure key from `ChessMetrics.getStructure(board)` (`PawnStructure.getStructure`, White-POV key, always shown when a board could be parsed),
+    and when `tools/showPawnStructure`'s `getStructureName(structure, true)` finds a named structure it is rendered on a **second line**: line 1 = the technical key, line 2 = the name as a `target=_blank`
+    link with the `url` from `pawnStructures.json` (`LiChessTools.Tools.ShowPawnStructure` reached through `lt.tools.ShowPawnStructureTool`). The two parts are separated by a `\n` and the value cell is
+    `white-space: pre-wrap`, so they break; when the named structure has no url the name is plain text on line 2. With that tool not running, the key alone is still shown on one line.
+  - **Euwe-Kramer formation** (`positionInfoEuweKramerFormation`): `code + ' ' + name` from `ChessMetrics.getEuweKramer(board)` (`EuweKramer.classify`), rendered as a `target=_blank` link to `ShowPawnStructureTool.getEuweKramerUrl(code)` when that tool is available.
+  - **Weak squares** (`positionInfoWeakSquares`): `W 3 / B 1` from `ChessMetrics.getWeakSquares(board, true/false)`.
+  - **Coordination** (`positionInfoCoordination`): `W 44 / B 25` per-side quality from `CoordinationCalculator.computeConnectivityScoreCapped(fen)` — each side is `round(min(50,(5 - avgConnectCost)*nonPawnPieces))`, so 0 (isolated pieces / no non-pawns) to 50 (fully coordinated), unsigned; the `CoordinationCalculator` instance is cached on `this`. These are the same per-side terms `getCoordination` combines, so the chart-style signed difference `extraChart` plots is approximately `(white - black)*2` (both terms are rounded here).
+  - **K-MAPS (White)** (`positionInfoKmapsWhite`): `K+32 M+10 A-5 P+12 S-8`, each `round(v*100)` signed, from `(await new ChessKmapsEvaluator(fen,co).evaluate())`. Shown from White's point of view — no board-orientation flip (unlike `tools/showKmaps`).
+- **Engine rows group** — the Stockfish search is skipped when `analysisContextActionsEngineDepth` is `0`, but these rows still render from the page cloud eval / Explorer when that is available; with the pref set, one Stockfish search on the node FEN (`engineSearch`, multiPV 4, hard deadline of 150 × 200 ms, handlers always unregistered with `sf.off`) feeds all of them, with `lt.getNodeCeval(node)` / `node.ceval` as fallback:
+  - **Sharpness** (`positionInfoSharpness`): `ChessMetrics.wdlToSharpness` — Explorer game counts (`analysis.explorer.cache[fen]`, permilles scaled to 1000) preferred, else the engine `wdl` of the best line; the source is labelled with `positionInfoSharpnessExplorer` / `positionInfoSharpnessEngine`.
+  - **Position difficulty** (`positionInfoPositionDifficulty`): `5.3 (c 0.62 d 8.5)` = difficulty (complexity, effective depth) from `PositionDifficultyEvaluator.evaluate(series)`, where `series` is `Map<depth, Map<uci, centipawn>>` built from the single search; requires ≥2 qualifying depths.
+  - **Last move brilliancy** (`positionInfoLastMoveBrilliancy`): one entry per brilliancy category whose fit is above 0, **one category per line** inside the value span (`join('\n')`, rendered by the `white-space: pre-wrap` rule on `div.dialog-content > div span:last-child`), sorted by score descending — the top line is prefixed `!! ` when `isBrilliant`. Category fits come from `computeUberBrilliance().byType[name].fit` (already a 0..100 score) and the category names from `analyser.types[name].label`. Based on the move INTO the node (`fen` = parent FEN, `evalBefore`/`evalAfter` normalized to `{cp}` or `{mate}` — `_pov` throws otherwise, `multiPv` from `prevNode.ceval.pvs`, else from a second engine search on the parent FEN when missing).
+  - **Last move interestingness** (`positionInfoLastMoveInteresting`): the same one-category-per-line list for the "interesting" detection, using `byType[name].ifit` (the relaxed-interval fit), top line prefixed `!! ` when `isInteresting`.
+- Deliberately not shown (they were redundant with the Lichess UI or with each other): the FEN, the half-move counter, material and piece activity (both already inside K-MAPS), the engine evaluation, the best move/line and the alternative lines. The engine search is still needed internally for sharpness (`wdl` fallback), position difficulty and brilliancy (`evalAfter`/`multiPv` fallbacks).
+- All signed metrics (K-MAPS) are displayed from White's point of view with an explicit sign, independent of the board orientation; per-side metrics (weak squares, coordination) show `W … / B …` pairs of unsigned counts/quality scores.
 
 ## Tree Coverage Computation (`computeTreeCoverage`)
 

@@ -42,8 +42,7 @@
       if (!fen) return;
       const co = await lt.chessops();
 
-      const setup = co.fen.parseFen(fen).unwrap();
-      const pos = co.Chess.fromSetup(setup).unwrap();
+      const pos = LiChessTools.MoveGen.positionFromFen(fen, co);
       pos.turn = turnColor;
       const ctx = pos.ctx();
       const allDests = pos.allDests(ctx);

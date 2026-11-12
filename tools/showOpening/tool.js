@@ -41,8 +41,11 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-opening').remove();
+        return;
+      }
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -82,7 +85,7 @@
             gameId = '';
             continue;
           }
-          const m = /\/([^\/]+)/.exec(href);
+          const m = /(?:\/game)?\/([^\/#\?]+)/.exec(href);
           gameId = m?.[1];
           if (!gameId) {
             fen = '';
@@ -90,7 +93,7 @@
             continue;
           } else {
             if (gameId=='broadcast') {
-              gameId = href.match(/\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
+              gameId = href.match(/(?:\/game)?\/(?<gameId>[^\/]+\/[^\/]+)(?:[\?\#]|$)/)?.groups?.gameId;
             }
           }
         }
@@ -144,7 +147,7 @@
         }
         let opening = this.opening_dict.get(pos);
         if (!opening) {
-          const reversed = lt.getPositionFromFen(lt.reverseFen(fen));
+          const reversed = lt.getPositionFromFen(LiChessTools.ChessMetrics.mirrorFen(fen));
           const op = this.opening_dict.get(reversed);
           if (op && op != '*') opening = op + ' (R)';
         }
@@ -226,15 +229,17 @@
       if (!board) return;
       const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
       this.startBoard ||= lt.getBoardFromFen(startFen);
+      if (!this.startBoard) return;
 
       let changes = 0;
       const rowsToCheck = [0, 1, 6, 7];
 
       for (const row of rowsToCheck) {
         for (let f = 0; f < 8; f++) {
-          const current = board[row][f];
-          const start = this.startBoard[row][f];
-          if (current !== start) changes++;
+          const sq = f + (7 - row) * 8;
+          const current = board.get(sq);
+          const start = this.startBoard.get(sq);
+          if (current?.role !== start?.role || current?.color !== start?.color) changes++;
         }
       }
 
@@ -293,8 +298,11 @@
       const $ = lt.$;
       const analysis = lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-opening').remove();
+        return;
+      }
       const trans = lt.translator;
       const tvOptions = lt.getTvOptions();
       const gameId = tvOptions.gameId || analysis?.data?.game?.id;

@@ -20,6 +20,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
+        lt.cache.memoizeAsyncFunction(lt.api.study, 'getStudyPgn', { persist: 'session', interval: 1000, minTime: 1000 });
         lt.api.puzzle.getPuzzlesOfPlayerPageMemoized = async (...args)=>{
           const result = await lt.api.puzzle.getPuzzlesOfPlayerPage(...args);
           await lt.timeout(500);
@@ -79,6 +80,15 @@
             url: '/study/{studyId}/{chapterId}.pgn'+query,
             args: { studyId, chapterId }
           },{ ignoreStatuses: [404] });
+          return pgn;
+        },
+
+        async getStudyPgn(studyId) {
+          const lt = this.lichessTools;
+          const pgn = await lt.net.fetch({
+            url: '/study/{studyId}.pgn',
+            args: { studyId }
+          }, { ignoreStatuses: [404] });
           return pgn;
         },
 
@@ -368,7 +378,7 @@
         async getMini(gameId, color) {
           const lt = this.lichessTools;
           const html = await lt.net.fetch({
-            url: '/{gameId}' + (color?.toLowerCase() == 'white' ? '/white' : '/black') + '/mini',
+            url: '/game/{gameId}' + (color?.toLowerCase() == 'white' ? '/white' : '/black') + '/mini',
             args: { gameId }
           });
           return html;
@@ -376,6 +386,7 @@
 
         async getMinis(gameData) {
           const lt = this.lichessTools;
+          const $ = lt.$;
           const ids = gameData.map(d=>d.id);
           let url='';
           const result = [];
@@ -397,10 +408,10 @@
 
           const flip = (el)=>{
             const elem = $(el);
-            const id = elem.attr('href').slice(1);
+            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec(elem.attr('href')).groups.gameId;
             const state = elem.attr('data-state');
             elem
-              .attr('href','/'+id+'/black')
+              .attr('href','/game/'+id+'/black')
               .attr('data-state',state.replace(',white,',',black,'));
             const [blackPlayer,board,whitePlayer] = elem.children('span').get();
             $(blackPlayer).find('.mini-game__clock--black')
@@ -413,7 +424,7 @@
           };
 
           for (const elem of result) {
-            const id = $(elem).attr('href').slice(1);
+            const id = /(?:\/game)?\/(?<gameId>[^\/#\?]+)/.exec($(elem).attr('href')).groups.gameId;
             const color = gameData.find(d=>d.id==id).color;
             if (color?.toLowerCase()=='black') flip(elem);
             elem.gameId = id;

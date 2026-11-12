@@ -68,37 +68,38 @@
         await lt.timeout(100);
       }
       await sf.stop();
-      const turn = fen.includes(' b ') ? -1 : 1;
-      const result = lt.getCentipawns(this.info) * turn;
+      const turn = lt.getTurnSign(lt.getTurnFromFen(fen));
+      const result = LiChessTools.ChessMetrics.getCentipawnOnlyValue(this.info) * turn;
       this.info=null;
       this.lastInfo=null;
       return result;
     };
 
     invalidBecauseCheck = (board, isBlackTurn) => {
-      const turnPieces = isBlackTurn ? 'qrb' : 'QRB';
-      const targetKing = isBlackTurn ? 'K' : 'k';
+      const turnColor = isBlackTurn ? 'black' : 'white';
+      const targetKingColor = isBlackTurn ? 'white' : 'black';
+      const rookDirections = [[-1,0],[1,0],[0,-1],[0,1]];
+      const bishopDirections = [[-1,-1],[1,1],[1,-1],[-1,1]];
       for (let j=0; j<8; j++) {
         for (let i=0; i<8; i++) {
-          const ch = board[j][i];
-          if (!turnPieces.includes(ch)) continue;
-          const rookDirections = [[-1,0],[1,0],[0,-1],[0,1]];
-          const bishopDirections = [[-1,-1],[1,1],[1,-1],[-1,1]];
+          const piece = board.get(i + (7 - j) * 8);
+          if (!piece || piece.color !== turnColor) continue;
           let directions;
-          switch(ch.toLowerCase()) {
-            case 'q': directions = rookDirections.concat(bishopDirections); break;
-            case 'r': directions = rookDirections; break;
-            case 'b': directions = bishopDirections; break;
+          switch(piece.role) {
+            case 'queen': directions = rookDirections.concat(bishopDirections); break;
+            case 'rook': directions = rookDirections; break;
+            case 'bishop': directions = bishopDirections; break;
+            default: continue;
           }
           for (const direction of directions) {
-            const pos={ i, j };
+            let x = i, y = j;
             while (true) {
-              pos.i+=direction[0];
-              pos.j+=direction[1];
-              if (pos.i<0 || pos.i>7 || pos.j<0 || pos.j>7) break;
-              const ch2 = board[pos.j][pos.i];
-              if (!ch2) continue;
-              if (ch2 !== targetKing) break;
+              x += direction[0];
+              y += direction[1];
+              if (x<0 || x>7 || y<0 || y>7) break;
+              const other = board.get(LiChessTools.MoveGen.square(x, y));
+              if (!other) continue;
+              if (other.color !== targetKingColor || other.role !== 'king') break;
               return true;
             }
           }
@@ -126,6 +127,10 @@
         }
         this.lastProcessedFen = fen;
         const board = lt.getBoardFromFen(fen);
+        if (!board) {
+          clearValues = false;
+          return;
+        }
         const pieces = $('cg-container piece:not([data-eval]):not(.ghost)').get();
         if (!pieces.length) {
           clearValues = false;
@@ -143,38 +148,25 @@
             if (!key) continue;
             const x = key.charCodeAt(0)-97;
             const y = 56-key.charCodeAt(1);
-            const ch = board[y][x];
-            if ([undefined,'k','K'].includes(ch)) {
+            const sq = LiChessTools.MoveGen.square(x, y);
+            const piece = board.get(sq);
+            if (!piece || piece.role === 'king') {
               continue;
             }
-            board[y][x]=undefined;
-            if (this.invalidBecauseCheck(board,fen.split(' ')[1]=='b')) {
-              board[y][x]=ch;
+            const roleLetter = LiChessTools.ChessMetrics.ROLE_LETTERS[piece.role];
+            const ch = piece.color === 'white' ? roleLetter.toUpperCase() : roleLetter;
+            board.take(sq);
+            if (this.invalidBecauseCheck(board, lt.getTurnFromFen(fen) == 'black')) {
+              board.set(sq, piece);
               continue;
             }
             const psplits = lt.getFenFromBoard(board).split(/\s+/);
-            const fenSplits = [];
-            for (let i=0; i<splits.length; i++) {
-              if (i<psplits.length) {
-                fenSplits.push(psplits[i]);
-              } else {
-                let val = splits[i];
-                if (i==2) {
-                  val = [...val].filter(c=>{
-                    switch(c) {
-                      case 'k': return board[0][7]=='r';
-                      case 'q': return board[0][0]=='r';
-                      case 'K': return board[7][7]=='R';
-                      case 'Q': return board[7][7]=='R';
-                    }
-                  }).join('');
-                  val ||='-';
-                }
-                fenSplits.push(val);
-              }
-            }
-            const pfen = fenSplits.join(' ');
-            board[y][x]=ch;
+            // the board changed, so the trailing fields must be revalidated: castling
+            // rights whose king/corner rook is gone and stale en-passant squares are
+            // dropped by the shared FEN repair (issue #1816)
+            const joined = psplits.concat(splits.slice(psplits.length)).join(' ');
+            const pfen = LiChessTools.MoveGen.fixFen(joined) || joined;
+            board.set(sq, piece);
             this.current = { e, ch, baseEval, fen };
             const style = $(e).attr('style');
             const newStyle = style.replaceAll(/transform:([^;]+);/g,(...m)=>{
@@ -190,6 +182,9 @@
           }
         }
         clearValues = false;
+      } catch (err) {
+        lt.global.console.debug('pieceValueCommand', err);
+        this.stopRequested = true;
       } finally {
         $('.cg-wrap .spinner').remove();
         if (clearValues) {
@@ -226,8 +221,8 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!this.current) return;
-      const turn = this.current.fen.split(' ')[1]=='b' ? -1 : 1;
-      const val = lt.getCentipawns(info) * turn;
+      const turn = lt.getTurnSign(lt.getTurnFromFen(this.current.fen));
+      const val = LiChessTools.ChessMetrics.getCentipawnOnlyValue(info) * turn;
       this.displayValue(this.current.e, this.current.baseEval - val, this.current.ch, true);
     };
 
@@ -279,6 +274,8 @@
         });
       } else {
         lt.unregisterCommand && lt.unregisterCommand('pieceValueCommand');
+        this.stopRequested = true;
+        this.clearValues();
       }
     }
   }

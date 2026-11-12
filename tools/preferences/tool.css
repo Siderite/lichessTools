@@ -1,4 +1,10 @@
 /* CSS in preferences should not be under body.lichessTools, as the class can be removed when the extension is disabled */
+/* the preferences page owns its main; the rest of the 404 shell stays out of view */
+html[data-page-href*="/page/ltPreferences"] main:not(.lichessTools-preferences) {
+  display: none;
+}
+
+
 
 #dasher_app .links a.lichessTools-preferences {
   display: flex;

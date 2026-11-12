@@ -25,6 +25,10 @@
       return this.loc.hostname;
     }
 
+    get pathname() {
+      return this.loc.pathname;
+    }
+
     // page detection
 
     isDevPage() {
@@ -145,10 +149,6 @@
 
     isCurrentGamesPage() {
       return /^\/games\/?$/i.test(this.loc.pathname);
-    };
-
-    isLichessLaddersSummary() {
-      return /^\/page\/lichessLadders\b/i.test(this.loc.pathname);
     };
 
     isPuzzlePage() {

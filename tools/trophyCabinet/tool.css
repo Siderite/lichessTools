@@ -1,0 +1,333 @@
+/* the letters are placed by these two numbers, so they are typed: a value that fails to parse
+   falls back instead of dropping the transform and collapsing every letter onto the centre */
+@property --lt-i {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --lt-n {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+/* the awards never get recolored or blurred, only laid out */
+body.lichessTools .trophies :is(.trophy,.shield-trophy) {
+  filter: none;
+}
+
+/* the row goes blank while the init class sits on the body, which is from the first frame the page
+   exists until the reveal scheduled in start, 500 ms after the count. The space is kept so nothing
+   jumps, the card row is the one under .box__top, and the cabinet is a dialog element, so this
+   hides no part of the cabinet. */
+body.lichessTools-trophyCabinetHold .box__top > .trophies,
+body.lichessTools-trophyCabinetHold .lichessTools-trophySummary {
+  visibility: hidden;
+}
+
+/* the row folds into the pill at any viewport - the awards live in the cabinet */
+body.lichessTools div.trophies[data-lt-trophies] {
+  display: flex;
+  align-items: center;
+  gap: .3em;
+  width: auto;
+  max-width: none;
+  height: auto;
+  min-height: 3.2em;
+  overflow: visible;
+  margin: 0;
+  padding: .3em .6em;
+  border: 1px solid var(--c-border,#3a3a3a);
+  border-radius: 1.6em;
+  background: var(--c-bg-box,#232323);
+  box-shadow: 0 1px 3px #0007;
+  cursor: pointer;
+  text-align: center;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+/* the awards themselves stay on the cabinet page, the row only keeps the summary */
+body.lichessTools div.trophies[data-lt-trophies]>:not(.lichessTools-trophySummary) {
+  display: none;
+}
+
+body.lichessTools .lichessTools-trophySummary {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  white-space: nowrap;
+  font-size: 1.6em;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+  height: 2em;
+}
+
+/* the total count is written by css out of the count the tool measured */
+body.lichessTools .lichessTools-trophySummary::before {
+  content: attr(data-lt-trophies) ' x ';
+  color: var(--c-brag,#d8a94e);
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+/* the cup keeps the size the site shows its awards at, the count text a step smaller */
+body.lichessTools .lichessTools-trophySummary .lichessTools-trophyCup {
+  width: 1.4em;
+  object-fit: cover;
+  object-position: center bottom;
+  height: 100%;
+}
+
+/* the tool lays the chips out once at the widest the viewport allows, then reads back what it
+   measured and hands it over as --lt-cols, --lt-rows and the pixel sizes --lt-step (a chip plus
+   the line gap), --lt-line (a chip plus the row gap), --lt-gapx, --lt-gapy, --lt-framex (the
+   content padding plus the dialog border across) and --lt-framey plus --lt-header (the same down
+   the column). The box hugs that grid: the width is the chips of one line plus the frame, never a
+   viewport width, so a wide window does not stretch into a band of three chips with empty space
+   beside them, and the height is only as tall as the rows the kinds need. Every length is read
+   from laid-out pixels because css cannot divide one length by another and the chips are sized in
+   the content's em, which is a step over the dialog's. A hair is added to both so a line cannot
+   wrap in a chip the box has no room for. The fallbacks are what a bare preview shows. */
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet {
+  --lt-cols: 4;
+  --lt-rows: 3;
+  --lt-step: 9.2em;
+  --lt-line: 7em;
+  --lt-gapx: 1.2em;
+  --lt-gapy: 1em;
+  --lt-framex: calc(2em + 2px);
+  --lt-framey: calc(2em + 2px);
+  --lt-header: 2.4em;
+  width: min(
+    90vw,
+    calc(var(--lt-cols) * var(--lt-step) - var(--lt-gapx) + var(--lt-framex) + 1px));
+  height: min(
+    90vh,
+    calc(var(--lt-rows) * var(--lt-line) - var(--lt-gapy) + var(--lt-framey) +
+      var(--lt-header) + 1px));
+  min-width: 26em;
+  min-height: 13em;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--c-bg-box,#2b2b2b);
+  color: var(--c-font,#d0d0cc);
+  border: 1px solid var(--c-border,#3a3a3a);
+  border-radius: .6em;
+  box-shadow: 0 1em 2em #000c;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet::backdrop {
+  background: #000000b0;
+}
+
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet .dialog-header {
+  min-height: 2.4em;
+  background: #80808080;
+  color: var(--c-font,#d0d0cc);
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+/* the scroll wrapper and the content have to fill that box, not hug the chips */
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet .scrollable,
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet .not-scrollable {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: auto;
+  max-height: none;
+  overflow: hidden;
+}
+
+/* chips flow one after the other and wrap, so a row of awards reads as a cabinet; the box width
+   comes from the grid the tool measured, which is what decides how many fit on a line. The height
+   is pinned to auto because the dialog machinery writes a pixel height onto this box inline, and
+   a stylesheet height cannot beat an inline one - the pin is what lets the rows grow on a narrow
+   viewport instead of staying square and scrolling. The font is clamped by the viewport so a phone
+   still takes two chips across: a chip is 8em of this font, and an unclamped phone step would put
+   one chip in a line that has room for two */
+body.lichessTools dialog.lichessTools-dialog.lichessTools-trophyCabinet .dialog-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em 1.2em;
+  flex: 1 1 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: min(1.25em,4.4vw);
+  min-width: 0;
+  padding: 1em;
+  height: auto !important;
+  min-height: 0;
+  max-height: calc(90vh - 3em);
+  max-width: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  perspective: 24em;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+/* the chip and the ring share one 3d space; the sizes below are the box the tool measures in
+   laid-out pixels - .dialog-content is a flex row, so the chip stays a fixed 8em x 6em box. A chip
+   whose trophy has a link is an anchor, and it keeps no underline under its count or its letters */
+body.lichessTools .lichessTools-trophyChip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 8em;
+  height: 6em;
+  transform-style: preserve-3d;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+  white-space: nowrap;
+}
+
+/* the repeat marker only exists when the tool found more than one of a kind */
+body.lichessTools .lichessTools-trophyChip[data-lt-count]::before {
+  content: attr(data-lt-count) ' x ';
+  color: var(--c-brag,#d8a94e);
+  font-size: 1.25em;
+  text-shadow: none;
+  font-family: 'Roboto','Noto Sans',sans-serif;
+}
+
+/* every chip icon is the same square, whatever award kind it carries */
+body.lichessTools .lichessTools-trophyIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  line-height: 1;
+  text-shadow: none;
+  transform-style: preserve-3d;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* an image award fills the same square, kept whole - the site's own or one a caller handed over */
+body.lichessTools .lichessTools-trophyIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* a custom icon is a character, so it is drawn at the size the site draws its own award glyphs at
+   and keeps the chip's colour rather than the one a linked chip would give its letters */
+body.lichessTools .lichessTools-trophyIcon .lichessTools-trophyGlyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 100%;
+  height: 100%;
+  font-size: 1.66em;
+  line-height: 1;
+  text-align: center;
+  text-shadow: none;
+  color: var(--c-font,#d0d0cc);
+  white-space: pre;
+}
+
+/* the site sizes each award glyph differently, so the two sizes below are pinned -
+   a shield has to read as big as a marathon trophy, and the site sheet decides otherwise.
+   the awards are inline spans and anchors, so they have to be made a box before the stretch */
+body.lichessTools .lichessTools-trophyIcon :is(.trophy,.shield-trophy) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 100%;
+  height: 100%;
+  font-size: 1.66em;
+  line-height: 1;
+  background-size: contain;
+  background-position: center;
+  margin: 0;
+}
+
+body.lichessTools .lichessTools-trophyIcon .shield-trophy {
+  width: 70%;
+  font-size: 1em;
+}
+
+body.lichessTools .lichessTools-trophyIcon :is(.trophy,.shield-trophy)::before {
+  font-size: 1em;
+  line-height: 1;
+  text-shadow: none;
+}
+
+/* the label rides a tilted ring, so it reads as a torus around the icon; every icon is the same
+   square, so one radius fits every ring - the band sits just outside it and inside the box */
+body.lichessTools .lichessTools-trophyRing {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  --lt-r: 2.5em;
+  animation: lt-trophy-orbit 18s linear infinite;
+  font-weight: bold;
+}
+
+/* one element per character; the tool gives each one its index and the ring its count */
+body.lichessTools .lichessTools-trophyChar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  white-space: pre;
+  transform: translate(-50%,-50%) rotateY(calc(var(--lt-i) * 360deg / var(--lt-n))) translateZ(var(--lt-r));
+  backface-visibility: hidden;
+  color: var(--c-font,#d0d0cc);
+  font-family: 'Roboto Mono','Roboto Sans','Courier',monospace;
+  font-size: 1.2em;
+  text-shadow: .05em 0 0 #000d,-.05em 0 0 #000d,0 .05em 0 #000d,0 -.05em 0 #000d,.04em .04em 0 #000c,
+    -.04em .04em 0 #000c,.04em -.04em 0 #000c,-.04em -.04em 0 #000c,0 0 .16em #000b;
+}
+
+/* a long label keeps the same band and takes smaller letters, so 31 of them still fit around
+   the ring without overlapping */
+body.lichessTools .lichessTools-trophyRing.lichessTools-trophyWideRing .lichessTools-trophyChar {
+  font-size: 1em;
+}
+
+body.lichessTools .lichessTools-trophyChip:hover {
+  z-index: 2;
+}
+
+/* the pointer on a chip only lifts it - the ring keeps turning, because a label that moves can
+   still be read and a frozen one would stop the whole cabinet under the cursor */
+
+@media (prefers-reduced-motion: reduce) {
+
+body.lichessTools .lichessTools-trophyRing {
+  animation: none;
+  transform: rotateX(-16deg) rotateY(14deg);
+}
+
+}
+
+@keyframes lt-trophy-orbit {
+  from {
+    transform: rotateX(-16deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-16deg) rotateY(360deg);
+  }
+}

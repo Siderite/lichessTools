@@ -1,8 +1,6 @@
 (() => {
   class MirrorBoardTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
-
     preferences = [
       {
         name: 'mirrorBoard',
@@ -34,15 +32,14 @@
       const $ = lt.$;
       const input = $('div.copyables input[enterkeyhint="done"]');
       const fen = input.val();
-      const mirrorFen = lt.reverseFen(fen);
+      const mirrorFen = LiChessTools.ChessMetrics.mirrorFen(fen);
       input.val(mirrorFen).trigger('change');
     };
 
     async start() {
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('mirrorBoard');
-      this.logOption('Sticky analysis', value);
-      const lichess = lt.lichess;
+      this.logOption('Mirror board', value);
       const $ = lt.$;
       const trans = lt.translator;
       $('.board-editor__tools .actions button.lichessTools-mirrorBoard').remove();

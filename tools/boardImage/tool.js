@@ -1,7 +1,7 @@
 (() => {
   class BoardImageTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw', 'Dialog'];
 
     preferences = [
       {
@@ -233,21 +233,21 @@
       });
       await Promise.all(draws);
       $('dialog.lichessTools-boardImage').remove();
-      lichess.asset.loadCssPath('bits.dialog');
-      const dialog = $('<dialog class="lichessTools-boardImage">')
-        .append(`<form>
-    <div class="close-button-anchor">
-        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#boardImage" target="_blank"></a>
-        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close" formmethod="dialog" value="close"/>
-    </div>
-    <div class="scrollable">
-        <div class="dialog-content">
-        </div>
-    </div>
-</form>`)
-        .appendTo('body');
-      $('dialog .dialog-content').append(canvas);
-      dialog[0].showModal();
+      const dialog = await lt.dialog({
+        help: 'https://siderite.dev/blog/lichess-tools---user-manual#boardImage'
+      });
+      const $dialog = $(dialog)
+        .addClass('lichessTools-boardImage');
+
+      $dialog.find('button.close-button')
+        .on('click',()=>{
+          $dialog
+            .each((i,e)=>e.close('cancel'))
+            .remove();
+        });
+
+      $dialog.find('.dialog-content').append(canvas);
+      dialog.showModal();
     };
 
     closeDialog = (ev) => {
@@ -255,7 +255,9 @@
       ev?.preventDefault();
       const lt = this.lichessTools;
       const $ = lt.$;
-      $('dialog.lichessTools-boardImage').remove();
+      $('dialog.lichessTools-boardImage')
+        .each((i,e)=>e.close('cancel'))
+        .remove();
     };
 
     enhanceButtonDirect = () => {

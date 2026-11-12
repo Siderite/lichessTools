@@ -8,7 +8,7 @@
         name: 'extendedInteractiveLesson',
         category: 'study',
         type: 'multiple',
-        possibleValues: ['extendedInteractive', 'showFinalScore', 'alwaysShowScore', 'returnToPreview', 'fastInteractive', 'giveUpButton'],
+        possibleValues: ['extendedInteractive', 'showFinalScore', 'alwaysShowScore', 'returnToPreview', 'fastInteractive', 'giveUpButton', 'highlightPieceOnHint'],
         defaultValue: 'extendedInteractive,showFinalScore'
       },
       {
@@ -31,6 +31,7 @@
         'extendedInteractiveLesson.returnToPreview': 'Play again from where you entered Preview',
         'extendedInteractiveLesson.fastInteractive': 'Fast interaction',
         'extendedInteractiveLesson.giveUpButton': 'Give up button',
+        'extendedInteractiveLesson.highlightPieceOnHint': 'Hint piece to move after mistake',
         'extendedInteractiveLesson': 'Extended Interactive lesson',
         'extendedInteractiveLessonLong': 'Extended Interactive lesson - LiChess Tools',
         'finalScore': 'Final score: %s%',
@@ -76,6 +77,7 @@
         'extendedInteractiveLesson.returnToPreview': 'Joac\u0103 din nou de unde ai intrat \u00een Preview',
         'extendedInteractiveLesson.fastInteractive': 'Interac\u0163iune rapid\u0103',
         'extendedInteractiveLesson.giveUpButton': 'Buton renun\u0163are',
+        'extendedInteractiveLesson.highlightPieceOnHint': 'Indic\u0103 piesa de mutat dup\u0103 gre\u015Feal\u0103',
         'extendedInteractiveLesson': 'Lec\u0163ie Interactiv\u0103 extins\u0103',
         'extendedInteractiveLessonLong': 'Lec\u0163ie Interactiv\u0103 extins\u0103 - LiChess Tools',
         'finalScore': 'Scor final: %s%',
@@ -123,6 +125,7 @@
         const $ = lt.$;
         const trans = lt.translator;
         const gp = analysis.gamebookPlay();
+        $('div.main-board cg-board piece.lichessTools-flash').removeClass('lichessTools-flash');
         const node = analysis.node;
         const nodeComment = (node.comments || [])[0];
         const state = {
@@ -143,7 +146,7 @@
             gp.currentPath = this.getCurrentPath();
             if (!gp.currentPath) {
               const nextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-                .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]));
+                .filter(c => this.isPermanentNode(c) && !this.isExcludedPath([c]));
               if (nextMoves.length) {
                 if (!this._inConfirm) {
                   this._inConfirm = true;
@@ -185,7 +188,7 @@
           }
         }
         const allNextMoves = lt.getNextMoves(node, gp.threeFoldRepetition)
-          .filter(c => this.isPermanentNode(c) && !this.areBadGlyphNodes([c]))
+          .filter(c => this.isPermanentNode(c) && !this.isExcludedPath([c]))
         const nextMoves = allNextMoves
           .filter(c => !inFlow || this.inCurrentPath(c.path));
         if (!isAcceptedMove) {
@@ -193,6 +196,8 @@
           if (!state.comment) {
             state.comment = parNode.children[0].gamebook?.deviation;
           }
+          gp.mistakenPaths = gp.mistakenPaths || new Set();
+          gp.mistakenPaths.add(parPath);
         } else if (!nextMoves.length) {
           state.feedback = 'end';
           state.hint = null;
@@ -243,6 +248,10 @@
           state.hint = node.gamebook?.hint;
         } else {
           state.feedback = 'good';
+        }
+        if (isAcceptedMove && !state.isNavigateBack) {
+          gp.mistakenPaths?.delete(parPath);
+          gp.hintCounts?.delete(parPath);
         }
         if (gp.isMyMove() && state.feedback == 'play') {
           const nextMovesCount = new Set(nextMoves.map(c => c.uci)).size;
@@ -371,7 +380,8 @@
           shapes.push({
             orig: child.uci.slice(0, 2),
             dest: child.uci.slice(2, 4),
-            brush: 'green'
+            brush: 'green',
+            source: 'extendedInteractiveLesson'
           });
           if (child.promotion) {
             shapes.push({
@@ -381,7 +391,8 @@
                 role: child.promotion,
                 scale: 0.8
               },
-              brush: 'green'
+              brush: 'green',
+              source: 'extendedInteractiveLesson'
             });
           }
         }
@@ -393,6 +404,8 @@
         gp.badMoves = 0;
         gp.threeFoldRepetition = false;
         gp.fens = {};
+        gp.mistakenPaths = new Set();
+        gp.hintCounts = new Map();
       }
     };
 
@@ -417,14 +430,26 @@
       const analysis = lichess.analysis;
       const gp = analysis.gamebookPlay();
       if (!gp) return false;
-      const yourSide = (analysis.turnColor()=='white') ^ gp.isMyMove()
-           ? ' w '
-           : ' b ';
+      const yourSide = ((analysis.turnColor()=='white') ^ gp.isMyMove())
+           ? 'white'
+           : 'black';
       return !!nodeList
-        .filter(n=>n.fen.includes(yourSide))
+        .filter(n=>lt.getTurnFromFen(n.fen) == yourSide)
         .flatMap(n=>n.glyphs||[])
         .find(g=>[2,4,6].includes(g.id));
     };
+
+    hasZeroPrcComment = (node) => {
+      if (!node?.comments?.length) return false;
+      for (const comment of node.comments) {
+        const match = /prc:\s*(\d+(?:\.\d+)?)/i.exec(comment.text);
+        if (match && +match[1] === 0) return true;
+      }
+      return false;
+    };
+
+    isExcludedPath = (nodeList) => this.areBadGlyphNodes(nodeList)
+      || !!nodeList.find(n => this.hasZeroPrcComment(n));
 
     loadChapterPaths = (defaultValue) => {
       const lt = this.lichessTools;
@@ -460,7 +485,7 @@
         if (nodeList.map(n=>n.id).join('') == paths.currentPath // line exists
           && !nodeList.find(n=>!this.isPermanentNode(n)) // it's not temporary
           && !nodeList.at(-1).children?.length // and the last node does not have kids
-          && !this.areBadGlyphNodes(nodeList)) // and there are no mistake/bluders on your side and the setting is on
+          && !this.isExcludedPath(nodeList)) // and no bad glyphs on your side, and no prc:0 mark
         {
           currentPath = paths.currentPath;
         }
@@ -472,7 +497,7 @@
         if (!refreshChapterPaths && this.options.flow.sequential && currentPaths.length) return;
         const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
-        if (!nextMoves.length && !this.areBadGlyphNodes(nodeList)) {
+        if (!nextMoves.length && !this.isExcludedPath(nodeList)) {
           allPaths.push(path);
           if (!this.isDonePath(path)) {
             currentPaths.push(path);
@@ -546,7 +571,7 @@
         const nextMoves = analysis.visibleChildren(node)
           .filter(c => this.isPermanentNode(c));
         if (!nextMoves.length) {
-          if (this.areBadGlyphNodes(nodeList)) {
+          if (this.isExcludedPath(nodeList)) {
             delete paths[node.path];
           } else {
             if (!paths[node.path]) {
@@ -704,6 +729,17 @@
             }
           }
         });
+        gp.hint = lt.wrapFunction(gp.hint, {
+          id: 'extendedInteractiveLessons',
+          after: ($this, result, ...args) => {
+            if (gp.state?.showHint) {
+              gp.hintCounts = gp.hintCounts || new Map();
+              const path = analysis.path;
+              gp.hintCounts.set(path, (gp.hintCounts.get(path) || 0) + 1);
+            }
+            lt.global.setTimeout(() => this.highlightPieceToMove(gp), 0);
+          }
+        });
         gp.isExtendedInteractiveLessons = true;
         gp.fens = {};
         gp.resetStats = this.extendedGamebook.resetStats;
@@ -722,6 +758,7 @@
         gp.next = lt.unwrapFunction(gp.next, 'extendedInteractiveLessons');
         gp.solution = lt.unwrapFunction(gp.solution, 'extendedInteractiveLessons');
         gp.onSpace = lt.unwrapFunction(gp.onSpace, 'extendedInteractiveLessons');
+        gp.hint = lt.unwrapFunction(gp.hint, 'extendedInteractiveLessons');
         gp.isExtendedInteractiveLessons = false;
       }
       if (gp.isExtendedInteractiveLessons && !gp.isShowScore) {
@@ -825,6 +862,37 @@
       if (solutionButton.length) {
         lt.removeEventHandlers(solutionButton[0],'click');
         solutionButton.on('click',gp.solution);
+      }
+    };
+
+    highlightPieceToMove = (gp) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const analysis = lt.lichess?.analysis;
+      if (!analysis) return;
+      gp = gp || analysis.gamebookPlay();
+      if (!gp) return;
+      if (!this.options.highlightPieceOnHint) return;
+      const board = $('div.main-board cg-board');
+      $('piece.lichessTools-flash', board).removeClass('lichessTools-flash');
+      const show = gp.state?.showHint
+        && gp.state?.feedback == 'play'
+        && gp.mistakenPaths?.has(analysis.path)
+        && (gp.hintCounts?.get(analysis.path) || 0) >= 2;
+      if (!show) return;
+      const turn = analysis.turnColor();
+      let children = lt.getNextMoves(analysis.node, gp.threeFoldRepetition).filter(c => this.isPermanentNode(c));
+      if (this.options.flow.sequential || this.options.flow.spacedRepetition) {
+        children = children.filter(c => this.inCurrentPath(c.path));
+      }
+      const seen = new Set();
+      for (const child of children) {
+        const orig = child.uci.slice(0, 2);
+        if (seen.has(orig)) continue;
+        seen.add(orig);
+        $('piece.' + turn, board)
+          .filter((i, e) => e.cgKey == orig)
+          .addClass('lichessTools-flash');
       }
     };
 
@@ -1275,6 +1343,7 @@
         returnToPreview: lt.isOptionSet(value, 'returnToPreview'),
         fastInteractive: lt.isOptionSet(value, 'fastInteractive'),
         giveUpButton: lt.isOptionSet(value, 'giveUpButton'),
+        highlightPieceOnHint: lt.isOptionSet(value, 'highlightPieceOnHint'),
         flow: {
           'sequential': lt.isOptionSet(flow, 'sequential'),
           'spacedRepetition': lt.isOptionSet(flow, 'spacedRepetition'),
@@ -1295,7 +1364,7 @@
             if (o == 'play') {
               this._previewPath = analysis.path;
               // fix lichess bug where entering Preview mode with engine on keeps engine running
-              if (analysis.cevalEnabled()) {
+              if (analysis.ceval && analysis.cevalEnabled()) {
                 analysis.ceval.reset();
                 analysis.ceval.isDeeper(false);
               }

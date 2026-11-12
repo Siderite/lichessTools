@@ -39,7 +39,6 @@
 
     skipMoveIfPossible = async () => {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const trans = lt.translator;
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -49,8 +48,7 @@
         lt.global.console.warn('ChessOps not loaded');
         return;
       }
-      const fen = co.fen.parseFen(analysis.node.fen).unwrap();
-      let ch = co.Chess.fromSetup(fen).unwrap();
+      let ch = LiChessTools.MoveGen.positionFromFen(analysis.node.fen, co);
 
       const result = {
         moves: [],
@@ -103,7 +101,6 @@
 
     async start() {
       const lt = this.lichessTools;
-      const $ = lt.$;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('skipMoveCommand');
       this.options = { enabled: value };

@@ -40,7 +40,7 @@
         case lt.icon.ThreeCheckStack: return 'threeCheck';
         case lt.icon.Antichess: return 'antichess';
         case lt.icon.Atom: return 'atomic';
-        case lt.icon.KeyPad: return 'horde';
+        case lt.icon.Keypad: return 'horde';
         case lt.icon.FlagRacingKings: return 'racingKings';
         default: return null;
       }

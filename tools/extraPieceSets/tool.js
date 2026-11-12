@@ -1,7 +1,7 @@
 (() => {
   class ExtraPieceSetsTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['D3'];
+    dependencies = ['D3', 'Dialog'];
 
     preferences = [
       {

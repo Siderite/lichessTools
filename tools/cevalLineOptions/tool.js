@@ -8,7 +8,7 @@
         name: 'cevalLineOptions',
         category: 'analysis2',
         type: 'multiple',
-        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs', 'cost'],
+        possibleValues: ['highlight', 'highlightOnlyMe', 'moreLines', 'colorEvaluation', 'depthChart', 'downloadCeval', 'pvs', 'cost', 'difficulty'],
         defaultValue: 'moreLines',
         advanced: true
       }
@@ -26,10 +26,12 @@
         'cevalLineOptions.downloadCeval': 'Download engine analysis',
         'cevalLineOptions.pvs': 'Plot PVs',
         'cevalLineOptions.cost': 'Move cost',
+        'cevalLineOptions.difficulty': 'Position difficulty',
         'moreLinesTitle': 'LiChess Tools - more lines',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluation deviates at $depth ($deviation)',
-        'moveCostTitle': 'LiChess Tools - cost: %s'
+        'moveCostTitle': 'LiChess Tools - cost: %s',
+        'positionDifficultyTitle': 'LiChess Tools - position difficulty $difficulty (complexity $complexity x depth $depth)'
       },
       'ro-RO': {
         'options.analysis2': 'Analiz\u0103 - m\u0103run\u0163i\u015furi',
@@ -42,10 +44,12 @@
         'cevalLineOptions.downloadCeval': 'Desc\u0103rcare analiz\u0103 computer',
         'cevalLineOptions.pvs': 'Deseneaz\u0103 PVurile',
         'cevalLineOptions.cost': 'Costul mut\u0103rii',
+        'cevalLineOptions.difficulty': 'Dificultatea pozi\u0163iei',
         'moreLinesTitle': 'LiChess Tools - mai multe linii',
         'downloadCevalButtonTitle': 'LiChess Tools - download analysis',
         'pearlDeviationTitle': 'LiChess Tools - evaluarea deviaz\u0103 la $depth ($deviation)',
-        'moveCostTitle': 'LiChess Tools - cost: %s'
+        'moveCostTitle': 'LiChess Tools - cost: %s',
+        'positionDifficultyTitle': 'LiChess Tools - dificultatea pozi\u0163iei $difficulty (complexitate $complexity x ad\u00e2ncime $depth)'
       }
     }
 
@@ -100,7 +104,7 @@
           : lt.getPositionFromBoard($('.main-board')[0],true);
         if (!fen) return;
         const side = $('.main-board .cg-wrap').is('.orientation-black') ? 1 : 0;
-        const turn = fen.includes(' b') ? 1 : 0;
+        const turn = lt.getTurnFromFen(fen) == 'black' ? 1 : 0;
         const comp = side ^ turn;
 
         const dict = new Map();
@@ -143,7 +147,7 @@
               const info = text.startsWith('#')
                 ? { mate: +text.slice(1) }
                 : { cp: (+text) * 100 };
-              const val = lt.winPerc(lt.getCentipawns(info));
+              const val = LiChessTools.ChessMetrics.centipawnsToWinPercentage(LiChessTools.ChessMetrics.getCentipawnOnlyValue(info));
               if (first === null) {
                 first = val;
                 $(e).toggleClassSafe('best',true);
@@ -197,7 +201,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
-      const isExternalEngine = !!analysis?.ceval?.engines?.external;
+      const isExternalEngine = !!analysis?.ceval?.engines?.external();
       $('div.analyse__tools').toggleClassSafe('lichessTools-externalEngine',isExternalEngine);
       if (isExternalEngine) {
         if (analysis.ceval.storedPv()>5) {
@@ -300,7 +304,7 @@
       ctx.beginPath();
       ctx.moveTo(0, 10);
       for (const i of depths) {
-        const cp = lt.getCentipawns(db.get(i));
+        const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(db.get(i));
         const v = lt.sigmoidClamp(-cp,0,20,2000);
         ctx.lineTo(i, v);
       }
@@ -308,7 +312,7 @@
 
       const data = [...db.entries()
                      .filter(([k,v])=>k>2)
-                     .map(([k,v])=>({ depth: k, cp: lt.getCentipawns(v) }))];
+                     .map(([k,v])=>({ depth: k, cp: LiChessTools.ChessMetrics.getCentipawnOnlyValue(v) }))];
 
       let sumBefore = 0;
       let sumAfter = data.reduce((a,v)=>a+v.cp,0);
@@ -337,6 +341,52 @@
         .attr('data-depth', displayDeviation?s.depth:null)
         .attr('title', trans.noarg('pearlDeviationTitle').replace('$deviation',(s.deviation/100).toFixed(2)).replace('$depth',s.depth))
         .css('--data-color', displayDeviation?color:null);
+    };
+
+    drawDifficulty = ()=>{
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const analysis = lt.lichess.analysis;
+      const container = $('.analyse__tools div.ceval,.analyse__controls').eq(0);
+      let badge = $('.lichessTools-positionDifficulty',container);
+      const db = analysis ? this.db.get(analysis.path) : null;
+      // the db keeps the pv lines; the evaluator wants the centipawn of each move at each depth.
+      const series = new Map();
+      if (db)
+        for (const [depth,info] of db) {
+          const values = info.pvs
+            ?.map(pv=>({
+              uci: pv?.moves?.[0],
+              cp: LiChessTools.ChessMetrics.getCentipawnOnlyValue(pv),
+            }))
+            ?.filter(v=>v.uci && v.cp !== undefined);
+          if (values?.length>1) series.set(depth,new Map(values.map(v=>[v.uci,v.cp])));
+        }
+      const result = series.size>1
+        ? LiChessTools.PositionDifficultyEvaluator.evaluate(series)
+        : null;
+      if (!result) {
+        badge.remove();
+        return;
+      }
+      if (!badge.length) {
+        badge = $('<div class="lichessTools-positionDifficulty">')
+          .appendTo(container);
+      }
+      const color = lt.getGradientColor(result.difficulty,[
+        { q: 0, color: '#20FF20' },
+        { q: 1.5, color: '#FFFF00' },
+        { q: 2.5, color: '#FF8000' },
+        { q: 4, color: '#FF0000' }
+      ]);
+      badge.text(result.difficulty.toFixed(1))
+        .attrSafe('data-difficulty',result.difficulty.toFixed(1))
+        .css('--difficulty-color',color)
+        .attrSafe('title',trans.noarg('positionDifficultyTitle')
+          .replace('$difficulty',result.difficulty.toFixed(1))
+          .replace('$complexity',result.complexity.toFixed(2))
+          .replace('$depth',result.effectiveDepth.toFixed(1)));
     };
 
     getCevalPanelText = ()=>{
@@ -415,7 +465,7 @@
         return;
       }
       const side = analysis.turnColor()=='white'?-1:1;
-      const maxCp = lt.getCentipawns(ceval.pvs[0])*side;
+      const maxCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(ceval.pvs[0])*side;
       const minCp = maxCp-300;
       if (!container.length) {
         container = $('<div class="lichessTools-drawPvs">')
@@ -423,7 +473,7 @@
       }
       const data = new Map();
       const pvs = [ceval].concat(ceval.pvs?.slice(1));
-      for (const cp of pvs.map(pv=>lt.getCentipawns(pv)*side)) {
+      for (const cp of pvs.map(pv=>LiChessTools.ChessMetrics.getCentipawnOnlyValue(pv)*side)) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,cp));
         let item = data.get(rcp);
         if (!item) {
@@ -435,7 +485,7 @@
           item.count++;
         }
       }
-      const currCp = lt.getCentipawns(currCeval)*side;
+      const currCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(currCeval)*side;
       if (currCp) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,currCp));
         let item = data.get(rcp);
@@ -472,11 +522,11 @@
       }
       if (data?.pvs?.length) {
         const side = analysis.turnColor()=='white'?-1:1;
-        const cp = lt.getCentipawns(data)*side;
+        const cp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(data)*side;
         if (cp) {
-          const best = lt.winPerc(cp);
+          const best = LiChessTools.ChessMetrics.centipawnsToWinPercentage(cp);
           for (const pv of data.pvs) {
-            const wp = lt.winPerc(lt.getCentipawns(pv)*side);
+            const wp = LiChessTools.ChessMetrics.centipawnsToWinPercentage(LiChessTools.ChessMetrics.getCentipawnOnlyValue(pv)*side);
             const uci = pv?.moves?.[0];
             if (!uci) continue;
             const obj = db.discoverDepth.get(uci);
@@ -490,6 +540,9 @@
       db.set(data.depth,data);
       if (this.options.depthChart) {
         this.drawChart();
+      }
+      if (this.options.difficulty) {
+        this.drawDifficulty();
       }
     };
 
@@ -508,7 +561,8 @@
         depthChart: lt.isOptionSet(value, 'depthChart'),
         downloadCeval: lt.isOptionSet(value, 'downloadCeval'),
         pvs: lt.isOptionSet(value, 'pvs'),
-        cost: lt.isOptionSet(value, 'cost')
+        cost: lt.isOptionSet(value, 'cost'),
+        difficulty: lt.isOptionSet(value, 'difficulty')
       }
       const main = $('main.analyse, main.puzzle');
       main
@@ -522,6 +576,7 @@
         .removeAttr('data-cost-color')
         .children('strong')
         .removeAttr('title');
+      $('div.lichessTools-positionDifficulty').remove();
       lt.pubsub.off('lichessTools.redraw',this.setupPvProcessing);
       if (this.options.highlight || this.options.colorEvaluation || this.options.cost) {
         lt.pubsub.on('lichessTools.redraw',this.setupPvProcessing);
@@ -530,12 +585,12 @@
       const analysis = lichess.analysis;
       const ceval = analysis?.ceval;
       if (ceval) {
-        analysis.ceval.selectEngine = lt.unwrapFunction(analysis.ceval.selectEngine,'cevalLineOptions-moreLines');
+        ceval.selectEngine = lt.unwrapFunction(ceval.selectEngine,'cevalLineOptions-moreLines');
         if (this.options.moreLines) {
           main
             .observer()
             .on('#ceval-settings-anchor,#ceval-settings',this.handleMoreLines);
-          analysis.ceval.selectEngine = lt.wrapFunction(analysis.ceval.selectEngine,{
+          ceval.selectEngine = lt.wrapFunction(ceval.selectEngine,{
             id: 'cevalLineOptions-moreLines',
             after: ($this, result,...args)=> {
               this.handleExternalEngine();
@@ -546,10 +601,15 @@
         this.handleMoreLines();
         lt.uiApi.events.off('analysis.change',this.drawChart);
         lt.pubsub.off('lichessTools.ceval',this.handleCeval);
+        lt.pubsub.off('lichessTools.redraw',this.drawDifficulty);
         if (ceval) {
-          if (this.options.depthChart||this.options.downloadCeval) {
+          if (this.options.depthChart||this.options.downloadCeval||this.options.difficulty) {
             lt.pubsub.on('lichessTools.ceval',this.handleCeval);
             lt.uiApi.events.on('analysis.change',this.drawChart);
+          }
+          if (this.options.difficulty) {
+            lt.pubsub.on('lichessTools.redraw',this.drawDifficulty);
+            this.drawDifficulty();
           }
         }
 

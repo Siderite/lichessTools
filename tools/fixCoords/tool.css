@@ -95,7 +95,7 @@ body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) .main-board 
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main div.analyse__board {
-  left: -1.2em;
+  left: -0.4em;
 }
 
 body.lichessTools.lichessTools-fixCoords-fix:not(:has(.lpv__board)) main :is(aside.analyse__side,div.study__side,aside.relay-tour__side) {

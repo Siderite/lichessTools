@@ -218,6 +218,7 @@
       CyrillicCapitalLetterI: '\u0418',
       Ladder: '\uD83E\uDE9C',
       WhiteFourPointedStar: '\u2727',
+      GemStone: '\uD83D\uDC8E',
 
 
       toEntity: function(s) {
@@ -261,34 +262,6 @@
       return !ceval || (node.eval && node.eval._originator!='lichessTools' && (node.eval?.depth || 16) > ceval.depth)
         ? node.eval
         : ceval;
-    };
-
-    getCentipawns = (info) => {
-      if (!info || info.depth === 0) return;
-      let cp = undefined;
-      const mate = Array.isArray(info.mate) ? info.mate[0] : info.mate;
-      if (mate !== undefined) {
-        const sign = mate?.toString()?.trim()?.startsWith('-')
-          ? -1
-          : 1;
-        cp = sign * (10000 - Math.abs(+mate) * 100);
-      }
-      if (info.cp !== undefined) {
-        cp = +(Array.isArray(info.cp) ? info.cp[0] : info.cp);
-      }
-      if (cp === undefined || Number.isNaN(cp)) {
-        this.global.console.warn('Failed getting centipawns from ',info);
-        return 0;
-      }
-      return cp;
-    };
-
-    winPerc = (cp) => {
-      return 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * cp)) - 1);
-    };
-
-    accuracy = (expected, played) =>{
-      return Math.max(0,103.1668 * Math.exp(-0.04354 * Math.max(0, expected - (played||0))) - 3.1669);
     };
 
     crc24 = (data) => {
@@ -386,8 +359,8 @@
       if (!arr?.length) return result;
       const kept = [];
       for (const item of arr) {
-        const arr = await asyncPredicate(item) ? result : kept;
-        arr.push(item);
+        const target = await asyncPredicate(item) ? result : kept;
+        target.push(item);
       }
       arr.length = 0;
       arr.push(...kept);
@@ -399,8 +372,8 @@
       if (!arr?.length) return result;
       const kept = [];
       for (const item of arr) {
-        const arr = predicate(item) ? result : kept;
-        arr.push(item);
+        const target = predicate(item) ? result : kept;
+        target.push(item);
       }
       arr.length = 0;
       arr.push(...kept);
@@ -814,7 +787,7 @@
       const tvChannel = isTv && this.location.getTvChannel();
       const urlUser = this.location.getUrlUser();
       const analysisUrl = $('div.buttons a.analysis,bo3 a.analysis').attr('href') || '';
-      const mAnalysis = /^\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
+      const mAnalysis = /^\/game\/(?<gameId>[^\/]+)\/?(?<isBlack>black)?/.exec(analysisUrl);
       const orientation = $('.main-board > .cg-wrap').is('.orientation-black') ? 'black' : 'white';
       return {
         isTv: isTv,
@@ -858,26 +831,16 @@
       return !node.children?.length;
     }
 
-    isMate(node) {
-      return node.san?.endsWith('#');
-    }
-
-    isCheck(node) {
-      return node.san?.includes('+');
-    }
-
     getNodePosition(node) {
       return this.getFenPosition(node.fen);
     }
 
     getFenPosition(fen) {
-      let index = fen.length - 1;
-      let spaces = 0;
-      while (index >= 0 && spaces < 2) {
-        if (fen[index] === ' ') spaces++;
-        index--;
-      }
-      return fen.slice(0, index + 1);
+      // position identity is board + side to move + castling + en-passant; counting the
+      // two fields back from the end dropped the castling and en-passant fields whenever
+      // the move counters were missing (issue #1816)
+      const fields = String(fen ?? '').split(' ');
+      return fields.slice(0, Math.min(4, fields.length)).join(' ');
     }
 
     treeviewVisibleCache = {
@@ -1078,7 +1041,7 @@
         state.nodeIndex++;
         if (node.comp) node.ltComp = true;
         if (!node.ltComp && (forced || this.isTreeviewVisible())) {
-          node.isCommentedOrMate = this.isCommented(node) || this.isMate(node);
+          node.isCommentedOrMate = this.isCommented(node) || LiChessTools.ChessMetrics.isSanMate(node);
           node.lt_position = this.getNodePosition(node);
           let pos = state.positions[node.lt_position];
           if (!pos) {
@@ -1103,7 +1066,7 @@
           if (this.isLastInLine(node)) {
             state.lastMoves.push(node);
           }
-          if (this.isCheck(node)) {
+          if (LiChessTools.ChessMetrics.isSanCheck(node)) {
             state.checks.push(node);
           }
         }
@@ -1139,8 +1102,9 @@
       if (!arr.length) return;
       arr.sort((n1, n2) => n1.nodeIndex - n2.nodeIndex);
       const index = analysis.node.nodeIndex;
-      const plyColor = color === 'white' ? 1 : 0;
-      return arr.find(n => n.ply % 2 === plyColor && n.nodeIndex > index) || arr.find(n => n.ply % 2 === plyColor);
+      const moverColor = color === 'white' ? 'white' : 'black';
+      return arr.find(n => this.getMoverFromNode(n) === moverColor && n.nodeIndex > index)
+        || arr.find(n => this.getMoverFromNode(n) === moverColor);
     };
 
     analysisRedraw = ()=>{
@@ -1190,6 +1154,30 @@
       
       return result;
     };
+
+    getTurnFromFen = (fen) => {
+      if (!fen) return;
+      const field = String(fen).trim().split(/\s+/)[1];
+      if (field === 'w' || field === 'b') return field === 'w' ? 'white' : 'black';
+    };
+
+    getTurnFromPly = (ply) => Number.isInteger(ply) ? (ply % 2 ? 'black' : 'white') : null;
+
+    getTurnFromNode = (node) => node?.fen
+      ? this.getTurnFromFen(node.fen) || this.getTurnFromPly(node.ply)
+      : this.getTurnFromPly(node?.ply);
+
+    getMoverFromNode = (node) => this.getOppositeTurn(this.getTurnFromNode(node));
+
+    getOppositeTurn = (turn) => turn === 'white' ? 'black' : 'white';
+
+    getTurnSign = (turn) => turn === 'black' ? -1 : 1;
+
+    getMoveNumber = (ply) => Math.floor((ply + 1) / 2);
+
+    getSanPrefix = (ply, separator) => `${Math.floor((ply + 1) / 2)}${ply % 2 === 1 ? '.' : '...'}${separator ?? ''}`;
+
+    getMoveColor = (moveIndex) => moveIndex % 2 ? 'white' : 'black';
 
     getPositionFromBoard = (el, asFen) => {
       if (!el) return;
@@ -1331,54 +1319,34 @@
     };
 
 
-    isStartFen = (fen) => {
-      return fen?.startsWith('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-    };
-
     fenToBoard = new LiChessTools.MaxSizedMap(10000);
     getBoardFromFen = fen => {
       if (!fen) return null;
+      const co = LiChessTools.chessopsModule;
+      if (!co?.fen?.parseBoardFen) return null;
       let result = this.fenToBoard.get(fen);
-      if (result) return result.map(r => r.slice()); //clone
-      result = [];
-      for (let i = 0; i < 8; i++) result.push(Array(8));
-      const splits = fen.split(' ');
-      fen = splits[0];
-      let enpassant = splits[3];
-      if (enpassant && enpassant != '-') {
-        result.enpassant = {
-          x: 104 - enpassant.charCodeAt(0),
-          y: enpassant.charCodeAt(1) - 49
-        };
+      if (result) return result.clone();
+      try {
+        const parsed = co.fen.parseBoardFen(String(fen).split(' ')[0]);
+        result = parsed && typeof parsed.unwrap === 'function' ? parsed.unwrap() : parsed;
+        if (!result) return null;
+        this.fenToBoard.set(fen, result);
+        return result.clone();
+      } catch (e) {
+        return null;
       }
-      let x = 0;
-      let y = 0;
-      for (let i = 0; i < fen.length; i++) {
-        if (y>7) break;
-        const ch = fen[i];
-        if ('kqrbnp'.indexOf(ch.toLowerCase()) >= 0) {
-          result[y][x] = ch;
-          x++;
-          continue;
-        }
-        if (ch == '/') {
-          x = 0;
-          y++;
-          continue;
-        }
-        x += (+ch);
-      }
-      result.fen = fen;
-      this.fenToBoard.set(fen,result);
-      return result;
     };
 
     getFenFromBoard = (board) => {
+      if (!board) return '';
+      const co = LiChessTools.chessopsModule;
+      if (co?.fen?.makeBoardFen) return co.fen.makeBoardFen(board);
       let fen = '';
-      for (let i = 0; i < 8; i++) {
+      const letters = { king: 'k', queen: 'q', rook: 'r', bishop: 'b', knight: 'n', pawn: 'p' };
+      for (let r = 7; r >= 0; r--) {
         let emptyCount = 0;
-        for (let j = 0; j < 8; j++) {
-          const piece = board[i][j];
+        for (let f = 0; f < 8; f++) {
+          const piece = board.get(r * 8 + f);
           if (!piece) {
             emptyCount++;
           } else {
@@ -1386,49 +1354,18 @@
               fen += emptyCount;
               emptyCount = 0;
             }
-            fen += piece;
+            const ch = letters[piece.role];
+            fen += piece.color === 'white' ? ch.toUpperCase() : ch;
           }
         }
         if (emptyCount > 0) {
           fen += emptyCount;
         }
-        if (i < 7) {
+        if (r > 0) {
           fen += '/';
         }
       }
       return fen;
-    };
-
-    reverseFen = (fen) => {
-      if (!fen) return fen;
-
-      const flipCapitalization = s => {
-        const pieces = 'RNBQKPrnbqkp';
-        return s.split('').map(ch => {
-          const i = pieces.indexOf(ch);
-          if (i < 0) return ch;
-          return pieces[(i + 6) % 12];
-        }).join('');
-      };
-
-      const splits = fen.split(' ');
-      splits[0] = flipCapitalization(splits[0].split('/').reverse().join('/'));
-      if (splits[1]) {
-        splits[1] = splits[1] == 'w' ? 'b' : 'w';
-      }
-      if (splits[2]) {
-        splits[2] = flipCapitalization(splits[2]);
-        const arr = splits[2].split('');
-        arr.sort();
-        splits[2] = arr.join('');
-      }
-      if (splits[3]) {
-        const m = /^([a-h])([1-8])$/.test(splits[3]);
-        if (m) {
-          splits[3] = m[1] + (9 - (+m[2]));
-        }
-      }
-      return splits.join(' ');
     };
 
     makeSvg = (svgText, chessground) => {
@@ -1530,8 +1467,10 @@
       };
 
       text = (text||'').replaceAll(/(cls|bkm|prc|rnd):([^\s]*)\s*/gi,'');
+      const withColors = options.pieceColors !== false;
       for (const ch in unicode) {
-        text = text.replaceAll(ch, unicode[ch]+', ');
+        const uname = withColors ? unicode[ch] : unicode[ch].replace(/^(white|black) /,'');
+        text = text.replaceAll(ch, uname+', ');
       }
       if (options?.stripEmoji) {
         text = text.replaceAll(/\p{Extended_Pictographic}+/ugi,' ');
@@ -1546,10 +1485,13 @@
                         .replaceAll(/(^www\.|\.com$|\.org|\.net$|\.co\.\w+$)/gi,'');
         return host+' URL ';
       });
+      if (options.dotDecimalWord) text = text.replaceAll(/\b(\d+)\.(\d+)/g,'$1point$2');
+      if (options.periodsToCommas) text = text.replaceAll(/[\r\n.]+/g,',');
       text = text.replaceAll(/#(?<black>-)?(?<moves>\d+)/gi,(...args)=>{
         const m = args.at(-1);
         return 'mate in '+m.moves+' for '+(m.black?'black':'white');
       });
+      let firstMovePlaced = false;
       text = text.replaceAll(regChessMove,(...arr)=>{
         const result = [];
         const g = arr.at(-1);
@@ -1560,12 +1502,12 @@
           if ([...g.number.matchAll(/\./g)].length==3) result.push(', black moves');
         }
         if (g.move) {
-          const sanWords = g.move
+          let sanWords = g.move
             .split('')
             .map(c => {
               if (c === 'x') return 'takes';
               if (c === '+') return 'check';
-              if (c === '#') return 'checkmate';
+              if (c === '#') return options?.briefMateWord?'mate':'checkmate';
               if (c === '=') return 'promotes to';
               if (c === '@') return 'at';
               if (c === '0') return 'O';
@@ -1574,7 +1516,8 @@
               if (code > 96 && code < 105) return c.toUpperCase(); // a-h
               return pieces[c.toLowerCase()] ?? c;
             })
-            .join(' ')
+            .join(' ');
+          if (options?.fileAid) sanWords = sanWords.replace(/A (?=\d)/g,'A-').replace(/A (?=[A-H] \d)/g,'A-');
           result.push(sanWords);
         }
         if (g.glyph) {
@@ -1582,40 +1525,45 @@
           if (ann) result.push(', '+ann);
         }
         return result.join(' ')
-            .replace('O - O - O', 'long castle')
-            .replace('O - O', 'short castle')
+            .replace('O - O - O', options?.castlePhrase!==false?'long castle':'castles long')
+            .replace('O - O', options?.castlePhrase!==false?'short castle':'castles')
             .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
             .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
             .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
             .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
             .replace(/(\d) H (\d)/, '$1H$2') // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
             .replace(/(\d) H (\d)/, '$1H$2')
-            +', ';
+            + (options?.glyphsAfterMove && !firstMovePlaced ? (firstMovePlaced = true, ', \u0001') : ', ');
       });
       if (options.readAnnotations && (options.glyphs?.length || options.isCheck || options.isMate)) {
         const additional = (options.glyphs || [])
           .map(g=>{
             let name = g.name;
-            if (name?.toLowerCase() == 'dubious move') name='inaccuracy';
+            if (name?.toLowerCase() == 'dubious move' && !options.keepDubiousMoveName) name='inaccuracy';
             return name || annotations[g.symbol]
           })
           .concat([
             options.isCheck?'check':'',
-            options.isMate?'checkmate':''
+            options.isMate?(options?.briefMateWord?'mate':'checkmate'):''
           ])
           .filter(g=>g)
+          .filter(g=>!text.toLowerCase().includes(g.toLowerCase()))
           .join(', ');
         if (!text) {
           text = additional;
-        } else {
-          if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+        } else if (additional && !text.toLowerCase().includes(additional.toLowerCase())) {
+          if (options?.glyphsAfterMove && text.includes('\u0001')) {
+            text = text.replace('\u0001', additional + ', ');
+          } else if (options?.glyphsAfter) {
+            text = `${text.replace(/, $/,'')}, ${additional}`;
+          } else {
             text = `${additional}, ${text}`;
           }
         }
       }
 
       text = text.replaceAll(/lichess/gi,'lee chess');
-      return text;
+      return text.replaceAll('\u0001','');
     };
 
     play = async (path, volume) => {
@@ -1766,6 +1714,16 @@
       return prev?.color;
     };
 
+    loadCss = (key)=>{
+      const lt = this;
+      const asset = lt.lichess.asset;
+      if (asset.loadCssPath) {
+        return asset.loadCssPath(key);
+      } else {
+        return asset.loadCss({key});
+      }
+    };
+
     clone = (obj) => {
       if (!obj) return obj;
       return this.global.JSON.parse(this.global.JSON.stringify(obj));
@@ -1864,20 +1822,54 @@
       $('html').attr('data-page-href',this.location.href);
       this.api.init();
       const setTimeout = this.global.setTimeout;
+      const setInterval = this.global.setInterval;
+      const clearInterval = this.global.clearInterval;
       const console = this.global.console;
+      const document = this.global.document;
       this.global.addEventListener('pagehide', () => {
         this.net.storeLog();
       });
+      // The title of a tool page has to be in place before the title of Lichess's 404
+      // shell paints in the tab, so it goes in here, before the options wait for a store.
+      for (const tool of this.tools) {
+        tool?.guardPageTitle?.();
+      }
       this.currentOptions = await this.getOptions(true);
+      let totalCount = 0;
+      let endedCount = 0;
       for (const tool of this.tools) {
         if (!tool?.init) continue;
+        totalCount++;
         try {
           // init all tools at the same time, don't await
-          tool.init().catch(e => { setTimeout(() => { throw e; }, 100); });
+          tool.init()
+            .catch(e => { setTimeout(() => { throw e; }, 100); })
+            .finally(()=>{ endedCount++; });
         } catch (e) {
+          endedCount++;
           setTimeout(() => { throw e; }, 100);
         }
       }
+      const checkBody = ()=>{
+        if (this.currentOptions?.enableLichessTools === false) {
+          clearInterval(bodyInterval);
+          return;
+        }
+        if (!document.body) return;
+        const body = $(document.body);
+        for (const tool of this.tools) {
+          const cls = tool._initClassName;
+          if (!cls) continue;
+          tool._initClassName = null;
+          body.addClass(cls);
+          if (+tool._initClassTimeout) {
+            setTimeout(()=>body.removeClass(cls),tool._initClassTimeout);
+          }
+        }
+        if (endedCount == totalCount) clearInterval(bodyInterval);
+      };
+      const bodyInterval = setInterval(checkBody,10);
+      checkBody();
     }
 
     async start(lichess) {

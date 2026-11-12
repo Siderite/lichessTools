@@ -260,7 +260,7 @@ chrome.runtime.onMessage.addListener(
     const { uid, ...data } = request;
     const tabId = sender.tab?.id;
     if (!tabId || !uid) return;
-    handleRequest(data).then(response => sendResponse({ ...response, uid: uid }));
+    handleRequest(data).then(response => sendResponse(Array.isArray(response) ? { result: response, uid: uid } : { ...response, uid: uid }));
     return true;
   }
 );

@@ -4,8 +4,14 @@
     firstEvents = [];
     async wrapEsmLoaded() {
       const lt = this.lichessTools;
+      let i = 0;
       while (!lt.lichess?.asset?.loadEsm) {
         await lt.timeout(1);
+        i++;
+        if (i>10000) {
+          lt.global.console.warn('Could not detect asset.loadEsm');
+          return;
+        }
       }
       const lichess = lt.lichess;
       if (lt.isWrappedFunction(lichess.asset.loadEsm, 'emitEsmLoaded')) return;

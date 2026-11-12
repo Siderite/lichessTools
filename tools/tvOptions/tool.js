@@ -86,11 +86,13 @@
       const $ = lt.$;
       const trans = lt.translator;
 
-      if (!lt.location.isCurrentGamesPage()) return;
+      if (lt.uiApi.overrides?.tvGamesOnFinish) {
+        lt.uiApi.overrides.tvGamesOnFinish = lt.unwrapFunction(lt.uiApi.overrides.tvGamesOnFinish, 'tvOptions');
+      }
 
+      if (!lt.location.isCurrentGamesPage()) return;
       if (this.options.streamerTv || this.options.friendsTv || this.options.teamTv) {
         if (lt.uiApi.overrides?.tvGamesOnFinish) {
-          lt.uiApi.overrides.tvGamesOnFinish = lt.unwrapFunction(lt.uiApi.overrides.tvGamesOnFinish, 'tvOptions');
           lt.uiApi.overrides.tvGamesOnFinish = lt.wrapFunction(lt.uiApi.overrides.tvGamesOnFinish, {
             id: 'tvOptions',
             before: ($this, gameId) => {
@@ -494,7 +496,7 @@
         const gameId = tvOptions.gameId || lichess.analysis?.data.game?.id;
         if (gameId && gameId !== 'synthetic' && gameId !== 'broadcast') {
           if (this.options.link && !header.parent().is('a')) {
-            const url = '/' + gameId + (tvOptions.isBlack ? '/black' : '/white');
+            const url = '/game/' + gameId + (tvOptions.isBlack ? '/black' : '/white');
             header.wrap($('<a>').attr('href', url).attr('title', 'LiChess Tools - ' + url));
           }
           if (this.options.bookmark && !header.has('a.bookmark').length) {
@@ -506,11 +508,14 @@
               );
           }
         }
-      } else {
+      }
+      if (!this.options.link) {
         if (header.parent().is('a')) {
           header.unwrap();
         }
-        $('a.bookmark.lichessTools', header).remove();
+      }
+      if (!this.options.bookmark) {
+        $('a.bookmark.lichessTools-bookmark', header).remove();
       }
 
       if (this.options.userTvHistory && tvOptions.isTv && tvOptions.user) {
@@ -550,7 +555,7 @@
         if (channel) {
           lt.storage.set('LiChessTools.TvChannel',channel);
         } else {
-          channel = lt.storage.get('LiChessTools.TvChannel',channel);
+          channel = lt.storage.get('LiChessTools.TvChannel');
           if (channel) {
             lt.location.set('/tv/'+channel);
           }

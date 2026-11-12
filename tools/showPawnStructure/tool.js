@@ -32,171 +32,9 @@
       }
     }
 
-    getStructure = (board, blackOrientation) => {
-      if (!board) return null;
-      const lt = this.lichessTools;
-      const result = {
-        pawns: {
-          'w': new Array(8).fill(-1),
-          'b': new Array(8).fill(-1)
-        },
-        led: {
-          'w': new Array(8).fill(false),
-          'b': new Array(8).fill(false)
-        },
-        islands: { w: [], b: [] },
-        qSide: { 'w': 0, 'b': 0 },
-        kSide: { 'w': 0, 'b': 0 }
-      };
-      for (let y = 0; y < 8; y++) {
-        const rank = board[y];
-        for (let x = 0; x < 8; x++) {
-          switch (rank[x]) {
-            case 'p':
-              if (y <= 4) {
-                if (result.pawns.b[x] > -1) result.led.b[x] = true;
-                result.pawns.b[x] = y - 1;
-              }
-              break;
-            case 'P':
-              if (y >= 3) {
-                if (result.pawns.w[x] > -1) result.led.w[x] = true;
-                result.pawns.w[x] = 6 - y;
-              }
-              break;
-          }
-        }
-      }
-
-      const buildIslands = (color) => {
-        const ps = result.pawns[color];
-        const list = result.islands[color];
-        let current = null;
-        for (let x = 0; x < 8; x++) {
-          if (ps[x] === -1) {
-            current = null;
-            continue;
-          }
-          if (current && current.end === x - 1) {
-            current.end = x;
-          } else {
-            current = { start: x, end: x };
-            list.push(current);
-          }
-        }
-      };
-
-      buildIslands('w');
-      buildIslands('b');
-
-      const calcSide = (color) => {
-        const list = result.islands[color];
-        if (list.length === 0) return;
-
-        const first = list[0];
-        if (first.start < 2) {
-          result.qSide[color] = Math.min(3, first.end) - first.start + 1;
-        }
-
-        const last = list[list.length - 1];
-        if (last.end > 5) {
-          result.kSide[color] = last.end - Math.max(4, last.start) + 1;
-        }
-      };
-
-      calcSide('w');
-      calcSide('b');
-
-      const [ me, they ] = blackOrientation ? ['b','w'] : ['w','b'];
-      const toChar = (s)=>{
-        if (s==' ') return s;
-        if (s=='Q') {
-          const mv=result.qSide[me];
-          const mt=result.qSide[they];
-          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
-        }
-        if (s=='K') {
-          const mv=result.kSide[me];
-          const mt=result.kSide[they];
-          return mv>mt ? 'M' : mv<mt ? 'T' : 'X';
-        }
-        if (s.startsWith('P')) {
-          const v=result.pawns[s[1]=='M'?me:they][+s[2]];
-          return v<0 ? 'X' : v;
-        }
-        if (s.startsWith('L')) {
-          const v=result.led[s[1]=='M'?me:they][+s[2]];
-          return v ? 'L' : 'X';
-        }
-        throw new Error('Unknown primitive: '+s);
-      };
-      const structureText = [
-        'PM3','PM4','PM2','PT3','PT4','PT2','Q','K',' ',
-        'PM5','PM1','PM6','PT5','PT1','PT6',' ',
-        'PM0','PM7','PT0','PT7',' ',
-        'LM3','LM4','LM2','LT3','LT4','LT2',' ',
-        'LM5','LM1','LM6','LT5','LT1','LT6',' ',
-        'LM0','LM7','LT0','LT7',
-      ].map(toChar).join('');
-      return structureText;
-    };
-
-    keySimilarityDirect = (kSearch, kNamed) => {
-      kSearch = kSearch.replaceAll(' ', '');
-      kNamed = kNamed.replaceAll(' ', '');
-      const l = Math.min(kSearch.length, kNamed.length);
-      let sim = 0;
-      let prefixOver = false;
-      for (let i = 0; i < l; i++) {
-        if (kSearch[i] == kNamed[i]) {
-          sim += prefixOver ? 0.8 : 1;
-        } else {
-          prefixOver = true;
-          const pSearch = +kSearch[i];
-          const pNamed = +kNamed[i];
-          if (pSearch >= 0 && pNamed >= 0 && pSearch < pNamed) {
-            sim += 0.2;
-          }
-        }
-      }
-      return Math.round(sim * 100 / l);
-    };
-    keyCache = {};
-    keySimilarity = (kSearch, kNamed) => {
-      const k = kSearch + '|' + kNamed;
-      let result = this.keyCache[k];
-      if (!result) {
-        result = this.keySimilarityDirect(kSearch, kNamed);
-        this.keyCache[k] = result;
-      }
-      return result;
-    };
-
-    getOpposingStructure = structure => {
-      const result =
-        structure.substr(3, 3) +
-        structure.substr(0, 3) +
-        structure.substr(6, 2).replaceAll('M', 'x').replaceAll('T', 'M').replaceAll('x', 'T') +
-        ' ' +
-        structure.substr(12, 3) +
-        structure.substr(9, 3) +
-        ' ' +
-        structure.substr(18, 2) +
-        structure.substr(16, 2) +
-        ' ' +
-        structure.substr(24, 3) +
-        structure.substr(21, 3) +
-        ' ' +
-        structure.substr(31, 3) +
-        structure.substr(28, 3) +
-        ' ' +
-        structure.substr(37, 2) +
-        structure.substr(35, 2);
-      return result;
-    };
-
     getStructureName = async (structure, onlyNamed) => {
       const lt = this.lichessTools;
+      if (!structure) return null;
       const threshold = this.options.fuzzy ? 90 : 100;
 
       if (!this.pawnStructures) {
@@ -209,20 +47,24 @@
 
       const getArr = (structure) => {
         if (!this.pawnStructures) return [];
-        const arr = Object.keys(this.pawnStructures).map(k => {
-          return {
-            key: k,
-            value: this.pawnStructures[k],
-            similarity: this.keySimilarity(structure, k)
-          };
-        });
+        const arr = [];
+        for (const item of this.pawnStructures) {
+          const value = { name: item.name, url: item.url };
+          for (const k of item.structures || []) {
+            arr.push({
+              key: k,
+              value: value,
+              similarity: LiChessTools.PawnStructure.keySimilarity(structure, k)
+            });
+          }
+        }
         arr.sort((o1, o2) => o2.similarity - o1.similarity);
         return arr;
       };
 
       const arr = getArr(structure);
       if (arr[0].similarity == 100) return arr[0].value;
-      const opp = this.getOpposingStructure(structure);
+      const opp = LiChessTools.PawnStructure.getOpposingStructure(structure);
       const oppArr = getArr(opp).map(i => {
         return {
           ...i,
@@ -249,38 +91,72 @@
       };
     };
 
-    addStructureAnchor = (el, structureName, structure) => {
+    getEuweKramerUrl = (code) => {
+      return 'https://siderite.dev/LiChessTools/pawnStructures.html#ek-' + code.toLowerCase().replace(/\./g, '');
+    };
+
+    addStructureAnchor = (el, structureName, structure, euweKramer) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
       if (!el.length) el = $(el);
+      const ek = euweKramer?.code ? euweKramer : null;
       let structureElem = el.find('.lichessTools-structure');
-      if (!structureName) {
+      if (!structureName && !ek) {
         structureElem.remove();
         return;
       }
 
-      const isLink = !!structureName.url;
-      if ((isLink && structureElem.is('span')) || (!isLink && structureElem.is('a'))) {
-        structureElem.remove();
-        structureElem = el.find('.lichessTools-structure');
-      }
       if (!structureElem.length) {
         const visibleEl = el.filter((i, e) => !!lt.inViewport(e)).eq(0);
-        structureElem = $('<' + (isLink ? 'a' : 'span') + '>')
+        structureElem = $('<span>')
           .addClass('lichessTools-structure')
           .appendTo(visibleEl);
-        if (isLink) {
-          structureElem.attr('target', '_blank');
-        }
       }
-      let title = trans.pluralSame('structureNameTitle', structure);
-      if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
-      structureElem
-        .replaceText(structureName.name)
-        .attrSafe('title', title);
-      if (isLink) {
-        structureElem.attrSafe('href', structureName.url);
+
+      let nameEl = structureElem.find('.lichessTools-structureName');
+      if (structureName) {
+        const isLink = !!structureName.url;
+        let title = trans.pluralSame('structureNameTitle', structure);
+        if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
+
+        if (!nameEl.length || nameEl.is('a') !== isLink) {
+          nameEl = $('<' + (isLink ? 'a' : 'span') + '>')
+            .addClass('lichessTools-structureName');
+          const ekExisting = structureElem.find('.lichessTools-euweKramer');
+          if (ekExisting.length) nameEl.insertBefore(ekExisting);
+          else nameEl.appendTo(structureElem);
+        }
+        nameEl
+          .textSafe(structureName.name)
+          .attrSafe('title', title);
+        if (isLink) {
+          nameEl.attrSafe('target', '_blank');
+          nameEl.attrSafe('href', structureName.url);
+        }
+      } else {
+        nameEl.remove();
+      }
+
+      let ekEl = structureElem.find('.lichessTools-euweKramer');
+      if (ek) {
+        let ekTitle = ek.code + ' ' + ek.name + ' \u2014 ' + ek.category;
+        const others = (ek.matches || []).map(m => m?.code).filter(c => c && c !== ek.code);
+        if (others.length) {
+          ekTitle += '\r\n' + others.join(', ');
+        }
+        if (!ekEl.length) {
+          ekEl = $('<a>')
+            .addClass('lichessTools-euweKramer')
+            .appendTo(structureElem);
+        }
+        ekEl
+          .attrSafe('target', '_blank')
+          .attrSafe('href', this.getEuweKramerUrl(ek.code))
+          .attrSafe('title', ekTitle)
+          .textSafe(ek.code);
+      } else {
+        ekEl.remove();
       }
     };
 
@@ -289,8 +165,11 @@
       const $ = lt.$;
       const analysis = lt.lichess.analysis;
       if (lt.global.document.hidden) return;
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-structure').remove();
+        return;
+      }
       const evalCheckbox = $.cached('body').find('.study__multiboard__options label.eval input');
       if (evalCheckbox.length && !evalCheckbox.is(':checked')) return;
 
@@ -323,10 +202,11 @@
           continue;
         }
         const board = lt.getBoardFromFen(fen);
-        const structure = this.getStructure(board);
+        const structure = LiChessTools.ChessMetrics.getStructure(board);
+        const euweKramer = LiChessTools.ChessMetrics.getEuweKramer(board);
         const inCurrentGames = !!$(el).closest('.now-playing').length;
         const structureName = await this.getStructureName(structure, inCurrentGames);
-        this.addStructureAnchor(el, structureName, structure);
+        this.addStructureAnchor(el, structureName, structure, euweKramer);
         fen = '';
       }
       if (notInViewport) this.miniGameStructureDebounced();
@@ -342,20 +222,24 @@
       if (lt.location.isGamesPage()) {
         return;
       }
-      const showStaticAnalysis = analysis?.settings?.showStaticAnalysis;
-      if ($.cached('body').is('.playing') || (showStaticAnalysis === false && !analysis?.cevalEnabled())) return;
+      const showMainlineAnalysis = analysis?.settings?.showMainlineAnalysis;
+      if ($.cached('body').is('.playing') || (showMainlineAnalysis === false && !analysis?.cevalEnabled())) {
+        $('.lichessTools-structure').remove();
+        return;
+      }
       const trans = lt.translator;
       const fen = analysis?.node?.fen || lt.getPositionFromBoard($('main'), true);
       if (!fen) return;
       const board = lt.getBoardFromFen(fen);
-      const structure = await this.getStructure(board);
+      const structure = await LiChessTools.ChessMetrics.getStructure(board);
       const metaSection = $.cached('div.game__meta section, div.analyse__wiki.empty, div.chat__members, div.analyse__underboard .copyables, main#board-editor .copyables', 10000);
       if (!structure) {
         metaSection.find('.lichessTools-structure').remove();
         return;
       }
+      const euweKramer = LiChessTools.ChessMetrics.getEuweKramer(board);
       const structureName = await this.getStructureName(structure);
-      this.addStructureAnchor(metaSection, structureName, structure);
+      this.addStructureAnchor(metaSection, structureName, structure, euweKramer);
       if (!ply) {
         await this.miniGameStructure();
       }

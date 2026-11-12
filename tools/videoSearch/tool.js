@@ -1,7 +1,7 @@
 (() => {
   class VideoSearchTool extends LiChessTools.Tools.ToolBase {
 
-    dependencies = ['EmitRedraw'];
+    dependencies = ['EmitRedraw', 'Dialog'];
 
     preferences = [
       {
@@ -44,23 +44,24 @@
       const analysis = lichess.analysis;
       const fen = analysis.node.fen;
       $('dialog.lichessTools-videoSearch').remove();
-      lichess.asset.loadCssPath('bits.dialog');
-      lichess.asset.loadCssPath('bits.video');
-      const dialog = $('<dialog class="lichessTools-videoSearch video">')
-        .append(`<form>
-    <div class="close-button-anchor">
-        <a class="help-button" data-icon="${lt.icon.toEntity(lt.icon.InfoCircle)}" aria-label="Help" href="https://siderite.dev/blog/lichess-tools---user-manual#videoSearch" target="_blank"></a>
-        <button class="close-button" data-icon="${lt.icon.toEntity(lt.icon.X)}" aria-label="Close" formmethod="dialog" value="close"/>
-    </div>
-    <div class="scrollable">
-        <div class="dialog-content">
-        </div>
-    </div>
-</form>`)
-        .appendTo('body');
+      lt.loadCss('bits.video');
+      const dialog = await lt.dialog({
+        header: $('<h2>').text(trans.noarg('videoSearchHeader')),
+        help: 'https://siderite.dev/blog/lichess-tools---user-manual#videoSearch',
+        noDrag: true
+      });
+      const $dialog = $(dialog)
+        .addClass('lichessTools-videoSearch')
+        .addClass('video');
 
-      $('dialog .dialog-content')
-        .append($('<h2>').text(trans.noarg('videoSearchHeader')))
+      $dialog.find('button.close-button')
+        .on('click',()=>{
+          $dialog
+            .each((i,e)=>e.close('cancel'))
+            .remove();
+        });
+
+      $dialog.find('.dialog-content')
         .append(lt.spinnerHtml)
         .append($('<a class="blurb" target="_blank">')
                    .attr('href','https://chess-insights.app/')
@@ -86,10 +87,10 @@
         } else {
           content = $('<div class="noVideos">').text(trans.noarg('noVideosFoundText'));
         }
-        $(content).replaceAll($('dialog .dialog-content .spinner'));
+        $(content).replaceAll($dialog.find('.dialog-content .spinner'));
       };
       asyncFunc();
-      dialog[0].showModal();
+      dialog.showModal();
     };
 
     closeDialog = (ev) => {

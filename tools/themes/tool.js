@@ -10,7 +10,7 @@
         type: 'multiple',
         possibleValues: ['performance', 'justExplorer', 'mobile', 'slimArrows', 'slimmerArrows', 'flairX', 'lessIcons', 'nonStickyHeader', 'toggleStudyChat',
                          'pieceDrag','noPractice', 'gameMoveList', 'fatGauge', 'fatMove', 'gridBoard','adamisko','arcade','fixThirdParties','timeControls',
-                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder','grabHighlight','arrowLastMove'],
+                         'firstInteraction','noVariants','noBullet','squares','experimental','chessbaseBorder','grabHighlight','arrowLastMove','flat','smallNetworkStatus'],
         defaultValue: 'fixThirdParties',
         advanced: true
       },
@@ -61,6 +61,8 @@
         'themes.chessbaseBorder': 'ChessBase board margin',
         'themes.grabHighlight': 'Grab highlight',
         'themes.arrowLastMove': 'Arrow for last move',
+        'themes.flat': 'No shadows or blur',
+        'themes.smallNetworkStatus': 'Small network status',
         'enableBoardStyleQuestion': 'This theme requires Board Styling for full functionality, which may add a little overhead. Should I enable it?'
       },
       'ro-RO': {
@@ -97,6 +99,8 @@
         'themes.chessbaseBorder': 'Margine de tabl\u0103 ChessBase',
         'themes.grabHighlight': 'Eviden\u0163iere apucare',
         'themes.arrowLastMove': 'S\u0103geat\u0103 la ultima mutare',
+        'themes.flat': 'F\u0103r\u0103 umbre sau estomp\u0103ri',
+        'themes.smallNetworkStatus': 'Status re\u0163ea minimizat',
         'enableBoardStyleQuestion': 'Aceast\u0103 tem\u0103 necesit\u0103 Stilare Tabl\u0103 pentru func\u0163ionalitate complet\u0103. O activez?'
       }
     }
@@ -151,6 +155,11 @@
       const is3d = $('#main-wrap').is('.is3d');
       const boardImage = lt.currentOptions.getValue('customBoardImage');
       if (boardImage && !is3d) {
+        // customBoardImage can hold the uploadedImagePlaceholder sentinel when the
+        // blob lives in IndexedDB; hand ThemesTool the resolved data url (or null
+        // if the blob is missing) so the CSS var never points at the sentinel.
+        const customBoard = lt.tools?.CustomBoardImageTool;
+        if (customBoard) return (await customBoard.resolveBoardUrl(boardImage)) || null;
         return boardImage;
       }
 
@@ -196,6 +205,13 @@
           }
           const styles = lt.global.getComputedStyle(board[0], '::before');
           backgroundImage = styles.getPropertyValue('background-image');
+        }
+        if (backgroundImage && backgroundImage !== 'unset') {
+          const match = backgroundImage.match(/url\(\s*(['"]?)(?<url>.*?)\1\s*\)/i);
+          if (match) {
+            const absolute = new URL(match.groups.url, location.href).href;
+            backgroundImage = `url("${absolute}")`;
+          }
         }
         $('html').css('--board-background', backgroundImage||'unset');
       }

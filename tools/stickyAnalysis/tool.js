@@ -36,7 +36,7 @@
       if (analysis.getOrientation() != "white" && !/\[Orientation|\[StartFlipped/.test(pgn)) {
         pgn = '[Orientation "Black"]\r\n[StartFlipped "1"]\r\n' + pgn?.replace(/\[(Orientation|StartFlipped)\s+"[^"]*"\][\r\n]+/g, '');
       }
-      if (!lt.isStartFen(analysis.tree.root.fen)) {
+      if (!LiChessTools.ChessMetrics.isStartFen(analysis.tree.root.fen)) {
         pgn = '[FEN "' + analysis.tree.root.fen + '"]\r\n' + pgn?.replace(/\[FEN\s+"[^"]*"\][\r\n]+/g, '');
       }
       if (this.prevPgn === pgn) return;
@@ -57,7 +57,7 @@
       const savedPgn = lt.storage.get('LiChessTools.stickyAnalysis.pgn', { zip: true });
       if (!savedPgn) return;
       const currentFen = lichess.analysis.tree.root.fen;
-      if (!lt.isStartFen(currentFen)) {
+      if (!LiChessTools.ChessMetrics.isStartFen(currentFen)) {
         const newFen = lt.getPgnTag(savedPgn,'FEN');
         if (lt.getPositionFromFen(currentFen) != lt.getPositionFromFen(newFen)) return; //don't replace the current start position
       }

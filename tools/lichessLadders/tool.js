@@ -1,7 +1,13 @@
 (() => {
-  class LichessLaddersTool extends LiChessTools.Tools.ToolBase {
+  class LichessLaddersTool extends LiChessTools.Tools.PageToolBase {
 
     dependencies = ['AddNotifications'];
+
+    pageUrl = '/page/lichessLadders';
+    pageClass = 'lichessLadders';
+    // The tab title, held over Lichess's 404 shell by PageToolBase from init until a
+    // render owns it.
+    pageTitle = 'lichessLaddersPageTitle';
 
     preferences = [
       {
@@ -238,7 +244,7 @@
         let gameElem = elems.find(e=>e.gameId == id);
         if (!gameElem) {
           gameElem = $('<a>')
-                       .attr('href','/'+id)
+                       .attr('href','/game/'+id)
                        .attr('data-live',id)
                        .attr('data-state',challenge.challengerIsWhite ? ',white,' : ',black,')
                        .addClass('mini-game mini-game--init mini-game-'+id)
@@ -274,13 +280,10 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
-      if (!lt.location.isLichessLaddersSummary()) return;
+      const main = await this.preparePage();
+      if (!main) return;
 
-      lt.global.document.title = trans.noarg('lichessLaddersPageTitle');
-      const main = $('#main-wrap main')
-        .empty()
-        .attr('class','lichessTools-lichessLadders')
-        .append(lt.spinnerHtml);
+      lt.global.document.title = this.pageTitleText();
 
       const laddersId = await lt.api.lichessladders.getLaddersId(lt.getUserId())
         .catch(e=>lt.announce(trans.noarg('laddersError')));
@@ -447,7 +450,7 @@
           .appendTo(main);
         await displayChallenges(liveChallenges,section);
       }
-      lt.uiApi.initializeDom(main[0]);
+      this.initPageEvents(main);
     };
 
     async start() {
@@ -511,7 +514,7 @@
             const orientation = userId?.toLowerCase()==challenge?.white?.lichessId?.toLowerCase() ? 'white' : 'black';
             if (challenge.gameId) {
               $('<a class="glpt">')
-                .attr('href', '/'+challenge.gameId+'/'+orientation)
+                .attr('href', '/game/'+challenge.gameId+'/'+orientation)
                 .text(text)
                 .attr('title',trans.noarg('goToGameTitle'))
                 .appendTo(group);
