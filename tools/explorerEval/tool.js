@@ -695,13 +695,14 @@
       const moves = missing;
       const searchedSet = new Set(moves);
       let updated = false;
+      const whiteSign = lt.getTurnSign(lt.getTurnFromFen(fen));
       const mergeEngineLines = (lines) => {
         let merged = false;
         for (const i of lines || []) {
           const uci = i?.pv?.[0];
           if (!uci || !searchedSet.has(uci)) continue;
-          const cp = i.cp?.length ? +i.cp[0] : null;
-          const mate = i.mate?.length && i.mate[0] != '0' ? +i.mate[0] : null;
+          const cp = i.cp?.length ? whiteSign * +i.cp[0] : null;
+          const mate = i.mate?.length && i.mate[0] != '0' ? whiteSign * +i.mate[0] : null;
           if (cp === null && mate === null) continue;
           const depth = i.depth?.length ? +i.depth[0] : targetDepth;
           const existing = result.moves.find(m => m.uci == uci);
