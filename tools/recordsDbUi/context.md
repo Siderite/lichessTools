@@ -43,6 +43,97 @@ the tooltip four per popup element; a repaint over a thousand rows
 registers nothing on them. The tree-end marker, the retry button and the
 tooltip links grew that array before and now grow nothing.
 
+## The unified item tree
+
+The tree no longer draws a line between folders and items: every node is an item, and any
+item may be a parent of any other. Folders keep their empty `kind` marker and a `name`;
+leaves carry `{kind,id,label,meta?}`. `sortTree` sorts folders first and leaves by label
+inside every node, so a study holding its chapters and study positions reads like a folder
+holding the same.
+
+The row caret follows that rule: any node with a `children` array (a folder or a leaf-parent)
+wears a `button.bookmark-toggle` with the same triangle icon. Folders and leaf-parents
+answer that caret with opposite defaults: a folder starts closed and its caret opens it
+(`expanded` set), a leaf-parent starts open so a filed study shows its filed chapters without
+a click and its caret hides them (`collapsed` set). `parentNodes()` walks both kinds; the
+fold-all chip and `toggleAllExpanded()` use it. The row's `data-expanded` attr carries the
+**visual** state - true when the subtree is showing, false when hidden - so the caret's
+rotate-the-triangle CSS does not need to know the kind. `shapeChains`/`frozenView` persist
+both `expanded` and `collapsed` chain lists into the window blob, and `restoreView` splits
+the read-back by kind so a leaf-parent stays open or closed the way the user left it.
+
+Rename rides any single selected item. `editName` writes `name` on a folder and `label` on
+a leaf; `leafLabel` lets an explicit `label` outrank the mirror record's own name so a
+user rename shows. A leaf rename on a study keeps the study's lichess id untouched - only
+the row's title changes.
+
+`canAttach` returns true for any pair. `canDrop` still refuses a branch inside itself so a
+move never eats a subtree. `mergeTrees` re-hangs by `meta.parentId`, with `meta.studyId`
+and `meta.blogId` still honoured so a harvest's chapter or blogPost keeps finding its
+parent across pages. `splitBranches` keeps a leaf of another branch as a bare path marker
+when it leads to something in this branch, so a position under a study splits to the
+position branch and merges back into the study.
+
+A study position is a new kind: `{kind:'studyPosition', id: chapterId+'|'+nodePath, meta:
+{studyId, chapterId, nodePath}}`. It rides the study branch (no blob of its own). Opening it
+loads the chapter, then resolves `nodePath` to a node with `lt.lichess.analysis.tree.nodeAtPath`
+and walks the analysis across with `lt.lichess.analysis.userJump(node.path)`; a path the tree
+does not know (chapter rewritten since the harvest) leaves the chapter open at its root.
+
+There are two position kinds. A **FEN position** is the direct lichess URL for a FEN:
+`{kind:'position', id: fen, meta: {variant}}` and its row opens `/analysis/{variant}/{fen}` with
+spaces replaced by underscores. A **study position** is a node inside a study chapter and takes
+the chapter + node jump path above.
+
+The Add button grew a caret dropdown (`btn-add-caret`). It cycles `addChoice` through the
+kinds the current page can name - study, chapter, FEN position, study position - and Add
+files the current choice. The caret only paints when the page names more than one kind, so
+a bare analysis page still gets a bare Add button.
+
+The window is anchored to body rather than the viewport: `position: absolute` in the tool
+css, and a matching `html:has(body.lichessTools > dialog.lichessTools-recordsDbUi) { overflow:
+auto }` override so the page keeps its scroll while this window is open. Other tools that
+open a dialog keep the factory's `overflow: hidden` default and their fixed-position box.
+
+Two notes on the Add flow after the fact. A leaf parent starts without a `children` array,
+so `(parent?.children ?? this.entries)` reads the root rather than the leaf; addLeaf and
+drop now open `parent.children = []` before the first push so study-under-study nests
+where it should. A leaf that is already the current page item refuses to nest inside itself
+via `recordsDbAddSelfParent`.
+
+The file shape grew with the leaf parent, so it is now `formatVersion: 3`: a node is a folder
+only while it names no kind, and a leaf may carry a `children` array. `normalizeEntries` used to
+test the children array first, which wrote a filed study holding filed chapters as a nameless
+folder and lost that study from the restore; a v2 reader still misreads a leaf that has children,
+which is what the bump says. A childless kind-less node in a branch blob is still a v1 row that
+takes the branch's kind.
+
+A chapter row prints its own name: `resolvePageLeaves` fills the label from the study record's
+`chapters` when the chapter only came from the URL, and `leafLabel` reads the chapter's entry off
+the record it inherits. Chapter leaves ride on their study's record (that is what stamps them
+gone), so an empty label used to print the study name and paint a study inside the study.
+
+
+
+The Add caret is now a real split dropdown, not a cycle: `btn-add` says "Add", `btn-add-caret`
+says "▾" and pressing it toggles the menu open. The pair lives inside a `div.add-caret-wrap`
+that is `position: relative`, so the menu can hang from the caret. While the menu is open, the
+wrapper grows a `div.btn-add-menu-box` pinned to the caret with `position: absolute; top: 100%;
+left: 50%; transform: translateX(-50%)` and a small `::before` pointer; inside it, one
+`button.btn-add-menu` per kind the page names (Study, Chapter, Position, Study position) stacks
+as a vertical flex column. Closing the menu takes the box off the page, not just the chips.
+Clicking a chip sets `addChoice` and files that kind, then closes the menu. Pressing the caret
+with the menu already open closes it. `resolvePageLeaves` reads the chapter from
+`analysis.study.currentChapter()` (not `analysis.currentChapter()` - the pattern every other
+tool in the project uses), so a bare analysis page names all four kinds and the caret has
+real options to offer.
+
+`insertionTarget` treats a row's lower half the same for folders and leaves: it returns
+`position: 'inside'` in both cases, so a drag hands the payload to any item as a parent,
+not only to a folder. `canDrop` now refuses cycles for `payload.nodes` as well as for
+`payload.paths`, so dragging a branch (folder or leaf) onto one of its own descendants
+leaves the tree untouched.
+
 ## Growth that remains
 
 - The racks and chips keep ~9 `click` listeners per repaint. They are the

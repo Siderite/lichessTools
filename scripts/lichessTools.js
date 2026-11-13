@@ -219,6 +219,11 @@
       Ladder: '\uD83E\uDE9C',
       WhiteFourPointedStar: '\u2727',
       GemStone: '\uD83D\uDC8E',
+      Scroll: '\uD83D\uDCDC',
+      PositionIndicator: '\u2316',
+      SquarePositionIndicator: '\u2BD0',
+
+
 
 
       toEntity: function(s) {

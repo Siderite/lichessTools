@@ -67,6 +67,8 @@
         'recordsDbRename': 'Rename',
         'recordsDbExpandFolder': 'Expand folder',
         'recordsDbCollapseFolder': 'Collapse folder',
+        'recordsDbExpandBranch': 'Expand branch',
+        'recordsDbCollapseBranch': 'Collapse branch',
         'recordsDbExpandAll': 'Expand all folders',
         'recordsDbCollapseAll': 'Collapse all folders',
         // The tree view: the header, the three chips, the actions and the backup ask for these.
@@ -76,6 +78,7 @@
         'filtersVisibility': 'Visibility',
         'filtersKind': 'Kind',
         'recordsDbAdd': 'Add',
+        'recordsDbAddOptions': 'Choose what to add',
         'recordsDbSelect': 'Select',
         'recordsDbSelectOn': 'Select on',
         'recordsDbSelectOff': 'Select off',
@@ -103,6 +106,7 @@
         'recordsDbAddedStudy': 'Filed the study',
         'recordsDbNothingToFile': 'Nothing left to file',
         'recordsDbAddHarvestFailed': 'The harvest found nothing to file',
+        'recordsDbAddSelfParent': 'Cannot file an item inside itself',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restore',
@@ -125,6 +129,8 @@
         'kindBlog': 'Blog',
         'kindBlogPost': 'Blog post',
         'kindForumPost': 'Forum post',
+        'kindStudyPosition': 'Study position',
+        'recordsDbAddedItem': 'Filed the item',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
       },
       'ro-RO': {
@@ -138,6 +144,8 @@
         'recordsDbRename': 'Redenumire',
         'recordsDbExpandFolder': 'Expandeaz\u0103 folder',
         'recordsDbCollapseFolder': 'Colapseaz\u0103 folder',
+        'recordsDbExpandBranch': 'Expandeaza branch',
+        'recordsDbCollapseBranch': 'Colapseaza branch',
         'recordsDbExpandAll': 'Expandeaz\u0103 toate folderele',
         'recordsDbCollapseAll': 'Colapseaz\u0103 toate folderele',
 
@@ -172,6 +180,7 @@
         'recordsDbAddedStudy': 'Studiul a fost \u00eenregistrat',
         'recordsDbNothingToFile': 'Nimic r\u0103mas de \u00eenregistrat',
         'recordsDbAddHarvestFailed': 'Recoltarea nu a g\u0103sit nimic de \u00eenregistrat',
+        'recordsDbAddSelfParent': 'Naj a fost \u00eenregistrat \u00een \u00e2nd \u00e2nlav',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
@@ -194,6 +203,9 @@
         'kindBlog': 'Blog',
         'kindBlogPost': 'Postare pe blog',
         'kindForumPost': 'Postare pe forum',
+        'kindStudyPosition': 'Positie din studiu',
+        'recordsDbAddOptions': 'Alego ce mai adds',
+        'recordsDbAddedItem': 'Filat the item',
         'recordsDbButtonTitle': 'LiChess Tools - fereastr\u0103 baz\u0103 de date \u00eenregistr\u0103ri'
       }
     };
@@ -272,11 +284,19 @@
       this.branches = new Map();
       this.selected = new Set();
       this.expanded = new Set();
+      // Leaf-parents the user has collapsed - a study holding filed chapters, a filed game that
+      // grew its own children. A leaf-parent is open by default; the caret adds it here.
+      this.collapsed = new Set();
       this.query = '';
       this.terms = [];
       // The two state chips plus the kind chip; string states so the blob reads without a mapping.
       this.filters = { access: 'all', visibility: 'all', kind: 'all' };
       this.selectMode = false;
+      // What the next Add press files. 'study' is the default; the dropdown caret opens the
+      // menu (and a later press closes it). Opening the menu shows one chip per kind the page
+      // can name; clicking a chip sets `addChoice` and files that kind.
+      this.addChoice = 'study';
+      this.addMenuOpen = false;
       // The "press again" fallback for a page that offers no `dialog` service.
       this.confirmBar;
       this.hits;
@@ -350,10 +370,35 @@
       return this.store.collectionFolder(node);
     }
 
-    // A leaf is `{kind,id,label,meta?}`; the label is the fallback a cold store still draws.
+    // The move label lichess itself paints: the full-move number, '.' before White's SAN and '...'
+    // before Black's. The root has no move, so it answers empty.
+    moveText(ply, san) {
+      if (!san || !Number.isFinite(ply) || ply < 1) return '';
+      return Math.ceil(ply / 2) + (ply % 2 ? '.' : '...') + ' ' + String(san);
+    }
+
+    // A leaf is `{kind,id,label,meta?}`. The mirror record's own name is what a cold row shows,
+    // but a rename writes a `label` that must outrank it, so an explicit user label wins and the
+    // record name is only the fallback.
     leafLabel(node) {
       const record = this.recordCache.get(node);
-      return record?.studyName || record?.name || node?.label || '';
+      const owned = node?.label;
+      if (owned != null && String(owned).length) return String(owned);
+      // A chapter inherits its study's record - that is what dims or stamps it gone - so the
+      // study's own name must not stand in for the chapter's. The chapter's entry under that
+      // record answers first; a card that lists chapters without ids leaves the study name.
+      if (node?.kind == 'chapter') {
+        const own = (record?.chapters || []).find((chapter) => chapter?.id === node.id);
+        if (own?.name) return String(own.name);
+      }
+      // A node path is not readable, so a cold study position says where it is: the chapter it
+      // lives in and the move that reaches it. A renamed one keeps its own text above.
+      if (node?.kind == 'studyPosition') {
+        const own = (record?.chapters || []).find((chapter) => chapter?.id === node?.meta?.chapterId);
+        const where = [own?.name, this.moveText(node?.meta?.ply, node?.meta?.san)].filter((part) => part?.length).join(' | ');
+        if (where.length) return where;
+      }
+      return record?.studyName || record?.name || '';
     }
 
     recordFor(node) {
@@ -568,13 +613,19 @@
       const visit = (nodes, parent) =>
         nodes.flatMap((node, index) => {
           const path = [...parent, index];
-          if (!this.folder(node)) {
-            if (!this.passes(node)) return [];
-            return [{ entry: node, path }, ...visit(node.children || [], path)];
-          }
+          const isFolder = this.folder(node);
+          if (!isFolder && !this.passes(node)) return [];
           const children = visit(node.children || [], path);
+          // A leaf that grew a `children` array (the tree lets any item parent any other) is a
+          // parent too: its subtree is visible by default and the caret hides it, so the shape
+          // reads naturally without a click. A folder keeps the old default - hidden until
+          // opened - and the caret brings the branch out.
+          if (!isFolder && !children.length) return [{ entry: node, path }];
+          const open = isFolder
+            ? this.expanded.has(node) || (filtering && children.length)
+            : !this.collapsed.has(node) || (filtering && children.length);
           const row = [{ entry: node, path, shown: children.length }];
-          if (this.expanded.has(node) || (filtering && children.length)) return [...row, ...children];
+          if (open) return [...row, ...children];
           return row;
         });
       return visit(this.entries, []);
@@ -668,6 +719,16 @@
     folderNodes(nodes = this.entries, found = []) {
       this.eachNode(nodes, (node) => {
         if (this.folder(node)) found.push(node);
+      });
+      return found;
+    }
+
+    // Every node that can be opened - a folder or a leaf that grew a `children` array - in paint
+    // order. A leaf with children is a parent for the caret, so expand-all and the fold-all chip
+    // have to walk it the same way they walk a folder.
+    parentNodes(nodes = this.entries, found = []) {
+      this.eachNode(nodes, (node) => {
+        if (this.folder(node) || (node?.children || []).length) found.push(node);
       });
       return found;
     }
@@ -862,19 +923,38 @@
       this.onChange();
     }
 
-    toggle(folder) {
-      if (this.expanded.has(folder)) this.expanded.delete(folder);
-      else this.expanded.add(folder);
+    // Flip the caret for a node that can be opened. Folders remember the open side; leaf-parents
+    // remember the closed side, because a filed study that grew filed chapters reads more
+    // naturally when it starts visible.
+    toggle(node) {
+      if (this.folder(node)) {
+        if (this.expanded.has(node)) this.expanded.delete(node);
+        else this.expanded.add(node);
+      } else {
+        if (this.collapsed.has(node)) this.collapsed.delete(node);
+        else this.collapsed.add(node);
+      }
       this.onChange();
     }
 
-    // One press for every folder, kept in the caret's reading: anything still closed means the
-    // press opens the tree, everything open means the press folds it back.
+    // One press for every openable row, kept in the caret's reading: anything still closed means
+    // the press opens the tree, everything open means the press folds it back. Leaf-parents are
+    // walked with folders so the "all" gesture sees every row that carries a caret.
     toggleAllExpanded() {
-      const folders = this.folderNodes();
-      if (!folders.length) return;
-      if (folders.every((folder) => this.expanded.has(folder))) this.expanded.clear();
-      else for (const folder of folders) this.expanded.add(folder);
+      const parents = this.parentNodes();
+      if (!parents.length) return;
+      const allOpen = parents.every((parent) => this.folder(parent)
+        ? this.expanded.has(parent)
+        : !this.collapsed.has(parent));
+      if (allOpen) {
+        this.expanded.clear();
+        this.collapsed = new Set(parents.filter((parent) => !this.folder(parent)));
+      } else {
+        for (const parent of parents) {
+          if (this.folder(parent)) this.expanded.add(parent);
+          else this.collapsed.delete(parent);
+        }
+      }
       this.onChange();
     }
 
@@ -903,14 +983,15 @@
       if (!this.loaded) return undefined;
       const chains = this.shapeChains(this.entries);
       const expanded = [...this.expanded].map((node) => chains.get(node)).filter(Boolean);
+      const collapsed = [...this.collapsed].map((node) => chains.get(node)).filter(Boolean);
       const selected = [...this.selected].map((node) => chains.get(node)).filter(Boolean);
       // A row of the shape that is not in the tree any more is dropped from the write: the next page
       // cannot name it, and a shape made only of such rows writes nothing at all. The line spells the
       // rows that went, so a live page can see whether its own state drifted or the write did.
-      const missing = [...this.expanded, ...this.selected].filter((node) => !chains.has(node));
+      const missing = [...this.expanded, ...this.collapsed, ...this.selected].filter((node) => !chains.has(node));
       if (missing.length)
-        this.logState('Old shape rows dropped', [missing.length, this.expanded.size + this.selected.size].join('/') + ' ' + missing.map((node) => String(node?.name ?? node?.id ?? node?.kind ?? '?')).join(','));
-      return { expanded, selected };
+        this.logState('Old shape rows dropped', [missing.length, this.expanded.size + this.collapsed.size + this.selected.size].join('/') + ' ' + missing.map((node) => String(node?.name ?? node?.id ?? node?.kind ?? '?')).join(','));
+      return { expanded, collapsed, selected };
     }
 
     // The other half of the round trip: the walk names the rows the rebuilt tree has by the same
@@ -923,6 +1004,7 @@
       const view = rows[0]?.view;
       const usable = (list) => Array.isArray(list) ? list.filter((chain) => Array.isArray(chain)) : [];
       const openFolders = usable(view?.expanded);
+      const closedParents = usable(view?.collapsed);
       const keptRows = usable(view?.selected);
       // A row for this tab with no shape in it means the page that wrote it had no tree read yet,
       // so the shape it carried was never put down - the carry in `saveWindows` is what answers
@@ -931,15 +1013,21 @@
         this.logState('Shape missing from the blob', [this.kind, rows.length].join(' '));
       const chains = this.shapeChains(this.entries);
       const expanded = new Set();
+      const collapsed = new Set();
       const selected = new Set();
       chains.forEach((chain, node) => {
         const key = chain.join(' / ');
-        if (openFolders.some((record) => record.join(' / ') === key)) expanded.add(node);
+        const isFolder = this.folder(node);
+        if (isFolder && openFolders.some((record) => record.join(' / ') === key)) expanded.add(node);
+        if (!isFolder && closedParents.some((record) => record.join(' / ') === key)) collapsed.add(node);
         if (keptRows.some((record) => record.join(' / ') === key)) selected.add(node);
       });
       if (openFolders.length && expanded.size < openFolders.length)
         this.logState('Tree folders lost', [openFolders.length - expanded.size, openFolders.length].join('/'));
+      if (closedParents.length && collapsed.size < closedParents.length)
+        this.logState('Tree leaf-parents lost', [closedParents.length - collapsed.size, closedParents.length].join('/'));
       this.expanded = expanded;
+      this.collapsed = collapsed;
       this.selected = selected;
     }
 
@@ -1014,9 +1102,9 @@
       const parent = path.length > 1 ? this.at(path.slice(0, -1)) : undefined;
       const rect = node?.getBoundingClientRect?.() || { top: 0, height: 0 };
       if (ev.clientY < rect.top + rect.height / 2) return { parent, before: entry, position: 'before' };
-      if (!this.folder(entry)) return { parent, before: entry, position: 'after' };
-      // A folder with nothing in it has no first child to land before, so the drop appends inside
-      // it - the half-rule is the same, only the marker it names is missing.
+      // Any item may parent any other item, so the lower half of a row - folder or leaf - nests
+      // the payload inside that row. An empty leaf has no children yet; `drop` opens the array
+      // on the first push.
       return { parent: entry, before: entry.children?.[0], position: 'inside' };
     }
 
@@ -1051,14 +1139,12 @@
       this.drop(payload, target.parent, target.before);
     }
 
-    // The containment rule, spelled once: only a leaf that names its parent may sit inside a
-    // leaf, and only inside the leaf it names. Everything else may sit in a folder or at the
-    // root, which is a destination too, and folders stay kind-agnostic.
+    // Any item may sit inside any other item, so the tree holds a study over its chapters and
+    // positions, a game over a puzzle, and folders over anything. Only the containment loop
+    // refuses - a parent that already lives under the branch being moved, which would eat rows.
+    // `canDrop` checks that loop before asking, so a folder is never the answer.
     canAttach(node, parent) {
-      if (this.folder(node) || !parent) return true;
-      if (this.folder(parent)) return true;
-      const parentId = node?.meta?.studyId || node?.meta?.blogId;
-      return !!parentId && parent.id === parentId;
+      return !!node;
     }
 
     // The only outright rejection (a folder nested inside one of its own descendants) plus the
@@ -1067,7 +1153,8 @@
       if (payload?.paths)
         return payload.paths.every((path) => !this.contains(this.at(path), parent)) &&
           payload.paths.every((path) => this.canAttach(this.at(path), parent));
-      return (payload?.nodes || []).every((node) => this.canAttach(node, parent));
+      return (payload?.nodes || []).every((node) =>
+        !this.contains(node, parent) && this.canAttach(node, parent));
     }
 
     drop(payload, parent, before) {
@@ -1084,9 +1171,16 @@
       } else {
         incoming = payload?.nodes || [];
       }
+      if (parent && !parent.children) parent.children = [];
       const siblings = parent?.children ?? this.entries;
       siblings.splice(before ? siblings.indexOf(before) : siblings.length, 0, ...incoming);
-      if (parent) this.expanded.add(parent);
+      // Opening the parent keeps the drop visible on the page that made it. For a folder that
+      // means putting it in `expanded`; for a leaf-parent the default is already open, so the
+      // only thing to do is clear any collapse the user left on it.
+      if (parent) {
+        if (this.folder(parent)) this.expanded.add(parent);
+        else this.collapsed.delete(parent);
+      }
       this.selected.clear();
       for (const entry of incoming) this.selected.add(entry);
       this.sortTree(this.entries);
@@ -1118,25 +1212,91 @@
 
 
     // Add is one flow - file the page object, harvest it so the new row is searchable, save once
-    // - and it widens to "add whatever this page is", in resolver order: page-init first, then
-    // the path parse.
-    resolvePageLeaf() {
+    // - and it widens to "add whatever this page is". The page can name up to four rows at once:
+    // the study, its current chapter, a bare FEN position, and a study position (chapter + node
+    // path). The list is the dropdown's menu and `addChoice` is what Add actually files.
+    resolvePageLeaves() {
       const lt = this.lichessTools;
+      const out = [];
       const init = lt.pageInitData;
       const initStudy = init?.study;
-      // `lt.pageInitData` is confirmed on study pages only, so the path parse is the fallback
-      // rung.
-      if (initStudy?.id)
-        return { kind: 'study', id: initStudy.id, label: initStudy.name || '' };
-      const studyMatch = /^\/study\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?/.exec(lt.location?.pathname || '');
-      if (studyMatch) {
-        const record = this.studies.get(studyMatch[1]);
-        return { kind: 'study', id: studyMatch[1], label: record?.studyName || '' };
+      const initChapter = init?.chapter;
+      const analysis = lt.lichess?.analysis;
+      const analysisStudy = analysis?.study;
+      const analysisPath = analysis?.path;
+      const boardFen = analysis?.node?.fen;
+      let studyId; let studyLabel = '';
+      if (initStudy?.id) {
+        studyId = initStudy.id;
+        studyLabel = initStudy.name || '';
+      } else {
+        const studyMatch = /^\/study\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?/.exec(lt.location?.pathname || '');
+        if (studyMatch) {
+          studyId = studyMatch[1];
+          studyLabel = this.studies.get(studyMatch[1])?.studyName || '';
+        }
       }
-      const analysis = lt.lichess?.analysis?.study;
-      const analysisId = analysis?.data?.id;
-      if (analysisId) return { kind: 'study', id: analysisId, label: analysis?.data?.name || '' };
-      return undefined;
+      if (!studyId && analysisStudy?.data?.id) {
+        studyId = analysisStudy.data.id;
+        studyLabel = analysisStudy?.data?.name || '';
+      }
+      if (studyId) out.push({ kind: 'study', id: studyId, label: studyLabel });
+      let chapterId; let chapterLabel = '';
+      if (initChapter?.id) {
+        chapterId = initChapter.id;
+        chapterLabel = initChapter.name || '';
+      } else {
+        const urlChapter = /^\/study\/[a-zA-Z0-9]{8}\/([a-zA-Z0-9]{8})/.exec(lt.location?.pathname || '');
+        if (urlChapter) chapterId = urlChapter[1];
+      }
+      // The chapter the analysis is on lives on `analysis.study`, not on `analysis` itself - the
+      // pattern every other tool in the project reaches for (`analysis.study.currentChapter()`).
+      if (!chapterId && analysis) {
+        try {
+          const current = analysis.study?.currentChapter?.();
+          if (current?.id) {
+            chapterId = current.id;
+            chapterLabel = current.name || '';
+          }
+        } catch (ignored) {}
+      }
+      // A chapter read off the URL names no label, so the mirror of the study the page is on
+      // supplies the chapter's own name - an empty label would make the row print its parent.
+      if (chapterId && !chapterLabel && studyId) {
+        const own = (this.studies.get(studyId)?.chapters || []).find((chapter) => chapter?.id === chapterId);
+        if (own?.name) chapterLabel = own.name;
+      }
+      if (chapterId && studyId)
+        out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId } });
+      if (boardFen) {
+        const variant = lt.lichess?.rulesType?.toLowerCase?.() || lt.lichess?.rules?.toLowerCase?.() || 'standard';
+        out.push({ kind: 'position', id: boardFen, label: boardFen, meta: { variant } });
+      }
+      // A node path is not readable, so a study position files where it is: the chapter it lives
+      // in and the move that reaches it, in lichess's own move label. `ply`/`san` ride in `meta` so
+      // a leaf that loads from a blob with no label can still say it, and `nodePath` stays the
+      // path the open jump needs.
+      if (chapterId && studyId && analysisPath) {
+        const node = analysis?.node;
+        const where = [chapterLabel, this.moveText(node?.ply, node?.san)].filter((part) => part?.length).join(' | ');
+        const meta = { studyId, chapterId, nodePath: analysisPath };
+        if (node?.san) {
+          meta.ply = node.ply;
+          meta.san = node.san;
+        }
+        out.push({
+          kind: 'studyPosition',
+          id: chapterId + '|' + analysisPath,
+          label: where || analysisPath,
+          meta,
+        });
+      }
+      return out;
+    }
+
+    // The dropdown's menu: the kinds the page can name right now.
+    pageAddKinds() {
+      return this.resolvePageLeaves().map((leaf) => leaf.kind);
     }
 
     findLeaf(kind, id, nodes = this.entries) {
@@ -1149,23 +1309,60 @@
     }
 
     canAdd() {
-      return !this.selectMode && !!this.resolvePageLeaf();
+      return !this.selectMode && this.resolvePageLeaves().length > 0;
     }
 
-    async addCurrentStudy() {
-      const leaf = this.resolvePageLeaf();
-      if (!leaf) {
+    // The dropdown's cycle: the kinds the page can name right now, in order. The caret walks the
+    // list, so a page that lost its chapter next press loses that option and the cycle shrinks.
+    cycleAddChoice() {
+      const kinds = this.pageAddKinds();
+      if (!kinds.length) return this.addChoice;
+      const at = kinds.indexOf(this.addChoice);
+      this.addChoice = at < 0 ? kinds[0] : kinds[(at + 1) % kinds.length];
+      this.onChange();
+      return this.addChoice;
+    }
+
+    // Add files the current choice. If the page no names it, the first kind that is available is
+    // used rather than refusing, so a page that lost a chapter mid-gesture still files something.
+    async addCurrentChoice() {
+      const candidates = this.resolvePageLeaves();
+      if (!candidates.length) {
         this.message = 'nothingToFile';
         return false;
       }
+      let leaf = candidates.find((candidate) => candidate.kind === this.addChoice) || candidates[0];
+      return this.addLeaf(leaf);
+    }
+
+    // The one flow: file the leaf, harvest it so the new row is searchable, save once. `addLeaf`
+    // also moves the leaf when the tree already holds it, so a re-Add never duplicates.
+    async addLeaf(leaf) {
       const selected = [...this.selected];
-      const parent = selected.length === 1 && this.folder(selected[0]) ? selected[0] : undefined;
-      // Adding a study that is already in the tree **moves** the leaf - never a duplicate.
+      const parent = selected.length === 1 ? selected[0] : undefined;
+      // Refuse a self-parent before the move: putting the study the page names inside itself
+      // would leave a cycle the tree walk could never come out of.
+      const parentIsLeafSelf =
+        parent && !this.folder(parent) && parent.kind == leaf.kind && parent.id === leaf.id;
+      if (parentIsLeafSelf) {
+        this.message = 'addSelfParent';
+        return false;
+      }
+      // A leaf that names a leaf parent carries `parentId` so a split and merge re-hang it under
+      // that parent on the next page. A folder parent needs nothing - folders join by name.
+      const parentMeta = parent && !this.folder(parent) ? { parentId: parent.id } : {};
+      // Adding a leaf already in the tree **moves** it - never a duplicate.
       const existing = this.findLeaf(leaf.kind, leaf.id);
       if (existing) {
         const siblings = this.siblings(existing);
         const at = siblings ? siblings.indexOf(existing) : -1;
         if (at >= 0) siblings.splice(at, 1);
+        if (parentMeta) existing.meta = { ...existing.meta ?? {}, ...parentMeta };
+        else if (existing.meta?.parentId) existing.meta = { ...existing.meta, parentId: undefined };
+        // A leaf parent starts without a `children` array, so open one before the first push -
+        // otherwise `parent?.children ?? this.entries` reads as the root and the leaf lands at
+        // the top of the tree instead of under its parent.
+        if (parent && !parent.children) parent.children = [];
         (parent?.children ?? this.entries).push(existing);
         this.selected.clear();
         this.selected.add(existing);
@@ -1173,8 +1370,16 @@
         this.save();
         return true;
       }
+      if (parentMeta) leaf.meta = { ...(leaf.meta ?? {}), ...parentMeta };
+      if (parent && !parent.children) parent.children = [];
       (parent?.children ?? this.entries).push(leaf);
-      if (parent) this.expanded.add(parent);
+      // Opening the parent keeps the new leaf visible on the page that filed it. For a folder
+      // that means putting it in `expanded`; a leaf-parent is open by default, so the only
+      // state worth clearing is a collapse the user left on it.
+      if (parent) {
+        if (this.folder(parent)) this.expanded.add(parent);
+        else this.collapsed.delete(parent);
+      }
       this.sortTree(this.entries);
       this.selected.clear();
       this.selected.add(leaf);
@@ -1185,7 +1390,7 @@
           const record = await row.read(leaf.id);
           if (record?.absent) {
             leaf.meta = { ...leaf.meta ?? {}, deadAt: Date.now() };
-            this.message = 'recordsDbStudyGone';
+            this.message = 'studyGone';
           } else if (record) {
             this.sync.store(record);
             captured = leaf;
@@ -1199,7 +1404,7 @@
       // capture the tree does not name yet would be pruned straight away.
       this.save();
       if (captured) this.sync.persist(captured.id);
-      this.message = 'addedStudy';
+      this.message = leaf.kind == 'study' ? 'addedStudy' : 'addedItem';
       return true;
     }
 
@@ -1224,6 +1429,7 @@
       const named = String(name || '').trim() || await this.folderName('New folder');
       const folder = { name: named, children: [] };
       (parent?.children ?? this.entries).push(folder);
+      // Opening the parent keeps the new folder visible; parent is always a folder here.
       if (parent) this.expanded.add(parent);
       this.selected.clear();
       this.selected.add(folder);
@@ -1345,12 +1551,30 @@
       const lt = this.lichessTools;
       const studyId = node.kind == 'study' ? node.id : node.meta?.studyId;
       if (studyId) lt.storage.set(treeHandoffKey, { studyId, at: Date.now() }, { session: true });
-      if (node.kind == 'study' || node.kind == 'chapter') {
+      if (node.kind == 'study' || node.kind == 'chapter' || node.kind == 'studyPosition') {
         // The honest degradation stays: same study switches chapter in place, another study
-        // navigates.
+        // navigates. A study position rides to its chapter and then jumps the analysis to the
+        // lichess node the leaf names.
         const navigation = recordsDbInstance?.navigation;
         if (!navigation) return false;
-        await navigation.load(node.kind == 'study' ? node.id : node.meta?.studyId, node.kind == 'chapter' ? node.id : undefined);
+        const chapterId = node.kind == 'chapter' ? node.id : node.meta?.chapterId;
+        await navigation.load(node.kind == 'study' ? node.id : node.meta?.studyId, chapterId);
+        if (node.kind == 'studyPosition') {
+          const analysis = lt.lichess?.analysis;
+          const nodePath = node.meta?.nodePath;
+          // The page is on the chapter now, not on the node the leaf names. The tree
+          // resolves that path into a node, and the user jump walks the analysis
+          // across to it. A path the tree does not know (chapter rewritten, tree
+          // not yet rebuilt) leaves the chapter open at its root; the caller still
+          // sees a successful open because the study moved.
+          if (analysis && nodePath && analysis.path != nodePath) {
+            const target = analysis.tree?.nodeAtPath?.(nodePath);
+            if (target) {
+              analysis.userJump?.(target.path ?? nodePath);
+              lt.analysisRedraw?.();
+            }
+          }
+        }
       } else {
         try {
           lt.location.set(href);
@@ -1387,6 +1611,7 @@
       this.refreshCaches();
       this.selected.clear();
       this.expanded.clear();
+      this.collapsed.clear();
       this.revision++;
       this.onChange();
       this.message = 'restoredTree';
@@ -1398,16 +1623,24 @@
     // folder asks through, defaulted to the name the folder already carries, so an accepted
     // prompt is the only thing that changes and a mis-click cannot eat a name.
     editName(node, name) {
-      if (!this.folder(node)) return false;
-      node.name = String(name || '').trim() || node.name;
+      if (!node) return false;
+      const trimmed = String(name || '').trim();
+      if (!trimmed) return false;
+      if (this.folder(node)) node.name = trimmed;
+      else node.label = trimmed;
       this.sortTree(this.entries);
       this.save();
       return true;
     }
 
-    async renameFolder(folder) {
-      if (!this.folder(folder)) return false;
-      return this.editName(folder, await this.folderName(folder.name));
+    // Rename any item. A folder renames its `name`; a leaf renames its `label` and the next paint
+    // reads its name back from the mirror record. With no dialog to ask, the current name is kept.
+    async renameFolder(node) {
+      if (!node) return false;
+      const current = this.folder(node)
+        ? String(node.name ?? '')
+        : String(this.leafLabel(node) || (node.label ?? ''));
+      return this.editName(node, await this.folderName(current));
     }
 
 
@@ -1844,13 +2077,50 @@
     // Select (the mode that grows the checkboxes), Delete (count + confirm), New folder.
     const actionsRack = $('<div class="rack-actions">');
 
+    // Add is one press; it files `addChoice`. The caret next to it opens a menu of the kinds
+    // the page can name; clicking a menu chip files that kind and closes the menu. A caret
+    // press while the menu is open closes it without filing anything.
     const addButton = rackButton('btn-add', 'recordsDbAdd');
     addButton.on('click', async (ev) => {
-      await content.addCurrentStudy();
+      content.addMenuOpen = false;
+      await content.addCurrentChoice();
+      await content.onChange();
     });
     // Add hides while Select is on, and when the page has nothing to file.
     if (!content.canAdd()) addButton.attr('hidden', '');
     actionsRack.append(addButton);
+    const addKinds = content.pageAddKinds();
+    if (addKinds.length > 1) {
+      // The caret and its dropdown share a `position: relative` wrapper so the menu box
+      // hangs under the caret and reads as one control, not as a widening rack. Opening the
+      // menu is a paint of one container; closing it takes that container off the page.
+      const addWrap = $('<div class="add-caret-wrap">');
+      const addCaret = rackButton('btn-add-caret', 'recordsDbAddOptions');
+      addCaret.text('\u25be');
+      addCaret.on('click', async (ev) => {
+        content.addMenuOpen = !content.addMenuOpen;
+        await content.onChange();
+      });
+      addWrap.append(addCaret);
+      if (content.addMenuOpen) {
+        const menuBox = $('<div class="btn-add-menu-box">');
+        for (const kind of addKinds) {
+          const menuItem = $('<button class="btn-rack__btn btn-add-menu" type="button">')
+            .attr('title', trans.noarg('recordsDbAddOptions'))
+            .attr('data-add-kind', kind)
+            .text(trans.noarg('kind' + camel(kind)));
+          menuItem.on('click', async (ev) => {
+            content.addChoice = kind;
+            content.addMenuOpen = false;
+            await content.addCurrentChoice();
+            await content.onChange();
+          });
+          menuBox.append(menuItem);
+        }
+        addWrap.append(menuBox);
+      }
+      actionsRack.append(addWrap);
+    }
 
     const selectButton = rackButton('btn-select', 'recordsDbSelect', content.selectMode ? 'recordsDbSelectOn' : 'recordsDbSelectOff');
     if (content.selectMode) selectButton.addClass('active');
@@ -1873,21 +2143,24 @@
     });
     actionsRack.append(newFolderButton);
 
-    // Rename sits beside New folder and is live only when exactly one folder is selected, so the
-    // gesture cannot guess which folder the user meant.
-    const selectedFolders = [...content.selected].filter((entry) => content.folder(entry));
+    // Rename sits beside New folder and is live only when exactly one item - folder or leaf - is
+    // selected, so the gesture cannot guess which item the user meant.
+    const selectedItems = [...content.selected];
     const renameButton = rackButton('btn-rename', 'recordsDbRename');
-    if (selectedFolders.length === 1)
+    if (selectedItems.length === 1)
       renameButton.on('click', async (ev) => {
-        await content.renameFolder(selectedFolders[0]);
+        await content.renameFolder(selectedItems[0]);
       });
     else renameButton.attr('disabled', 'disabled');
     actionsRack.append(renameButton);
 
-    // One chip folds or unfolds every folder at once, so a deep tree is one gesture instead of one
-    // caret each. It says which way it is going, the same reading the caret on a row carries.
-    const foldTargets = content.folderNodes();
-    const foldAll = foldTargets.length > 0 && foldTargets.every((folder) => content.expanded.has(folder));
+    // One chip folds or unfolds every openable row at once - folder or leaf-parent - so a deep
+    // tree is one gesture instead of one caret each. It says which way it is going, the same
+    // reading the caret on a row carries.
+    const foldTargets = content.parentNodes();
+    const foldAll = foldTargets.length > 0 && foldTargets.every((parent) => content.folder(parent)
+      ? content.expanded.has(parent)
+      : !content.collapsed.has(parent));
     const foldKey = foldAll ? 'recordsDbCollapseAll' : 'recordsDbExpandAll';
     const foldButton = rackButton('btn-fold', foldKey);
     if (foldTargets.length) foldButton.on('click', (ev) => content.toggleAllExpanded());
@@ -1899,13 +2172,17 @@
       const folder = content.folder(entry);
       const record = content.recordFor(entry);
       const selected = content.selected.has(entry);
-      const expanded = content.expanded.has(entry);
       const row0 = content.registry[entry?.kind];
       // A leaf wears red only when a read proved it gone; an unknown kind stays fail-soft gone.
       const dead = !folder && content.isGone(entry);
       const labelText = folder
         ? String(entry.name ?? '')
         : content.leafLabel(entry) || String(entry.label ?? '');
+      // Any node with a `children` array carries the expand/collapse caret, folder or leaf. Folders
+      // are open when in `expanded`; leaf-parents are open when NOT in `collapsed`.
+      const hasChildren = (entry?.children || []).length > 0;
+      const openable = folder || hasChildren;
+      const open = folder ? content.expanded.has(entry) : !content.collapsed.has(entry);
       const li = $('<li class="record-row bookmark-row">')
         .attr('data-path', path.join('/'))
         .attr('tabindex', '0')
@@ -1916,7 +2193,7 @@
       if (dead) li.addClass('record-missing');
       // A folder is never dropped - it stays and goes dim when nothing in it is shown.
       if (folder && shown === 0) li.addClass('folder-empty');
-      if (folder) li.attr('data-expanded', String(expanded));
+      if (openable) li.attr('data-expanded', String(open));
       // The node this paint put on the page, keyed for the tree host's one listener per event. The
       // chips a row wears copy this answer with a chip marker, so a click on a caret or an open
       // link stays the row's own rather than a handler the row would have to carry.
@@ -1934,16 +2211,22 @@
         li.append(check);
       }
 
-      if (folder) {
+      if (openable) {
         const toggle = $('<button class="bookmark-toggle" type="button">')
-          .attr('title', trans.noarg(expanded ? 'recordsDbCollapseFolder' : 'recordsDbExpandFolder'));
+          .attr('title', trans.noarg(open
+            ? (folder ? 'recordsDbCollapseFolder' : 'recordsDbCollapseBranch')
+            : (folder ? 'recordsDbExpandFolder' : 'recordsDbExpandBranch')));
         toggle.append($('<svg focusable="false" viewBox="0 0 10 10"><path d="M2 1L8 5L2 9Z" fill="currentColor"></path></svg>'));
         content.rowIndex.set(toggle[0], { ...indexed, chip: 'toggle' });
         li.append(toggle);
-      } else {
+      }
+      if (!folder) {
         // A leaf wears the page's own mark - the study's flair when the mirror has one, else the
-        // kind icon - so a mixed tree reads at a glance without a second label.
-        const mark = record?.flair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
+        // kind icon - so a mixed tree reads at a glance without a second label. A containment kind
+        // keeps its own mark: its record is the parent study's, so a filed chapter or study
+        // position would otherwise dress up as the study it sits under.
+        const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
+        const mark = parentFlair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
         if (mark !== undefined)
           li.append($('<span class="record-icon">').attr('data-icon', mark));
       }

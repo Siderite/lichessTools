@@ -177,8 +177,8 @@
   }
 
 
-  const collectionKindOrder = ['study', 'chapter', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forumPost'];
-  const collectionTreeFormatVersion = 2;
+  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forumPost'];
+  const collectionTreeFormatVersion = 3;
 
   function collectionKindRegistry(harvester) {
     const writableRole = (record) => record?.role == 'owner' || record?.role == 'contributor';
@@ -203,7 +203,9 @@
       chapter: {
         // Containment: a chapter leaf may only be a child of its own study leaf, and `meta.studyId`
         // is what says so - the leaf keeps the chapter id, the parent keeps the study.
-        icon: 'StudyBoard',
+        // Its own mark, never its study's: the record a filed chapter carries is the study's, so
+        // the shield keeps it in the study's font family while staying a mark of its own.
+        icon: 'Shield',
         openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + id,
         canWrite: writableRole,
         visibility: visibilityState,
@@ -228,10 +230,12 @@
         serviced: false,
       },
       position: {
-        // The own leaf: no lichess object exists for a bare position, `id` is the FEN and `meta` the
-        // line.
-        icon: 'ChessPiece',
-        openUrl: (id, _meta) => '/games/import?fen=' + encodeURIComponent(id),
+        // The own leaf: no lichess object exists for a bare position, `id` is the FEN and `meta`
+        // the variant. Opening goes straight to the lichess analysis link for the FEN.
+        // Not the game's piece: a bare position is what an explorer searches, and it has to read
+        // apart from a game in the same tree.
+        icon: 'PositionIndicator',
+        openUrl: (id, meta) => '/analysis/' + (meta?.variant || 'standard') + '/' + String(id).replace(' ', '_'),
         canWrite: () => true,
         // N/a - the chip stays dim for this kind
         visibility: undefined,
@@ -239,6 +243,23 @@
         read: undefined,
         isDead: () => false,
         serviced: false,
+      },
+      studyPosition: {
+        // A position inside a study: `id` encodes the chapter and node path so two positions in
+        // different chapters stay distinct, `meta` names the study, the chapter and the lichess
+        // node path the analysis jumps to after the chapter loads.
+        // A square mark - apart from the study's board and from a bare position's crosshair.
+        icon: 'SquarePositionIndicator',
+        openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + (meta?.chapterId || ''),
+        canWrite: writableRole,
+        // Dim - the visibility chip never sees a study position.
+        visibility: undefined,
+        haystack: (record) => [record?.san?.line, ...(record?.tags || [])].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: () => false,
+        serviced: false,
+        // A study position rides its study's blob like a chapter does.
+        branch: 'study',
       },
       puzzle: {
         icon: 'Puzzle',
@@ -370,14 +391,27 @@
     }
 
     // The merge, owned by storage so the UI half and the download file read the same rule:
-    // folders join by name across branches, and a contained leaf (a chapter, a blog post)
-    // re-hangs under the leaf that names its parent. A contained leaf whose parent is missing
-    // stays put - dropping it would eat part of a user's tree on a downgrade.
+    // folders join by name across branches, and a leaf that names a parent (via `meta.parentId`,
+    // or the older `meta.studyId`/`meta.blogId` a harvest left behind) re-hangs under that parent
+    // anywhere in the merged tree - not just at the top - so any item can be a child of any item.
+    // A leaf whose parent is missing stays put: dropping it would eat part of a user's tree.
     mergeTrees(branches) {
       const pairs = branches?.constructor === Object ? Object.entries(branches) : branches;
       const merged = [];
       const isFolder = (node) => !node?.kind;
-      const walk = (nodes, target) => {
+      const branchOf = (kind) => this.registry[kind]?.branch || kind;
+      const findParent = (parentId) => {
+        const visit = (nodes) => {
+          for (const node of nodes) {
+            if (node && !isFolder(node) && node.id === parentId) return node;
+            const nested = visit(node.children || []);
+            if (nested) return nested;
+          }
+          return undefined;
+        };
+        return visit(merged);
+      };
+      const walk = (nodes, target, branch) => {
         for (const node of nodes || []) {
           if (isFolder(node)) {
             let bucket = target.find((existing) => isFolder(existing) && existing.name === node.name);
@@ -385,35 +419,46 @@
               bucket = { name: node.name ?? '', children: [] };
               target.push(bucket);
             }
-            walk(node.children, bucket.children);
+            walk(node.children, bucket.children, branch);
             continue;
           }
-          const parentId = node?.meta?.studyId || node?.meta?.blogId;
-          const parent = parentId
-            ? target.find((existing) => existing?.kind && existing.id === parentId)
-            : undefined;
+          // A leaf of another branch that appears here is only a path marker the split left
+          // behind so the walk can reach the branch's leaves under it; its real self comes back
+          // from its own branch, so it is descended through and never pushed.
+          if (branchOf(node.kind) !== branch) {
+            walk(node.children || [], target, branch);
+            continue;
+          }
+          const parentId = node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
+          const parent = parentId ? findParent(parentId) : undefined;
           if (parent) (parent.children ||= []).push(node);
           else target.push(node);
         }
       };
-      for (const [, entries] of pairs) walk(entries, merged);
+      for (const [branch, entries] of pairs) walk(entries, merged, branch ?? this.branchOf(entries?.[0]?.kind));
       return merged;
     }
 
     // The split, the mirror of `mergeTrees`: a folder owns an entry in **every** branch it
-    // stands in, while a leaf travels with the branch `branchOf(kind)` names. The UI half calls
-    // this same function, so the blobs and the file can never drift apart.
+    // stands in, a leaf travels with the branch `branchOf(kind)` names, and a leaf of another
+    // branch is kept as a bare path marker only when its subtree leads to something in this
+    // branch - so the split stays loss-less for any-nest trees.
     splitBranches(nodes) {
       const branches = new Map();
       const filterBranch = (nodes, branch) =>
         (nodes || []).flatMap((node) => {
           if (!node?.kind) return [{ name: node.name ?? '', children: filterBranch(node.children, branch) }];
-          if (this.branchOf(node.kind) != branch) return [];
-          const copy = { ...node };
           const nested = filterBranch(node.children ?? [], branch);
-          if (nested.length) copy.children = nested;
-          else delete copy.children;
-          return [copy];
+          if (this.branchOf(node.kind) == branch) {
+            const copy = { ...node };
+            if (nested.length) copy.children = nested;
+            else delete copy.children;
+            return [copy];
+          }
+          // Keep the leaf as a skeleton parent so a leaf of this branch deeper down is still
+          // reachable on the merge; the walk skips re-pushing it because its real self arrives
+          // later from its own branch.
+          return nested.length ? [{ kind: node.kind, id: node.id, label: node.label, meta: node.meta, children: nested }] : [];
         });
       for (const branch of this.blobKinds) branches.set(branch, filterBranch(nodes || [], branch));
       return branches;
@@ -542,8 +587,12 @@
     normalizeEntries(entries, kind) {
       const normalize = (nodes) =>
         (nodes || []).flatMap((node) => {
-          if (Array.isArray(node.children)) return [{ name: String(node.name ?? ''), children: normalize(node.children) }];
           if (!node) return [];
+          // A node with a kind of its own is a leaf, and a leaf may carry children - the array
+          // only tells a kind-less node apart, and only when it names none.
+          if (!node.kind && !node.leafKind && Array.isArray(node.children))
+            return [{ name: String(node.name ?? ''), children: normalize(node.children) }];
+          if (!node.kind && !node.leafKind && !kind) return [];
           const leaf = {
             kind: node.kind ?? node.leafKind ?? kind,
             id: node.id ?? node.studyId,
@@ -551,6 +600,7 @@
           };
           if (!leaf.id || !leaf.kind) return [];
           if (node.meta) leaf.meta = node.meta;
+          if (Array.isArray(node.children)) leaf.children = normalize(node.children);
           return [leaf];
         });
       return normalize(entries);
