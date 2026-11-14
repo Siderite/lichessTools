@@ -5323,107 +5323,6 @@
     },
     {
       "category": "LichessHelper",
-      "name": "32bit",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/32bit/",
-      "type": "svg",
-      "cap": "wn",
-      "hashes": {
-        "wp": "LTSLhzbqSdUjO7aytrKWTA==",
-        "bp": "PHyFL2qAFf4jJ4aGhpaOTA==",
-        "wn": "Dc9ysZk8QtNjIzNZmWkzJg==",
-        "bn": "iY00g3+wkfMDJxNDa2MTPg==",
-        "wb": "OzmMimPkjdNjIyNrI5aUlA==",
-        "bb": "qWuYiGa0mdcDBycjN44MjA==",
-        "wr": "4OQX23DOC5VFYDKyN2NZWQ==",
-        "br": "4OWf5wjapZBBQweWFiNbKw==",
-        "wq": "k4czuG3kmNF5I2HR2cyWlA==",
-        "bq": "is4zmWSwmecDBwNTScyMjA==",
-        "wk": "MyMwkG3l19ZpI3ExlI0XlA==",
-        "bk": "s8kyg3iwh/wLByNpzXMPjA=="
-      },
-      "coordinates": {
-        "x": 9,
-        "y": 12
-      }
-    },
-    {
-      "category": "LichessHelper",
-      "name": "cburnett",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett/",
-      "type": "svg",
-      "cap": "wn",
-      "duplicate": true,
-      "hashes": {
-        "wp": "yzR0lpZraZQDaTGyshZMKA==",
-        "bp": "nMvLNGiVlOoXF4aOjkxMMA==",
-        "wn": "W5hkZpZ5aZwDtDjIaTOuCA==",
-        "bn": "tWaeGMmFNuqGhiY2Bg2aYA==",
-        "wb": "k2xknY8zcMphVbKyqrJMDA==",
-        "bb": "jnHiPSWFhfpxD46Wlo5MCA==",
-        "wr": "YyU0nZ5iY54HaTKyMjMXaA==",
-        "br": "yjYapTaJyfojK5KWlisrVA==",
-        "wq": "Y5cjlJRqS70HcSlxcWkrqg==",
-        "bq": "YsenyUHcwLdgDQ8zD0krig==",
-        "wk": "jdjIN5diZpkWsivMzBeMCA==",
-        "bk": "GWbnGDiNx/IODswzK8xMCA=="
-      },
-      "coordinates": {
-        "x": 23,
-        "y": 19
-      }
-    },
-    {
-      "category": "LichessHelper",
-      "name": "cburnett_jp",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/cburnett_jp/",
-      "type": "svg",
-      "cap": "wn",
-      "hashes": {
-        "wp": "yTYyn55pIZYWaWmyshZUKA==",
-        "bp": "MsnPYGGWnulgloZNTWgqEA==",
-        "wn": "WplkppJ7bZQhsTlJaTOWTA==",
-        "bn": "JWaaWW2EsutST8a2lsxpMg==",
-        "wb": "U2xoj44xqc5xF7KyK7JUTA==",
-        "bb": "zJOHYHPNzLGG6E1Mlk0qMg==",
-        "wr": "OqUvzIdzMMwHaSszMytVKw==",
-        "br": "p0rQM3iMT7PgltTMjtSq1A==",
-        "wq": "D5dIlXBqjb0zaWlxdWkrKg==",
-        "bq": "sWpzaY+VcMLEjpaOjpbUVA==",
-        "wk": "tPKhN0piNZ0zc3HMzFVPTA==",
-        "bk": "Sw/GyLWdSuLMjI4zMyqwMg=="
-      },
-      "coordinates": {
-        "x": 24,
-        "y": 0
-      }
-    },
-    {
-      "category": "LichessHelper",
-      "name": "dani_maccari",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/dani_maccari/",
-      "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "tCWDjmlrltUjY3O2siYMEA==",
-        "bp": "NGOHpGuKtdUjIxaWlg4MAA==",
-        "wn": "jWU2lnhoh9UjY3KTM2NODA==",
-        "bn": "nXGDjmyKkfUHI4bCEyaOKA==",
-        "wb": "J3WRhXoqpdUjY3YUsmI0CA==",
-        "bb": "P1mFJVqKpdUHIoZEloZMCA==",
-        "wr": "pmeYjWlqg9UjY2OyMnFHKg==",
-        "br": "pnWUpWiKh/UjIwaWFhMHYA==",
-        "wq": "L3WFhVoqpdUiYjYUNmJ2FA==",
-        "bq": "JV3gJV6qod0HIoZEBJYGDA==",
-        "wk": "LXyHhXg6hdUiYjYUNnI2TA==",
-        "bk": "PFiHJ3iqh9UGhkRMhoYMTA=="
-      },
-      "coordinates": {
-        "x": 15,
-        "y": 6
-      }
-    },
-    {
-      "category": "LichessHelper",
       "name": "darklama_pd",
       "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/darklama_pd/",
       "type": "svg",
@@ -5445,57 +5344,6 @@
       "coordinates": {
         "x": 9,
         "y": 8
-      }
-    },
-    {
-      "category": "LichessHelper",
-      "name": "kiwen_suwi",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/kiwen_suwi/",
-      "type": "svg",
-      "cap": "wn",
-      "duplicate": true,
-      "hashes": {
-        "wp": "OHnHhzg5h8YPsrJMtrIWSA==",
-        "bp": "aMg9OYaGefkGlo5Mjo5MIA==",
-        "wn": "nMzDsW5pmJYuckJjaGQ5pg==",
-        "bn": "YYOcxpORbvoGLi4uMzkDpg==",
-        "wb": "MzzOhTFiztkPK7KyopZUTA==",
-        "bb": "xuMxPcaVMOorM46OloxMTA==",
-        "wr": "ecZnkJdoeIcXKyMzaXFVKw==",
-        "br": "H2g7xGiXhLsGlpaWMysrKw==",
-        "wq": "TJORjpZtb5gDaWFxVVVNqg==",
-        "bq": "OMdjnA6VleoDMyMzD01Nkg==",
-        "wk": "NpyZZyZtZZITacDMTRfUTA==",
-        "bk": "4NMenOGRLuoDMysTM45MDA=="
-      },
-      "coordinates": {
-        "x": 2,
-        "y": 21
-      }
-    },
-    {
-      "category": "LichessHelper",
-      "name": "letters",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/letters/",
-      "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "cTLMzDMzzcwACBSyshQIAA==",
-        "bp": "ZJiZZmaZ2eYAEChNTSgQAA==",
-        "wn": "OZPGbDkx5J4iVU1ZZU1VMg==",
-        "bn": "zGkzlkyek+FMsrKimrKqRA==",
-        "wb": "xNYxZD47xZYMY01NSUlyDA==",
-        "bb": "OynOm8HEOqlgjLKytraMYA==",
-        "wr": "k8ZpcSw808M2SUlJTUlyDA==",
-        "br": "bHmSjtHDLLxNsraWsraMYg==",
-        "wq": "N4N6MK1sWodNOGnc1MlzDA==",
-        "bq": "Yng1i1qHpfgzR5I7O5JMMA==",
-        "wk": "w5M8TTZkyZsyTUliUklNMg==",
-        "bk": "MGzjss2bMuRMuracjbayTQ=="
-      },
-      "coordinates": {
-        "x": 13,
-        "y": 13
       }
     },
     {
@@ -5525,328 +5373,159 @@
     },
     {
       "category": "LichessHelper",
-      "name": "new_metropol",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/new_metropol/",
-      "type": "png",
+      "name": "32bit",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/32bit/",
+      "type": "svg",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "cburnett",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/cburnett/",
+      "type": "svg",
       "cap": "wn",
-      "hashes": {
-        "wp": "ki1lkJZra/QJaRMzKxYWTA==",
-        "bp": "4dIeb+GUCqvgluzM1GhIMA==",
-        "wn": "k8ttkp5oYJckMJnJCXkjgA==",
-        "bn": "ZDKSbWGXn+jRz2Yk1oaedA==",
-        "wb": "Z80msplqJpVNcDM5TVUzKQ==",
-        "bb": "mDJpTdaVHeqyjkzWkqrM1A==",
-        "wr": "zbUyms1iMpVVYWM5urKWjg==",
-        "br": "JtLJbbKTSeqinpxGRU1pcQ==",
-        "wq": "FuZsDplqM7XE4HlVVWmMTA==",
-        "bq": "mR2b+SYlSOoqF9QqqpQzMg==",
-        "wk": "M5y8Ey140pVE6GlpTTOOTA==",
-        "bk": "xGdmmJInZfojE7KysswxMg=="
-      },
-      "coordinates": {
-        "x": 19,
-        "y": 9
-      }
+      "duplicate": true
+    },
+    {
+      "category": "LichessHelper",
+      "name": "cburnett_jp",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/cburnett_jp/",
+      "type": "svg",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "dani_maccari",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/dani_maccari/",
+      "type": "png",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "dbenbenn",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/dbenbenn/",
+      "type": "svg",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "kiwen_suwi",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/kiwen_suwi/",
+      "type": "svg",
+      "cap": "wn",
+      "duplicate": true
+    },
+    {
+      "category": "LichessHelper",
+      "name": "letters",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/letters/",
+      "type": "png",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "new_metropol",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/new_metropol/",
+      "type": "png",
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "zzYwyYdpaZYDaWkzsjIyDA==",
-        "bp": "yck0NJeWaelBlpZMTWgqMA==",
-        "wn": "zcxm4pI5TZaDtDDY2XFyHA==",
-        "bn": "MjOZOG2WsukwS08mJoxJcg==",
-        "wb": "aS6Wy0k5ssZRzLKyaTESDA==",
-        "bb": "ktNHdDmNxrITosxNlE0oEA==",
-        "wr": "YIeWj9M/LNADVWlpaWlVVQ==",
-        "br": "m2nJJWyVkupBjpaWlpaqyA==",
-        "wq": "c5PMJphjZ5wHcWnMqKqqQQ==",
-        "bq": "nGgzWWeVnOIFjpYzVZaqaA==",
-        "wk": "N5ZxMyRrzMyOcWnMzNQXFA==",
-        "bk": "yGHc2A+NcuMOjpYzM6poMg=="
-      },
-      "coordinates": {
-        "x": 8,
-        "y": 10
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_bluelake",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_bluelake/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "nDZjyTxp0pYHaWFxsjIyDA==",
-        "bp": "yck2NJOWaelBlpbMTUgqMA==",
-        "wn": "zcw24pIpbZYDtDDY2HFyFA==",
-        "bn": "MjOZOG2WsukwS08mJoxJcg==",
-        "wb": "4S42ycU5OsZRzLKyaXkyDA==",
-        "bb": "s9NsNIWNcrIzssxNlkwoMA==",
-        "wr": "ZIcwy8MrP9Qj3OhpaWlUVA==",
-        "br": "m2nJJWyVkuppC5aWlpaqyA==",
-        "wq": "c5PMJ5hiZ5wPcWnMqKqqaQ==",
-        "bq": "3GgzWWeVmOIBjpYzVZaqaQ==",
-        "wk": "NpZwM2xrzMyOcWnMzNQXEA==",
-        "bk": "yWHeyIeFcuMKjpYzM6roMg=="
-      },
-      "coordinates": {
-        "x": 18,
-        "y": 9
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_bluelake2",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_bluelake2/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_bluelake2/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "MjbNyXNplJYDcWlxMjIyDA==",
-        "bp": "yck2NJOWaelBlpbMTUgqMA==",
-        "wn": "zc424pIpTZaLvDDY2PFyFA==",
-        "bn": "MjOZOG2WsukwS08mJoxJcg==",
-        "wb": "Ti7Ryzw5hcZRzPAyaWEyBA==",
-        "bb": "s9NsNIWNcrIzssxNlkwoMA==",
-        "wr": "YIfGjxsv5dAj4OhpaWnU1A==",
-        "br": "m2nJJWyVkuppC5aWlpaqyA==",
-        "wq": "M5POJpRjc5wHcWnMqKqqaQ==",
-        "bq": "3GgzWWeVmOIBjpYzVZaqaQ==",
-        "wk": "M5Y5MpZrzMyOcWnMzNQXEA==",
-        "bk": "yWHeyIeFcuMKjpYzM6roMg=="
-      },
-      "coordinates": {
-        "x": 20,
-        "y": 7
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_forest",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_forest/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_forest/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "4TY2yZVpapYb+OBxMjIyDA==",
-        "bp": "a02TYLSWS+lJvpZURWgyEA==",
-        "wn": "zU824pI5TZQDdDDY2PFxVA==",
-        "bn": "MmOYeG+WsOkoS8+mpoxpcg==",
-        "wb": "lA5ay2M5ncYzzPAyaWkyFA==",
-        "bb": "cpvMYDMdnPQipuxtVWUyEA==",
-        "wr": "YMfCy9ovJdQT0OhpaWnU1A==",
-        "br": "wmiVb2mXkujwtobW1Jaq0A==",
-        "wq": "c5CeJ8BrP5QjcWnMqKqqaQ==",
-        "bq": "kHg/aWO1nMJAjsaC1LqqaQ==",
-        "wk": "N5ZgMLxrz4wecXHMyNQzMg==",
-        "bk": "SSNa2LUNyvMo3PQzM6pwMg=="
-      },
-      "coordinates": {
-        "x": 23,
-        "y": 6
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_ice",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_ice/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_ice/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "pTaSzWlplpYTcWEyshIUCA==",
-        "bp": "m8lNNGaWkekhB5bOTEwMMA==",
-        "wn": "Tklmwpot7dKLtDDdy3JkGA==",
-        "bn": "MjJZHG2WtOsXgw8nJ47MYA==",
-        "wb": "ySw0y8sxN8ZRzLKyKzoSDA==",
-        "bb": "StNmLJmNxvI1H8wMlk5oEA==",
-        "wr": "tJsZy8lvNJAn0WFpaTFVVQ==",
-        "br": "E2hoJc+VteozM5aWlhYq5A==",
-        "wq": "NJdkt9hqI5wPcXFdqKimAA==",
-        "bq": "OGqx2U6VY+IHhoYjFZSqaA==",
-        "wk": "nJbMMTNrzYyGeVno7NQXDA==",
-        "bk": "2kmH2GOVMuMOjhczMy7sMg=="
-      },
-      "coordinates": {
-        "x": 6,
-        "y": 12
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_metal",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_metal/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_metal/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "ljaxzUktltIDYWkysjIyDA==",
-        "bp": "zck0dJOWaOlhlpZMTWgqMA==",
-        "wn": "zYxi45I5zcaDsDDZ2XFyHA==",
-        "bn": "siOZOG+WsOkwQ88mpoxJcg==",
-        "wb": "bC7awWswlc5RTbKyazIWDA==",
-        "bb": "k5tkYJ+dYPISosxNVFUyMA==",
-        "wr": "YIe2j9I/LcAjcWlpaWlVVQ==",
-        "br": "H2mRJ+WVGuhAqpaW1Jaq1A==",
-        "wq": "M5PMtzAjy8wPM2lFqKqqVQ==",
-        "bq": "nGhzWWeVxOJBjpYyVbKqaA==",
-        "wk": "M940M2gxncyOMwPMzNQXFA==",
-        "bk": "ySHcyCedcuMAjpYzM6roMg=="
-      },
-      "coordinates": {
-        "x": 23,
-        "y": 4
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_muesli",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_muesli/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_muesli/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "NDTLy2hql5UjaXGyMjIwCA==",
-        "bp": "y8sweIaXaOqGlo5NTEwoEA==",
-        "wn": "xoZzk5l45oUDaWmx2fFirA==",
-        "bn": "MXmMbGaHGfqUlpZGJo6dYg==",
-        "wb": "MZzO0zlqRpUDaWlpaTYSEA==",
-        "bb": "zmMxbMaVMepAloaWlkkqKA==",
-        "wr": "YIXhn5dqapUjYGlhaWnUVQ==",
-        "br": "n3oaYWKFhfrghpaWlpaq6A==",
-        "wq": "w5A0NudrmZUHaWng6KppFg==",
-        "bq": "HG7HaTidhuLAlpaOV1WWaQ==",
-        "wk": "yDeXcLJpaJcjaXHU1tQzVA==",
-        "bk": "N8hoz1mWhOmClo4rK7LoMg=="
-      },
-      "coordinates": {
-        "x": 16,
-        "y": 0
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_pink",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_pink/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_pink/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "tjZJnTZthNIHeWmyshYUCA==",
-        "bp": "4ck2NIqWaesLB5bMTEwqMA==",
-        "wn": "TRxmw5JpbdYDtTBZWXO2iA==",
-        "bn": "MjPYmG2WtOoRi08nJoxIcA==",
-        "wb": "YyScjecw+spRTZayKioUCA==",
-        "bb": "hJOpLHuNxvJRA8wOlkwoMA==",
-        "wr": "OZeUwWMtntIjRWkrIytVFw==",
-        "br": "GmmlpW2VUuozM5aWlhcr1A==",
-        "wq": "NpfMlzKiY5wPYytNaUUXlg==",
-        "bq": "mGo5mWWVzuIPjhczVZWqaQ==",
-        "wk": "psozNzGyzMwOMyvMyE0OTA==",
-        "bk": "yGmc2GyVY+MOjhczM6vIMg=="
-      },
-      "coordinates": {
-        "x": 15,
-        "y": 8
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworski_purple",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworski_purple/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworski_purple/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "tjZJnZalJNoHG2myshQUCA==",
-        "bp": "4ck2NIqWaesjB5bMDEwqMA==",
-        "wn": "TZxmg5JpLd4DtTFZWTO2iA==",
-        "bn": "MDPYmG2XtOoRi08nJowIcA==",
-        "wb": "YyScjeewespRTZaSqqpUCA==",
-        "bb": "hJOpLHONzvJRC8wOlkxoMA==",
-        "wr": "ObeEwWOtjNojRWkrIytVFw==",
-        "br": "Emnlpc2VUuozM5aWlhcr1A==",
-        "wq": "NpeMlxKyYfwPKxtFaVUXFg==",
-        "bq": "mE45mWWVzuIPDhczVdWqaA==",
-        "wk": "psoxNzGyzOwOMyvNyU0MTA==",
-        "bk": "yGmc3GyVI+MOjhczMyvMMA=="
-      },
-      "coordinates": {
-        "x": 17,
-        "y": 6
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_blue",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_blue/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworskim_blue/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "y2BtNJaFa+oXOxqWlhRMMA==",
-        "bp": "y8s0NIWVauoXFo6MjExMMA==",
-        "wn": "zkwjkdm0ZuonOzs7W3MmnA==",
-        "bn": "OHmNDOSFO/onF5YGJgacEA==",
-        "wb": "MRzOlTmmxtoDMzM7K7ZUDA==",
-        "bb": "zmMxPMaVOOoHF4aWlkxMDA==",
-        "wr": "4MWbjw4+8MgLYSsrK2lVFw==",
-        "br": "YHrgYR+FP7oDB5aWlhcrKw==",
-        "wq": "GA+wlWewx/oTIyMjaVUXlg==",
-        "bq": "4E9PmXuQhOoDBxcHV1WWlg==",
-        "wk": "k58xlWihjPoDIyNVVVWWTA==",
-        "bk": "Nshoj1iXhfoDFwcrKQfMDA=="
-      },
-      "coordinates": {
-        "x": 7,
-        "y": 14
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_metal",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_metal/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworskim_metal/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "NXCXlUqBtfoDIzKWlhYMIA==",
-        "bp": "tMuYNEqVteoHF45MDExMMA==",
-        "wn": "zMwzkdm8ZsITOys7WXsmnA==",
-        "bn": "OHmNDOSFO/oTF5ZGJgacEA==",
-        "wb": "OmDOnTOEnPoDKyMjr4ZMDA==",
-        "bb": "zmMxPcaVGOoHB4aWlo5MDA==",
-        "wr": "bsVgj5U+esAreTk5OTlVFw==",
-        "br": "KWr1YcCFH/orH5aWlhcrKA==",
-        "wq": "xp0PlZCxOPoDLytpaRYXlg==",
-        "bq": "zE+PmZCQbuoLHxcPF1WWlg==",
-        "wk": "lzcytGhphdYDY2PV11UWTA==",
-        "bk": "N8hgj2qWhfoDhwcrKQPMLA=="
-      },
-      "coordinates": {
-        "x": 17,
-        "y": 3
-      }
+      "cap": "wn"
     },
     {
       "category": "LichessHelper",
       "name": "pjaworskim_mramor",
-      "url": "https://github.com/chesshelper/lichesshelper/raw/refs/heads/main/chrome/assets/img/pjaworskim_mramor/",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/pjaworskim_mramor/",
       "type": "png",
-      "cap": "wn",
-      "hashes": {
-        "wp": "ZzScg2tolZcTYXGyMjIQCA==",
-        "bp": "yssxaKSXWuoWlo5MTEwoEA==",
-        "wn": "xoYzkxl45scHYWE52fFiLA==",
-        "bn": "MXmMLGaHOfoClpZGJo6cYg==",
-        "wb": "MZzGw7lqZpUjeXFpaTYSEA==",
-        "bb": "zmMxLMaVseoTlsaWlkkoKA==",
-        "wr": "Y4Xkj5Rqa5UDaGlpaWlUFQ==",
-        "br": "j2qYYWaFk/oChpaWlpaq6A==",
-        "wq": "t5BoZrdjTJUzWWnp6KppEg==",
-        "bq": "jG7LaTidJeIRlp4OV1WWaQ==",
-        "wk": "mDdvcJJobYcDeVnU1tQzFA==",
-        "bk": "Nshpj0mWlukWlo4rKbNoMg=="
-      },
-      "coordinates": {
-        "x": 6,
-        "y": 14
-      }
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "ridiculus",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/ridiculus/",
+      "type": "png",
+      "cap": "wn"
+    },
+    {
+      "category": "LichessHelper",
+      "name": "spatial",
+      "url": "https://raw.githubusercontent.com/chesshelper/chesshelper/refs/heads/main/src/assets/img/spatial/",
+      "type": "svg",
+      "cap": "wn"
     },
     {
       "category": "basedpolymer",
