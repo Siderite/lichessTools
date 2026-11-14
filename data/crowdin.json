@@ -1408,7 +1408,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2819,7 +2824,12 @@
     "trophyCabinetHeader": "奖杯陈列柜",
     "options.speakSeconds": "朗读秒数提醒阈值",
     "soundOptions.noBerserk": "无狂暴音效",
-    "explorerEval.localEngine": "自动评估"
+    "explorerEval.localEngine": "自动评估",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4230,7 +4240,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5641,7 +5656,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7052,7 +7072,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8463,7 +8488,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9874,7 +9904,12 @@
     "trophyCabinetHeader": "Vitrine des trophées",
     "options.speakSeconds": "Seuil d'alerte en secondes pour la lecture",
     "soundOptions.noBerserk": "Pas de son berserk",
-    "explorerEval.localEngine": "Auto éval"
+    "explorerEval.localEngine": "Auto éval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11285,7 +11320,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12696,7 +12736,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "Χωρίς ήχο berserk",
-    "explorerEval.localEngine": "Αυτόματη αξιολόγηση"
+    "explorerEval.localEngine": "Αυτόματη αξιολόγηση",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14107,7 +14152,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15518,7 +15568,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16929,7 +16984,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18340,7 +18400,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19751,7 +19816,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21162,7 +21232,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22573,7 +22648,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -23984,7 +24064,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25395,7 +25480,12 @@
     "trophyCabinetHeader": "Vitrină trofee",
     "options.speakSeconds": "Limită alertă citire secunde",
     "soundOptions.noBerserk": "Fără sunet de berserk",
-    "explorerEval.localEngine": "Auto evaluare"
+    "explorerEval.localEngine": "Auto evaluare",
+    "recordsDbExpandBranch": "Expandează",
+    "recordsDbCollapseBranch": "Colapsează",
+    "recordsDbAddOptions": "Alege ce să adaugi",
+    "recordsDbAddSelfParent": "Nu poți înregistra un element în el însuși",
+    "kindStudyPosition": "Poziţie studiu"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26806,7 +26896,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28217,7 +28312,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29628,7 +29728,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -31039,7 +31144,12 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32450,6 +32560,11 @@
     "trophyCabinetHeader": "Trophy cabinet",
     "options.speakSeconds": "Read seconds alert threshold",
     "soundOptions.noBerserk": "No berserk sound",
-    "explorerEval.localEngine": "Auto eval"
+    "explorerEval.localEngine": "Auto eval",
+    "recordsDbExpandBranch": "Expand",
+    "recordsDbCollapseBranch": "Collapse",
+    "recordsDbAddOptions": "Choose what to add",
+    "recordsDbAddSelfParent": "Cannot file an item inside itself",
+    "kindStudyPosition": "Study position"
   }
 }

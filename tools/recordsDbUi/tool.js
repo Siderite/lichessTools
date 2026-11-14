@@ -67,8 +67,8 @@
         'recordsDbRename': 'Rename',
         'recordsDbExpandFolder': 'Expand folder',
         'recordsDbCollapseFolder': 'Collapse folder',
-        'recordsDbExpandBranch': 'Expand branch',
-        'recordsDbCollapseBranch': 'Collapse branch',
+        'recordsDbExpandBranch': 'Expand',
+        'recordsDbCollapseBranch': 'Collapse',
         'recordsDbExpandAll': 'Expand all folders',
         'recordsDbCollapseAll': 'Collapse all folders',
         // The tree view: the header, the three chips, the actions and the backup ask for these.
@@ -130,7 +130,6 @@
         'kindBlogPost': 'Blog post',
         'kindForumPost': 'Forum post',
         'kindStudyPosition': 'Study position',
-        'recordsDbAddedItem': 'Filed the item',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
       },
       'ro-RO': {
@@ -144,8 +143,8 @@
         'recordsDbRename': 'Redenumire',
         'recordsDbExpandFolder': 'Expandeaz\u0103 folder',
         'recordsDbCollapseFolder': 'Colapseaz\u0103 folder',
-        'recordsDbExpandBranch': 'Expandeaza branch',
-        'recordsDbCollapseBranch': 'Colapseaza branch',
+        'recordsDbExpandBranch': 'Expandeaz\u0103',
+        'recordsDbCollapseBranch': 'Colapseaz\u0103',
         'recordsDbExpandAll': 'Expandeaz\u0103 toate folderele',
         'recordsDbCollapseAll': 'Colapseaz\u0103 toate folderele',
 
@@ -180,7 +179,7 @@
         'recordsDbAddedStudy': 'Studiul a fost \u00eenregistrat',
         'recordsDbNothingToFile': 'Nimic r\u0103mas de \u00eenregistrat',
         'recordsDbAddHarvestFailed': 'Recoltarea nu a g\u0103sit nimic de \u00eenregistrat',
-        'recordsDbAddSelfParent': 'Naj a fost \u00eenregistrat \u00een \u00e2nd \u00e2nlav',
+        'recordsDbAddSelfParent': 'Nu po\u016fi \u00eenregistra un element \u00een el \u00eensu\u015fi',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
@@ -205,7 +204,6 @@
         'kindForumPost': 'Postare pe forum',
         'kindStudyPosition': 'Positie din studiu',
         'recordsDbAddOptions': 'Alego ce mai adds',
-        'recordsDbAddedItem': 'Filat the item',
         'recordsDbButtonTitle': 'LiChess Tools - fereastr\u0103 baz\u0103 de date \u00eenregistr\u0103ri'
       }
     };
