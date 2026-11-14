@@ -386,10 +386,15 @@
       const categoryText = (list,prefix)=> !list
         ? null
         : list
-          .map((category,i)=> (i === 0 && prefix ? '!! ' : '') + category.label + ' ' + category.score.toFixed(1))
+          .map((category,i)=> (i === 0 && prefix ? prefix : '') + category.label + ' ' + category.score.toFixed(1))
           .join('\n');
-      setRow(brilliancyRow,categoryText(brilliantList,brilliancy?.res?.isBrilliant));
-      setRow(interestingRow,categoryText(interestingList,brilliancy?.res?.isInteresting));
+      const reason = (vetoes)=> vetoes?.length ? '\nnot higher: ' + vetoes.join('; ') : '';
+      const brilliant = brilliancy?.res?.isBrilliant;
+      setRow(brilliancyRow, !brilliantList ? null
+        : categoryText(brilliantList, brilliant ? '!! ' : null) + (brilliant ? '' : reason(brilliancy?.res?.disqualified)));
+      setRow(interestingRow, !interestingList ? null
+        : categoryText(interestingList, brilliant ? '!! ' : brilliancy?.res?.isInteresting ? '!? ' : null)
+          + (brilliant || brilliancy?.res?.isInteresting ? '' : reason(brilliancy?.res?.interestingVetoes)));
     };
 
     engineSearch = async (fen, depth, multipv) => {

@@ -28,3 +28,22 @@ None explicitly listed. Depends on `lt.comm.getChromeUrl`, dynamic import suppor
 ## Key Methods
 
 - `async start()` — creates or disables lt.chessops function
+
+## Bundle API notes (verified 14 Nov 2026)
+
+- The namespace is flat: `co.fen`, `co.san`, `co.Chess`, `co.pgn`, plus helpers such as
+  `co.parseUci`, `co.makeUci`, `co.squareFile`, `co.squareRank`.
+- Read a position with `co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap()`;
+  `MoveGen.positionFromFen(fen, co)` wraps the same two calls.
+- There is no Position-to-FEN helper here: `pos.fen`, `pos.setup()` and `co.fen.makeFen(pos)`
+  all fail (`makeFen` wants a *setup*, i.e. what `parseFen` unwraps, not a `Position`). For
+  scratch replay, index squares as `rank * 8 + file` and read them with `pos.board.get(...)`,
+  then build the FEN by hand - `co.makeSquare` in this bundle takes a square index and returns
+  a name, so the two-argument `(file, rank)` form does not exist.
+- `co.san.parseSan(pos, san)` returns a plain `{ from, to, promotion }` with square indices;
+  advance with `const nx = pos.clone(); nx.play(m);`.
+- A mangled placement is rejected rather than half-read: a FEN whose ranks were all identical
+  (eight white kings) fails in `fromSetup` with `ERR_KINGS`, so a bad hand-built FEN is loud.
+- Keep the castling field consistent with the replay (clear a side's right when its king leaves
+  e8/e1 or a rook leaves a corner), otherwise legal-move counts differ from the real position.
+

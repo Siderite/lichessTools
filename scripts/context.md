@@ -112,10 +112,12 @@ which cross-check ours against the external detector in `C:/Users/Costi/Download
   a ply-indexed array (`ply 0` = first white move) it is `plies[ply - 3].evalCp`; only the parity of that
   distance is used, so an off-by-one ply flips the sign of everything it feeds.
 - `computeUberBrilliance()` returns `{ score, threshold, isBrilliant, type, label, inInterval, byType,
-  disqualified, interestingScore, isInteresting, interestingLabel, interestingType, inInterestingInterval }`;
+  disqualified, interestingScore, isInteresting, interestingLabel, interestingType, inInterestingInterval,
+  interestingVetoes }`;
   `byType[name]` is `{ score, fit, ifit, inInterval, inInterestingInterval, applicable, missing, priority,
   values }`, where `fit` is the score mapped through `_fit` (baseline 0, `interval[0]` -> `uberThreshold`,
-  `interval[1]` -> 100) and `score` is the best `fit` rounded to 0.1, forced to 0 by any disqualifier.
+  `interval[1]` -> 100); `score` is the best `fit` rounded to 0.1 and zeroed by any disqualifier, while
+  `interestingScore` is only zeroed by a hard veto.
 - Read the axes with `principles()` (name -> value, `null` means "not applicable") and `details()`
   (name -> `{ value, raw }`); the `raw` blocks hold the numbers worth asserting: `bestMove.raw.winPctLoss`
   in win-points, `notAlreadyWinning.raw.winPctBefore`, `soundAfter.raw.winPctAfter`, `surprise.raw.regret`
@@ -158,6 +160,69 @@ which cross-check ours against the external detector in `C:/Users/Costi/Download
 - Scratch probes belong in `test/_tmp_*.check.js` (gitignored, delete once done); shipped checks are
   `test/<name>.check.js` run as `node test/<name>.check.js` and end with `done()`, which exits with the
   failure count.
+
+## Brilliancy shapes and the interesting-only tier (verified 14 Nov 2026)
+
+Grown over the analyzer described above; measured against the two cross-checked games
+(`test/brilliancyNd3compare.check.js`, `test/brilliancyNxd2compare.check.js`) and
+pinned by `test/brilliancyInterestingShapes.check.js`.
+
+- Six axes joined `PRINCIPLES`, all reportable through `details()`: `initiatedExchange`
+  (prey the move itself puts at stake; `null` when nothing is takeable or when the move
+  gains material - then `raw.gained`; `0` with `raw.preExistingPrey` when the prey was
+  hanging already), `stalemateTrap` (`raw.trapReplies`, `raw.acceptedOn`, `raw.avoided`),
+  `underPromotion` (`raw.mateOnly`, `raw.avoidsStalemate`, `raw.queenMated`), `tempo`
+  (capture material the reply wins, before minus after, `raw.delta`), `controlSquare`
+  (squares attacked before and after, `raw.delta`), `voluntaryChoice` (an alternative
+  leaves nothing takeable, `raw.safeAlternatives`).
+- Support accessors next to them: `_exchange()` = `{ net, stake, created, preExisting,
+  accepted }` with no engine line, `_alternatives()` = the queen-promotion outcome or
+  `null`, `_threats(pos, color)` = `{ sq, victim, attacker, cheapest }` (`_threatened()`
+  now maps it to squares), `_threatNet()`, `_control()`, `_preExistingMate()`.
+- Promotions are priced as `VALUE[promotion] - 1` in `_qs()` and `_mat()` instead of a
+  hard 8, so a knight promotion is no longer read as a seven-pawn sacrifice.
+- `TYPES` grew `trap` and `underpromo` (brilliant, `interval [0.9, 1]`, priority 0 so
+  they never shadow a labelled type) and four `interestingOnly: true` types (`offer`,
+  `gambit`, `trapish`, `promo`, `interval [0.875, 1]`). The uber pass forces `fit: 0`
+  and `inInterval: false` for flagged types, so the brilliant half never reads them.
+- Every interesting-only type keeps a shape principle essential in the interesting
+  pass, i.e. `_essentialPrinciples(weights, [interval[0] * 0.8, 1])` is non-empty and
+  names that principle. Without it `offer` and `gambit` fire on about a third of the
+  plies of a normal game (measured 14/65 and 27/81 before tightening); the essentials
+  bring that to 5/65 and 2/81.
+- `disqualifiers()` changed too: the promotion veto now spares a decisive underpromotion,
+  and a mate in one that already existed plus dead drawn material (`isInsufficientMaterial`)
+  joined the vetoes. The list is now split: `hardVetoes()` rules both tiers out.
+  `brilliancyVetoes()` (opening book, a mate that already existed) rules brilliancy out alone, so
+  theory moves and moves in a decided game can still be interesting; the uber result reports the
+  hard kind in `interestingVetoes`.
+- Seven principles declare `{ brilliantOnly: true }` at their own `_r(...)` return (`bestMove`,
+  `soundAfter`, `compensation`, `regainsMaterial`, `lastingSacrifice`, `onlyMove`, `comeback`): they
+  read the engine line for the mover, so the interesting average leaves their weights out;
+  `principleFlags()` exposes the map.
+- The brilliant tier reads the engine line, so its verdict is only as good as the eval pair fed
+  in: PGN `[%eval]` comments can lag the analysis record, and the same move flips tier. Measured
+  on 15...Nxc3 (0-based ply 29) with the analysis cp -422 before the move against the PGN -242
+  after: `compensation` reads 0.1 and `notAlreadyWinning` 0.85 (win% 82.5), so `sacrifice` fits
+  59.5 and the ply is interesting only (interestingScore 81.7); with the shallower PGN pair
+  (-239/-242) compensation read 1 and the fit 78.4, i.e. brilliant. 11...Na4 and 17...Be6 stay
+  brilliant either way (their eval improved, win% before 68.2/70.5), so the whole game goes from
+  3 brilliant / 2 interesting to 2 / 3. A `multiPv` line of a single move leaves
+  `regainsMaterial`/`lastingSacrifice` null: `_pv()` wants a principal line longer than one move.
+
+- Measured verdicts: the Nd3 ply (a level exchange that creates the prey) is interesting
+  through `offer` and no brilliant type fits (uber score 0, interestingScore 93.8); Nxd2
+  stays out of both tiers because the move gains (`initiatedExchange` null, `raw.gained`
+  1) and the queen their badge is built on was takeable before the move
+  (`_exchange().preExisting`). Whole-game counts moved to 1 brilliant / 5 interesting in
+  the Nd3 game and 0 / 2 in the Nxd2 game; their detector still claims 2 and 1.
+- Measured recall: a composed board whose knight promotion mates while the queen
+  promotion only checks becomes brilliant through `underpromo` (uber 70.6), and composed
+  stalemate traps put `trap` in interval (score 0.952); a trap whose prey was hanging
+  before the move stays interesting-only (`trapish`, and `initiatedExchange` reports 0).
+- Cost: the six axes add 0.04 ms per position on top of 4.65 ms measured over 146 plies
+  repeated 5 times, so the explorerEval `brilliancyBudget` of 50 ms is unaffected.
+
 
 ## Entry points, polyfills and vendored files
 

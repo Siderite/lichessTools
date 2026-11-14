@@ -22,6 +22,7 @@
  *   // 1. one principle at a time; each returns { value: 0..1 or null, raw: {...} }
  *   a.sacrifice();  a.onlyMove();  a.surprise();  ...        (names in BrilliantMoveAnalyzer.PRINCIPLES)
  *   a.principles();                 // all values at once;  a.details() adds the raw numbers
+ *   a.principleFlags();             // per principle: true when it may speak only towards brilliant
  *
  *   // 2. a weighted sum checked against an interval
  *   a.computeBrilliance(weights, interval)   // any weight vector; defaults to the "sacrifice" type
@@ -30,12 +31,17 @@
  *   a.computeBrillianceCombination()         // sacrifice that the engine line wins back
  *   a.computeBrilliancePositional()          // sacrifice for lasting compensation
  *   a.computeBrillianceQuiet()               // sacrifice that is not a capture or a check
+ *   a.computeBrillianceTrap()                // a capture reply leaves the mover stalemated (a draw trap)
+ *   a.computeBrillianceUnderpromo()          // a lesser promotion that changes the outcome
+ *   a.computeBrillianceOffer()               // interesting-only: the move creates the prey it offers
+ *   a.computeBrillianceGambit()              // interesting-only: a quiet move gives up material
+ *   // the interesting-only ones carry interestingScore / inInterestingInterval / isInteresting only
  *   // each returns { score, interval, interestingInterval, inInterval, applicable, disqualified, isBrilliant,
  *   //   interestingScore (null when the type carries no interesting signal), inInterestingInterval, isInteresting,
  *   //   values, missing }
  *
  *   // 3. everything in one call
- *   a.computeUberBrilliance()       // { score: 0..100, isBrilliant: score >= 70, type, label, inInterval, interestingScore, isInteresting, interestingType, interestingLabel, inInterestingInterval, byType, disqualified }
+ *   a.computeUberBrilliance()       // { score: 0..100, isBrilliant: score >= 70, type, label, inInterval, interestingScore, isInteresting, interestingType, interestingLabel, inInterestingInterval, interestingVetoes, byType, disqualified }
  *
  * A weighted sum is the weighted average of the principles that returned a value (null ones are left out).
  * Weights are never negative; a principle that is needed the other way round exists in that form
@@ -55,12 +61,9 @@ class BrilliantMoveAnalyzer {
     'sacrifice', 'heavySacrifice', 'compensation', 'regainsMaterial', 'lastingSacrifice',
     'surprise', 'quietMove', 'onlyMove', 'independence',
     'matingAttack', 'attackerValue', 'checkOffer', 'comeback', 'savesDraw',
+    'initiatedExchange', 'stalemateTrap', 'underPromotion', 'tempo', 'controlSquare', 'voluntaryChoice',
   ];
 
-  // principles ignored when computing interesting
-  static NI_PRINCIPLES = [
-    'bestMove', 'soundAfter', 'compensation', 'regainsMaterial', 'lastingSacrifice', 'onlyMove', 'comeback'
-  ];
   static INTERESTING_INTERVAL_WEIGHT = 0.8; // the intervals are relaxed for interesting detection
 
   // Principles that nearly every good move satisfies; they form the baseline of a type's weighted sum.
@@ -78,10 +81,12 @@ class BrilliantMoveAnalyzer {
     worseFull: 48,           // ... and 1 from this value (MoveLens uses 48)
     sacrificeZero: 1,        // pawns given up for sacrifice() = 0 (a pawn gambit is not a brilliancy)
     sacrificeFull: 2,        // pawns given up for sacrifice() = 1 (MoveLens: two pawns; an exchange sacrifice)
+    preyFull: 3,             // pawns at stake for initiatedExchange() = 1 (a minor piece put under threat)
     surpriseFull: 4,         // materialist regret in pawns that maps to surprise() = 1
     onlyMoveFullGap: 20,     // win% gap to the 2nd line that maps to onlyMove() = 1
     mateFull: 6,             // mate in this many moves or fewer: matingAttack() = 1 ...
     mateZero: 14,            // ... and 0 from this many
+    controlFull: 4,          // squares gained for controlSquare() = 1
     comebackBelow: 45,       // comeback() only applies when the mover's win% was below this two plies earlier
     drawLostZero: 40,        // savesDraw(): mover's win% before the move at which "was lost" = 0 ...
     drawLostFull: 15,        // ... and fully lost (=1) at/below this
@@ -147,6 +152,58 @@ class BrilliantMoveAnalyzer {
       weights: { savesDraw: 24, bestMove: 18, onlyMove: 16, soundAfter: 14, notAlreadyWinning: 12, surprise: 8, independence: 8 },
       interval: [0.85, 1],
       requires: ['savesDraw'],
+    },
+    trap: {
+      label: 'Stalemate trap',
+      priority: 0,
+      about: 'The opponent can be answered by a capture that leaves us stalemated, or a lesser promotion avoids a stalemate.',
+      weights: { stalemateTrap: 34, bestMove: 26, soundAfter: 18, notAlreadyWinning: 12, quietMove: 10 },
+      interval: [0.9, 1],
+      requires: ['stalemateTrap'],
+    },
+    underpromo: {
+      label: 'Decisive underpromotion',
+      priority: 0,
+      about: 'A promotion to a lesser piece that mates where the queen promotion would not, or that avoids a stalemate.',
+      weights: { underPromotion: 34, bestMove: 22, notAlreadyWinning: 16, independence: 14, quietMove: 14 },
+      interval: [0.9, 1],
+      requires: ['underPromotion'],
+    },
+    offer: {
+      interestingOnly: true,
+      label: 'Offered exchange',
+      priority: 0,
+      about: 'The move puts material at stake that was safe before, and the reply material improves: a decoy or a tempo offer, whatever the engine says about it.',
+      weights: { initiatedExchange: 60, tempo: 40 },
+      interval: [0.875, 1],
+      requires: ['initiatedExchange'],
+    },
+    gambit: {
+      interestingOnly: true,
+      label: 'Gambit',
+      priority: 0,
+      about: 'A quiet move gives up material: worth explaining even when the engine does not like it.',
+      weights: { sacrifice: 60, quietMove: 20, independence: 20 },
+      interval: [0.875, 1],
+      requires: [],
+    },
+    trapish: {
+      interestingOnly: true,
+      label: 'Draw resource',
+      priority: 0,
+      about: 'A capture reply leaves us stalemated, or a draw is rescued from a lost position: worth explaining without an engine line.',
+      weights: { stalemateTrap: 60, savesDraw: 20, quietMove: 20 },
+      interval: [0.875, 1],
+      requires: ['stalemateTrap'],
+    },
+    promo: {
+      interestingOnly: true,
+      label: 'Promotion choice',
+      priority: 0,
+      about: 'A non-greedy promotion: worth explaining whatever the engine says.',
+      weights: { underPromotion: 60, independence: 20, quietMove: 20 },
+      interval: [0.875, 1],
+      requires: ['underPromotion'],
     },
   };
 
@@ -224,7 +281,9 @@ class BrilliantMoveAnalyzer {
   static _ramp(x, zero, full) { // 0 at `zero`, 1 at `full`, linear between, works in both directions
     return LiChessTools.Scoring.ramp(x, zero, full);
   }
-  static _r(value, raw) { return { value, raw: raw || {} }; }
+  /** A principle value plus the data it was computed from; the pair is the display unit everywhere. `flags`
+   * may say { brilliantOnly: true } for a principle that reads the engine's line for the mover. */
+  static _r(value, raw, flags) { return { value, raw: raw || {}, ...(flags || {}) }; }
 
   // ---------------------------------------------------------------- chess helpers
   _victim(pos, m) { // opponent piece captured by m (en passant included), else null
@@ -260,7 +319,7 @@ class BrilliantMoveAnalyzer {
     const caps = [];
     for (const m of this._legal(pos)) {
       const t = this._victim(pos, m);
-      if (t) caps.push({ m, v: V[t.role] + (m.promotion ? 8 : 0), a: V[pos.board.get(m.from).role] });
+      if (t) caps.push({ m, v: V[t.role] + (m.promotion ? V[m.promotion] - 1 : 0), a: V[pos.board.get(m.from).role] });
     }
     caps.sort((x, y) => y.v - x.v || x.a - y.a);
     for (const c of caps) {
@@ -273,20 +332,26 @@ class BrilliantMoveAnalyzer {
     return best;
   }
   _qsRoot(pos) { return this._qs(pos, -99, 99, this.options.qsDepth, { n: this.options.qsNodes }); }
-  /** Non-pawn pieces of `color` that the opponent wins by capturing, judged statically. */
-  _threatened(pos, color) {
+  /** Non-pawn pieces of `color` the opponent can win, each with its square and cheapest attacker. */
+  _threats(pos, color) {
     const V = BrilliantMoveAnalyzer.VALUE, AV = BrilliantMoveAnalyzer.ATTACKER_VALUE;
     const enemy = color === 'white' ? 'black' : 'white', occ = pos.board.occupied, out = [];
     for (const role of ['knight', 'bishop', 'rook', 'queen']) {
       for (const sq of pos.board.pieces(color, role)) {
         const att = pos.kingAttackers(sq, enemy, occ);
         if (att.isEmpty()) continue;
-        let cheapest = 99;
-        for (const a of att) cheapest = Math.min(cheapest, AV[pos.board.get(a).role]);
-        if (pos.kingAttackers(sq, color, occ).isEmpty() || cheapest < V[role]) out.push(sq);
+        let cheapest = 99, cheapestRole = null;
+        for (const a of att) {
+          const p = pos.board.get(a), v = AV[p.role];
+          if (v < cheapest) { cheapest = v; cheapestRole = p.role; }
+        }
+        if (pos.kingAttackers(sq, color, occ).isEmpty() || cheapest < V[role]) out.push({ sq, victim: role, attacker: cheapestRole, cheapest });
       }
     }
     return out;
+  }
+  _threatened(pos, color) {
+    return this._threats(pos, color).map((t) => t.sq);
   }
   _parseLines(multiPv, flip) {
     if (!Array.isArray(multiPv) || !multiPv.length) return null;
@@ -318,7 +383,8 @@ class BrilliantMoveAnalyzer {
   _mat() {
     return this._once('mat', () => {
       const before = this._balance(this.pos0);
-      const now = this._balance(this.pos1) - (this.move.promotion ? 8 : 0);
+      const promoted = this.move.promotion ? BrilliantMoveAnalyzer.VALUE[this.move.promotion] - 1 : 0;
+      const now = this._balance(this.pos1) - promoted;
       const oppGain = this._qsRoot(this.pos1);
       return { before, now, oppGain, afterExchange: now - oppGain, sacrifice: before - (now - oppGain) };
     });
@@ -332,7 +398,7 @@ class BrilliantMoveAnalyzer {
         if (!t || V[t.role] === 0) continue;
         const c = this.pos1.clone();
         c.play(m2);
-        out.push({ to: m2.to, victim: t.role, attacker: this.pos1.board.get(m2.from).role, net: V[t.role] - this._qsRoot(c), withCheck: c.isCheck() });
+        out.push({ to: m2.to, victim: t.role, attacker: this.pos1.board.get(m2.from).role, net: V[t.role] - this._qsRoot(c), withCheck: c.isCheck(), stalemate: c.isStalemate() });
       }
       return out;
     });
@@ -400,13 +466,68 @@ class BrilliantMoveAnalyzer {
     });
   }
 
+  /** Exchange facts with no engine line: what the move puts at stake, and whether the prey was there before. */
+  _exchange() {
+    return this._once('exchange', () => {
+      const V = BrilliantMoveAnalyzer.VALUE;
+      const offers = this._offers();
+      const preyBefore = this._threatened(this.pos0, this.mover);
+      const net = offers.length ? Math.max(...offers.map((o) => o.net)) : 0;
+      return {
+        net,
+        stake: offers.length ? Math.max(...offers.map((o) => V[o.victim])) : 0,
+        created: offers.filter((o) => !preyBefore.includes(o.to)),
+        preExisting: offers.filter((o) => preyBefore.includes(o.to)),
+        accepted: offers.length ? offers.find((o) => o.net === net) : null,
+      };
+    });
+  }
+  /** The queen promotion in place of the played one, and the outcome it would have had. */
+  _alternatives() {
+    return this._once('alternatives', () => {
+      if (!this.move.promotion || this.move.promotion === 'queen') return null;
+      const m = { from: this.move.from, to: this.move.to, promotion: 'queen' };
+      if (!this.pos0.isLegal(m)) return null;
+      const q = this.pos0.clone();
+      q.play(m);
+      return { mate: q.isCheckmate(), stalemate: q.isStalemate() };
+    });
+  }
+  /** Material the mover can win by captures alone at a position, judged statically. */
+  _threatNet(pos, color) {
+    const V = BrilliantMoveAnalyzer.VALUE, AV = BrilliantMoveAnalyzer.ATTACKER_VALUE;
+    return this._threats(pos, color).reduce((best, t) => Math.max(best, V[t.victim] - AV[t.attacker]), 0);
+  }
+  /** Squares a side attacks, empty or enemy: how much of the board it controls. */
+  _control(pos, color) {
+    const occ = pos.board.occupied;
+    let n = 0;
+    for (let sq = 0; sq < 64; sq++) {
+      const p = pos.board.get(sq);
+      if (p && p.color === color) continue;
+      if (!pos.kingAttackers(sq, color, occ).isEmpty()) n++;
+    }
+    return n;
+  }
+  /** A mate in one already available to the mover: the game was decided whatever this move is. */
+  _preExistingMate() {
+    return this._once('mateInOne', () => {
+      for (const m of this._legal(this.pos0)) {
+        const c = this.pos0.clone();
+        c.play(m);
+        if (c.isCheckmate()) return true;
+      }
+      return false;
+    });
+  }
+
   // ---------------------------------------------------------------- principles
   // 1. The move is the engine's best, or loses very little win probability.
   bestMove() {
     const B = BrilliantMoveAnalyzer, o = this.options;
     if (this.wBest == null || this.wPlayed == null) return B._r(null);
     const loss = Math.max(0, this.wBest - this.wPlayed);
-    return B._r(B._ramp(loss, o.bestMoveZeroLoss, o.bestMoveFullLoss), { winPctLoss: loss, rank: this.rank });
+    return B._r(B._ramp(loss, o.bestMoveZeroLoss, o.bestMoveFullLoss), { winPctLoss: loss, rank: this.rank }, { brilliantOnly: true });
   }
 
   // 2. The mover is not already winning (a sacrifice in a won position costs nothing). 1 = not winning.
@@ -418,7 +539,7 @@ class BrilliantMoveAnalyzer {
   // 3. Not worse afterwards: win% after the move is at least equal.
   soundAfter() {
     const B = BrilliantMoveAnalyzer, o = this.options;
-    return B._r(B._ramp(this.wAfter, o.worseZero, o.worseFull), { winPctAfter: this.wAfter });
+    return B._r(B._ramp(this.wAfter, o.worseZero, o.worseFull), { winPctAfter: this.wAfter }, { brilliantOnly: true });
   }
 
   // 4. Material given up, in pawns, once the opponent's capture sequence is resolved: 0 up to sacrificeZero (a pawn
@@ -442,19 +563,19 @@ class BrilliantMoveAnalyzer {
     const B = BrilliantMoveAnalyzer, s = this._mat().sacrifice;
     if (s <= 0) return B._r(0, { pawns: 0 });
     const pawns = (B._cp(this.evAfter) - B._cp(this.evBefore)) / 100 + s;
-    return B._r(this._gate() * Math.min(1, Math.max(0, pawns / s)), { pawns });
+    return B._r(this._gate() * Math.min(1, Math.max(0, pawns / s)), { pawns }, { brilliantOnly: true });
   }
 
   // 7. Temporary sacrifice: the engine line wins the material back (or mates). Needs multiPv with `moves`, or a mate score.
   regainsMaterial() {
     const B = BrilliantMoveAnalyzer, r = this._recovery();
-    return B._r(r.value == null ? null : this._gate() * r.value, { how: r.how, recovered: r.value });
+    return B._r(r.value == null ? null : this._gate() * r.value, { how: r.how, recovered: r.value }, { brilliantOnly: true });
   }
 
   // 8. Lasting sacrifice: material is given up and the engine line does not win it back (positional compensation).
   lastingSacrifice() {
     const B = BrilliantMoveAnalyzer, r = this._recovery();
-    return B._r(r.value == null ? null : this._gate() * (1 - r.value), { how: r.how, recovered: r.value });
+    return B._r(r.value == null ? null : this._gate() * (1 - r.value), { how: r.how, recovered: r.value }, { brilliantOnly: true });
   }
 
   // 9. Counterintuitive for a materialist: a greedy player would rate other moves higher (regret in pawns),
@@ -481,7 +602,7 @@ class BrilliantMoveAnalyzer {
     const B = BrilliantMoveAnalyzer, o = this.options;
     if (!this.lines || this.lines.length < 2) return B._r(null);
     const gap = this.lines[0].win - this.lines[1].win;
-    return B._r(this.rank === 1 ? Math.min(1, gap / o.onlyMoveFullGap) : 0, { gap, rank: this.rank });
+    return B._r(this.rank === 1 ? Math.min(1, gap / o.onlyMoveFullGap) : 0, { gap, rank: this.rank }, { brilliantOnly: true });
   }
 
   // 12. Independent of other issues: not a rescue of a hanging piece, not a grab of an undefended piece, not an even trade.
@@ -522,7 +643,7 @@ class BrilliantMoveAnalyzer {
   comeback() {
     const B = BrilliantMoveAnalyzer, o = this.options;
     if (this.wTwoBefore == null || this.wTwoBefore >= o.comebackBelow) return B._r(null);
-    return B._r(Math.min(1, Math.max(0, (this.wAfter - this.wTwoBefore) / 30)), { winPctTwoBefore: this.wTwoBefore, winPctAfter: this.wAfter });
+    return B._r(Math.min(1, Math.max(0, (this.wAfter - this.wTwoBefore) / 30)), { winPctTwoBefore: this.wTwoBefore, winPctAfter: this.wAfter }, { brilliantOnly: true });
   }
 
   // 17. The move saves a draw from a lost position (a "swindle"): clearly lost before, drawn -- not winning -- after.
@@ -542,14 +663,93 @@ class BrilliantMoveAnalyzer {
     return 1 - Math.abs(w - 50) / (o.drawHigh - 50);
   }
 
+  // 18. The move puts a piece under threat that the opponent could not take before: it starts the exchange.
+  //     0 when the prey was hanging already (the move did not create it), null when nothing is at stake.
+  initiatedExchange() {
+    const B = BrilliantMoveAnalyzer, o = this.options, x = this._exchange();
+    if (!x.accepted) return B._r(null, { stake: 0 });
+    if (this._mat().sacrifice < 0) return B._r(null, { gained: -this._mat().sacrifice });
+    if (!x.created.length) return B._r(0, { preExistingPrey: x.preExisting.length, stake: x.stake });
+    const stake = Math.max(...x.created.map((c) => B.VALUE[c.victim]));
+    const made = x.created.find((c) => B.VALUE[c.victim] === stake);
+    return B._r(B._ramp(stake, o.sacrificeZero, o.preyFull), {
+      stake, preySquare: made ? B.co.makeSquare(made.to) : null, preExistingPrey: x.preExisting.length,
+    });
+  }
+
+  // 19. The opponent can answer our move by a capture that leaves us stalemated: the draw is decided by a
+  //     trap on the board, not by the evaluation. Also the lesser promotion that avoids a stalemate.
+  stalemateTrap() {
+    const B = BrilliantMoveAnalyzer;
+    if (this.pos1.isStalemate()) return B._r(0, { ownStalemate: true });
+    const accepted = this._offers().filter((o) => o.stalemate);
+    const alt = this._alternatives();
+    const avoided = !!alt && alt.stalemate && !this.pos1.isStalemate();
+    if (!accepted.length && !avoided) return B._r(null);
+    return B._r(1, { trapReplies: accepted.length, acceptedOn: accepted.map((o) => B.co.makeSquare(o.to)), avoided });
+  }
+
+  // 20. A promotion to a lesser piece that changes the outcome: it mates where the queen promotion would not,
+  //     or it avoids a stalemate the queen promotion would have run into.
+  underPromotion() {
+    const B = BrilliantMoveAnalyzer, alt = this._alternatives();
+    if (!alt || !this.move.promotion || this.move.promotion === 'queen') return B._r(null);
+    const mateOnly = this.givesMate && !alt.mate;
+    const avoidsStalemate = alt.stalemate && !this.pos1.isStalemate();
+    if (!mateOnly && !avoidsStalemate) return B._r(null);
+    return B._r(1, { role: this.move.promotion, mateOnly, avoidsStalemate, queenMated: alt.mate, queenStalemate: alt.stalemate });
+  }
+
+  // 21. The reply material the opponent wins improves because of our move: a decoy or a tempo offer.
+  tempo() {
+    const B = BrilliantMoveAnalyzer, o = this.options;
+    const before = this._threatNet(this.pos0, this.mover), after = this._threatNet(this.pos1, this.mover);
+    return B._r(B._ramp(after - before, 0, o.sacrificeFull), { before, after, delta: after - before });
+  }
+
+  // 22. Squares the mover attacks and the opponent does not: the board space the move wins.
+  controlSquare() {
+    const B = BrilliantMoveAnalyzer, o = this.options;
+    const before = this._control(this.pos0, this.mover), after = this._control(this.pos1, this.mover);
+    return B._r(B._ramp(after - before, 0, o.controlFull), { before, after, delta: after - before });
+  }
+
+  // 23. The material given up was a choice: another move exists that leaves no piece of ours takeable.
+  voluntaryChoice() {
+    const B = BrilliantMoveAnalyzer;
+    if (this.inCheck) return B._r(0, { evasion: true });
+    let safeAlternatives = 0, legalMoves = 0;
+    for (const m of this._legal(this.pos0)) {
+      legalMoves++;
+      if (m.from === this.move.from && m.to === this.move.to && (m.promotion || null) === (this.move.promotion || null)) continue;
+      const c = this.pos0.clone();
+      c.play(m);
+      if (!this._threats(c, this.mover).length) safeAlternatives++;
+    }
+    return B._r(safeAlternatives ? 1 : 0, { safeAlternatives, legalMoves });
+  }
+
   // ---------------------------------------------------------------- running principles
-  /** Why this move can never count as brilliant, whatever its score. */
-  disqualifiers() {
+  /** Why nothing about this move is worth explaining at all: nothing was up to choose, a plain greedy promotion,
+  dead drawn material. These rule the interesting tier out too. */
+  hardVetoes() {
     const out = [];
     if (this._legal(this.pos0).length === 1) out.push('forced move (only one legal move)');
-    if (this.move.promotion) out.push('pawn promotion');
-    if (this.book) out.push('opening book move');
+    if (this.move.promotion && !this.underPromotion().value) out.push('pawn promotion');
+    if (this.pos0.isInsufficientMaterial() || this.pos1.isInsufficientMaterial()) out.push('dead drawn material');
     return out;
+  }
+  /** Why this is not a brilliancy: the move is theory (opening book) or the game was already decided by a mate in
+  one before it. Neither says the move is unworthy of being explained. */
+  brilliancyVetoes() {
+    const out = [];
+    if (this.book) out.push('opening book move');
+    if (this._preExistingMate()) out.push('a mate in one was already there');
+    return out;
+  }
+  /** Why this move can never count as brilliant, whatever its score. */
+  disqualifiers() {
+    return [...this.hardVetoes(), ...this.brilliancyVetoes()];
   }
   /** All principles with their raw numbers: { name: { value, raw } }. Computed once per analyzer. */
   details() {
@@ -558,6 +758,12 @@ class BrilliantMoveAnalyzer {
   /** All principle values: { name: value | null }. */
   principles() {
     return Object.fromEntries(Object.entries(this.details()).map(([n, d]) => [n, d.value]));
+  }
+
+  /** Which principles may speak only for the brilliant tier: the flag each one declares at its own return. */
+  principleFlags() {
+    const d = this.details();
+    return Object.fromEntries(BrilliantMoveAnalyzer.PRINCIPLES.map((n) => [n, d[n]?.brilliantOnly === true]));
   }
 
   // ---------------------------------------------------------------- weighted sums
@@ -569,6 +775,7 @@ class BrilliantMoveAnalyzer {
    */
   computeBrilliance(weights, interval, required = []) {
     const values = this.principles();
+    const brilliantOnly = this.principleFlags();
     let sum = 0, used = 0;
     let isum = 0, iused = 0;
     const missing = [];
@@ -579,7 +786,7 @@ class BrilliantMoveAnalyzer {
       if (values[name] == null) { missing.push(name); continue; }
       sum += w * values[name];
       used += w;
-      const ignorePrinciple = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(name);
+      const ignorePrinciple = brilliantOnly[name];
       if (!ignorePrinciple) {
         isum += w * values[name];
         iused += w;
@@ -590,6 +797,7 @@ class BrilliantMoveAnalyzer {
     const [lo, hi] = interval;
     const ilo = lo * BrilliantMoveAnalyzer.INTERESTING_INTERVAL_WEIGHT; // relaxed lower edge for interesting
     const disqualified = this.disqualifiers();
+    const vetoesInteresting = this.hardVetoes();
     const inInterval = applicable && score >= lo && score <= hi;
     const iscore = iused ? isum / iused : null; // null: no interesting principle carried any weight, not a hard 0
     const inInterestingInterval = applicable && iscore != null && iscore >= ilo && iscore <= hi;
@@ -597,7 +805,8 @@ class BrilliantMoveAnalyzer {
       isBrilliant: inInterval && !disqualified.length,
       interestingScore: iscore,
       inInterestingInterval,
-      isInteresting: inInterestingInterval && !disqualified.length,
+      isInteresting: inInterestingInterval && !vetoesInteresting.length,
+      interestingVetoes: vetoesInteresting,
       values, missing };
   }
 
@@ -611,6 +820,10 @@ class BrilliantMoveAnalyzer {
   computeBrillianceCombination() { return this._computeType('combination'); }
   computeBrilliancePositional() { return this._computeType('positional'); }
   computeBrillianceQuiet() { return this._computeType('quiet'); }
+  computeBrillianceTrap() { return this._computeType('trap'); }
+  computeBrillianceUnderpromo() { return this._computeType('underpromo'); }
+  computeBrillianceOffer() { return this._computeType('offer'); }
+  computeBrillianceGambit() { return this._computeType('gambit'); }
 
   /**
    * Share of a type's weight that sits on preconditions: what an ordinary good move (best, not losing, independent,
@@ -656,24 +869,27 @@ class BrilliantMoveAnalyzer {
    * `type` is the most specific type whose interval holds (mating > quiet > positional > combination > sacrifice);
    * when none holds it is the closest one that still describes the move (an essential principle at hard 0 rules the
    * type out, so a plain pawn push gets score 0 and no type at all). The interesting half is the same rule over the
-   * relaxed interval and the weights that leave out NI_PRINCIPLES. Returns
+   * relaxed interval and the weights that leave out the principles marked brilliantOnly. Returns
    * { score, isBrilliant, threshold, type, label, inInterval: [types whose interval holds], byType, disqualified }
    */
   computeUberBrilliance() {
     const T = this.options.uberThreshold, byType = {};
+    const brilliantOnly = this.principleFlags();
     for (const name of Object.keys(this.types)) {
       const t = this.types[name], r = this._computeType(name);
+      const shapeOnly = t.interestingOnly === true; // the type describes the interesting half only
       const iweights = {};
       for (const k in t.weights) {
-        iweights[k] = BrilliantMoveAnalyzer.NI_PRINCIPLES.includes(k) ? 0 : t.weights[k];
+        iweights[k] = brilliantOnly[k] ? 0 : t.weights[k];
       }
       byType[name] = { score: r.score,
-        fit: r.applicable ? this._fit(r.score, r.interval, t.weights, r.values) : 0,
+        fit: !shapeOnly && r.applicable ? this._fit(r.score, r.interval, t.weights, r.values) : 0,
         ifit: r.applicable && r.interestingScore != null ? this._fit(r.interestingScore, r.interestingInterval, iweights, r.values) : 0,
-        inInterval: r.inInterval, inInterestingInterval: r.inInterestingInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
+        inInterval: !shapeOnly && r.inInterval, inInterestingInterval: r.inInterestingInterval, applicable: r.applicable, missing: r.missing, priority: t.priority || 0, values: r.values };
     }
     const names = Object.keys(byType);
     const disqualified = this.disqualifiers();
+    const vetoesInteresting = this.hardVetoes();
 
     const inside = names.filter((n) => byType[n].inInterval)
       .sort((a, b) => byType[b].priority - byType[a].priority || byType[b].fit - byType[a].fit);
@@ -686,7 +902,7 @@ class BrilliantMoveAnalyzer {
       .sort((a, b) => byType[b].priority - byType[a].priority || byType[b].ifit - byType[a].ifit);
     const ibestFit = Math.max(...names.map((n) => byType[n].ifit));
     const iclosest = names.find((n) => byType[n].ifit === ibestFit);
-    const iscore = disqualified.length ? 0 : Math.round(ibestFit * 10) / 10;
+    const iscore = vetoesInteresting.length ? 0 : Math.round(ibestFit * 10) / 10;
     const itype = iscore > 0 ? (iinside[0] || iclosest) : null;
 
     return {
@@ -703,6 +919,7 @@ class BrilliantMoveAnalyzer {
       interestingType: itype,
       interestingLabel: itype ? this.types[itype].label : null,
       inInterestingInterval: iinside,
+      interestingVetoes: vetoesInteresting,
 
       byType,
       disqualified,
