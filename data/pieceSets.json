@@ -1976,6 +1976,13 @@
       }
     },
     {
+      "category": "chesscom",
+      "name": "Band Class",
+      "url": "https://assets-themes.chess.com/image/ca09k/150/",
+      "type": "png",
+      "cap": "wn"
+    },
+    {
       "category": "hollowleaf",
       "name": "Anime",
       "url": "https://raw.githubusercontent.com/HollowLeaf1981/ChessPieces/main/Anime/",
