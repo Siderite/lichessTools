@@ -87,12 +87,77 @@ All are chess-logic helpers independent of the DOM; they take chessops boards/se
 | `PawnStructure.js` | `LiChessTools.PawnStructure` | pawn skeleton (`getPawnSkeleton`: best pawn per file, `led` files, `islands`, queen/king-side counts), `getStructure` key, `keySimilarity` (memoized) + `keySimilarityDirect`, `getOpposingStructure`, `getWeakSquares`, `getPawns`, `getPawnBreaks`, plus the king-safety helpers used by K-MAPS (`getPawnShield`, `getOpenFilesNearKing`, `getEnemyThreats`, `getKingHoles`, `canEverBeAttackedByPawn`) and predicates (`isOpenFile`, `isPassed`, `isDoubled`, `isBackward`). | analysisContextActions, pgnEditor, searchMovesCommand, showPawnStructure |
 | `ChessMetrics.js` | `LiChessTools.ChessMetrics` | the hub used by most tools: `pieceMaterial`, `ROLE_LETTERS`, `LETTER_TO_ROLE`, `chessops` getter, `_square`/`_pieceChar`/`_boardFen`, `occupiedSquares(board)` → `{x,y,ch}`, `getCentipawnOnlyValue`, `centipawnsToWinPercentage`, `winDeltaToAccuracy`, `wdlToSharpness`, `isSanMate(san)`, `isSanCheck(san)`, `isStartFen(fen)`, `mirrorFen(fen)`, `simpleMaterial`, `onBoard`, `pieceTension`, memoized `tension`/`getAllCapturingMoves`/`materialWon`/`maxMaterialWon`, `getGamePhase`, `getStructure`, `range`, `getWeakSquares`, `getPawns`, `getPawnBreaks`, `getEuweKramer`. | additionalGlyphs, analysisContextActions, betterBestArrow, calculationTrainer, cevalLineOptions, enhancedPgnImport, explorerEval, explorerPractice, exportPgn, extraChart, genLineCommand, linkToAnalysis, mirrorBoard, moveAssistant, pgnEditor, pieceValueCommand, puzzleIndex, readGameCommand, searchMovesCommand, showOpening, showPawnStructure, stickyAnalysis |
 | `EuweKramer.js` | `LiChessTools.EuweKramer` | pawn-formation taxonomy from *The Middlegame* (Euwe & Kramer) — `TAXONOMY` A.1…F.8 with name and category (Symmetrical / Positional advantage / Extra central pawns / Closed / Open / Half-open formations) and `classify` (structural, pawns only; mobile-vs-latent and some E/F boundaries approximated and flagged best-effort). | showPawnStructure, analysisContextActions (via `ChessMetrics.getEuweKramer`) |
-| `BrilliantMoveAnalyzer.js` | `LiChessTools.BrilliantMoveAnalyzer` | scores one move over 17 principles (`bestMove`, `notAlreadyWinning`, `soundAfter`, `sacrifice`, `heavySacrifice`, `compensation`, `regainsMaterial`, `lastingSacrifice`, `surprise`, `quietMove`, `onlyMove`, `independence`, `matingAttack`, `attackerValue`, `checkOffer`, `comeback`, `savesDraw`), each returning `{value: 0..1 | null, raw}`; `principles()`/`details()` batch them, `computeBrilliance(weights, interval, required)` is the weighted average checked against an interval, the typed helpers are `_sacrifice`, `mating`, `combination`, `positional`, `quiet`, and `computeUberBrilliance()` returns `{score: 0..100, isBrilliant: score >= 70, type, label, interestingScore/isInteresting with relaxed intervals, byType, disqualified}`. Constructor takes `{fen, san, evalBefore, evalAfter, multiPv, evalTwoBefore, book}`. | analysisContextActions, explorerEval, extraChart |
+| `BrilliantMoveAnalyzer.js` | `LiChessTools.BrilliantMoveAnalyzer` | scores one move over 17 principles (`bestMove`, `notAlreadyWinning`, `soundAfter`, `sacrifice`, `heavySacrifice`, `compensation`, `regainsMaterial`, `lastingSacrifice`, `surprise`, `quietMove`, `onlyMove`, `independence`, `matingAttack`, `attackerValue`, `checkOffer`, `comeback`, `savesDraw`), each returning `{value: 0..1 | null, raw}`; `principles()`/`details()` batch them, `computeBrilliance(weights, interval, required)` is the weighted average checked against an interval, the per-type helpers are `computeBrillianceSacrifice/Mating/Combination/Positional/Quiet()` (each delegates to `_computeType(name)`), and `computeUberBrilliance()` returns `{score: 0..100, isBrilliant: score >= 70, type, label, interestingScore/isInteresting with relaxed intervals, byType, disqualified}`. Constructor takes `{fen, san, evalBefore, evalAfter, multiPv, evalTwoBefore, book}`. | analysisContextActions, explorerEval, extraChart |
 | `ChessKmapsEvaluator.js` | `LiChessTools.ChessKmapsEvaluator` | the K-MAPS heuristic with the whole `WEIGHTS` table exposed (kingSafety: pawnShield 2 / openFiles -1.5 / threats -1 / holes -0.5, range [-15,15]; material: bishopPair 0.3 / rookPenalty -0.2, range [-10,10]; activity, pawns and space with their own weights and ranges). Parses the FEN through `MoveGen.boardFromFen`, memoizes pseudo-legal moves through `Cache.memoize` keyed `piece.role + sq`. | showKmaps, analysisContextActions |
 | `ChessActivityEvaluator.js` | `LiChessTools.ChessActivityEvaluator` | per-piece activity: base mobility (pawn 3, knight 8, bishop 13, rook 14, queen 27, king 8), constants `SECONDARY = 0.2`, `CONTROLLED_BY_OPPONENT = 0.1`, `FREE = 1`; `generateMoves(sq)` (attacks minus friendly, plus the quiet pawn push), `computeControlMap()`, `evaluatePieceActivity(sq, controlMap)`, `evaluateAll()`. | moveAssistant |
 | `CoordinationCalculator.js` | `LiChessTools.CoordinationCalculator` | how well friendly pieces defend each other: `MOVE_CAP = 3` (beyond that the cost is `ISOLATED_PENALTY = 5`), `movementTargets`, `bfsDistances`, `computeConnectionMetric(fen)`, `computeConnectivityScoreCapped(fen)`, `computeSideScoreCapped(board, pieces, control, color)`; board parse memoized through `Cache.memoize`. | analysisContextActions, extraChart |
 | `ChessPositionValuator.js` | `LiChessTools.ChessPositionValuator` | positional valuation ported from Raccoon (Michael Edegware, GPL v3) onto chessops: middlegame/endgame piece values (pawn 128/213 … queen 2538/1380), 64-entry piece-square tables per piece (middlegame + endgame), `MOBILITY_BONUS[phase][piece][count]`, Stockfish-style material imbalance (`QO`/`QT`), isolated/backward/double/unopposed/lever pawn bonuses, outpost tables, `evaluate(fen)`. | extraChart |
 | `PositionDifficultyEvaluator.js` | `LiChessTools.PositionDifficultyEvaluator` | the paper *Quantifying Depth and Complexity of Thinking and Knowledge* (Tamal T. Biswas & Kenneth W. Regan, ICGA Journal 31(1) 2015) as followed by the Chess Engine Lab post *Calculating the Difficulty of a Position using Stockfish*: `mu(a,b) = (a-b)/(a²+b²)`, `normMu`, `kendallTau(x,y)`, `delta(v,best,a=1)` (integral of `dx/(1+a|x|)`), `deltaList`, `nu`, `swing`, `evaluate`. Input is the engine score of each best move at each depth, mate scores already converted by `ChessMetrics.getCentipawnOnlyValue`. | analysisContextActions, cevalLineOptions |
+
+## Driving `BrilliantMoveAnalyzer` from a test harness (verified 14 Nov 2026)
+
+Verified while writing `test/brilliancyNd3compare.check.js` and `test/brilliancyNxd2compare.check.js`,
+which cross-check ours against the external detector in `C:/Users/Costi/Downloads/Lichess/lichess-brilliant-move`.
+
+- The namespace has to be seeded by hand before the analyzer loads: `global.LiChessTools = {}`, import
+  `tools/chessops/chessops.bundle.mjs` (`co`), set `LiChessTools.chessopsModule = co`, set
+  `LiChessTools.MoveGen.co = co` after loading `MoveGen`, stub `LiChessTools.Cache = { memoize }`,
+  then load in order `Scoring`, `Material`, `MoveGen`, `maxSizedMap`, analyzer last. Every harness
+  repeats those lines; forgetting `MoveGen.co` or `Cache` throws deep inside the principle calls.
+- Constructor input is `{ fen, san, evalBefore, evalAfter, evalTwoBefore, multiPv, book }`. Evals are
+  Lichess-style and from white's point of view, and they must be objects: `{ cp: -448 }` or `{ mate: 5 }`.
+  `this._pov` throws `... must be { cp } or { mate }` for a bare number, which is the usual first failure
+  when a harness feeds `evalCp` straight through.
+- `evalTwoBefore` names the position `options.twoBeforePlies` (default 2) plies before the move, so with
+  a ply-indexed array (`ply 0` = first white move) it is `plies[ply - 3].evalCp`; only the parity of that
+  distance is used, so an off-by-one ply flips the sign of everything it feeds.
+- `computeUberBrilliance()` returns `{ score, threshold, isBrilliant, type, label, inInterval, byType,
+  disqualified, interestingScore, isInteresting, interestingLabel, interestingType, inInterestingInterval }`;
+  `byType[name]` is `{ score, fit, ifit, inInterval, inInterestingInterval, applicable, missing, priority,
+  values }`, where `fit` is the score mapped through `_fit` (baseline 0, `interval[0]` -> `uberThreshold`,
+  `interval[1]` -> 100) and `score` is the best `fit` rounded to 0.1, forced to 0 by any disqualifier.
+- Read the axes with `principles()` (name -> value, `null` means "not applicable") and `details()`
+  (name -> `{ value, raw }`); the `raw` blocks hold the numbers worth asserting: `bestMove.raw.winPctLoss`
+  in win-points, `notAlreadyWinning.raw.winPctBefore`, `soundAfter.raw.winPctAfter`, `surprise.raw.regret`
+  and `surprise.raw.onAttacked`, `attackerValue.raw.cheapestAttacker`, `quietMove.raw.capture`.
+- Instance-only accessors (no static fallback after the collapse): `_mat()`, `_offers()`, `_target()`,
+  `_recovery()`, `_computeType(name)`, `necessaryPrinciples(type)`. `_mat()` is
+  `{ before, now, oppGain, afterExchange, sacrifice }` in pawn units from the mover's view with
+  `afterExchange = now - oppGain` and `sacrifice = before - afterExchange`; `_offers()` lists the
+  opponent's captures resolved through quiescence as `{ to, victim, attacker, net, withCheck }` (index
+  into `_target().squares` is the same square), `_target()` is the best of them `{ victim, worth, squares }`.
+- The signs that bite: a move that captures makes `now` jump up, so `sacrifice` goes negative and
+  `sacrifice()` clamps to 0; `independence` is 0 when a victim exists and the net is not a real
+  sac (`evenTrade = !!victim && this._mat().sacrifice <= 0`); `quietMove` is 0 on captures and
+  checks. `_essentialZero(weights, lo, values)` (inside `_fit`) forces a type's fit to 0 outright
+  when one of its essential principles is a hard 0, and `sacrifice` is essential in every brilliant
+  type (`necessaryPrinciples('sacrifice')` returns it), so gaining captures collapse to 0 across all
+  types - that is what makes a rook-taking move score 0 while an exchange sacrifice scores high.
+- `BrilliantMoveAnalyzer.TYPES[name]` is data (`{ weights, interval, label, requires, priority }`), no
+  methods on it. The essential test is the static `BrilliantMoveAnalyzer._essentialPrinciples(weights,
+  interval)` and it returns an ARRAY of principle names whose normalized weight exceeds
+  `1 - interval[0]`, not flags. Knobs live in `DEFAULTS` (`qsDepth 8`, `qsNodes 2000`, `bestMoveFullLoss
+  1`, `bestMoveZeroLoss 6`, `winningFull 80`, `winningZero 97`, `worseZero 35`, `worseFull 48`,
+  `sacrificeZero 1`, `sacrificeFull 2`, `surpriseFull 4`, `onlyMoveFullGap 20`, `mateFull 6`, `mateZero
+  14`, `comebackBelow 45`, `drawLostZero 40`, `drawLostFull 15`, `drawLow 35`, `drawHigh 65`,
+  `uberThreshold 70`, `twoBeforePlies 2`) and are merged per instance through `options.types`.
+- chessops facts that the bundle does not match notes on: a `Position` has no `.fen()`; build a root with
+  `co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap()` (`co.Chess.initial` is not exported by this
+  bundle), copy with `pos.clone()` and mutate by `pos.play(m)`, and translate squares with
+  `co.makeSquare(index)` where `a1 = 0` and `index = file + 8 * rank` (so `d3` = 19, `e4` = 28).
+- To run the external detector beside it: `chess_lib.js` in that folder is 6 lines with minified chess.js
+  on line 3, so set `global.window = global` before `new Function(libSrc)()`, then copy
+  `global.ChessLib = global.window.ChessLib` before loading `brilliant_detector.js`, whose
+  `window.BrilliantDetector = ...` then lands on the node global. That chess.js gives verbose moves no
+  `uci` field, so build `mr.from + mr.to + (mr.promotion || '')` - feeding `mr.uci` into their exported
+  `isMoveBrilliant(fen, uci, cpBefore, cpAfter, variant, { generous })` throws on `moveUci.substring`.
+  Their `analyzeGame(pgn)` reads only `{ [%eval 0.15] }` comments, so a PGN written in Lichess's own
+  `{ (0.19 -> -4.48) Blunder. ... }` annotation form yields no evals and returns `[]` for the whole game;
+  the eval-bearing form comes from `/game/export/{id}?evals=1`. Replay their literate SANs with
+  `board.move(san, { sloppy: true })`, and note their `parseEvalToCp` turns `#n` into about `+-100000` cp.
+- Scratch probes belong in `test/_tmp_*.check.js` (gitignored, delete once done); shipped checks are
+  `test/<name>.check.js` run as `node test/<name>.check.js` and end with `done()`, which exits with the
+  failure count.
 
 ## Entry points, polyfills and vendored files
 
