@@ -14,7 +14,7 @@
         name: 'soundThemes',
         category: 'general',
         type: 'multiple',
-        possibleValues: ['mortalKombat','chessPursuit','starWars','superMario','chesscom'],
+        possibleValues: ['mortalKombat','chessPursuit','starWars','superMario','chesscom','chesscom2'],
         defaultValue: true,
         advanced: true
       },
@@ -75,7 +75,8 @@
         'soundThemes.mortalKombat': 'Mortal Kombat',
         'soundThemes.starWars': 'Star Wars',
         'soundThemes.superMario': 'Super Mario World',
-        'soundThemes.chesscom': 'Chess.com'
+        'soundThemes.chesscom': 'Chess.com',
+        'soundThemes.chesscom2': 'Chess.com 2'
       },
       'ro-RO': {
         'options.general': 'General',
@@ -103,7 +104,8 @@
         'soundThemes.mortalKombat': 'Mortal Kombat',
         'soundThemes.starWars': 'R\u0103zboiul Stelelor',
         'soundThemes.superMario': 'Lumea Super Mario',
-        'soundThemes.chesscom': 'Chess.com'
+        'soundThemes.chesscom': 'Chess.com',
+        'soundThemes.chesscom2': 'Chess.com 2'
       }
     }
 
@@ -259,7 +261,10 @@
       const lichess = lt.lichess;
       if (!this.options.customThemeUrl) return;
       const url = this.options.customThemeUrl+e?.[0]?.toUpperCase()+e?.substr(1)+'.mp3';
-      const data = await lt.comm.getDataUrl(url);
+      let data = await lt.comm.getDataUrl(url);
+      if (!data?.dataUrl) {
+        data = await lt.comm.getDataUrl(url+'?time='+Date.now());
+      }
       if (data.dataUrl) {
         const dataUrl = data.dataUrl;
         this.soundUrls.set(e,dataUrl);

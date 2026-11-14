@@ -1,5 +1,10 @@
 History of features added to LiChess Tools in time (reversed order)
 
+14 Nov
+
+- updates to pieces, boards and sound schemes
+- chapters, FEN positions and study positions in Records DB
+
 11 Nov
 
 - Auto evaluate Explorer moves
