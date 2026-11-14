@@ -1413,7 +1413,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2829,7 +2831,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4245,7 +4249,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5661,7 +5667,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7077,7 +7085,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8493,7 +8503,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9909,7 +9921,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11325,7 +11339,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12741,7 +12757,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14157,7 +14175,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15573,7 +15593,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -16989,7 +17011,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18405,7 +18429,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19821,7 +19847,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21237,7 +21265,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22653,7 +22683,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -24069,7 +24101,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25485,7 +25519,9 @@
     "recordsDbCollapseBranch": "Colapsează",
     "recordsDbAddOptions": "Alege ce să adaugi",
     "recordsDbAddSelfParent": "Nu poți înregistra un element în el însuși",
-    "kindStudyPosition": "Poziţie studiu"
+    "kindStudyPosition": "Poziţie studiu",
+    "recordsDbCountStudyPosition": "Poziții studiu: %s",
+    "recordsDbAddedItem": "Element înregistrat"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -26901,7 +26937,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28317,7 +28355,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29733,7 +29773,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -31149,7 +31191,9 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32565,6 +32609,8 @@
     "recordsDbCollapseBranch": "Collapse",
     "recordsDbAddOptions": "Choose what to add",
     "recordsDbAddSelfParent": "Cannot file an item inside itself",
-    "kindStudyPosition": "Study position"
+    "kindStudyPosition": "Study position",
+    "recordsDbCountStudyPosition": "Study positions: %s",
+    "recordsDbAddedItem": "Filed the item"
   }
 }
