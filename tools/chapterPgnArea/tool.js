@@ -48,12 +48,66 @@
 </div>`).appendTo(container);
         $('.form-label', group).text(trans.noarg('PGNText')).attr('title', trans.noarg('PGNTitle'));
         $('button.copy-me__button',group)
-          .attr('data-icon',lt.icon.Clipboard);
+          .attr('data-icon',lt.icon.Clipboard)
+          .on('click',async ev=>{
+            ev.preventDefault();
+            await this.copyAreaPgn(group);
+          });
       }
       const pgn = await lt.exportPgn('', { exportTags: true });
       $('textarea', group).val(pgn);
     };
     setupArea = this.lichessTools.debounce(this.setupAreaDirect, 500);
+
+    // Lichess's copy-me__button handler only reads input/anchor children, so the
+    // textarea display needs its own copy handler and checkmark flash.
+    copyAreaPgn = async (group) => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      const navigator = lt.global.navigator;
+      const text = $('textarea', group).val();
+      if (!text) return;
+      const mime = await this.supportedClipboardMime();
+      let written = false;
+      for (const candidate of [ ...new Set([ mime, 'text/plain' ]) ]) {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ [candidate]: new lt.global.Blob([text], { type: candidate }) })
+          ]);
+          written = true;
+          break;
+        } catch (e) {
+          lt.global.console.warn('Error copying chapter PGN to clipboard',e);
+        }
+      }
+      if (!written) {
+        lt.announce(trans.noarg('clipboardDenied'));
+        return;
+      }
+      this.showCopyCheckmark($('button.copy-me__button', group));
+    };
+
+    // application/x-chess-pgn is only honoured by some browsers; fall back to plain
+    // text so the PGN is always copied.
+    supportedClipboardMime = async () => {
+      const lt = this.lichessTools;
+      const pgnMime = 'application/x-chess-pgn';
+      try {
+        if (ClipboardItem.supports(pgnMime)) return pgnMime;
+      } catch (e) {
+        lt.global.console.debug('ClipboardItem.supports rejected the PGN mime type',e);
+      }
+      return 'text/plain';
+    };
+
+    showCopyCheckmark = (button) => {
+      const lt = this.lichessTools;
+      button
+        .attr('data-icon',lt.icon.Checkmark)
+        .removeClass('button-metal');
+      lt.global.setTimeout(()=>button.attr('data-icon',lt.icon.Clipboard).addClass('button-metal'),1000);
+    };
 
     async start() {
       const lt = this.lichessTools;
