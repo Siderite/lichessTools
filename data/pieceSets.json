@@ -1146,8 +1146,8 @@
         "bk": "sk6wh2mxluqOIyMXMRMWTA=="
       },
       "coordinates": {
-        "x": 18,
-        "y": 24
+        "x": 17,
+        "y": 25
       }
     },
     {
@@ -1980,7 +1980,25 @@
       "name": "Band Class",
       "url": "https://assets-themes.chess.com/image/ca09k/150/",
       "type": "png",
-      "cap": "wn"
+      "cap": "wn",
+      "hashes": {
+        "wp": "NjSblmlplpYMQ3M2NjIEAA==",
+        "bp": "NGmbNmmVlOpMDxaGREwMMA==",
+        "wn": "yYxnk51qYpUhaTM5aWsmGA==",
+        "bn": "mGgLnWyFtvoDM4MjGwacWA==",
+        "wb": "Ga3Ckmxqm7UDYTJyLio0DA==",
+        "bb": "YWGePWCFT/ojI5aWloZMTA==",
+        "wr": "maXDnDxqw5UBaTIyK2trFA==",
+        "br": "mWzDhTyBw/4DI5aWKysPRA==",
+        "wq": "crGXlG1qkpUjYWtxKaorAg==",
+        "bq": "ck5WjU2RkvoDI44XKxUXlg==",
+        "wk": "Mzcw5G1qmpUhaWnUltUWFA==",
+        "bk": "Mltgjy3QmvoDIwsXExeWTA=="
+      },
+      "coordinates": {
+        "x": 18,
+        "y": 24
+      }
     },
     {
       "category": "hollowleaf",
