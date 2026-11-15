@@ -317,6 +317,17 @@ body.lichessTools #lichessTools-recordsContentPreview li {
   padding: 4px;
 }
 
+/* The chapter popup titles itself with the chapter and carries the study as a study popup
+   would show it - the study's name, then its chapters in order with the row's own chapter
+   dimmed at its place. Opacity dims the row and its link as one. */
+body.lichessTools #lichessTools-recordsContentPreview li.popup-header {
+  font-weight: 600;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview li.popup-dim {
+  opacity: 0.7;
+}
+
 body.lichessTools #lichessTools-recordsContentPreview hr {
   margin: 8px 0 6px;
 }

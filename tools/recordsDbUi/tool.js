@@ -73,6 +73,7 @@
         'recordsDbFolderNamePrompt': 'Name the new folder',
         'recordsDbNewFolder': 'New folder',
         'recordsDbRename': 'Rename',
+        'recordsDbUndo': 'Undo',
         'recordsDbExpandFolder': 'Expand folder',
         'recordsDbCollapseFolder': 'Collapse folder',
         'recordsDbExpandBranch': 'Expand',
@@ -106,6 +107,7 @@
         'recordsDbCountBlogPost': 'Blog posts: %s',
         'recordsDbCountForumPost': 'Forum posts: %s',
         'recordsDbCountStudyPosition': 'Study positions: %s',
+        'recordsDbCountPlayer': 'Players: %s',
         'recordsDbPressAgain': 'Press again to drop what is selected',
         'recordsDbDeleteQuestion': 'Delete selected?',
         'recordsDbRestoreQuestion': 'Replace the tree from file?',
@@ -140,6 +142,7 @@
         'kindBlogPost': 'Blog post',
         'kindForumPost': 'Forum post',
         'kindStudyPosition': 'Study position',
+        'kindPlayer': 'Player',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
       },
       'ro-RO': {
@@ -151,6 +154,7 @@
         'recordsDbFolderNamePrompt': 'Nume\u015fte folderul nou',
         'recordsDbNewFolder': 'Folder nou',
         'recordsDbRename': 'Redenumire',
+        'recordsDbUndo': 'Undo',
         'recordsDbExpandFolder': 'Expandeaz\u0103 folder',
         'recordsDbCollapseFolder': 'Colapseaz\u0103 folder',
         'recordsDbExpandBranch': 'Expandeaz\u0103',
@@ -181,6 +185,7 @@
         'recordsDbCountBlogPost': 'Post blog: %s',
         'recordsDbCountForumPost': 'Post forum: %s',
         'recordsDbCountStudyPosition': 'Pozi\u016fii studiu: %s',
+        'recordsDbCountPlayer': 'Oyintori: %s',
         'recordsDbPressAgain': 'Apas\u0103 din nou pentru plasarea selec\u0163iei',
         'recordsDbDeleteQuestion': '\u015eterge cele selectate?',
         'recordsDbRestoreQuestion': '\u00cenlocuire arbore din fi\u015fier?',
@@ -215,6 +220,7 @@
         'kindBlogPost': 'Postare pe blog',
         'kindForumPost': 'Postare pe forum',
         'kindStudyPosition': 'Positie din studiu',
+        'kindPlayer': 'Oyintor',
         'recordsDbAddOptions': 'Alego ce mai adds',
         'recordsDbButtonTitle': 'LiChess Tools - fereastr\u0103 baz\u0103 de date \u00eenregistr\u0103ri'
       }
@@ -297,6 +303,10 @@
       // Leaf-parents the user has collapsed - a study holding filed chapters, a filed game that
       // grew its own children. A leaf-parent is open by default; the caret adds it here.
       this.collapsed = new Set();
+      // The gestures this window has done to the tree, newest last; the Undo chip walks them
+      // back. A snapshot copies the shape: edits re-hang and rewrite nodes in place, so only
+      // a copy lets an older state survive them.
+      this.undoStack = [];
       this.query = '';
       this.terms = [];
       // The two state chips plus the kind chip; string states so the blob reads without a mapping.
@@ -768,6 +778,13 @@
     viewHost() {
       const lt = this.lichessTools;
       const $ = lt.$;
+      // A fresh window opens with a fresh gesture chain - undo is scoped to the dialog, not
+      // to the tab's whole life.
+      this.undoStack = [];
+      // Press-move-release page drags (see `dragArm`): the pending source element and how
+      // long the press has been travelling.
+      this.pendingDrag = undefined;
+      this.pageDragAttached = false;
       const host = $('<div class="record-list">');
       // Two presses of the same row inside the double-click window are one open gesture. The
       // browser's own `dblclick` cannot be the only answer: the first press repaints the row, and
@@ -873,15 +890,23 @@
           lt.uiApi?.initializeDom?.(board[0]);
           hoverBoards.set(entry.id, board);
         }
-        const rect = lt.$(node).offset();
-        if (!rect) return;
-        // Anchor the container's right edge at the row's right end, centred on it; the
-        // size comes from the sheet, and a fresh container answers with it once it is on
-        // the page.
-        const own = board.offset();
+        // The fixed slot wants viewport numbers, and cash's `offset()` answers in page
+        // coordinates - which drift under a scrolled dialog - so the pin reads the raw
+        // rect of the row and of the container, the same source `showStudyPopup` places
+        // from, and stays clamped inside the viewport.
+        const rowEl = lt.$(node);
+        const bounds = rowEl.length ? rowEl[0]?.getBoundingClientRect?.() : undefined;
+        if (!bounds) return;
+        const own = board[0]?.getBoundingClientRect?.();
         const width = own?.width || 15 * 16;
-        board.css('left', String(Math.round(rect.left + rect.width - width - 4)) + 'px');
-        board.css('top', String(Math.round(rect.top + rect.height / 2 - (own?.height || width) / 2)) + 'px');
+        const height = own?.height || width;
+        const viewport = lt.global?.window;
+        const innerWidth = viewport?.innerWidth || 0;
+        const innerHeight = viewport?.innerHeight || 0;
+        const left = Math.round(bounds.left + bounds.width - width - 4);
+        const top = Math.round(bounds.top + bounds.height / 2 - height / 2);
+        board.css('left', String(Math.max(8, innerWidth ? Math.min(left, innerWidth - width - 8) : left)) + 'px');
+        board.css('top', String(Math.max(8, innerHeight ? Math.min(top, innerHeight - height - 12) : top)) + 'px');
         board.css('opacity', '1');
       };
       const hoverHide = (entry) => {
@@ -907,10 +932,46 @@
         hoverHide(info.entry);
         if (info.preview && !info.chip) schedulePopupHide();
       };
+      // The tree host can never see a page drag's drag events (they bubble up the dragged
+      // element's ancestors, not the drop point's), and Chrome may refuse the drag outright -
+      // so the press-and-hold path listens on mouse events. This cash shim's `.on` attaches
+      // to the wrapped element only, so a body handler never sees a press whose target lives
+      // in the rest of the page: on the real page the listeners go on `document` in the
+      // **capture** phase - fired top-down before any in-page handler, for every element.
+      // (The harness mock has no real document; there the cash attach on the body stands.)
+      if (!this.pageDragAttached) {
+        const doc = lt.global?.document;
+        if (doc?.addEventListener) {
+          this.pageDragAttached = true;
+          doc.addEventListener('mousedown', (e) => this.dragArm(this.dragEv(e)), true);
+          doc.addEventListener('mousemove', (e) => this.dragMove(this.dragEv(e)), true);
+          doc.addEventListener('mouseup', (e) => this.dragRelease(this.dragEv(e)), true);
+          // Chrome promotes some page presses into real drags (their chapter list handler
+          // allows it) and then swallows the mousemoves - so the same gesture reads the
+          // drag family too, at the document where capture listeners answer rides no matter
+          // which ancestors the dragged element lives under.
+          doc.addEventListener('dragstart', (e) => this.dragStartGlobal(this.dragEv(e)), true);
+          doc.addEventListener('dragover', (e) => this.dragOverGlobal(this.dragEv(e)), true);
+          doc.addEventListener('dragend', (e) => this.dragEndGlobal(this.dragEv(e)), true);
+        } else {
+          const body = lt.$('body');
+          if (body.length) {
+            this.pageDragAttached = true;
+            body
+              .on('mousedown', (ev) => this.dragArm(ev))
+              .on('mousemove', (ev) => this.dragMove(ev))
+              .on('mouseup', (ev) => this.dragRelease(ev));
+          }
+        }
+      }
+      // The page this window opens on may already know fresher facts than the tree kept -
+      // a visit re-names a filed study from the mirror, a profile re-reads a filed player.
+      this.enrichFromPage();
       return host
         .on('dragend', (ev) => {
           const info = this.rowTarget(ev);
           if (info) this.dropInto(ev, info.row, info.node);
+          else this.externalDrop(ev);
         })
         .on('dragend', clearDrop)
         .on('dragleave', clearDrop)
@@ -1194,6 +1255,242 @@
       this.drop(payload, target.parent, target.before);
     }
 
+    // The shapes a page hands the tree, one flow for every kind: a study-page chapter button
+    // carries its own `data-id` and wears its `<h3>` as the name; anchors carry the URL the
+    // registry opens - study `/study/ID`, game `/game/ID` or a bare 8-char id, player `@/Name`
+    // (the modern shape; the quoted `/'Name'` is the same leaf) with the power-tip fields,
+    // puzzle `/training/theme/n`. A shape the table does not know names nothing: a tournament
+    // page has no kind of its own, but its player links name players.
+    pageLeaf(el) {
+      const lt = this.lichessTools;
+      const cls = String(el.prop('class') ?? '');
+      const href = String(el.prop('href') ?? '');
+      if (/(?:^|\s)draggable(?:\s|$)/.test(cls)) {
+        const id = el.prop('data-id');
+        if (!id) return undefined;
+        const heading = el.children('h3');
+        const name = heading.length ? String(heading.text()).trim() : '';
+        return {
+          kind: 'chapter',
+          id: String(id),
+          label: name.length ? name : undefined,
+          meta: { studyId: lt.lichess?.analysis?.study?.data?.id },
+        };
+      }
+      const player = /^\/@\/([^\/?]+)$/.exec(href) || /^\/'([^']*)'$/.exec(href);
+      if (player?.[1]) return this.playerEntry(player[1], el);
+      const label = () => String(el.text()).trim();
+      const study = /^\/study\/([a-zA-Z0-9]{8})$/.exec(href);
+      if (study) return { kind: 'study', id: study[1], label: label() || undefined, meta: {} };
+      const game = /^\/(?:game\/)?([a-zA-Z0-9]{8})$/.exec(href);
+      if (game) return { kind: 'game', id: game[1], label: label() || undefined, meta: {} };
+      const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(href);
+      if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: {} };
+      return undefined;
+    }
+
+    // Drags that start on the page rather than on a row still land here: the source is any
+    // element `pageLeaf` can name, and the tree answers by opening a fresh leaf under the
+    // pointer. `dragend` fires with the dragged element in `target`, so the landing row is
+    // read from `currentTarget` instead, and a leaf the tree already holds is never opened
+    // again.
+    externalDrop(ev) {
+      const lt = this.lichessTools;
+      const src = lt.$(ev.target);
+      if (!src.length) return;
+      const entry = this.pageLeaf(src);
+      if (!entry || this.findLeaf(entry.kind, entry.id)) return;
+      const landed = this.rowTarget({ target: ev.currentTarget, currentTarget: ev.currentTarget });
+      if (landed?.row) {
+        const target = this.insertionTarget(ev, landed.row, landed.node);
+        this.drop({ nodes: [entry] }, target.parent, target.before);
+      } else this.drop({ nodes: [entry] }, undefined, undefined);
+    }
+
+    // A drag from the page is our own gesture, read from whatever events survive - never
+    // the browser's drop. The page splits in two: lichess parks most sources inside
+    // containers it marked `draggable="false"`, and Chrome answers those presses with its
+    // no-drop cursor and **no drag event ever fires**; the study chapter list is the
+    // opposite - its own handler lets the press start a real drag, and Chrome then
+    // swallows the mousemoves and ends the ride with a `dragend` that bubbles only up the
+    // dragged element's own ancestors. So the tree listens once, on `document` in the
+    // capture phase, for **both** event families: any press outside the tree arms a
+    // pending carry of the element under the finger (nothing is pre-selected from a list
+    // of page kinds - the tree decides at the drop), travel counts from mousemove or
+    // dragover, and the commit happens on `mouseup` for pure mouse gestures and on
+    // `dragend` for the ones Chrome promoted. Drag events name the dragged element in
+    // `target` and say the point under the finger only as `clientX`/`clientY`, so those
+    // landings come from `rowAtPoint`. We never call preventDefault on dragstart:
+    // lichess's own rides (chapter reordering inside its list) keep working, and a ride
+    // that means our tree still commits because we own the drop. A press without travel
+    // is a click; a release outside the tree and a source the table cannot name spend
+    // nothing.
+    dragArm(ev) {
+      if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      if (this.rowTarget(ev)?.row) {
+        this.pendingDrag = undefined;
+        return;
+      }
+      const lt = this.lichessTools;
+      const src = lt.$(ev.target);
+      if (!src.length) return;
+      const anchor = src.closest('a');
+      const button = src.closest('button');
+      const held = anchor.length ? anchor : button.length ? button : src;
+      this.pendingDrag = { el: held[0], moves: 0, native: false };
+    }
+
+    // A raw DOM event is not cash-wrapped, and the gesture reads only these fields.
+    dragEv(e) {
+      return {
+        target: e.target,
+        currentTarget: e.target,
+        button: e.button,
+        buttons: e.buttons,
+        ctrlKey: !!e.ctrlKey,
+        metaKey: !!e.metaKey,
+        shiftKey: !!e.shiftKey,
+        altKey: !!e.altKey,
+        clientX: e.clientX,
+        clientY: e.clientY,
+      };
+    }
+
+    dragMove(ev) {
+      if (!this.pendingDrag) return;
+      // Only travel while the left button holds the source - `buttons` is the DOM bitmask.
+      if (ev.buttons !== undefined && !(ev.buttons & 1)) return;
+      if (ev.ctrlKey || ev.metaKey || ev.button) return;
+      this.pendingDrag.moves += 1;
+      // The marker answers the pointer while the travel rides over the tree, so the
+      // release point is visible before the release happens.
+      this.showDropMark(this.rowTarget(ev), ev);
+    }
+
+    // The gesture's feedback: the half-row under the pointer wears the drop mark the
+    // paint already draws for in-tree moves. Every move re-marks, so leaving the tree
+    // clears it.
+    showDropMark(landed, ev) {
+      clearDrop();
+      if (!landed?.row) return;
+      const target = this.insertionTarget(ev, landed.row, landed.node);
+      const marked = this.lichessTools.$(landed.node);
+      if (marked.length) marked.attr('data-bookmark-drop', target.position);
+    }
+
+    // A drag event names the dragged element, never the place under the finger - the
+    // landing row for a promoted ride has to come from the pointer's own coordinates.
+    rowAtPoint(x, y) {
+      if (x === undefined || y === undefined) return undefined;
+      const rows = this.lichessTools.$('.record-row');
+      for (let at = 0; at < rows.length; at += 1) {
+        const box = rows[at]?.getBoundingClientRect?.() || {};
+        if (box.left <= x && x < box.right && box.top <= y && y < box.bottom)
+          return this.rowIndex.get(rows[at]);
+      }
+      return undefined;
+    }
+
+    dragStartGlobal(ev) {
+      if (!this.pendingDrag) return;
+      this.pendingDrag.native = true;
+      // Chrome's handler picks its own draggable to ride; trust it only when the tree
+      // would name that element too.
+      const dragged = this.lichessTools.$(ev.target);
+      if (dragged.length && this.pageLeaf(dragged)) this.pendingDrag.el = ev.target;
+    }
+
+    dragOverGlobal(ev) {
+      if (!this.pendingDrag) return;
+      this.pendingDrag.native = true;
+      this.pendingDrag.moves += 1;
+      this.showDropMark(this.rowAtPoint(ev?.clientX, ev?.clientY), ev);
+    }
+
+    // Chrome's own ride ends on the page - its drop never happens over our tree. The
+    // commit is ours: landing from the pointer's point, source from the held element.
+    dragEndGlobal(ev) {
+      const pending = this.pendingDrag;
+      if (!pending || !pending.native || pending.moves < 2) return;
+      this.pendingDrag = undefined;
+      const landed = this.rowAtPoint(ev?.clientX, ev?.clientY);
+      if (!landed?.row) {
+        clearDrop();
+        return;
+      }
+      this.externalDrop({
+        target: pending.el,
+        currentTarget: landed.row,
+        clientY: ev?.clientY,
+      });
+    }
+
+    // The release lands in the tree only after real travel - a press without movement is a
+    // click, and a release outside the tree spends the gesture with nothing to do. The
+    // source is named here, not at the press: the tree decides what the held element
+    // means, and anything the table cannot name files nothing.
+    dragRelease(ev) {
+      const pending = this.pendingDrag;
+      this.pendingDrag = undefined;
+      if (ev.button) return;
+      // A promoted ride commits on `dragend`; Chrome fires the mouseup after it too.
+      if (!pending || pending.native || pending.moves < 2) return;
+      const landed = this.rowTarget(ev);
+      if (!landed?.row) {
+        clearDrop();
+        return;
+      }
+      this.externalDrop({
+        target: pending.el,
+        currentTarget: ev.target,
+        clientY: ev?.clientY,
+      });
+    }
+
+    // A player leaf made from a user link: the link names it, and the power tip the page parks
+    // next to it fills the meta - flag, flair, ratings, game count, joined. Whatever the tip
+    // does not show stays absent rather than guessed.
+    playerEntry(name, src) {
+      const lt = this.lichessTools;
+      const entry = { kind: 'player', id: name, label: name, meta: {} };
+      const meta = entry.meta;
+      const title = src?.length ? String(src.prop('title') ?? '') : '';
+      if (title) meta.title = title;
+      const anchors = lt.$('.upt__info a.user-link');
+      if (!anchors.length) return entry;
+      let matched = anchors.length === 1;
+      for (let at = 0; at < anchors.length && !matched; at += 1) {
+        const href = String(lt.$(anchors[at]).prop('href') ?? '');
+        if (href.includes("'" + name + "'")) matched = true;
+      }
+      if (!matched) return entry;
+      const flagImg = lt.$('.upt__info img.flag');
+      if (flagImg.length) meta.flag = flagImg.prop('src');
+      const flagSpan = lt.$('.upt__info .upt__info__top__flag');
+      if (flagSpan.length) {
+        const where = String(flagSpan.text()).trim();
+        if (where) meta.flagName = where;
+      }
+      const flair = lt.$('.upt__info img.uflair');
+      if (flair.length) meta.flair = flair.prop('src');
+      const badge = lt.$('.lichessTools-gameCountBadge');
+      if (badge.length) meta.gameCount = badge.prop('title');
+      const joined = lt.$('.upt__info time');
+      if (joined.length) meta.joined = joined.prop('datetime');
+      const spans = lt.$('.upt__info__ratings span');
+      if (spans.length) {
+        meta.ratings = [];
+        for (let at = 0; at < spans.length; at += 1) {
+          const one = lt.$(spans[at]);
+          const over = /^(\S+) rating over (\d+) games$/.exec(String(one.prop('title') ?? ''));
+          if (!over) continue;
+          const raw = String(one.text()).replace(/[\s\u00a0]+/g, '');
+          meta.ratings.push({ type: over[1], games: Number(over[2]), value: raw === '-' || raw === '?' ? undefined : raw || undefined });
+        }
+      }
+      return entry;
+    }
+
     // Any item may sit inside any other item, so the tree holds a study over its chapters and
     // positions, a game over a puzzle, and folders over anything. Only the containment loop
     // refuses - a parent that already lives under the branch being moved, which would eat rows.
@@ -1214,6 +1511,7 @@
 
     drop(payload, parent, before) {
       if (!this.canDrop(payload, parent)) return;
+      this.pushUndo();
       let incoming;
       if (payload?.paths) {
         incoming = payload.paths.map((path) => this.at(path));
@@ -1323,6 +1621,19 @@
       }
       if (chapterId && studyId)
         out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId } });
+      // A page that is not a study still names its own object, so Add on any page files what
+      // the page is about: a profile page names the player (`@/Name` is the modern shape and
+      // the quoted `/'Name'` the legacy one), a training page names the puzzle, a game page
+      // names the game. The shapes are the registry's own openUrl forms.
+      const profile = /^\/@\/([^\/?]+)\/?$/.exec(lt.location?.pathname || '') ||
+        /^\/'([^']*)'\/?$/.exec(lt.location?.pathname || '');
+      if (profile?.[1]) out.push(this.playerEntry(profile[1]));
+      const puzzleId = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(lt.location?.pathname || '');
+      if (puzzleId?.[1])
+        out.push({ kind: 'puzzle', id: puzzleId[1], label: puzzleId[1], meta: {} });
+      const gameId = /^\/(?:game\/)?([a-zA-Z0-9]{8})$/.exec(lt.location?.pathname || '');
+      if (gameId?.[1])
+        out.push({ kind: 'game', id: gameId[1], label: gameId[1], meta: {} });
       // The hover board redraws the page's own view: the orientation it showed the board in and
       // the UCI of the move that reached the node ride `meta`, so a restored leaf highlights the
       // move its label already names. The path is an array of UCI moves, so its tail is that move.
@@ -1360,6 +1671,34 @@
     // The dropdown's menu: the kinds the page can name right now.
     pageAddKinds() {
       return this.resolvePageLeaves().map((leaf) => leaf.kind);
+    }
+
+    // What the page shows about a leaf the tree already holds rides into that leaf, so visits
+    // enrich instead of merely re-offering: a study visit renames the row from the mirror, a
+    // profile visit re-reads the panel fields, a training visit names the puzzle. Only fields
+    // the page actually names overwrite; anything it does not show stays as it was.
+    enrichFromPage() {
+      let changed = false;
+      for (const leaf of this.resolvePageLeaves()) {
+        const existing = this.findLeaf(leaf.kind, leaf.id);
+        if (!existing) continue;
+        if (leaf.label && leaf.label !== existing.label) {
+          existing.label = leaf.label;
+          changed = true;
+        }
+        let fresh = {};
+        for (const key of Object.keys(leaf.meta ?? {}))
+          if (leaf.meta[key] !== undefined && existing.meta?.[key] !== leaf.meta[key])
+            fresh[key] = leaf.meta[key];
+        if (Object.keys(fresh).length) {
+          existing.meta = { ...(existing.meta ?? {}), ...fresh };
+          changed = true;
+        }
+      }
+      if (!changed) return false;
+      this.save();
+      this.onChange();
+      return true;
     }
 
     findLeaf(kind, id, nodes = this.entries) {
@@ -1411,6 +1750,7 @@
         this.message = 'addSelfParent';
         return false;
       }
+      this.pushUndo();
       // A leaf that names a leaf parent carries `parentId` so a split and merge re-hang it under
       // that parent on the next page. A folder parent needs nothing - folders join by name.
       const parentMeta = parent && !this.folder(parent) ? { parentId: parent.id } : {};
@@ -1490,6 +1830,7 @@
       const selected = [...this.selected];
       const parent = selected.length === 1 && this.folder(selected[0]) ? selected[0] : undefined;
       const named = String(name || '').trim() || await this.folderName('New folder');
+      this.pushUndo();
       const folder = { name: named, children: [] };
       (parent?.children ?? this.entries).push(folder);
       // Opening the parent keeps the new folder visible; parent is always a folder here.
@@ -1505,6 +1846,7 @@
     // already did it top-down and rebuilt each folder children, so an emptied folder stays
     // empty.
     removeSelected() {
+      this.pushUndo();
       const prune = (nodes) =>
         nodes
           .filter((node) => !this.selected.has(node))
@@ -1515,6 +1857,50 @@
       this.entries = prune(this.entries);
       this.selected.clear();
       this.save();
+    }
+
+    // The snapshot records paths (index chains) rather than handles: restoring puts fresh
+    // objects back, so the three Sets have to name the restored ones again. The entries copy
+    // is JSON because a drop re-hangs and a rename rewrites nodes in place - a handle would
+    // follow the edit and show the newer state, not the older one.
+    pushUndo() {
+      const chains = this.shapeChains(this.entries);
+      this.undoStack.push({
+        entries: JSON.parse(JSON.stringify(this.entries)),
+        selected: [...this.selected].map((node) => chains.get(node)).filter(Boolean),
+        expanded: [...this.expanded].map((node) => chains.get(node)).filter(Boolean),
+        collapsed: [...this.collapsed].map((node) => chains.get(node)).filter(Boolean),
+      });
+      // A window that performed a hundred gestures does not keep a hundred trees.
+      if (this.undoStack.length > 40) this.undoStack.shift();
+    }
+
+    // The walk back: the newest snapshot becomes the tree, and the Sets point at the restored
+    // objects. Undo is not itself recorded - undoing an undo is another gesture, not a way
+    // back; pressing Undo with an empty chain answers nothing.
+    undo() {
+      if (!this.undoStack.length) return false;
+      const state = this.undoStack.pop();
+      this.entries = state.entries;
+      const at = (paths) => {
+        const set = new Set();
+        for (const path of paths) {
+          let nodes = this.entries;
+          let node;
+          for (const step of path) {
+            node = (nodes ?? [])[step];
+            nodes = node?.children;
+          }
+          if (node) set.add(node);
+        }
+        return set;
+      };
+      this.selected = at(state.selected);
+      this.expanded = at(state.expanded);
+      this.collapsed = at(state.collapsed);
+      this.refreshCaches();
+      this.save();
+      return true;
     }
 
     // The number handed to the confirm is the leaves + folders being unfiled.
@@ -1582,6 +1968,7 @@
       this.restorePreview = preview;
       this.onChange();
       if (!(await this.confirmRestore(text))) return false;
+      this.pushUndo();
       return await this.applyRestore(text);
     }
 
@@ -1689,6 +2076,7 @@
       if (!node) return false;
       const trimmed = String(name || '').trim();
       if (!trimmed) return false;
+      this.pushUndo();
       if (this.folder(node)) node.name = trimmed;
       else node.label = trimmed;
       this.sortTree(this.entries);
@@ -1964,13 +2352,22 @@
     popup.empty();
     if (title) popup.append(lt.$('<strong>').text(title)).append(lt.$('<hr>'));
     const list = lt.$('<ul>');
-    for (const entry of items ?? []) {
+    for (const data of items ?? []) {
       const item = lt.$('<li>');
-      if (entry.href) {
-        const link = lt.$('<a>').attr('href', entry.href).text(entry.name);
-        popupLinks.set(link[0], { entry, anchor: node });
+      if (data.gap) {
+        item.attr('class', 'popup-gap');
+        list.append(item);
+        continue;
+      }
+      if (data.header) {
+        item.attr('class', 'popup-header');
+        item.text(data.header);
+      } else if (data.dim) item.attr('class', 'popup-dim');
+      if (data.href) {
+        const link = lt.$('<a>').attr('href', data.href).text(data.name);
+        popupLinks.set(link[0], { entry: data, anchor: node });
         item.append(link);
-      } else item.text(entry.name);
+      } else item.text(data.name);
       list.append(item);
     }
     popup.append(list);
@@ -2230,6 +2627,17 @@
     else foldButton.attr('disabled', 'disabled');
     actionsRack.append(foldButton);
 
+    // Undo walks the window's gestures back, newest first; the chip lives while anything the
+    // window recorded is left to undo.
+    const undoButton = rackButton('btn-undo', 'recordsDbUndo');
+    if (lt.icon.Reload !== undefined) undoButton.attr('data-icon', lt.icon.Reload);
+    if (content.undoStack.length)
+      undoButton.on('click', async (ev) => {
+        await content.undo();
+      });
+    else undoButton.attr('disabled', 'disabled');
+    actionsRack.append(undoButton);
+
     const rowOf = (row) => {
       const { entry, path, shown } = row;
       const folder = content.folder(entry);
@@ -2289,7 +2697,11 @@
         // keeps its own mark: its record is the parent study's, so a filed chapter or study
         // position would otherwise dress up as the study it sits under.
         const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
-        const mark = parentFlair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
+        // A player has no page record to wear a flair from, so it wears the site's own User
+        // mark and its row is never bare.
+        const mark = entry?.kind == 'player'
+          ? lt.icon.User
+          : parentFlair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
         if (mark !== undefined)
           li.append($('<span class="record-icon">').attr('data-icon', mark));
       }
@@ -2309,12 +2721,22 @@
       // lets the same hover scroll the tree instead of losing the tooltip over a tiny label.
       if (record?.chapters) {
         const chapterPreview = record.chapters.map((chapter) => ({
+          id: chapter.id,
           name: chapter.name,
           ...studyLink(record, { chapterId: chapter.id }),
         }));
         const count = record.chapterCount ?? chapterPreview.length;
         if (count) li.append($('<span class="record-chapter-count">').text(String(count)));
-        const preview = popupData(chapterPreview, record.studyName);
+        // The chapter tooltip reads: the chapter's own name as the popup title, then the study
+        // exactly as a study popup would show it - the study's name and its chapter list - with
+        // this very chapter dimmed at its place in the list. The chapter is drawn once, in its
+        // correct order, never repeated above the study.
+        const isChapter = entry?.kind == 'chapter';
+        const items = isChapter
+          ? [{ header: record.studyName },
+             ...chapterPreview.map((item) => item.id === entry.id ? { ...item, dim: true } : item)]
+          : chapterPreview;
+        const preview = popupData(items, isChapter ? labelText : record.studyName);
         if (preview) {
           for (const [name, value] of Object.entries(preview.attrs)) li.attr(name, value);
           popupPreviews.set(li[0], { items: preview.items, title: preview.title });

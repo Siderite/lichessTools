@@ -177,7 +177,7 @@
   }
 
 
-  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forumPost'];
+  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forumPost', 'player'];
   const collectionTreeFormatVersion = 3;
 
   function collectionKindRegistry(harvester) {
@@ -310,6 +310,21 @@
         visibility: undefined,
         haystack: (record) => [record?.title, record?.author].filter(Boolean).join(' ').toLowerCase(),
         // Nothing to read - meta holds what was captured at add time
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      player: {
+        // Players come from drags, not from a page harvest: a user link dropped on the tree
+        // opens this leaf, and the power tip at drag time rides in `meta` (flag, flair,
+        // ratings...). The profile page itself answers the open.
+        icon: 'User',
+        openUrl: (id, _meta) => '/' + id,
+        // No page state to report - chips dim
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.title, record?.name].filter(Boolean).join(' ').toLowerCase(),
+        // Nothing to read - meta holds what the page showed at drag time
         read: undefined,
         isDead: absent,
         serviced: false,

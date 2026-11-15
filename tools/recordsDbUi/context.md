@@ -269,3 +269,82 @@ hovered row persists under `main`, ready for the next enter, and only hovered ro
 one. The sheet re-sizes lila's tiny thumbnail marker to a 15em border-box square inside our
 container - the scoped selectors outrank the plain lila rules, so nothing in these files
 needs an !important.
+
+The pin reads the row's and the container's `getBoundingClientRect`, not cash's `offset()`:
+`offset()` answers in page coordinates, which drift under a scrolled dialog, while the
+viewport box `showStudyPopup` places from is exactly what a `position: fixed` slot wants.
+Every enter re-pins, so the board follows both the row and the window's scroll, and the
+pin is clamped inside the viewport.
+
+## The chapter popup, once drawn
+
+Any row whose record lists chapters gets a tooltip; a **chapter** row titles the popup with
+its own name and then carries the study exactly as a study popup would show it - a
+`popup-header` row naming the study and the study's chapter list, in order, with this very
+chapter dimmed (`popup-dim`, `opacity: 0.7`) at its own place in the list. The chapter is
+drawn once in the list plus the title - never repeated above the study. Study rows keep the
+plain list.
+
+## Page drags open leaves
+
+A drag that starts on the page rather than on a row still lands: `pageLeaf` names any element
+by shape - a study-page chapter button (`class="draggable"`, `data-id`) opens a chapter leaf
+wearing the `<h3>` inside as its label; a player anchor (`href="/@/Name"`, or the legacy
+quoted `/'Name'`) opens a `player` leaf with the power-tip fields; a study anchor
+(`/study/ID`), a game anchor (`/game/ID` or a bare 8-char id) and a training anchor
+(`/training/theme/n`) open study/game/puzzle leaves wearing the link text. The shapes are the
+registry's own openUrl forms, so a filed leaf always opens back. One shape has no kind: a
+tournament page - but its player links name players. The pointer row (read from
+`currentTarget`) says where; anywhere else the leaf joins the root. A leaf the tree already
+holds is never opened again.
+
+Chrome may also refuse the drag outright: lichess parks chapter buttons and user links inside
+containers it marked `draggable="false"`, and then the browser shows its no-drop cursor and
+**no drag event ever fires** - and even an allowed page drag ends its `dragend` up the dragged
+element's own ancestors, which never include the tree host. So the gesture is read from mouse
+events instead: listeners attached once per tab with `document.addEventListener(..., true)`
+in the **capture** phase - this cash shim's `.on` attaches to the wrapped element only, so a
+body handler never sees a press whose target lives in the rest of the page, and capture fires
+top-down for every element before any in-page handler can eat it (`dragArm`/`dragMove`/
+`dragRelease` read the raw events through `dragEv`); a press that holds a page element `pageLeaf`
+can name, counts its travel, and lands on a release over a row - one flow builds every leaf
+kind either way. A press without travel is a click; a release outside the tree spends nothing.
+
+## Add follows the page
+
+`resolvePageLeaves` names what the page is about, and the Add chip plus its dropdown read
+that list: a study page offers study/chapter/position/study-position, a profile page (`@/Name`
+or the quoted legacy form) offers the **player** with the panel fields the page shows, a
+training page offers the **puzzle**, a game page the **game**. `addChoice` is what Add files;
+the caret cycles the list and the menu chips set it. `canAdd` hides the chip when Select is on
+or the page names nothing. A filed leaf then rides the store's own read pass where its row
+services one.
+
+## Visits enrich filed leaves
+
+Opening the window on a page re-reads the same list against the tree: `enrichFromPage` renames
+a filed leaf and merges in meta fields the page actually names (study mirror name, profile
+panel fields), leaving anything the page does not show untouched, and saves once when something
+changed. Visiting is enrichment, not a second offering - `findLeaf` keeps one leaf per kind/id.
+
+## The player kind
+
+`player` lives in the store's kind registry next to the page kinds: icon `User`, opens the
+profile at `/name`, no read - what the page showed at drag time rides in `meta`. `playerEntry`
+reads the power tip the page parked next to the link: flag src and country, flair src, the
+game-count badge's title, the joined time and the rating spans (`type`, `games`, `value`; a
+no-rating span stays blank). The row wears `lt.icon.User`. What the tip does not show is
+left absent rather than guessed.
+
+## The undo chip walks the gestures back
+
+Every tree edit the user can regret (`drop`, `addLeaf`, `createFolder`, `removeSelected`,
+`editName`, restore) records a snapshot of the shape before it runs. A snapshot is a copy,
+not a handle: edits re-hang and rewrite nodes in place, so only a copy lets an older state
+survive them. The three state Sets (`selected`, `expanded`, `collapsed`) are recorded as
+index chains (`shapeChains`) rather than node handles - restoring puts fresh objects back
+and the Sets have to name the restored ones again. The Undo chip (last on the actions rack)
+pops the newest snapshot and makes it the tree; press it again to walk further back through
+the chain of gestures this window performed. The chain is scoped to the window - `viewHost`
+opens it fresh - and Undo answers nothing when the chain is empty (the chip carries
+`disabled` then). The stack caps at 40 gestures.
