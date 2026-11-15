@@ -36,6 +36,14 @@
 
   // Intl keys are flat camelCase, so a state or a kind spells its own capital.
   const camel = (word) => word.charAt(0).toUpperCase() + word.slice(1);
+  // The hover board's state in the shape lila's miniBoard.ts splits: "fen,orientation,lastMoveUci".
+  // A bare position names its fen as its id; a study position reads it from `meta.fen` because its
+  // id is the node path - and a leaf filed before those fields existed has no board to show.
+  const boardStateFor = (entry) => {
+    const fen = entry?.kind == 'position' ? entry.id : entry?.kind == 'studyPosition' ? entry.meta?.fen : undefined;
+    if (!fen) return undefined;
+    return fen + ',' + (entry.meta?.orientation == 'black' ? 'black' : 'white') + ',' + (entry.meta?.lastMove || '');
+  };
   // The one tool instance the helpers below reach for their engine, their dialog and their window
   // handler - set in `init`, and the same instance every page keeps.
   let recordsDbInstance;
@@ -840,19 +848,64 @@
         ev.dataTransfer.effectAllowed = 'move';
         ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry)));
       };
+      // The hover board cannot live inside the window: lichess styles boards and their
+      // pieces from a sheet scoped under the page's `main`, and no rule in it can cross
+      // into a dialog - inside the window a chessground would always come up blank. So
+      // the chessground hangs off `main` itself, wearing lila's own mini-board contract
+      // (`mini-board mini-board--init` + `data-state` "fen,orientation,lastMoveUci"),
+      // which makes it look exactly like the page's boards with the current themes. Ours
+      // is only the fixed container it sits in (`records-db-mini-board`): the row's first
+      // hover births one under `main` and hands it to `initializeDom` - lila builds the
+      // chessground inside and strips the marker class - and every enter re-pins the
+      // container over the hovered row's rect and shows it; the hover-out hides it. One
+      // chessground per hovered row persists on the page, ready for the next enter.
+      const hoverBoards = new Map();
+      const hoverShow = (entry, node) => {
+        const state = entry ? boardStateFor(entry) : undefined;
+        if (!state) return;
+        let board = hoverBoards.get(entry.id);
+        if (!board) {
+          const host = lt.$('main');
+          if (!host.length) return;
+          board = $('<div class="records-db-mini-board">')
+            .append($('<span class="mini-board mini-board--init">').attr('data-state', state));
+          host.append(board);
+          lt.uiApi?.initializeDom?.(board[0]);
+          hoverBoards.set(entry.id, board);
+        }
+        const rect = lt.$(node).offset();
+        if (!rect) return;
+        // Anchor the container's right edge at the row's right end, centred on it; the
+        // size comes from the sheet, and a fresh container answers with it once it is on
+        // the page.
+        const own = board.offset();
+        const width = own?.width || 15 * 16;
+        board.css('left', String(Math.round(rect.left + rect.width - width - 4)) + 'px');
+        board.css('top', String(Math.round(rect.top + rect.height / 2 - (own?.height || width) / 2)) + 'px');
+        board.css('opacity', '1');
+      };
+      const hoverHide = (entry) => {
+        const board = entry ? hoverBoards.get(entry.id) : undefined;
+        board?.css('opacity', '0');
+      };
       const rowMouseOver = (ev) => {
         const info = this.rowTarget(ev);
         if (!info?.row || info.chip) return;
+        // The row's board is born on the first enter and re-pinned on every one (see
+        // `hoverShow`) - repeats cost nothing but style writes.
+        hoverShow(info.entry, info.node);
         if (info.preview) {
-          // A row arriving spends a hide the pointer left on a nearby tooltip, then shows this
-          // row's chapters - one gesture, one tooltip.
+          // A row arriving spends a hide the pointer left on a nearby tooltip, then shows
+          // this row's chapters - one gesture, one tooltip.
           cancelPopupHide();
           showStudyPopup(info.node);
         } else if (info.cold) this.hoverRead(info.entry);
       };
       const rowMouseOut = (ev) => {
         const info = this.rowTarget(ev);
-        if (info?.row && info.preview && !info.chip) schedulePopupHide();
+        if (!info?.row) return;
+        hoverHide(info.entry);
+        if (info.preview && !info.chip) schedulePopupHide();
       };
       return host
         .on('dragend', (ev) => {
@@ -1270,9 +1323,16 @@
       }
       if (chapterId && studyId)
         out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId } });
+      // The hover board redraws the page's own view: the orientation it showed the board in and
+      // the UCI of the move that reached the node ride `meta`, so a restored leaf highlights the
+      // move its label already names. The path is an array of UCI moves, so its tail is that move.
+      const boardOrientation = analysis?.getOrientation?.();
+      const lastMove = Array.isArray(analysisPath) ? analysisPath[analysisPath.length - 1] : undefined;
       if (boardFen) {
         const variant = lt.lichess?.rulesType?.toLowerCase?.() || lt.lichess?.rules?.toLowerCase?.() || 'standard';
-        out.push({ kind: 'position', id: boardFen, label: boardFen, meta: { variant } });
+        const meta = { variant, orientation: boardOrientation };
+        if (lastMove) meta.lastMove = lastMove;
+        out.push({ kind: 'position', id: boardFen, label: boardFen, meta });
       }
       // A node path is not readable, so a study position files where it is: the chapter it lives
       // in and the move that reaches it, in lichess's own move label. `ply`/`san` ride in `meta` so
@@ -1281,7 +1341,8 @@
       if (chapterId && studyId && analysisPath) {
         const node = analysis?.node;
         const where = [chapterLabel, this.moveText(node?.ply, node?.san)].filter((part) => part?.length).join(' | ');
-        const meta = { studyId, chapterId, nodePath: analysisPath };
+        const meta = { studyId, chapterId, nodePath: analysisPath, orientation: boardOrientation, fen: node?.fen };
+        if (lastMove) meta.lastMove = lastMove;
         if (node?.san) {
           meta.ply = node.ply;
           meta.san = node.san;
@@ -2239,6 +2300,10 @@
       if (record && 'visibility' in record) nameBox.append(studyPublicIcon(record));
       box.append(nameBox);
       li.append(box);
+      // A position row wears no marker: lichess styles a board and its pieces from a sheet
+      // scoped under the page's `main`, and no rule in it can cross into a dialog - a
+      // chessground inside the window could never wear it. The hover board hangs off
+      // `main` itself and floats over the row instead, on `hoverShow`.
       // The chapter tooltip survives on a study row, but anchored on the **row**: the count is one
       // glance and the list stays up while the pointer sits anywhere on the row, which is what
       // lets the same hover scroll the tree instead of losing the tooltip over a tiny label.

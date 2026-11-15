@@ -246,3 +246,26 @@ reopen on another screen that keeps the corner gaps, reads the written box back,
 gave the content its own size too); the harvest
 harness 548; tool.css 470, the five resize bands live in
 `tools/dialog/tool.css`. Neither harness reports a missing intl key.
+
+## Position hover boards
+
+Any position row can show the position itself. The record carries the draw: `meta.orientation`
+and `meta.lastMove` (the UCI that reached the node, the tail of the path array) join the fen the
+row already names - the id for a bare position, `meta.fen` for a study position, captured when
+the page added the leaf. `resolvePageLeaves` fills all of it; a leaf filed before it carries
+none simply paints no board.
+
+The board never lives inside the window: lichess styles a board and its pieces from a sheet
+scoped under the page's `main`, and no rule in it can cross into a dialog - inside the window
+a chessground would always come up blank. So the row's first hover births a fixed container
+(class `records-db-mini-board`, see `hoverShow`) holding lila's own mini-board contract -
+`mini-board mini-board--init` with `data-state` "fen,orientation,lastMoveUci" - as a child of
+`main`, and hands the container to `lt.uiApi.initializeDom(container)`: lila builds the
+chessground inside, and the board then wears the page's own themes exactly like any other
+mini-board on the page. Every enter re-pins the container over the hovered row's rect (left/
+top inline, the sheet gives `position: fixed` and a z-index above the dialog's own 900+) and
+flips the inline opacity to 1; leaving the row flips it back to 0. One chessground per
+hovered row persists under `main`, ready for the next enter, and only hovered rows pay for
+one. The sheet re-sizes lila's tiny thumbnail marker to a 15em border-box square inside our
+container - the scoped selectors outrank the plain lila rules, so nothing in these files
+needs an !important.

@@ -88,6 +88,8 @@ body.lichessTools .lichessTools-recordsDbUi ul.studies {
   padding: 0;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 body.lichessTools .lichessTools-recordsDbUi li.record-row {
@@ -97,6 +99,7 @@ body.lichessTools .lichessTools-recordsDbUi li.record-row {
   padding: 0.15rem 0.3rem;
   border-radius: 4px;
   cursor: pointer;
+  position: relative;
 }
 
 body.lichessTools .lichessTools-recordsDbUi li.record-row.selected {
@@ -229,9 +232,11 @@ body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-expanded='true'
 }
 
 
+/* The end marker is a fixed-size drop zone: a grown end marker would eat the body's free
+   space and cut the list in half - the list itself grows, not the marker. */
 body.lichessTools .lichessTools-recordsDbUi .bookmark-end {
   position: relative;
-  flex: 1 0 48px;
+  flex: 0 0 48px;
   text-align: center;
 }
 
@@ -549,3 +554,25 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-add-menu {
 body.lichessTools .lichessTools-recordsDbUi button.btn-add-menu:hover {
   background: rgba(255, 255, 255, 0.06);
 }
+
+/* The position hover board hangs off the page's `main`, not off the window: lichess styles
+   boards and pieces from a sheet scoped under `main`, and no rule can cross into a dialog -
+   under `main` lila's own mini-board contract comes styled as a regular board wearing the
+   current themes. `hoverShow` births the container under `main` and pins its left/top inline
+   over the hovered row; the dialog itself sits at z-index 900+ (see the dialog tool), so the
+   container floats above it. Only opacity toggles with the hover - chessground measures the
+   marker at init, so the sheet keeps it a 15em border-box square at all times, and our scoped
+   selectors outrank the plain lila rules: nothing here needs an !important. */
+body.lichessTools main .records-db-mini-board {
+  position: fixed;
+  z-index: calc(var(---records-db-frame-order, 900) + 110);
+  pointer-events: none;
+}
+
+body.lichessTools main .records-db-mini-board .mini-board {
+  width: 15em;
+  height: 15em;
+  box-sizing: border-box;
+  padding: 0;
+}
+
