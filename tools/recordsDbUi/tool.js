@@ -119,6 +119,8 @@
         'recordsDbNothingToFile': 'Nothing left to file',
         'recordsDbAddHarvestFailed': 'The harvest found nothing to file',
         'recordsDbAddSelfParent': 'Cannot file an item inside itself',
+        'recordsDbUndoRestored': 'Restored from the undo step.',
+        'recordsDbEnrichedFromPage': 'Completed the items from the page.',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restore',
@@ -197,6 +199,8 @@
         'recordsDbNothingToFile': 'Nimic r\u0103mas de \u00eenregistrat',
         'recordsDbAddHarvestFailed': 'Recoltarea nu a g\u0103sit nimic de \u00eenregistrat',
         'recordsDbAddSelfParent': 'Nu po\u016fi \u00eenregistra un element \u00een el \u00eensu\u015fi',
+        'recordsDbUndoRestored': 'Undoat \u00e9 din ad\u00e9in.',
+        'recordsDbEnrichedFromPage': 'Elem \u00e9 completat din p\u00e9gina.',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
@@ -861,9 +865,13 @@
       };
       const rowDragStart = (ev) => {
         const info = this.rowTarget(ev);
-        if (!ev.dataTransfer || !info?.row || info.chip || info.dead) return;
+        if (!ev.dataTransfer || !info?.row || info.chip || info.dead) {
+          console.debug('[rdb-drag] rowDragStart declined: target=' + dragDbg(ev.target) + ' (no transfer / not a live row)');
+          return;
+        }
         ev.dataTransfer.effectAllowed = 'move';
         ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry)));
+        console.debug('[rdb-drag] rowDragStart: our payload set for ' + info.entry?.kind + '/' + info.entry?.id);
       };
       // The hover board cannot live inside the window: lichess styles boards and their
       // pieces from a sheet scoped under the page's `main`, and no rule in it can cross
@@ -953,6 +961,7 @@
           doc.addEventListener('dragstart', (e) => this.dragStartGlobal(this.dragEv(e)), true);
           doc.addEventListener('dragover', (e) => this.dragOverGlobal(this.dragEv(e)), true);
           doc.addEventListener('dragend', (e) => this.dragEndGlobal(this.dragEv(e)), true);
+          console.debug('[rdb-drag] capture listeners on document: mousedown/mousemove/mouseup/dragstart/dragover/dragend');
         } else {
           const body = lt.$('body');
           if (body.length) {
@@ -970,6 +979,7 @@
       return host
         .on('dragend', (ev) => {
           const info = this.rowTarget(ev);
+          console.debug('[rdb-drag] host dragend: ' + (info ? 'over row -> dropInto' : 'not over row -> externalDrop') + ' dragged=' + dragDbg(ev.target));
           if (info) this.dropInto(ev, info.row, info.node);
           else this.externalDrop(ev);
         })
@@ -978,10 +988,17 @@
         .on('dragover', (ev) => {
           const info = this.rowTarget(ev);
           if (info) this.dragOver(ev, info.row, info.node);
+          else if (ev.dataTransfer && this.pendingDrag) {
+            console.debug('[rdb-drag] host dragover ACCEPTS a ride we are carrying (foreign target; drop will fire)');
+            ev.preventDefault?.();
+            ev.dataTransfer.dropEffect = ev.dataTransfer.effectAllowed === 'copy' ? 'copy' : 'move';
+          }
         })
         .on('drop', (ev) => {
           const info = this.rowTarget(ev);
+          console.debug('[rdb-drag] host DROP fired over the window: ' + (info ? 'row -> dropInto' : 'no row -> externalDrop') + ' dragged=' + dragDbg(ev.target) + ' types=' + (ev?.dataTransfer?.types || []).join(','));
           if (info) this.dropInto(ev, info.row, info.node);
+          else this.externalDrop(ev);
         })
         .on('dragstart', rowDragStart)
         .on('click', rowClick)
@@ -1234,7 +1251,18 @@
 
     dragOver(ev, row, node) {
       const transfer = ev?.dataTransfer;
-      if (!transfer || !(transfer.types || []).includes(recordsDragType)) return;
+      if (!transfer) return;
+      // A ride another source started - the study tool's draggable chapter buttons, a
+      // default-draggable link - carries their payload type, never ours. Accepting it
+      // here is what makes Chrome fire the `drop` over the tree; the commit reads the
+      // dragged element, so we accept without ever reading their payload.
+      if (!(transfer.types || []).includes(recordsDragType)) {
+        if (!this.pendingDrag) return;
+        console.debug('[rdb-drag] dragOver ACCEPTS foreign payload (types=' + (transfer.types || []).join(',') + ' effectAllowed=' + transfer.effectAllowed + ')');
+        ev.preventDefault?.();
+        transfer.dropEffect = transfer.effectAllowed === 'copy' ? 'copy' : 'move';
+        return;
+      }
       ev.preventDefault?.();
       ev.stopPropagation?.();
       clearDrop();
@@ -1263,19 +1291,21 @@
     // page has no kind of its own, but its player links name players.
     pageLeaf(el) {
       const lt = this.lichessTools;
-      const cls = String(el.prop('class') ?? '');
-      const href = String(el.prop('href') ?? '');
+      const cls = this.domAttr(el, 'class');
+      const href = this.domAttr(el, 'href');
       if (/(?:^|\s)draggable(?:\s|$)/.test(cls)) {
-        const id = el.prop('data-id');
-        if (!id) return undefined;
-        const heading = el.children('h3');
-        const name = heading.length ? String(heading.text()).trim() : '';
-        return {
-          kind: 'chapter',
-          id: String(id),
-          label: name.length ? name : undefined,
-          meta: { studyId: lt.lichess?.analysis?.study?.data?.id },
-        };
+        const id = this.domAttr(el, 'data-id');
+        if (id) {
+          const heading = el.children('h3');
+          const name = heading.length ? String(heading.text()).trim() : '';
+          return {
+            kind: 'chapter',
+            id: String(id),
+            label: name.length ? name : undefined,
+            meta: { studyId: lt.lichess?.analysis?.study?.data?.id },
+          };
+        }
+        console.debug('[rdb-drag] pageLeaf: draggable class without data-id - trying href shapes');
       }
       const player = /^\/@\/([^\/?]+)$/.exec(href) || /^\/'([^']*)'$/.exec(href);
       if (player?.[1]) return this.playerEntry(player[1], el);
@@ -1286,6 +1316,7 @@
       if (game) return { kind: 'game', id: game[1], label: label() || undefined, meta: {} };
       const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(href);
       if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: {} };
+      console.debug('[rdb-drag] pageLeaf: no shape matched (class=' + cls + ' href=' + href + ')');
       return undefined;
     }
 
@@ -1297,14 +1328,28 @@
     externalDrop(ev) {
       const lt = this.lichessTools;
       const src = lt.$(ev.target);
-      if (!src.length) return;
+      if (!src.length) {
+        console.debug('[rdb-drag] externalDrop: dragged element unwrappable (' + dragDbg(ev.target) + ')');
+        return;
+      }
       const entry = this.pageLeaf(src);
-      if (!entry || this.findLeaf(entry.kind, entry.id)) return;
+      if (!entry) {
+        console.debug('[rdb-drag] externalDrop: the shape table named nothing for ' + dragDbg(ev.target));
+        return;
+      }
+      if (this.findLeaf(entry.kind, entry.id)) {
+        console.debug('[rdb-drag] externalDrop: leaf already held (' + entry.kind + '/' + entry.id + ')');
+        return;
+      }
       const landed = this.rowTarget({ target: ev.currentTarget, currentTarget: ev.currentTarget });
       if (landed?.row) {
         const target = this.insertionTarget(ev, landed.row, landed.node);
+        console.debug('[rdb-drag] externalDrop COMMIT ' + entry.kind + '/' + entry.id + ' at ' + target.position);
         this.drop({ nodes: [entry] }, target.parent, target.before);
-      } else this.drop({ nodes: [entry] }, undefined, undefined);
+      } else {
+        console.debug('[rdb-drag] externalDrop COMMIT ' + entry.kind + '/' + entry.id + ' at the root');
+        this.drop({ nodes: [entry] }, undefined, undefined);
+      }
     }
 
     // A drag from the page is our own gesture, read from whatever events survive - never
@@ -1326,18 +1371,26 @@
     // is a click; a release outside the tree and a source the table cannot name spend
     // nothing.
     dragArm(ev) {
-      if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
+      if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) {
+        console.debug('[rdb-drag] press ignored: not a plain left press (button=' + ev.button + ')');
+        return;
+      }
       if (this.rowTarget(ev)?.row) {
+        console.debug('[rdb-drag] press over a tree row - any carry cleared (in-tree drag)');
         this.pendingDrag = undefined;
         return;
       }
       const lt = this.lichessTools;
       const src = lt.$(ev.target);
-      if (!src.length) return;
+      if (!src.length) {
+        console.debug('[rdb-drag] press refused: cash wrapped nothing for ' + dragDbg(ev.target));
+        return;
+      }
       const anchor = src.closest('a');
       const button = src.closest('button');
       const held = anchor.length ? anchor : button.length ? button : src;
       this.pendingDrag = { el: held[0], moves: 0, native: false };
+      console.debug('[rdb-drag] press ARMED carry of ' + dragDbg(held[0]) + ' (moves=0)');
     }
 
     // A raw DOM event is not cash-wrapped, and the gesture reads only these fields.
@@ -1359,12 +1412,17 @@
     dragMove(ev) {
       if (!this.pendingDrag) return;
       // Only travel while the left button holds the source - `buttons` is the DOM bitmask.
-      if (ev.buttons !== undefined && !(ev.buttons & 1)) return;
+      if (ev.buttons !== undefined && !(ev.buttons & 1)) {
+        console.debug('[rdb-drag] move skipped: left button not held (buttons=' + ev.buttons + ')');
+        return;
+      }
       if (ev.ctrlKey || ev.metaKey || ev.button) return;
       this.pendingDrag.moves += 1;
       // The marker answers the pointer while the travel rides over the tree, so the
       // release point is visible before the release happens.
-      this.showDropMark(this.rowTarget(ev), ev);
+      const dbgLanded = this.rowTarget(ev);
+      this.showDropMark(dbgLanded, ev);
+      console.debug('[rdb-drag] move #' + this.pendingDrag.moves + ' native=' + this.pendingDrag.native + ' target-over-row=' + (dbgLanded?.row ? 'yes' : 'no') + ' point(' + ev?.clientX + ',' + ev?.clientY + ')');
     }
 
     // The gesture's feedback: the half-row under the pointer wears the drop mark the
@@ -1376,34 +1434,46 @@
       const target = this.insertionTarget(ev, landed.row, landed.node);
       const marked = this.lichessTools.$(landed.node);
       if (marked.length) marked.attr('data-bookmark-drop', target.position);
+      console.debug('[rdb-drag] marker: ' + target.position + ' on ' + dragDbg(landed.node));
     }
 
     // A drag event names the dragged element, never the place under the finger - the
     // landing row for a promoted ride has to come from the pointer's own coordinates.
     rowAtPoint(x, y) {
-      if (x === undefined || y === undefined) return undefined;
+      if (x === undefined || y === undefined) {
+        console.debug('[rdb-drag] rowAtPoint called without coordinates');
+        return undefined;
+      }
       const rows = this.lichessTools.$('.record-row');
       for (let at = 0; at < rows.length; at += 1) {
         const box = rows[at]?.getBoundingClientRect?.() || {};
-        if (box.left <= x && x < box.right && box.top <= y && y < box.bottom)
+        if (box.left <= x && x < box.right && box.top <= y && y < box.bottom) {
+          console.debug('[rdb-drag] rowAtPoint HIT row #' + at + ' of ' + rows.length + ' at(' + x + ',' + y + ')');
           return this.rowIndex.get(rows[at]);
+        }
       }
+      console.debug('[rdb-drag] rowAtPoint MISS across ' + rows.length + ' rows at(' + x + ',' + y + ')');
       return undefined;
     }
 
     dragStartGlobal(ev) {
-      if (!this.pendingDrag) return;
+      if (!this.pendingDrag) {
+        console.debug('[rdb-drag] dragstart without carry: dragged=' + dragDbg(ev.target));
+        return;
+      }
       this.pendingDrag.native = true;
       // Chrome's handler picks its own draggable to ride; trust it only when the tree
       // would name that element too.
       const dragged = this.lichessTools.$(ev.target);
       if (dragged.length && this.pageLeaf(dragged)) this.pendingDrag.el = ev.target;
+      console.debug('[rdb-drag] dragstart PROMOTED carry: native=true held=' + dragDbg(this.pendingDrag.el) + ' dragged=' + dragDbg(ev.target));
     }
 
     dragOverGlobal(ev) {
       if (!this.pendingDrag) return;
       this.pendingDrag.native = true;
       this.pendingDrag.moves += 1;
+      console.debug('[rdb-drag] dragover on carry #' + this.pendingDrag.moves + ' at(' + ev?.clientX + ',' + ev?.clientY + ')');
       this.showDropMark(this.rowAtPoint(ev?.clientX, ev?.clientY), ev);
     }
 
@@ -1411,16 +1481,21 @@
     // commit is ours: landing from the pointer's point, source from the held element.
     dragEndGlobal(ev) {
       const pending = this.pendingDrag;
-      if (!pending || !pending.native || pending.moves < 2) return;
+      if (!pending || !pending.native || pending.moves < 1) {
+        console.debug('[rdb-drag] dragend refused: pending=' + !!pending + ' native=' + (pending?.native ?? '-') + ' moves=' + (pending?.moves ?? -1));
+        return;
+      }
       this.pendingDrag = undefined;
       const landed = this.rowAtPoint(ev?.clientX, ev?.clientY);
       if (!landed?.row) {
+        console.debug('[rdb-drag] dragend landed outside the tree - gesture spent on nothing');
         clearDrop();
         return;
       }
+      console.debug('[rdb-drag] dragend COMMIT via carried ' + dragDbg(pending.el) + ' over row');
       this.externalDrop({
         target: pending.el,
-        currentTarget: landed.row,
+        currentTarget: landed.node,
         clientY: ev?.clientY,
       });
     }
@@ -1433,18 +1508,36 @@
       const pending = this.pendingDrag;
       this.pendingDrag = undefined;
       if (ev.button) return;
-      // A promoted ride commits on `dragend`; Chrome fires the mouseup after it too.
-      if (!pending || pending.native || pending.moves < 2) return;
+      // The ride Chrome promoted had its `dragend` turn already; a carry still alive at
+      // the release answers the mouse instead, and one event of travel is enough there.
+      if (!pending || pending.moves < (pending.native ? 1 : 2)) {
+        console.debug('[rdb-drag] release refused: pending=' + !!pending + ' native=' + (pending?.native ?? '-') + ' moves=' + (pending?.moves ?? -1) + ' (needs ' + (pending?.native ? 1 : 2) + ')');
+        return;
+      }
       const landed = this.rowTarget(ev);
       if (!landed?.row) {
+        console.debug('[rdb-drag] release landed outside the tree - gesture spent on nothing');
         clearDrop();
         return;
       }
+      console.debug('[rdb-drag] release COMMIT via carried ' + dragDbg(pending.el) + ' over row');
       this.externalDrop({
         target: pending.el,
         currentTarget: ev.target,
         clientY: ev?.clientY,
       });
+    }
+
+    // Event-wrapped page elements answer cash's `prop` with nothing when the event came
+    // from outside the wrapped page - the raw DOM attribute always answers. Read the DOM
+    // first, cash's `prop` second, and an empty string when neither has it.
+    domAttr(el, name) {
+      const raw = el?.[0];
+      const viaDom = raw?.getAttribute?.(name);
+      if (viaDom != null && viaDom !== '') return String(viaDom);
+      const viaCash = el?.length ? el.prop(name) : undefined;
+      if (typeof viaCash == 'string') return viaCash;
+      return '';
     }
 
     // A player leaf made from a user link: the link names it, and the power tip the page parks
@@ -1454,35 +1547,35 @@
       const lt = this.lichessTools;
       const entry = { kind: 'player', id: name, label: name, meta: {} };
       const meta = entry.meta;
-      const title = src?.length ? String(src.prop('title') ?? '') : '';
+      const title = src?.length ? this.domAttr(src, 'title') : '';
       if (title) meta.title = title;
       const anchors = lt.$('.upt__info a.user-link');
       if (!anchors.length) return entry;
       let matched = anchors.length === 1;
       for (let at = 0; at < anchors.length && !matched; at += 1) {
-        const href = String(lt.$(anchors[at]).prop('href') ?? '');
+        const href = this.domAttr(lt.$(anchors[at]), 'href');
         if (href.includes("'" + name + "'")) matched = true;
       }
       if (!matched) return entry;
       const flagImg = lt.$('.upt__info img.flag');
-      if (flagImg.length) meta.flag = flagImg.prop('src');
+      if (flagImg.length) meta.flag = this.domAttr(flagImg, 'src');
       const flagSpan = lt.$('.upt__info .upt__info__top__flag');
       if (flagSpan.length) {
         const where = String(flagSpan.text()).trim();
         if (where) meta.flagName = where;
       }
       const flair = lt.$('.upt__info img.uflair');
-      if (flair.length) meta.flair = flair.prop('src');
+      if (flair.length) meta.flair = this.domAttr(flair, 'src');
       const badge = lt.$('.lichessTools-gameCountBadge');
-      if (badge.length) meta.gameCount = badge.prop('title');
+      if (badge.length) meta.gameCount = this.domAttr(badge, 'title');
       const joined = lt.$('.upt__info time');
-      if (joined.length) meta.joined = joined.prop('datetime');
+      if (joined.length) meta.joined = this.domAttr(joined, 'datetime');
       const spans = lt.$('.upt__info__ratings span');
       if (spans.length) {
         meta.ratings = [];
         for (let at = 0; at < spans.length; at += 1) {
           const one = lt.$(spans[at]);
-          const over = /^(\S+) rating over (\d+) games$/.exec(String(one.prop('title') ?? ''));
+          const over = /^(\S+) rating over (\d+) games$/.exec(this.domAttr(one, 'title'));
           if (!over) continue;
           const raw = String(one.text()).replace(/[\s\u00a0]+/g, '');
           meta.ratings.push({ type: over[1], games: Number(over[2]), value: raw === '-' || raw === '?' ? undefined : raw || undefined });
@@ -1697,6 +1790,8 @@
       }
       if (!changed) return false;
       this.save();
+      this.message = 'enrichedFromPage';
+      this.messageCount = undefined;
       this.onChange();
       return true;
     }
@@ -1900,6 +1995,8 @@
       this.collapsed = at(state.collapsed);
       this.refreshCaches();
       this.save();
+      this.message = 'undoRestored';
+      this.messageCount = undefined;
       return true;
     }
 
@@ -2465,7 +2562,16 @@
 
   // A drop marker is a claim one row makes for the moment it is dragged over; only one row may hold
   // it, so every marker on the page is cleared before a new one is set.
-  function clearDrop() {
+  function dragDbg(el) {
+  let key = '';
+  try {
+    key = String(el?.getAttribute?.('href') ?? el?.getAttribute?.('data-id') ?? el?.getAttribute?.('class') ?? '');
+  } catch {
+    key = '?';
+  }
+  return String(el?.tagName ?? '?') + '#' + key;
+}
+function clearDrop() {
     const marked = recordsDbInstance.lichessTools.$('.lichessTools-recordsDbUi [data-bookmark-drop]');
     if (marked.length) marked.removeAttr('data-bookmark-drop');
   }
@@ -2877,9 +2983,9 @@
     if (content.message) {
       const note = $('<div class="tree-note">');
       note.text(
-        content.messageCount === undefined
-          ? trans.noarg('recordsDb' + camel(content.message))
-          : trans.pluralSame('recordsDb' + camel(content.message), content.messageCount),
+        content.message == 'removedCount' && content.messageCount !== undefined
+          ? trans.pluralSame('recordsDb' + camel(content.message), content.messageCount)
+          : trans.noarg('recordsDb' + camel(content.message)),
       );
       host.append(note);
     }

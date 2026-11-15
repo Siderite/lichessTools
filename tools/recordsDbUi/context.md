@@ -302,13 +302,30 @@ Chrome may also refuse the drag outright: lichess parks chapter buttons and user
 containers it marked `draggable="false"`, and then the browser shows its no-drop cursor and
 **no drag event ever fires** - and even an allowed page drag ends its `dragend` up the dragged
 element's own ancestors, which never include the tree host. So the gesture is read from mouse
-events instead: listeners attached once per tab with `document.addEventListener(..., true)`
-in the **capture** phase - this cash shim's `.on` attaches to the wrapped element only, so a
-body handler never sees a press whose target lives in the rest of the page, and capture fires
-top-down for every element before any in-page handler can eat it (`dragArm`/`dragMove`/
-`dragRelease` read the raw events through `dragEv`); a press that holds a page element `pageLeaf`
-can name, counts its travel, and lands on a release over a row - one flow builds every leaf
-kind either way. A press without travel is a click; a release outside the tree spends nothing.
+and drag events alike: listeners attached once per tab with `document.addEventListener(...,
+true)` in the **capture** phase - this cash shim's `.on` attaches to the wrapped element only,
+so a body handler never sees a press whose target lives in the rest of the page, and capture
+fires top-down for every element and every ride before any in-page handler can eat it
+(`dragArm`/`dragMove`/`dragRelease` and `dragStartGlobal`/`dragOverGlobal`/`dragEndGlobal`
+read the raw events through `dragEv`). **Any** press outside the tree arms a carry of the
+element under the finger - nothing is pre-selected from a list of page kinds; the tree
+**decides at the drop** (`pageLeaf` names the held element or files nothing). Travel counts
+from mousemove or dragover; the commit is on mouseup for mouse gestures and on dragend for
+the rides Chrome promoted - drag events name the dragged element, never the point, so those
+landings come from `rowAtPoint` on the pointer's coordinates. A carry the browser promoted
+needs only one event of travel to commit - and one that `dragend` leaves alive answers the
+`mouseup` that follows instead. The gesture shows its landing
+while it travels: the half-row under the pointer wears the same drop mark in-tree moves use
+(`showDropMark`), and it re-marks on every move. Rides started by another source's wiring
+(the study tool's draggable buttons, default-draggable links) carry foreign payload types; our
+tree **accepts** them while our carry is pending - `preventDefault` on the passing `dragover`
+is what makes Chrome fire the `drop` over the window, and both `drop` and a rowless `dragend`
+fall through to `externalDrop`. The gestures stack with other tools' drag wiring instead of
+fighting it: our payload type is ours alone, our two `dragstart` handlers only add (they never
+stop or prevent), and the document-capture listeners answer a ride even when a page handler
+mid-chain stops propagation or owns the element's own drag hooks. A press without travel is a click; a release
+outside the tree spends nothing. We never `preventDefault` a dragstart: lichess's own rides
+(chapter reordering inside its list) keep working beside ours.
 
 ## Add follows the page
 
