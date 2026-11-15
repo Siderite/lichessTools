@@ -1420,7 +1420,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2843,7 +2847,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4266,7 +4274,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5689,7 +5701,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7112,7 +7128,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8535,7 +8555,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9958,7 +9982,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11377,11 +11405,15 @@
     "kindStudyPosition": "Study position",
     "recordsDbCountStudyPosition": "Study positions: %s",
     "recordsDbAddedItem": "Filed the item",
-    "recordsDbCountForum": "Forum boards: %s",
+    "recordsDbCountForum": "Forum Brette: %s",
     "kindForum": "Forum",
-    "recordsDbUndo": "Undo",
-    "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "recordsDbUndo": "Rückgängig machen",
+    "recordsDbCountPlayer": "Spieler: %s",
+    "kindPlayer": "Spieler",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12804,7 +12836,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14227,7 +14263,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15650,7 +15690,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17073,7 +17117,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18496,7 +18544,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19919,7 +19971,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21342,7 +21398,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22765,7 +22825,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -24188,7 +24252,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25611,7 +25679,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Anulare",
     "recordsDbCountPlayer": "Jucători: %s",
-    "kindPlayer": "Jucător"
+    "kindPlayer": "Jucător",
+    "recordsDbCountBroadcast": "Transmisiuni: %s",
+    "recordsDbCountBroadcastGame": "Jocuri în transmisiuni: %s",
+    "kindBroadcast": "Transmisiune",
+    "kindBroadcastGame": "Joc în transmisiuni"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -27034,7 +27106,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28457,7 +28533,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29880,7 +29960,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -31303,7 +31387,11 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32726,6 +32814,10 @@
     "kindForum": "Forum",
     "recordsDbUndo": "Undo",
     "recordsDbCountPlayer": "Players: %s",
-    "kindPlayer": "Player"
+    "kindPlayer": "Player",
+    "recordsDbCountBroadcast": "Broadcasts: %s",
+    "recordsDbCountBroadcastGame": "Broadcast games: %s",
+    "kindBroadcast": "Broadcast",
+    "kindBroadcastGame": "Broadcast game"
   }
 }
