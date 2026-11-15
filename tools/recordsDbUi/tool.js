@@ -1323,8 +1323,8 @@
     // Drags that start on the page rather than on a row still land here: the source is any
     // element `pageLeaf` can name, and the tree answers by opening a fresh leaf under the
     // pointer. `dragend` fires with the dragged element in `target`, so the landing row is
-    // read from `currentTarget` instead, and a leaf the tree already holds is never opened
-    // again.
+    // read from `currentTarget` instead, and a leaf the tree already holds re-lands only when the
+    // release is over a row - a bare re-drop (no row under the pointer) keeps it where it is.
     externalDrop(ev) {
       const lt = this.lichessTools;
       const src = lt.$(ev.target);
@@ -1337,11 +1337,18 @@
         console.debug('[rdb-drag] externalDrop: the shape table named nothing for ' + dragDbg(ev.target));
         return;
       }
-      if (this.findLeaf(entry.kind, entry.id)) {
-        console.debug('[rdb-drag] externalDrop: leaf already held (' + entry.kind + '/' + entry.id + ')');
+      const landed = this.rowTarget({ target: ev.currentTarget, currentTarget: ev.currentTarget });
+      const held = this.findLeaf(entry.kind, entry.id);
+      if (held) {
+        if (!landed?.row) {
+          console.debug('[rdb-drag] externalDrop: leaf already held, no row under the release (' + entry.kind + '/' + entry.id + ')');
+          return;
+        }
+        const target = this.insertionTarget(ev, landed.row, landed.node);
+        console.debug('[rdb-drag] externalDrop MOVE ' + held.kind + '/' + held.id + ' at ' + target.position);
+        this.drop({ nodes: [held] }, target.parent, target.before);
         return;
       }
-      const landed = this.rowTarget({ target: ev.currentTarget, currentTarget: ev.currentTarget });
       if (landed?.row) {
         const target = this.insertionTarget(ev, landed.row, landed.node);
         console.debug('[rdb-drag] externalDrop COMMIT ' + entry.kind + '/' + entry.id + ' at ' + target.position);
