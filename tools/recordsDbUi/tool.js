@@ -150,8 +150,6 @@
         'recordsDbNothingToFile': 'Nothing left to file',
         'recordsDbAddHarvestFailed': 'The harvest found nothing to file',
         'recordsDbAddSelfParent': 'Cannot file an item inside itself',
-        'recordsDbUndoRestored': 'Restored from the undo step.',
-        'recordsDbEnrichedFromPage': 'Completed the items from the page.',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restore',
@@ -236,8 +234,6 @@
         'recordsDbNothingToFile': 'Nimic r\u0103mas de \u00eenregistrat',
         'recordsDbAddHarvestFailed': 'Recoltarea nu a g\u0103sit nimic de \u00eenregistrat',
         'recordsDbAddSelfParent': 'Nu po\u016fi \u00eenregistra un element \u00een el \u00eensu\u015fi',
-        'recordsDbUndoRestored': 'Undoat \u00e9 din ad\u00e9in.',
-        'recordsDbEnrichedFromPage': 'Elem \u00e9 completat din p\u00e9gina.',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
@@ -384,9 +380,6 @@
       // looking the hit element up here, so the row handlers live on the host and a repaint over a
       // thousand rows registers nothing that could outlive the rows it replaces.
       this.rowIndex = new WeakMap();
-      this.editing;
-      this.anchor;
-      this.message;
       this.revision = 0;
       this.writes = Promise.resolve();
     }
@@ -2074,7 +2067,6 @@
       }
       if (!changed) return false;
       this.save();
-      this.message = 'enrichedFromPage';
       this.messageCount = undefined;
       this.onChange();
       return true;
@@ -2279,7 +2271,6 @@
       this.collapsed = at(state.collapsed);
       this.refreshCaches();
       this.save();
-      this.message = 'undoRestored';
       this.messageCount = undefined;
       return true;
     }
