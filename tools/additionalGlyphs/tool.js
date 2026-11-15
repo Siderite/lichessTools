@@ -202,7 +202,7 @@
           });
         }
       }
-      if (this.options.miss && !symbols.find(s=>s=='X')) {
+      if (this.options.miss && !symbols.find(s=>s==lt.icon.RedX)) {
         const [cp2,cp1,cp]=analysis.nodeList.slice(-3).map(n=>LiChessTools.ChessMetrics.getCentipawnOnlyValue(n.ceval || n.eval));
         const d1=cp-cp1;
         const d2=cp2-cp1;
@@ -214,7 +214,7 @@
           const badMove = (w - w1) * side < -20	;
           if (badMove) { 
             newGlyphs.push({
-              glyph: 'X',
+              glyph: lt.icon.RedX,
               name: 'miss',
               fill: '#df5353'
             });
