@@ -36,6 +36,33 @@
 
   // Intl keys are flat camelCase, so a state or a kind spells its own capital.
   const camel = (word) => word.charAt(0).toUpperCase() + word.slice(1);
+
+  // The mark a game row wears: variant chess takes the variant icon, standard games the
+  // time-control icon - the same map the recent-games list dresses from its css - and an
+  // unknown control answers Crown. Module scope so the paint and the class read one map.
+  const gameIconName = (node) => {
+    const variants = { chess960: 'DieSix', kingofthehill: 'FlagKingHill', threecheck: 'ThreeCheckStack', antichess: 'Antichess', atomic: 'Atom', horde: 'Keypad', racingkings: 'FlagRacingKings', crazyhouse: 'Crazyhouse' };
+    const speeds = { ultrabullet: 'UltraBullet', bullet: 'Bullet', blitz: 'FlameBlitz', rapid: 'Rabbit', classical: 'Turtle', correspondence: 'PaperAirplane' };
+    return variants[String(node?.meta?.variant ?? '')] || speeds[String(node?.meta?.speed ?? '')] || 'Crown';
+  };
+  // A game url carries the 8-char game id or the 12-char full id, whose tail names the player
+  // whose page it is. The records key on the game alone, so no leaf ever holds the tail, and
+  // every game shape below reads its id through this.
+  const gameKeyId = (raw) => {
+    const id = String(raw ?? '');
+    return id.length === 8 ? id : id.length === 12 ? id.slice(0, 8) : undefined;
+  };
+  // The control and the variant a page names for a game, in the two spellings the blobs come
+  // with: the plain game page spells speed and perf as words and keys the variant object, the
+  // replay page words the speed and keys the variant, and the api read words both.
+  const gameSpeedOf = (game) => {
+    const raw = game?.speed ?? game?.perf;
+    return typeof raw == 'string' ? raw : String(raw?.key ?? '');
+  };
+  const gameVariantOf = (game) => {
+    const raw = game?.variant;
+    return typeof raw == 'string' ? raw : String(raw?.key ?? '');
+  };
   // The hover board's state in the shape lila's miniBoard.ts splits: "fen,orientation,lastMoveUci".
   // A bare position names its fen as its id; a study position and a puzzle read it from `meta.fen`
   // - the puzzle's arrives from one api read after the file - and a leaf filed before those
@@ -106,8 +133,11 @@
         'recordsDbCountPuzzle': 'Puzzles: %s',
         'recordsDbCountBlog': 'Blogs: %s',
         'recordsDbCountBlogPost': 'Blog posts: %s',
+        'recordsDbCountForum': 'Forum boards: %s',
         'recordsDbCountForumPost': 'Forum posts: %s',
         'recordsDbCountStudyPosition': 'Study positions: %s',
+        'recordsDbCountBroadcast': 'Broadcasts: %s',
+        'recordsDbCountBroadcastGame': 'Broadcast games: %s',
         'recordsDbCountPlayer': 'Players: %s',
         'recordsDbPressAgain': 'Press again to drop what is selected',
         'recordsDbDeleteQuestion': 'Delete selected?',
@@ -143,7 +173,10 @@
         'kindPuzzle': 'Puzzle',
         'kindBlog': 'Blog',
         'kindBlogPost': 'Blog post',
+        'kindForum': 'Forum',
         'kindForumPost': 'Forum post',
+        'kindBroadcast': 'Broadcast',
+        'kindBroadcastGame': 'Broadcast game',
         'kindStudyPosition': 'Study position',
         'kindPlayer': 'Player',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
@@ -186,8 +219,11 @@
         'recordsDbCountPuzzle': 'Probleme: %s',
         'recordsDbCountBlog': 'Bloghe: %s',
         'recordsDbCountBlogPost': 'Post blog: %s',
+        'recordsDbCountForum': 'Forumhe: %s',
         'recordsDbCountForumPost': 'Post forum: %s',
         'recordsDbCountStudyPosition': 'Pozi\u016fii studiu: %s',
+        'recordsDbCountBroadcast': 'Broadcasts: %s',
+        'recordsDbCountBroadcastGame': 'Broadcast games: %s',
         'recordsDbCountPlayer': 'Oyintori: %s',
         'recordsDbPressAgain': 'Apas\u0103 din nou pentru plasarea selec\u0163iei',
         'recordsDbDeleteQuestion': '\u015eterge cele selectate?',
@@ -223,7 +259,10 @@
         'kindPuzzle': 'Problem\u0103',
         'kindBlog': 'Blog',
         'kindBlogPost': 'Postare pe blog',
+        'kindForum': 'Forum',
         'kindForumPost': 'Postare pe forum',
+        'kindBroadcast': 'Broadcast',
+        'kindBroadcastGame': 'Broadcast game',
         'kindStudyPosition': 'Positie din studiu',
         'kindPlayer': 'Oyintor',
         'recordsDbAddOptions': 'Alego ce mai adds',
@@ -261,21 +300,29 @@
       const arrived = ctrl ? await ctrl.handoff() : false;
       const returned = ctrl ? await ctrl.returned() : false;
       if (value === false || !ctrl) return;
-      if (!ctrl.canOpen()) {
-        // The store already captured the study; only the window is short.
+      if (!ctrl.canPlace()) {
+        // The route the db never speaks for (broadcast, practice, learn) or no user behind the page
+        // - nothing to place and nothing to enrich.
         this.logOption('Records database', 'cannot open here');
         return;
       }
+      // The button belongs on every page the db knows, not only where a study is open: the tree
+      // travels with the user, and opening a game or a replay enriches its row on that page.
       await ctrl.load();
       await ctrl.installToggle();
-      // A row of the tree opened this study, or the user came back to a page that had the window
-      // open on it, so the window comes with the trip - the user never hunts for the toggle on a
-      // page they reached from the tree or from the back button.
-      if (arrived || returned) {
+      // The window opens only on a trip from the tree or on coming back to a page that had it
+      // open - the same rule on every page the button stands on, study page or game page alike.
+      if ((arrived || returned) && ctrl.canOpen()) {
         if (arrived) this.logOption('Opened from tree', true);
         if (returned) this.logOption('Came back to a page that had the window', true);
         await ctrl.open();
+        return;
       }
+      // The page kept its window short, so the visit reads alone: what the page names still
+      // dresses any filed leaf it finds - a game's players and control, a profile's panel - and
+      // that reaches the tree the next time the window loads, pressed or not.
+      await ctrl.content.init();
+      ctrl.content.enrichFromPage();
     }
 
     canOpen() {
@@ -403,12 +450,14 @@
     }
 
     // A leaf is `{kind,id,label,meta?}`. The mirror record's own name is what a cold row shows,
-    // but a rename writes a `label` that must outrank it, so an explicit user label wins and the
-    // record name is only the fallback.
+    // but a rename writes a `label` that must outrank it - except when the label is only page
+    // text waiting for its data name (`meta.nameTemp = 'page'`): then the record name wins and
+    // the text is just the fallback.
     leafLabel(node) {
       const record = this.recordCache.get(node);
       const owned = node?.label;
-      if (owned != null && String(owned).length) return String(owned);
+      const tempName = String(node?.meta?.nameTemp ?? '') == 'page';
+      if (owned != null && String(owned).length && !tempName) return String(owned);
       // A chapter inherits its study's record - that is what dims or stamps it gone - so the
       // study's own name must not stand in for the chapter's. The chapter's entry under that
       // record answers first; a card that lists chapters without ids leaves the study name.
@@ -423,11 +472,31 @@
         const where = [own?.name, this.moveText(node?.meta?.ply, node?.meta?.san)].filter((part) => part?.length).join(' | ');
         if (where.length) return where;
       }
-      return record?.studyName || record?.name || '';
+      const recordName = record?.studyName || record?.name;
+      if (recordName) return String(recordName);
+      return owned != null && String(owned).length ? String(owned) : '';
     }
 
     recordFor(node) {
       return this.recordCache.get(node);
+    }
+
+    // A name generated from the item's own data: slugs read as words, and a puzzle answers
+    // with its own theme (humanised) since the read carries no title of its own.
+    humaniseSlug(slug) {
+      const text = String(slug || '').replace(/-/g, ' ').trim();
+      return text.length ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+    }
+
+    puzzleName(id, data) {
+      const real = String(data?.name ?? '').trim();
+      if (real) return real;
+      const theme = (data?.themes || [])[0];
+      if (theme) {
+        const spaced = String(theme).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([a-z])(\d)/g, '$1 $2').replace(/-/g, ' ').toLowerCase();
+        return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+      }
+      return 'Puzzle ' + String(id);
     }
 
     // Every walk that only counts or collects rides here: one predicate for every node, in paint
@@ -867,12 +936,10 @@
       const rowDragStart = (ev) => {
         const info = this.rowTarget(ev);
         if (!ev.dataTransfer || !info?.row || info.chip || info.dead) {
-          console.debug('[rdb-drag] rowDragStart declined: target=' + dragDbg(ev.target) + ' (no transfer / not a live row)');
           return;
         }
         ev.dataTransfer.effectAllowed = 'move';
         ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry)));
-        console.debug('[rdb-drag] rowDragStart: our payload set for ' + info.entry?.kind + '/' + info.entry?.id);
       };
       // The hover board cannot live inside the window: lichess styles boards and their
       // pieces from a sheet scoped under the page's `main`, and no rule in it can cross
@@ -962,7 +1029,6 @@
           doc.addEventListener('dragstart', (e) => this.dragStartGlobal(this.dragEv(e)), true);
           doc.addEventListener('dragover', (e) => this.dragOverGlobal(this.dragEv(e)), true);
           doc.addEventListener('dragend', (e) => this.dragEndGlobal(this.dragEv(e)), true);
-          console.debug('[rdb-drag] capture listeners on document: mousedown/mousemove/mouseup/dragstart/dragover/dragend');
         } else {
           const body = lt.$('body');
           if (body.length) {
@@ -980,7 +1046,6 @@
       return host
         .on('dragend', (ev) => {
           const info = this.rowTarget(ev);
-          console.debug('[rdb-drag] host dragend: ' + (info ? 'over row -> dropInto' : 'not over row -> externalDrop') + ' dragged=' + dragDbg(ev.target));
           if (info) this.dropInto(ev, info.row, info.node);
           else this.externalDrop(ev);
         })
@@ -990,14 +1055,12 @@
           const info = this.rowTarget(ev);
           if (info) this.dragOver(ev, info.row, info.node);
           else if (ev.dataTransfer && this.pendingDrag) {
-            console.debug('[rdb-drag] host dragover ACCEPTS a ride we are carrying (foreign target; drop will fire)');
             ev.preventDefault?.();
             ev.dataTransfer.dropEffect = ev.dataTransfer.effectAllowed === 'copy' ? 'copy' : 'move';
           }
         })
         .on('drop', (ev) => {
           const info = this.rowTarget(ev);
-          console.debug('[rdb-drag] host DROP fired over the window: ' + (info ? 'row -> dropInto' : 'no row -> externalDrop') + ' dragged=' + dragDbg(ev.target) + ' types=' + (ev?.dataTransfer?.types || []).join(','));
           if (info) this.dropInto(ev, info.row, info.node);
           else this.externalDrop(ev);
         })
@@ -1259,7 +1322,6 @@
       // dragged element, so we accept without ever reading their payload.
       if (!(transfer.types || []).includes(recordsDragType)) {
         if (!this.pendingDrag) return;
-        console.debug('[rdb-drag] dragOver ACCEPTS foreign payload (types=' + (transfer.types || []).join(',') + ' effectAllowed=' + transfer.effectAllowed + ')');
         ev.preventDefault?.();
         transfer.dropEffect = transfer.effectAllowed === 'copy' ? 'copy' : 'move';
         return;
@@ -1286,7 +1348,8 @@
 
     // The shapes a page hands the tree, one flow for every kind: a study-page chapter button
     // carries its own `data-id` and wears its `<h3>` as the name; anchors carry the URL the
-    // registry opens - study `/study/ID`, game `/game/ID` or a bare 8-char id, player `@/Name`
+    // registry opens - study `/study/ID`, game `/game/ID`, a bare id, or the 12-char full id
+    // whose tail names the player and keys the same game by its first 8, player `@/Name`
     // (the modern shape; the quoted `/'Name'` is the same leaf) with the power-tip fields,
     // puzzle `/training/theme/n`. A shape the table does not know names nothing: a tournament
     // page has no kind of its own, but its player links name players.
@@ -1306,18 +1369,39 @@
             meta: { studyId: lt.lichess?.analysis?.study?.data?.id },
           };
         }
-        console.debug('[rdb-drag] pageLeaf: draggable class without data-id - trying href shapes');
       }
-      const player = /^\/@\/([^\/?]+)$/.exec(href) || /^\/'([^']*)'$/.exec(href);
+      const player = /^\/@\/([^\/?]+)$/.exec(href) || /^\/'([^'\/]*)'$/.exec(href);
       if (player?.[1]) return this.playerEntry(player[1], el);
       const label = () => String(el.text()).trim();
-      const study = /^\/study\/([a-zA-Z0-9]{8})$/.exec(href);
-      if (study) return { kind: 'study', id: study[1], label: label() || undefined, meta: {} };
-      const game = /^\/(?:game\/)?([a-zA-Z0-9]{8})$/.exec(href);
-      if (game) return { kind: 'game', id: game[1], label: label() || undefined, meta: {} };
-      const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(href);
-      if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: {} };
-      console.debug('[rdb-drag] pageLeaf: no shape matched (class=' + cls + ' href=' + href + ')');
+      const path = String(href).split('#')[0];
+      // Names come from the item's data. Where the drag had only the link text (study, game,
+      // puzzle), the text waits as `meta.nameTemp = 'page'` and the data name replaces it when
+      // a read or an open lands. Slugs and handles are item data already, so those rows name
+      // themselves from the url.
+      const study = /^\/study\/([a-zA-Z0-9]{8})$/.exec(path);
+      if (study) return { kind: 'study', id: study[1], label: label() || undefined, meta: { nameTemp: 'page' } };
+      const game = /^\/(?:game\/)?([a-zA-Z0-9]{8,12})(?:\/(?:white|black))?$/.exec(path);
+      const draggedGame = gameKeyId(game?.[1]);
+      if (draggedGame) return { kind: 'game', id: draggedGame, label: label() || undefined, meta: { nameTemp: 'page' } };
+      const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(path);
+      if (forumPost?.[2]) return { kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || label() || undefined, meta: { board: forumPost[1], url: href } };
+      const forum = /^\/forum\/([a-z0-9][a-z0-9-]*)$/.exec(path);
+      if (forum) return { kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: {} };
+      // Broadcast links: reaching the underlying study (or a round named) files the game of
+      // the relay, otherwise the relay itself. Both carry the RadioTower mark and open on the
+      // broadcast route; the game waits for a name like a study's does.
+      const broadcastGame = /^\/broadcast\/([a-z0-9][a-z0-9-]*)\/([a-z0-9-]+)\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?(?:\/.*)?$/.exec(path);
+      if (broadcastGame?.[3])
+        return { kind: 'broadcastGame', id: broadcastGame[3], label: label() || undefined, meta: { parentId: broadcastGame[1], slug: broadcastGame[1], round: broadcastGame[2], ...(broadcastGame[4] ? { chapterId: broadcastGame[4] } : {}), nameTemp: 'page' } };
+      const broadcast = /^\/broadcast\/([a-z0-9][a-z0-9-]*)(?:\/.*)?$/.exec(path);
+      if (broadcast?.[1])
+        return { kind: 'broadcast', id: broadcast[1], label: this.humaniseSlug(broadcast[1]) || label() || undefined, meta: {} };
+      const blogPost = /^\/'([^']+)\/blog\/([a-z0-9][a-z0-9% _-]*)\/([a-zA-Z0-9]{8})'?$/.exec(path);
+      if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, meta: { userId: blogPost[1], slug: blogPost[2], url: href } };
+      const blog = /^\/'([^']+)\/blog'?$/.exec(path);
+      if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], url: href } };
+      const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(path);
+      if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: { nameTemp: 'page' } };
       return undefined;
     }
 
@@ -1330,32 +1414,26 @@
       const lt = this.lichessTools;
       const src = lt.$(ev.target);
       if (!src.length) {
-        console.debug('[rdb-drag] externalDrop: dragged element unwrappable (' + dragDbg(ev.target) + ')');
         return;
       }
       const entry = this.pageLeaf(src);
       if (!entry) {
-        console.debug('[rdb-drag] externalDrop: the shape table named nothing for ' + dragDbg(ev.target));
         return;
       }
       const landed = this.rowTarget({ target: ev.currentTarget, currentTarget: ev.currentTarget });
       const held = this.findLeaf(entry.kind, entry.id);
       if (held) {
         if (!landed?.row) {
-          console.debug('[rdb-drag] externalDrop: leaf already held, no row under the release (' + entry.kind + '/' + entry.id + ')');
           return;
         }
         const target = this.insertionTarget(ev, landed.row, landed.node);
-        console.debug('[rdb-drag] externalDrop MOVE ' + held.kind + '/' + held.id + ' at ' + target.position);
         this.drop({ nodes: [held] }, target.parent, target.before);
         return;
       }
       if (landed?.row) {
         const target = this.insertionTarget(ev, landed.row, landed.node);
-        console.debug('[rdb-drag] externalDrop COMMIT ' + entry.kind + '/' + entry.id + ' at ' + target.position);
         this.drop({ nodes: [entry] }, target.parent, target.before);
       } else {
-        console.debug('[rdb-drag] externalDrop COMMIT ' + entry.kind + '/' + entry.id + ' at the root');
         this.drop({ nodes: [entry] }, undefined, undefined);
       }
     }
@@ -1380,25 +1458,21 @@
     // nothing.
     dragArm(ev) {
       if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) {
-        console.debug('[rdb-drag] press ignored: not a plain left press (button=' + ev.button + ')');
         return;
       }
       if (this.rowTarget(ev)?.row) {
-        console.debug('[rdb-drag] press over a tree row - any carry cleared (in-tree drag)');
         this.pendingDrag = undefined;
         return;
       }
       const lt = this.lichessTools;
       const src = lt.$(ev.target);
       if (!src.length) {
-        console.debug('[rdb-drag] press refused: cash wrapped nothing for ' + dragDbg(ev.target));
         return;
       }
       const anchor = src.closest('a');
       const button = src.closest('button');
       const held = anchor.length ? anchor : button.length ? button : src;
       this.pendingDrag = { el: held[0], moves: 0, native: false };
-      console.debug('[rdb-drag] press ARMED carry of ' + dragDbg(held[0]) + ' (moves=0)');
     }
 
     // A raw DOM event is not cash-wrapped, and the gesture reads only these fields.
@@ -1421,7 +1495,6 @@
       if (!this.pendingDrag) return;
       // Only travel while the left button holds the source - `buttons` is the DOM bitmask.
       if (ev.buttons !== undefined && !(ev.buttons & 1)) {
-        console.debug('[rdb-drag] move skipped: left button not held (buttons=' + ev.buttons + ')');
         return;
       }
       if (ev.ctrlKey || ev.metaKey || ev.button) return;
@@ -1430,7 +1503,6 @@
       // release point is visible before the release happens.
       const dbgLanded = this.rowTarget(ev);
       this.showDropMark(dbgLanded, ev);
-      console.debug('[rdb-drag] move #' + this.pendingDrag.moves + ' native=' + this.pendingDrag.native + ' target-over-row=' + (dbgLanded?.row ? 'yes' : 'no') + ' point(' + ev?.clientX + ',' + ev?.clientY + ')');
     }
 
     // The gesture's feedback: the half-row under the pointer wears the drop mark the
@@ -1442,32 +1514,26 @@
       const target = this.insertionTarget(ev, landed.row, landed.node);
       const marked = this.lichessTools.$(landed.node);
       if (marked.length) marked.attr('data-bookmark-drop', target.position);
-      console.debug('[rdb-drag] marker: ' + target.position + ' on ' + dragDbg(landed.node));
     }
 
     // A drag event names the dragged element, never the place under the finger - the
     // landing row for a promoted ride has to come from the pointer's own coordinates.
     rowAtPoint(x, y) {
       if (x === undefined || y === undefined) {
-        console.debug('[rdb-drag] rowAtPoint called without coordinates');
         return undefined;
       }
       const rows = this.lichessTools.$('.record-row');
       for (let at = 0; at < rows.length; at += 1) {
         const box = rows[at]?.getBoundingClientRect?.() || {};
         if (box.left <= x && x < box.right && box.top <= y && y < box.bottom) {
-          console.debug('[rdb-drag] rowAtPoint HIT row #' + at + ' of ' + rows.length + ' at(' + x + ',' + y + ')');
           return this.rowIndex.get(rows[at]);
         }
       }
-      console.debug('[rdb-drag] rowAtPoint MISS across ' + rows.length + ' rows at(' + x + ',' + y + ')');
       return undefined;
     }
 
     dragStartGlobal(ev) {
-      console.debug('[rdb-drag] dragstartGlobal ENTERED target=' + dragDbg(ev?.target) + ' pending=' + !!this.pendingDrag);
       if (!this.pendingDrag) {
-        console.debug('[rdb-drag] dragstart without carry: dragged=' + dragDbg(ev.target));
         return;
       }
       this.pendingDrag.native = true;
@@ -1475,15 +1541,12 @@
       // would name that element too.
       const dragged = this.lichessTools.$(ev.target);
       if (dragged.length && this.pageLeaf(dragged)) this.pendingDrag.el = ev.target;
-      console.debug('[rdb-drag] dragstart PROMOTED carry: native=true held=' + dragDbg(this.pendingDrag.el) + ' dragged=' + dragDbg(ev.target));
     }
 
     dragOverGlobal(ev) {
-      console.debug('[rdb-drag] dragOverGlobal ENTERED pending=' + !!this.pendingDrag + ' at(' + ev?.clientX + ',' + ev?.clientY + ')');
       if (!this.pendingDrag) return;
       this.pendingDrag.native = true;
       this.pendingDrag.moves += 1;
-      console.debug('[rdb-drag] dragover on carry #' + this.pendingDrag.moves + ' at(' + ev?.clientX + ',' + ev?.clientY + ')');
       this.showDropMark(this.rowAtPoint(ev?.clientX, ev?.clientY), ev);
     }
 
@@ -1492,17 +1555,14 @@
     dragEndGlobal(ev) {
       const pending = this.pendingDrag;
       if (!pending || !pending.native || pending.moves < 1) {
-        console.debug('[rdb-drag] dragend refused: pending=' + !!pending + ' native=' + (pending?.native ?? '-') + ' moves=' + (pending?.moves ?? -1));
         return;
       }
       this.pendingDrag = undefined;
       const landed = this.rowAtPoint(ev?.clientX, ev?.clientY);
       if (!landed?.row) {
-        console.debug('[rdb-drag] dragend landed outside the tree - gesture spent on nothing');
         clearDrop();
         return;
       }
-      console.debug('[rdb-drag] dragend COMMIT via carried ' + dragDbg(pending.el) + ' over row');
       this.externalDrop({
         target: pending.el,
         currentTarget: landed.node,
@@ -1521,16 +1581,13 @@
       // The ride Chrome promoted had its `dragend` turn already; a carry still alive at
       // the release answers the mouse instead, and one event of travel is enough there.
       if (!pending || pending.moves < (pending.native ? 1 : 2)) {
-        console.debug('[rdb-drag] release refused: pending=' + !!pending + ' native=' + (pending?.native ?? '-') + ' moves=' + (pending?.moves ?? -1) + ' (needs ' + (pending?.native ? 1 : 2) + ')');
         return;
       }
       const landed = this.rowTarget(ev);
       if (!landed?.row) {
-        console.debug('[rdb-drag] release landed outside the tree - gesture spent on nothing');
         clearDrop();
         return;
       }
-      console.debug('[rdb-drag] release COMMIT via carried ' + dragDbg(pending.el) + ' over row');
       this.externalDrop({
         target: pending.el,
         currentTarget: ev.target,
@@ -1626,6 +1683,16 @@
         }
       } else {
         incoming = payload?.nodes || [];
+        // A page drag carries the leaf itself rather than a path, so the same two rules the path
+        // drop applies have to hold here too: a leaf the tree already holds leaves the slot it
+        // leaves, and a drop that names the slot it already occupies spends nothing. Without the
+        // first one a filed leaf re-filed from a page link lands in the tree twice.
+        if (incoming.includes(before)) return;
+        for (const entry of incoming) {
+          const siblings = this.siblings(entry);
+          const at = siblings ? siblings.indexOf(entry) : -1;
+          if (at >= 0) siblings.splice(at, 1);
+        }
       }
       if (parent && !parent.children) parent.children = [];
       const siblings = parent?.children ?? this.entries;
@@ -1643,13 +1710,17 @@
       this.save();
       // The page only ever named the puzzle - its board is one read away, so the leaf
       // grows its meta right after joining.
-      for (const entry of incoming)
+      for (const entry of incoming) {
         if (entry?.kind === 'puzzle') this.requestPuzzleRead(entry);
+        if (entry?.kind === 'game') this.requestGameName(entry);
+      }
     }
 
     // One read per id fills the leaf's meta with the fen the hover board paints from, the
-    // side to move as the board's orientation, and the puzzle's own last move. The answer
-    // arrives async - a hover before it shows no board, and the merge repaints once it lands.
+    // side to move stored straight as the orientation - the board is shown from the side
+    // that moves, so the solver sits closest - and the puzzle's own last move. The answer
+    // arrives async: a hover before it shows no board, and the merge repaints once it lands.
+    // A read that does not answer stays uncaptured, so the next open asks again.
     requestPuzzleRead(entry) {
       const lt = this.lichessTools;
       const api = lt?.api?.puzzle;
@@ -1657,23 +1728,83 @@
       this.puzzleReads ??= new Set();
       if (this.puzzleReads.has(entry.id)) return;
       this.puzzleReads.add(entry.id);
-      (async () => {
+      return (async () => {
         let data;
         try {
           data = await api.getPuzzle(entry.id);
         } catch (err) {
+          this.puzzleReads.delete(entry.id);
           return;
         }
         const puzzle = data?.puzzle ?? data;
-        if (!puzzle?.fen) return;
+        if (!puzzle?.fen) {
+          this.puzzleReads.delete(entry.id);
+          return;
+        }
         const leaf = this.findLeaf('puzzle', entry.id);
-        if (!leaf) return;
+        if (!leaf) {
+          this.puzzleReads.delete(entry.id);
+          return;
+        }
         leaf.meta = {
           ...(leaf.meta ?? {}),
           fen: String(puzzle.fen),
           ...(puzzle.lastMove ? { lastMove: String(puzzle.lastMove) } : {}),
           orientation: String(puzzle.fen).split(' ')[1] === 'b' ? 'black' : 'white',
         };
+        // A page-text name was only waiting: now the leaf says its type's own name.
+        if (String(leaf.meta?.nameTemp ?? '') == 'page') {
+          leaf.label = this.puzzleName(leaf.id, puzzle);
+          delete leaf.meta.nameTemp;
+        }
+        this.save();
+        this.onChange();
+      })();
+    }
+
+    // The game sibling: one read per id names the leaf from the players and parks the control
+    // and variant for the row's icon. A read that does not answer stays uncaptured, so the
+    // next open asks again; a hand-renamed row keeps its title because the rename cleared the
+    // waiting marker.
+    async requestGameName(entry) {
+      const lt = this.lichessTools;
+      const api = lt?.api?.game;
+      if (!api?.getGame) {
+        return;
+      }
+      if (!entry?.id) return;
+      this.gameNameReads ??= new Set();
+      if (this.gameNameReads.has(entry.id)) return;
+      this.gameNameReads.add(entry.id);
+      return (async () => {
+        let data;
+        try {
+          data = await api.getGame(entry.id);
+        } catch (err) {
+          this.gameNameReads.delete(entry.id);
+          return;
+        }
+        const game = data?.game ?? data;
+        const players = game?.players || {};
+        const nameOf = (side) => String(side?.name ?? side?.l_user ?? side?.username ?? '');
+        const white = nameOf(players.white);
+        const black = nameOf(players.black);
+        const name = white.length && black.length ? white + ' vs ' + black : (white || black);
+        const leaf = this.findLeaf('game', entry.id);
+        if (!leaf) {
+          this.gameNameReads.delete(entry.id);
+          return;
+        }
+        // The control and variant ride in meta so the row can pick its icon at paint time.
+        leaf.meta = {
+          ...(leaf.meta ?? {}),
+          ...(game?.speed ? { speed: String(game.speed) } : {}),
+          ...(game?.variant ? { variant: String(game.variant) } : {}),
+        };
+        if (name && String(leaf.meta?.nameTemp ?? '') == 'page') {
+          leaf.label = name;
+          delete leaf.meta.nameTemp;
+        }
         this.save();
         this.onChange();
       })();
@@ -1703,6 +1834,24 @@
 
 
 
+    // The blob the page carries: the `PageInitData` tool exposes it as the lazy `lt.pageInitData`
+    // once the page has dropped the script, and a page that has not dropped it yet still holds it
+    // in the DOM - either way no request. The DOM half is read once per page and kept for the
+    // calls that page makes, so a repaint does not re-parse it.
+    pageInitBlob() {
+      const lt = this.lichessTools;
+      if (lt.pageInitData) return lt.pageInitData;
+      if (this.initPath === lt.location?.pathname) return this.initBlob;
+      this.initPath = lt.location?.pathname;
+      const text = lt.$('script#page-init-data').eq(0)?.text();
+      try {
+        this.initBlob = text ? lt.jsonParse(text) : undefined;
+      } catch (unreadable) {
+        this.initBlob = undefined;
+      }
+      return this.initBlob;
+    }
+
     // Add is one flow - file the page object, harvest it so the new row is searchable, save once
     // - and it widens to "add whatever this page is". The page can name up to four rows at once:
     // the study, its current chapter, a bare FEN position, and a study position (chapter + node
@@ -1710,15 +1859,19 @@
     resolvePageLeaves() {
       const lt = this.lichessTools;
       const out = [];
-      const init = lt.pageInitData;
+      const init = this.pageInitBlob();
       const initStudy = init?.study;
       const initChapter = init?.chapter;
       const analysis = lt.lichess?.analysis;
       const analysisStudy = analysis?.study;
       const analysisPath = analysis?.path;
       const boardFen = analysis?.node?.fen;
+      // A relay page analyses a study under the hood - `study.relay` is the flag that says
+      // broadcast, not study - but the url is what names the page, so the relay pair owns
+      // these leaves and the study shapes below must not lean on the relay analysis.
+      const broadcastMatch = /^\/broadcast\/([a-z0-9][a-z0-9-]*)(?:\/([a-z0-9-]+)(?:\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?)?)?(?:\/.*)?$/.exec(lt.location?.pathname || '');
       let studyId; let studyLabel = '';
-      if (initStudy?.id) {
+      if (!broadcastMatch && initStudy?.id) {
         studyId = initStudy.id;
         studyLabel = initStudy.name || '';
       } else {
@@ -1728,13 +1881,13 @@
           studyLabel = this.studies.get(studyMatch[1])?.studyName || '';
         }
       }
-      if (!studyId && analysisStudy?.data?.id) {
+      if (!broadcastMatch && !studyId && analysisStudy?.data?.id) {
         studyId = analysisStudy.data.id;
         studyLabel = analysisStudy?.data?.name || '';
       }
       if (studyId) out.push({ kind: 'study', id: studyId, label: studyLabel });
       let chapterId; let chapterLabel = '';
-      if (initChapter?.id) {
+      if (!broadcastMatch && initChapter?.id) {
         chapterId = initChapter.id;
         chapterLabel = initChapter.name || '';
       } else {
@@ -1743,7 +1896,7 @@
       }
       // The chapter the analysis is on lives on `analysis.study`, not on `analysis` itself - the
       // pattern every other tool in the project reaches for (`analysis.study.currentChapter()`).
-      if (!chapterId && analysis) {
+      if (!chapterId && analysis && !broadcastMatch) {
         try {
           const current = analysis.study?.currentChapter?.();
           if (current?.id) {
@@ -1770,9 +1923,10 @@
       const puzzleId = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(lt.location?.pathname || '');
       if (puzzleId?.[1])
         out.push({ kind: 'puzzle', id: puzzleId[1], label: puzzleId[1], meta: {} });
-      const gameId = /^\/(?:game\/)?([a-zA-Z0-9]{8})$/.exec(lt.location?.pathname || '');
-      if (gameId?.[1])
-        out.push({ kind: 'game', id: gameId[1], label: gameId[1], meta: {} });
+      const urlGame = /^\/(?:game\/)?([a-zA-Z0-9]{8,12})(?:\/(?:white|black)(?:\/sides)?)?$/.exec(lt.location?.pathname || '');
+      const gameKey = gameKeyId(urlGame?.[1]);
+      if (gameKey)
+        out.push({ kind: 'game', id: gameKey, label: gameKey, meta: {} });
       // The hover board redraws the page's own view: the orientation it showed the board in and
       // the UCI of the move that reached the node ride `meta`, so a restored leaf highlights the
       // move its label already names. The path is an array of UCI moves, so its tail is that move.
@@ -1791,7 +1945,15 @@
       if (chapterId && studyId && analysisPath) {
         const node = analysis?.node;
         const where = [chapterLabel, this.moveText(node?.ply, node?.san)].filter((part) => part?.length).join(' | ');
-        const meta = { studyId, chapterId, nodePath: analysisPath, orientation: boardOrientation, fen: node?.fen };
+        const meta = {
+          studyId,
+          chapterId,
+          nodePath: analysisPath,
+          // The chapter says how its own board is set, and that outranks the view this
+          // import happened to watch - importing from a flipped board must not flip the leaf.
+          orientation: analysis?.study?.data?.chapter?.setup?.orientation || boardOrientation,
+          fen: node?.fen,
+        };
         if (lastMove) meta.lastMove = lastMove;
         if (node?.san) {
           meta.ply = node.ply;
@@ -1804,7 +1966,81 @@
           meta,
         });
       }
-      return out;
+      // What the page is about also arrives in `pageInitData`, where the url does not name it:
+      // a replay page names its game under `cfg` and a plain game page names it under `data`, the
+      // players feeding the row's title and the speed and variant its icon; the training page
+      // names its puzzle in `data.puzzle`, the themes giving the type name straight away - the
+      // same wording the api read uses when it answers. These are data names, so they also
+      // clear a waiting page-text marker on the rows they rename. A 12-char game url carries only
+      // the full id, so the blob's own 8-char one is what keys the leaf.
+      const pageGame = init?.mode == 'replay' ? init?.cfg?.data : (gameKey ? init?.data : undefined);
+      // A relay page names its pair instead: the relay itself comes from the slug, and the
+      // url reaching the underlying study (or the relay analysis saying which study is on)
+      // names the game of this round. The route rides in `meta` so the open stays on the
+      // broadcast page; without a name in the analysis the link text waits as `page` like
+      // a study's does.
+      if (broadcastMatch) {
+        const gameId = broadcastMatch[3] || (broadcastMatch[2] ? analysisStudy?.data?.id : undefined);
+        const gameName = gameId ? String(analysisStudy?.data?.name ?? '') : '';
+        out.push({
+          kind: 'broadcast',
+          id: broadcastMatch[1],
+          label: this.humaniseSlug(broadcastMatch[1]),
+          meta: {},
+        });
+        if (gameId)
+          out.push({
+            kind: 'broadcastGame',
+            id: gameId,
+            label: gameName || undefined,
+            meta: {
+              slug: broadcastMatch[1],
+              round: broadcastMatch[2],
+              ...(broadcastMatch[4] ? { chapterId: broadcastMatch[4] } : {}),
+              ...(gameName ? {} : { nameTemp: 'page' }),
+            },
+            ...(gameName ? { dataName: true } : {}),
+          });
+      }
+      if (pageGame?.game?.id) {
+        const pageNameOf = (side) => String(side?.user?.username ?? side?.name ?? '');
+        const byColor = {};
+        for (const side of [pageGame.player, pageGame.opponent]) {
+          const color = String(side?.color ?? '');
+          if (color?.length && !byColor[color]) byColor[color] = pageNameOf(side);
+        }
+        const white = byColor.white || '';
+        const black = byColor.black || '';
+        const pageKey = gameKeyId(pageGame.game.id) || gameKey;
+        const speed = gameSpeedOf(pageGame.game);
+        const variant = gameVariantOf(pageGame.game);
+        if (pageKey)
+          out.push({
+            kind: 'game',
+            id: pageKey,
+            label: white.length && black.length ? white + ' vs ' + black : (white || black || pageKey),
+            meta: {
+              ...(speed ? { speed } : {}),
+              ...(variant ? { variant } : {}),
+            },
+            dataName: true,
+          });
+      }
+      if (init?.data?.puzzle?.id) {
+        const pagePuzzle = init.data.puzzle;
+        out.push({
+          kind: 'puzzle',
+          id: String(pagePuzzle.id),
+          label: this.puzzleName(String(pagePuzzle.id), pagePuzzle) || undefined,
+          meta: {},
+          dataName: true,
+        });
+      }
+      // One leaf per kind and id: the same object can be named by url and by page data alike,
+      // and the later page-data leaf replaces the earlier url one, so Add offers each row once.
+      const byShape = new Map();
+      for (const leaf of out) byShape.set(leaf.kind + '|' + leaf.id, leaf);
+      return [...byShape.values()];
     }
 
     // The dropdown's menu: the kinds the page can name right now.
@@ -1823,6 +2059,8 @@
         if (!existing) continue;
         if (leaf.label && leaf.label !== existing.label) {
           existing.label = leaf.label;
+          // A name the page read off its own data is not the waiting page text any more.
+          if (leaf.dataName === true && existing.meta) delete existing.meta.nameTemp;
           changed = true;
         }
         let fresh = {};
@@ -2141,6 +2379,16 @@
       const row = this.registry[node.kind];
       const href = row?.openUrl?.(node.id, node.meta);
       if (!href) return false;
+      // Opening is a second chance at the data: a waiting name gets its read, and so does a
+      // row whose board facts are still missing - a renamed game still wants control and
+      // variant for its icon, a renamed puzzle still wants the fen for its hover board. The
+      // awaits run before the page moves, so the merge lands where the tree is saved.
+      if (node.kind == 'puzzle' && (String(node.meta?.nameTemp ?? '') == 'page' || !node.meta?.fen))
+        await this.requestPuzzleRead(node);
+      else if (
+        node.kind == 'game' &&
+        (String(node.meta?.nameTemp ?? '') == 'page' || !(node.meta?.speed || node.meta?.variant))
+      ) await this.requestGameName(node);
       const lt = this.lichessTools;
       const studyId = node.kind == 'study' ? node.id : node.meta?.studyId;
       if (studyId) lt.storage.set(treeHandoffKey, { studyId, at: Date.now() }, { session: true });
@@ -2222,6 +2470,9 @@
       this.pushUndo();
       if (this.folder(node)) node.name = trimmed;
       else node.label = trimmed;
+      // A hand-written name waits for nothing: the marker goes, so a later read can only
+      // grow the row's board data - it never talks over the name the user chose.
+      if (node.meta) delete node.meta.nameTemp;
       this.sortTree(this.entries);
       this.save();
       return true;
@@ -2608,15 +2859,6 @@
 
   // A drop marker is a claim one row makes for the moment it is dragged over; only one row may hold
   // it, so every marker on the page is cleared before a new one is set.
-  function dragDbg(el) {
-  let key = '';
-  try {
-    key = String(el?.getAttribute?.('href') ?? el?.getAttribute?.('data-id') ?? el?.getAttribute?.('class') ?? '');
-  } catch {
-    key = '?';
-  }
-  return String(el?.tagName ?? '?') + '#' + key;
-}
 function clearDrop() {
     const marked = recordsDbInstance.lichessTools.$('.lichessTools-recordsDbUi [data-bookmark-drop]');
     if (marked.length) marked.removeAttr('data-bookmark-drop');
@@ -2830,7 +3072,9 @@ function clearDrop() {
       if (content.selectMode) {
         const check = $('<input class="tree-select" type="checkbox">');
         if (selected) check.attr('checked', '');
-        check.on('change', () => content.select(entry));
+        // A box belongs to the set: toggling joins or leaves without erasing the other rows,
+        // the additive path a ctrl-click takes - a bare select would replace the whole set.
+        check.on('change', () => content.select(entry, { ctrlKey: true }));
         li.append(check);
       }
 
@@ -2850,10 +3094,17 @@ function clearDrop() {
         // position would otherwise dress up as the study it sits under.
         const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
         // A player has no page record to wear a flair from, so it wears the site's own User
-        // mark and its row is never bare.
+        // mark and its row is never bare. A game answers from its own data instead: control or
+        // variant icon, Crown when the leaf knows neither.
+        const gameMark = entry?.kind == 'game'
+          ? (() => {
+            const name = gameIconName(entry);
+            return lt.icon[name] !== undefined ? lt.icon[name] : lt.icon.Crown;
+          })()
+          : undefined;
         const mark = entry?.kind == 'player'
           ? lt.icon.User
-          : parentFlair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
+          : gameMark || parentFlair || (row0?.icon && lt.icon[row0.icon] !== undefined ? lt.icon[row0.icon] : undefined);
         if (mark !== undefined)
           li.append($('<span class="record-icon">').attr('data-icon', mark));
       }
@@ -2878,7 +3129,9 @@ function clearDrop() {
           ...studyLink(record, { chapterId: chapter.id }),
         }));
         const count = record.chapterCount ?? chapterPreview.length;
-        if (count) li.append($('<span class="record-chapter-count">').text(String(count)));
+        // The number belongs to the study row alone: a chapter row wears its own name, and a
+        // count on it would read as if the chapter itself held chapters.
+        if (count && entry?.kind != 'chapter') li.append($('<span class="record-chapter-count">').text(String(count)));
         // The chapter tooltip reads: the chapter's own name as the popup title, then the study
         // exactly as a study popup would show it - the study's name and its chapter list - with
         // this very chapter dimmed at its place in the list. The chapter is drawn once, in its
@@ -3476,14 +3729,24 @@ function clearDrop() {
     }
 
     // A phone is not excluded: the store captured the study there too, and the window answers a
-    // touch layout (one column, a thumb-high header, tap-wide strips). What still has to hold is a
-    // user, a study page with a study open, and the database behind it.
+    // touch layout (one column, a thumb-high header, tap-wide strips). What has to hold is a user,
+    // the database, and a route the db speaks for - no study has to be open behind the page. The
+    // frame is a dialog the factory hangs off the viewport, and `initialGeometry` answers a page
+    // that lost its panels with an honest box, so a press on a game, a replay or a training page
+    // lifts the same tree the study page shows.
     canOpen() {
+      return this.canPlace();
+    }
+
+    // The page test both halves answer to: the db speaks for this route and a user is behind the
+    // page. The button and the window keep separate names because they act separately - the
+    // toggle is placed on every page this passes, the window opens there only on a trip or a
+    // return - but the page rule they need is this one.
+    canPlace() {
       const lt = this.lichessTools;
       return !!this.store
         && !!lt.getUserId()
-        && this.store.isRecordsDbAvailable(lt.location.pathname)
-        && !!lt.lichess?.analysis?.study;
+        && this.store.isRecordsDbAvailable(lt.location.pathname);
     }
 
     // The study this page carries - the open analysis first, the url as the fallback the store
@@ -3691,7 +3954,7 @@ function clearDrop() {
     toggleHost() {
       const lt = this.lichessTools;
       const $ = lt.$;
-      for (const selector of ['.study__side .tabs-horiz', 'div.tabs-horiz', '.study__side', 'div.analyse__tools', 'body']) {
+      for (const selector of ['div.site-buttons', 'header#top', 'body']) {
         const found = $(selector);
         if (found.length) return found.eq(0);
       }
@@ -3707,14 +3970,14 @@ function clearDrop() {
       const button = $('<button class="records-db-button" type="button">')
         .attr('title', trans.noarg('recordsDbButtonTitle'))
         .attr('tabindex', '0')
-        .append($('<icon>').attr('data-icon', lt.icon.StudyBoard));
+        .append($('<icon>').attr('data-icon', lt.icon.CardDividers));
       button.on('click', (ev) => {
         if (ev.button) return;
         ev.preventDefault?.();
         this.toggle();
       });
-      const firstChild = host.children().eq(0);
-      if (firstChild.length) button.insertBefore(firstChild);
+      const dasher = $('div.site-buttons div.dasher');
+      if (dasher.length) button.insertBefore(dasher);
       else button.appendTo(host);
       this.toggleButton = button;
       return true;

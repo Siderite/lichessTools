@@ -222,9 +222,7 @@
       Scroll: '\uD83D\uDCDC',
       PositionIndicator: '\u2316',
       SquarePositionIndicator: '\u2BD0',
-
-
-
+      CardDividers: '\u{1F5C0}',
 
       toEntity: function(s) {
         let result='';

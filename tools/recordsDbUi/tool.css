@@ -163,6 +163,11 @@ body.lichessTools button.records-db-button {
   cursor: pointer;
 }
 
+
+body.lichessTools button.records-db-button icon:before {
+  font-weight: bolder;
+}
+
 body.lichessTools button.records-db-button:is(:focus-visible,:hover) {
   text-shadow: 0 0 1px var(--c-accent), 0 0 2px var(--c-accent), 0 0 4px var(--c-accent), 0 0 8px var(--c-accent);
 }

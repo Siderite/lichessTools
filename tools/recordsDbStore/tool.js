@@ -177,7 +177,7 @@
   }
 
 
-  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forumPost', 'player'];
+  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player'];
   const collectionTreeFormatVersion = 3;
 
   function collectionKindRegistry(harvester) {
@@ -219,7 +219,7 @@
         branch: 'study',
       },
       game: {
-        icon: 'ChessPiece',
+        icon: 'Crown',
         openUrl: (id, _meta) => '/game/' + id,
         // The mine test (`/@user/imported` + `game.deleteImported`) is unverified in the page
         canWrite: undefined,
@@ -277,7 +277,7 @@
       },
       blog: {
         icon: 'SpeechBubble',
-        openUrl: (id, meta) => '/@' + (meta?.userId || id),
+        openUrl: (id, meta) => meta?.url || '/@' + (meta?.userId || id),
         // My own - the author test is unverified in the page
         canWrite: undefined,
         visibility: visibilityState,
@@ -302,6 +302,18 @@
         // A blogPost lives inside its author's blog branch, exactly like a chapter inside a study.
         branch: 'blog',
       },
+      forum: {
+        // The board itself: `/forum/<slug>` - the parent of a forumPost leaf, like a blog to its
+        // post. Board state is not mirrored, so the chips stay dim.
+        icon: 'SpeechBubble',
+        openUrl: (id, _meta) => '/forum/' + id,
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => String(record?.name || '').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
       forumPost: {
         // URL-only leaves: `meta` holds the title/author/board captured at add time.
         icon: 'SpeechBubble',
@@ -315,6 +327,42 @@
         read: undefined,
         isDead: absent,
         serviced: false,
+        containment: 'forum',
+        // A forumPost lives inside its board leaf, exactly like a chapter inside a study.
+        branch: 'forum',
+      },
+      broadcast: {
+        // The relay itself: `/broadcast/<slug>` - like a forum board, its state is not
+        // mirrored, so the chips stay dim and the row opens the relay page.
+        icon: 'RadioTower',
+        openUrl: (id, meta) => meta?.url || '/broadcast/' + id,
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.title].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      broadcastGame: {
+        // The game of a relay: lichess builds each one from an underlying study - the page's
+        // `analysis.study` looks study-shaped and only `study.relay` says otherwise - so `id`
+        // keeps that study's id and `meta` names the relay slug, the round and the chapter.
+        // The leaf rides the relay branch and opens on the broadcast route, so its rows never
+        // mix with the studies the harvest files.
+        icon: 'RadioTower',
+        openUrl: (id, meta) =>
+          meta?.url ||
+          '/broadcast/' + (meta?.slug || '') + '/' + (meta?.round || '') + '/' + id +
+          (meta?.chapterId ? '/' + meta.chapterId : ''),
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.studyName].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+        containment: 'broadcast',
+        // A broadcast game lives inside its relay's leaf, exactly like a chapter inside a study.
+        branch: 'broadcast',
       },
       player: {
         // Players come from drags, not from a page harvest: a user link dropped on the tree
@@ -701,6 +749,7 @@
         'tree-puzzle': 'lichessTools/LT/recordsDb-tree-puzzle',
         'tree-blog': 'lichessTools/LT/recordsDb-tree-blog',
         'tree-blogPost': 'lichessTools/LT/recordsDb-tree-blogPost',
+        'tree-forum': 'lichessTools/LT/recordsDb-tree-forum',
         'tree-forumPost': 'lichessTools/LT/recordsDb-tree-forumPost',
         // The three chip states live here, so a chip click never rewrites a branch.
         filters: 'lichessTools/LT/collectionTree-filters',

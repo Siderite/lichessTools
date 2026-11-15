@@ -291,12 +291,15 @@ A drag that starts on the page rather than on a row still lands: `pageLeaf` name
 by shape - a study-page chapter button (`class="draggable"`, `data-id`) opens a chapter leaf
 wearing the `<h3>` inside as its label; a player anchor (`href="/@/Name"`, or the legacy
 quoted `/'Name'`) opens a `player` leaf with the power-tip fields; a study anchor
-(`/study/ID`), a game anchor (`/game/ID` or a bare 8-char id) and a training anchor
+(`/study/ID`), a game anchor (`/game/ID`, `/game/ID/white`, a bare id, or the 12-char full id
+whose tail names the player - all of them keyed by the game's own 8 chars, so the tail never
+splits a leaf in two) and a training anchor
 (`/training/theme/n`) open study/game/puzzle leaves wearing the link text. The shapes are the
 registry's own openUrl forms, so a filed leaf always opens back. One shape has no kind: a
 tournament page - but its player links name players. The pointer row (read from
 `currentTarget`) says where; anywhere else the leaf joins the root. A leaf the tree already
-holds is never opened again.
+holds is never opened again - it moves, and it leaves the slot it vacates, so a re-filed link
+of a filed game keeps one row rather than growing a twin.
 
 Chrome may also refuse the drag outright: lichess parks chapter buttons and user links inside
 containers it marked `draggable="false"`, and then the browser shows its no-drop cursor and
@@ -332,10 +335,26 @@ outside the tree spends nothing. We never `preventDefault` a dragstart: lichess'
 `resolvePageLeaves` names what the page is about, and the Add chip plus its dropdown read
 that list: a study page offers study/chapter/position/study-position, a profile page (`@/Name`
 or the quoted legacy form) offers the **player** with the panel fields the page shows, a
-training page offers the **puzzle**, a game page the **game**. `addChoice` is what Add files;
+training page offers the **puzzle**, a game page the **game**. A page spells the game it is about
+in its own blob rather than in its url alone: a replay page puts it under `cfg.data` (no study
+behind a `/pjYzEtaX/white` path), a plain game page under `data` - both name the players and the
+speed and variant, which feed the row's title and its icon. `pageInitBlob` hands the blob over,
+reading the lazy `lt.pageInitData` first and the `page-init-data` script still in the DOM
+otherwise, so neither half costs a request. `addChoice` is what Add files;
 the caret cycles the list and the menu chips set it. `canAdd` hides the chip when Select is on
 or the page names nothing. A filed leaf then rides the store's own read pass where its row
 services one.
+
+## The press opens the window where the button stands
+
+`canPlace` is the whole page test - a user, the database, a route the db speaks for - and
+`canOpen` answers through it, so the two names keep their two roles (put the button, show the
+window) over one rule. Nothing about the window needs a study: the frame is a dialog the factory
+hangs off the viewport, `initialGeometry` falls back to an honest box on a page that lost its
+panels, and the content reads its tree from the blobs under one `kind` (`treeTab`). So a game
+page, a replay page or a training page lifts the same tree a study page shows. `start()` opens
+only on a trip or a return, which is what keeps an arrival short; pressing the button there is
+what opens it, and a second press closes it again.
 
 ## Visits enrich filed leaves
 
@@ -343,6 +362,11 @@ Opening the window on a page re-reads the same list against the tree: `enrichFro
 a filed leaf and merges in meta fields the page actually names (study mirror name, profile
 panel fields), leaving anything the page does not show untouched, and saves once when something
 changed. Visiting is enrichment, not a second offering - `findLeaf` keeps one leaf per kind/id.
+A game visit is the case the url cannot answer on its own: opening a game and coming back names
+the row by its players and parks its control and variant, so the row paints the time-control or
+variant mark the game wears instead of the Crown a dragged link is left with. The game's key is
+its 8-char id alone - `gameKeyId` cuts the tail off a 12-char full id - so the game page, its
+`/white` and `/black` analysis boards and a `/<12>` player page all reach that one leaf.
 
 ## The player kind
 
