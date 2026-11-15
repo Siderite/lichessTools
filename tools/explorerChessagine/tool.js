@@ -23,8 +23,7 @@
       'ro-RO': {
         'options.analysis': 'Analiz\u0103',
         'options.explorerChessagine': 'Integrare Chessagine \u00een Explorator',
-        'chessagineTabTitle': 'LiChess Tools - integrare API Chessagine',
-        'chessagineTabText': '%engine%rating'
+        'chessagineTabTitle': 'LiChess Tools - integrare API Chessagine'
       }
     };
 
