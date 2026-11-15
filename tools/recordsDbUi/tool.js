@@ -37,10 +37,11 @@
   // Intl keys are flat camelCase, so a state or a kind spells its own capital.
   const camel = (word) => word.charAt(0).toUpperCase() + word.slice(1);
   // The hover board's state in the shape lila's miniBoard.ts splits: "fen,orientation,lastMoveUci".
-  // A bare position names its fen as its id; a study position reads it from `meta.fen` because its
-  // id is the node path - and a leaf filed before those fields existed has no board to show.
+  // A bare position names its fen as its id; a study position and a puzzle read it from `meta.fen`
+  // - the puzzle's arrives from one api read after the file - and a leaf filed before those
+  // fields existed has no board to show.
   const boardStateFor = (entry) => {
-    const fen = entry?.kind == 'position' ? entry.id : entry?.kind == 'studyPosition' ? entry.meta?.fen : undefined;
+    const fen = entry?.kind == 'position' ? entry.id : entry?.meta?.fen;
     if (!fen) return undefined;
     return fen + ',' + (entry.meta?.orientation == 'black' ? 'black' : 'white') + ',' + (entry.meta?.lastMove || '');
   };
@@ -1464,6 +1465,7 @@
     }
 
     dragStartGlobal(ev) {
+      console.debug('[rdb-drag] dragstartGlobal ENTERED target=' + dragDbg(ev?.target) + ' pending=' + !!this.pendingDrag);
       if (!this.pendingDrag) {
         console.debug('[rdb-drag] dragstart without carry: dragged=' + dragDbg(ev.target));
         return;
@@ -1477,6 +1479,7 @@
     }
 
     dragOverGlobal(ev) {
+      console.debug('[rdb-drag] dragOverGlobal ENTERED pending=' + !!this.pendingDrag + ' at(' + ev?.clientX + ',' + ev?.clientY + ')');
       if (!this.pendingDrag) return;
       this.pendingDrag.native = true;
       this.pendingDrag.moves += 1;
@@ -1638,6 +1641,42 @@
       for (const entry of incoming) this.selected.add(entry);
       this.sortTree(this.entries);
       this.save();
+      // The page only ever named the puzzle - its board is one read away, so the leaf
+      // grows its meta right after joining.
+      for (const entry of incoming)
+        if (entry?.kind === 'puzzle') this.requestPuzzleRead(entry);
+    }
+
+    // One read per id fills the leaf's meta with the fen the hover board paints from, the
+    // side to move as the board's orientation, and the puzzle's own last move. The answer
+    // arrives async - a hover before it shows no board, and the merge repaints once it lands.
+    requestPuzzleRead(entry) {
+      const lt = this.lichessTools;
+      const api = lt?.api?.puzzle;
+      if (!api?.getPuzzle || !entry?.id) return;
+      this.puzzleReads ??= new Set();
+      if (this.puzzleReads.has(entry.id)) return;
+      this.puzzleReads.add(entry.id);
+      (async () => {
+        let data;
+        try {
+          data = await api.getPuzzle(entry.id);
+        } catch (err) {
+          return;
+        }
+        const puzzle = data?.puzzle ?? data;
+        if (!puzzle?.fen) return;
+        const leaf = this.findLeaf('puzzle', entry.id);
+        if (!leaf) return;
+        leaf.meta = {
+          ...(leaf.meta ?? {}),
+          fen: String(puzzle.fen),
+          ...(puzzle.lastMove ? { lastMove: String(puzzle.lastMove) } : {}),
+          orientation: String(puzzle.fen).split(' ')[1] === 'b' ? 'black' : 'white',
+        };
+        this.save();
+        this.onChange();
+      })();
     }
 
     // One save per mutation, and it writes **each branch** through the store so filing a study

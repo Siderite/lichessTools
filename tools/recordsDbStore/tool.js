@@ -262,7 +262,9 @@
         branch: 'study',
       },
       puzzle: {
-        icon: 'Puzzle',
+        // PuzzleIndex's own mark: a target reads apart from the boards around it, and the
+        // puzzle tool wears the same glyph on its buttons.
+        icon: 'ArcheryTarget',
         openUrl: (id, _meta) => '/training/' + id,
         // Never - the chip is dim
         canWrite: undefined,
