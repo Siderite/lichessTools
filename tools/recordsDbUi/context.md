@@ -377,6 +377,29 @@ game-count badge's title, the joined time and the rating spans (`type`, `games`,
 no-rating span stays blank). The row wears `lt.icon.User`. What the tip does not show is
 left absent rather than guessed.
 
+## Url-only kinds, and the page's own Add
+
+Four kinds answer from a route alone and never from a harvest: `coach` `/coach/<user>`, `streamer`
+`/streamer/<user>`, `team` `/team/<name>`, `tournament` `/tournament/<id>`. `pageLeaf` names them
+for drags and `resolvePageLeaves` names them for visits and for Add, both spellings of a blog
+route (`@/<user>/blog` now, the quoted legacy form) among them. `/team/me` names nothing anywhere:
+that route is the list of the current user's teams, so a team called `me` would shadow it. A
+tournament page carries a `pageInitData.data` that names the ladder (`fullName`) and says how it
+runs (`perf`, `variant`, `nbPlayers`), which rides in `meta`; a dragged tournament link waits with
+`nameTemp: 'page'` until a visit names it.
+
+Add files what the page is about when its dropdown choice is not on the page. `pageMainKind()`
+reads the route - a blog page files the blog, a blog post page the post, a forum board the board,
+a forum thread the thread, a round page the game of that round, a bare relay the relay - and
+`addCurrentChoice` falls back to that leaf before the first candidate. The caret keeps its own
+cycle over `pageAddKinds()`, so widening the default never moved the menu.
+
+Two rows name themselves from their own data now. A **puzzle** row prints `#<id>/<rating>`
+(`puzzleName` stopped reading themes - those describe the collection a puzzle sits in, so the same
+puzzle would answer with a different title under a different collection), and a **player** row
+paints what the power tip parked: the link's `title` in a `bookmark-title` span and the flair in a
+`record-flair` img after the handle, next to the `User` mark the row keeps.
+
 ## The undo chip walks the gestures back
 
 Every tree edit the user can regret (`drop`, `addLeaf`, `createFolder`, `removeSelected`,

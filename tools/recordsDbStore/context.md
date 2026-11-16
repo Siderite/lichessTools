@@ -31,6 +31,18 @@ Builds the singletons behind `lt.recordsDbHarvest` — `{ idbStudy, harvester, s
 `mergeStudyMetadata` / `matchesMetadata` / `isRecordsDbAvailable` the UI half reuses — and attaches the event hooks.
 Idempotent: a second `init()` keeps the first store, so a page change never loses what was captured.
 
+### The collection registry
+
+Seventeen kinds; twelve get a blob of their own, five ride a parent blob (`chapter` and
+`studyPosition` on the study, `blogPost` on the blog, `forumPost` on the board, `broadcastGame`
+on the relay). The marks keep objects that a route tells apart readable: `forum` wears
+`BubbleConvo` and `forumPost` `BubbleSpeech`, `coach` `GraduateCap`, `streamer` `Voice`, `team`
+`Group`, `tournament` `Trophy`. The four kinds after `player` answer from a route alone - no
+containment, no read, their `meta` holding what the page said at file time. A team id is the
+free-text name and `openUrl` percent-encodes it. `isRecordsDbAvailable` excludes only
+`practice|learn`: relay routes carry the records button, so a relay page can enrich the filed
+broadcast leaves its tree already holds.
+
 ### `start`
 1. Disabled when `recordsDbHarvest` is off or `lt.storage.supportsDb` is false.
 2. Nothing happens without `lt.getUserId()` — the database is per-user.

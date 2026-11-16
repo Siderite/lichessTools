@@ -145,6 +145,18 @@ body.lichessTools .lichessTools-recordsDbUi .record-public {
   opacity: 0.7;
 }
 
+body.lichessTools .lichessTools-recordsDbUi .bookmark-title {
+  font-size: 0.75rem;
+  font-weight: bolder;
+  opacity: 0.8;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-flair {
+  width: 1.1rem;
+  height: 1.1rem;
+  object-fit: contain;
+}
+
 body.lichessTools .lichessTools-recordsDbUi .error {
   color: var(--c-error, #d05454);
   font-size: 0.8rem;

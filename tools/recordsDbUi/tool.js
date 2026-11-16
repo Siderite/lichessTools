@@ -139,11 +139,17 @@
         'recordsDbCountBroadcast': 'Broadcasts: %s',
         'recordsDbCountBroadcastGame': 'Broadcast games: %s',
         'recordsDbCountPlayer': 'Players: %s',
+        'recordsDbCountCoach': 'Coaches: %s',
+        'recordsDbCountStreamer': 'Streamers: %s',
+        'recordsDbCountTeam': 'Teams: %s',
+        'recordsDbCountTournament': 'Tournaments: %s',
         'recordsDbPressAgain': 'Press again to drop what is selected',
         'recordsDbDeleteQuestion': 'Delete selected?',
         'recordsDbRestoreQuestion': 'Replace the tree from file?',
         'recordsDbRestoreFailed': 'Not a tree file',
         'recordsDbRestoredTree': 'Restored from file',
+        'recordsDbUndoRestored': 'Undo restored the tree',
+        'recordsDbEnrichedFromPage': 'Renamed from the page',
         'recordsDbRemovedCount': 'Removed',
         'recordsDbAddedStudy': 'Filed the study',
         'recordsDbAddedItem': 'Filed the item',
@@ -177,6 +183,10 @@
         'kindBroadcastGame': 'Broadcast game',
         'kindStudyPosition': 'Study position',
         'kindPlayer': 'Player',
+        'kindCoach': 'Coach',
+        'kindStreamer': 'Streamer',
+        'kindTeam': 'Team',
+        'kindTournament': 'Tournament',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
       },
       'ro-RO': {
@@ -188,7 +198,7 @@
         'recordsDbFolderNamePrompt': 'Nume\u015fte folderul nou',
         'recordsDbNewFolder': 'Folder nou',
         'recordsDbRename': 'Redenumire',
-        'recordsDbUndo': 'Undo',
+        'recordsDbUndo': 'Anuleaz\u0103',
         'recordsDbExpandFolder': 'Expandeaz\u0103 folder',
         'recordsDbCollapseFolder': 'Colapseaz\u0103 folder',
         'recordsDbExpandBranch': 'Expandeaz\u0103',
@@ -200,6 +210,7 @@
         'filtersVisibility': 'Vizibilitate',
         'filtersKind': 'Tip',
         'recordsDbAdd': 'Adaug\u0103',
+        'recordsDbAddOptions': 'Alege ce s\u0103 adaugi',
         'recordsDbSelect': 'Selecteaz\u0103',
         'recordsDbSelectOn': 'Selectare activ\u0103',
         'recordsDbSelectOff': 'Selectare inactiv\u0103',
@@ -209,20 +220,24 @@
         'recordsDbEmptyNote': 'Arborele este gol',
         'recordsDbMissingStudy': 'Studiul lipse\u015fte din baza de date',
         'recordsDbStudyGone': 'Acest studiu nu mai exist\u0103',
-        'recordsDbItemsCount': 'Elem: %s',
-        'recordsDbCountStudy': 'Studie: %s',
+        'recordsDbItemsCount': 'Elemente: %s',
+        'recordsDbCountStudy': 'Studii: %s',
         'recordsDbCountChapter': 'Capitole: %s',
         'recordsDbCountGame': 'Partide: %s',
-        'recordsDbCountPosition': 'Positie: %s',
+        'recordsDbCountPosition': 'Pozi\u0163ii: %s',
         'recordsDbCountPuzzle': 'Probleme: %s',
-        'recordsDbCountBlog': 'Bloghe: %s',
-        'recordsDbCountBlogPost': 'Post blog: %s',
-        'recordsDbCountForum': 'Forumhe: %s',
-        'recordsDbCountForumPost': 'Post forum: %s',
-        'recordsDbCountStudyPosition': 'Pozi\u016fii studiu: %s',
-        'recordsDbCountBroadcast': 'Broadcasts: %s',
-        'recordsDbCountBroadcastGame': 'Broadcast games: %s',
-        'recordsDbCountPlayer': 'Oyintori: %s',
+        'recordsDbCountBlog': 'Bloguri: %s',
+        'recordsDbCountBlogPost': 'Post\u0103ri blog: %s',
+        'recordsDbCountForum': 'Forumuri: %s',
+        'recordsDbCountForumPost': 'Post\u0103ri forum: %s',
+        'recordsDbCountStudyPosition': 'Pozi\u0163ii studiu: %s',
+        'recordsDbCountBroadcast': 'Transmisiuni: %s',
+        'recordsDbCountBroadcastGame': 'Jocuri transmisiuni: %s',
+        'recordsDbCountPlayer': 'Juc\u0103tori: %s',
+        'recordsDbCountCoach': 'Antrenori: %s',
+        'recordsDbCountStreamer': 'Streameri: %s',
+        'recordsDbCountTeam': 'Echipe: %s',
+        'recordsDbCountTournament': 'Turnee: %s',
         'recordsDbPressAgain': 'Apas\u0103 din nou pentru plasarea selec\u0163iei',
         'recordsDbDeleteQuestion': '\u015eterge cele selectate?',
         'recordsDbRestoreQuestion': '\u00cenlocuire arbore din fi\u015fier?',
@@ -233,7 +248,7 @@
         'recordsDbAddedItem': 'Element \u00eenregistrat',
         'recordsDbNothingToFile': 'Nimic r\u0103mas de \u00eenregistrat',
         'recordsDbAddHarvestFailed': 'Recoltarea nu a g\u0103sit nimic de \u00eenregistrat',
-        'recordsDbAddSelfParent': 'Nu po\u016fi \u00eenregistra un element \u00een el \u00eensu\u015fi',
+        'recordsDbAddSelfParent': 'Nu po\u0163i \u00eenregistra un element \u00een el \u00eensu\u015fi',
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
@@ -254,14 +269,17 @@
         'kindPosition': 'Pozi\u0163ie',
         'kindPuzzle': 'Problem\u0103',
         'kindBlog': 'Blog',
-        'kindBlogPost': 'Postare pe blog',
+        'kindBlogPost': 'Postare blog',
         'kindForum': 'Forum',
-        'kindForumPost': 'Postare pe forum',
-        'kindBroadcast': 'Broadcast',
-        'kindBroadcastGame': 'Broadcast game',
-        'kindStudyPosition': 'Positie din studiu',
-        'kindPlayer': 'Oyintor',
-        'recordsDbAddOptions': 'Alego ce mai adds',
+        'kindForumPost': 'Postare forum',
+        'kindBroadcast': 'Transmisiune',
+        'kindBroadcastGame': 'Joc transmisiune',
+        'kindStudyPosition': 'Pozi\u0163ie studiu',
+        'kindPlayer': 'Juc\u0103tor',
+        'kindCoach': 'Antrenor',
+        'kindStreamer': 'Streamer',
+        'kindTeam': 'Echip\u0103',
+        'kindTournament': 'Turneu',
         'recordsDbButtonTitle': 'LiChess Tools - fereastr\u0103 baz\u0103 de date \u00eenregistr\u0103ri'
       }
     };
@@ -481,15 +499,13 @@
       return text.length ? text.charAt(0).toUpperCase() + text.slice(1) : '';
     }
 
+    // The row says which puzzle it is and how hard it rates: the id the url carries and the
+    // rating the page blob or the read brings. Themes never stand in for a name - they describe
+    // the collection a puzzle sits in, so the same puzzle would answer with a different title.
     puzzleName(id, data) {
-      const real = String(data?.name ?? '').trim();
-      if (real) return real;
-      const theme = (data?.themes || [])[0];
-      if (theme) {
-        const spaced = String(theme).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([a-z])(\d)/g, '$1 $2').replace(/-/g, ' ').toLowerCase();
-        return spaced.charAt(0).toUpperCase() + spaced.slice(1);
-      }
-      return 'Puzzle ' + String(id);
+      const rating = data?.rating;
+      const key = '#' + String(id);
+      return rating === undefined || rating === '' ? key : key + '/' + String(rating);
     }
 
     // Every walk that only counts or collects rides here: one predicate for every node, in paint
@@ -1389,10 +1405,22 @@
       const broadcast = /^\/broadcast\/([a-z0-9][a-z0-9-]*)(?:\/.*)?$/.exec(path);
       if (broadcast?.[1])
         return { kind: 'broadcast', id: broadcast[1], label: this.humaniseSlug(broadcast[1]) || label() || undefined, meta: {} };
-      const blogPost = /^\/'([^']+)\/blog\/([a-z0-9][a-z0-9% _-]*)\/([a-zA-Z0-9]{8})'?$/.exec(path);
+      const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(path) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(path);
       if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, meta: { userId: blogPost[1], slug: blogPost[2], url: href } };
-      const blog = /^\/'([^']+)\/blog'?$/.exec(path);
+      const blog = /^\/'([^']+)\/blog'?$/.exec(path) || /^\/@\/([^/]+)\/blog$/.exec(path);
       if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], url: href } };
+      // The routes that hang off a page of their own: a coach and a streamer are user handles under
+      // their route, a team is a free-text name, a tournament an id. `/team/me` is the list of the
+      // current user's teams, so it names no team.
+      const coach = /^\/coach\/([a-zA-Z0-9_.-]+)$/.exec(path);
+      if (coach?.[1]) return { kind: 'coach', id: coach[1], label: coach[1], meta: {} };
+      const streamer = /^\/streamer\/([a-zA-Z0-9_.-]+)$/.exec(path);
+      if (streamer?.[1]) return { kind: 'streamer', id: streamer[1], label: streamer[1], meta: {} };
+      const team = /^\/team\/([^\/?#]+)$/.exec(path);
+      if (team?.[1] && decodeURIComponent(team[1]).toLowerCase() !== 'me')
+        return { kind: 'team', id: decodeURIComponent(team[1]), label: decodeURIComponent(team[1]), meta: {} };
+      const tournament = /^\/tournament\/([a-zA-Z0-9]{8})$/.exec(path);
+      if (tournament?.[1]) return { kind: 'tournament', id: tournament[1], label: label() || undefined, meta: { nameTemp: 'page' } };
       const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(path);
       if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: { nameTemp: 'page' } };
       return undefined;
@@ -1910,8 +1938,47 @@
       // the page is about: a profile page names the player (`@/Name` is the modern shape and
       // the quoted `/'Name'` the legacy one), a training page names the puzzle, a game page
       // names the game. The shapes are the registry's own openUrl forms.
-      const profile = /^\/@\/([^\/?]+)\/?$/.exec(lt.location?.pathname || '') ||
-        /^\/'([^']*)'\/?$/.exec(lt.location?.pathname || '');
+      // The page's own object also comes from the url where the blob misses it: blogs live under
+      // the author (`@/Name/blog` now, the quoted `/'Name/blog'` the same route), forum boards and
+      // threads under `/forum`, and a coach, a streamer, a team and a tournament under their own
+      // routes. `/team/me` is the list of the current user's teams, so it names no team - and a
+      // profile shape never swallows the routes that hang off a user.
+      const route = lt.location?.pathname || '';
+      const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(route) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(route);
+      if (blogPost?.[3])
+        out.push({ kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || undefined, meta: { userId: blogPost[1], slug: blogPost[2] } });
+      const blog = /^\/'([^']+)\/blog'?$/.exec(route) || /^\/@\/([^/]+)\/blog$/.exec(route);
+      if (blog?.[1]) out.push({ kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1] } });
+      const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(route);
+      if (forumPost?.[2])
+        out.push({ kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || undefined, meta: { board: forumPost[1] } });
+      const forum = /^\/forum\/([a-z0-9][a-z0-9-]*)$/.exec(route);
+      if (forum?.[1]) out.push({ kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: {} });
+      const coach = /^\/coach\/([a-zA-Z0-9_.-]+)$/.exec(route);
+      if (coach?.[1]) out.push({ kind: 'coach', id: coach[1], label: coach[1], meta: {} });
+      const streamer = /^\/streamer\/([a-zA-Z0-9_.-]+)$/.exec(route);
+      if (streamer?.[1]) out.push({ kind: 'streamer', id: streamer[1], label: streamer[1], meta: {} });
+      const team = /^\/team\/([^\/?#]+)$/.exec(route);
+      if (team?.[1] && decodeURIComponent(team[1]).toLowerCase() !== 'me')
+        out.push({ kind: 'team', id: decodeURIComponent(team[1]), label: decodeURIComponent(team[1]), meta: {} });
+      const tournament = /^\/tournament\/([a-zA-Z0-9]{8})$/.exec(route);
+      if (tournament?.[1]) {
+        const tourneyData = init?.data;
+        const tourneyName = String(tourneyData?.fullName ?? '');
+        out.push({
+          kind: 'tournament',
+          id: String(tourneyData?.id ?? tournament[1]),
+          label: tourneyName || tournament[1],
+          meta: {
+            ...(tourneyData?.perf?.key ? { perf: String(tourneyData.perf.key) } : {}),
+            ...(tourneyData?.variant ? { variant: String(tourneyData.variant) } : {}),
+            ...(tourneyData?.nbPlayers !== undefined ? { nbPlayers: Number(tourneyData.nbPlayers) } : {}),
+            ...(tourneyName ? {} : { nameTemp: 'page' }),
+          },
+          ...(tourneyName ? { dataName: true } : {}),
+        });
+      }
+      const profile = /^\/@\/([^\/?]+)\/?$/.exec(route) || /^\/'([^'\/]+)'?\/?$/.exec(route);
       if (profile?.[1]) out.push(this.playerEntry(profile[1]));
       const puzzleId = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(lt.location?.pathname || '');
       if (puzzleId?.[1])
@@ -2041,6 +2108,37 @@
       return this.resolvePageLeaves().map((leaf) => leaf.kind);
     }
 
+    // The object the page itself is about, from its route: what Add files when the dropdown has
+    // not picked another kind, so a blog page files the blog, a blog post page the post, a forum
+    // board the board and a forum thread the thread. A page that names no route of its own (an
+    // open study, an analysis board) answers undefined and the first candidate stands in.
+    pageMainKind() {
+      const path = this.lichessTools.location?.pathname || '';
+      const routes = [
+        [/^\/study\/[a-zA-Z0-9]{8}\/[a-zA-Z0-9]{8}$/, 'chapter'],
+        [/^\/study\/[a-zA-Z0-9]{8}$/, 'study'],
+        [/^\/training\/.+$/, 'puzzle'],
+        [/^\/broadcast\/[a-z0-9-]+\/[a-z0-9-]+\/[a-zA-Z0-9]{8}(?:\/[a-zA-Z0-9]{8})?(?:\/.*)?$/, 'broadcastGame'],
+        [/^\/broadcast\/.+$/, 'broadcast'],
+        [/^\/@\/[^\/?]+\/blog\/[^\/]+\/[a-zA-Z0-9]{8}$/, 'blogPost'],
+        [/^\/'[^'\/]+\/blog\/[^\/]+\/[a-zA-Z0-9]{8}'?$/, 'blogPost'],
+        [/^\/@\/[^\/?]+\/blog$/, 'blog'],
+        [/^\/'[^'\/]+\/blog'?$/, 'blog'],
+        [/^\/forum\/[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9-]*$/, 'forumPost'],
+        [/^\/forum\/[a-z0-9][a-z0-9-]*$/, 'forum'],
+        [/^\/coach\/.+$/, 'coach'],
+        [/^\/streamer\/.+$/, 'streamer'],
+        [/^\/team\/(?!me\/?$).+$/, 'team'],
+        [/^\/tournament\/[a-zA-Z0-9]{8}$/, 'tournament'],
+        [/^\/@\/[^\/?]+$/, 'player'],
+        [/^\/'[^'\/]+'$/, 'player'],
+        [/^\/analysis\//, 'position'],
+        [/^\/(?:game\/)?[a-zA-Z0-9]{8,12}(?:\/(?:white|black)(?:\/sides)?)?$/, 'game'],
+      ];
+      for (const [pattern, kind] of routes) if (pattern.test(path)) return kind;
+      return undefined;
+    }
+
     // What the page shows about a leaf the tree already holds rides into that leaf, so visits
     // enrich instead of merely re-offering: a study visit renames the row from the mirror, a
     // profile visit re-reads the panel fields, a training visit names the puzzle. Only fields
@@ -2067,6 +2165,7 @@
       }
       if (!changed) return false;
       this.save();
+      this.message = 'enrichedFromPage';
       this.messageCount = undefined;
       this.onChange();
       return true;
@@ -2104,7 +2203,9 @@
         this.message = 'nothingToFile';
         return false;
       }
-      let leaf = candidates.find((candidate) => candidate.kind === this.addChoice) || candidates[0];
+      let leaf = candidates.find((candidate) => candidate.kind === this.addChoice) ||
+        candidates.find((candidate) => candidate.kind === this.pageMainKind()) ||
+        candidates[0];
       return this.addLeaf(leaf);
     }
 
@@ -2271,6 +2372,7 @@
       this.collapsed = at(state.collapsed);
       this.refreshCaches();
       this.save();
+      this.message = 'undoRestored';
       this.messageCount = undefined;
       return true;
     }
@@ -3103,6 +3205,12 @@ function clearDrop() {
       const nameBox = $('<span class="bookmark-name">');
       const jumpHref = folder || dead ? undefined : row0?.openUrl?.(entry.id, entry.meta);
       nameBox.text(labelText);
+      // A player row keeps what the power tip showed beside the handle: the title the page put on
+      // the link and the flair it parked there, so the row reads as the profile did.
+      if (entry?.kind == 'player') {
+        if (entry?.meta?.title) nameBox.append($('<span class="bookmark-title">').text(String(entry.meta.title)));
+        if (entry?.meta?.flair) nameBox.append($('<img class="record-flair">').attr('src', String(entry.meta.flair)));
+      }
       if (record && 'visibility' in record) nameBox.append(studyPublicIcon(record));
       box.append(nameBox);
       li.append(box);

@@ -134,7 +134,7 @@
   }
 
   function isRecordsDbAvailable(pathname) {
-    return !/^\/(?:broadcast|practice|learn)(?:\/|$)/.test(pathname);
+    return !/^\/(?:practice|learn)(?:\/|$)/.test(pathname);
   }
 
   // The haystack as one function per kind, so the UI never re-derives a field and every kind
@@ -177,7 +177,7 @@
   }
 
 
-  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player'];
+  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player', 'coach', 'streamer', 'team', 'tournament'];
   const collectionTreeFormatVersion = 3;
 
   function collectionKindRegistry(harvester) {
@@ -277,7 +277,7 @@
       },
       blog: {
         icon: 'SpeechBubble',
-        openUrl: (id, meta) => meta?.url || '/@' + (meta?.userId || id),
+        openUrl: (id, meta) => meta?.url || '/@' + (meta?.userId || id) + '/blog',
         // My own - the author test is unverified in the page
         canWrite: undefined,
         visibility: visibilityState,
@@ -305,7 +305,7 @@
       forum: {
         // The board itself: `/forum/<slug>` - the parent of a forumPost leaf, like a blog to its
         // post. Board state is not mirrored, so the chips stay dim.
-        icon: 'SpeechBubble',
+        icon: 'BubbleConvo',
         openUrl: (id, _meta) => '/forum/' + id,
         canWrite: undefined,
         visibility: undefined,
@@ -316,8 +316,8 @@
       },
       forumPost: {
         // URL-only leaves: `meta` holds the title/author/board captured at add time.
-        icon: 'SpeechBubble',
-        openUrl: (id, meta) => meta?.url || id,
+        icon: 'BubbleSpeech',
+        openUrl: (id, meta) => meta?.url || '/forum/' + (meta?.board || '') + '/' + id,
         // Never - chip dim
         canWrite: undefined,
         // Public only - chip dim
@@ -375,6 +375,55 @@
         visibility: undefined,
         haystack: (record) => [record?.title, record?.name].filter(Boolean).join(' ').toLowerCase(),
         // Nothing to read - meta holds what the page showed at drag time
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      coach: {
+        // A coach account (`/coach/<user>`) is a user page behind its own route, so the id is the
+        // handle and the open jump has to keep the route - opening the bare profile would lose the
+        // coaching games the row is about.
+        icon: 'GraduateCap',
+        openUrl: (id, _meta) => '/coach/' + id,
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.handle].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      streamer: {
+        // The same user page under the streamer route: the id is the handle, and the mark says
+        // what the account does - it reads live games for an audience.
+        icon: 'Voice',
+        openUrl: (id, _meta) => '/streamer/' + id,
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.handle].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      team: {
+        // A team is named by a free-text name, not an id: `/team/<name>`, spaces percent-encoded.
+        // `/team/me` is the list of the current user's teams, so the ui never files that shape.
+        icon: 'Group',
+        openUrl: (id, _meta) => '/team/' + encodeURIComponent(String(id)),
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.fullName].filter(Boolean).join(' ').toLowerCase(),
+        read: undefined,
+        isDead: absent,
+        serviced: false,
+      },
+      tournament: {
+        // The ladder itself: `/tournament/<id>`. Its page blob names it (`fullName`) and says how
+        // it runs (`perf`, `system`, `nbPlayers`), which rides in `meta` for the row.
+        icon: 'Trophy',
+        openUrl: (id, _meta) => '/tournament/' + id,
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.fullName, record?.name].filter(Boolean).join(' ').toLowerCase(),
         read: undefined,
         isDead: absent,
         serviced: false,

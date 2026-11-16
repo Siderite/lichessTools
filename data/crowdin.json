@@ -1424,7 +1424,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2851,7 +2859,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4278,7 +4294,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5705,7 +5729,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7132,7 +7164,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8559,7 +8599,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -9986,7 +10034,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11413,7 +11469,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -12840,7 +12904,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14267,7 +14339,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15694,7 +15774,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17121,7 +17209,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18548,7 +18644,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -19975,7 +20079,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21402,7 +21514,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -22829,7 +22949,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -24256,7 +24384,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -25646,7 +25782,7 @@
     "kindPosition": "Poziţie",
     "kindPuzzle": "Problemă",
     "kindBlog": "Blog",
-    "kindBlogPost": "Postare pe blog",
+    "kindBlogPost": "Postare blog",
     "kindForumPost": "Postare pe forum",
     "recordsDbButtonTitle": "LiChess Tools - fereastră bază de date înregistrări",
     "recordsDbItemsCount": "Articole: %s",
@@ -25683,7 +25819,15 @@
     "recordsDbCountBroadcast": "Transmisiuni: %s",
     "recordsDbCountBroadcastGame": "Jocuri în transmisiuni: %s",
     "kindBroadcast": "Transmisiune",
-    "kindBroadcastGame": "Joc în transmisiuni"
+    "kindBroadcastGame": "Joc în transmisiuni",
+    "recordsDbCountCoach": "Antrenori: %s",
+    "recordsDbCountStreamer": "Streameri: %s",
+    "recordsDbCountTeam": "Echipe: %s",
+    "recordsDbCountTournament": "Turnee: %s",
+    "kindCoach": "Antrenor",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Echipă",
+    "kindTournament": "Turneu"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -27110,7 +27254,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -28537,7 +28689,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -29964,7 +30124,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -31391,7 +31559,15 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -32818,6 +32994,14 @@
     "recordsDbCountBroadcast": "Broadcasts: %s",
     "recordsDbCountBroadcastGame": "Broadcast games: %s",
     "kindBroadcast": "Broadcast",
-    "kindBroadcastGame": "Broadcast game"
+    "kindBroadcastGame": "Broadcast game",
+    "recordsDbCountCoach": "Coaches: %s",
+    "recordsDbCountStreamer": "Streamers: %s",
+    "recordsDbCountTeam": "Teams: %s",
+    "recordsDbCountTournament": "Tournaments: %s",
+    "kindCoach": "Couch",
+    "kindStreamer": "Streamer",
+    "kindTeam": "Team",
+    "kindTournament": "Tournament"
   }
 }
