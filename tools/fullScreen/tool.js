@@ -39,7 +39,7 @@
       if ($('div.site-buttons .lichessTools-fullScreen').length) return;
       $('<div class="lichessTools-fullScreen">').append(
         $('<button class="link">')
-          .append($('<span>')
+          .append($('<icon>')
             .attr('data-icon', lt.icon.SquareFourCorners)
             .attr('title', trans.noarg('fullScreenTitle'))
           )

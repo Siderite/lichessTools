@@ -2933,7 +2933,8 @@
 
 
   function highlightMatch(text, terms) {
-    const $ = recordsDbInstance.lichessTools.$;
+    const lt = recordsDbInstance.lichessTools;
+    const $ = lt.$;
     const source = String(text ?? '');
     const parts = [];
     let offset = 0;
@@ -2952,9 +2953,11 @@
 
   // A drop marker is a claim one row makes for the moment it is dragged over; only one row may hold
   // it, so every marker on the page is cleared before a new one is set.
-function clearDrop() {
-    const marked = recordsDbInstance.lichessTools.$('.lichessTools-recordsDbUi [data-bookmark-drop]');
-    if (marked.length) marked.removeAttr('data-bookmark-drop');
+  function clearDrop() {
+    const lt = recordsDbInstance.lichessTools;
+    const $ = lt.$;
+    $('.lichessTools-recordsDbUi [data-bookmark-drop]')
+      .removeAttr('data-bookmark-drop');
   }
 
   function bookmarkView(content, host, box) {
@@ -4066,7 +4069,7 @@ function clearDrop() {
       const lt = this.lichessTools;
       const trans = lt.translator;
       const $ = lt.$;
-      const button = $('<button class="records-db-button" type="button">')
+      const button = $('<button class="link" type="button">')
         .attr('title', trans.noarg('recordsDbButtonTitle'))
         .attr('tabindex', '0')
         .append($('<icon>').attr('data-icon', lt.icon.CardDividers));
@@ -4075,9 +4078,13 @@ function clearDrop() {
         ev.preventDefault?.();
         this.toggle();
       });
+      const div = $('<div class="lichessTools-recordsDb">').append(button);
       const dasher = $('div.site-buttons div.dasher');
-      if (dasher.length) button.insertBefore(dasher);
-      else button.appendTo(host);
+      if (dasher.length) {
+        div.insertBefore(dasher);
+      } else {
+        div.appendTo(host);
+      }
       this.toggleButton = button;
       return true;
     }

@@ -162,25 +162,15 @@ body.lichessTools .lichessTools-recordsDbUi .error {
   font-size: 0.8rem;
 }
 
-
-
-
-body.lichessTools button.records-db-button {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  padding: .5em .2em;
-  border-radius: 4px;
-  cursor: pointer;
+body.lichessTools .lichessTools-recordsDb button {
+  margin-bottom: 0.5em;
 }
 
-
-body.lichessTools button.records-db-button icon:before {
+body.lichessTools .lichessTools-recordsDb button icon:before {
   font-weight: bolder;
 }
 
-body.lichessTools button.records-db-button:is(:focus-visible,:hover) {
+body.lichessTools .lichessTools-recordsDb button:is(:focus-visible,:hover) {
   text-shadow: 0 0 1px var(--c-accent), 0 0 2px var(--c-accent), 0 0 4px var(--c-accent), 0 0 8px var(--c-accent);
 }
 
@@ -360,7 +350,7 @@ body.lichessTools #lichessTools-recordsContentPreview a:focus-visible {
 }
 
 /* The toggle on a phone is a touch target: it grows to a thumb-sized box rather than hiding. */
-body.lichessTools.mobile button.records-db-button {
+body.lichessTools.mobile button.lichessTools-recordsDb {
   display: inline-block;
   min-width: 2.5rem;
   min-height: 2.5rem;
