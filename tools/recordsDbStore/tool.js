@@ -177,7 +177,7 @@
   }
 
 
-  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player', 'coach', 'streamer', 'team', 'tournament'];
+  const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player', 'coach', 'streamer', 'team', 'tournament', 'url'];
   const collectionTreeFormatVersion = 3;
 
   function collectionKindRegistry(harvester) {
@@ -276,8 +276,11 @@
         serviced: false,
       },
       blog: {
-        icon: 'SpeechBubble',
-        openUrl: (id, meta) => meta?.url || '/@' + (meta?.userId || id) + '/blog',
+        icon: 'Book',
+        // The author route keeps the slash after `@` - `/@/<user>/blog`, whose quoted legacy twin
+        // `/'<user>/blog` is what a dragged blog anchor carries. A url without that slash is a page
+        // no reader of this kind recognises.
+        openUrl: (id, meta) => meta?.url || '/@/' + (meta?.userId || id) + '/blog',
         // My own - the author test is unverified in the page
         canWrite: undefined,
         visibility: visibilityState,
@@ -289,9 +292,9 @@
       blogPost: {
         // Reuses blogHistory's key shape: `meta` carries userId/slug so a leaf can be opened or
         // fetched.
-        icon: 'SpeechBubble',
+        icon: 'Pencil',
         openUrl: (id, meta) =>
-          meta?.url || '/@' + (meta?.userId || '') + '/blog/' + (meta?.slug || '') + '/' + id,
+          meta?.url || '/@/' + (meta?.userId || '') + '/blog/' + (meta?.slug || '') + '/' + id,
         canWrite: undefined,
         visibility: visibilityState,
         haystack: (record) => [record?.title, record?.name, record?.text].filter(Boolean).join(' ').toLowerCase(),
@@ -345,15 +348,18 @@
       },
       broadcastGame: {
         // The game of a relay: lichess builds each one from an underlying study - the page's
-        // `analysis.study` looks study-shaped and only `study.relay` says otherwise - so `id`
-        // keeps that study's id and `meta` names the relay slug, the round and the chapter.
+        // `analysis.study` looks study-shaped and only `study.relay` says otherwise - and every
+        // board of a round shares that study. So the leaf keys on the board's own chapter when the
+        // route names one, and the round's study rides under `roundId`; the route rebuilds as
+        // slug/round/study/chapter, which is why both halves ride in `meta` and neither is
+        // invented. A board filed without a chapter (the relay's model game) keys on the study.
         // The leaf rides the relay branch and opens on the broadcast route, so its rows never
         // mix with the studies the harvest files.
         icon: 'RadioTower',
         openUrl: (id, meta) =>
           meta?.url ||
-          '/broadcast/' + (meta?.slug || '') + '/' + (meta?.round || '') + '/' + id +
-          (meta?.chapterId ? '/' + meta.chapterId : ''),
+          '/broadcast/' + (meta?.slug || '') + '/' + (meta?.round || '') + '/' + (meta?.roundId || id) +
+          (meta?.chapterId && meta.chapterId !== (meta?.roundId || id) ? '/' + meta.chapterId : ''),
         canWrite: undefined,
         visibility: undefined,
         haystack: (record) => [record?.name, record?.studyName].filter(Boolean).join(' ').toLowerCase(),
@@ -369,13 +375,17 @@
         // opens this leaf, and the power tip at drag time rides in `meta` (flag, flair,
         // ratings...). The profile page itself answers the open.
         icon: 'User',
-        openUrl: (id, _meta) => '/' + id,
+        // The profile page sits at `@/<name>` - the route the site spells on its own user links,
+        // and the shape a dragged user anchor carries. `/user/<name>` is an api path only, so a
+        // row that wore it would open nothing.
+        openUrl: (id, _meta) => '/@/' + id,
         // No page state to report - chips dim
         canWrite: undefined,
         visibility: undefined,
         haystack: (record) => [record?.title, record?.name].filter(Boolean).join(' ').toLowerCase(),
-        // Nothing to read - meta holds what the page showed at drag time
-        read: undefined,
+        // The facts a row prints come from one api read the ui runs (`api.user.getUsers([id])` -
+        // title, perfs, profile), so the mirror never holds a user record.
+        read: 'api.user.getUsers([id]) \u2014 read by the ui, never by the mirror',
         isDead: absent,
         serviced: false,
       },
@@ -412,20 +422,37 @@
         canWrite: undefined,
         visibility: undefined,
         haystack: (record) => [record?.name, record?.fullName].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
+        // The name and the member count answer from an api read, but the mirror never holds a team
+        // record, so the ui half reads the team page itself (see docs/recordsDbItems.md).
+        read: 'api.team.getTeam(id) \u2014 read by the ui, never by the mirror',
         isDead: absent,
         serviced: false,
       },
       tournament: {
-        // The ladder itself: `/tournament/<id>`. Its page blob names it (`fullName`) and says how
-        // it runs (`perf`, `system`, `nbPlayers`), which rides in `meta` for the row.
+        // The ladder itself: `/tournament/<id>` runs an arena and `/swiss/<id>` runs a Swiss - one
+        // kind whose page answers alike, and the harvest parks the route as `meta.system` so the
+        // open rides the route the row was filed from.
         icon: 'Trophy',
-        openUrl: (id, _meta) => '/tournament/' + id,
+        openUrl: (id, meta) => (meta?.system == 'swiss' ? '/swiss/' : '/tournament/') + id,
         canWrite: undefined,
         visibility: undefined,
         haystack: (record) => [record?.fullName, record?.name].filter(Boolean).join(' ').toLowerCase(),
         read: undefined,
         isDead: absent,
+        serviced: false,
+      },
+      url: {
+        // The lichess route the table has no kind for: the leaf **is** the url, `id` is the route
+        // and `meta.url` the same route, so the open jump never rebuilds anything. A route is dead
+        // only when the page says so, which nothing here can prove - the row stays.
+        icon: 'Link',
+        openUrl: (id, meta) => meta?.url || String(id),
+        canWrite: undefined,
+        visibility: undefined,
+        haystack: (record) => [record?.name, record?.fullName].filter(Boolean).join(' ').toLowerCase(),
+        // The title the page carries answers the name when the row opens (see `pageUrlFacts`).
+        read: undefined,
+        isDead: () => false,
         serviced: false,
       },
     };
@@ -505,27 +532,28 @@
     }
 
     // The merge, owned by storage so the UI half and the download file read the same rule:
-    // folders join by name across branches, and a leaf that names a parent (via `meta.parentId`,
-    // or the older `meta.studyId`/`meta.blogId` a harvest left behind) re-hangs under that parent
-    // anywhere in the merged tree - not just at the top - so any item can be a child of any item.
-    // A leaf whose parent is missing stays put: dropping it would eat part of a user's tree.
+    // folders join by name across branches, and a leaf re-nests under the leaf the blob nested
+    // it under - a marker of another branch counts as that leaf, since its real self arrives
+    // from its own branch. A stamp (`meta.parentId`, or the older `meta.studyId`/`meta.blogId`
+    // a harvest left behind) answers for a link no blob carried: a parent that left the tree, or
+    // a nesting an older blob lost. Naming the parent is what keeps a nesting that crossed two
+    // branches alive on those older blobs. A leaf whose parent is missing stays where it appeared:
+    // dropping it would eat part of a user's tree. A marker never lands in the merged tree - only
+    // real selves do, so the split's path markers cannot double a row.
     mergeTrees(branches) {
       const pairs = branches?.constructor === Object ? Object.entries(branches) : branches;
       const merged = [];
       const isFolder = (node) => !node?.kind;
       const branchOf = (kind) => this.registry[kind]?.branch || kind;
-      const findParent = (parentId) => {
-        const visit = (nodes) => {
-          for (const node of nodes) {
-            if (node && !isFolder(node) && node.id === parentId) return node;
-            const nested = visit(node.children || []);
-            if (nested) return nested;
-          }
-          return undefined;
-        };
-        return visit(merged);
-      };
-      const walk = (nodes, target, branch) => {
+      // Every leaf seen, in the order the branches list them: `kind|id` is what a marker names,
+      // the bare id is what a stamp names, and the first copy wins so a marker and its real self
+      // stay one node.
+      const seen = new Map();
+      const byId = new Map();
+      const parentId = new Map();
+      const nestedUnder = new Map();
+      const home = [];
+      const walk = (nodes, target, above, branch) => {
         for (const node of nodes || []) {
           if (isFolder(node)) {
             let bucket = target.find((existing) => isFolder(existing) && existing.name === node.name);
@@ -533,23 +561,58 @@
               bucket = { name: node.name ?? '', children: [] };
               target.push(bucket);
             }
-            walk(node.children, bucket.children, branch);
+            walk(node.children, bucket.children, undefined, branch);
             continue;
           }
-          // A leaf of another branch that appears here is only a path marker the split left
-          // behind so the walk can reach the branch's leaves under it; its real self comes back
-          // from its own branch, so it is descended through and never pushed.
+          // A leaf of another branch is a path marker the split left behind so this walk reaches
+          // the branch's own leaves under it; the chain it leaves behind is what carries a nesting
+          // that crossed branches, and the marker itself never joins the merged tree.
           if (branchOf(node.kind) !== branch) {
-            walk(node.children || [], target, branch);
+            walk(node.children || [], target, node, branch);
             continue;
           }
-          const parentId = node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
-          const parent = parentId ? findParent(parentId) : undefined;
-          if (parent) (parent.children ||= []).push(node);
-          else target.push(node);
+          if (!node.id || seen.has(node.kind + '|' + node.id)) continue;
+          // The merged leaf is a fresh node: the blob's children array is only a path, and keeping
+          // its entries would park every marker beside the row it stands for.
+          const copy = { ...node };
+          delete copy.children;
+          seen.set(node.kind + '|' + node.id, copy);
+          byId.set(node.id, copy);
+          const named = node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
+          if (named && named !== node.id) parentId.set(copy, named);
+          home.push([copy, target]);
+          nestedUnder.set(copy, above);
+          walk(node.children || [], target, node, branch);
         }
       };
-      for (const [branch, entries] of pairs) walk(entries, merged, branch ?? this.branchOf(entries?.[0]?.kind));
+      for (const [branch, entries] of pairs) walk(entries, merged, undefined, branch ?? this.branchOf(entries?.[0]?.kind));
+      const parentOf = new Map();
+      // A ring of nestings (each naming the other) would loop the tree walk, so a parent that
+      // already lives under the leaf is refused rather than followed.
+      const underPlaced = (node, maybeDescendant) => {
+        let at = maybeDescendant;
+        while (at) {
+          if (at === node) return true;
+          at = parentOf.get(at);
+        }
+        return false;
+      };
+      // The nesting the blob carries wins, so a chapter keeps its chapter row and a study position
+      // keeps its place in the tree; a stamp answers only for a link no blob carried.
+      for (const [node, target] of home) {
+        const marker = nestedUnder.get(node);
+        const named = parentId.get(node);
+        for (const parent of [
+          marker ? seen.get(marker.kind + '|' + marker.id) : undefined,
+          named ? byId.get(named) : undefined,
+        ]) {
+          if (!parent || parent === node || underPlaced(node, parent)) continue;
+          (parent.children ||= []).push(node);
+          parentOf.set(node, parent);
+          break;
+        }
+        if (!parentOf.has(node)) target.push(node);
+      }
       return merged;
     }
 
@@ -714,6 +777,17 @@
           };
           if (!leaf.id || !leaf.kind) return [];
           if (node.meta) leaf.meta = node.meta;
+          // An older relay leaf spelled its board with the round's study as the id and kept the
+          // board only as `meta.chapterId`, which folded every board of a round onto one key. The
+          // board keys the leaf now, so the older spelling is re-keyed on the way in and the study
+          // takes the `roundId` seat the route reads - which also lets re-filing a board find the
+          // row it already has instead of opening a twin.
+          if (leaf.kind == 'broadcastGame' && leaf.meta?.chapterId &&
+            String(leaf.meta.chapterId) !== String(leaf.id)) {
+            const boardKey = String(leaf.meta.chapterId);
+            leaf.meta = { ...leaf.meta, roundId: leaf.meta.roundId || leaf.id, chapterId: boardKey };
+            leaf.id = boardKey;
+          }
           if (Array.isArray(node.children)) leaf.children = normalize(node.children);
           return [leaf];
         });

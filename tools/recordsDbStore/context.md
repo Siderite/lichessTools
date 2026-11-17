@@ -111,3 +111,12 @@ the window before its tree is read from spending the shape the page before left 
 Preference off → `start()` returns before anything is captured; nothing clears the blobs - `clearEverything()` had
 no caller and was deleted 2026-11-03, so a disabled tool leaves its blobs alone and the next visit re-harvests from
 whatever they already hold.
+
+## Teams and the naming markers (this pass)
+
+- A team has no mirror record: its registry row keeps `serviced: false` and `read` as a note
+  (`api.team.getTeam(id)` answers `name`/`nbMembers`), so the mirror never spends a request and the
+  Ui half reads the team page itself. Nothing in the store renames or marks a leaf - naming rules
+  belong to the Ui tree.
+- The kinds map, their data and their refresh rules live in `docs/recordsDbItems.md`. The registry
+  is the only source of kind meaning: icon, openUrl, containment, haystack, `isDead`.

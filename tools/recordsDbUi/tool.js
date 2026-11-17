@@ -22,6 +22,10 @@
   // Which page ran last: reloading the page you are on is not a way back, so the trail is only read
   // as a return when the page that ran had a different url.
   const treePageKey = 'LichessTools.collectionTree.page';
+  // Whether the user left the window open. The window lives in one page's dom, so every page load
+  // has to decide again: this session key says the user never closed it, so the next page lifts it
+  // back. Only a manual close - the toggle press, or the dialog's own close - takes the key away.
+  const windowOpenKey = 'LichessTools.collectionTree.windowOpen';
   // The shape and the wheel are state only this page can see, so they are written as the tree
   // changes - at most once every `windowStateSaveMs`, so dragging through a big tree cannot rewrite
   // the blob on every step. A page being left without another call gets one flush from `pagehide`
@@ -40,11 +44,19 @@
   // The mark a game row wears: variant chess takes the variant icon, standard games the
   // time-control icon - the same map the recent-games list dresses from its css - and an
   // unknown control answers Crown. Module scope so the paint and the class read one map.
-  const gameIconName = (node) => {
-    const variants = { chess960: 'DieSix', kingofthehill: 'FlagKingHill', threecheck: 'ThreeCheckStack', antichess: 'Antichess', atomic: 'Atom', horde: 'Keypad', racingkings: 'FlagRacingKings', crazyhouse: 'Crazyhouse' };
-    const speeds = { ultrabullet: 'UltraBullet', bullet: 'Bullet', blitz: 'FlameBlitz', rapid: 'Rabbit', classical: 'Turtle', correspondence: 'PaperAirplane' };
-    return variants[String(node?.meta?.variant ?? '')] || speeds[String(node?.meta?.speed ?? '')] || 'Crown';
-  };
+  const variantIcons = { chess960: 'DieSix', kingofthehill: 'FlagKingHill', threecheck: 'ThreeCheckStack', antichess: 'Antichess', atomic: 'Atom', horde: 'Keypad', racingkings: 'FlagRacingKings', crazyhouse: 'Crazyhouse' };
+  const speedIcons = { ultrabullet: 'UltraBullet', bullet: 'Bullet', blitz: 'FlameBlitz', rapid: 'Rabbit', classical: 'Turtle', correspondence: 'PaperAirplane' };
+  // The word a popup spells for a control: the site's own vocabulary, kept as it prints it.
+  const speedWords = { ultrabullet: 'Ultra bullet', bullet: 'Bullet', blitz: 'Blitz', rapid: 'Rapid', classical: 'Classical', correspondence: 'Correspondence' };
+  // The key each contained kind uses to name the item that carries it: a chapter names its study,
+  // a study position names its study, a blog post its blog, a forum post its board, a relay game
+  // its broadcast. The registry's `containment` names the kind that carries it.
+  const containedCarrier = { chapter: 'studyId', studyPosition: 'studyId', blogPost: 'userId', forumPost: 'board', broadcastGame: 'slug' };
+  // The mark a game row wears: variant chess takes the variant icon, standard games the
+  // time-control icon - the same map the recent-games list dresses from its css - and an
+  // unknown control answers Crown. Module scope so the paint and the class read one map.
+  const gameIconName = (node) =>
+    variantIcons[String(node?.meta?.variant ?? '')] || speedIcons[String(node?.meta?.speed ?? '')] || 'Crown';
   // A game url carries the 8-char game id or the 12-char full id, whose tail names the player
   // whose page it is. The records key on the game alone, so no leaf ever holds the tail, and
   // every game shape below reads its id through this.
@@ -72,6 +84,9 @@
     if (!fen) return undefined;
     return fen + ',' + (entry.meta?.orientation == 'black' ? 'black' : 'white') + ',' + (entry.meta?.lastMove || '');
   };
+  // The board square in page pixels: the sheet keeps the marker at 15em of the popup's own
+  // reading size (13px), and a tooltip that carries a board reserves the same square for it.
+  const hoverBoardPx = 15 * 13;
   // The one tool instance the helpers below reach for their engine, their dialog and their window
   // handler - set in `init`, and the same instance every page keeps.
   let recordsDbInstance;
@@ -143,13 +158,12 @@
         'recordsDbCountStreamer': 'Streamers: %s',
         'recordsDbCountTeam': 'Teams: %s',
         'recordsDbCountTournament': 'Tournaments: %s',
+        'recordsDbCountUrl': 'Links: %s',
         'recordsDbPressAgain': 'Press again to drop what is selected',
         'recordsDbDeleteQuestion': 'Delete selected?',
         'recordsDbRestoreQuestion': 'Replace the tree from file?',
         'recordsDbRestoreFailed': 'Not a tree file',
         'recordsDbRestoredTree': 'Restored from file',
-        'recordsDbUndoRestored': 'Undo restored the tree',
-        'recordsDbEnrichedFromPage': 'Renamed from the page',
         'recordsDbRemovedCount': 'Removed',
         'recordsDbAddedStudy': 'Filed the study',
         'recordsDbAddedItem': 'Filed the item',
@@ -160,7 +174,7 @@
 
         'recordsDbRestoreTree': 'Restore',
         'recordsDbDownloadedTree': 'Wrote the tree to file',
-        'recordsDbOpenLink': 'Open this study',
+        'recordsDbOpenButton': 'Open',
 
         'accessAll': 'Any access',
         'accessWritable': 'Writable',
@@ -187,6 +201,25 @@
         'kindStreamer': 'Streamer',
         'kindTeam': 'Team',
         'kindTournament': 'Tournament',
+        'kindTournamentSwiss': 'Swiss tournament',
+        'kindTournamentArena': 'Arena tournament',
+        'kindUrl': 'Link',
+        'recordsDbNodeMissing': 'That move is no longer in the chapter',
+        'bySomeone': 'by %s',
+        'popupControl': 'Time control',
+        'popupVariant': 'Variant',
+        'popupResult': 'Result',
+        'popupPlayed': 'Played',
+        'popupStarted': 'Started',
+        'popupRound': 'Round',
+        'popupStandings': 'Standings',
+        'popupChapters': 'Chapters',
+        'popupMembers': 'Members',
+        'popupRatings': 'Ratings',
+        'popupJoined': 'Joined',
+        'popupAuthor': 'Author',
+        'popupRated': 'Rated',
+        'popupOwner': 'Owner',
         'recordsDbButtonTitle': 'LiChess Tools - records database window'
       },
       'ro-RO': {
@@ -238,6 +271,7 @@
         'recordsDbCountStreamer': 'Streameri: %s',
         'recordsDbCountTeam': 'Echipe: %s',
         'recordsDbCountTournament': 'Turnee: %s',
+        'recordsDbCountUrl': 'Linkuri: %s',
         'recordsDbPressAgain': 'Apas\u0103 din nou pentru plasarea selec\u0163iei',
         'recordsDbDeleteQuestion': '\u015eterge cele selectate?',
         'recordsDbRestoreQuestion': '\u00cenlocuire arbore din fi\u015fier?',
@@ -253,7 +287,7 @@
 
         'recordsDbRestoreTree': 'Restaurare',
         'recordsDbDownloadedTree': 'Am salvat arborele \u00een fi\u015fier',
-        'recordsDbOpenLink': 'Deschide acest studiu',
+        'recordsDbOpenButton': 'Deschide',
 
         'accessAll': 'Orice acces',
         'accessWritable': 'Modificabil',
@@ -280,6 +314,25 @@
         'kindStreamer': 'Streamer',
         'kindTeam': 'Echip\u0103',
         'kindTournament': 'Turneu',
+        'kindTournamentSwiss': 'Turneu elve\u016fian',
+        'kindTournamentArena': 'Turneu \u00een aren\u0103',
+        'kindUrl': 'Link',
+        'recordsDbNodeMissing': 'Mutarea nu mai exist\u0103 \u00een capitol',
+        'bySomeone': 'de %s',
+        'popupControl': 'Control tip',
+        'popupVariant': 'Variant\u0103',
+        'popupResult': 'Rezultat',
+        'popupPlayed': 'Jucat',
+        'popupStarted': '\u00cenceput',
+        'popupRound': 'Runda',
+        'popupStandings': 'Clasament',
+        'popupChapters': 'Capitole',
+        'popupMembers': 'Membri',
+        'popupRatings': 'Rating-uri',
+        'popupJoined': '\u00censcris',
+        'popupAuthor': 'Autor',
+        'popupRated': 'Oficial',
+        'popupOwner': 'Creator',
         'recordsDbButtonTitle': 'LiChess Tools - fereastr\u0103 baz\u0103 de date \u00eenregistr\u0103ri'
       }
     };
@@ -302,9 +355,10 @@
       const value = lt.currentOptions.getValue('recordsDbUi');
       this.logOption('Records database', value);
       const ctrl = recordsDbInstance?.recordsDbCtrl;
-      // Close whatever the last page left open before deciding again.
+      // Take whatever the last page left open off this page's dom before deciding again. A page
+      // being left is not a user closing the window, so the "left open" flag stays untouched.
       if (ctrl) {
-        await ctrl.close();
+        await ctrl.teardown();
         ctrl.removeToggle();
       }
 
@@ -313,6 +367,7 @@
       // spent the same way, for the same reason - it is the back button's only signal.
       const arrived = ctrl ? await ctrl.handoff() : false;
       const returned = ctrl ? await ctrl.returned() : false;
+      const stayed = ctrl ? await ctrl.stayOpen() : false;
       if (value === false || !ctrl) return;
       if (!ctrl.canPlace()) {
         // The route the db never speaks for (broadcast, practice, learn) or no user behind the page
@@ -324,11 +379,12 @@
       // travels with the user, and opening a game or a replay enriches its row on that page.
       await ctrl.load();
       await ctrl.installToggle();
-      // The window opens only on a trip from the tree or on coming back to a page that had it
-      // open - the same rule on every page the button stands on, study page or game page alike.
-      if ((arrived || returned) && ctrl.canOpen()) {
+      // Once the user opened the window it travels with them: a trip from a row or a way back lift
+      // it too, but they no longer gate it - the flag does, and only a manual close takes it away.
+      if ((arrived || returned || stayed) && ctrl.canOpen()) {
         if (arrived) this.logOption('Opened from tree', true);
         if (returned) this.logOption('Came back to a page that had the window', true);
+        if (stayed) this.logOption('Kept open since the window was left open', true);
         await ctrl.open();
         return;
       }
@@ -398,6 +454,10 @@
       // looking the hit element up here, so the row handlers live on the host and a repaint over a
       // thousand rows registers nothing that could outlive the rows it replaces.
       this.rowIndex = new WeakMap();
+      // The nodes a reading waits on: the content box of a row that has facts, with every node under
+      // it. A pointer over a row's padding or one of its chips lands on none of them and asks for
+      // nothing.
+      this.popupNodes = new WeakSet();
       this.revision = 0;
       this.writes = Promise.resolve();
     }
@@ -414,6 +474,10 @@
       const signal = this.signal;
       await this.load();
       if (!signal.aborted) this.loaded = true;
+      // Chrome refuses to drag an element the page marked `draggable="false"`, and it fires no
+      // drag event at all for such a press - so a gesture meant for one of lichess's own links
+      // never reaches the tree. The links this table can name have the flag taken back.
+      if (!signal.aborted) this.armPageDrag();
     }
 
     // The window is going away: the read that may still be running is stopped, and the repaint
@@ -461,13 +525,13 @@
     }
 
     // A leaf is `{kind,id,label,meta?}`. The mirror record's own name is what a cold row shows,
-    // but a rename writes a `label` that must outrank it - except when the label is only page
-    // text waiting for its data name (`meta.nameTemp = 'page'`): then the record name wins and
-    // the text is just the fallback.
+    // but a rename writes a `label` with `meta.renamed`, and a title whose `meta.nameTemp` says
+    // where it came from (link text, a slug, an id) waits for its data name: then the record name
+    // wins and the text is only the fallback.
     leafLabel(node) {
       const record = this.recordCache.get(node);
       const owned = node?.label;
-      const tempName = String(node?.meta?.nameTemp ?? '') == 'page';
+      const tempName = !!node?.meta?.nameTemp && node?.meta?.renamed === undefined;
       if (owned != null && String(owned).length && !tempName) return String(owned);
       // A chapter inherits its study's record - that is what dims or stamps it gone - so the
       // study's own name must not stand in for the chapter's. The chapter's entry under that
@@ -490,6 +554,68 @@
 
     recordFor(node) {
       return this.recordCache.get(node);
+    }
+
+    // The record of the study a position sits in: the cache keys a record by row id, and a position
+    // id spells its chapter and path - only the leaf's own meta names the study to look up.
+    studyRecordFor(node) {
+      return this.studies.get(String(node?.meta?.studyId ?? ''));
+    }
+
+    // The writer a thread names on its own page: lila spells each post's author as a profile
+    // link, and the first one under the posts is the thread's own writer - a slug says nothing
+    // about who wrote it.
+    threadPoster() {
+      const lt = this.lichessTools;
+      const anchors = lt.$('a');
+      for (let at = 0; at < anchors.length; at += 1) {
+        const href = this.domAttr(anchors.eq(at), 'href');
+        const at2 = /^\/@\/([^\/?#]+)$/.exec(href);
+        if (at2?.[1]) return at2[1];
+      }
+      return undefined;
+    }
+
+    // The links a page carries that this table can name, and that the page marked
+    // `draggable="false"`: Chrome shows a no-drop cursor and fires no drag event for such an
+    // element, so the tree would never hear a gesture meant for one. Taking the flag back is what
+    // lets the press arm a carry and land in `externalDrop`; a link the table cannot name keeps the
+    // page's own refusal.
+    armPageDrag() {
+      const lt = this.lichessTools;
+      const anchors = lt.$('a');
+      let armed = 0;
+      for (let at = 0; at < anchors.length; at += 1) {
+        const anchor = anchors.eq(at);
+        if (this.domAttr(anchor, 'draggable') !== 'false') continue;
+        if (!this.pageLeaf(anchor)) continue;
+        anchor.attr('draggable', 'true');
+        armed += 1;
+      }
+      if (armed) this.logState('Draggable links', armed);
+    }
+
+    // A lichess route as the path the registry opens: a root-relative path, or the path of an
+    // absolute lichess url. A bare fragment, an off-site link and the main page name no item - the
+    // extension controls no other page, so it never files one.
+    lichessRoute(href) {
+      const raw = String(href ?? '').trim();
+      if (!raw || raw.startsWith('#')) return undefined;
+      const at = /^(https?:\/\/[^/]+)?(\/[^#]*)$/.exec(raw);
+      if (!at) return undefined;
+      if (at[1] && !/lichess\.org$/i.test(at[1])) return undefined;
+      const path = at[2].replace(/\/+$/, '');
+      return path && path !== '/' ? path : undefined;
+    }
+
+    // The page's own title, as the tab spells it - with the site's own name cut off the tail,
+    // which every lichess page hangs on its title.
+    pageTitle() {
+      const lt = this.lichessTools;
+      const title = String(lt.global?.document?.title ?? '').trim();
+      const cut = title.lastIndexOf(' \u2022 ');
+      const name = cut > 0 ? title.slice(0, cut).trim() : title;
+      return name.length ? name : undefined;
     }
 
     // A name generated from the item's own data: slugs read as words, and a puzzle answers
@@ -959,8 +1085,9 @@
       // is only the fixed container it sits in (`records-db-mini-board`): the row's first
       // hover births one under `main` and hands it to `initializeDom` - lila builds the
       // chessground inside and strips the marker class - and every enter re-pins the
-      // container over the hovered row's rect and shows it; the hover-out hides it. One
-      // chessground per hovered row persists on the page, ready for the next enter.
+      // container inside the row's tooltip when that reading carries a board slot, or over
+      // the hovered row when it does not; the hover-out hides it. One chessground per
+      // hovered row persists on the page, ready for the next enter.
       const hoverBoards = new Map();
       const hoverShow = (entry, node) => {
         const state = entry ? boardStateFor(entry) : undefined;
@@ -976,20 +1103,26 @@
           hoverBoards.set(entry.id, board);
         }
         // The fixed slot wants viewport numbers, and cash's `offset()` answers in page
-        // coordinates - which drift under a scrolled dialog - so the pin reads the raw
-        // rect of the row and of the container, the same source `showStudyPopup` places
+        // coordinates - which drift under a scrolled dialog - so the pin reads the raw rect of
+        // the slot it parks in and of the container, the same source `showStudyPopup` places
         // from, and stays clamped inside the viewport.
         const rowEl = lt.$(node);
-        const bounds = rowEl.length ? rowEl[0]?.getBoundingClientRect?.() : undefined;
+        // A reading that carries a board reserves the square for it (the `popup-board` item), so
+        // the board lands inside the tooltip; a row with no reading floats the square over its
+        // own right end.
+        const popupWrap = lt.$('#' + popupId);
+        const slot = popupWrap.length ? popupWrap.find('li.popup-board') : undefined;
+        const inReading = slot?.length > 0;
+        const bounds = (inReading ? slot : rowEl)[0]?.getBoundingClientRect?.();
         if (!bounds) return;
         const own = board[0]?.getBoundingClientRect?.();
-        const width = own?.width || 15 * 16;
+        const width = own?.width || hoverBoardPx;
         const height = own?.height || width;
         const viewport = lt.global?.window;
         const innerWidth = viewport?.innerWidth || 0;
         const innerHeight = viewport?.innerHeight || 0;
-        const left = Math.round(bounds.left + bounds.width - width - 4);
-        const top = Math.round(bounds.top + bounds.height / 2 - height / 2);
+        const left = Math.round(inReading ? bounds.left : bounds.left + bounds.width - width - 4);
+        const top = Math.round(inReading ? bounds.top : bounds.top + bounds.height / 2 - height / 2);
         board.css('left', String(Math.max(8, innerWidth ? Math.min(left, innerWidth - width - 8) : left)) + 'px');
         board.css('top', String(Math.max(8, innerHeight ? Math.min(top, innerHeight - height - 12) : top)) + 'px');
         board.css('opacity', '1');
@@ -1001,15 +1134,23 @@
       const rowMouseOver = (ev) => {
         const info = this.rowTarget(ev);
         if (!info?.row || info.chip) return;
-        // The row's board is born on the first enter and re-pinned on every one (see
-        // `hoverShow`) - repeats cost nothing but style writes.
-        hoverShow(info.entry, info.node);
-        if (info.preview) {
+        // The profile card is not asked for here: the paint hands every profile row's box to
+        // `powertip.manualUser` as the row lands on the page (see `bookmarkView`), so the card is
+        // already up before a pointer arrives and a repaint keeps it fresh.
+        // Only a pointer over the item raises a reading: `popupNodes` holds the content box with
+        // everything under it, so a hover over a row's padding or its chips asks for nothing.
+        if (info.preview && info.itemHover) {
           // A row arriving spends a hide the pointer left on a nearby tooltip, then shows
-          // this row's chapters - one gesture, one tooltip.
+          // this row's facts - one gesture, one tooltip.
           cancelPopupHide();
-          showStudyPopup(info.node);
+          showStudyPopup(info.popupAnchor);
         } else if (info.cold) this.hoverRead(info.entry);
+        // The board pins after the tooltip so it can park inside the reading rather than float
+        // over the row as a second box (see `hoverShow`).
+        hoverShow(info.entry, info.node);
+        // A profile row that carries none of its own facts grows them from one read; the row
+        // repaints once the read lands.
+        if (info.profile) this.requestUserRead(info.entry);
       };
       const rowMouseOut = (ev) => {
         const info = this.rowTarget(ev);
@@ -1283,7 +1424,8 @@
 
     // The row a hit element falls on: the row itself, one of its children, or one of the chips a
     // row wears. A press lands on the icon inside a chip rather than on the chip, so the answer
-    // climbs to the nearest button before it looks for the row.
+    // climbs to the nearest button before it looks for the row. The answer also says whether the
+    // pointer sat on the item itself, which is the only place a reading answers.
     rowTarget(ev) {
       if (!ev || !ev.target) return undefined;
       const hit = this.lichessTools.$(ev.target);
@@ -1296,7 +1438,9 @@
         if (chip) return chip;
       }
       const li = hit.closest('li');
-      return li.length ? this.rowIndex.get(li[0]) : undefined;
+      const info = li.length ? this.rowIndex.get(li[0]) : undefined;
+      if (info && this.popupNodes.has(hit[0])) return { ...info, itemHover: true };
+      return info;
     }
 
     // The drop half of a drag: the upper half of a row inserts before it, the lower half of a
@@ -1392,37 +1536,81 @@
       const game = /^\/(?:game\/)?([a-zA-Z0-9]{8,12})(?:\/(?:white|black))?$/.exec(path);
       const draggedGame = gameKeyId(game?.[1]);
       if (draggedGame) return { kind: 'game', id: draggedGame, label: label() || undefined, meta: { nameTemp: 'page' } };
+      // A name read off the url waits for the item's own data, so it carries the `slug` marker.
       const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(path);
-      if (forumPost?.[2]) return { kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || label() || undefined, meta: { board: forumPost[1], url: href } };
+      if (forumPost?.[2]) return { kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || label() || undefined, meta: { board: forumPost[1], url: href, nameTemp: 'slug' } };
       const forum = /^\/forum\/([a-z0-9][a-z0-9-]*)$/.exec(path);
-      if (forum) return { kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: {} };
+      if (forum) return { kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: { nameTemp: 'slug' } };
       // Broadcast links: reaching the underlying study (or a round named) files the game of
       // the relay, otherwise the relay itself. Both carry the RadioTower mark and open on the
-      // broadcast route; the game waits for a name like a study's does.
+      // broadcast route. A round builds all of its boards from one study, so the board's own
+      // chapter is what tells them apart: the leaf keys on the chapter when the link names one
+      // and the round's study rides under `roundId`, which is the half the route rebuilds - two
+      // boards of one round then file as two leaves. The link's own text names the board (the
+      // chapter is usually the two players); the relay it belongs to answers in the tooltip.
       const broadcastGame = /^\/broadcast\/([a-z0-9][a-z0-9-]*)\/([a-z0-9-]+)\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?(?:\/.*)?$/.exec(path);
-      if (broadcastGame?.[3])
-        return { kind: 'broadcastGame', id: broadcastGame[3], label: label() || undefined, meta: { parentId: broadcastGame[1], slug: broadcastGame[1], round: broadcastGame[2], ...(broadcastGame[4] ? { chapterId: broadcastGame[4] } : {}), nameTemp: 'page' } };
+      if (broadcastGame?.[3]) {
+        // A drag off the board's own page may record the game that page plays - the same fact a
+        // visit records - so a later visit to that game page dresses the row. Another board's link
+        // on the page names a different chapter, and its game is not this row's to keep.
+        const onPage = this.pageInitBlob();
+        const boardGameId = gameKeyId(onPage?.data?.game?.id);
+        const pageChapter = onPage?.chapter?.id ?? onPage?.study?.chapter?.id;
+        return {
+          kind: 'broadcastGame',
+          id: broadcastGame[4] || broadcastGame[3],
+          label: label() || this.humaniseSlug(broadcastGame[1]) || undefined,
+          meta: {
+            parentId: broadcastGame[1],
+            slug: broadcastGame[1],
+            round: broadcastGame[2],
+            ...(broadcastGame[4] ? { chapterId: broadcastGame[4], roundId: broadcastGame[3] } : {}),
+            ...(boardGameId && pageChapter === broadcastGame[4] ? { gameId: boardGameId } : {}),
+          },
+        };
+      }
       const broadcast = /^\/broadcast\/([a-z0-9][a-z0-9-]*)(?:\/.*)?$/.exec(path);
       if (broadcast?.[1])
-        return { kind: 'broadcast', id: broadcast[1], label: this.humaniseSlug(broadcast[1]) || label() || undefined, meta: {} };
+        return { kind: 'broadcast', id: broadcast[1], label: this.humaniseSlug(broadcast[1]) || label() || undefined, meta: { nameTemp: 'slug' } };
       const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(path) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(path);
-      if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, meta: { userId: blogPost[1], slug: blogPost[2], url: href } };
+      if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, meta: { userId: blogPost[1], slug: blogPost[2], url: href, nameTemp: 'slug' } };
       const blog = /^\/'([^']+)\/blog'?$/.exec(path) || /^\/@\/([^/]+)\/blog$/.exec(path);
-      if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], url: href } };
+      if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], url: href, nameTemp: 'slug' } };
       // The routes that hang off a page of their own: a coach and a streamer are user handles under
       // their route, a team is a free-text name, a tournament an id. `/team/me` is the list of the
       // current user's teams, so it names no team.
       const coach = /^\/coach\/([a-zA-Z0-9_.-]+)$/.exec(path);
-      if (coach?.[1]) return { kind: 'coach', id: coach[1], label: coach[1], meta: {} };
+      if (coach?.[1]) return { kind: 'coach', id: coach[1], label: coach[1], meta: { nameTemp: 'slug' } };
       const streamer = /^\/streamer\/([a-zA-Z0-9_.-]+)$/.exec(path);
-      if (streamer?.[1]) return { kind: 'streamer', id: streamer[1], label: streamer[1], meta: {} };
+      if (streamer?.[1]) return { kind: 'streamer', id: streamer[1], label: streamer[1], meta: { nameTemp: 'slug' } };
       const team = /^\/team\/([^\/?#]+)$/.exec(path);
       if (team?.[1] && decodeURIComponent(team[1]).toLowerCase() !== 'me')
-        return { kind: 'team', id: decodeURIComponent(team[1]), label: decodeURIComponent(team[1]), meta: {} };
-      const tournament = /^\/tournament\/([a-zA-Z0-9]{8})$/.exec(path);
-      if (tournament?.[1]) return { kind: 'tournament', id: tournament[1], label: label() || undefined, meta: { nameTemp: 'page' } };
+        return { kind: 'team', id: decodeURIComponent(team[1]), label: decodeURIComponent(team[1]), meta: { nameTemp: 'slug' } };
+      // A ladder is an id under its own route, and the route says which kind of ladder it is:
+      // `/tournament/` runs an arena, `/swiss/` runs a Swiss - the pages answer the same way.
+      const tournament = /^\/(tournament|swiss)\/([a-zA-Z0-9]{8})$/.exec(path);
+      if (tournament?.[2])
+        return {
+          kind: 'tournament',
+          id: tournament[2],
+          label: label() || undefined,
+          meta: { nameTemp: 'page', system: tournament[1] == 'swiss' ? 'swiss' : 'arena' },
+        };
       const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(path);
       if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: { nameTemp: 'page' } };
+      // A lichess route the table has no kind for is still an item: the leaf **is** the url, the
+      // link text is the name that waits, and the page gives the row its title when it opens.
+      // Off-site links file nothing - the extension controls no other page.
+      const route = this.lichessRoute(href);
+      if (route)
+        return {
+          kind: 'url',
+          id: route,
+          // The link text names the row until the page it opens names the row itself, so the
+          // title of the page - not the route - is what the row spells.
+          label: label() || route,
+          meta: { url: route, ...(label().length ? { title: label(), nameTemp: 'page' } : {}) },
+        };
       return undefined;
     }
 
@@ -1448,15 +1636,45 @@
           return;
         }
         const target = this.insertionTarget(ev, landed.row, landed.node);
-        this.drop({ nodes: [held] }, target.parent, target.before);
+        // A carry of a row the tree already holds lands as a move when it stays among the
+        // siblings it has now - a twin beside its own copy would say nothing. Let go over a
+        // **different** parent, the gesture files a copy there and leaves the original in place:
+        // the same item can hang in two folders, and every visit later dresses each copy.
+        if (this.siblings(held) === (target.parent?.children ?? this.entries)) {
+          this.drop({ nodes: [held] }, target.parent, target.before);
+          return;
+        }
+        this.drop({ nodes: [entry] }, target.parent, target.before);
         return;
       }
       if (landed?.row) {
         const target = this.insertionTarget(ev, landed.row, landed.node);
-        this.drop({ nodes: [entry] }, target.parent, target.before);
+        this.drop({ nodes: [entry] }, this.stampParentOf(entry, target.parent), target.before);
       } else {
-        this.drop({ nodes: [entry] }, undefined, undefined);
+        this.drop({ nodes: [entry] }, this.stampParentOf(entry, undefined), undefined);
       }
+    }
+
+    // A page drag read the parent its url names - a round knows the relay it came from, a chapter
+    // the study - and a pointer that landed where no parent answers would otherwise drop the leaf
+    // at the root and lose that stamp. When the tree already holds that parent the fresh leaf hangs
+    // under it, so a second board of a relay rides the board already filed there rather than the
+    // row the press happened to hover on; a parent the tree does not hold stays as the pointer said,
+    // since inventing a row for a link the user never meant to file would surprise the tree.
+    stampParentOf(entry, parent) {
+      if (parent) return parent;
+      const stamp = this.parentStamp(entry);
+      const parentKind = String(this.registry[entry?.kind]?.containment ?? '');
+      if (!stamp || !parentKind) return undefined;
+      const held = this.findLeaf(parentKind, stamp);
+      if (!held || !this.canDrop({ nodes: [entry] }, held)) return undefined;
+      return held;
+    }
+
+    // The stamp a leaf carries for the leaf-parent it belongs to: `parentId` is the current
+    // spelling, `studyId`/`blogId` the older ones the store still reads.
+    parentStamp(node) {
+      return node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
     }
 
     // A drag from the page is our own gesture, read from whatever events survive - never
@@ -1553,6 +1771,23 @@
       return undefined;
     }
 
+    // An empty tree has no row to land on, yet the drop belongs to it: the tree list stretches to
+    // fill the window body, so a point inside that box is a root drop - the same answer the end
+    // marker gives. A point on the page outside the window names no tree.
+    treePointHit(x, y) {
+      if (x === undefined || y === undefined) return false;
+      const lt = this.lichessTools;
+      for (const sel of ['ul.records', '.bookmark-end', '.record-list']) {
+        const boxes = lt.$(sel);
+        for (let at = 0; at < boxes.length; at += 1) {
+          const box = boxes[at]?.getBoundingClientRect?.() || {};
+          if (!box.width || !box.height) continue;
+          if (box.left <= x && x < box.right && box.top <= y && y < box.bottom) return true;
+        }
+      }
+      return false;
+    }
+
     dragStartGlobal(ev) {
       if (!this.pendingDrag) {
         return;
@@ -1580,13 +1815,13 @@
       }
       this.pendingDrag = undefined;
       const landed = this.rowAtPoint(ev?.clientX, ev?.clientY);
-      if (!landed?.row) {
+      if (!landed?.row && !this.treePointHit(ev?.clientX, ev?.clientY)) {
         clearDrop();
         return;
       }
       this.externalDrop({
         target: pending.el,
-        currentTarget: landed.node,
+        currentTarget: landed?.node,
         clientY: ev?.clientY,
       });
     }
@@ -1605,7 +1840,7 @@
         return;
       }
       const landed = this.rowTarget(ev);
-      if (!landed?.row) {
+      if (!landed?.row && !this.treePointHit(ev?.clientX, ev?.clientY)) {
         clearDrop();
         return;
       }
@@ -1642,7 +1877,7 @@
       let matched = anchors.length === 1;
       for (let at = 0; at < anchors.length && !matched; at += 1) {
         const href = this.domAttr(lt.$(anchors[at]), 'href');
-        if (href.includes("'" + name + "'")) matched = true;
+        if (href.includes('/@/' + name) || href.includes("'" + name + "'")) matched = true;
       }
       if (!matched) return entry;
       const flagImg = lt.$('.upt__info img.flag');
@@ -1682,6 +1917,27 @@
 
     // The only outright rejection (a folder nested inside one of its own descendants) plus the
     // two containment checks above.
+    // A leaf that sits under a leaf parent names that parent in meta: the blob of the child's own
+    // branch cannot keep a parent that belongs to a different branch, so the name is what rebuilds
+    // the nesting on the next page. A folder parent needs nothing - folders join by name in every
+    // branch - and moving a leaf to a folder or to the root takes the stamp away.
+    stampParent(node, parent) {
+      if (!node || this.folder(node)) return;
+      // A contained kind (a chapter, a study position, a blog post, a forum thread, a relay game)
+      // already names its real parent, and that name is what rides its blob - a drag inside the tree
+      // may sit it somewhere else for now, but it must not rewrite that name.
+      if (this.registry[node.kind]?.containment) return;
+      const named = parent && !this.folder(parent) && parent.id ? String(parent.id) : undefined;
+      if (node.meta?.parentId === named) return;
+      if (!named) {
+        if (node.meta?.parentId === undefined) return;
+        node.meta = { ...node.meta };
+        delete node.meta.parentId;
+        return;
+      }
+      node.meta = { ...(node.meta ?? {}), parentId: named };
+    }
+
     canDrop(payload, parent) {
       if (payload?.paths)
         return payload.paths.every((path) => !this.contains(this.at(path), parent)) &&
@@ -1718,6 +1974,8 @@
       if (parent && !parent.children) parent.children = [];
       const siblings = parent?.children ?? this.entries;
       siblings.splice(before ? siblings.indexOf(before) : siblings.length, 0, ...incoming);
+      // Every payload root re-names its new parent, so the next page's merge hangs it back.
+      for (const entry of incoming) this.stampParent(entry, parent);
       // Opening the parent keeps the drop visible on the page that made it. For a folder that
       // means putting it in `expanded`; for a leaf-parent the default is already open, so the
       // only thing to do is clear any collapse the user left on it.
@@ -1729,11 +1987,13 @@
       for (const entry of incoming) this.selected.add(entry);
       this.sortTree(this.entries);
       this.save();
-      // The page only ever named the puzzle - its board is one read away, so the leaf
-      // grows its meta right after joining.
+      // The page only ever named the puzzle or the game - its board, its players and a team's real
+      // name with flair are one read away, so the leaf grows its meta right after joining.
       for (const entry of incoming) {
         if (entry?.kind === 'puzzle') this.requestPuzzleRead(entry);
         if (entry?.kind === 'game') this.requestGameName(entry);
+        if (entry?.kind === 'team') this.requestTeamName(entry);
+        if (userPageKind(entry?.kind) || entry?.kind == 'blog') this.requestUserRead(entry);
       }
     }
 
@@ -1762,22 +2022,21 @@
           this.puzzleReads.delete(entry.id);
           return;
         }
-        const leaf = this.findLeaf('puzzle', entry.id);
-        if (!leaf) {
+        const copies = this.leavesWith('puzzle', entry.id);
+        if (!copies.length) {
           this.puzzleReads.delete(entry.id);
           return;
         }
-        leaf.meta = {
-          ...(leaf.meta ?? {}),
-          fen: String(puzzle.fen),
-          ...(puzzle.lastMove ? { lastMove: String(puzzle.lastMove) } : {}),
-          orientation: String(puzzle.fen).split(' ')[1] === 'b' ? 'black' : 'white',
-        };
-        // A page-text name was only waiting: now the leaf says its type's own name.
-        if (String(leaf.meta?.nameTemp ?? '') == 'page') {
-          leaf.label = this.puzzleName(leaf.id, puzzle);
-          delete leaf.meta.nameTemp;
-        }
+        for (const leaf of copies)
+          this.hydrateLeaf(leaf, {
+            label: this.puzzleName(leaf.id, puzzle),
+            meta: {
+              fen: String(puzzle.fen),
+              ...(puzzle.lastMove ? { lastMove: String(puzzle.lastMove) } : {}),
+              orientation: String(puzzle.fen).split(' ')[1] === 'b' ? 'black' : 'white',
+            },
+            dataName: true,
+          });
         this.save();
         this.onChange();
       })();
@@ -1811,21 +2070,76 @@
         const white = nameOf(players.white);
         const black = nameOf(players.black);
         const name = white.length && black.length ? white + ' vs ' + black : (white || black);
-        const leaf = this.findLeaf('game', entry.id);
-        if (!leaf) {
+        const copies = this.leavesWith('game', entry.id);
+        if (!copies.length) {
           this.gameNameReads.delete(entry.id);
           return;
         }
-        // The control and variant ride in meta so the row can pick its icon at paint time.
-        leaf.meta = {
-          ...(leaf.meta ?? {}),
-          ...(game?.speed ? { speed: String(game.speed) } : {}),
-          ...(game?.variant ? { variant: String(game.variant) } : {}),
-        };
-        if (name && String(leaf.meta?.nameTemp ?? '') == 'page') {
-          leaf.label = name;
-          delete leaf.meta.nameTemp;
+        for (const leaf of copies)
+          this.hydrateLeaf(leaf, {
+            label: name || undefined,
+            meta: {
+              ...(game?.speed ? { speed: String(game.speed) } : {}),
+              ...(game?.variant ? { variant: String(game.variant) } : {}),
+            },
+            dataName: true,
+          });
+        this.save();
+        this.onChange();
+      })();
+    }
+
+    // A profile the tree holds but no page named (a dragged user link, a coach or a streamer route)
+    // asks the api for its own facts: the title the site puts on the handle, the flair it wears,
+    // the ratings it holds and the day it joined. The row paints the title and the flair; the
+    // ratings and the join date answer the tooltip, while the **card** the site itself shows is
+    // asked for as the row renders (see `powertip.manualUser`).
+    // The blog of such a user asks the same read for its author - the page spells the author as
+    // "CM HandKnit", a title before the handle - and takes only the two facts a blog can wear,
+    // since a blog holds no ratings of its own.
+    async requestUserRead(entry) {
+      const lt = this.lichessTools;
+      const api = lt?.api?.user;
+      if (!api?.getUsers) return;
+      if (!entry?.id) return;
+      this.userReads ??= new Set();
+      if (this.userReads.has(entry.id)) return;
+      this.userReads.add(entry.id);
+      return (async () => {
+        let users;
+        try {
+          users = await api.getUsers([String(entry.id)]);
+        } catch (failure) {
+          this.userReads.delete(entry.id);
+          return;
         }
+        const profile = (users ?? []).find((user) => user?.id === entry.id) ?? users?.[0];
+        const copies = this.leavesWith(entry?.kind, entry?.id);
+        if (!copies.length || !profile) {
+          this.userReads.delete(entry.id);
+          return;
+        }
+        // The six controls the site lists first, in the order it lists them, and only the ones it
+        // really has a rating for - unless the row is a blog, which wears no ratings of its own.
+        const ownerOnly = copies[0].kind == 'blog';
+        const ratings = ownerOnly ? [] : ['blitz', 'rapid', 'classical', 'bullet', 'ultrabullet', 'correspondence']
+          .map((key) => {
+            const perf = profile?.perfs?.[key];
+            if (!perf?.rating || !Number(perf?.games)) return undefined;
+            return { type: speedWords[key], games: Number(perf.games), value: String(perf.rating) };
+          })
+          .filter(Boolean);
+        const flair = profile?.flair ?? profile?.profile?.flair;
+        for (const leaf of copies)
+          this.hydrateLeaf(leaf, {
+            meta: {
+              ...(profile?.title ? { title: String(profile.title) } : {}),
+              ...(flair ? { flair: String(flair) } : {}),
+              ...(ratings.length ? { ratings } : {}),
+              ...(!ownerOnly && Number(profile?.createdAt) > 0 ? { joined: localTime(lt, profile.createdAt) } : {}),
+            },
+            dataName: true,
+          });
         this.save();
         this.onChange();
       })();
@@ -1882,7 +2196,9 @@
       const out = [];
       const init = this.pageInitBlob();
       const initStudy = init?.study;
-      const initChapter = init?.chapter;
+      // The blob nests the chapter the page shows inside the study it belongs to, so a top-level
+      // `chapter` is the older spelling kept for pages that still spell it there.
+      const initChapter = init?.chapter ?? initStudy?.chapter;
       const analysis = lt.lichess?.analysis;
       const analysisStudy = analysis?.study;
       const analysisPath = analysis?.path;
@@ -1906,11 +2222,26 @@
         studyId = analysisStudy.data.id;
         studyLabel = analysisStudy?.data?.name || '';
       }
-      if (studyId) out.push({ kind: 'study', id: studyId, label: studyLabel });
+      if (studyId)
+        out.push({
+          kind: 'study',
+          id: studyId,
+          label: studyLabel,
+          // The study page names its own flair and owner; both ride in meta for the popup and
+          // the flair image, and a blob that shows neither leaves the row undressed.
+          meta: {
+            ...(initStudy?.flair ? { flair: String(initStudy.flair) } : {}),
+            ...(initStudy?.ownerId || initStudy?.userId
+              ? { ownerId: String(initStudy.ownerId ?? initStudy.userId) }
+              : {}),
+          },
+        });
       let chapterId; let chapterLabel = '';
+      let chapterTrapped;
       if (!broadcastMatch && initChapter?.id) {
         chapterId = initChapter.id;
         chapterLabel = initChapter.name || '';
+        chapterTrapped = initChapter.isTrapped;
       } else {
         const urlChapter = /^\/study\/[a-zA-Z0-9]{8}\/([a-zA-Z0-9]{8})/.exec(lt.location?.pathname || '');
         if (urlChapter) chapterId = urlChapter[1];
@@ -1923,6 +2254,7 @@
           if (current?.id) {
             chapterId = current.id;
             chapterLabel = current.name || '';
+            chapterTrapped = current.isTrapped;
           }
         } catch (ignored) {}
       }
@@ -1933,7 +2265,7 @@
         if (own?.name) chapterLabel = own.name;
       }
       if (chapterId && studyId)
-        out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId } });
+        out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId, ...(chapterTrapped === true ? { playable: true } : {}) } });
       // A page that is not a study still names its own object, so Add on any page files what
       // the page is about: a profile page names the player (`@/Name` is the modern shape and
       // the quoted `/'Name'` the legacy one), a training page names the puzzle, a game page
@@ -1945,34 +2277,128 @@
       // profile shape never swallows the routes that hang off a user.
       const route = lt.location?.pathname || '';
       const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(route) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(route);
-      if (blogPost?.[3])
-        out.push({ kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || undefined, meta: { userId: blogPost[1], slug: blogPost[2] } });
+      if (blogPost?.[3]) {
+        // The post names itself on its own page: the heading is the title, the standfirst under it
+        // is the subtitle, and the picture the post opened with is its image - the classes lila
+        // names on those three, with the older block shapes kept as fallbacks.
+        const foundHeading = lt.$('h1.ublog-post__title');
+        const heading = foundHeading.length ? foundHeading : lt.$('.topic-import h1');
+        const subhead = lt.$('strong.ublog-post__intro');
+        const foundPicture = lt.$('img.ublog-post__image');
+        const picture = foundPicture.length ? foundPicture : lt.$('.ublog-post__markup img');
+        const headingText = heading.length ? String(heading.text() ?? '').trim() : '';
+        const subheadText = subhead.length ? String(subhead.text() ?? '').trim() : '';
+        const imageUrl = picture.length ? String(this.domAttr(picture, 'src') ?? '') : '';
+        out.push({
+          kind: 'blogPost',
+          id: blogPost[3],
+          label: headingText || this.humaniseSlug(blogPost[2]) || undefined,
+          meta: {
+            userId: blogPost[1],
+            slug: blogPost[2],
+            ...(headingText ? { title: headingText } : { nameTemp: 'slug' }),
+            ...(subheadText ? { subtitle: subheadText } : {}),
+            ...(imageUrl ? { image: imageUrl } : {}),
+          },
+          ...(headingText ? { dataName: true } : {}),
+        });
+      }
       const blog = /^\/'([^']+)\/blog'?$/.exec(route) || /^\/@\/([^/]+)\/blog$/.exec(route);
-      if (blog?.[1]) out.push({ kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1] } });
+      if (blog?.[1]) out.push({ kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], nameTemp: 'slug' } });
       const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(route);
-      if (forumPost?.[2])
-        out.push({ kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || undefined, meta: { board: forumPost[1] } });
+      if (forumPost?.[2]) {
+        // A thread names itself with its subject on its own page - the route's slug is only a
+        // truncated echo of it - and the first profile link under the posts is the writer the
+        // page shows, which no slug carries.
+        const subject = this.pageTitle();
+        const poster = this.threadPoster();
+        out.push({
+          kind: 'forumPost',
+          id: forumPost[2],
+          label: subject || this.humaniseSlug(forumPost[2]) || undefined,
+          meta: {
+            board: forumPost[1],
+            ...(poster ? { author: poster } : {}),
+            ...(subject ? {} : { nameTemp: 'slug' }),
+          },
+          ...(subject ? { dataName: true } : {}),
+        });
+      }
       const forum = /^\/forum\/([a-z0-9][a-z0-9-]*)$/.exec(route);
-      if (forum?.[1]) out.push({ kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: {} });
+      if (forum?.[1]) out.push({ kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: { nameTemp: 'slug' } });
       const coach = /^\/coach\/([a-zA-Z0-9_.-]+)$/.exec(route);
-      if (coach?.[1]) out.push({ kind: 'coach', id: coach[1], label: coach[1], meta: {} });
+      if (coach?.[1]) out.push({ kind: 'coach', id: coach[1], label: coach[1], meta: { nameTemp: 'slug' } });
       const streamer = /^\/streamer\/([a-zA-Z0-9_.-]+)$/.exec(route);
-      if (streamer?.[1]) out.push({ kind: 'streamer', id: streamer[1], label: streamer[1], meta: {} });
+      if (streamer?.[1]) out.push({ kind: 'streamer', id: streamer[1], label: streamer[1], meta: { nameTemp: 'slug' } });
       const team = /^\/team\/([^\/?#]+)$/.exec(route);
-      if (team?.[1] && decodeURIComponent(team[1]).toLowerCase() !== 'me')
-        out.push({ kind: 'team', id: decodeURIComponent(team[1]), label: decodeURIComponent(team[1]), meta: {} });
-      const tournament = /^\/tournament\/([a-zA-Z0-9]{8})$/.exec(route);
-      if (tournament?.[1]) {
+      if (team?.[1] && decodeURIComponent(team[1]).toLowerCase() !== 'me') {
+        // A team page carries the name and the flair a route can only spell: the title block
+        // (`div.box__top h1.text`, the flair img inside it) names the team and says how many members
+        // it has. The name it spells is the item's own, so it clears the waiting `slug` marker.
+        const teamId = decodeURIComponent(team[1]);
+        const title = lt.$('div.box__top h1.text').eq(0);
+        const facts = title.length ? this.teamFacts(title) : { name: '', flair: '' };
+        const count = lt.$('div.box__top div strong').eq(0);
+        const parsed = Number(String(count.length ? count.text() : '').replace(/[^0-9]/g, ''));
+        out.push({
+          kind: 'team',
+          id: teamId,
+          label: facts.name || teamId,
+          meta:
+            {
+              ...(facts.flair ? { flair: facts.flair } : {}),
+              ...(Number.isFinite(parsed) ? { members: parsed } : {}),
+              ...(facts.name ? {} : { nameTemp: 'slug' }),
+            },
+          ...(facts.name ? { dataName: true } : {}),
+        });
+      }
+      const tournament = /^\/(tournament|swiss)\/([a-zA-Z0-9]{8})$/.exec(route);
+      if (tournament?.[2]) {
         const tourneyData = init?.data;
-        const tourneyName = String(tourneyData?.fullName ?? '');
+        // The two routes spell the same item differently: an arena names its ladder `fullName` and
+        // opens it at a `createdAt` epoch, a swiss names it `name`, opens it at an ISO `startsAt`
+        // and says how it ended under `status`. Both spellings are read, and a page whose blob
+        // names no ladder at all falls back to the title its own tab spells - the site's own words
+        // are never a name.
+        const tourneyTitle = this.pageTitle();
+        const tourneyName = String(tourneyData?.fullName ?? '') ||
+          String(tourneyData?.name ?? '') ||
+          (tourneyTitle && !/lichess/i.test(tourneyTitle) ? tourneyTitle : '');
+        // A swiss start is an ISO date, an arena start an epoch; either way the row prints the day
+        // the ladder opened.
+        const tourneyStarts = Number(tourneyData?.createdAt) > 0 ? Number(tourneyData.createdAt) :
+          Date.parse(String(tourneyData?.startsAt ?? ''));
+        // The standing the page showed is the ladder's own one-page window; keeping it as the page
+        // spelled it (name, flair, rating) is what the tooltip reads back. A swiss hangs the three
+        // under the player's own `user`, an arena spells them on the card.
+        const standing = [...(tourneyData?.standing?.players ?? tourneyData?.standings?.players ?? [])]
+          .map((card) => {
+            const owner = card?.user ?? card;
+            return {
+              ...(String(owner?.name ?? '').length ? { name: String(owner.name) } : {}),
+              ...(owner?.flair ? { flair: String(owner.flair) } : {}),
+              ...(Number(card?.rating) || card?.rating === 0 ? { rating: Number(card.rating) } : {}),
+            };
+          })
+          .filter((card) => card?.name?.length)
+          .slice(0, 20);
         out.push({
           kind: 'tournament',
-          id: String(tourneyData?.id ?? tournament[1]),
-          label: tourneyName || tournament[1],
+          id: String(tourneyData?.id ?? tournament[2]),
+          label: tourneyName || tournament[2],
           meta: {
+            // The route says how the ladder runs; the blob says nothing about it.
+            system: tournament[1] == 'swiss' ? 'swiss' : 'arena',
             ...(tourneyData?.perf?.key ? { perf: String(tourneyData.perf.key) } : {}),
             ...(tourneyData?.variant ? { variant: String(tourneyData.variant) } : {}),
             ...(tourneyData?.nbPlayers !== undefined ? { nbPlayers: Number(tourneyData.nbPlayers) } : {}),
+            ...(Number.isFinite(tourneyStarts) && tourneyStarts > 0 ? { startsAt: tourneyStarts } : {}),
+            // A ladder that has already finished has no start left to show - the row keeps only
+            // its name and its mark. A swiss says so under `status`, an arena with a flag.
+            ...(tourneyData?.isFinished === true ||
+              String(tourneyData?.status ?? '').toLowerCase() == 'finished' ? { finished: true } : {}),
+            ...(standing.length ? { standing } : {}),
             ...(tourneyName ? {} : { nameTemp: 'page' }),
           },
           ...(tourneyName ? { dataName: true } : {}),
@@ -2037,29 +2463,65 @@
       // A relay page names its pair instead: the relay itself comes from the slug, and the
       // url reaching the underlying study (or the relay analysis saying which study is on)
       // names the game of this round. The route rides in `meta` so the open stays on the
-      // broadcast page; without a name in the analysis the link text waits as `page` like
-      // a study's does.
+      // broadcast page. A relay's rounds all name themselves "Round <n>", and every board of a
+      // round is one game of that round, so the row wears the chapter the round's study plays -
+      // usually the two players - while the relay and the round answer in the tooltip.
       if (broadcastMatch) {
-        const gameId = broadcastMatch[3] || (broadcastMatch[2] ? analysisStudy?.data?.id : undefined);
-        const gameName = gameId ? String(analysisStudy?.data?.name ?? '') : '';
+        const roundSpelling = broadcastMatch[3] || (broadcastMatch[2] ? analysisStudy?.data?.id : undefined);
+        // A round builds every board of one round from a single study, so the study alone cannot
+        // key the rows - it would fold the boards into one. The board's own chapter keys its leaf
+        // (the route names it, or the page is reading it when the route stops short), and the study
+        // the route opens with rides under `roundId` so the open jump spells the round's address.
+        // A round page that names no board at all - the relay's own model game - keeps the study.
+        const pageBoard = broadcastMatch[4] ||
+          (!broadcastMatch[3] && broadcastMatch[2] ? initChapter?.id : undefined);
+        const boardKey = pageBoard || roundSpelling;
+        // The chapter the page is reading is the board this page is about, so its name is the
+        // row's; a page that names no board has no chapter name to spend on the row.
+        const boardChapterName = pageBoard && pageBoard === initChapter?.id
+          ? String(initChapter?.name ?? '')
+          : '';
+        const relayName = this.humaniseSlug(broadcastMatch[1]);
+        // The relay's own title answers in words; the slug humanised is what the route spells when
+        // the page shows no title of its own. The flag saying "this study is a relay" rides beside
+        // the study data, and so does the relay's own name.
+        const relayWord = String(
+          analysisStudy?.relay?.name ?? analysisStudy?.relay?.group ??
+          analysisStudy?.data?.relay?.name ?? analysisStudy?.data?.relay?.group ?? '',
+        ) || relayName;
         out.push({
           kind: 'broadcast',
           id: broadcastMatch[1],
-          label: this.humaniseSlug(broadcastMatch[1]),
+          label: relayWord,
           meta: {},
         });
-        if (gameId)
+        if (boardKey)
           out.push({
             kind: 'broadcastGame',
-            id: gameId,
-            label: gameName || undefined,
+            id: boardKey,
+            // A board is one game of the round, and the study chapter it plays names it - usually
+            // the two players. The relay's own name would repeat on every board of every round, so
+            // it answers in the tooltip instead (see `popupFacts`).
+            label: boardChapterName || relayWord || undefined,
             meta: {
               slug: broadcastMatch[1],
               round: broadcastMatch[2],
-              ...(broadcastMatch[4] ? { chapterId: broadcastMatch[4] } : {}),
-              ...(gameName ? {} : { nameTemp: 'page' }),
+              ...(pageBoard && pageBoard !== roundSpelling
+                ? { chapterId: pageBoard, roundId: roundSpelling }
+                : {}),
+              ...(boardChapterName ? { chapterName: boardChapterName } : {}),
+              ...(relayWord && relayWord !== relayName ? { relay: relayWord } : {}),
+              // The game this board plays rides in meta: the row's key is the chapter, so a visit to
+              // that game page reaches the row through this (see `enrichFromPage`). A playable
+              // chapter the page made up itself spells "synthetic", which is no game id.
+              ...(gameKeyId(init?.data?.game?.id) ? { gameId: gameKeyId(init?.data?.game?.id) } : {}),
+              // A named round reads as words in the popup; the route's own slug stays the relay.
+              ...(broadcastMatch[2] ? { roundLabel: this.humaniseSlug(broadcastMatch[2]) } : {}),
+              // The relay builds each game from an underlying study, and that study says when it
+              // opened - the round's own date.
+              ...(Number(analysisStudy?.data?.createdAt) > 0 ? { playedAt: Number(analysisStudy.data.createdAt) } : {}),
             },
-            ...(gameName ? { dataName: true } : {}),
+            ...(boardChapterName || relayWord ? { dataName: true } : {}),
           });
       }
       if (pageGame?.game?.id) {
@@ -2074,6 +2536,16 @@
         const pageKey = gameKeyId(pageGame.game.id) || gameKey;
         const speed = gameSpeedOf(pageGame.game);
         const variant = gameVariantOf(pageGame.game);
+        // The control the page shows is the PGN's own spelling: initial plus increment, the way
+        // the export writes the TimeControl tag; a clock with a missing half has nothing to spell.
+        const clock = pageGame.game?.clock;
+        const timeControl = clock?.initial !== undefined && clock?.increment !== undefined
+          ? clock.initial + '+' + clock.increment
+          : undefined;
+        // The page names the ending in its own words; a bare status id says nothing to a row.
+        const statusName = typeof pageGame.game?.status == 'string'
+          ? String(pageGame.game.status)
+          : typeof pageGame.game?.status?.name == 'string' ? String(pageGame.game.status.name) : '';
         if (pageKey)
           out.push({
             kind: 'game',
@@ -2082,6 +2554,16 @@
             meta: {
               ...(speed ? { speed } : {}),
               ...(variant ? { variant } : {}),
+              ...(timeControl ? { timeControl } : {}),
+              ...(pageGame.game?.rated === true ? { rated: true } : {}),
+              ...(statusName ? { result: statusName } : {}),
+              ...(Number(pageGame.game?.createdAt) > 0 ? { playedAt: Number(pageGame.game.createdAt) } : {}),
+              // The position the game ended on rides along so the hover can paint the mini-board
+              // the row's facts are read from: the blob spells it when the page does, and while the
+              // game sits under the analysis, the view names the node the board stopped on.
+              ...(String(pageGame.game?.fen ?? boardFen ?? '').length
+                ? { fen: String(pageGame.game?.fen ?? boardFen) }
+                : {}),
             },
             dataName: true,
           });
@@ -2100,6 +2582,23 @@
       // and the later page-data leaf replaces the earlier url one, so Add offers each row once.
       const byShape = new Map();
       for (const leaf of out) byShape.set(leaf.kind + '|' + leaf.id, leaf);
+      // A page whose route the table knows nothing about is still a page the user can file: the
+      // url leaf is named by the page's own title, and the row follows that title on every visit.
+      // A route the table deliberately calls nameless (a list of the user's own teams) stays nameless.
+      if (!byShape.size) {
+        const route = this.lichessRoute(lt.location?.pathname || '');
+        const title = this.pageTitle();
+        if (route && !/^\/team\/(me|all|leader)$/.test(route))
+          byShape.set('url|' + route, {
+            kind: 'url',
+            id: route,
+            // The row wears the title its own page gave - a route is not a name. A page that
+            // spells no title leaves the route standing, and every visit re-titles the row.
+            label: title || route,
+            meta: { url: route, ...(title ? { title } : {}) },
+            ...(title ? { dataName: true } : {}),
+          });
+      }
       return [...byShape.values()];
     }
 
@@ -2130,6 +2629,7 @@
         [/^\/streamer\/.+$/, 'streamer'],
         [/^\/team\/(?!me\/?$).+$/, 'team'],
         [/^\/tournament\/[a-zA-Z0-9]{8}$/, 'tournament'],
+        [/^\/swiss\/[a-zA-Z0-9]{8}$/, 'tournament'],
         [/^\/@\/[^\/?]+$/, 'player'],
         [/^\/'[^'\/]+'$/, 'player'],
         [/^\/analysis\//, 'position'],
@@ -2139,36 +2639,182 @@
       return undefined;
     }
 
+    // The one writer every source goes through. A title is temporary until the user chose one: a
+    // name the item answered for itself replaces a page text or a slug, and a hand rename outranks
+    // every pass - only the data keys grow there. A source that names nothing about a row leaves
+    // it alone, and meta merges key by key, so a key the source does not show stays as it was.
+    hydrateLeaf(existing, incoming) {
+      if (!existing || !incoming) return false;
+      const renamed = existing.meta?.renamed !== undefined;
+      let changed = false;
+      if (incoming.label && incoming.label !== existing.label && !renamed) {
+        existing.label = String(incoming.label);
+        // A name the item answered for itself is no longer a title that waits.
+        if (incoming.dataName === true && existing.meta) delete existing.meta.nameTemp;
+        changed = true;
+      }
+      // A fact that spells as a list (a standings block, a ratings set) is worth keeping whole, so
+      // it is worth writing only when its **content** differs - comparing objects by identity would
+      // rewrite the same block on every visit and make each visit look like a change.
+      const sameFact = (left, right) =>
+        left === right ||
+        (typeof left == 'object' && typeof right == 'object' &&
+          JSON.stringify(left) === JSON.stringify(right));
+      const fresh = {};
+      for (const key of Object.keys(incoming.meta ?? {}))
+        if (incoming.meta[key] !== undefined && !sameFact(existing.meta?.[key], incoming.meta[key]))
+          fresh[key] = incoming.meta[key];
+      if (Object.keys(fresh).length) {
+        existing.meta = { ...(existing.meta ?? {}), ...fresh };
+        changed = true;
+      }
+      return changed;
+    }
+
+    // What a team element spells: its own text with the list marker (`<em>leader</em>`) taken off,
+    // and the flair img it carries. The name and the flair a team page title or a list row shows.
+    teamFacts(el) {
+      const lt = this.lichessTools;
+      // The clone is what gets read: the marker is taken off the copy, so the row's own text keeps
+      // whatever the page put around it.
+      const kept = lt.$(el).clone();
+      const marks = kept.children('em');
+      if (marks.length) marks.remove();
+      const name = String(kept.text() ?? '').replace(/\s+/g, ' ').trim();
+      const src = lt.$(el).find('img.uflair').attr('src');
+      return { name, flair: src ? String(src) : '' };
+    }
+
+    // What the page says about teams, in the shapes that carry a name no url can guess: the page's
+    // own title block (`div.box__top h1.text`, member count under it) and every list row
+    // (`td.subject a.team-name` on the leader and all lists, `div.teams a` on a profile). Each row
+    // is keyed by its route so it can be matched to a leaf the tree already holds; these are data
+    // names, so they may clear a waiting marker.
+    pageTeamRows() {
+      const lt = this.lichessTools;
+      const idOf = (href) => {
+        const at = /^\/team\/([^\/?#]+)(?:\/.*)?/.exec(String(href || '').split('#')[0]);
+        if (!at?.[1]) return undefined;
+        const id = decodeURIComponent(at[1]);
+        // `/team/me` is the list of the current user's teams, never a team called `me`.
+        return id && id.toLowerCase() !== 'me' ? id : undefined;
+      };
+      const rows = [];
+      const own = /^\/team\/([^\/?#]+)$/.exec(lt.location?.pathname || '');
+      const title = lt.$('div.box__top h1.text').eq(0);
+      if (own?.[1] && title.length) {
+        const facts = this.teamFacts(title);
+        const count = lt.$('div.box__top div strong').eq(0);
+        const members = Number(String(count.length ? count.text() : '').replace(/[^0-9]/g, ''));
+        rows.push({
+          id: decodeURIComponent(own[1]),
+          label: facts.name || undefined,
+          meta: { ...(facts.flair ? { flair: facts.flair } : {}), ...(Number.isFinite(members) ? { members } : {}) },
+          dataName: true,
+        });
+      }
+      const list = lt.$('td.subject a.team-name, div.teams a');
+      for (let i = 0; i < list.length; i++) {
+        const at = list.eq(i);
+        const id = idOf(this.domAttr(at, 'href'));
+        if (!id) continue;
+        const facts = this.teamFacts(at);
+        if (!facts.name && !facts.flair) continue;
+        rows.push({ id, label: facts.name || undefined, meta: { ...(facts.flair ? { flair: facts.flair } : {}) }, dataName: true });
+      }
+      return rows;
+    }
+
     // What the page shows about a leaf the tree already holds rides into that leaf, so visits
     // enrich instead of merely re-offering: a study visit renames the row from the mirror, a
-    // profile visit re-reads the panel fields, a training visit names the puzzle. Only fields
-    // the page actually names overwrite; anything it does not show stays as it was.
+    // profile visit re-reads the panel fields, a training visit names the puzzle, a team page or a
+    // teams list brings the name and the flair the url never carried. Only fields the page actually
+    // names overwrite; anything it does not show stays as it was.
     enrichFromPage() {
       let changed = false;
-      for (const leaf of this.resolvePageLeaves()) {
-        const existing = this.findLeaf(leaf.kind, leaf.id);
-        if (!existing) continue;
-        if (leaf.label && leaf.label !== existing.label) {
-          existing.label = leaf.label;
-          // A name the page read off its own data is not the waiting page text any more.
-          if (leaf.dataName === true && existing.meta) delete existing.meta.nameTemp;
+      const pageLeaves = this.resolvePageLeaves();
+      for (const leaf of pageLeaves)
+        for (const held of this.leavesWith(leaf.kind, leaf.id))
+          if (this.hydrateLeaf(held, leaf)) changed = true;
+      // A relay board keys on the chapter it plays, so a visit to the game it plays finds it through
+      // the game id its board page recorded. The facts that game shows are the board's own; the row
+      // keeps the chapter name, since that is what tells the boards of a round apart.
+      const gameLeaf = pageLeaves.find((leaf) => leaf.kind === 'game');
+      if (gameLeaf?.id)
+        for (const held of this.leavesCarrying('broadcastGame', 'gameId', gameLeaf.id))
+          if (this.hydrateLeaf(held, { meta: gameLeaf.meta, dataName: true })) changed = true;
+      // A list page names rows without offering them to Add: a team on the list that the tree holds
+      // gets its real name and flair, and a row the tree does not hold is left out - browsing a
+      // list of teams files nothing.
+      for (const row of this.pageTeamRows())
+        for (const held of this.leavesWith('team', row.id))
+          if (this.hydrateLeaf(held, row)) changed = true;
+      // A url row **is** a route, so the page it opens names it again on every visit: whatever the
+      // page turns out to be, its title is the name the row wears and the fact the row keeps fresh.
+      const lt = this.lichessTools;
+      const pageName = this.pageTitle();
+      for (const heldRoute of this.leavesWith('url', this.lichessRoute(lt.location?.pathname || '') ?? '')) {
+        if (pageName && heldRoute.meta?.title !== pageName &&
+          this.hydrateLeaf(heldRoute, { label: pageName, meta: { title: pageName }, dataName: true }))
           changed = true;
-        }
-        let fresh = {};
-        for (const key of Object.keys(leaf.meta ?? {}))
-          if (leaf.meta[key] !== undefined && existing.meta?.[key] !== leaf.meta[key])
-            fresh[key] = leaf.meta[key];
-        if (Object.keys(fresh).length) {
-          existing.meta = { ...(existing.meta ?? {}), ...fresh };
-          changed = true;
-        }
       }
       if (!changed) return false;
       this.save();
-      this.message = 'enrichedFromPage';
-      this.messageCount = undefined;
       this.onChange();
       return true;
+    }
+
+    // A team leaf that arrives with no page to name it (a drag of a team link) asks the item for its
+    // own facts: the team page carries the name, the flair and the member count, and the api read
+    // answers the name and the count when the page does not. A read that answers nothing leaves the
+    // leaf waiting, so a later visit or open asks again.
+    requestTeamName(entry) {
+      const lt = this.lichessTools;
+      if (!entry?.id) return;
+      this.teamReads ??= new Set();
+      if (this.teamReads.has(entry.id)) return;
+      this.teamReads.add(entry.id);
+      return (async () => {
+        let facts = { name: '', flair: '' };
+        let members;
+        try {
+          const page = lt?.net?.fetch
+            ? await lt.net.fetch({ url: '/team/{teamId}', args: { teamId: String(entry.id) } }, { ignoreStatuses: [404] })
+            : undefined;
+          if (page) {
+            const title = lt.$(page).find('h1.text').eq(0);
+            if (title.length) facts = this.teamFacts(title);
+            const count = lt.$(page).find('div strong').eq(0);
+            const parsed = Number(String(count.length ? count.text() : '').replace(/[^0-9]/g, ''));
+            if (Number.isFinite(parsed)) members = parsed;
+          }
+        } catch (failure) {
+          facts = { name: '', flair: '' };
+        }
+        if (!facts.name && lt?.api?.team?.getTeam) {
+          try {
+            const data = await lt.api.team.getTeam(String(entry.id));
+            if (data?.name) {
+              facts = { name: String(data.name), flair: String(data?.flair ?? '') };
+              const rawMembers = data?.nbMembers ?? data?.count;
+              if (Number.isFinite(Number(rawMembers))) members = Number(rawMembers);
+            }
+          } catch (failure) {}
+        }
+        const copies = this.leavesWith('team', entry.id);
+        if (!copies.length || (!facts.name && !facts.flair)) {
+          this.teamReads.delete(entry.id);
+          return;
+        }
+        for (const leaf of copies)
+          this.hydrateLeaf(leaf, {
+            label: facts.name || undefined,
+            meta: { ...(facts.flair ? { flair: facts.flair } : {}), ...(members !== undefined ? { members } : {}) },
+            dataName: true,
+          });
+        this.save();
+        this.onChange();
+      })();
     }
 
     findLeaf(kind, id, nodes = this.entries) {
@@ -2178,6 +2824,29 @@
         if (found) return found;
       }
       return undefined;
+    }
+
+    // Every copy the tree holds for one kind and id. A filing of an item the tree already has,
+    // landed under a **different** parent, leaves that item in more than one place (the same game
+    // in two folders), so a pass that reads the item itself - a visit, a list row, an api read the
+    // row asked for - answers each copy rather than the first one the walk happens to meet.
+    leavesWith(kind, id, nodes = this.entries, found = []) {
+      for (const node of nodes) {
+        if (node.kind == kind && node.id === id) found.push(node);
+        this.leavesWith(kind, id, node.children || [], found);
+      }
+      return found;
+    }
+
+    // A leaf can name another item inside its own meta - a relay board keys on the chapter it plays
+    // and keeps the game it plays under `gameId` - so a page about that other item finds the leaf by
+    // the meta it carries rather than by its key. Every copy answers, like every other read.
+    leavesCarrying(kind, metaKey, value, nodes = this.entries, found = []) {
+      for (const node of nodes) {
+        if (node.kind == kind && node.meta?.[metaKey] === value) found.push(node);
+        this.leavesCarrying(kind, metaKey, value, node.children || [], found);
+      }
+      return found;
     }
 
     canAdd() {
@@ -2212,8 +2881,11 @@
     // The one flow: file the leaf, harvest it so the new row is searchable, save once. `addLeaf`
     // also moves the leaf when the tree already holds it, so a re-Add never duplicates.
     async addLeaf(leaf) {
+      // `dataName` is a flag the page read carries to say the name came from the item's own data;
+      // it is spent on the way in and never belongs to the tree.
+      if (leaf) delete leaf.dataName;
       const selected = [...this.selected];
-      const parent = selected.length === 1 ? selected[0] : undefined;
+      let parent = selected.length === 1 ? selected[0] : undefined;
       // Refuse a self-parent before the move: putting the study the page names inside itself
       // would leave a cycle the tree walk could never come out of.
       const parentIsLeafSelf =
@@ -2222,18 +2894,37 @@
         this.message = 'addSelfParent';
         return false;
       }
+      // A contained kind names the item that carries it, so filing one while a **different** row
+      // is selected lands it beside its carrier rather than inside that row: two boards of the
+      // same relay then join as siblings of the relay, instead of one hiding under the other.
+      const carriedBy = this.registry[leaf.kind]?.containment;
+      const carrierKey = carriedBy ? containedCarrier[leaf.kind] : undefined;
+      const carrierId = carrierKey ? leaf?.meta?.[carrierKey] : undefined;
+      const carrier = carriedBy && carrierId ? this.findLeaf(carriedBy, carrierId) : undefined;
+      if (carrier && parent && parent !== carrier && !this.folder(parent) && parent.kind !== carriedBy)
+        parent = this.contains(leaf, carrier) ? undefined : carrier;
+      // A filing that would seat an item inside its own branch would eat the rows under it, so a
+      // copy of something the tree already holds may not hang under a parent that lives inside it.
+      const existing = this.findLeaf(leaf.kind, leaf.id);
+      if (existing && parent && this.contains(existing, parent)) {
+        this.message = 'addSelfParent';
+        return false;
+      }
       this.pushUndo();
       // A leaf that names a leaf parent carries `parentId` so a split and merge re-hang it under
-      // that parent on the next page. A folder parent needs nothing - folders join by name.
-      const parentMeta = parent && !this.folder(parent) ? { parentId: parent.id } : {};
-      // Adding a leaf already in the tree **moves** it - never a duplicate.
-      const existing = this.findLeaf(leaf.kind, leaf.id);
-      if (existing) {
+      // that parent on the next page - `stampParent` writes it for both the moved leaf and the new
+      // one. A folder parent needs nothing: folders join by name in every branch.
+      // An item the tree already holds moves when the filing lands among the siblings it has now -
+      // a twin beside its own copy would say nothing - and when nothing was selected at all, which
+      // names no new home. Filed under an **explicit** parent that is not its current one it joins
+      // as a copy there and leaves the original in place: the same game can sit in two folders, and
+      // every visit later dresses each copy the tree holds.
+      if (existing &&
+        (!parent || this.siblings(existing) === (parent?.children ?? this.entries))) {
         const siblings = this.siblings(existing);
         const at = siblings ? siblings.indexOf(existing) : -1;
         if (at >= 0) siblings.splice(at, 1);
-        if (parentMeta) existing.meta = { ...existing.meta ?? {}, ...parentMeta };
-        else if (existing.meta?.parentId) existing.meta = { ...existing.meta, parentId: undefined };
+        this.stampParent(existing, parent);
         // A leaf parent starts without a `children` array, so open one before the first push -
         // otherwise `parent?.children ?? this.entries` reads as the root and the leaf lands at
         // the top of the tree instead of under its parent.
@@ -2245,7 +2936,7 @@
         this.save();
         return true;
       }
-      if (parentMeta) leaf.meta = { ...(leaf.meta ?? {}), ...parentMeta };
+      this.stampParent(leaf, parent);
       if (parent && !parent.children) parent.children = [];
       (parent?.children ?? this.entries).push(leaf);
       // Opening the parent keeps the new leaf visible on the page that filed it. For a folder
@@ -2314,16 +3005,17 @@
       return folder;
     }
 
-    // One leaf drops that leaf; one folder drops the folder and its whole subtree. The prune
-    // already did it top-down and rebuilt each folder children, so an emptied folder stays
-    // empty.
+    // One leaf drops that leaf; one folder drops the folder and its whole subtree. A **leaf that
+    // owns children** (a study over its chapters, a game over a puzzle) is pruned into as well -
+    // only `folder` tells a kind-less node apart, so walking folders alone would leave a selected
+    // child sitting inside its leaf parent.
     removeSelected() {
       this.pushUndo();
       const prune = (nodes) =>
         nodes
           .filter((node) => !this.selected.has(node))
           .map((node) => {
-            if (this.folder(node)) node.children = prune(node.children || []);
+            if (node.children) node.children = prune(node.children);
             return node;
           });
       this.entries = prune(this.entries);
@@ -2372,22 +3064,34 @@
       this.collapsed = at(state.collapsed);
       this.refreshCaches();
       this.save();
-      this.message = 'undoRestored';
-      this.messageCount = undefined;
       return true;
     }
 
-    // The number handed to the confirm is the leaves + folders being unfiled.
+    // The number handed to the confirm is every item the press takes away: a folder carries its
+    // branch, and a leaf that owns children carries them too. A node inside another selected node
+    // is counted once, with that node.
     countSelected() {
-      const subtree = (node) =>
-        (this.folder(node) ? 1 : 0) + (node?.children || []).reduce((sum, child) => sum + subtree(child), 0);
-      let leaves = 0;
-      let folders = 0;
+      const insideSelected = (node) => {
+        const visit = (nodes, ancestors) => {
+          for (const at of nodes || []) {
+            if (at === node) return ancestors.some((anc) => this.selected.has(anc));
+            if (visit(at.children || [], [...ancestors, at])) return true;
+          }
+          return false;
+        };
+        return visit(this.entries, []);
+      };
+      const tally = (node, acc) => {
+        if (this.folder(node)) acc.folders++;
+        else acc.leaves++;
+        for (const child of node?.children || []) tally(child, acc);
+      };
+      const acc = { leaves: 0, folders: 0 };
       for (const node of this.selected) {
-        if (this.folder(node)) folders += subtree(node);
-        else leaves++;
+        if (insideSelected(node)) continue;
+        tally(node, acc);
       }
-      return { leaves, folders, total: leaves + folders };
+      return { leaves: acc.leaves, folders: acc.folders, total: acc.leaves + acc.folders };
     }
 
     // `dialog.confirm` is the mechanism other option tools use, and its reachability from a
@@ -2482,6 +3186,7 @@
         node.kind == 'game' &&
         (String(node.meta?.nameTemp ?? '') == 'page' || !(node.meta?.speed || node.meta?.variant))
       ) await this.requestGameName(node);
+      else if (profilePending(node)) await this.requestUserRead(node);
       const lt = this.lichessTools;
       const studyId = node.kind == 'study' ? node.id : node.meta?.studyId;
       if (studyId) lt.storage.set(treeHandoffKey, { studyId, at: Date.now() }, { session: true });
@@ -2506,6 +3211,17 @@
             if (target) {
               analysis.userJump?.(target.path ?? nodePath);
               lt.analysisRedraw?.();
+              if (node.meta?.nodeMissing !== undefined) {
+                node.meta = { ...node.meta };
+                delete node.meta.nodeMissing;
+                this.save();
+              }
+            } else if (analysis.tree?.nodeAtPath) {
+              // The chapter is on the page but the move the leaf names is not in it any more: the
+              // stamp is what the tooltip reads, so the row says where the landing differs from
+              // what it promised instead of landing silently at the chapter root.
+              node.meta = { ...node.meta ?? {}, nodeMissing: true };
+              this.save();
             }
           }
         }
@@ -2563,9 +3279,13 @@
       this.pushUndo();
       if (this.folder(node)) node.name = trimmed;
       else node.label = trimmed;
-      // A hand-written name waits for nothing: the marker goes, so a later read can only
-      // grow the row's board data - it never talks over the name the user chose.
-      if (node.meta) delete node.meta.nameTemp;
+      // A hand-written name is remembered, not just un-marked: `meta.renamed` outranks every
+      // hydration pass, so a later read can only grow the row's data - the chosen title stands.
+      if (!this.folder(node)) {
+        node.meta = { ...(node.meta ?? {}), renamed: Date.now() };
+        // A renamed title waits for nothing, and `renamed` is what keeps it through hydration.
+        delete node.meta.nameTemp;
+      }
       this.sortTree(this.entries);
       this.save();
       return true;
@@ -2747,21 +3467,8 @@
   }
 
 
-  function studyLink(study, position) {
-    const href = '/study/' + study.studyId + (position?.chapterId ? '/' + position.chapterId : '');
-    return {
-      href,
-      navigate: () => recordsDbInstance.navigation.load(study.studyId, position?.chapterId),
-    };
-  }
-
-
-
   const popupId = 'lichessTools-recordsContentPreview';
   const popupPreviews = new WeakMap();
-  // The chapter links a tooltip shows: the tooltip answers a click through this, so a tooltip
-  // rebuilt on every hover registers one handler for itself rather than one per chapter.
-  const popupLinks = new WeakMap();
   // The pointer leaves a side for one pointer move before it enters the other, so a hide is
   // scheduled and cancelled rather than run. See `schedulePopupHide` below.
   const popupLeaveMs = 150;
@@ -2773,7 +3480,17 @@
 
   function popupData(items, title) {
     if (!items?.length && !title) return undefined;
-    return { items, title, attrs: { tabindex: '0', 'data-popup': popupId } };
+    // Only the mark rides on the content box: the row already wears its own tab stop, so a keyboard
+    // walk still steps row to row instead of stopping twice inside each one.
+    return { items, title, attrs: { 'data-popup': popupId } };
+  }
+
+  // Every node under an element, itself included: the hover checks a content box as one target, so
+  // a pointer over the name, a flair or a date counts as the item it sits on.
+  function popupTargets(node) {
+    const found = [node];
+    for (const kid of node?.children ?? []) found.push(...popupTargets(kid));
+    return found;
   }
 
   function popupNode() {
@@ -2785,18 +3502,9 @@
     if (!body.length) return undefined;
     const fresh = lt.$('<div id="' + popupId + '">');
     // The tooltip is a reading surface, not a decoration - while the pointer sits inside it the
-    // tooltip stays up (that is what lets the wheel scroll a chapter list longer than the box),
+    // tooltip stays up, so a pointer can cross from the row into the reading without losing it,
     // and leaving the tooltip hides the tooltip the pointer just left.
     fresh
-      .on('click', (ev) => {
-        const link = popupLinks.get(ev.target);
-        if (!link) return;
-        const { entry, anchor } = link;
-        if (ev.button || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey || !entry.navigate) return;
-        ev.preventDefault();
-        hideStudyPopup(anchor);
-        entry.navigate();
-      })
       .on('mouseover mousemove', () => {
         // The row's `mouseout` fired first and scheduled the hide; arriving here spends it.
         cancelPopupHide();
@@ -2824,10 +3532,14 @@
     const innerHeight = lt.global.window?.innerHeight || 0;
     // The box is a body child, so these are viewport coordinates: it hangs under the row and is
     // clamped to the page. A floor of 8rem is what gives the wheel something to scroll - a box as
-    // tall as the gap under a low row is a scrollbar over three lines.
+    // tall as the gap under a low row is a scrollbar over three lines. A reading that carries a
+    // board needs the square plus the lines under it, so its floor is raised to fit the square and
+    // the row can sit near the page bottom without cutting the board in half.
+    const boardItem = (items ?? []).some((data) => data?.board === true);
+    const boxFloor = boardItem ? hoverBoardPx + 48 : 160;
     const boxHeight = Math.min(
-      Math.max(160, innerHeight - bounds.bottom - 12),
-      Math.max(160, innerHeight - 16),
+      Math.max(boxFloor, innerHeight - bounds.bottom - 12),
+      Math.max(boxFloor, innerHeight - 16),
     );
     const top = Math.min(bounds.bottom + 4, Math.max(8, innerHeight - boxHeight - 12));
     popup
@@ -2841,20 +3553,23 @@
     const list = lt.$('<ul>');
     for (const data of items ?? []) {
       const item = lt.$('<li>');
-      if (data.gap) {
-        item.attr('class', 'popup-gap');
-        list.append(item);
-        continue;
-      }
       if (data.header) {
         item.attr('class', 'popup-header');
         item.text(data.header);
-      } else if (data.dim) item.attr('class', 'popup-dim');
-      if (data.href) {
-        const link = lt.$('<a>').attr('href', data.href).text(data.name);
-        popupLinks.set(link[0], { entry: data, anchor: node });
-        item.append(link);
-      } else item.text(data.name);
+      } else if (data.board) {
+        // The slot a hover board parks in: the item holds the square, and `hoverShow` pins the
+        // container over it, so the reading and the board come up as one box.
+        item.attr('class', 'popup-board');
+      } else if (data.name != null) item.text(String(data.name));
+      // One line of a list can be dimmed - the entry a chapter row stands on inside the list of
+      // its study's chapters.
+      if (data.dim) item.addClass('popup-dim');
+      // A fact may wear a picture the item itself named: `flair` is the small mark a standings
+      // card shows beside a rating, `image` the picture an item opened with.
+      const flair = data.flair ? lt.$('<img class="popup-flair">').attr('src', String(data.flair)) : undefined;
+      if (flair) item.append(flair);
+      const picture = data.image ? lt.$('<img class="popup-image">').attr('src', String(data.image)) : undefined;
+      if (picture) item.append(picture);
       list.append(item);
     }
     popup.append(list);
@@ -2862,9 +3577,9 @@
 
   // A tooltip does not hide on the first `mouseout`: the pointer crossing from a row into the
   // tooltip fires the row's `mouseout` and the tooltip's own `mouseover` in the same gesture, and
-  // a hide that lands between them is what makes the chapter list unreachable - no pointer can get
-  // to it, so nothing can scroll it. Either side schedules a hide instead, and a `mouseover` on
-  // either side spends it. The window left is one pointer move, never a readable one.
+  // a hide that lands between them is what buries the reading before the pointer can reach it.
+  // Either side schedules a hide instead, and a `mouseover` on either side spends it. The window
+  // left is one pointer move, never a readable one.
   function schedulePopupHide() {
     const lt = recordsDbInstance?.lichessTools;
     if (!lt || !popupShown || hideTimeout) return;
@@ -2905,6 +3620,242 @@
     return $('<span class="record-public">')
       .attr('title', lt.translator.noarg('recordsDbPublicStudy'))
       .attr('data-icon', lt.icon.Meridians);
+  }
+
+
+
+  // The facts a row prints on one line: what the page named, joined where it named something.
+  function factLine(parts) {
+    const kept = (parts ?? []).filter((part) => typeof part == 'string' && part.length);
+    return kept.length ? kept.join(' \u2022 ') : undefined;
+  }
+
+
+
+  // A stored epoch prints in the page's own language, the same reading a visit card gives a date;
+  // a zero or a junk epoch has nothing to print.
+  function localTime(lt, value) {
+    const ms = Number(value);
+    if (!Number.isFinite(ms) || ms <= 0) return undefined;
+    return new Date(ms).toLocaleString(lt.intl?.lang);
+  }
+
+
+
+  // A page parks the flair value its own data named, and the image url comes from
+  // `lt.lichess.asset.flairSrc(flair)` of that value; a drag may have parked the url the page
+  // already spelled, and a lone private-use glyph is the mark a card rendered, not an image.
+  function flairImage(lt, value) {
+    const code = String(value ?? '');
+    if (!code || /^[\uE000-\uF8FF]$/.test(code)) return undefined;
+    if (code.startsWith('/') || /^https?:/i.test(code)) return code;
+    return lt.lichess?.asset?.flairSrc?.(code);
+  }
+
+  // The kinds whose page is a profile: a player, and the same page behind the coach and the
+  // streamer route. The row of such a leaf wears its own mark but dresses and answers like the
+  // profile did - the power tip the page shows over a user link is the card the row asks for.
+  const userPageKind = (kind) => kind == 'player' || kind == 'coach' || kind == 'streamer';
+  // A profile row (or the blog of one) that carries none of the facts its page shows is still
+  // waiting: the one api read brings the title the site puts on the handle, the flair it wears,
+  // the ratings it holds and the day it joined. Both the hover and the open spend that read.
+  const profilePending = (entry) => {
+    if (userPageKind(entry?.kind))
+      return !(entry?.meta?.title || entry?.meta?.flair || entry?.meta?.ratings);
+    if (entry?.kind == 'blog') return !(entry?.meta?.title || entry?.meta?.flair);
+    return false;
+  };
+
+  // A stored epoch prints the day alone in the page's own language: a row has room for the day
+  // a ladder opens on, not for the hour it opens at.
+  function localDate(lt, value) {
+    const ms = Number(value);
+    if (!Number.isFinite(ms) || ms <= 0) return undefined;
+    return new Date(ms).toLocaleDateString(lt.intl?.lang);
+  }
+
+  // A ladder wears the mark the site gives its run: the perf key the blob spells names the same
+  // icon the game rows wear for a control, and a run the map has no mark for dresses nothing.
+  function perfIcon(lt, key) {
+    const name = speedIcons[String(key ?? '').toLowerCase()];
+    return name && lt.icon[name] !== undefined ? lt.icon[name] : undefined;
+  }
+
+  // Whether the mirror's record says a chapter is one the reader plays inside: the flag the study
+  // page names, kept as the blob spelled it. A record with no chapters, or a chapter it never
+  // names, answers false - the row then wears nothing rather than a guessed mark.
+  function interactiveChapter(entry, record) {
+    const own = (record?.chapters || []).find((chapter) => chapter?.id === entry?.id);
+    return own ? own.isTrapped === true || own.trapped === true : false;
+  }
+
+  // A named round reads as words in meta ("round 2" humanised), but a popup line already carries
+  // the label, so only the number the round wears is worth printing. A round named by anything
+  // else keeps its own words.
+  function roundWords(label) {
+    const text = String(label ?? '').trim();
+    if (!text.length) return undefined;
+    const bare = text.replace(/^round\s+(?=\S)/i, '');
+    return bare.length ? bare : text;
+  }
+
+  // The chapter list a study or a chapter answers with: one line per chapter the record names,
+  // in the order the study holds them. A chapter row dims its own entry so the reading says
+  // where the row stands inside the list.
+  function chapterLines(chapters, currentId) {
+    const lines = [];
+    for (const chapter of chapters ?? []) {
+      const name = String(chapter?.name ?? '').trim();
+      if (!name.length) continue;
+      lines.push({ name, ...(currentId !== undefined && chapter?.id === currentId ? { dim: true } : {}) });
+    }
+    return lines;
+  }
+
+  // The facts a tooltip answers with are the item's own: every line says something about this
+  // leaf - never the branch it sits in, never its siblings, never the item that holds it. The row's
+  // own name is the popup's title, so a line repeats nothing the row already prints, and a kind
+  // that knows nothing about itself gets no tooltip at all - its mark and its open jump carry it.
+  function popupFacts(content, trans, entry, labelText, record) {
+    if (!entry || content.folder(entry)) return undefined;
+    const lt = content.lichessTools;
+    const meta = entry.meta ?? {};
+    const facts = [];
+    const say = (key) => String(trans.noarg(key));
+    const line = (key, value) => {
+      const text = value === undefined || value === null ? '' : String(value);
+      if (!text.length) return;
+      facts.push({ name: say(key) + ': ' + text });
+    };
+    switch (entry.kind) {
+      case 'game': {
+        // The row's one-line read of a game: control, rated, speed, variant (only when the game
+        // is variant chess) and the ending, then the day it was played on its own line. The
+        // board the game left behind rides the hover, not the tooltip - a dialog can never wear
+        // the page's board sheet.
+        const variantWord = meta.variant && String(meta.variant).toLowerCase() !== 'standard'
+          ? camel(String(meta.variant))
+          : undefined;
+        const summary = factLine([
+          meta.timeControl,
+          meta.rated === true ? say('popupRated') : undefined,
+          speedWords[String(meta.speed ?? '').toLowerCase()],
+          variantWord,
+          meta.result,
+        ]);
+        if (summary) facts.push({ name: summary });
+        const played = localTime(lt, meta.playedAt);
+        if (played) facts.push({ name: played });
+        break;
+      }
+      case 'broadcastGame': {
+        // A board is one game of a relay round: the tooltip says the relay it belongs to, the
+        // round it played in, and the chapter it plays. The relay and the chapter are bare lines -
+        // they name things, they are not a fact with a label - and the row prints the chapter in a
+        // row that can cut it, so the reading repeats it in full.
+        const relayTitle = String(meta.relay ?? '') || (meta.slug ? content.humaniseSlug(meta.slug) : '');
+        if (relayTitle.length) facts.push({ name: relayTitle });
+        line('popupRound', roundWords(meta.roundLabel));
+        const chapterName = String(meta.chapterName ?? '') || labelText;
+        if (chapterName.length) facts.push({ name: chapterName });
+        line('popupPlayed', localTime(lt, meta.playedAt));
+        break;
+      }
+      case 'tournament':
+        // The route says how the ladder runs, and the name of the run is the one thing a row
+        // cannot show beside its own title.
+        if (String(meta.system ?? '').toLowerCase() == 'swiss') facts.push({ name: say('kindTournamentSwiss') });
+        else if (String(meta.system ?? '').toLowerCase() == 'arena') facts.push({ name: say('kindTournamentArena') });
+        // The standings the page showed is the ladder's own fact: one line per player it names,
+        // wearing the flair that page showed beside the rating. A ladder whose page showed none
+        // prints no empty block.
+        if ((meta.standing ?? []).length) facts.push({ header: say('popupStandings') });
+        for (const card of meta.standing ?? []) {
+          const player = String(card?.name ?? '');
+          if (!player.length) continue;
+          const rating = card?.rating === undefined || card?.rating === null ? '' : ' ' + String(card.rating);
+          facts.push({ name: player + rating, flair: flairImage(lt, card?.flair) });
+        }
+        if (meta.nbPlayers !== undefined)
+          facts.push({ name: trans.pluralSame('recordsDbCountPlayer', Number(meta.nbPlayers)) });
+        line('popupStarted', localDate(lt, meta.startsAt));
+        line('popupVariant', meta.variant);
+        break;
+      case 'team':
+        line('popupMembers', meta.members);
+        break;
+      case 'blogPost':
+        // The post names itself on its own page: the standfirst under its heading, the author whose
+        // blog it sits in, and the picture it opened with are the post's own facts.
+        if (meta.subtitle?.length) facts.push({ name: String(meta.subtitle) });
+        if (meta.userId?.length) line('popupAuthor', meta.userId);
+        if (meta.image?.length) facts.push({ image: String(meta.image) });
+        break;
+      case 'forumPost':
+        // A thread page shows the writer beside the subject; the subject is the row's own name.
+        if (meta.author?.length) facts.push({ name: trans.format(say('bySomeone'), [String(meta.author)]) });
+        break;
+      case 'blog':
+        line('popupAuthor', meta.userId);
+        break;
+      case 'player':
+        for (const card of meta.ratings ?? []) {
+          const type = String(card?.type ?? '');
+          if (!type) continue;
+          const value = card?.value === undefined || card?.value === null ? '-' : String(card.value);
+          facts.push({ name: say('popupRatings') + ' ' + type + ': ' + value });
+        }
+        line('popupJoined', meta.joined);
+        break;
+      case 'study':
+        // The page blob names the owner and the mirror carries the same fact; the line reads
+        // `by <handle>` under the title rather than labelling a row the row never prints. The
+        // chapters the study holds answer as a list - the row wears only their number.
+        const studyOwner = String(record?.ownerId ?? meta.ownerId ?? '');
+        if (studyOwner.length) facts.push({ name: trans.format(say('bySomeone'), [studyOwner]) });
+        if (record?.chapters?.length) {
+          facts.push({ header: say('popupChapters') });
+          facts.push(...chapterLines(record.chapters));
+        }
+        break;
+      case 'chapter':
+        // A chapter answers with the study it belongs to and the list that study shows, with its
+        // own entry dimmed so the reading says where the row stands in the list.
+        {
+          const chapterStudy = String(record?.studyName ?? '');
+          if (chapterStudy.length) facts.push({ name: chapterStudy });
+          if (record?.chapters?.length) {
+            facts.push({ header: say('popupChapters') });
+            facts.push(...chapterLines(record.chapters, entry.id));
+          }
+        }
+        break;
+      case 'position':
+        line('popupVariant', meta.variant);
+        break;
+      case 'studyPosition':
+        // A position spells its study only as an id, so the study's own title is the one readable
+        // fact it carries - it rides above the hover board. The chapter it was reached in leaving
+        // the record, or an open proving the node it names is gone, is what makes the landing
+        // differ from the row.
+        const studyName = String(record?.studyName ?? '');
+        if (studyName.length) facts.push({ name: studyName });
+        const chapterLost = record?.chapters &&
+          !record.chapters.some((chapter) => chapter?.id === meta.chapterId);
+        if (chapterLost || meta.nodeMissing === true) facts.push({ name: say('recordsDbNodeMissing') });
+        break;
+      default:
+        break;
+    }
+    if (!facts.length) return undefined;
+    // A row that has a board to show opens its reading with the square that board parks in, so
+    // the words and the board come up as one tooltip instead of a box over the row and a box of
+    // words under it.
+    if (boardStateFor(entry)) facts.unshift({ board: true });
+    // A post names itself on its own page, so the heading outranks the slug the row fell back to;
+    // every other kind keeps the name its row already answers with.
+    const title = String(entry.kind == 'blogPost' ? meta.title || labelText : labelText);
+    return { items: facts, title: title.length ? title : labelText };
   }
 
 
@@ -2971,6 +3922,14 @@
     // rebuilds on every publish, and this is what makes that rebuild answer the mirror it now sees
     // rather than the cache the first paint left behind.
     if (content.hayRevision !== content.sync.publishRevision) content.refreshCaches();
+
+    // The page locks its own links (`draggable="false"`) - a relay's game list among them - and
+    // Chrome answers such an element with its no-drop cursor and fires no drag event at all, so
+    // the tree never hears a gesture meant for one. Boot takes the lock back once, but a relay
+    // drops its boards onto the page after that pass (and re-drops them as its rounds arrive), so
+    // every paint takes the flag back for the links this table can name. Only links still locked
+    // are touched, so a page that carries none costs a walk of its anchors and nothing more.
+    content.armPageDrag();
 
     const chipStates = {
       // Every writeable study is already readable, so the access pair is `Writable` vs `Readonly`
@@ -3158,7 +4117,7 @@
       // The node this paint put on the page, keyed for the tree host's one listener per event. The
       // chips a row wears copy this answer with a chip marker, so a click on a caret or an open
       // link stays the row's own rather than a handler the row would have to carry.
-      const indexed = { row, entry, folder, dead, node: li[0], preview: false, cold: false };
+      const indexed = { row, entry, folder, dead, node: li[0], preview: false, cold: false, profile: false };
       content.rowIndex.set(li[0], indexed);
 
       // Select grows a plain `<input type="checkbox">` - a native control costs no markup budget
@@ -3183,12 +4142,12 @@
         content.rowIndex.set(toggle[0], { ...indexed, chip: 'toggle' });
         li.append(toggle);
       }
+      // A leaf wears the page's own mark - the study's flair when the mirror has one, else the
+      // kind icon - so a mixed tree reads at a glance without a second label. A containment kind
+      // keeps its own mark: its record is the parent study's, so a filed chapter or study
+      // position would otherwise dress up as the study it sits under.
+      const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
       if (!folder) {
-        // A leaf wears the page's own mark - the study's flair when the mirror has one, else the
-        // kind icon - so a mixed tree reads at a glance without a second label. A containment kind
-        // keeps its own mark: its record is the parent study's, so a filed chapter or study
-        // position would otherwise dress up as the study it sits under.
-        const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
         // A player has no page record to wear a flair from, so it wears the site's own User
         // mark and its row is never bare. A game answers from its own data instead: control or
         // variant icon, Crown when the leaf knows neither.
@@ -3205,63 +4164,108 @@
           li.append($('<span class="record-icon">').attr('data-icon', mark));
       }
       const box = $('<div class="record-content">');
+      // A row whose page is a profile wears the site's own hook for the profile card: `data-href`
+      // names the handle in the form the page spells on a user link (`@/<handle>`, the same route
+      // the row opens), and the paint hands this box to `powertip.manualUser` once the row is on
+      // the page, so the card it paints is the card the page paints - pinned to this box, the item,
+      // and never waiting on a pointer.
+      if (userPageKind(entry?.kind)) box.attr('data-href', '/@/' + entry.id);
       const nameBox = $('<span class="bookmark-name">');
       const jumpHref = folder || dead ? undefined : row0?.openUrl?.(entry.id, entry.meta);
       nameBox.text(labelText);
-      // A player row keeps what the power tip showed beside the handle: the title the page put on
-      // the link and the flair it parked there, so the row reads as the profile did.
-      if (entry?.kind == 'player') {
-        if (entry?.meta?.title) nameBox.append($('<span class="bookmark-title">').text(String(entry.meta.title)));
-        if (entry?.meta?.flair) nameBox.append($('<img class="record-flair">').attr('src', String(entry.meta.flair)));
+      // The value parked in meta is what the page had: the blob's own flair key, or the url the
+      // page's `img.uflair` already gave. The image url is `lt.lichess.asset.flairSrc(flair)` of
+      // that value, so a key spells through the site's asset map and a url rides through whole.
+      const ownFlair = flairImage(lt, entry?.meta?.flair);
+      // A profile row, a team row and the blog of an author keep the title the site puts on the
+      // handle, and the page spells that title **before** the handle - an author reads as "CM
+      // HandKnit". The span rides on the box, ahead of the name it belongs to.
+      const titleMark =
+        userPageKind(entry?.kind) || entry?.kind == 'team' || entry?.kind == 'blog' ? entry?.meta?.title : undefined;
+      const titleSpan = titleMark ? $('<span class="bookmark-title">').text(String(titleMark)) : undefined;
+      if (userPageKind(entry?.kind) || entry?.kind == 'team') {
+        if (ownFlair !== undefined) nameBox.append($('<img class="record-flair">').attr('src', ownFlair));
+      }
+      // Any other kind that named a flair on its page prints it the same way: a study, a blog
+      // post, a thread or a board carries the image in meta, and a row the mirror already dressed
+      // from its own record keeps that mark rather than wearing the flair twice.
+      else if (ownFlair !== undefined && !parentFlair)
+        nameBox.append($('<img class="record-flair">').attr('src', ownFlair));
+      // An interactive chapter - a lesson the reader plays inside the chapter - wears the site's
+      // own Eye after its name. Only a page blob or a mirror record that names the flag says so;
+      // a chapter nothing names wears nothing.
+      if (entry?.kind == 'chapter' && (entry?.meta?.playable === true || interactiveChapter(entry, record))) {
+        const eye = lt.icon.Eye;
+        if (eye !== undefined) nameBox.append($('<span class="record-playable">').attr('data-icon', eye));
+      }
+      // A ladder dresses beside its name: the mark the site gives its run - the control's own icon,
+      // or the variant's when the control map has none - and the day it opens, separated from that
+      // mark by a dash. A ladder that already finished has no start left to print.
+      if (entry?.kind == 'tournament') {
+        const variantMark = variantIcons[String(entry?.meta?.variant ?? '').toLowerCase()];
+        const perf = perfIcon(lt, entry?.meta?.perf) ??
+          (variantMark && lt.icon[variantMark] !== undefined ? lt.icon[variantMark] : undefined);
+        if (perf !== undefined) nameBox.append($('<span class="record-perf">').attr('data-icon', perf));
+        const started = entry?.meta?.finished === true ? undefined : localDate(lt, entry?.meta?.startsAt);
+        if (started) {
+          if (perf !== undefined) nameBox.append($('<span class="record-sep">').text(' - '));
+          nameBox.append($('<span class="record-date">').text(started));
+        }
       }
       if (record && 'visibility' in record) nameBox.append(studyPublicIcon(record));
+      if (titleSpan) box.append(titleSpan);
       box.append(nameBox);
       li.append(box);
       // A position row wears no marker: lichess styles a board and its pieces from a sheet
       // scoped under the page's `main`, and no rule in it can cross into a dialog - a
       // chessground inside the window could never wear it. The hover board hangs off
       // `main` itself and floats over the row instead, on `hoverShow`.
-      // The chapter tooltip survives on a study row, but anchored on the **row**: the count is one
-      // glance and the list stays up while the pointer sits anywhere on the row, which is what
-      // lets the same hover scroll the tree instead of losing the tooltip over a tiny label.
-      if (record?.chapters) {
-        const chapterPreview = record.chapters.map((chapter) => ({
-          id: chapter.id,
-          name: chapter.name,
-          ...studyLink(record, { chapterId: chapter.id }),
-        }));
-        const count = record.chapterCount ?? chapterPreview.length;
-        // The number belongs to the study row alone: a chapter row wears its own name, and a
-        // count on it would read as if the chapter itself held chapters.
-        if (count && entry?.kind != 'chapter') li.append($('<span class="record-chapter-count">').text(String(count)));
-        // The chapter tooltip reads: the chapter's own name as the popup title, then the study
-        // exactly as a study popup would show it - the study's name and its chapter list - with
-        // this very chapter dimmed at its place in the list. The chapter is drawn once, in its
-        // correct order, never repeated above the study.
-        const isChapter = entry?.kind == 'chapter';
-        const items = isChapter
-          ? [{ header: record.studyName },
-             ...chapterPreview.map((item) => item.id === entry.id ? { ...item, dim: true } : item)]
-          : chapterPreview;
-        const preview = popupData(items, isChapter ? labelText : record.studyName);
-        if (preview) {
-          for (const [name, value] of Object.entries(preview.attrs)) li.attr(name, value);
-          popupPreviews.set(li[0], { items: preview.items, title: preview.title });
-          indexed.preview = true;
-        }
-      } else if (!folder && !dead && entry.kind == 'study') {
-        // The mirror has never seen this row, so hover spends the read that gives it chapters -
-        // the tooltip answers the moment the read lands, on this row and on every later page.
+      // The reading belongs to the **item**, not to the row: `data-popup` rides on the content box
+      // and the hover checks that box with everything under it, so the words stay up over the name,
+      // a flair or a date, and never answer over a row's padding or one of its chips.
+      // A study position answers with the record of the study its own meta names: the row cache keys
+      // a record by row id, and a position id spells the chapter and the path, never the study - so
+      // without that lookup the one fact a position owns would never be checked.
+      const popupRecord = entry?.kind == 'studyPosition' ? content.studyRecordFor(entry) : record;
+      const ownCount = popupRecord?.chapterCount ?? popupRecord?.chapters?.length;
+      // The chapter count belongs to the study row alone: a chapter or a position row wears its own
+      // name, and a count on it would read as if the row itself held chapters.
+      if (ownCount && entry?.kind != 'chapter' && entry?.kind != 'studyPosition')
+        li.append($('<span class="record-chapter-count">').text(String(ownCount)));
+      if (!folder && !dead && entry.kind == 'study' && !ownCount) {
+        // The mirror has never seen this row, so hover spends the read that fills the picture in;
+        // the facts that read brings back answers on this row and on every later page.
         indexed.cold = true;
+      } else if (!folder && !dead) {
+        // The tooltip answers from the item alone: its own facts, nothing about the branch it sits
+        // in and nothing about its siblings. Nothing is asked of the page, so the hover costs no
+        // request - and a row that knows nothing about itself carries no tooltip at all.
+        const built = popupFacts(content, trans, entry, labelText, popupRecord);
+        if (built) {
+          const preview = popupData(built.items, built.title);
+          if (preview) {
+            for (const [name, value] of Object.entries(preview.attrs)) box.attr(name, value);
+            popupPreviews.set(box[0], { items: preview.items, title: preview.title });
+            for (const target of popupTargets(box[0])) content.popupNodes.add(target);
+            indexed.popupAnchor = box[0];
+            indexed.preview = true;
+          }
+        }
       }
 
-      // The row's own jump affordance sits at its right end as a link icon. Enter and double click
+      // A profile row that carries none of the facts its page shows spends the same read `openLeaf`
+      // takes, so a resting pointer grows the title and the flair onto the row - the read saves and
+      // repaints, and a row that has them already spends nothing.
+      if (!folder && !dead && profilePending(entry)) indexed.profile = true;
+
+      // The row's own jump affordance sits at its right end as a link icon, labelled with the plain
+      // word "Open" (`recordsDbOpenButton`) so no kind is misnamed by it. Enter and double click
       // keep the keyboard path into openLeaf.
       if (jumpHref !== undefined) {
         const jump = $('<button class="btn-row-open" type="button">')
-          .attr('title', trans.noarg('recordsDbOpenLink'));
+          .attr('title', trans.noarg('recordsDbOpenButton'));
         if (lt.icon.Link !== undefined) jump.attr('data-icon', lt.icon.Link);
-        else jump.text(trans.noarg('recordsDbOpenLink'));
+        else jump.text(trans.noarg('recordsDbOpenButton'));
         content.rowIndex.set(jump[0], { ...indexed, chip: 'open' });
         li.append(jump);
       }
@@ -3312,10 +4316,21 @@
     }
 
     const body = $('<div class="body bookmarks-body">').attr('data-revision', String(content.revision));
-    const tree = $('<ul class="studies">');
+    const tree = $('<ul class="records">');
     if (treePaint !== content.revision) hideStudyPopup();
     treePaint = content.revision;
-    for (const row of content.results) tree.append(rowOf(row));
+    for (const row of content.results) {
+      const rowEl = rowOf(row);
+      tree.append(rowEl);
+      // A profile row asks the site for its own user card the moment its row is on the page: the
+      // box carries the `data-href` the card reads, so a painted profile row wears its card right
+      // away, and every repaint hands it the title and flair a read grew onto the row. The card
+      // never waits for a pointer, and a kind whose page is not a profile asks for nothing.
+      if (userPageKind(row?.entry?.kind)) {
+        const tipBox = rowEl.find('.record-content');
+        if (tipBox?.length) lt.lichess?.powertip?.manualUser?.(tipBox[0]);
+      }
+    }
     body.append(tree);
     if (content.error) {
       const error = $('<div class="error">');
@@ -3594,7 +4609,7 @@
       // The scrollers a paint rebuilds, and the offset a window comes back with from another page.
       // A fresh scroller starts at the top, so both have to be carried: the live offset across a
       // repaint, and the blob's offset onto the first paint.
-      this.scrollerSelectors = ['.content-frame', '.body', 'ul.studies'];
+      this.scrollerSelectors = ['.content-frame', '.body', 'ul.records'];
       this.scrollRestore = ctrl.scrollRestore;
       // What the page calls when the viewport changes. The event hands the callback a receiver of
       // its own - the browser and cash's `trigger` both call it detached - so a class method
@@ -3910,7 +4925,7 @@
     // frame's order is stamped here: the css keeps the single window under the analysis panels.
     async mount() {
       if (!this.window) return;
-      if (!this.canOpen()) return this.close();
+      if (!this.canOpen()) return this.teardown();
       this.window.windowFrame?.setOrder(0);
       await this.content.init();
       this.window.focusContent();
@@ -3921,6 +4936,9 @@
       if (this.window?.windowFrame) return;
       if (!this.window) await this.load();
       await this.window.show();
+      // The user left the window open, so the next page has to lift it again: a back button, a tab
+      // switch or a reload never calls the tool, and only a manual close takes the flag away.
+      await this.setStayOpen(true);
       await this.rememberPage();
       this.listenLeave();
     }
@@ -3961,13 +4979,37 @@
       this.leaveHandler = undefined;
     }
 
-    async close() {
+    // Whether the user left the window open. The window lives in one page's dom, so a page load
+    // reads this key to decide again, and a page that cannot place the window leaves the key alone -
+    // walking through a route the db never speaks for does not close the window for the user.
+    async stayOpen() {
+      const lt = this.lichessTools;
+      return (await lt.storage.get(windowOpenKey, { session: true })) === true;
+    }
+
+    // Writing the flag: on when the window was lifted, away when a manual close said otherwise. An
+    // `undefined` value is what the storage api takes as a removal.
+    async setStayOpen(on) {
+      const lt = this.lichessTools;
+      await lt.storage.set(windowOpenKey, on === true ? true : undefined, { session: true });
+    }
+
+    // A page being left is not a user closing the window: the frame goes off this page's dom and the
+    // flag that keeps the window coming back stays untouched.
+    async teardown() {
       if (!this.window) return;
       await this.save();
       this.window.dispose();
       this.content.destroy();
       this.window = undefined;
       this.stopLeave();
+    }
+
+    // A manual close - the toggle press, the dialog's own close - is the user's decision, so it
+    // takes the flag away and the next page keeps its window short.
+    async close() {
+      await this.setStayOpen(false);
+      await this.teardown();
     }
 
     async toggle() {
@@ -4069,7 +5111,9 @@
       const lt = this.lichessTools;
       const trans = lt.translator;
       const $ = lt.$;
-      const button = $('<button class="link" type="button">')
+      // `records-db-button` is the button's own hook: the toggle is the only affordance the tool
+      // adds to the page's sidebar, so it spells itself rather than leaning on the site's `link`.
+      const button = $('<button class="link records-db-button" type="button">')
         .attr('title', trans.noarg('recordsDbButtonTitle'))
         .attr('tabindex', '0')
         .append($('<icon>').attr('data-icon', lt.icon.CardDividers));

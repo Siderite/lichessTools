@@ -82,7 +82,7 @@ body.lichessTools .lichessTools-recordsDbUi .record-list {
   max-height: stretch;
 }
 
-body.lichessTools .lichessTools-recordsDbUi ul.studies {
+body.lichessTools .lichessTools-recordsDbUi ul.records {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -137,7 +137,6 @@ body.lichessTools .lichessTools-recordsDbUi .record-icon {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: var(--c-bg-app, #232323);
 }
 
 body.lichessTools .lichessTools-recordsDbUi .record-public {
@@ -208,7 +207,7 @@ body.lichessTools .lichessTools-recordsDbUi .bookmarks-body {
   flex-direction: column;
 }
 
-body.lichessTools .lichessTools-recordsDbUi .bookmarks-body > .studies {
+body.lichessTools .lichessTools-recordsDbUi .bookmarks-body > .records {
   flex: 1 1 auto;
   overflow: auto;
 }
@@ -270,16 +269,16 @@ body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop='
 }
 
 
-/* The chapter tooltip hangs off the whole row, so the row is what answers the hover - the
-   cursor and the highlight say "this row is showing its chapters" rather than a tiny widget
-   saying it. */
-body.lichessTools .lichessTools-recordsDbUi li.record-row[data-popup] {
-  cursor: pointer;
+/* A reading answers the item alone: `data-popup` rides on the content box, and the hover listener
+   raises the reading only over that box. The help cursor and the brighter words say "this item has
+   more to read" - a pointer over a row's padding or its chips says nothing. */
+body.lichessTools .lichessTools-recordsDbUi .record-content[data-popup] {
+  cursor: help;
 }
 
 @media (hover: hover) {
 
-  body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-popup]:hover,
+  body.lichessTools .lichessTools-recordsDbUi .record-content[data-popup]:hover,
   body.lichessTools .lichessTools-recordsDbUi .record-chapter-count:hover {
     color: var(--c-font-clear, #e8e8e4);
   }
@@ -324,29 +323,49 @@ body.lichessTools #lichessTools-recordsContentPreview li {
   padding: 4px;
 }
 
-/* The chapter popup titles itself with the chapter and carries the study as a study popup
-   would show it - the study's name, then its chapters in order with the row's own chapter
-   dimmed at its place. Opacity dims the row and its link as one. */
+/* A header row names a block inside a popup - the ladder's standings block - and it reads
+   bolder than the fact lines under it. */
 body.lichessTools #lichessTools-recordsContentPreview li.popup-header {
   font-weight: 600;
 }
 
+/* A fact can wear a picture the item named. A **flair** is the mark a standings card showed
+   beside a rating, so it stays the size of a line of text; an **image** is the picture an item
+   opened with - a blog post's heading image - so it grows, but never into a gallery. */
+body.lichessTools #lichessTools-recordsContentPreview img.popup-flair {
+  height: 1.1em;
+  margin: 0 0.3rem;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+body.lichessTools #lichessTools-recordsContentPreview img.popup-image {
+  max-height: 4em;
+  max-width: 9em;
+  margin: 0 0.3rem;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+/* A reading that owns a board reserves the square the board parks in: `popupFacts` puts one
+   `popup-board` item at the head of the list and `hoverShow` pins the container over its slot,
+   so the board and the words come up as a single tooltip. The square is 15em of the tooltip's
+   own size, which is the size the sheet gives the board container. */
+body.lichessTools #lichessTools-recordsContentPreview li.popup-board {
+  width: 15em;
+  height: 15em;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* A list line can be dimmed - the entry a chapter row stands on inside the list of its study's
+   chapters, so the reading says where the row sits without repeating it. */
 body.lichessTools #lichessTools-recordsContentPreview li.popup-dim {
-  opacity: 0.7;
+  opacity: 0.45;
 }
 
 body.lichessTools #lichessTools-recordsContentPreview hr {
   margin: 8px 0 6px;
-}
-
-body.lichessTools #lichessTools-recordsContentPreview a {
-  display: block;
-  color: inherit;
-}
-
-body.lichessTools #lichessTools-recordsContentPreview a:hover,
-body.lichessTools #lichessTools-recordsContentPreview a:focus-visible {
-  color: var(--c-primary, #8a9aab);
 }
 
 /* The toggle on a phone is a touch target: it grows to a thumb-sized box rather than hiding. */
@@ -576,15 +595,19 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-add-menu:hover {
 /* The position hover board hangs off the page's `main`, not off the window: lichess styles
    boards and pieces from a sheet scoped under `main`, and no rule can cross into a dialog -
    under `main` lila's own mini-board contract comes styled as a regular board wearing the
-   current themes. `hoverShow` births the container under `main` and pins its left/top inline
-   over the hovered row; the dialog itself sits at z-index 900+ (see the dialog tool), so the
-   container floats above it. Only opacity toggles with the hover - chessground measures the
+   current themes. `hoverShow` births the container under `main` and pins its left/top inline -
+   inside the row's tooltip when that reading carries a `popup-board` slot, otherwise over the
+   hovered row - so the board and its words come up as one box. The container's font-size matches
+   the tooltip's own (13px), which is what makes the 15em square and the slot it parks in the same
+   size. The dialog sits at z-index 900+ (see the dialog tool) and the tooltip at 900+100, so the
+   container floats above both. Only opacity toggles with the hover - chessground measures the
    marker at init, so the sheet keeps it a 15em border-box square at all times, and our scoped
    selectors outrank the plain lila rules: nothing here needs an !important. */
 body.lichessTools main .records-db-mini-board {
   position: fixed;
   z-index: calc(var(---records-db-frame-order, 900) + 110);
   pointer-events: none;
+  font-size: 13px;
 }
 
 body.lichessTools main .records-db-mini-board .mini-board {
@@ -592,5 +615,35 @@ body.lichessTools main .records-db-mini-board .mini-board {
   height: 15em;
   box-sizing: border-box;
   padding: 0;
+}
+
+/* A profile row asks the page for its own user card (`powertip.manualUser` paints `#powerTip`),
+   and that card is a fixed box of the page while the window is a dialog at z-index 900+. Without
+   this rule the card buries itself in the window; with it the card floats over the rendered row. */
+body.lichessTools:has(dialog.lichessTools-recordsDbUi) #powerTip {
+  z-index: 1000;
+}
+
+/* A row's own marks: the ladder's perf icon and start date sit after the name in one line, the
+   ladder's date being a small stamp rather than a second label. */
+body.lichessTools .lichessTools-recordsDbUi .record-perf {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-date {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+/* The Eye an interactive chapter wears after its name, and the dash that keeps a ladder's mark
+   and its start date one readable line. */
+body.lichessTools .lichessTools-recordsDbUi .record-playable {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+body.lichessTools .lichessTools-recordsDbUi .record-sep {
+  opacity: 0.8;
 }
 

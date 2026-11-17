@@ -15,9 +15,9 @@ It answers through `content.rowIndex`, a WeakMap the paint fills: the row
 node maps to `{row, entry, folder, dead, node, preview, cold}`, the caret
 and the open chip copy that entry with a `chip` marker, and the tree-end
 marker and the error retry button enter as index entries of their own.
-Rows, chips and the tooltip's chapter links carry no listener. The
-tooltip itself keeps four (click, mouseover, mousemove, mouseout) on the
-one element that is created the first time a tooltip is needed.
+Rows, chips and tooltip lines carry no listener. The tooltip itself keeps three
+(mouseover, mousemove, mouseout) on the one element that is created the first time a
+tooltip is needed.
 
 Why it is shaped this way: a repaint replaces every row, and per-row
 listeners leave their entries behind in any page-wide listener table
@@ -39,7 +39,7 @@ handlers that sit on rows were ever in that array, which is why the
 crash needs a big tree, not a long session.
 
 After the change the host holds twelve registrations per window life and
-the tooltip four per popup element; a repaint over a thousand rows
+the tooltip three per popup element; a repaint over a thousand rows
 registers nothing on them. The tree-end marker, the retry button and the
 tooltip links grew that array before and now grow nothing.
 
@@ -68,11 +68,14 @@ user rename shows. A leaf rename on a study keeps the study's lichess id untouch
 the row's title changes.
 
 `canAttach` returns true for any pair. `canDrop` still refuses a branch inside itself so a
-move never eats a subtree. `mergeTrees` re-hangs by `meta.parentId`, with `meta.studyId`
-and `meta.blogId` still honoured so a harvest's chapter or blogPost keeps finding its
-parent across pages. `splitBranches` keeps a leaf of another branch as a bare path marker
-when it leads to something in this branch, so a position under a study splits to the
-position branch and merges back into the study.
+move never eats a subtree. The merge re-nests a leaf under the leaf its branch blob nested it
+under - the split keeps a leaf of another branch as a bare path marker, and that marker chain
+is what carries a nesting that crossed two branches - and a stamp (`meta.parentId`, or the older
+`meta.studyId`/`meta.blogId`) answers only for a link no blob carried, so a harvest's chapter or
+blog post still finds its parent when the blob lost the way to it. A marker never joins the
+merged tree, so the split cannot double a row, and the merged leaves are fresh objects: a page
+load rebuilds the tree, so selection, open folders and folds are restored by path, never by
+node identity.
 
 A study position is a new kind: `{kind:'studyPosition', id: chapterId+'|'+nodePath, meta:
 {studyId, chapterId, nodePath}}`. It rides the study branch (no blob of its own). Opening it
@@ -262,28 +265,37 @@ a chessground would always come up blank. So the row's first hover births a fixe
 `mini-board mini-board--init` with `data-state` "fen,orientation,lastMoveUci" - as a child of
 `main`, and hands the container to `lt.uiApi.initializeDom(container)`: lila builds the
 chessground inside, and the board then wears the page's own themes exactly like any other
-mini-board on the page. Every enter re-pins the container over the hovered row's rect (left/
-top inline, the sheet gives `position: fixed` and a z-index above the dialog's own 900+) and
+mini-board on the page. Every enter re-pins the container - inside the row's tooltip at its
+board slot when that reading carries one, over the hovered row when it does not (left/top
+inline, the sheet gives `position: fixed` and a z-index above the dialog's own 900+, the
+tooltip sitting between at 900+100) - and
 flips the inline opacity to 1; leaving the row flips it back to 0. One chessground per
 hovered row persists under `main`, ready for the next enter, and only hovered rows pay for
 one. The sheet re-sizes lila's tiny thumbnail marker to a 15em border-box square inside our
 container - the scoped selectors outrank the plain lila rules, so nothing in these files
 needs an !important.
 
-The pin reads the row's and the container's `getBoundingClientRect`, not cash's `offset()`:
+The pin reads the slot's and the container's `getBoundingClientRect`, not cash's `offset()`:
 `offset()` answers in page coordinates, which drift under a scrolled dialog, while the
-viewport box `showStudyPopup` places from is exactly what a `position: fixed` slot wants.
-Every enter re-pins, so the board follows both the row and the window's scroll, and the
-pin is clamped inside the viewport.
+viewport box `showStudyPopup` places from is exactly what a `position: fixed` slot wants. The
+slot is the tooltip's own `li.popup-board`, so the pin follows the placed tooltip rather than
+the row, and `showStudyPopup` raises the popup's floor to the 15em square (`hoverBoardPx`) so
+a low row cannot cut the board in half. Every enter re-pins, so the board follows both the row
+and the window's scroll, and the pin is clamped inside the viewport.
 
-## The chapter popup, once drawn
+## A tooltip, anchored on the item
 
-Any row whose record lists chapters gets a tooltip; a **chapter** row titles the popup with
-its own name and then carries the study exactly as a study popup would show it - a
-`popup-header` row naming the study and the study's chapter list, in order, with this very
-chapter dimmed (`popup-dim`, `opacity: 0.7`) at its own place in the list. The chapter is
-drawn once in the list plus the title - never repeated above the study. Study rows keep the
-plain list.
+A row carries a reading only when the item itself has a fact to give, and every line is that
+item's own - never the branch it sits in, never the item that holds it, never its siblings. The
+row's own label is the reading's title, so nothing inside repeats what the row prints. A kind that
+knows nothing about itself - a chapter, a puzzle, a broadcast, a coach, a streamer - carries no
+reading at all: its mark and its open jump carry the row. The reading hangs off the item box
+(`div.record-content`) rather than the row: `popupNodes` holds that box with every node under it,
+so the hover raises it only over the name, a flair or a date - a pointer over a row's padding or
+one of its chips asks for nothing. The mark (`data-popup`) rides on the same box, and the sheet
+puts the help cursor there. An item that owns a board opens the reading with an empty
+`li.popup-board` square and the hover board parks over it, so the words and the position come up
+as one box; a row with no reading has no square to park in and its board floats over the row.
 
 ## Page drags open leaves
 
@@ -298,8 +310,30 @@ splits a leaf in two) and a training anchor
 registry's own openUrl forms, so a filed leaf always opens back. One shape has no kind: a
 tournament page - but its player links name players. The pointer row (read from
 `currentTarget`) says where; anywhere else the leaf joins the root. A leaf the tree already
-holds is never opened again - it moves, and it leaves the slot it vacates, so a re-filed link
-of a filed game keeps one row rather than growing a twin.
+holds is never opened again: it moves when the filing lands among the siblings it has now, and it
+leaves the slot it vacates, so re-filing a link beside its own row keeps one row rather than a twin.
+Filed under a **different** parent the same item joins as a copy and the original stays
+put - the same game can sit in two folders, and a copy is never hung inside the branch it already
+owns; a filing with nothing selected names no new home and still only moves the row. Two
+boards of one relay are never twins either: a round builds all of its boards from a single study,
+so the study cannot key them - each board keys on its own chapter and the study rides as `roundId`,
+which is the half the open route rebuilds from. A board row wears the **chapter** it plays - the
+link's own text, or the chapter name the page blob shows - because every relay spells the same
+`Round <n>` on all of its boards; the relay and the round answer in that row's tooltip instead
+(the relay's own name as a bare line, `popupRound`, then the chapter name the row may have cut).
+A board page also records the game that chapter plays (`meta.gameId` from the blob's own
+`data.game`, and a playable chapter the page made up for itself spells `synthetic` - no game id);
+a drag off that same page keeps the fact too, only while the link names the chapter the page is
+reading, so a visit to that game page can dress the board row through `leavesCarrying`: the
+game's facts are the board's own, while the row's name stays the chapter, which is what tells the
+boards of a round apart. A pass that reads an item rather than a row - a visit, a list, an api
+read - dresses every copy the tree holds, since none of those readings depends on where the row
+sits.
+
+The page's lock is taken back on every paint (`armPageDrag` in the paint pass): a relay drops its
+boards onto the page after the window opened, and a link that still wears `draggable="false"`
+answers no gesture at all, so a board that appears later would otherwise stay unreachable. Only
+links still locked are touched, and a link this table cannot name keeps the page's refusal.
 
 Chrome may also refuse the drag outright: lichess parks chapter buttons and user links inside
 containers it marked `draggable="false"`, and then the browser shows its no-drop cursor and
@@ -343,7 +377,11 @@ reading the lazy `lt.pageInitData` first and the `page-init-data` script still i
 otherwise, so neither half costs a request. `addChoice` is what Add files;
 the caret cycles the list and the menu chips set it. `canAdd` hides the chip when Select is on
 or the page names nothing. A filed leaf then rides the store's own read pass where its row
-services one.
+services one. A study blob nests the chapter the page shows inside the study it belongs to
+(`study.chapter`) rather than at the top, and a relay round is such a page: the chapter it is
+reading is the board, `study.relay` is the flag saying the study is a relay round, and the relay's
+own title rides beside that flag - which is how a board row gets its chapter name and its tooltip
+relay without a request.
 
 ## The press opens the window where the button stands
 
@@ -371,7 +409,8 @@ its 8-char id alone - `gameKeyId` cuts the tail off a 12-char full id - so the g
 ## The player kind
 
 `player` lives in the store's kind registry next to the page kinds: icon `User`, opens the
-profile at `/name`, no read - what the page showed at drag time rides in `meta`. `playerEntry`
+profile at the quoted link `/'name'` (the site's user anchors carry it; the api path `/user/name`
+is no page route), no read - what the page showed at drag time rides in `meta`. `playerEntry`
 reads the power tip the page parked next to the link: flag src and country, flair src, the
 game-count badge's title, the joined time and the rating spans (`type`, `games`, `value`; a
 no-rating span stays blank). The row wears `lt.icon.User`. What the tip does not show is
@@ -384,9 +423,14 @@ Four kinds answer from a route alone and never from a harvest: `coach` `/coach/<
 for drags and `resolvePageLeaves` names them for visits and for Add, both spellings of a blog
 route (`@/<user>/blog` now, the quoted legacy form) among them. `/team/me` names nothing anywhere:
 that route is the list of the current user's teams, so a team called `me` would shadow it. A
-tournament page carries a `pageInitData.data` that names the ladder (`fullName`) and says how it
-runs (`perf`, `variant`, `nbPlayers`), which rides in `meta`; a dragged tournament link waits with
-`nameTemp: 'page'` until a visit names it.
+tournament page carries a `pageInitData.data` that names the ladder and says how it runs (`perf`,
+`variant`, `nbPlayers`), which rides in `meta`; a dragged tournament link waits with `nameTemp:
+`'page'` until a visit names it. The two routes spell that item with different keys: an arena names
+its ladder `fullName` and opens it at a `createdAt` epoch, a swiss names it `name`, opens it at an
+ISO `startsAt`, says it ended with `status: finished`, and hangs each standing player's name, flair
+and rating under the player's own `user`. The reading takes either spelling and, when the blob names
+no run at all, the page's own tab title - a title that only says lichess names nothing, so the run
+stays marked as waiting.
 
 Add files what the page is about when its dropdown choice is not on the page. `pageMainKind()`
 reads the route - a blog page files the blog, a blog post page the post, a forum board the board,
@@ -398,7 +442,21 @@ Two rows name themselves from their own data now. A **puzzle** row prints `#<id>
 (`puzzleName` stopped reading themes - those describe the collection a puzzle sits in, so the same
 puzzle would answer with a different title under a different collection), and a **player** row
 paints what the power tip parked: the link's `title` in a `bookmark-title` span and the flair in a
-`record-flair` img after the handle, next to the `User` mark the row keeps.
+`record-flair` img after the handle, next to the `User` mark the row keeps. A `coach` and a
+`streamer` row dress exactly the same way - the three are `userPageKind`, and only their marks
+differ (`User`, `GraduateCap`, `Voice`). A row of those three (or a `blog`) that carries none of
+the fields is marked by `profilePending` and its `mouseover` runs `requestUserRead`, so a row
+restored from the blob grows its title and flair on the first hover; `openLeaf` asks the same
+question before it navigates, and the read's own save repaints the row.
+
+A row of those three kinds borrows the page's own user card instead of rebuilding one: its
+`div.record-content` wears `data-href="/'handle"` in the spelling the site's user anchors give,
+and the row's `mouseover` hands that box to `lt.lichess.powertip.manualUser`, which paints the
+page's `#powerTip` with the title, handle, flair, flag and ratings of that user - the card the
+page paints over a user link, pinned to the item rather than to the whole row. Nothing copies the
+card, so a row cannot disagree with the profile it names. The card is a fixed box of the page and
+the window is a dialog at z-index 900+, so the sheet lifts `#powerTip` to 1000 while a records-db
+dialog is open; a kind whose page is not a profile asks for nothing.
 
 ## The undo chip walks the gestures back
 
@@ -412,3 +470,64 @@ pops the newest snapshot and makes it the tree; press it again to walk further b
 the chain of gestures this window performed. The chain is scoped to the window - `viewHost`
 opens it fresh - and Undo answers nothing when the chain is empty (the chip carries
 `disabled` then). The stack caps at 40 gestures.
+## Hydration, temp names and the kept window (this pass)
+
+- `meta.nameTemp` says where a title came from - `page`, `slug` or `id` - and a rename writes
+  `meta.renamed`, which outranks every hydration pass. The paint's precedence lives in `leafLabel`.
+- One writer for every source: `hydrateLeaf(existing, incoming)` (label only on an unrenamed leaf,
+  marker cleared only when the name came from data, meta merged key by key). `enrichFromPage` runs
+  over `resolvePageLeaves()` and over `pageTeamRows()`; the drag reads (`requestPuzzleRead`,
+  `requestGameName`, `requestTeamName`) route their writes through it too, so a visit cannot eat a
+  hand title.
+- `pageTeamRows()` reads the shapes no url carries: the page's title block (`div.box__top h1.text`
+  plus `div.box__top div strong`) and list rows (`td.subject a.team-name`, `div.teams a`), keyed by
+  their route, refusing `/team/me`. `teamFacts(el)` strips the `<em>` off a clone and takes the
+  `img.uflair` src. `requestTeamName` fetches the team page, the api read being the fallback.
+- The window keeps a session flag (`windowOpenKey`): `open()` writes it, and a manual `close()`
+  clears it, while `teardown()` - what a page being left runs - leaves it alone. `start()` reopens
+  when the flag answers and the route fits, so the trail and the hand-off still spend their keys but
+  do not gate the open. `docs/recordsDbItems.md` maps the kinds, their data and their refresh rules.
+
+## Row marks and the per-kind popups
+
+- A team row paints `meta.flair` after the name like a player row; the mark stays `lt.icon.Group`.
+- A chapter wears no playable mark: neither the page blob nor the mirror names a chapter the
+  reader can play from, so nothing paints (see `docs/recordsDbItems.md`).
+
+One machine feeds every popup: `popupData` takes `{name, header}` items, and the sheet styles the
+`popup-header` block a popup opens (a ladder opens its standings block). Every line states one fact
+the item owns; the row's own label is the popup's title, and a row whose item knows nothing about
+itself carries no tooltip at all.
+
+The row wears what its page named, after the name: an `img.record-flair` for any kind that
+carries a `meta.flair` - player, coach, streamer, team, study, blog post, thread, board - unless
+the row sits under the parent that filed that flair, in which case the filed mark stays. The parked
+value is the page's own: a blob names a key and the row paints `lt.lichess.asset.flairSrc(flair)`
+of it, while a page's `img.uflair` src is a url already and rides whole. A ladder row adds
+the site's own perf mark (`span.record-perf`, the icon `speedIcons` names for the blob's perf
+key) and the day the ladder opened (`span.record-date`, a `localDate` of `meta.startsAt`, which the
+page visit parks from the blob's opening - a `createdAt` epoch on an arena, an ISO `startsAt` on a
+swiss); a ladder that has already finished shows no date, and its popup closes with the standings
+block.
+
+A study popup names its owner (`popupOwner`) alone - the chapters it holds ride the row as
+`span.record-chapter-count`, never as a list. A **study position** owns one fact about itself: when
+the chapter it was reached in has left the record, the popup says so with `recordsDbNodeMissing`
+rather than staying silent - the row still opens, the analysis just lands at the chapter root.
+
+A profile row and its tooltip: a `player`, `coach` or `streamer` row (and a `blog`) whose meta
+names no title, no flair and no ratings used to stay blank until the row was opened, which is how
+a row restored from the blob looked - one that had been dragged on its own page already wore its
+title and flair, so the players read as the bare ones. `profilePending` marks such a row in the
+paint and `rowMouseOver` spends `requestUserRead`, so the first hover grows the title, the flair,
+the ratings and the joined day; the read's own save repaints the row. The `#powerTip` card the
+site paints stays the hover's own, pinned to the row's `div.record-content`.
+
+One tooltip, not two: a row that owns a board (a game, a puzzle with a fen, a position, a study
+position) showed a text box under the row and a board square over it. `popupFacts` now opens such
+a reading with one `{board: true}` item, the sheet gives it the `li.popup-board` square, and
+`hoverShow` pins the container to that square instead of the row, so the board lands inside
+the tooltip. The container carries the tooltip's own 13px so its 15em and the slot's match,
+and `showStudyPopup` raises the box floor to `hoverBoardPx` + 48 for a reading that carries one.
+A row whose item owns no fact still has no tooltip, and its board keeps floating over the row.
+
