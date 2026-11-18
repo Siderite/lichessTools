@@ -152,8 +152,8 @@ leaves the tree untouched.
 ## The resize moved to the dialog tool
 
 The five edge strips, the gesture gate, the pointer capture and the box apply are the dialog
-factory's (`tools/dialog/tool.js`: `DialogResize`), not this tool's - every resizable dialog gets the
-same machine and the same signals: the `resizing` class while a grab moves, the debounced
+factory's (`tools/dialog/tool.js`: `DialogResize`), not this tool's - every resizable dialog gets
+the same machine and the same signals: the `resizing` class while a grab moves, the debounced
 `lichessTools.setDialogPlacement` emit on release, and the click the browser fires under the strip
 when a press ends. What stays here is the window's own policy, handed over as `resizable: {begin,
 resize}`: `begin` lifts the window forward so its strips stay hit-testable, and `resize(proposed,
@@ -164,13 +164,14 @@ window, and `noEscClose` is what keeps the browser's own Escape close from doing
 ## Where the window is remembered
 
 The blob keeps the box the user left twice: as absolute numbers, and as the screen corner it was
-nearest to with the two gaps to that corner (`anchorBox` writes it at `freeze`, `rememberedBox` reads
-it at `load`). A page whose viewport has since changed size puts the window back the same distance
-from the corner the user had put it against, so a window parked against a corner survives a screen
-change instead of sliding to coordinates of a screen that is no longer there. A remembered box that
-no longer fits is clamped back in by `fitWindow`, which resizes and repositions it; a page too small
-to hold the window at its own minimum at all (`windowCanHold`) drops the row and the page's own
-placement answers. A row an older version wrote carries no anchor and is taken where it was written.
+nearest to with the two gaps to that corner (`anchorBox` writes it at `freeze`, `rememberedBox`
+reads it at `load`). A page whose viewport has since changed size puts the window back the same
+distance from the corner the user had put it against, so a window parked against a corner survives a
+screen change instead of sliding to coordinates of a screen that is no longer there. A remembered
+box that no longer fits is clamped back in by `fitWindow`, which resizes and repositions it; a page
+too small to hold the window at its own minimum at all (`windowCanHold`) drops the row and the
+page's own placement answers. A row an older version wrote carries no anchor and is taken where it
+was written.
 
 ## Gesture notes the harnesses encode
 
@@ -239,10 +240,10 @@ needles; both stayed put.
 
 Counted after the comment pass, which took 1,024 lines out of the script and 70 out of the
 sheet and moved the notes they carried into the last section of this doc: tool.js 4,141 lines
-(166,180 bytes) - it ran 5,165 before the cut - tool.css 590 (14,497), the window harness 3,930,
-the store harness 461, the harvest harness 553. All three harnesses report `failed: 0`, at
-1,224 / 109 / 72 passed, and no missing intl key. The five resize bands live in
-`tools/dialog/tool.css`, not here.
+(166,180 bytes) - it ran 5,165 before the cut - tool.css 592 (15,119) after the row layout fix,
+the window harness 3,934 (three layout needles added with this fix), the store harness 461, the
+harvest harness 553. All three harnesses report `failed: 0`, at 1,227 / 109 / 72 passed, and no
+missing intl key. The five resize bands live in `tools/dialog/tool.css`, not here.
 
 ## Position hover boards
 
@@ -354,9 +355,9 @@ is what makes Chrome fire the `drop` over the window, and both `drop` and a rowl
 fall through to `externalDrop`. The gestures stack with other tools' drag wiring instead of
 fighting it: our payload type is ours alone, our two `dragstart` handlers only add (they never
 stop or prevent), and the document-capture listeners answer a ride even when a page handler
-mid-chain stops propagation or owns the element's own drag hooks. A press without travel is a click; a release
-outside the tree spends nothing. We never `preventDefault` a dragstart: lichess's own rides
-(chapter reordering inside its list) keep working beside ours.
+mid-chain stops propagation or owns the element's own drag hooks. A press without travel is a
+click; a release outside the tree spends nothing. We never `preventDefault` a dragstart: lichess's
+own rides (chapter reordering inside its list) keep working beside ours.
 
 ## Add follows the page
 
@@ -2273,6 +2274,19 @@ names.
 - `body.lichessTools.mobile .lichessTools-recordsDbUi {`
   A phone keeps the window and gives the header a thumb grab; the five resize bands widen into tap
   bands in the dialog sheet, which styles them for every resizable dialog.
+
+- `body.lichessTools .lichessTools-recordsDbUi .record-content {`
+  The item box is sized by the item it carries, never by the row's free space: `flex: 0 1 auto` lets
+  it grow only to its own content, and `min-width: 0` lets the name inside shrink into an ellipsis
+  when the row itself runs out. A share of the row width instead buries a study title half way
+  through long before the row is tight.
+
+- `body.lichessTools .lichessTools-recordsDbUi .bookmark-name {`
+  The words stop at themselves: `min-width: 0` is what lets the flex line take a long name back down
+  to the row, and `overflow: hidden` with the ellipsis marks only a name the row cannot hold. The
+  box used to carry a `max-width: 18rem` cap, which cut long study names on a wide window while the
+  leftover strip next to them stayed empty.
+
 
 - `body.lichessTools .lichessTools-recordsDbUi .bookmark-end {`
   The end marker is a fixed-size drop zone: a grown end marker would eat the body's free space and

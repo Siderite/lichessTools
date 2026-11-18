@@ -391,7 +391,7 @@
 
     logState(label, value) {
       const lt = this.lichessTools;
-      lt.global?.console?.log(label + ' %c' + value, 'color:#9980FF');
+      lt.global?.console?.debug(label + ' %c' + value, 'color:#9980FF');
     }
 
 

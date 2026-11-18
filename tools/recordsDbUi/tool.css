@@ -110,12 +110,14 @@ body.lichessTools .lichessTools-recordsDbUi .record-content {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 body.lichessTools .lichessTools-recordsDbUi .bookmark-name {
   overflow: hidden;
   white-space: nowrap;
-  max-width: 18rem;
+  min-width: 0;
   text-overflow: ellipsis;
 }
 
