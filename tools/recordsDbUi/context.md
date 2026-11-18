@@ -93,10 +93,12 @@ kinds the current page can name - study, chapter, FEN position, study position -
 files the current choice. The caret only paints when the page names more than one kind, so
 a bare analysis page still gets a bare Add button.
 
-The window is anchored to body rather than the viewport: `position: absolute` in the tool
-css, and a matching `html:has(body.lichessTools > dialog.lichessTools-recordsDbUi) { overflow:
-auto }` override so the page keeps its scroll while this window is open. Other tools that
-open a dialog keep the factory's `overflow: hidden` default and their fixed-position box.
+The window is anchored to the viewport: `position: fixed` in the tool css, so the viewport
+numbers the blob keeps (`windowViewport` reads `innerWidth`/`innerHeight`) are the numbers a
+write takes, and the box stays under the pointer whatever the page does. The sheet keeps
+`html { overflow: auto }` for this dialog, because browsing the page under a held window is
+the point of carrying it around - other dialogs keep the factory's hidden default. The sheet
+used to anchor to body as well, which is what put those writes scroll pixels too high.
 
 Two notes on the Add flow after the fact. A leaf parent starts without a `children` array,
 so `(parent?.children ?? this.entries)` reads the root rather than the leaf; addLeaf and
@@ -276,7 +278,7 @@ container - the scoped selectors outrank the plain lila rules, so nothing in the
 needs an !important.
 
 The pin reads the slot's and the container's `getBoundingClientRect`, not cash's `offset()`:
-`offset()` answers in page coordinates, which drift under a scrolled dialog, while the
+`offset()` answers in page coordinates, which drift on a page that has scrolled, while the
 viewport box `showStudyPopup` places from is exactly what a `position: fixed` slot wants. The
 slot is the tooltip's own `li.popup-board`, so the pin follows the placed tooltip rather than
 the row, and `showStudyPopup` raises the popup's floor to the 15em square (`hoverBoardPx`) so

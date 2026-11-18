@@ -285,14 +285,21 @@
             .addClass('draggable')
             .on('pointerdown', ev => {
               const rect = dialog[0].getBoundingClientRect();
-              const shiftX = ev.pageX - rect.x - rect.width/2;
-              const shiftY = ev.pageY - rect.y - rect.height/2;
+              // The shift is the pointer's offset from the centre of the box the page just
+              // measured, so the pointer is read in that same space: `getBoundingClientRect`
+              // answers against the viewport, and `placeDialog` writes `left`/`top` against the
+              // viewport the dialog is anchored to. `pageX`/`pageY` answer against the page, a
+              // space whose offset a scroll carries - carried through the two readings it only
+              // cancels while the scroll holds still, and a page that scrolls mid-gesture moves
+              // the dialog by the scroll it just took.
+              const shiftX = ev.clientX - rect.x - rect.width/2;
+              const shiftY = ev.clientY - rect.y - rect.height/2;
               let left = 0;
               let top = 0;
 
               const onMouseMove = (ev) => {
-                left = ev.pageX - shiftX;
-                top = ev.pageY - shiftY;
+                left = ev.clientX - shiftX;
+                top = ev.clientY - shiftY;
                 dialog.addClass('dragged');
                 // A drag moves the dialog - it never resizes it - so the size the press found is the
                 // size the move keeps, and the box is written the one way it is written everywhere.

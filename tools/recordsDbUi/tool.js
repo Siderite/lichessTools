@@ -4442,6 +4442,8 @@
     return 4;
   }
 
+  // The box the window may sit in: the viewport, with the site header taken off its top. The
+  // sheet anchors the window to the viewport, so these are the numbers a box write takes.
   function windowViewport(lichessTools) {
     const global = lichessTools.global;
     const width = global.document?.documentElement?.clientWidth || global.window?.innerWidth || 0;
@@ -4800,7 +4802,9 @@
       // The centre plus the size, written the way the dialog factory writes a box (`left`/`top` name
       // the centre, the opposite edges go to `unset`, the page's min/max go to their initial values) -
       // tools that re-apply a placement write the same way, and a priority write or a lone edge would
-      // hold against their `unset` and leave the dialog over constrained.
+      // hold against their `unset` and leave the dialog over constrained. The sheet anchors the
+      // window to the viewport, so the viewport numbers the geometry is kept in are the numbers the
+      // write takes, and the page may scroll on underneath a held window.
       set('left', rect.left + rect.width / 2 + 'px');
       set('top', rect.top + rect.height / 2 + 'px');
       set('width', rect.width + 'px');

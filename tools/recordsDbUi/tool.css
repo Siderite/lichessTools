@@ -1,9 +1,10 @@
 
-/* The dialog factory pins html to `overflow: hidden` while any of its dialogs is open so a
-   fixed-position box does not drift. This window is not fixed to the viewport - it is anchored
-   to body and is meant to ride the page scroll, so html keeps its scroll while only this
-   window is open. The rule matches only the records-db dialog, so other tools keep the factory's
-   hidden default. */
+/* The window is fixed to the viewport, so a page scroll never moves its box: the numbers
+   `fitWindow`, `moveWindow` and `apply` write are viewport numbers, and a viewport-anchored
+   write takes them whatever the page does underneath. The header drag is measured the same
+   way, so a held window keeps its place while the page scrolls on. Unlike the other dialogs,
+   which keep the factory's hidden default, this one lets html scroll while it is open -
+   browsing the page under a held window is the point of carrying it around. */
 html:has(body.lichessTools > dialog.lichessTools-recordsDbUi) {
   overflow: auto;
 }
@@ -17,7 +18,7 @@ body.lichessTools .lichessTools-recordsDbUi {
 }
 
 body.lichessTools > .lichessTools-recordsDbUi {
-  position: absolute;
+  position: fixed;
   margin: 0;
   width: 22rem;
   height: 24rem;

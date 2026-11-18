@@ -20,7 +20,7 @@ Provides the one dialog factory (`lt.dialog`) that every LiChess Tools dialog go
 ### Shared Dialog Features
 
 - **Header**: added only when `options.header !== undefined`; inserted before Lichess's `.scrollable,.not-scrollable` wrapper
-- **Draggable header**: unless `noDrag`, pointer-down/move/up drag with shift tracking; the dialog
+- **Draggable header**: unless `noDrag`, pointer-down/move/up drag with the grab shift read in viewport numbers (`clientX`/`clientY` - the space `getBoundingClientRect` and `placeDialog` both live in; `pageX`/`pageY` carry a page scroll the viewport anchor has none of); the dialog
   gets a `dragged` class while moving, `dragstart` is suppressed, and the move keeps the size the press
   found - a drag moves a dialog, it never resizes it, and the box is written through `placeDialog` like
   any other write
