@@ -1,10 +1,4 @@
 
-/* The window is fixed to the viewport, so a page scroll never moves its box: the numbers
-   `fitWindow`, `moveWindow` and `apply` write are viewport numbers, and a viewport-anchored
-   write takes them whatever the page does underneath. The header drag is measured the same
-   way, so a held window keeps its place while the page scrolls on. Unlike the other dialogs,
-   which keep the factory's hidden default, this one lets html scroll while it is open -
-   browsing the page under a held window is the point of carrying it around. */
 html:has(body.lichessTools > dialog.lichessTools-recordsDbUi) {
   overflow: auto;
 }
@@ -180,8 +174,6 @@ body.lichessTools .lichessTools-recordsDbUi.resizing {
 }
 
 
-/* A phone keeps the window and gives the header a thumb grab; the five resize bands widen into tap
-   bands in the dialog sheet, which styles them for every resizable dialog. */
 body.lichessTools.mobile .lichessTools-recordsDbUi {
   min-width: 280px;
 }
@@ -239,8 +231,6 @@ body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-expanded='true'
 }
 
 
-/* The end marker is a fixed-size drop zone: a grown end marker would eat the body's free
-   space and cut the list in half - the list itself grows, not the marker. */
 body.lichessTools .lichessTools-recordsDbUi .bookmark-end {
   position: relative;
   flex: 0 0 48px;
@@ -270,9 +260,6 @@ body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop='
 }
 
 
-/* A reading answers the item alone: `data-popup` rides on the content box, and the hover listener
-   raises the reading only over that box. The help cursor and the brighter words say "this item has
-   more to read" - a pointer over a row's padding or its chips says nothing. */
 body.lichessTools .lichessTools-recordsDbUi .record-content[data-popup] {
   cursor: help;
 }
@@ -292,8 +279,6 @@ body.lichessTools #lichessTools-recordsContentPreview {
   width: max-content;
   max-width: min(320px, calc(100vw - 16px));
   overflow-y: auto;
-  /* Scrolling inside the tooltip stops at the tooltip - it does not chain into the tree or the
-     page behind it, which is the whole point of reading a chapter list here */
   overscroll-behavior: contain;
   padding: 8px;
   border: 1px solid var(--c-border-dark, #302e2c);
@@ -324,15 +309,10 @@ body.lichessTools #lichessTools-recordsContentPreview li {
   padding: 4px;
 }
 
-/* A header row names a block inside a popup - the ladder's standings block - and it reads
-   bolder than the fact lines under it. */
 body.lichessTools #lichessTools-recordsContentPreview li.popup-header {
   font-weight: 600;
 }
 
-/* A fact can wear a picture the item named. A **flair** is the mark a standings card showed
-   beside a rating, so it stays the size of a line of text; an **image** is the picture an item
-   opened with - a blog post's heading image - so it grows, but never into a gallery. */
 body.lichessTools #lichessTools-recordsContentPreview img.popup-flair {
   height: 1.1em;
   margin: 0 0.3rem;
@@ -348,10 +328,6 @@ body.lichessTools #lichessTools-recordsContentPreview img.popup-image {
   border-radius: 2px;
 }
 
-/* A reading that owns a board reserves the square the board parks in: `popupFacts` puts one
-   `popup-board` item at the head of the list and `hoverShow` pins the container over its slot,
-   so the board and the words come up as a single tooltip. The square is 15em of the tooltip's
-   own size, which is the size the sheet gives the board container. */
 body.lichessTools #lichessTools-recordsContentPreview li.popup-board {
   width: 15em;
   height: 15em;
@@ -359,8 +335,6 @@ body.lichessTools #lichessTools-recordsContentPreview li.popup-board {
   padding: 0;
 }
 
-/* A list line can be dimmed - the entry a chapter row stands on inside the list of its study's
-   chapters, so the reading says where the row sits without repeating it. */
 body.lichessTools #lichessTools-recordsContentPreview li.popup-dim {
   opacity: 0.45;
 }
@@ -369,7 +343,6 @@ body.lichessTools #lichessTools-recordsContentPreview hr {
   margin: 8px 0 6px;
 }
 
-/* The toggle on a phone is a touch target: it grows to a thumb-sized box rather than hiding. */
 body.lichessTools.mobile button.lichessTools-recordsDb {
   display: inline-block;
   min-width: 2.5rem;
@@ -377,7 +350,6 @@ body.lichessTools.mobile button.lichessTools-recordsDb {
 }
 
 
-/* The header: one line per fact the view counts, each dim when it has nothing to say */
 body.lichessTools .lichessTools-recordsDbUi .tree-header {
   display: flex;
   flex-wrap: wrap;
@@ -407,7 +379,6 @@ body.lichessTools .lichessTools-recordsDbUi .tree-note {
   color: var(--c-font, #d0d0cc);
 }
 
-/* The three chips live in the filters rack; a chip with nothing to choose stays dim */
 body.lichessTools .lichessTools-recordsDbUi .rack-filters,
 body.lichessTools .lichessTools-recordsDbUi .rack-actions,
 body.lichessTools .lichessTools-recordsDbUi .rack-backup {
@@ -439,8 +410,6 @@ body.lichessTools .lichessTools-recordsDbUi input.tree-filter {
   box-sizing: border-box;
 }
 
-/* Select grows a native `<input type="checkbox">`, so the row only gives it size and colour
-   - the control's own box is the browser's, which is what keeps the row narrow. */
 body.lichessTools .lichessTools-recordsDbUi input.tree-select {
   width: 14px;
   height: 14px;
@@ -448,7 +417,6 @@ body.lichessTools .lichessTools-recordsDbUi input.tree-select {
   color: var(--c-grayish, #8a9aab);
 }
 
-/* The confirmation bars, armed only while a press waits for its twin */
 body.lichessTools .lichessTools-recordsDbUi .confirm-bar {
   display: flex;
   gap: 0.3rem;
@@ -458,8 +426,6 @@ body.lichessTools .lichessTools-recordsDbUi .confirm-bar {
   padding: 0.25rem;
 }
 
-/* A dead leaf gets its own mark, and a folder whose leaves are all hidden goes dim instead
-   of away - a folder is never dropped. */
 body.lichessTools .lichessTools-recordsDbUi li.record-row.record-missing {
   color: var(---licChess-red, #d05454);
 }
@@ -467,10 +433,6 @@ body.lichessTools .lichessTools-recordsDbUi li.record-row.folder-empty {
   color: var(--c-grayish, #8a9aab);
 }
 
-/* The row's actions ride one container that takes whatever width the row has left over and justifies
-   its children to the inline end, so an action answers only over its own box. The container claims
-   the leftover strip and never grows a hit area of its own: the space beside the icon keeps
-   answering as the row, and a second action can join the line without eating the row. */
 body.lichessTools .lichessTools-recordsDbUi .record-actions {
   display: flex;
   flex: 1 1 0;
@@ -479,9 +441,6 @@ body.lichessTools .lichessTools-recordsDbUi .record-actions {
   pointer-events: none;
 }
 
-/* The row's jump affordance is a link icon at its right end, so it reads as a target of its
-   own and not as the title; the icon is the row's only nav widget. It keeps its own size - the
-   container above claims the space - and takes the pointer back for its own box. */
 body.lichessTools .lichessTools-recordsDbUi button.btn-row-open {
   background: none;
   border: 0;
@@ -505,7 +464,6 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-row-open:focus-visible {
   }
 }
 
-/* While a restore waits to be confirmed, the header shows what the file holds */
 body.lichessTools .lichessTools-recordsDbUi .tree-restore-count {
   font-size: 0.8rem;
   color: var(--c-grayish, #8a9aab);
@@ -514,7 +472,6 @@ body.lichessTools .lichessTools-recordsDbUi input.tree-restore-file {
   font-size: 0.8rem;
 }
 
-/* The action chips share the state chips box; Rename and Backup join them */
 body.lichessTools .lichessTools-recordsDbUi button.btn-add,
 body.lichessTools .lichessTools-recordsDbUi button.btn-add-caret,
 body.lichessTools .lichessTools-recordsDbUi button.btn-delete,
@@ -532,9 +489,6 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-restore {
   font-size: 0.8rem;
 }
 
-/* The caret reads as a small split off Add: no text, just the down triangle, and it hugs
-   the Add chip so the pair looks like one button split in two. The dropdown box hangs
-   from the caret via the wrapper, so the caret and its box read as one control. */
 body.lichessTools .lichessTools-recordsDbUi button.btn-add-caret {
   padding: 0.1rem 0.2rem;
   margin-inline-start: 0.15rem;
@@ -543,8 +497,6 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-add-caret {
   line-height: 1;
 }
 
-/* The wrapper is position:relative so the menu box below can be pinned to the caret and
-   the pair stays one visual unit; the wrapper itself has no chrome. */
 body.lichessTools .lichessTools-recordsDbUi div.add-caret-wrap {
   position: relative;
   display: inline-flex;
@@ -554,8 +506,6 @@ body.lichessTools .lichessTools-recordsDbUi div.add-caret-wrap {
   padding: 0;
 }
 
-/* The menu is a real dropdown: one box hanging under the caret, one kind per row inside,
-   a small pointer joining the box to the caret so the two read as one control. */
 body.lichessTools .lichessTools-recordsDbUi div.btn-add-menu-box {
   position: absolute;
   top: 100%;
@@ -584,8 +534,6 @@ body.lichessTools .lichessTools-recordsDbUi div.btn-add-menu-box::before {
   border-bottom: 6px solid var(--c-bg-fourth, #181818);
 }
 
-/* Inside the box, each kind is a full-width row: no border of its own, and a hover so the
-   cursor shows which row a click would file. */
 body.lichessTools .lichessTools-recordsDbUi button.btn-add-menu {
   display: block;
   width: 100%;
@@ -603,17 +551,6 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-add-menu:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* The position hover board hangs off the page's `main`, not off the window: lichess styles
-   boards and pieces from a sheet scoped under `main`, and no rule can cross into a dialog -
-   under `main` lila's own mini-board contract comes styled as a regular board wearing the
-   current themes. `hoverShow` births the container under `main` and pins its left/top inline -
-   inside the row's tooltip when that reading carries a `popup-board` slot, otherwise over the
-   hovered row - so the board and its words come up as one box. The container's font-size matches
-   the tooltip's own (13px), which is what makes the 15em square and the slot it parks in the same
-   size. The dialog sits at z-index 900+ (see the dialog tool) and the tooltip at 900+100, so the
-   container floats above both. Only opacity toggles with the hover - chessground measures the
-   marker at init, so the sheet keeps it a 15em border-box square at all times, and our scoped
-   selectors outrank the plain lila rules: nothing here needs an !important. */
 body.lichessTools main .records-db-mini-board {
   position: fixed;
   z-index: calc(var(---records-db-frame-order, 900) + 110);
@@ -628,15 +565,10 @@ body.lichessTools main .records-db-mini-board .mini-board {
   padding: 0;
 }
 
-/* A profile row asks the page for its own user card (`powertip.manualUser` paints `#powerTip`),
-   and that card is a fixed box of the page while the window is a dialog at z-index 900+. Without
-   this rule the card buries itself in the window; with it the card floats over the rendered row. */
 body.lichessTools:has(dialog.lichessTools-recordsDbUi) #powerTip {
   z-index: 1000;
 }
 
-/* A row's own marks: the ladder's perf icon and start date sit after the name in one line, the
-   ladder's date being a small stamp rather than a second label. */
 body.lichessTools .lichessTools-recordsDbUi .record-perf {
   font-size: 0.9rem;
   opacity: 0.8;
@@ -647,8 +579,6 @@ body.lichessTools .lichessTools-recordsDbUi .record-date {
   opacity: 0.8;
 }
 
-/* The Eye an interactive chapter wears after its name, and the dash that keeps a ladder's mark
-   and its start date one readable line. */
 body.lichessTools .lichessTools-recordsDbUi .record-playable {
   font-size: 0.85rem;
   opacity: 0.85;
