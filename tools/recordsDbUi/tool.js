@@ -4258,6 +4258,21 @@
       // repaints, and a row that has them already spends nothing.
       if (!folder && !dead && profilePending(entry)) indexed.profile = true;
 
+      // Row-end actions ride one container grown the first time a row wears one, so a row with
+      // none carries no empty box. It trails the item box and the marks the row wears, claims
+      // whatever width the row has left over and justifies its children to the inline end, which
+      // leaves every action over its own box only: the strip beside it answers as the row, the
+      // way the row's padding always did. The container is not a chip, so a press on it climbs to
+      // the row through rowTarget, and it wears no tabindex, so the row keeps its one tab stop.
+      let actions;
+      const actionsOf = () => {
+        if (!actions) {
+          actions = $('<div class="record-actions">');
+          li.append(actions);
+        }
+        return actions;
+      };
+
       // The row's own jump affordance sits at its right end as a link icon, labelled with the plain
       // word "Open" (`recordsDbOpenButton`) so no kind is misnamed by it. Enter and double click
       // keep the keyboard path into openLeaf.
@@ -4267,7 +4282,7 @@
         if (lt.icon.Link !== undefined) jump.attr('data-icon', lt.icon.Link);
         else jump.text(trans.noarg('recordsDbOpenButton'));
         content.rowIndex.set(jump[0], { ...indexed, chip: 'open' });
-        li.append(jump);
+        actionsOf().append(jump);
       }
 
       return li;

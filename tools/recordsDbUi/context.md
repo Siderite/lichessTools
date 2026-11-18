@@ -289,7 +289,7 @@ A row carries a reading only when the item itself has a fact to give, and every 
 item's own - never the branch it sits in, never the item that holds it, never its siblings. The
 row's own label is the reading's title, so nothing inside repeats what the row prints. A kind that
 knows nothing about itself - a chapter, a puzzle, a broadcast, a coach, a streamer - carries no
-reading at all: its mark and its open jump carry the row. The reading hangs off the item box
+reading at all: its mark and its row-end actions carry the row. The reading hangs off the item box
 (`div.record-content`) rather than the row: `popupNodes` holds that box with every node under it,
 so the hover raises it only over the name, a flair or a date - a pointer over a row's padding or
 one of its chips asks for nothing. The mark (`data-popup`) rides on the same box, and the sheet
@@ -531,3 +531,20 @@ the tooltip. The container carries the tooltip's own 13px so its 15em and the sl
 and `showStudyPopup` raises the box floor to `hoverBoardPx` + 48 for a reading that carries one.
 A row whose item owns no fact still has no tooltip, and its board keeps floating over the row.
 
+## Row-end actions ride one container
+
+A row's end buttons share one `div.record-actions`: the paint grows it the first time a row wears
+an action and appends it after the item box and the marks the row wears, so the row reads the
+checkbox and the caret chip first, then the kind mark, the item box, a chapter count, and the
+container last. The container takes whatever width the row has left (`flex: 1 1 0`) and justifies
+its children to the inline end, so an action sits at the row's right end over its own box and the
+strip beside it answers as the row - the way the row's padding always did. A second action can
+join the line without eating the row or pushing the ones already there.
+
+The claim moves, the size does not: the container stretches and its children never do, so the
+jump keeps the width of its icon and no row grows a line. The container answers no pointer of its
+own (`pointer-events: none` in the sheet, taken back by the button with `pointer-events: auto`),
+and it is no chip: it enters no `rowIndex`, so `rowTarget` climbs it to the row and a press on the
+strip selects the row rather than opening the leaf. The jump keeps its own entry, so a press on
+the icon still runs `openLeaf`, and Enter, the double click and the row itself keep one route to
+that same action. The container wears no `tabindex`, so the row keeps exactly one tab stop.

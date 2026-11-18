@@ -466,8 +466,21 @@ body.lichessTools .lichessTools-recordsDbUi li.record-row.folder-empty {
   color: var(--c-grayish, #8a9aab);
 }
 
+/* The row's actions ride one container that takes whatever width the row has left over and justifies
+   its children to the inline end, so an action answers only over its own box. The container claims
+   the leftover strip and never grows a hit area of its own: the space beside the icon keeps
+   answering as the row, and a second action can join the line without eating the row. */
+body.lichessTools .lichessTools-recordsDbUi .record-actions {
+  display: flex;
+  flex: 1 1 0;
+  justify-content: flex-end;
+  align-items: center;
+  pointer-events: none;
+}
+
 /* The row's jump affordance is a link icon at its right end, so it reads as a target of its
-   own and not as the title; the icon is the row's only nav widget. */
+   own and not as the title; the icon is the row's only nav widget. It keeps its own size - the
+   container above claims the space - and takes the pointer back for its own box. */
 body.lichessTools .lichessTools-recordsDbUi button.btn-row-open {
   background: none;
   border: 0;
@@ -475,12 +488,9 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-row-open {
   cursor: pointer;
   font-size: 1.1rem;
   line-height: 1;
-  margin: 0 0 0 0.35rem;
   opacity: 0.75;
   padding: 0;
-  flex-grow: 1;
-  display: flex;
-  justify-content: end;
+  pointer-events: auto;
 }
 
 body.lichessTools .lichessTools-recordsDbUi button.btn-row-open:focus-visible {
