@@ -2,6 +2,9 @@
 
   let nextContentId = 0;
   const recordsDragType = 'application/x-lichess-records-db';
+  // The row indent tool.css paints rows and drop markers with, shared by the gutter split.
+  const rowIndentLeadPx = 4;
+  const rowIndentStepPx = 12;
 
   const recordsDbMaxResults = 10000;
 
@@ -1172,6 +1175,16 @@
       const parent = path.length > 1 ? this.at(path.slice(0, -1)) : undefined;
       const rect = node?.getBoundingClientRect?.() || { top: 0, height: 0 };
       if (ev.clientY < rect.top + rect.height / 2) return { parent, before: entry, position: 'before' };
+      // The lower half reads the pointer's side of the child line: a pointer left of where a
+      // child of this row would paint wears the row's own level and lands the payload beside it,
+      // a pointer over the row body wears the child level and hangs the payload under it.
+      const depth = path.length - 1;
+      const childEdge = (rect.left ?? 0) + rowIndentLeadPx + rowIndentStepPx * (depth + 1);
+      const x = ev?.clientX;
+      if (x !== undefined && rect.right && x >= (rect.left ?? 0) && x < rect.right && x < childEdge) {
+        const siblings = parent?.children ?? this.entries;
+        return { parent, before: siblings[siblings.indexOf(entry) + 1], position: 'after' };
+      }
       return { parent: entry, before: entry.children?.[0], position: 'inside' };
     }
 
@@ -1465,6 +1478,7 @@
       this.externalDrop({
         target: pending.el,
         currentTarget: landed?.node,
+        clientX: ev?.clientX,
         clientY: ev?.clientY,
       });
     }
@@ -1484,6 +1498,7 @@
       this.externalDrop({
         target: pending.el,
         currentTarget: ev.target,
+        clientX: ev?.clientX,
         clientY: ev?.clientY,
       });
     }

@@ -133,11 +133,13 @@ with the menu already open closes it. `resolvePageLeaves` reads the chapter from
 tool in the project uses), so a bare analysis page names all four kinds and the caret has
 real options to offer.
 
-`insertionTarget` treats a row's lower half the same for folders and leaves: it returns
-`position: 'inside'` in both cases, so a drag hands the payload to any item as a parent,
-not only to a folder. `canDrop` now refuses cycles for `payload.nodes` as well as for
-`payload.paths`, so dragging a branch (folder or leaf) onto one of its own descendants
-leaves the tree untouched.
+`insertionTarget` splits the lower half of a row on the pointer's x, the way tool.css draws
+the two markers: a pointer in the indent gutter (left of where a child of that row would
+paint - `4px + depth * 12px` plus one 12px step) keeps the row's own parent and names the
+row's next sibling, so the drop lands beside it, and a pointer over the row body nests it.
+Any item may still parent any other, so a body drop under a leaf stays legal. `canDrop`
+refuses cycles for `payload.nodes` as well as for `payload.paths`, so dragging a branch
+(folder or leaf) onto one of its own descendants leaves the tree untouched.
 
 ## Growth that remains
 
@@ -210,8 +212,9 @@ was written.
 
 The drag machine is not page-bound: `dragstart` posts only the moved
 subtree (paths in this tree), and a page that receives it places it
-before the row under the pointer, inside the folder under the pointer
-(lower half), or at the root - all of which address nodes, not paints, so
+before the row under the pointer, beside it when the pointer sits in
+the indent gutter, inside it when the pointer sits over the row body,
+or at the root - all of which address nodes, not paints, so
 `insertionTarget` works on any page. The drop marker is a paint node, so
 carry it as `{parentEntry, beforeEntry, position}` and let a receiving
 window re-aim it through its own `rowIndex`. Cross-page needs one extra
@@ -1056,9 +1059,11 @@ names.
   on - the row the pointer fell on, or the marker at the end of the tree.
 
 - `BookmarkTabContent.insertionTarget (at `return { parent: entry, before: entry.childr...`)`
-  Any item may parent any other item, so the lower half of a row - folder or leaf - nests the
-  payload inside that row. An empty leaf has no children yet; `drop` opens the array on the first
-  push.
+  The tool's own split: any item may parent any other, so the row kind answers neither way, and
+  the lower half reads the pointer's x instead - a pointer left of the child line (`4px + depth
+  * 12px` plus one 12px step, the two numbers tool.css marks with) keeps the row's parent and
+  names the row's next sibling, and a pointer over the row body hangs the payload under the row.
+  An empty leaf has no children yet; `drop` opens the array on the first push.
 
 - `BookmarkTabContent.dragOver (at `if (!(transfer.types || []).includes(records...`)`
   A ride another source started - the study tool's draggable chapter buttons, a default-draggable
