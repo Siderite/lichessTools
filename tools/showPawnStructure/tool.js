@@ -121,11 +121,16 @@
         if (structureName.best) title += '\r\n' + structureName.best.value.name + ' ' + structureName.best.similarity + '%';
 
         if (!nameEl.length || nameEl.is('a') !== isLink) {
+          nameEl.remove();
           nameEl = $('<' + (isLink ? 'a' : 'span') + '>')
             .addClass('lichessTools-structureName');
           const ekExisting = structureElem.find('.lichessTools-euweKramer');
-          if (ekExisting.length) nameEl.insertBefore(ekExisting);
-          else nameEl.appendTo(structureElem);
+          if (ekExisting.length) {
+            nameEl.insertBefore(ekExisting);
+          }
+          else {
+            nameEl.appendTo(structureElem);
+          }
         }
         nameEl
           .textSafe(structureName.name)
