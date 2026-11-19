@@ -59,6 +59,7 @@ body.lichessTools .lichessTools-recordsDbUi .content-frame {
   min-height: 0;
   overflow: auto;
   padding: 0.5rem 0.75rem;
+  contain: layout;
 }
 
 body.lichessTools .lichessTools-recordsDbUi .body {
@@ -239,16 +240,25 @@ body.lichessTools .lichessTools-recordsDbUi .bookmark-end {
   text-align: center;
 }
 
-body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop]::after,
-body.lichessTools .lichessTools-recordsDbUi .bookmark-end[data-bookmark-drop]::after {
+/* Every row and the end marker carry their marker line already, hidden: aiming a drop moves an
+   existing box instead of building one, so a drag repaints instead of re-laying out. */
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row::after,
+body.lichessTools .lichessTools-recordsDbUi .bookmark-end::after {
   content: '';
   position: absolute;
-  z-index: 2;
   inset-inline: calc(4px + var(---bookmark-depth, 0) * 12px) 0;
   bottom: -1px;
   height: 2px;
   background: var(--c-primary, #8a9aab);
   pointer-events: none;
+  opacity: 0;
+}
+
+
+body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop]::after,
+body.lichessTools .lichessTools-recordsDbUi .bookmark-end[data-bookmark-drop]::after {
+  z-index: 2;
+  opacity: 1;
 }
 
 body.lichessTools .lichessTools-recordsDbUi li.bookmark-row[data-bookmark-drop='before']::after,

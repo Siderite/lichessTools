@@ -47,9 +47,15 @@ tooltip links grew that array before and now grow nothing.
 
 The tree no longer draws a line between folders and items: every node is an item, and any
 item may be a parent of any other. Folders keep their empty `kind` marker and a `name`;
-leaves carry `{kind,id,label,meta?}`. `sortTree` sorts folders first and leaves by label
-inside every node, so a study holding its chapters and study positions reads like a folder
-holding the same.
+leaves carry `{kind,id,label,meta?}` with the halves of their address **beside** the id -
+`system` (tournament), `studyId` (chapter), `chapterId` + `nodePath` (study position), `userId`
++ `slug` (blog post), `board` (thread), `slug` + `round` + `roundId` (relay board), `variant`
+(FEN position), `url` (a dragged link), and `parentId` (the leaf that filed it). `meta` holds
+only what a row paints or waits with (title markers, mirror facts, standfirsts, ratings, the
+proof that a read found nothing), so deleting `meta` never loses the item or its route: the
+registry's `openUrl(id, leaf)` rebuilds the address from those siblings alone. `sortTree` sorts
+folders first and leaves by label inside every node, so a study holding its chapters and study
+positions reads like a folder holding the same.
 
 The row caret follows that rule: any node with a `children` array (a folder or a leaf-parent)
 wears a `button.bookmark-toggle` with the same triangle icon. Folders and leaf-parents
@@ -70,21 +76,22 @@ the row's title changes.
 `canAttach` returns true for any pair. `canDrop` still refuses a branch inside itself so a
 move never eats a subtree. The merge re-nests a leaf under the leaf its branch blob nested it
 under - the split keeps a leaf of another branch as a bare path marker, and that marker chain
-is what carries a nesting that crossed two branches - and a stamp (`meta.parentId`, or the older
-`meta.studyId`/`meta.blogId`) answers only for a link no blob carried, so a harvest's chapter or
+is what carries a nesting that crossed two branches - and a stamp (`parentId`, beside the id)
+answers only for a link no blob carried, so a harvest's chapter or
 blog post still finds its parent when the blob lost the way to it. A marker never joins the
 merged tree, so the split cannot double a row, and the merged leaves are fresh objects: a page
 load rebuilds the tree, so selection, open folders and folds are restored by path, never by
 node identity.
 
-A study position is a new kind: `{kind:'studyPosition', id: chapterId+'|'+nodePath, meta:
-{studyId, chapterId, nodePath}}`. It rides the study branch (no blob of its own). Opening it
+A study position is a new kind: `{kind:'studyPosition', id: chapterId+'|'+nodePath, studyId,
+chapterId, nodePath}` - the address halves sit beside the id, so the leaf still opens on its
+chapter with no `meta` at all. It rides the study branch (no blob of its own). Opening it
 loads the chapter, then resolves `nodePath` to a node with `lt.lichess.analysis.tree.nodeAtPath`
 and walks the analysis across with `lt.lichess.analysis.userJump(node.path)`; a path the tree
 does not know (chapter rewritten since the harvest) leaves the chapter open at its root.
 
 There are two position kinds. A **FEN position** is the direct lichess URL for a FEN:
-`{kind:'position', id: fen, meta: {variant}}` and its row opens `/analysis/{variant}/{fen}` with
+`{kind:'position', id: fen, variant}` and its row opens `/analysis/{variant}/{fen}` with
 spaces replaced by underscores. A **study position** is a node inside a study chapter and takes
 the chapter + node jump path above.
 
@@ -242,11 +249,12 @@ needles; both stayed put.
 ## Shape counts
 
 Counted after the comment pass, which took 1,024 lines out of the script and 70 out of the
-sheet and moved the notes they carried into the last section of this doc: tool.js 4,141 lines
-(166,180 bytes) - it ran 5,165 before the cut - tool.css 592 (15,119) after the row layout fix,
-the window harness 3,934 (three layout needles added with this fix), the store harness 461, the
-harvest harness 553. All three harnesses report `failed: 0`, at 1,227 / 109 / 72 passed, and no
-missing intl key. The five resize bands live in `tools/dialog/tool.css`, not here.
+sheet and moved the notes they carried into the last section of this doc: tool.js 4,335 lines
+(172,283 bytes) - it ran 5,165 before the cut - tool.css 594 (15,136) after the row layout
+fix, the window harness 3,997 (313,576) (five identity needles added with the repaint fix),
+the store harness 461, the harvest harness 553. All three harnesses report `failed: 0`, at
+1,246 / 109 / 72 passed, and no missing intl key. The five resize bands live in
+`tools/dialog/tool.css`, not here.
 
 ## Position hover boards
 
@@ -314,8 +322,8 @@ Filed under a **different** parent the same item joins as a copy and the origina
 put - the same game can sit in two folders, and a copy is never hung inside the branch it already
 owns; a filing with nothing selected names no new home and still only moves the row. Two
 boards of one relay are never twins either: a round builds all of its boards from a single study,
-so the study cannot key them - each board keys on its own chapter and the study rides as `roundId`,
-which is the half the open route rebuilds from. A board row wears the **chapter** it plays - the
+so the study cannot key them - each board keys on its own chapter and the study rides beside the id
+as `roundId`, which is the half the open route rebuilds from. A board row wears the **chapter** it
 link's own text, or the chapter name the page blob shows - because every relay spells the same
 `Round <n>` on all of its boards; the relay and the round answer in that row's tooltip instead
 (the relay's own name as a bare line, `popupRound`, then the chapter name the row may have cut).
@@ -422,7 +430,8 @@ for drags and `resolvePageLeaves` names them for visits and for Add, both spelli
 route (`@/<user>/blog` now, the quoted legacy form) among them. `/team/me` names nothing anywhere:
 that route is the list of the current user's teams, so a team called `me` would shadow it. A
 tournament page carries a `pageInitData.data` that names the ladder and says how it runs (`perf`,
-`variant`, `nbPlayers`), which rides in `meta`; a dragged tournament link waits with `nameTemp:
+`variant`, `nbPlayers`), which ride in `meta` beside the `system` the route settled earlier; a
+dragged tournament link waits with `nameTemp:
 `'page'` until a visit names it. The two routes spell that item with different keys: an arena names
 its ladder `fullName` and opens it at a `createdAt` epoch, a swiss names it `name`, opens it at an
 ISO `startsAt`, says it ended with `status: finished`, and hangs each standing player's name, flair
@@ -2403,4 +2412,97 @@ names.
 - `body.lichessTools .lichessTools-recordsDbUi .record-playable {`
   The Eye an interactive chapter wears after its name, and the dash that keeps a ladder's mark and
   its start date one readable line.
+
+## The paint cost of a reorder (this pass)
+
+A browser trace of the shipped tool named what one drag costs, and the fixes below take it out
+without changing a painted row. The trace was a DevTools performance export read through
+`traceEvents`: the renderer's process/thread pair, `ParseHTML` chunks as the proxy for DOM
+writing (one per row written), `Layout.beginData.dirtyObjects` and `UpdateLayoutTree.elementCount`
+for the style/layout cost, and `stackTrace` frames inner-to-outer with `call-site:line` as the
+attribution. One gesture burned ~1.9 s of scripting over four rebuild chains, ~2.4 s of ParseHTML,
+12.9 s of Layout over 6,188 dirty objects and 2.7 s of HitTest from per-move scans.
+
+- One repaint per drag, not four. `rowDragStart` asks `drag(entry, false)`; the drag start
+  selects the row it pressed and leaves that paint in `paintHeld`, which the first move handler
+  (`dragOver`, `dropInto`, `showDropMark`, the page-drag move/end/release handlers) releases with
+  `releasePaint()`. `select(entry, event, false)` is the general "change the model, do not paint
+  yet" form for that. `save()`'s post-write `onChange()` now paints only when the write failed -
+  the failure block is the only thing a write adds by itself - and `deleteSelected` paints the
+  note it writes, since that was the only caller leaning on the write chain to show it.
+- Rows lift instead of being rewritten. `content.rowPaint` maps each entry to the nodes the last
+  paint built for it and the stamp of what those nodes showed. `bookmarkView` answers `rowState`
+  once per row per paint and derives `rowStamp` from it: place, depth, the empty-folder mark, the
+  open state, selection, `selectMode`, whether a rename owns the row, the label, the entry's own
+  scalars and address fields, and `content.recordVersion`. A matching stamp moves the cached
+  `<li>` - its caret, its checkbox, its jump button and its popup anchor - into the new `<ul>`,
+  writing only the row's new `data-path`. The tree header, the racks and the box still rebuild
+  each paint; they are a few dozen elements against a thousand rows.
+- `content.recordVersion` bumps only inside `refreshCaches()`, which runs when the mirror moved
+  (`hayRevision !== publishRevision`). Rows decorated from record facts rebuild with those facts,
+  and a repaint that only moves rows never reads them again.
+- The per-move handlers stopped asking the page. `aimDrop` writes the drop mark at the two places
+  a drag aims and remembers the row that wears it in `dropMarked`; `clearDrop()` clears exactly
+  those rows. `rowAtPoint` guesses the row under the pointer from the first row's box - rows paint
+  as one list of equal lines - and walks back to the first row that really holds the point, which
+  is the answer a full scan gives; the full scan stays the fallback for trees whose rows are not
+  equal lines.
+- `.content-frame` carries `contain: layout` in tool.css, so a repaint dirties the window's own
+  layout objects rather than the page's ~6,200. `paint` containment is deliberately not set: the
+  drop mark's `::after`, the add-menu dropdown and the popup reach outside the frame's box. The
+  hover mini-board hangs off `main` outside the window, and the `position: fixed` rules in the
+  sheet are the window root and that board - both above the contained frame - so no fixed box
+  inside it changes its containing block.
+- `paintFacts()` answers the header counts, the filed total, the missing total and the kinds on
+  the tree in one walk, and the chips read the same answer instead of walking the entries again.
+
+The window harness pins the new invariant with two identity checks: clearing one selection
+rebuilds exactly the row that wore it, and a drop rebuilds only the moved branch and the rows it
+exposes. Row identity is now stable across paints, so the per-paint `rowIndex` registration lives
+in the row loop (`registerRow`) rather than inside the builder: every row and every chip it wears
+is written into the map on each paint, from the current state.
+
+## What a pointer under a drag costs (this pass)
+
+Two further traces of the shipped tool (89 s and 55 s of page) were read the same way, kept to the
+renderer's main thread and attributed through `beginData.stackTrace`, whose inner frames name the
+handler that asked for the work. Both name the same two hot spots, and neither is DOM writing:
+
+- `Layout` and `LocalFrameView::performLayout` slices attributed to
+  `insertionTarget:1220 < dragOver:1258`: 1,659 calls costing 15.4 s, ~9.3 ms each. The aim writes
+  an attribute, the sheet's `[data-bookmark-drop]::after` rule builds a box only for the rows that
+  wear it, and a built-or-destroyed box dirties the frame's layout tree (the biggest `dirtyObjects`
+  counts are ~6,200 and the style recalcs 3,900+ elements), so a pointer that crosses a row costs
+  a layout of the whole tree.
+- `UpdateLayoutTree` slices from `showStudyPopup:2953 < :2934`, the popup's own `mouseover
+  mousemove` handler: 18 refreshes restyling 51,255 elements (~19 ms each). The `HitTest` slices
+  agree on what the pointer is hitting - `endData.nodeName` names
+  `DIV id='lichessTools-recordsContentPreview' class='record-popup-show'` - so the card the hover
+  paints sits over the tree for the whole gesture, and answers under the dragged pointer.
+
+What was done:
+
+- A gesture owns the pointer. `dragAidOpen` is set by `dragBegin` at the two gesture starts (the
+  row's own `dragstart` and the page path's `dragArm`) and cleared by `dragEnd` at every gesture
+  end (the window's `dragend`/`dragleave`, `dragEndGlobal`, `dragRelease`). While it is set,
+  `showStudyPopup`, the popup's own hover handler and `rowMouseOver`/`rowMouseOut` answer nothing,
+  the reading card is pulled in with `hideStudyPopup()`, the hover boards under `main` fade, and
+  `#powerTip` - the card the site paints for a profile row - stops taking the pointer.
+- The marker line lives on every row already: the sheet's base rule paints it for
+  `li.bookmark-row::after` and `.bookmark-end::after` at `opacity: 0`, and the attribute rule only
+  lights it. An aim changes the paint of a box that was laid out with the row, so a drag repaints
+  instead of re-laying out.
+- An aim takes its turn. `aimDrop` skips an aim that lands where the last one did - a pointer that
+  hovers inside one row's half used to rewrite the same mark on every move - and the page path's
+  `showDropMark`, which fires on every mousemove, writes only every other aim. The drop itself
+  reads the event again, so a skipped aim never moves where the payload lands.
+- `bookmarkView` hands the rows it laid down to `content.rowNodes`, in page order, and `rowAtPoint`
+  reads that list: the list only changes when the tree is painted, so a drag that paints nothing
+  also stops re-querying the page for the rows.
+
+The harness grew to 1,263 checks and pins the new ones: a hover under a drag answers no reading,
+the drag start pulls the card in and fades the boards, `#powerTip` takes the pointer off until the
+gesture ends, the row list the hit-test reads is the paint's own, and the sheet keeps the marker
+box alive on every row.
+
 

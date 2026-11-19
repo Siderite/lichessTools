@@ -179,7 +179,22 @@
 
 
   const collectionKindOrder = ['study', 'chapter', 'studyPosition', 'game', 'position', 'puzzle', 'blog', 'blogPost', 'forum', 'forumPost', 'broadcast', 'broadcastGame', 'player', 'coach', 'streamer', 'team', 'tournament', 'url'];
-  const collectionTreeFormatVersion = 3;
+  const collectionTreeFormatVersion = 4;
+  // The halves of an address live beside the id, so deleting `meta` cannot lose the item. Each kind
+  // names only what its route needs; `parentId` is the nesting stamp any leaf may carry.
+  const addressKeys = {
+    chapter: ['studyId'],
+    studyPosition: ['studyId', 'chapterId', 'nodePath'],
+    blog: ['userId', 'url'],
+    blogPost: ['userId', 'slug', 'url'],
+    forumPost: ['board', 'url'],
+    broadcast: ['url'],
+    broadcastGame: ['slug', 'round', 'roundId', 'chapterId', 'url'],
+    tournament: ['system'],
+    position: ['variant'],
+    url: ['url'],
+  };
+  const everyAddress = ['parentId', 'blogId', ...new Set(Object.values(addressKeys).flat())];
 
   function collectionKindRegistry(harvester) {
     const writableRole = (record) => record?.role == 'owner' || record?.role == 'contributor';
@@ -200,7 +215,7 @@
       study: {
         ...kindDefault,
         icon: 'StudyBoard',
-        openUrl: (id, _meta) => '/study/' + id,
+        openUrl: (id, leaf) => '/study/' + id,
         canWrite: writableRole,
         visibility: visibilityState,
         haystack: studyHaystack,
@@ -210,7 +225,7 @@
       chapter: {
         ...kindDefault,
         icon: 'Shield',
-        openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + id,
+        openUrl: (id, leaf) => '/study/' + (leaf?.studyId || '') + '/' + id,
         canWrite: writableRole,
         visibility: visibilityState,
         haystack: chapterHaystack,
@@ -221,7 +236,7 @@
       game: {
         ...kindDefault,
         icon: 'Crown',
-        openUrl: (id, _meta) => '/game/' + id,
+        openUrl: (id, leaf) => '/game/' + id,
         visibility: visibilityState,
         haystack: (record) => joinLower([record?.studyName, ...(record?.tags || [])]),
         read: 'game.getPgns(ids, { ndjson: true }) \u2014 batch, chunked like /round/minis?ids= (\u00a719.7)',
@@ -229,7 +244,7 @@
       position: {
         ...kindDefault,
         icon: 'PositionIndicator',
-        openUrl: (id, meta) => '/analysis/' + (meta?.variant || 'standard') + '/' + String(id).replace(' ', '_'),
+        openUrl: (id, leaf) => '/analysis/' + (leaf?.variant || 'standard') + '/' + String(id).replace(' ', '_'),
         canWrite: () => true,
         haystack: (record) => joinLower([record?.san?.line, ...(record?.tags || [])]),
         isDead: () => false,
@@ -237,7 +252,7 @@
       studyPosition: {
         ...kindDefault,
         icon: 'SquarePositionIndicator',
-        openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + (meta?.chapterId || ''),
+        openUrl: (id, leaf) => '/study/' + (leaf?.studyId || '') + '/' + (leaf?.chapterId || ''),
         canWrite: writableRole,
         haystack: (record) => joinLower([record?.san?.line, ...(record?.tags || [])]),
         isDead: () => false,
@@ -246,14 +261,14 @@
       puzzle: {
         ...kindDefault,
         icon: 'ArcheryTarget',
-        openUrl: (id, _meta) => '/training/' + id,
+        openUrl: (id, leaf) => '/training/' + id,
         read: 'puzzle.getPuzzle(id) \u2014 one request per id, so the pass is capped and says so (\u00a719.7)',
         haystack: (record) => joinLower([record?.puzzle?.name, record?.name]),
       },
       blog: {
         ...kindDefault,
         icon: 'Book',
-        openUrl: (id, meta) => meta?.url || '/@/' + (meta?.userId || id) + '/blog',
+        openUrl: (id, leaf) => leaf?.url || '/@/' + (leaf?.userId || id) + '/blog',
         visibility: visibilityState,
         read: 'user.getMini(userId) \u2014 only for the author label',
         haystack: (record) => joinLower([record?.name, record?.publicName, record?.description]),
@@ -261,8 +276,8 @@
       blogPost: {
         ...kindDefault,
         icon: 'Pencil',
-        openUrl: (id, meta) =>
-          meta?.url || '/@/' + (meta?.userId || '') + '/blog/' + (meta?.slug || '') + '/' + id,
+        openUrl: (id, leaf) =>
+          leaf?.url || '/@/' + (leaf?.userId || '') + '/blog/' + (leaf?.slug || '') + '/' + id,
         visibility: visibilityState,
         read: 'lt.net.fetch with ignoreStatuses:[404] \u2014 404 is the dead signal (\u00a719.7)',
         haystack: (record) => joinLower([record?.title, record?.name, record?.text]),
@@ -272,13 +287,13 @@
       forum: {
         ...kindDefault,
         icon: 'BubbleConvo',
-        openUrl: (id, _meta) => '/forum/' + id,
+        openUrl: (id, leaf) => '/forum/' + id,
         haystack: (record) => joinLower([record?.name]),
       },
       forumPost: {
         ...kindDefault,
         icon: 'BubbleSpeech',
-        openUrl: (id, meta) => meta?.url || '/forum/' + (meta?.board || '') + '/' + id,
+        openUrl: (id, leaf) => leaf?.url || '/forum/' + (leaf?.board || '') + '/' + id,
         haystack: (record) => joinLower([record?.title, record?.author]),
         containment: 'forum',
         branch: 'forum',
@@ -286,16 +301,16 @@
       broadcast: {
         ...kindDefault,
         icon: 'RadioTower',
-        openUrl: (id, meta) => meta?.url || '/broadcast/' + id,
+        openUrl: (id, leaf) => leaf?.url || '/broadcast/' + id,
         haystack: (record) => joinLower([record?.name, record?.title]),
       },
       broadcastGame: {
         ...kindDefault,
         icon: 'RadioTower',
-        openUrl: (id, meta) =>
-          meta?.url ||
-          '/broadcast/' + (meta?.slug || '') + '/' + (meta?.round || '') + '/' + (meta?.roundId || id) +
-          (meta?.chapterId && meta.chapterId !== (meta?.roundId || id) ? '/' + meta.chapterId : ''),
+        openUrl: (id, leaf) =>
+          leaf?.url ||
+          '/broadcast/' + (leaf?.slug || '') + '/' + (leaf?.round || '') + '/' + (leaf?.roundId || id) +
+          (leaf?.chapterId && leaf.chapterId !== (leaf?.roundId || id) ? '/' + leaf.chapterId : ''),
         haystack: (record) => joinLower([record?.name, record?.studyName]),
         containment: 'broadcast',
         branch: 'broadcast',
@@ -303,39 +318,39 @@
       player: {
         ...kindDefault,
         icon: 'User',
-        openUrl: (id, _meta) => '/@/' + id,
+        openUrl: (id, leaf) => '/@/' + id,
         read: 'api.user.getUsers([id]) \u2014 read by the ui, never by the mirror',
         haystack: (record) => joinLower([record?.title, record?.name]),
       },
       coach: {
         ...kindDefault,
         icon: 'GraduateCap',
-        openUrl: (id, _meta) => '/coach/' + id,
+        openUrl: (id, leaf) => '/coach/' + id,
         haystack: (record) => joinLower([record?.name, record?.handle]),
       },
       streamer: {
         ...kindDefault,
         icon: 'Voice',
-        openUrl: (id, _meta) => '/streamer/' + id,
+        openUrl: (id, leaf) => '/streamer/' + id,
         haystack: (record) => joinLower([record?.name, record?.handle]),
       },
       team: {
         ...kindDefault,
         icon: 'Group',
-        openUrl: (id, _meta) => '/team/' + encodeURIComponent(String(id)),
+        openUrl: (id, leaf) => '/team/' + encodeURIComponent(String(id)),
         read: 'api.team.getTeam(id) \u2014 read by the ui, never by the mirror',
         haystack: (record) => joinLower([record?.name, record?.fullName]),
       },
       tournament: {
         ...kindDefault,
         icon: 'Trophy',
-        openUrl: (id, meta) => (meta?.system == 'swiss' ? '/swiss/' : '/tournament/') + id,
+        openUrl: (id, leaf) => (leaf?.system == 'swiss' ? '/swiss/' : '/tournament/') + id,
         haystack: (record) => joinLower([record?.fullName, record?.name]),
       },
       url: {
         ...kindDefault,
         icon: 'Link',
-        openUrl: (id, meta) => meta?.url || String(id),
+        openUrl: (id, leaf) => leaf?.url || String(id),
         haystack: (record) => joinLower([record?.name, record?.fullName]),
         isDead: () => false,
       },
@@ -438,7 +453,7 @@
           delete copy.children;
           seen.set(node.kind + '|' + node.id, copy);
           byId.set(node.id, copy);
-          const named = node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
+          const named = node?.parentId ?? node?.studyId ?? node?.blogId;
           if (named && named !== node.id) parentId.set(copy, named);
           home.push([copy, target]);
           nestedUnder.set(copy, above);
@@ -489,7 +504,7 @@
             return [copy];
           }
           // A marker leaf keeps the path so a deeper leaf of this branch stays reachable.
-          return nested.length ? [{ kind: node.kind, id: node.id, label: node.label, meta: node.meta, children: nested }] : [];
+          return nested.length ? [{ ...node, children: nested }] : [];
         });
       for (const branch of this.blobKinds) branches.set(branch, filterBranch(nodes || [], branch));
       return branches;
@@ -498,7 +513,7 @@
     // The only entry point for a branch: a restored file, a paste and the blob land the same way.
     async load(kind) {
       const blob = await this.idbStudy.readBlob(this.treeKey(kind));
-      if (blob?.entries) return blob.entries;
+      if (blob?.entries) return this.normalizeEntries(blob.entries, kind);
       if (kind == 'study' && !blob) {
         const legacy = await this.idbStudy.readBlob(this.idbStudy.keys.bookmarks);
         if (legacy?.entries) {
@@ -622,13 +637,23 @@
             label: node.label ?? node.studyName ?? node.name ?? '',
           };
           if (!leaf.id || !leaf.kind) return [];
-          if (node.meta) leaf.meta = node.meta;
+          // The address halves sit beside the id; an older leaf still keeps them inside `meta`.
+          const owned = node?.meta ? { ...node.meta } : undefined;
+          for (const key of everyAddress) {
+            const carried = (addressKeys[leaf.kind] || []).includes(key) || key == 'parentId' || key == 'blogId';
+            const value = node?.[key] ?? (carried ? owned?.[key] : undefined);
+            if (value === undefined) continue;
+            leaf[key] = value;
+            if (carried && owned) delete owned[key];
+          }
+          if (owned && Object.keys(owned).length) leaf.meta = owned;
           // An older relay leaf keyed its board with the round's study id; re-key on the way in so
           // re-filing finds the row it already has rather than opening a twin.
-          if (leaf.kind == 'broadcastGame' && leaf.meta?.chapterId &&
-            String(leaf.meta.chapterId) !== String(leaf.id)) {
-            const boardKey = String(leaf.meta.chapterId);
-            leaf.meta = { ...leaf.meta, roundId: leaf.meta.roundId || leaf.id, chapterId: boardKey };
+          if (leaf.kind == 'broadcastGame' && leaf.chapterId &&
+            String(leaf.chapterId) !== String(leaf.id)) {
+            const boardKey = String(leaf.chapterId);
+            leaf.roundId = leaf.roundId || leaf.id;
+            leaf.chapterId = boardKey;
             leaf.id = boardKey;
           }
           if (Array.isArray(node.children)) leaf.children = normalize(node.children);
@@ -683,6 +708,8 @@
       this.kindRegistry = this.collectionTree.registry;
       this.collectionKinds = collectionKindOrder;
       this.collectionBranches = this.collectionTree.blobKinds;
+      this.addressKeys = addressKeys;
+      this.everyAddress = everyAddress;
       this.mergeStudyMetadata = mergeStudyMetadata;
       this.matchesMetadata = matchesMetadata;
       this.isRecordsDbAvailable = isRecordsDbAvailable;

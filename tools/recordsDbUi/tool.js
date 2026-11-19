@@ -47,6 +47,8 @@
   };
   const hoverBoardPx = 15 * 13;
   let recordsDbInstance;
+  // Set while one drag gesture runs, so the machinery that paints on hover can answer nothing.
+  let dragAidOpen = false;
 
   class RecordsDbUiTool extends LiChessTools.Tools.ToolBase {
 
@@ -369,6 +371,13 @@
       this.recordCache = new Map();
       this.rowIndex = new WeakMap();
       this.popupNodes = new WeakSet();
+      // Rows the last paint built, kept by entry so a repaint only rebuilds what moved.
+      this.rowPaint = new Map();
+      // Bumped whenever the mirror was re-read, so rows decorated from it rebuild with it.
+      this.recordVersion = 0;
+      // The rows the last paint laid down, in page order: a drag asks which row a point fell on
+      // many times, and the list only changes when the tree is painted again.
+      this.rowNodes = [];
       this.revision = 0;
       this.writes = Promise.resolve();
     }
@@ -433,7 +442,7 @@
         if (own?.name) return own.name;
       }
       if (node?.kind == 'studyPosition') {
-        const own = (record?.chapters || []).find((chapter) => chapter?.id === node?.meta?.chapterId);
+        const own = (record?.chapters || []).find((chapter) => chapter?.id === node?.chapterId);
         const where = [own?.name, this.moveText(node?.meta?.ply, node?.meta?.san)].filter((part) => part?.length).join(' | ');
         if (where.length) return where;
       }
@@ -447,7 +456,7 @@
     }
 
     studyRecordFor(node) {
-      return this.studies.get(node?.meta?.studyId ?? '');
+      return this.studies.get(node?.studyId ?? '');
     }
 
     threadPoster() {
@@ -608,6 +617,7 @@
       };
       walk(this.entries, undefined, false);
       this.hayRevision = this.sync.publishRevision;
+      this.recordVersion++;
     }
 
     haystackFor(node, record) {
@@ -664,8 +674,8 @@
     matchesQuery(node) {
       const terms = this.terms;
       if (node.kind == 'study' && this.hits?.has(node.id)) return true;
-      if (node.kind == 'chapter' && this.hits?.has(node?.meta?.studyId)) {
-        const fields = this.hits.get(node.meta.studyId);
+      if (node.kind == 'chapter' && this.hits?.has(node?.studyId)) {
+        const fields = this.hits.get(node.studyId);
         if (fields?.[node.id]) return true;
       }
       const haystack = this.haystackCache.get(node) ?? '';
@@ -718,6 +728,28 @@
         if (!this.folder(node) && this.isGone(node)) missing++;
       });
       return missing;
+    }
+
+    // One walk for everything the paint counts: what is filed, what answers the box, what went
+    // missing, and which kinds are on the tree at all.
+    paintFacts() {
+      const counts = {};
+      const present = new Set();
+      let filed = 0;
+      let missing = 0;
+      this.eachNode(this.entries, (node) => {
+        present.add(node?.kind);
+        if (this.folder(node)) return;
+        filed++;
+        if (this.passes(node)) counts[node.kind] = (counts[node.kind] || 0) + 1;
+        if (this.isGone(node)) missing++;
+      });
+      return {
+        counts,
+        filed,
+        missing,
+        present: this.store.collectionKinds.filter((kind) => present.has(kind)),
+      };
     }
 
     treeStudyIds(nodes = this.entries, ids = new Set()) {
@@ -802,6 +834,7 @@
       this.undoStack = [];
       this.pendingDrag = undefined;
       this.pageDragAttached = false;
+      dragAidOpen = false;
       const host = $('<div class="record-list">');
       const pressWindowMs = 500;
       const rowPress = new Map();
@@ -871,8 +904,13 @@
         if (!ev.dataTransfer || !info?.row || info.chip || info.dead) {
           return;
         }
+        // The gesture owns the pointer from here on: a hover that paints a card over the tree
+        // would sit under it for the whole trip.
+        this.dragBegin();
         ev.dataTransfer.effectAllowed = 'move';
-        ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry)));
+        // The drag start selects its own row, but painting there would rebuild the tree before the
+        // pointer has moved; the mark below hands that paint to the first move.
+        ev.dataTransfer.setData(recordsDragType, JSON.stringify(this.drag(info.entry, false)));
       };
       const hoverBoards = new Map();
       const hoverShow = (entry, node) => {
@@ -911,6 +949,8 @@
         board?.css('opacity', '0');
       };
       const rowMouseOver = (ev) => {
+        // A drag owns the pointer: no card, board or read may answer under it.
+        if (this.dragBusy()) return;
         const info = this.rowTarget(ev);
         if (!info?.row || info.chip) return;
         if (info.preview && info.itemHover) {
@@ -921,6 +961,7 @@
         if (info.profile) this.requestUserRead(info.entry);
       };
       const rowMouseOut = (ev) => {
+        if (this.dragBusy()) return;
         const info = this.rowTarget(ev);
         if (!info?.row) return;
         hoverHide(info.entry);
@@ -950,12 +991,21 @@
       this.enrichFromPage();
       return host
         .on('dragend', (ev) => {
+          this.dragEnd();
           const info = this.rowTarget(ev);
           if (info) this.dropInto(ev, info.row, info.node);
           else this.externalDrop(ev);
         })
-        .on('dragend', clearDrop)
-        .on('dragleave', clearDrop)
+        .on('dragend', () => {
+          this.releasePaint();
+          this.dragEnd();
+          clearDrop();
+        })
+        .on('dragleave', () => {
+          this.releasePaint();
+          this.dragEnd();
+          clearDrop();
+        })
         .on('dragover', (ev) => {
           const info = this.rowTarget(ev);
           if (info) this.dragOver(ev, info.row, info.node);
@@ -998,7 +1048,7 @@
       this.onChange();
     }
 
-    select(entry, event) {
+    select(entry, event, paint = true) {
       const additive = event?.ctrlKey || event?.metaKey;
       if (event?.shiftKey && this.anchor) {
         const entries = this.rows.map((row) => row.entry);
@@ -1013,6 +1063,15 @@
         else this.selected.add(entry);
         this.anchor = entry;
       }
+      if (paint) this.onChange();
+      else this.paintHeld = true;
+    }
+
+    // A gesture that paints nothing of its own still owes the selection it changed: the flag is
+    // released by the first handler that runs while the pointer moves again.
+    releasePaint() {
+      if (!this.paintHeld) return;
+      this.paintHeld = undefined;
       this.onChange();
     }
 
@@ -1136,8 +1195,8 @@
       return undefined;
     }
 
-    drag(entry) {
-      if (!this.selected.has(entry)) this.select(entry);
+    drag(entry, paint = true) {
+      if (!this.selected.has(entry)) this.select(entry, undefined, paint);
       const paths = [];
       const visit = (nodes, parent) => {
         nodes.forEach((node, index) => {
@@ -1197,8 +1256,7 @@
     }
 
     dragOver(ev, row, node) {
-      const lt = this.lichessTools;
-      const $ = lt.$;
+      this.releasePaint();
       const transfer = ev?.dataTransfer;
       if (!transfer) return;
       if (!(transfer.types || []).includes(recordsDragType)) {
@@ -1209,14 +1267,13 @@
       }
       ev.preventDefault?.();
       ev.stopPropagation?.();
-      clearDrop();
       const target = this.insertionTarget(ev, row, node);
-      const marked = $(node);
-      if (marked.length) marked.attr('data-bookmark-drop', target.position);
+      aimDrop(node, target.position);
       transfer.dropEffect = transfer.effectAllowed === 'copy' ? 'copy' : 'move';
     }
 
     dropInto(ev, row, node) {
+      this.releasePaint();
       const payload = this.carriedPayload(ev);
       if (!payload || ev._recordsDbDrop) return;
       ev.preventDefault?.();
@@ -1240,7 +1297,7 @@
             kind: 'chapter',
             id,
             label: name.length ? name : undefined,
-            meta: { studyId: lt.lichess?.analysis?.study?.data?.id },
+            studyId: lt.lichess?.analysis?.study?.data?.id,
           };
         }
       }
@@ -1254,7 +1311,7 @@
       const draggedGame = gameKeyId(game?.[1]);
       if (draggedGame) return { kind: 'game', id: draggedGame, label: label() || undefined, meta: { nameTemp: 'page' } };
       const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(path);
-      if (forumPost?.[2]) return { kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || label() || undefined, meta: { board: forumPost[1], url: href, nameTemp: 'slug' } };
+      if (forumPost?.[2]) return { kind: 'forumPost', id: forumPost[2], label: this.humaniseSlug(forumPost[2]) || label() || undefined, board: forumPost[1], url: href, meta: { nameTemp: 'slug' } };
       const forum = /^\/forum\/([a-z0-9][a-z0-9-]*)$/.exec(path);
       if (forum) return { kind: 'forum', id: forum[1], label: this.humaniseSlug(forum[1]) || undefined, meta: { nameTemp: 'slug' } };
       const broadcastGame = /^\/broadcast\/([a-z0-9][a-z0-9-]*)\/([a-z0-9-]+)\/([a-zA-Z0-9]{8})(?:\/([a-zA-Z0-9]{8}))?(?:\/.*)?$/.exec(path);
@@ -1266,22 +1323,20 @@
           kind: 'broadcastGame',
           id: broadcastGame[4] || broadcastGame[3],
           label: label() || this.humaniseSlug(broadcastGame[1]) || undefined,
-          meta: {
-            parentId: broadcastGame[1],
-            slug: broadcastGame[1],
-            round: broadcastGame[2],
-            ...(broadcastGame[4] ? { chapterId: broadcastGame[4], roundId: broadcastGame[3] } : {}),
-            ...(boardGameId && pageChapter === broadcastGame[4] ? { gameId: boardGameId } : {}),
-          },
+          parentId: broadcastGame[1],
+          slug: broadcastGame[1],
+          round: broadcastGame[2],
+          ...(broadcastGame[4] ? { chapterId: broadcastGame[4], roundId: broadcastGame[3] } : {}),
+          ...(boardGameId && pageChapter === broadcastGame[4] ? { meta: { gameId: boardGameId } } : {}),
         };
       }
       const broadcast = /^\/broadcast\/([a-z0-9][a-z0-9-]*)(?:\/.*)?$/.exec(path);
       if (broadcast?.[1])
         return { kind: 'broadcast', id: broadcast[1], label: this.humaniseSlug(broadcast[1]) || label() || undefined, meta: { nameTemp: 'slug' } };
       const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(path) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(path);
-      if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, meta: { userId: blogPost[1], slug: blogPost[2], url: href, nameTemp: 'slug' } };
+      if (blogPost?.[3]) return { kind: 'blogPost', id: blogPost[3], label: this.humaniseSlug(blogPost[2]) || label() || undefined, userId: blogPost[1], slug: blogPost[2], url: href, meta: { nameTemp: 'slug' } };
       const blog = /^\/'([^']+)\/blog'?$/.exec(path) || /^\/@\/([^/]+)\/blog$/.exec(path);
-      if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], url: href, nameTemp: 'slug' } };
+      if (blog?.[1]) return { kind: 'blog', id: blog[1], label: blog[1], userId: blog[1], url: href, meta: { nameTemp: 'slug' } };
       const coach = /^\/coach\/([a-zA-Z0-9_.-]+)$/.exec(path);
       if (coach?.[1]) return { kind: 'coach', id: coach[1], label: coach[1], meta: { nameTemp: 'slug' } };
       const streamer = /^\/streamer\/([a-zA-Z0-9_.-]+)$/.exec(path);
@@ -1295,7 +1350,8 @@
           kind: 'tournament',
           id: tournament[2],
           label: label() || undefined,
-          meta: { nameTemp: 'page', system: tournament[1] == 'swiss' ? 'swiss' : 'arena' },
+          system: tournament[1] == 'swiss' ? 'swiss' : 'arena',
+          meta: { nameTemp: 'page' },
         };
       const puzzle = /^\/training\/([a-zA-Z0-9_\/-]+)$/.exec(path);
       if (puzzle) return { kind: 'puzzle', id: puzzle[1], label: label() || undefined, meta: { nameTemp: 'page' } };
@@ -1305,7 +1361,8 @@
           kind: 'url',
           id: route,
           label: label() || route,
-          meta: { url: route, ...(label().length ? { title: label(), nameTemp: 'page' } : {}) },
+          url: route,
+          ...(label().length ? { meta: { title: label(), nameTemp: 'page' } } : {}),
         };
       return undefined;
     }
@@ -1354,7 +1411,7 @@
     }
 
     parentStamp(node) {
-      return node?.meta?.parentId ?? node?.meta?.studyId ?? node?.meta?.blogId;
+      return node?.parentId ?? node?.studyId ?? node?.blogId;
     }
 
     dragArm(ev) {
@@ -1375,6 +1432,30 @@
       const button = src.closest('button');
       const held = anchor.length ? anchor : button.length ? button : src;
       this.pendingDrag = { el: held[0], moves: 0, native: false };
+      this.dragBegin();
+    }
+
+    // A gesture owns the pointer, so the cards a hover paints must not sit over the tree: the
+    // reading card is pulled in, the mini boards fade, and the page's own profile card stops
+    // answering the pointer while the gesture runs.
+    dragBusy() {
+      return !!this.pendingDrag || dragAidOpen;
+    }
+
+    dragBegin() {
+      if (dragAidOpen) return;
+      dragAidOpen = true;
+      hideStudyPopup();
+      const pageQuery = this.lichessTools.$;
+      pageQuery('.records-db-mini-board').css('opacity', '0');
+      pageQuery('#powerTip').css('pointer-events', 'none');
+    }
+
+    dragEnd() {
+      if (!dragAidOpen) return;
+      dragAidOpen = false;
+      const pageQuery = this.lichessTools.$;
+      pageQuery('#powerTip').css('pointer-events', '');
     }
 
     dragEv(e) {
@@ -1393,6 +1474,7 @@
     }
 
     dragMove(ev) {
+      this.releasePaint();
       if (!this.pendingDrag) return;
       if (ev.buttons !== undefined && !(ev.buttons & 1)) {
         return;
@@ -1404,29 +1486,45 @@
     }
 
     showDropMark(landed, ev) {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      clearDrop();
-      if (!landed?.row) return;
+      this.releasePaint();
+      if (!landed?.row) {
+        clearDrop();
+        return;
+      }
       const target = this.insertionTarget(ev, landed.row, landed.node);
-      const marked = $(landed.node);
-      if (marked.length) marked.attr('data-bookmark-drop', target.position);
+      // A page drag fires this on every mousemove, so it takes its turn: only an aim every other
+      // move may touch the page.
+      aimDrop(landed.node, target.position, 2);
     }
 
+    // Rows paint as one list of equal lines, so the row under a point is guessed from the first
+    // line's box and walked back to the first row that really holds the point - the same answer a
+    // full scan gives, for a handful of measurements instead of one per row. The list is the last
+    // paint's own, so a drag that paints nothing also stops re-querying the page for it.
     rowAtPoint(x, y) {
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      if (x === undefined || y === undefined) {
-        return undefined;
+      const pageQuery = this.lichessTools.$;
+      if (x === undefined || y === undefined) return undefined;
+      const rows = this.rowNodes.length ? this.rowNodes : [];
+      if (!rows.length) pageQuery('.record-row').each((i, e) => { rows.push(e); });
+      const holds = (node) => {
+        const box = node?.getBoundingClientRect?.() || {};
+        return box.left <= x && x < box.right && box.top <= y && y < box.bottom;
+      };
+      const line = rows[0]?.getBoundingClientRect?.();
+      if (line?.height > 0) {
+        const guess = Math.floor((y - line.top) / line.height);
+        if (guess >= 0 && guess < rows.length && holds(rows[guess])) {
+          let at = guess;
+          while (at > 0 && holds(rows[at - 1])) at -= 1;
+          return this.rowIndex.get(rows[at]);
+        }
       }
-      const rows = $('.record-row');
-      let hit;
-      rows.each((i, e) => {
-        if (hit) return;
-        const box = e.getBoundingClientRect?.() || {};
-        if (box.left <= x && x < box.right && box.top <= y && y < box.bottom) hit = this.rowIndex.get(e);
-      });
-      return hit;
+      for (const node of rows) {
+        if (!holds(node)) continue;
+        const found = this.rowIndex.get(node);
+        if (found) return found;
+      }
+      return undefined;
     }
 
     treePointHit(x, y) {
@@ -1458,6 +1556,7 @@
     }
 
     dragOverGlobal(ev) {
+      this.releasePaint();
       if (!this.pendingDrag) return;
       this.pendingDrag.native = true;
       this.pendingDrag.moves += 1;
@@ -1465,11 +1564,13 @@
     }
 
     dragEndGlobal(ev) {
+      this.releasePaint();
       const pending = this.pendingDrag;
       if (!pending || !pending.native || pending.moves < 1) {
         return;
       }
       this.pendingDrag = undefined;
+      this.dragEnd();
       const landed = this.rowAtPoint(ev?.clientX, ev?.clientY);
       if (!landed?.row && !this.treePointHit(ev?.clientX, ev?.clientY)) {
         clearDrop();
@@ -1484,8 +1585,10 @@
     }
 
     dragRelease(ev) {
+      this.releasePaint();
       const pending = this.pendingDrag;
       this.pendingDrag = undefined;
+      this.dragEnd();
       if (ev.button) return;
       if (!pending || pending.moves < (pending.native ? 1 : 2)) {
         return;
@@ -1554,14 +1657,13 @@
       if (!node || this.folder(node)) return;
       if (this.registry[node.kind]?.containment) return;
       const named = parent && !this.folder(parent) && parent.id ? parent.id : undefined;
-      if (node.meta?.parentId === named) return;
+      if (node.parentId === named) return;
       if (!named) {
-        if (node.meta?.parentId === undefined) return;
-        node.meta = { ...node.meta };
-        delete node.meta.parentId;
+        if (node.parentId === undefined) return;
+        delete node.parentId;
         return;
       }
-      node.meta = { ...(node.meta ?? {}), parentId: named };
+      node.parentId = named;
     }
 
     canDrop(payload, parent) {
@@ -1744,6 +1846,7 @@
 
     save() {
       this.onChange();
+      const shown = this.error;
       if (this.entries?.length) this.sync.setTreeIds(this.treeStudyIds()).catch(() => null);
       this.writes = this.writes.then(async () => {
         const tree = this.store.collectionTree;
@@ -1754,7 +1857,9 @@
         } catch (failure) {
           this.error = { message: 'Unable to save the tree', retry: () => this.save() };
         }
-        this.onChange();
+        // A write paints only when it changed what the tree area shows: a failure adds the error
+        // block, and a write that lands while one was showing takes it away.
+        if (this.error || shown) this.onChange();
       });
       return this.writes;
     }
@@ -1840,7 +1945,7 @@
         if (own?.name) chapterLabel = own.name;
       }
       if (chapterId && studyId)
-        out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, meta: { studyId, ...(chapterTrapped === true ? { playable: true } : {}) } });
+        out.push({ kind: 'chapter', id: chapterId, label: chapterLabel, studyId, ...(chapterTrapped === true ? { meta: { playable: true } } : {}) });
       const route = lt.location?.pathname || '';
       const blogPost = /^\/'([^']+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})'?$/.exec(route) || /^\/@\/([^/]+)\/blog\/([^/]+)\/([a-zA-Z0-9]{8})$/.exec(route);
       if (blogPost?.[3]) {
@@ -1856,9 +1961,9 @@
           kind: 'blogPost',
           id: blogPost[3],
           label: headingText || this.humaniseSlug(blogPost[2]) || undefined,
+          userId: blogPost[1],
+          slug: blogPost[2],
           meta: {
-            userId: blogPost[1],
-            slug: blogPost[2],
             ...(headingText ? { title: headingText } : { nameTemp: 'slug' }),
             ...(subheadText ? { subtitle: subheadText } : {}),
             ...(imageUrl ? { image: imageUrl } : {}),
@@ -1867,7 +1972,7 @@
         });
       }
       const blog = /^\/'([^']+)\/blog'?$/.exec(route) || /^\/@\/([^/]+)\/blog$/.exec(route);
-      if (blog?.[1]) out.push({ kind: 'blog', id: blog[1], label: blog[1], meta: { userId: blog[1], nameTemp: 'slug' } });
+      if (blog?.[1]) out.push({ kind: 'blog', id: blog[1], label: blog[1], userId: blog[1], meta: { nameTemp: 'slug' } });
       const forumPost = /^\/forum\/([a-z0-9][a-z0-9-]*)\/([a-z0-9][a-z0-9-]*)$/.exec(route);
       if (forumPost?.[2]) {
         const subject = this.pageTitle();
@@ -1876,8 +1981,8 @@
           kind: 'forumPost',
           id: forumPost[2],
           label: subject || this.humaniseSlug(forumPost[2]) || undefined,
+          board: forumPost[1],
           meta: {
-            board: forumPost[1],
             ...(poster ? { author: poster } : {}),
             ...(subject ? {} : { nameTemp: 'slug' }),
           },
@@ -1934,8 +2039,8 @@
           kind: 'tournament',
           id: tourneyData?.id ?? tournament[2],
           label: tourneyName || tournament[2],
+          system: tournament[1] == 'swiss' ? 'swiss' : 'arena',
           meta: {
-            system: tournament[1] == 'swiss' ? 'swiss' : 'arena',
             ...(tourneyData?.perf?.key ? { perf: tourneyData.perf.key } : {}),
             ...(tourneyData?.variant ? { variant: tourneyData.variant } : {}),
             ...(tourneyData?.nbPlayers !== undefined ? { nbPlayers: Number(tourneyData.nbPlayers) } : {}),
@@ -1961,17 +2066,14 @@
       const lastMove = Array.isArray(analysisPath) ? analysisPath[analysisPath.length - 1] : undefined;
       if (boardFen) {
         const variant = lt.lichess?.rulesType?.toLowerCase?.() || lt.lichess?.rules?.toLowerCase?.() || 'standard';
-        const meta = { variant, orientation: boardOrientation };
+        const meta = { orientation: boardOrientation };
         if (lastMove) meta.lastMove = lastMove;
-        out.push({ kind: 'position', id: boardFen, label: boardFen, meta });
+        out.push({ kind: 'position', id: boardFen, label: boardFen, variant, meta });
       }
       if (chapterId && studyId && analysisPath) {
         const node = analysis?.node;
         const where = [chapterLabel, this.moveText(node?.ply, node?.san)].filter((part) => part?.length).join(' | ');
         const meta = {
-          studyId,
-          chapterId,
-          nodePath: analysisPath,
           orientation: analysis?.study?.data?.chapter?.setup?.orientation || boardOrientation,
           fen: node?.fen,
         };
@@ -1984,6 +2086,9 @@
           kind: 'studyPosition',
           id: chapterId + '|' + analysisPath,
           label: where || analysisPath,
+          studyId,
+          chapterId,
+          nodePath: analysisPath,
           meta,
         });
       }
@@ -2010,12 +2115,12 @@
             kind: 'broadcastGame',
             id: boardKey,
             label: boardChapterName || relayWord || undefined,
+            slug: broadcastMatch[1],
+            round: broadcastMatch[2],
+            ...(pageBoard && pageBoard !== roundSpelling
+              ? { chapterId: pageBoard, roundId: roundSpelling }
+              : {}),
             meta: {
-              slug: broadcastMatch[1],
-              round: broadcastMatch[2],
-              ...(pageBoard && pageBoard !== roundSpelling
-                ? { chapterId: pageBoard, roundId: roundSpelling }
-                : {}),
               ...(boardChapterName ? { chapterName: boardChapterName } : {}),
               ...(relayWord && relayWord !== relayName ? { relay: relayWord } : {}),
               ...(gameKeyId(init?.data?.game?.id) ? { gameId: gameKeyId(init?.data?.game?.id) } : {}),
@@ -2083,7 +2188,8 @@
             kind: 'url',
             id: route,
             label: title || route,
-            meta: { url: route, ...(title ? { title } : {}) },
+            url: route,
+            ...(title ? { meta: { title } } : {}),
             ...(title ? { dataName: true } : {}),
           });
       }
@@ -2126,6 +2232,11 @@
       if (!existing || !incoming) return false;
       const renamed = existing.meta?.renamed !== undefined;
       let changed = false;
+      for (const key of this.store?.everyAddress ?? [])
+        if (incoming[key] !== undefined && existing[key] !== incoming[key]) {
+          existing[key] = incoming[key];
+          changed = true;
+        }
       if (incoming.label && incoming.label !== existing.label && !renamed) {
         existing.label = incoming.label;
         if (incoming.dataName === true && existing.meta) delete existing.meta.nameTemp;
@@ -2330,7 +2441,7 @@
       }
       const carriedBy = this.registry[leaf.kind]?.containment;
       const carrierKey = carriedBy ? containedCarrier[leaf.kind] : undefined;
-      const carrierId = carrierKey ? leaf?.meta?.[carrierKey] : undefined;
+      const carrierId = carrierKey ? leaf?.[carrierKey] : undefined;
       const carrier = carriedBy && carrierId ? this.findLeaf(carriedBy, carrierId) : undefined;
       if (carrier && parent && parent !== carrier && !this.folder(parent) && parent.kind !== carriedBy)
         parent = this.contains(leaf, carrier) ? undefined : carrier;
@@ -2516,6 +2627,7 @@
       this.removeSelected();
       this.message = 'removedCount';
       this.messageCount = counts.total;
+      this.onChange();
       return true;
     }
 
@@ -2558,7 +2670,7 @@
 
     async openLeaf(node) {
       const row = this.registry[node.kind];
-      const href = row?.openUrl?.(node.id, node.meta);
+      const href = row?.openUrl?.(node.id, node);
       if (!href) return false;
       if (node.kind == 'puzzle' && ((node.meta?.nameTemp ?? '') == 'page' || !node.meta?.fen))
         await this.requestPuzzleRead(node);
@@ -2568,16 +2680,16 @@
       ) await this.requestGameName(node);
       else if (profilePending(node)) await this.requestUserRead(node);
       const lt = this.lichessTools;
-      const studyId = node.kind == 'study' ? node.id : node.meta?.studyId;
+      const studyId = node.kind == 'study' ? node.id : node.studyId;
       if (studyId) lt.storage.set(treeHandoffKey, { studyId, at: Date.now() }, { session: true });
       if (node.kind == 'study' || node.kind == 'chapter' || node.kind == 'studyPosition') {
         const navigation = recordsDbInstance?.navigation;
         if (!navigation) return false;
-        const chapterId = node.kind == 'chapter' ? node.id : node.meta?.chapterId;
-        await navigation.load(node.kind == 'study' ? node.id : node.meta?.studyId, chapterId);
+        const chapterId = node.kind == 'chapter' ? node.id : node.chapterId;
+        await navigation.load(node.kind == 'study' ? node.id : node.studyId, chapterId);
         if (node.kind == 'studyPosition') {
           const analysis = lt.lichess?.analysis;
-          const nodePath = node.meta?.nodePath;
+          const nodePath = node.nodePath;
           if (analysis && nodePath && analysis.path != nodePath) {
             const target = analysis.tree?.nodeAtPath?.(nodePath);
             if (target) {
@@ -2851,6 +2963,7 @@
     const fresh = $('<div id="' + popupId + '">');
     fresh
       .on('mouseover mousemove', () => {
+        if (dragAidOpen) return;
         cancelPopupHide();
         if (popupShown) showStudyPopup(popupShown);
       })
@@ -2859,6 +2972,7 @@
   }
 
   function showStudyPopup(anchor, items, title) {
+    if (dragAidOpen) return;
     const lt = recordsDbInstance?.lichessTools;
       const $ = lt.$;
     if (!lt) return;
@@ -3045,7 +3159,7 @@
         break;
       }
       case 'broadcastGame': {
-        const relayTitle = (meta.relay ?? '') || (meta.slug ? content.humaniseSlug(meta.slug) : '');
+        const relayTitle = (meta.relay ?? '') || (entry.slug ? content.humaniseSlug(entry.slug) : '');
         if (relayTitle.length) facts.push({ name: relayTitle });
         line('popupRound', roundWords(meta.roundLabel));
         const chapterName = (meta.chapterName ?? '') || labelText;
@@ -3054,8 +3168,8 @@
         break;
       }
       case 'tournament':
-        if ((meta.system ?? '').toLowerCase() == 'swiss') facts.push({ name: say('kindTournamentSwiss') });
-        else if ((meta.system ?? '').toLowerCase() == 'arena') facts.push({ name: say('kindTournamentArena') });
+        if ((entry.system ?? '').toLowerCase() == 'swiss') facts.push({ name: say('kindTournamentSwiss') });
+        else if ((entry.system ?? '').toLowerCase() == 'arena') facts.push({ name: say('kindTournamentArena') });
         if ((meta.standing ?? []).length) facts.push({ header: say('popupStandings') });
         for (const card of meta.standing ?? []) {
           const player = card?.name ?? '';
@@ -3073,14 +3187,14 @@
         break;
       case 'blogPost':
         if (meta.subtitle?.length) facts.push({ name: meta.subtitle });
-        if (meta.userId?.length) line('popupAuthor', meta.userId);
+        if (entry.userId?.length) line('popupAuthor', entry.userId);
         if (meta.image?.length) facts.push({ image: meta.image });
         break;
       case 'forumPost':
         if (meta.author?.length) facts.push({ name: trans.format(say('bySomeone'), [meta.author]) });
         break;
       case 'blog':
-        line('popupAuthor', meta.userId);
+        line('popupAuthor', entry.userId);
         break;
       case 'player':
         for (const card of meta.ratings ?? []) {
@@ -3110,13 +3224,13 @@
         }
         break;
       case 'position':
-        line('popupVariant', meta.variant);
+        line('popupVariant', entry.variant);
         break;
       case 'studyPosition':
         const studyName = record?.studyName ?? '';
         if (studyName.length) facts.push({ name: studyName });
         const chapterLost = record?.chapters &&
-          !record.chapters.some((chapter) => chapter?.id === meta.chapterId);
+          !record.chapters.some((chapter) => chapter?.id === entry.chapterId);
         if (chapterLost || meta.nodeMissing === true) facts.push({ name: say('recordsDbNodeMissing') });
         break;
       default:
@@ -3172,11 +3286,42 @@
 
 
 
+  // The row wearing a drop mark is remembered, so clearing one never re-queries the page: a drag
+  // fires the clear on every move.
+  let dropMarked = [];
+
+  function markDrop(node) {
+    if (node && !dropMarked.includes(node)) dropMarked.push(node);
+  }
+
+  // The aim the page wears now: a pointer that stays where it aimed rewrites nothing, and a
+  // sweeping pointer only paints every other aim, so the marker answers the gesture instead of
+  // every mouse position inside it.
+  let dropShown;
+  let dropAimTurn = 0;
+  let dropAimWritten = 0;
+
+  // An aim takes its turn: the marker line lives on the row it marks, so an aim that moved the
+  // line there clears the row the last aim wore first.
+  function aimDrop(node, position, stride = 1) {
+    if (!node) return;
+    if (dropShown && dropShown.node == node && dropShown.position == position) return;
+    dropAimTurn += 1;
+    if (stride > 1 && dropShown && dropAimTurn - dropAimWritten < stride) return;
+    dropAimWritten = dropAimTurn;
+    clearDrop();
+    const $ = recordsDbInstance.lichessTools.$;
+    $(node).attr('data-bookmark-drop', position);
+    markDrop(node);
+    dropShown = { node, position };
+  }
+
   function clearDrop() {
+    dropShown = undefined;
+    if (!dropMarked.length) return;
     const lt = recordsDbInstance.lichessTools;
     const $ = lt.$;
-    $('.lichessTools-recordsDbUi [data-bookmark-drop]')
-      .removeAttr('data-bookmark-drop');
+    for (const marked of dropMarked.splice(0, dropMarked.length)) $(marked).removeAttr('data-bookmark-drop');
   }
 
   function bookmarkView(content, host, box) {
@@ -3189,13 +3334,17 @@
 
     content.armPageDrag();
 
+    // One walk feeds the chips, the header counts and the missing line: the tree is read once per
+    // paint, not once per question asked of it.
+    const facts = content.paintFacts();
+
     const chipStates = {
       access: ['all', 'writable', 'readonly'],
       visibility: ['all', 'public', 'unlisted', 'private'],
     };
     const kindLabel = (kind) => kind == 'all' ? trans.noarg('kindAll') : trans.noarg('kind' + camel(kind));
     const stateLabel = (which, state) => trans.noarg(which + camel(state));
-    const chipLive = (which) => which == 'kind' ? content.presentKinds().length > 1 : content.chipApplicable(which);
+    const chipLive = (which) => which == 'kind' ? facts.present.length > 1 : content.chipApplicable(which);
     const chipName = (which) => trans.noarg('filters' + (which == 'kind' ? 'Kind' : which == 'access' ? 'Access' : 'Visibility'));
 
     const rackButton = (cls, label, title = label) =>
@@ -3204,7 +3353,7 @@
         .text(trans.noarg(label));
 
     const chipButton = (which) => {
-      const states = which == 'kind' ? ['all'].concat(content.presentKinds()) : chipStates[which];
+      const states = which == 'kind' ? ['all'].concat(facts.present) : chipStates[which];
       const current = content.filters[which];
       const live = chipLive(which);
       const button = $('<button class="btn-rack__btn chip">')
@@ -3218,7 +3367,7 @@
         'title',
         live
           ? reason
-          : reason + ' \u2014 ' + trans.noarg('recordsDbChipNotApplicable') + ' ' + content.presentKinds().map(kindLabel).join(' / '),
+          : reason + ' \u2014 ' + trans.noarg('recordsDbChipNotApplicable') + ' ' + facts.present.map(kindLabel).join(' / '),
       );
       button.on('click', () => content.cycleFilter(which, states));
       return button;
@@ -3321,31 +3470,81 @@
     else undoButton.attr('disabled', 'disabled');
     actionsRack.append(undoButton);
 
-    const rowOf = (row) => {
+    // What a row reads of its entry and of the view over it, shared by the build and the stamp.
+    const rowState = (row) => {
       const { entry, path, shown } = row;
       const folder = content.folder(entry);
-      const record = content.recordFor(entry);
-      const selected = content.selected.has(entry);
-      const row0 = content.registry[entry?.kind];
-      const dead = !folder && content.isGone(entry);
-      const labelText = folder
-        ? entry.name ?? ''
-        : content.leafLabel(entry) || (entry.label ?? '');
-      const hasChildren = (entry?.children || []).length > 0;
-      const openable = folder || hasChildren;
-      const open = folder ? content.expanded.has(entry) : !content.collapsed.has(entry);
+      return {
+        entry,
+        path,
+        pathKey: path.join('/'),
+        depth: path.length,
+        shown,
+        folder,
+        record: content.recordFor(entry),
+        selected: content.selected.has(entry),
+        row0: content.registry[entry?.kind],
+        dead: !folder && content.isGone(entry),
+        labelText: folder
+          ? entry.name ?? ''
+          : content.leafLabel(entry) || (entry.label ?? ''),
+        hasChildren: (entry?.children || []).length > 0,
+        open: folder ? content.expanded.has(entry) : !content.collapsed.has(entry),
+        editing: content.editing?.entry === entry,
+      };
+    };
+    // Everything a row paints, in one answer: its place, the view's state over it, and the entry's
+    // own scalars. While this stays the same the row's nodes lift whole into the new tree.
+    const rowStamp = (state) => [
+      state.depth,
+      state.entry?.kind,
+      state.entry?.id,
+      state.folder,
+      state.shown === 0,
+      state.hasChildren,
+      state.selected,
+      state.dead,
+      state.editing,
+      content.selectMode,
+      state.open,
+      state.labelText,
+      JSON.stringify(state.entry?.label ?? ''),
+      JSON.stringify(state.entry?.name ?? ''),
+      JSON.stringify(state.entry?.meta ?? ''),
+      JSON.stringify([
+        state.entry?.parentId,
+        state.entry?.studyId,
+        state.entry?.chapterId,
+        state.entry?.nodePath,
+        state.entry?.system,
+        state.entry?.board,
+        state.entry?.userId,
+        state.entry?.slug,
+        state.entry?.round,
+        state.entry?.roundId,
+        state.entry?.variant,
+        state.entry?.url,
+      ]),
+      content.recordVersion,
+    ].join('|');
+    const rowOf = (row, state) => {
+      const { entry, path, shown } = row;
+      const { folder, record, selected, dead, labelText, row0 } = state;
+      const openable = folder || state.hasChildren;
+      const open = state.open;
+      const editing = state.editing;
+      const chips = [];
+      const flags = { preview: false, cold: false, profile: false };
       const li = $('<li class="record-row bookmark-row">')
         .attr('data-path', path.join('/'))
         .attr('tabindex', '0')
-        .attr('draggable', String(!dead && content.editing?.entry !== entry))
+        .attr('draggable', String(!dead && !editing))
         .attr('style', '---bookmark-depth:' + (path.length - 1));
       if (!folder) li.attr('data-kind', entry.kind);
       if (selected) li.addClass('selected');
       if (dead) li.addClass('record-missing');
       if (folder && shown === 0) li.addClass('folder-empty');
       if (openable) li.attr('data-expanded', String(open));
-      const indexed = { row, entry, folder, dead, node: li[0], preview: false, cold: false, profile: false };
-      content.rowIndex.set(li[0], indexed);
 
       if (content.selectMode) {
         const check = $('<input class="tree-select" type="checkbox">');
@@ -3360,7 +3559,7 @@
             ? (folder ? 'recordsDbCollapseFolder' : 'recordsDbCollapseBranch')
             : (folder ? 'recordsDbExpandFolder' : 'recordsDbExpandBranch')));
         toggle.append($('<svg focusable="false" viewBox="0 0 10 10"><path d="M2 1L8 5L2 9Z" fill="currentColor"></path></svg>'));
-        content.rowIndex.set(toggle[0], { ...indexed, chip: 'toggle' });
+        chips.push({ node: toggle[0], name: 'toggle' });
         li.append(toggle);
       }
       const parentFlair = entry?.kind == 'chapter' || entry?.kind == 'studyPosition' ? undefined : record?.flair;
@@ -3380,7 +3579,7 @@
       const box = $('<div class="record-content">');
       if (userPageKind(entry?.kind)) box.attr('data-href', '/@/' + entry.id);
       const nameBox = $('<span class="bookmark-name">');
-      const jumpHref = folder || dead ? undefined : row0?.openUrl?.(entry.id, entry.meta);
+      const jumpHref = folder || dead ? undefined : row0?.openUrl?.(entry.id, entry);
       nameBox.text(labelText);
       const ownFlair = flairImage(lt, entry?.meta?.flair);
       const titleMark =
@@ -3415,7 +3614,7 @@
       if (ownCount && entry?.kind != 'chapter' && entry?.kind != 'studyPosition')
         li.append($('<span class="record-chapter-count">').text(String(ownCount)));
       if (!folder && !dead && entry.kind == 'study' && !ownCount) {
-        indexed.cold = true;
+        flags.cold = true;
       } else if (!folder && !dead) {
         const built = popupFacts(content, trans, entry, labelText, popupRecord);
         if (built) {
@@ -3424,13 +3623,13 @@
             for (const [name, value] of Object.entries(preview.attrs)) box.attr(name, value);
             popupPreviews.set(box[0], { items: preview.items, title: preview.title });
             for (const target of popupTargets(box[0])) content.popupNodes.add(target);
-            indexed.popupAnchor = box[0];
-            indexed.preview = true;
+            flags.popupAnchor = box[0];
+            flags.preview = true;
           }
         }
       }
 
-      if (!folder && !dead && profilePending(entry)) indexed.profile = true;
+      if (!folder && !dead && profilePending(entry)) flags.profile = true;
 
       let actions;
       const actionsOf = () => {
@@ -3446,20 +3645,20 @@
           .attr('title', trans.noarg('recordsDbOpenButton'));
         if (lt.icon.Link !== undefined) jump.attr('data-icon', lt.icon.Link);
         else jump.text(trans.noarg('recordsDbOpenButton'));
-        content.rowIndex.set(jump[0], { ...indexed, chip: 'open' });
+        chips.push({ node: jump[0], name: 'open' });
         actionsOf().append(jump);
       }
 
-      return li;
+      return { li, chips, flags };
     };
 
 
-    const shownCounts = content.kindCounts();
-    const treeTotal = content.filedCount();
+    const shownCounts = facts.counts;
+    const treeTotal = facts.filed;
     const shownTotal = Object.values(shownCounts).reduce((sum, count) => sum + count, 0);
     const header = $('<div class="tree-header">');
     const countsLine = $('<span class="tree-counts">');
-    const kindLines = content.presentKinds().map((kind) =>
+    const kindLines = facts.present.map((kind) =>
       trans.pluralSame('recordsDbCount' + camel(kind), shownCounts[kind] ?? 0));
     countsLine.text(trans.pluralSame('recordsDbItemsCount', shownTotal));
     countsLine.attr('title', kindLines.join('\n'));
@@ -3469,9 +3668,9 @@
       emptyLine.text(trans.noarg('recordsDbEmptyNote'));
       header.append(emptyLine);
     }
-    if (content.missingCount()) {
+    if (facts.missing) {
       const missingLine = $('<span class="tree-missing">');
-      missingLine.text(trans.pluralSame('recordsDbMissingStudy', content.missingCount()));
+      missingLine.text(trans.pluralSame('recordsDbMissingStudy', facts.missing));
       header.append(missingLine);
     }
     if (content.restorePreview?.counts) {
@@ -3492,14 +3691,44 @@
     const tree = $('<ul class="records">');
     if (treePaint !== content.revision) hideStudyPopup();
     treePaint = content.revision;
+    const registerRow = (row, state, built) => {
+      const indexed = {
+        row,
+        entry: state.entry,
+        folder: state.folder,
+        dead: state.dead,
+        node: built.li[0],
+        preview: built.flags.preview,
+        cold: built.flags.cold,
+        profile: built.flags.profile,
+      };
+      if (built.flags.popupAnchor) indexed.popupAnchor = built.flags.popupAnchor;
+      content.rowIndex.set(built.li[0], indexed);
+      for (const chip of built.chips) content.rowIndex.set(chip.node, { ...indexed, chip: chip.name });
+    };
+    // Rows the last paint built stay whole until something they paint says otherwise: a reorder
+    // lifts the rows it moved into the new tree instead of writing every row out again.
+    const lifted = new Map();
+    const laid = [];
     for (const row of content.results) {
-      const rowEl = rowOf(row);
-      tree.append(rowEl);
-      if (userPageKind(row?.entry?.kind)) {
-        const tipBox = rowEl.find('.record-content');
+      const state = rowState(row);
+      const stamp = rowStamp(state);
+      const painted = content.rowPaint.get(row.entry);
+      const same = painted && painted.stamp == stamp;
+      const built = same ? painted.built : rowOf(row, state);
+      // A row that only changed place carries its new address, nothing else.
+      if (same) built.li.attr('data-path', state.pathKey);
+      lifted.set(row.entry, { stamp, built });
+      laid.push(built.li[0]);
+      registerRow(row, state, built);
+      tree.append(built.li);
+      if (userPageKind(state.entry?.kind)) {
+        const tipBox = built.li.find('.record-content');
         if (tipBox?.length) lt.lichess?.powertip?.manualUser?.(tipBox[0]);
       }
     }
+    content.rowPaint = lifted;
+    content.rowNodes = laid;
     body.append(tree);
     if (content.error) {
       const error = $('<div class="error">');

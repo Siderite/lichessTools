@@ -141,5 +141,16 @@ whatever they already hold.
   (`api.team.getTeam(id)` answers `name`/`nbMembers`), so the mirror never spends a request and the
   Ui half reads the team page itself. Nothing in the store renames or marks a leaf - naming rules
   belong to the Ui tree.
-- The kinds map, their data and their refresh rules live in `docs/recordsDbItems.md`. The registry
+- The kinds map, their data and their refresh rules live in the registry below. The registry
   is the only source of kind meaning: icon, openUrl, containment, haystack, `isDead`.
+- An item's address lives beside its id, never inside `meta`. The module table `addressKeys`
+  names, per kind, the halves its route needs (`system` for a tournament, `studyId` for a
+  chapter, `chapterId`/`nodePath` for a study position, `userId`/`slug` for a blog post, `board`
+  for a thread, `slug`/`round`/`roundId` for a relay board, `variant` for a FEN position, `url`
+  for a link), and `everyAddress` adds `parentId`/`blogId` as the nesting stamp any leaf may
+  carry. `openUrl(id, leaf)` reads only those siblings, so deleting `meta` cannot lose the route
+  or the item. `normalizeEntries` hoists them out of `meta` on the way in and `load` runs that
+  pass over a blob's entries, which is what makes the older shape readable: the tree format
+  version moved 3 -> 4 with this pass (`collectionTreeFormatVersion`), and a file or blob written
+  before it re-reads into the new shape. Identity stays `kind` + `id` - the nesting a leaf sits in
+  is not part of what makes it unique.
