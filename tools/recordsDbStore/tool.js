@@ -59,8 +59,7 @@
         this.logOption('Records database', 'not logged in');
         return;
       }
-      // One switch covers both capture routes: the study the page carries, and - only while the
-      // db is still empty - the study lists it has.
+      // One switch covers both capture routes: the page's study and the study lists.
       if (lt.currentOptions.getValue('recordsDbCapture')) {
         const updated = await store.harvester.captureFromLivePage();
         if (updated) {
@@ -70,8 +69,7 @@
       } else {
         this.logOption('Records capture', 'off');
       }
-      // Load and harvest run off the critical path - and the crawl is for an empty db only, so a
-      // page after the first never pays for the study lists again.
+      // Off the critical path; the crawl runs only while the db holds no study.
       (async () => {
         try {
           await store.syncCtrl.load();
@@ -137,8 +135,17 @@
     return !/^\/(?:practice|learn)(?:\/|$)/.test(pathname);
   }
 
-  // The haystack as one function per kind, so the UI never re-derives a field and every kind
-  // spells its own. Built once per render and cached by the caller, not per keystroke.
+  // A visit moves only for the chapter the leaf holds, and only when something changes.
+  function visitMoves(visit, position, path) {
+    return !!visit && visit.chapterId == position?.chapterId &&
+      (visit.path !== path || visit.orientation !== position.orientation);
+  }
+
+  // One fold for every haystack; each kind spells only the fields it owns.
+  function joinLower(parts) {
+    return parts.filter(Boolean).join(' ').toLowerCase();
+  }
+
   function studyHaystack(record) {
     if (!record) return '';
     const members = (record.members || []).map((entry) => entry?.user?.name || entry?.name || (entry?.id ?? entry));
@@ -148,32 +155,26 @@
       ...((chapter?.tags || []).map((tag) => tag?.[1])),
       ...((chapter?.players || []).map((player) => player?.name)),
     ]);
-    return [
+    return joinLower([
       record.studyName,
       record.description,
       ...(record.topics || []),
       record.owner?.name || record.ownerId,
       ...members,
       ...chapters,
-    ]
-      .filter((part) => part !== undefined && part !== null)
-      .join(' ')
-      .toLowerCase();
+    ]);
   }
 
   function chapterHaystack(chapter) {
     if (!chapter) return '';
-    return [
+    return joinLower([
       chapter.name,
       chapter.description,
       ...(chapter.tags || []).map((tag) => tag?.[1]),
       ...(chapter.players || []).map((player) => player?.name),
       chapter.setup?.variant?.name,
       chapter.setup?.variant?.key,
-    ]
-      .filter((part) => part !== undefined && part !== null)
-      .join(' ')
-      .toLowerCase();
+    ]);
   }
 
 
@@ -182,292 +183,171 @@
 
   function collectionKindRegistry(harvester) {
     const writableRole = (record) => record?.role == 'owner' || record?.role == 'contributor';
-    // The chip answer is the state the page actually reports: `unlisted` is **not** public, and
-    // folding it into `public` (the old two-state read) is what made an unlisted study answer
-    // the Public chip.
+    // The chip answer is the state the page reports: `unlisted` is not public.
     const visibilityState = (record) =>
       record?.visibility == 'private' || record?.visibility == 'unlisted' ? record.visibility : 'public';
     // Absence needs proof: a leaf the mirror never saw is uncaptured, not deleted.
     const absent = (record) => record?.absent === true;
+    // What a kind owns only when it differs from this; see tools/recordsDbStore/context.md.
+    const kindDefault = {
+      canWrite: undefined,
+      visibility: undefined,
+      read: undefined,
+      isDead: absent,
+      serviced: false,
+    };
     return {
       study: {
+        ...kindDefault,
         icon: 'StudyBoard',
         openUrl: (id, _meta) => '/study/' + id,
         canWrite: writableRole,
         visibility: visibilityState,
         haystack: studyHaystack,
         read: (id, signal) => harvester.harvestOne(id, signal),
-        isDead: absent,
         serviced: true,
       },
       chapter: {
-        // Containment: a chapter leaf may only be a child of its own study leaf, and `meta.studyId`
-        // is what says so - the leaf keeps the chapter id, the parent keeps the study.
-        // Its own mark, never its study's: the record a filed chapter carries is the study's, so
-        // the shield keeps it in the study's font family while staying a mark of its own.
+        ...kindDefault,
         icon: 'Shield',
         openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + id,
         canWrite: writableRole,
         visibility: visibilityState,
         haystack: chapterHaystack,
-        // Free with the parent harvest; `study.getChapterPgn` only when the PGN is wanted
-        read: undefined,
-        isDead: absent,
         serviced: true,
         containment: 'study',
-        // Chapter has no blob of its own - containment keeps its leaves inside their study branch.
         branch: 'study',
       },
       game: {
+        ...kindDefault,
         icon: 'Crown',
         openUrl: (id, _meta) => '/game/' + id,
-        // The mine test (`/@user/imported` + `game.deleteImported`) is unverified in the page
-        canWrite: undefined,
         visibility: visibilityState,
-        haystack: (record) => [record?.studyName, ...(record?.tags || [])].filter(Boolean).join(' ').toLowerCase(),
+        haystack: (record) => joinLower([record?.studyName, ...(record?.tags || [])]),
         read: 'game.getPgns(ids, { ndjson: true }) \u2014 batch, chunked like /round/minis?ids= (\u00a719.7)',
-        isDead: absent,
-        serviced: false,
       },
       position: {
-        // The own leaf: no lichess object exists for a bare position, `id` is the FEN and `meta`
-        // the variant. Opening goes straight to the lichess analysis link for the FEN.
-        // Not the game's piece: a bare position is what an explorer searches, and it has to read
-        // apart from a game in the same tree.
+        ...kindDefault,
         icon: 'PositionIndicator',
         openUrl: (id, meta) => '/analysis/' + (meta?.variant || 'standard') + '/' + String(id).replace(' ', '_'),
         canWrite: () => true,
-        // N/a - the chip stays dim for this kind
-        visibility: undefined,
-        haystack: (record) => [record?.san?.line, ...(record?.tags || [])].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
+        haystack: (record) => joinLower([record?.san?.line, ...(record?.tags || [])]),
         isDead: () => false,
-        serviced: false,
       },
       studyPosition: {
-        // A position inside a study: `id` encodes the chapter and node path so two positions in
-        // different chapters stay distinct, `meta` names the study, the chapter and the lichess
-        // node path the analysis jumps to after the chapter loads.
-        // A square mark - apart from the study's board and from a bare position's crosshair.
+        ...kindDefault,
         icon: 'SquarePositionIndicator',
         openUrl: (id, meta) => '/study/' + (meta?.studyId || '') + '/' + (meta?.chapterId || ''),
         canWrite: writableRole,
-        // Dim - the visibility chip never sees a study position.
-        visibility: undefined,
-        haystack: (record) => [record?.san?.line, ...(record?.tags || [])].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
+        haystack: (record) => joinLower([record?.san?.line, ...(record?.tags || [])]),
         isDead: () => false,
-        serviced: false,
-        // A study position rides its study's blob like a chapter does.
         branch: 'study',
       },
       puzzle: {
-        // PuzzleIndex's own mark: a target reads apart from the boards around it, and the
-        // puzzle tool wears the same glyph on its buttons.
+        ...kindDefault,
         icon: 'ArcheryTarget',
         openUrl: (id, _meta) => '/training/' + id,
-        // Never - the chip is dim
-        canWrite: undefined,
-        // Public only - the chip is dim
-        visibility: undefined,
-        haystack: (record) => [record?.puzzle?.name, record?.name].filter(Boolean).join(' ').toLowerCase(),
         read: 'puzzle.getPuzzle(id) \u2014 one request per id, so the pass is capped and says so (\u00a719.7)',
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.puzzle?.name, record?.name]),
       },
       blog: {
+        ...kindDefault,
         icon: 'Book',
-        // The author route keeps the slash after `@` - `/@/<user>/blog`, whose quoted legacy twin
-        // `/'<user>/blog` is what a dragged blog anchor carries. A url without that slash is a page
-        // no reader of this kind recognises.
         openUrl: (id, meta) => meta?.url || '/@/' + (meta?.userId || id) + '/blog',
-        // My own - the author test is unverified in the page
-        canWrite: undefined,
         visibility: visibilityState,
-        haystack: (record) => [record?.name, record?.publicName, record?.description].filter(Boolean).join(' ').toLowerCase(),
         read: 'user.getMini(userId) \u2014 only for the author label',
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.publicName, record?.description]),
       },
       blogPost: {
-        // Reuses blogHistory's key shape: `meta` carries userId/slug so a leaf can be opened or
-        // fetched.
+        ...kindDefault,
         icon: 'Pencil',
         openUrl: (id, meta) =>
           meta?.url || '/@/' + (meta?.userId || '') + '/blog/' + (meta?.slug || '') + '/' + id,
-        canWrite: undefined,
         visibility: visibilityState,
-        haystack: (record) => [record?.title, record?.name, record?.text].filter(Boolean).join(' ').toLowerCase(),
         read: 'lt.net.fetch with ignoreStatuses:[404] \u2014 404 is the dead signal (\u00a719.7)',
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.title, record?.name, record?.text]),
         containment: 'blog',
-        // A blogPost lives inside its author's blog branch, exactly like a chapter inside a study.
         branch: 'blog',
       },
       forum: {
-        // The board itself: `/forum/<slug>` - the parent of a forumPost leaf, like a blog to its
-        // post. Board state is not mirrored, so the chips stay dim.
+        ...kindDefault,
         icon: 'BubbleConvo',
         openUrl: (id, _meta) => '/forum/' + id,
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => String(record?.name || '').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name]),
       },
       forumPost: {
-        // URL-only leaves: `meta` holds the title/author/board captured at add time.
+        ...kindDefault,
         icon: 'BubbleSpeech',
         openUrl: (id, meta) => meta?.url || '/forum/' + (meta?.board || '') + '/' + id,
-        // Never - chip dim
-        canWrite: undefined,
-        // Public only - chip dim
-        visibility: undefined,
-        haystack: (record) => [record?.title, record?.author].filter(Boolean).join(' ').toLowerCase(),
-        // Nothing to read - meta holds what was captured at add time
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.title, record?.author]),
         containment: 'forum',
-        // A forumPost lives inside its board leaf, exactly like a chapter inside a study.
         branch: 'forum',
       },
       broadcast: {
-        // The relay itself: `/broadcast/<slug>` - like a forum board, its state is not
-        // mirrored, so the chips stay dim and the row opens the relay page.
+        ...kindDefault,
         icon: 'RadioTower',
         openUrl: (id, meta) => meta?.url || '/broadcast/' + id,
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.title].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.title]),
       },
       broadcastGame: {
-        // The game of a relay: lichess builds each one from an underlying study - the page's
-        // `analysis.study` looks study-shaped and only `study.relay` says otherwise - and every
-        // board of a round shares that study. So the leaf keys on the board's own chapter when the
-        // route names one, and the round's study rides under `roundId`; the route rebuilds as
-        // slug/round/study/chapter, which is why both halves ride in `meta` and neither is
-        // invented. A board filed without a chapter (the relay's model game) keys on the study.
-        // The leaf rides the relay branch and opens on the broadcast route, so its rows never
-        // mix with the studies the harvest files.
+        ...kindDefault,
         icon: 'RadioTower',
         openUrl: (id, meta) =>
           meta?.url ||
           '/broadcast/' + (meta?.slug || '') + '/' + (meta?.round || '') + '/' + (meta?.roundId || id) +
           (meta?.chapterId && meta.chapterId !== (meta?.roundId || id) ? '/' + meta.chapterId : ''),
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.studyName].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.studyName]),
         containment: 'broadcast',
-        // A broadcast game lives inside its relay's leaf, exactly like a chapter inside a study.
         branch: 'broadcast',
       },
       player: {
-        // Players come from drags, not from a page harvest: a user link dropped on the tree
-        // opens this leaf, and the power tip at drag time rides in `meta` (flag, flair,
-        // ratings...). The profile page itself answers the open.
+        ...kindDefault,
         icon: 'User',
-        // The profile page sits at `@/<name>` - the route the site spells on its own user links,
-        // and the shape a dragged user anchor carries. `/user/<name>` is an api path only, so a
-        // row that wore it would open nothing.
         openUrl: (id, _meta) => '/@/' + id,
-        // No page state to report - chips dim
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.title, record?.name].filter(Boolean).join(' ').toLowerCase(),
-        // The facts a row prints come from one api read the ui runs (`api.user.getUsers([id])` -
-        // title, perfs, profile), so the mirror never holds a user record.
         read: 'api.user.getUsers([id]) \u2014 read by the ui, never by the mirror',
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.title, record?.name]),
       },
       coach: {
-        // A coach account (`/coach/<user>`) is a user page behind its own route, so the id is the
-        // handle and the open jump has to keep the route - opening the bare profile would lose the
-        // coaching games the row is about.
+        ...kindDefault,
         icon: 'GraduateCap',
         openUrl: (id, _meta) => '/coach/' + id,
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.handle].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.handle]),
       },
       streamer: {
-        // The same user page under the streamer route: the id is the handle, and the mark says
-        // what the account does - it reads live games for an audience.
+        ...kindDefault,
         icon: 'Voice',
         openUrl: (id, _meta) => '/streamer/' + id,
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.handle].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.handle]),
       },
       team: {
-        // A team is named by a free-text name, not an id: `/team/<name>`, spaces percent-encoded.
-        // `/team/me` is the list of the current user's teams, so the ui never files that shape.
+        ...kindDefault,
         icon: 'Group',
         openUrl: (id, _meta) => '/team/' + encodeURIComponent(String(id)),
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.fullName].filter(Boolean).join(' ').toLowerCase(),
-        // The name and the member count answer from an api read, but the mirror never holds a team
-        // record, so the ui half reads the team page itself (see docs/recordsDbItems.md).
         read: 'api.team.getTeam(id) \u2014 read by the ui, never by the mirror',
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.name, record?.fullName]),
       },
       tournament: {
-        // The ladder itself: `/tournament/<id>` runs an arena and `/swiss/<id>` runs a Swiss - one
-        // kind whose page answers alike, and the harvest parks the route as `meta.system` so the
-        // open rides the route the row was filed from.
+        ...kindDefault,
         icon: 'Trophy',
         openUrl: (id, meta) => (meta?.system == 'swiss' ? '/swiss/' : '/tournament/') + id,
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.fullName, record?.name].filter(Boolean).join(' ').toLowerCase(),
-        read: undefined,
-        isDead: absent,
-        serviced: false,
+        haystack: (record) => joinLower([record?.fullName, record?.name]),
       },
       url: {
-        // The lichess route the table has no kind for: the leaf **is** the url, `id` is the route
-        // and `meta.url` the same route, so the open jump never rebuilds anything. A route is dead
-        // only when the page says so, which nothing here can prove - the row stays.
+        ...kindDefault,
         icon: 'Link',
         openUrl: (id, meta) => meta?.url || String(id),
-        canWrite: undefined,
-        visibility: undefined,
-        haystack: (record) => [record?.name, record?.fullName].filter(Boolean).join(' ').toLowerCase(),
-        // The title the page carries answers the name when the row opens (see `pageUrlFacts`).
-        read: undefined,
+        haystack: (record) => joinLower([record?.name, record?.fullName]),
         isDead: () => false,
-        serviced: false,
       },
     };
   }
 
-  // The node shapes: a folder is `{name, children}` and a leaf is `{kind,id,label,meta?}` - a
-  // leaf may carry nested leaves, so the folder is told apart by the **absence of `kind`**,
-  // not by `children` being present.
+  // A folder is a node with no `kind`; a leaf may still carry children.
   function collectionFolder(node) {
     return !node?.kind;
   }
 
-  // Pruning is a *copy* decision the caller owns. Dropping a leaf never touches lichess, and
-  // the caller only ever calls it after a pass that reported `exhausted` with no `error`,
-  // because a partial pass must never eat bookmarks.
+  // A copy decision the caller owns: a partial pass must never eat bookmarks.
   function pruneCollection(entries, drop) {
     const keep = [];
     for (const node of entries || []) {
@@ -490,22 +370,18 @@
       this.idbStudy = idbStudy;
       this.registry = collectionKindRegistry(harvester);
       this.kinds = collectionKindOrder;
-      // A contained kind (`chapter`, `blogPost`) has no branch of its own - its leaves live inside
-      // the branch named by `branch`, which is what keeps one blob per **branch** rather than one
-      // per kind.
       this.blobKinds = collectionKindOrder.filter((kind) => !this.registry[kind]?.branch);
       this.trees = new Map();
       this.filters = { access: 'all', visibility: 'all', kind: 'all' };
-      // The serial write chain: two drops in a row must not interleave a branch write.
+      // Two drops in a row must not interleave a branch write.
       this.writes = Promise.resolve(null);
     }
 
-    // The blob naming: `recordsDb-tree-<branch>`. A kind the table does not know yet still gets a
-    // key, and registering it keeps the branch table honest for the next split-merge save.
     branchOf(kind) {
       return this.registry[kind]?.branch || kind;
     }
 
+    // The blob key is composed per branch, so an unregistered kind still gets one.
     treeKey(kind) {
       const branch = this.branchOf(kind);
       const known = this.idbStudy.keys['tree-' + branch];
@@ -515,14 +391,13 @@
       return composed;
     }
 
-    // One kind's leaves and folders inside a tree - what the restore preview quotes per kind, so
-    // the header's line and the write that follows count the same pass.
+    // One kind's leaves and folders, counted in one pass.
     countKind(nodes, kind) {
       let leaves = 0;
       let folders = 0;
       const visit = (nodes) => {
         for (const node of nodes || []) {
-          if (!node?.kind) folders++;
+          if (collectionFolder(node)) folders++;
           else if (node.kind == kind) leaves++;
           visit(node.children || []);
         }
@@ -531,23 +406,11 @@
       return { leaves, folders };
     }
 
-    // The merge, owned by storage so the UI half and the download file read the same rule:
-    // folders join by name across branches, and a leaf re-nests under the leaf the blob nested
-    // it under - a marker of another branch counts as that leaf, since its real self arrives
-    // from its own branch. A stamp (`meta.parentId`, or the older `meta.studyId`/`meta.blogId`
-    // a harvest left behind) answers for a link no blob carried: a parent that left the tree, or
-    // a nesting an older blob lost. Naming the parent is what keeps a nesting that crossed two
-    // branches alive on those older blobs. A leaf whose parent is missing stays where it appeared:
-    // dropping it would eat part of a user's tree. A marker never lands in the merged tree - only
-    // real selves do, so the split's path markers cannot double a row.
+    // Folders join by name across branches; a leaf re-nests under the leaf its blob named.
     mergeTrees(branches) {
       const pairs = branches?.constructor === Object ? Object.entries(branches) : branches;
       const merged = [];
-      const isFolder = (node) => !node?.kind;
       const branchOf = (kind) => this.registry[kind]?.branch || kind;
-      // Every leaf seen, in the order the branches list them: `kind|id` is what a marker names,
-      // the bare id is what a stamp names, and the first copy wins so a marker and its real self
-      // stay one node.
       const seen = new Map();
       const byId = new Map();
       const parentId = new Map();
@@ -555,8 +418,8 @@
       const home = [];
       const walk = (nodes, target, above, branch) => {
         for (const node of nodes || []) {
-          if (isFolder(node)) {
-            let bucket = target.find((existing) => isFolder(existing) && existing.name === node.name);
+          if (collectionFolder(node)) {
+            let bucket = target.find((existing) => collectionFolder(existing) && existing.name === node.name);
             if (!bucket) {
               bucket = { name: node.name ?? '', children: [] };
               target.push(bucket);
@@ -564,16 +427,13 @@
             walk(node.children, bucket.children, undefined, branch);
             continue;
           }
-          // A leaf of another branch is a path marker the split left behind so this walk reaches
-          // the branch's own leaves under it; the chain it leaves behind is what carries a nesting
-          // that crossed branches, and the marker itself never joins the merged tree.
+          // A leaf of another branch is a path marker: it chains the walk, it never joins.
           if (branchOf(node.kind) !== branch) {
             walk(node.children || [], target, node, branch);
             continue;
           }
           if (!node.id || seen.has(node.kind + '|' + node.id)) continue;
-          // The merged leaf is a fresh node: the blob's children array is only a path, and keeping
-          // its entries would park every marker beside the row it stands for.
+          // The children array is the blob's path, not the merged row's own children.
           const copy = { ...node };
           delete copy.children;
           seen.set(node.kind + '|' + node.id, copy);
@@ -587,8 +447,7 @@
       };
       for (const [branch, entries] of pairs) walk(entries, merged, undefined, branch ?? this.branchOf(entries?.[0]?.kind));
       const parentOf = new Map();
-      // A ring of nestings (each naming the other) would loop the tree walk, so a parent that
-      // already lives under the leaf is refused rather than followed.
+      // A parent already living under the leaf is refused, so a ring cannot loop the walk.
       const underPlaced = (node, maybeDescendant) => {
         let at = maybeDescendant;
         while (at) {
@@ -597,8 +456,7 @@
         }
         return false;
       };
-      // The nesting the blob carries wins, so a chapter keeps its chapter row and a study position
-      // keeps its place in the tree; a stamp answers only for a link no blob carried.
+      // The blob's own nesting wins; a stamp only covers a link no blob carried.
       for (const [node, target] of home) {
         const marker = nestedUnder.get(node);
         const named = parentId.get(node);
@@ -616,15 +474,13 @@
       return merged;
     }
 
-    // The split, the mirror of `mergeTrees`: a folder owns an entry in **every** branch it
-    // stands in, a leaf travels with the branch `branchOf(kind)` names, and a leaf of another
-    // branch is kept as a bare path marker only when its subtree leads to something in this
-    // branch - so the split stays loss-less for any-nest trees.
+    // The mirror of mergeTrees: a folder owns an entry in every branch it stands in, and a leaf
+    // of another branch stays as a marker only while its subtree leads to a leaf here.
     splitBranches(nodes) {
       const branches = new Map();
       const filterBranch = (nodes, branch) =>
         (nodes || []).flatMap((node) => {
-          if (!node?.kind) return [{ name: node.name ?? '', children: filterBranch(node.children, branch) }];
+          if (collectionFolder(node)) return [{ name: node.name ?? '', children: filterBranch(node.children, branch) }];
           const nested = filterBranch(node.children ?? [], branch);
           if (this.branchOf(node.kind) == branch) {
             const copy = { ...node };
@@ -632,18 +488,14 @@
             else delete copy.children;
             return [copy];
           }
-          // Keep the leaf as a skeleton parent so a leaf of this branch deeper down is still
-          // reachable on the merge; the walk skips re-pushing it because its real self arrives
-          // later from its own branch.
+          // A marker leaf keeps the path so a deeper leaf of this branch stays reachable.
           return nested.length ? [{ kind: node.kind, id: node.id, label: node.label, meta: node.meta, children: nested }] : [];
         });
       for (const branch of this.blobKinds) branches.set(branch, filterBranch(nodes || [], branch));
       return branches;
     }
 
-    // `readTree` - the only entry point for a branch, so a restored file, a paste and the IDB
-    // blob all land in the same shape. A `study` branch also folds the `recordsDb-bookmarks` blob
-    // in, once.
+    // The only entry point for a branch: a restored file, a paste and the blob land the same way.
     async load(kind) {
       const blob = await this.idbStudy.readBlob(this.treeKey(kind));
       if (blob?.entries) return blob.entries;
@@ -666,26 +518,31 @@
     save(kind, entries) {
       const branch = this.branchOf(kind);
       this.trees.set(branch, entries);
-      const chained = this.writes.then(async () => {
+      return this.chain(async () => {
         await this.idbStudy.write(() =>
           this.idbStudy.writeBlob(this.treeKey(branch), { formatVersion: collectionTreeFormatVersion, kind: branch, entries }),
         );
-        // The branch owns the blob, so the legacy key is cleared.
-        if (branch == 'study' && !this.legacyCleared) {
-          this.legacyCleared = true;
-          try {
-            await this.idbStudy.write(() => this.idbStudy.removeBranch(this.idbStudy.keys.bookmarks));
-          } catch (ignored) {}
-        }
+        if (branch == 'study') await this.clearLegacy();
       });
+    }
+
+    // One serial chain: a write waits for the write that was queued before it.
+    chain(operation) {
+      const chained = this.writes.then(operation);
       this.writes = chained.catch(() => null);
       return chained;
     }
 
-    // The `{name, studyId, studyName}` bookmarks become the `{kind,id,label}`; folder names
-    // survive. A **file/legacy** node is a folder only when it carries a `children` array - the
-    // runtime convention (a folder has no `kind`) cannot be trusted on data read off a blob or a
-    // paste.
+    async clearLegacy() {
+      if (this.legacyCleared) return;
+      this.legacyCleared = true;
+      try {
+        await this.idbStudy.write(() => this.idbStudy.removeBranch(this.idbStudy.keys.bookmarks));
+      } catch (ignored) {}
+    }
+
+    // Legacy bookmarks `{name, studyId, studyName}` become leaves; a file node is a folder only
+    // while it carries a `children` array.
     migrateLegacy(entries) {
       const migrate = (nodes) =>
         (nodes || []).flatMap((node) => {
@@ -696,8 +553,7 @@
       return migrate(entries);
     }
 
-    // The three chip states live in their own small key, so clicking a chip never rewrites a
-    // branch.
+    // The three chip states live here, so a chip click never rewrites a branch.
     filtersKey = 'lichessTools/LT/collectionTree-filters';
 
     async loadFilters() {
@@ -708,17 +564,13 @@
 
     saveFilters(filters) {
       this.filters = { ...this.filters, ...filters };
-      const chained = this.writes.then(async () => {
+      return this.chain(async () => {
         await this.idbStudy.write(() => this.idbStudy.writeBlob(this.filtersKey, this.filters));
       });
-      this.writes = chained.catch(() => null);
-      return chained;
     }
 
-    // One parse feeds the file path, and `readTree`/`writeTree` stay the only two entry points,
-    // so a restored file and the IDB blob are the same shape. **The file is one tree** - folders
-    // once, every leaf naming its kind - and an older file that still carries branch blobs
-    // (`{trees:{kind}}`) or the pre- bookmarks blob (`{entries}`) merges to that same tree.
+    // One parse feeds the file path: a restored file and the blob are the same one tree - folders
+    // once, every leaf naming its kind. Older files merge into that shape.
     parseTree(text) {
       const lt = this.lichessTools;
       let parsed;
@@ -740,8 +592,7 @@
         }
         tree = this.normalizeEntries(this.mergeTrees(perBranch));
       }
-      // A file leaf the registry has no kind for stays in the tree but is named here, so the
-      // restore dialog can say what landed rather than silently eating it.
+      // An unknown kind stays in the tree but is named, so the restore dialog can report it.
       const found = new Set();
       const walk = (nodes) => {
         for (const node of nodes || []) {
@@ -750,23 +601,18 @@
         }
       };
       walk(tree);
-      // The preview quotes per **kind**, which is what the header prints and what the file's
-      // leaves carry.
       const counts = {};
       for (const kind of collectionKindOrder)
         if (found.has(kind)) counts[kind] = this.countKind(tree, kind);
       return { tree, counts, unknown: [...found].filter((kind) => !this.kinds.includes(kind)) };
     }
 
-    // A leaf from a file is kept even when its kind is unknown to the registry - a future kind
-    // must not silently eat a user's tree on downgrade. Only a node that names no kind at all
-    // and sits outside a named branch is dropped: there is nothing left to place it as.
+    // A file leaf of an unknown kind stays; only a node naming no kind anywhere is dropped.
     normalizeEntries(entries, kind) {
       const normalize = (nodes) =>
         (nodes || []).flatMap((node) => {
           if (!node) return [];
-          // A node with a kind of its own is a leaf, and a leaf may carry children - the array
-          // only tells a kind-less node apart, and only when it names none.
+          // A kind-less node with a children array is a folder; a leaf may carry children.
           if (!node.kind && !node.leafKind && Array.isArray(node.children))
             return [{ name: String(node.name ?? ''), children: normalize(node.children) }];
           if (!node.kind && !node.leafKind && !kind) return [];
@@ -777,11 +623,8 @@
           };
           if (!leaf.id || !leaf.kind) return [];
           if (node.meta) leaf.meta = node.meta;
-          // An older relay leaf spelled its board with the round's study as the id and kept the
-          // board only as `meta.chapterId`, which folded every board of a round onto one key. The
-          // board keys the leaf now, so the older spelling is re-keyed on the way in and the study
-          // takes the `roundId` seat the route reads - which also lets re-filing a board find the
-          // row it already has instead of opening a twin.
+          // An older relay leaf keyed its board with the round's study id; re-key on the way in so
+          // re-filing finds the row it already has rather than opening a twin.
           if (leaf.kind == 'broadcastGame' && leaf.meta?.chapterId &&
             String(leaf.meta.chapterId) !== String(leaf.id)) {
             const boardKey = String(leaf.meta.chapterId);
@@ -794,9 +637,8 @@
       return normalize(entries);
     }
 
-    // The restore path: the file's one tree becomes every branch blob, so restore replaces the
-    // **whole** tree - a branch the file does not mention ends empty rather than keeping leaves
-    // the user no longer has.
+    // Restore replaces the whole tree: a branch the file omits ends empty rather than keeping
+    // leaves the user no longer has.
     async readTree(text) {
       const parsed = this.parseTree(text);
       if (!parsed) return undefined;
@@ -808,9 +650,7 @@
       return this.save(kind, entries);
     }
 
-    // The download file is the tree the user sees - folders once, each leaf naming its kind -
-    // not one blob per branch (whose folder skeleton repeats in every branch). `readTree` splits
-    // it back into blobs, so `serializeTree`/`readTree` stay one round trip.
+    // The download is the tree the user sees, not one blob per branch; readTree splits it back.
     serializeTree(nodes = this.mergeTrees(this.trees)) {
       return JSON.stringify(
         { formatVersion: collectionTreeFormatVersion, kind: 'collectionTree', tree: this.normalizeEntries(nodes) },
@@ -837,8 +677,8 @@
       this.idbStudy = new IdbStudy(lichessTools);
       this.harvester = new RecordsHarvester(lichessTools, this.idbStudy);
       this.syncCtrl = new SyncCtrl(lichessTools, this.idbStudy, this.harvester);
-      // The tree engine is a store singleton, so the UI half reads branches through it and never
-      // touches a blob key of its own - `readTree`/`writeTree` stay the only two entry points.
+      // The tree engine lives here so the UI half reads branches through it and never touches a
+      // blob key of its own.
       this.collectionTree = new CollectionTree(lichessTools, this.idbStudy, this.harvester);
       this.kindRegistry = this.collectionTree.registry;
       this.collectionKinds = collectionKindOrder;
@@ -863,22 +703,11 @@
         bookmarks: 'lichessTools/LT/recordsDb-bookmarks',
         windows: 'lichessTools/LT/recordsDb-windows',
         syncMeta: 'lichessTools/LT/recordsDb-syncMeta',
-        // One blob per **kind branch**, not one blob for the whole tree - every `save` holds
-        // `Cache.waitRelease(key)` for its own key, so filing a game must not rewrite every study.
-        // `chapter` has none of its own: containment keeps chapter leaves inside their study leaf.
-        'tree-study': 'lichessTools/LT/recordsDb-tree-study',
-        'tree-game': 'lichessTools/LT/recordsDb-tree-game',
-        'tree-position': 'lichessTools/LT/recordsDb-tree-position',
-        'tree-puzzle': 'lichessTools/LT/recordsDb-tree-puzzle',
-        'tree-blog': 'lichessTools/LT/recordsDb-tree-blog',
-        'tree-blogPost': 'lichessTools/LT/recordsDb-tree-blogPost',
-        'tree-forum': 'lichessTools/LT/recordsDb-tree-forum',
-        'tree-forumPost': 'lichessTools/LT/recordsDb-tree-forumPost',
-        // The three chip states live here, so a chip click never rewrites a branch.
+        // One blob per branch, so filing one kind never rewrites another's blob; `treeKey(branch)`
+        // builds the branch key from the same prefix, and `chapter` has none of its own.
         filters: 'lichessTools/LT/collectionTree-filters',
-        // What the tree filed that is not the user's own study: the same `StudyData` shape, in its
-        // own blob so `recordsDb-member` stays a faithful picture of the user's list. The tree names
-        // which captures survive through `SyncCtrl.setTreeIds`; the rest is pruned.
+        // What the tree filed that is not the user's own study, in its own blob so `member` stays
+        // a faithful picture of the user's list.
         captures: 'lichessTools/LT/recordsDb-captures',
       };
       this.writes = Promise.resolve(null);
@@ -978,8 +807,7 @@
       await this.write(async () => {
         await this.ensure('history');
         const entry = this.slots.history.state.get(position?.studyId);
-        if (!entry || entry.recordsDbExcluded || !entry.visit || entry.visit.chapterId !== position.chapterId) return;
-        if (entry.visit.path === path && entry.visit.orientation === position.orientation) return;
+        if (!entry || entry.recordsDbExcluded || !visitMoves(entry.visit, position, path)) return;
         entry.visit = { ...entry.visit, path, orientation: position.orientation };
         await this.flush('history');
       });
@@ -1020,18 +848,16 @@
     }
 
 
-    async loadWindows() {
-      return await this.readBlob(this.keys.windows) || [];
-    }
+    // The blob every reader wants, with the empty shape each key owns.
+    blob = async (which, fallback = []) => (await this.readBlob(this.keys[which])) || fallback;
+    loadWindows = () => this.blob('windows');
+    ensureSyncMeta = () => this.blob('syncMeta', { revision: 0 });
 
-    saveWindows = async (storedTabs) => {
+    async saveWindows(storedTabs) {
       // The blob is rewritten whole, so a part the page cannot see has to come from the blob
-      // itself: `view` is the shape the user left and `scroll` is where the wheel had stopped. A
-      // row that names one of them says what it holds; a row that names neither keeps the old
-      // one rather than erasing it. That is what lets a page open the window before its tree has
-      // been read without spending the shape the page before left behind.
+      // itself: `view` is the shape the user left and `scroll` is where the wheel had stopped.
       const carriedParts = ['view', 'scroll'];
-      const previous = await this.readBlob(this.keys.windows) || [];
+      const previous = await this.loadWindows();
       const last = {};
       for (const row of previous) {
         const kind = row?.kind;
@@ -1050,28 +876,22 @@
         return filled;
       });
       await this.write(() => this.writeBlob(this.keys.windows, rows));
-    };
-
-    async ensureSyncMeta() {
-      return await this.readBlob(this.keys.syncMeta) || { revision: 0 };
     }
 
-    nextRevision = async (count = 1) => {
+    async nextRevision(count = 1) {
       const meta = await this.ensureSyncMeta();
       meta.revision = (+meta.revision || 0) + count;
       await this.writeBlob(this.keys.syncMeta, meta);
       return meta.revision;
-    };
+    }
 
-    rememberHarvest = async (manifest) => {
+    async rememberHarvest(manifest) {
       const meta = await this.ensureSyncMeta();
       meta.lastHarvestAt = Date.now();
       meta.manifest = manifest;
       meta.historyLimit = this.historyLimit;
       await this.writeBlob(this.keys.syncMeta, meta);
-    };
-
-
+    }
   }
 
   // SyncCtrl: the mirror, its revision and the harvest that feeds it ------------------------------
@@ -1141,17 +961,12 @@
 
 
     async load(signal) {
-      const lt = this.lichessTools;
-      if (!lt.getUserId() || signal?.aborted) return;
+      if (!this.lichessTools.getUserId() || signal?.aborted) return;
       this.request?.abort();
-      const request = this.request = new (lt.global.AbortController || AbortController)();
-      const stop = () => request.abort();
-      signal?.addEventListener('abort', stop, { once: true });
-      const active = () => this.request === request && !request.signal.aborted;
-      this.complete = false;
-      this.error = undefined;
-      this.publish();
-      try {
+      const loaded = await this.runGuarded(signal, 'records db load failed: ', true, async (request, active) => {
+        this.complete = false;
+        this.error = undefined;
+        this.publish();
         // Both blobs feed the mirror the same way: a batch lands, the revision moves.
         const feed = (batch) => {
           if (!active()) return;
@@ -1159,24 +974,19 @@
           this.publish();
         };
         const cache = await this.idbStudy.getMember(feed, request.signal);
-        // What the tree filed that is not the user's own is not in the member blob, so the mirror
-        // would come back blind on every page - the capture blob feeds it the same way.
+        // A capture the tree filed is not in the member blob, so the mirror feeds it the same way.
         const captures = active() ? await this.idbStudy.getCaptures(feed, request.signal) : [];
-        if (active()) {
-          for (const study of cache.studies) this.store(study);
-          for (const study of captures) this.store(study);
-          this.complete = cache.complete;
-        } else this.error = 'records db request aborted';
-      } catch (e) {
-        this.error = 'records db load failed: ' + e;
-      }
-      signal?.removeEventListener('abort', stop);
-      if (this.request === request) {
-        this.request = undefined;
-        if (!request.signal.aborted) {
-          this.publish();
-          this.integrateUpdates();
+        if (!active()) {
+          this.error = 'records db request aborted';
+          return;
         }
+        for (const study of cache.studies) this.store(study);
+        for (const study of captures) this.store(study);
+        this.complete = cache.complete;
+      });
+      if (loaded) {
+        this.publish();
+        this.integrateUpdates();
       }
     }
 
@@ -1187,54 +997,70 @@
       lt.cache?.lock(lockKey);
       this.harvesting = true;
       this.request?.abort();
-      const request = this.request = new (lt.global.AbortController || AbortController)();
-      const stop = () => request.abort();
-      signal?.addEventListener('abort', stop, { once: true });
       const delay = recordsDbHarvestPageDelayMs;
       const manifest = {};
       let pages = 0;
       let harvested = 0;
       try {
-        for (const group of this.harvester.groups()) {
-          for (let page = 1; !request.signal.aborted; page++) {
-            const html = await this.harvester.fetchPage(group, page, 'updated', request.signal);
-            if (!html) break;
-            const rows = this.harvester.parseListPage(html);
-            if (!rows.length) break;
-            for (const row of rows) {
-              if (!row.role && group.role) row.role = group.role;
-              const study = this.store(row, true);
-              manifest[study.studyId] = study.metadataRevision ?? manifest[study.studyId] ?? 0;
-              harvested++;
+        await this.runGuarded(signal, 'harvest failed: ', false, async (request, active) => {
+          for (const group of this.harvester.groups()) {
+            for (let page = 1; active(); page++) {
+              const html = await this.harvester.fetchPage(group, page, 'updated', request.signal);
+              if (!html) break;
+              const rows = this.harvester.parseListPage(html);
+              if (!rows.length) break;
+              for (const row of rows) {
+                if (!row.role && group.role) row.role = group.role;
+                const study = this.store(row, true);
+                manifest[study.studyId] = study.metadataRevision ?? manifest[study.studyId] ?? 0;
+                harvested++;
+              }
+              pages++;
+              this.publish();
+              // Lt.net sets slowMode on a 429; honour it and the configured delay between pages.
+              if (lt.net.slowMode) await lt.timeout(1000);
+              else if (delay) await lt.timeout(delay);
             }
-            pages++;
-            this.publish();
-            // Lt.net sets slowMode on a 429; honour it and the configured delay between pages.
-            if (lt.net.slowMode) await lt.timeout(1000);
-            else if (delay) await lt.timeout(delay);
+            if (!active()) break;
           }
-          if (request.signal.aborted) break;
-        }
-        if (!request.signal.aborted) {
+          if (!active()) {
+            this.error = 'harvest aborted';
+            return;
+          }
           await this.idbStudy.storeMember({ type: 'complete' });
           await this.idbStudy.rememberHarvest({ pages, harvested, groups: this.harvester.groups().length });
           this.complete = true;
-        } else this.error = 'harvest aborted';
-      } catch (e) {
-        this.error = 'harvest failed: ' + e;
+        });
       } finally {
-        signal?.removeEventListener('abort', stop);
         lt.cache?.release(lockKey);
         this.harvesting = false;
-        if (this.request === request) this.request = undefined;
         this.publish();
       }
     }
 
-    publish = () => {
+    // The scaffold both requests share: an abortable request, a body that may only run while it
+    // still owns the mirror (harvest's body does not, since a load can replace it) and the abort
+    // that a failed body leaves as the mirror's own error.
+    async runGuarded(signal, errorLabel, ownsRequest, body) {
       const lt = this.lichessTools;
-      // The mirror's revision, so the UI can cache haystacks and the scoring pass per revision -
-      // typing a filter must not rescan every chapter on every keystroke.
+      const request = new (lt.global.AbortController || AbortController)();
+      this.request = request;
+      const stop = () => request.abort();
+      signal?.addEventListener('abort', stop, { once: true });
+      const active = () => (!ownsRequest || this.request === request) && !request.signal.aborted;
+      try {
+        await body(request, active);
+      } catch (e) {
+        this.error = errorLabel + e;
+      }
+      signal?.removeEventListener('abort', stop);
+      const ours = this.request === request;
+      if (this.request === request) this.request = undefined;
+      return ours && !request.signal.aborted;
+    }
+
+    publish() {
+      const lt = this.lichessTools;
       this.publishRevision = (this.publishRevision ?? 0) + 1;
       if (this.frame !== undefined || !this.listeners.size) return;
       this.frame = 1;
@@ -1242,8 +1068,9 @@
         this.frame = undefined;
         for (const onChange of this.listeners) onChange();
       }, 'recordsDbHarvest');
-    };
+    }
 
+    // The handlers stay field arrows: an emitter may call them with no receiver.
     studyUpdated = (update) => {
       const study = update?.study;
       if (!study || study.recordsDbExcluded) return;
@@ -1257,7 +1084,7 @@
       this.pendingUpdates.add(study.studyId);
       this.publish();
       this.integrateUpdates();
-    };
+    }
 
     // A record read on demand (the tree adding a leaf it does not own) is worth persisting
     // straight away: nothing else on that page publishes, so the update would sit in the mirror.
@@ -1316,14 +1143,13 @@
       if (!position) return;
       const study = this.studies.get(position.studyId);
       if (!study?.visit || study.recordsDbExcluded) return;
-      if (study.visit.chapterId !== position.chapterId) return;
-      if (study.visit.path === path && study.visit.orientation === position.orientation) return;
+      if (!visitMoves(study.visit, position, path)) return;
       study.visit = { ...study.visit, path, orientation: position.orientation };
       this.publish();
       this.idbStudy.updatePosition(path, position).catch(() => {});
-    };
+    }
 
-    captureVisit = async () => {
+    async captureVisit() {
       const lt = this.lichessTools;
       // `analysis.study` only exists once a study page is open, so every capture gets its chance
       // to install the setChapter wrapper (it is idempotent - the guard below keeps it a no-op
@@ -1337,13 +1163,13 @@
       } catch (e) {
         lt.global.console.debug('recordsDbUi live capture skipped:', e);
       }
-    };
+    }
 
     chapterChanged = () => {
       this.captureVisit();
     };
 
-    wrapSetChapter = () => {
+    wrapSetChapter() {
       const lt = this.lichessTools;
       const study = lt.lichess?.analysis?.study;
       const setChapter = study?.setChapter;
@@ -1358,7 +1184,7 @@
         },
       });
       return true;
-    };
+    }
 
 
     async attachEvents() {
@@ -1407,7 +1233,7 @@
       }
     }
 
-    parseListPage = (html) => {
+    parseListPage(html) {
       const lt = this.lichessTools;
       const $ = lt.$;
       if (!html) return [];
@@ -1469,19 +1295,14 @@
         });
       });
       return rows;
-    };
+    }
 
-    studyInitJson = (htmlText) => {
+    studyInitJson(htmlText) {
       const m = /<script[^>]*id=["']?page-init-data["']?[^>]*>([\s\S]*?)<\/script>/i.exec(htmlText || '');
       return m?.[1];
-    };
+    }
 
-    /* page-init-data -> StudyData. Verified against the saved probe: `study` carries id/name/members/position*
-     * ownerId/settings/visibility/createdAt/secondsSinceUpdate/from/likes/liked/features/topics/chapter*
-     * chapters/showRatings. Only `chapter` (the displayed one) has tags and setup; `chapters[]` entries carry
-     * {id,name,fen,players,lastMove,status,orientation?}. `members` is keyed by display name, `position` is
-     * {chapterId,path} - exactly what the History tab needs, with no extra request.
-     */
+    // The page-init shape this reads lives in tools/recordsDbStore/context.md.
     async mapInitStudy(init) {
       const lt = this.lichessTools;
       const raw = init?.study;

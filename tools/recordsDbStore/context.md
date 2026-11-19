@@ -31,9 +31,27 @@ Builds the singletons behind `lt.recordsDbHarvest` — `{ idbStudy, harvester, s
 `mergeStudyMetadata` / `matchesMetadata` / `isRecordsDbAvailable` the UI half reuses — and attaches the event hooks.
 Idempotent: a second `init()` keeps the first store, so a page change never loses what was captured.
 
+### Shape of the shared parts
+
+- Every registry row opens with `...kindDefault` (`canWrite`, `visibility` and `read` undefined,
+  `isDead: absent`, `serviced: false`) and names only what differs. For the kinds that are not
+  serviced, `read` stays a *note* of how the ui half reads one (`game`, `puzzle`, `blog`, `blogPost`,
+  `player`, `team`) - the ui half keys "can this be read" off that field, so the note stays in code.
+- A branch blob key is not listed in `idbStudy.keys`: `treeKey(branch)` builds
+  `lichessTools/LT/recordsDb-tree-<branch>` off the `windows` key prefix, and `blob(which, fallback)`
+  is the same one line for the single blobs and the window/syncMeta reads.
+- `CollectionTree.chain(operation)` is the queue both the branch writes and the filters write share;
+  `SyncCtrl.runGuarded(signal, label, ownsRequest, body)` is the abort scaffold both `load` and
+  `harvest` share - `ownsRequest` is what lets harvest keep walking while a later load owns
+  `this.request`.
+- The three members handed to an emitter (`studyUpdated`, `analysisChanged`, `chapterChanged`) stay
+  class-field arrows: lila's emitter calls a listener through `apply(null, args)`, and a class
+  **method** called that way gets `this === null` (class bodies are strict, so `this` is not
+  globalised), while an arrow keeps the instance it was built on. The rest use method shorthand.
+
 ### The collection registry
 
-Seventeen kinds; twelve get a blob of their own, five ride a parent blob (`chapter` and
+Eighteen kinds; thirteen get a blob of their own, five ride a parent blob (`chapter` and
 `studyPosition` on the study, `blogPost` on the blog, `forumPost` on the board, `broadcastGame`
 on the relay). The marks keep objects that a route tells apart readable: `forum` wears
 `BubbleConvo` and `forumPost` `BubbleSpeech`, `coach` `GraduateCap`, `streamer` `Voice`, `team`
@@ -99,6 +117,11 @@ the window before its tree is read from spending the shape the page before left 
   `ol.chapters > li.text` (**names only**, no ids) and `ol.members > li.text`. Rows carry
   `partialCoverage {chapters: true, tags: true}`.
 - `captureFromLivePage()` / `harvestOne` read the `page-init-data` blob (`{study, data, tagTypes, …}`);
+  its shape: `study` carries `id`/`name`/`members`/`position`/`ownerId`/`settings`/`visibility`/`createdAt`/
+  `secondsSinceUpdate`/`from`/`likes`/`liked`/`features`/`topics`/`chapter`/`chapters`/`showRatings`, and only
+  the displayed `chapter` has `tags` and `setup`. A `chapters[]` entry carries
+  `{id,name,fen,players,lastMove,status,orientation?}`; `members` is keyed by display name and `position` is
+  `{chapterId,path}` - what the History tab needs, answered with no extra request.
   `harvestOne` fetches with `ignoreStatuses:[404]`, so a deleted study answers a null body and becomes the
   marker `{ studyId, absent: true }` - `SyncCtrl.store` refuses it and the tree keeps the proof on the leaf.
   The per-chapter deep pass (`harvestChapterTags`, one request per chapter) was never asked for by the tree view
