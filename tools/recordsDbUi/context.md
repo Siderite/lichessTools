@@ -1198,10 +1198,9 @@ names.
   The ride Chrome promoted had its `dragend` turn already; a carry still alive at the release
   answers the mouse instead, and one event of travel is enough there.
 
-- `BookmarkTabContent.domAttr`
-  Event-wrapped page elements answer cash's `prop` with nothing when the event came from outside
-  the wrapped page - the raw DOM attribute always answers. Read the DOM first, cash's `prop`
-  second, and an empty string when neither has it.
+- `BookmarkTabContent.playerEntry (at `const title = src?.attr('title') ?? '';`)`
+  The page may carry no tip at all, and an attribute cash has not found answers nothing - the empty
+  string is what the reads below expect, so a missing attribute never spells "null" into a match.
 
 - `BookmarkTabContent.playerEntry`
   A player leaf made from a user link: the link names it, and the power tip the page parks next to
