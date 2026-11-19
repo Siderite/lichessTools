@@ -33,7 +33,7 @@ const getCenteredPosition = async (width, height) => {
   });
 };
 
-globalThis.hostingService ||= 'imgbb';
+globalThis.hostingService ||= 'imgur'; // imgbb went paid
 
 const handlers = {
   disconnect: async (data) => {
