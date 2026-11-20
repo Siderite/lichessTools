@@ -97,7 +97,7 @@
         new Uint8Array(buffer)
           .reduce((data, byte) => data + String.fromCharCode(byte), '')
       );
-      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
+      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64, context: lt.location.href } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
       lt.global.console.debug('... got reply ' + JSON.stringify(res));
       if (!res?.link) {
         lt.global.console.warn('Could not send image!', res?.err);
@@ -294,6 +294,9 @@
       const lt = this.lichessTools;
       const $ = lt.$;
       if ($('.msg-app__convo__msgs__content').is('.lichessTools-moreButtonPressed')) return;
+      const lastText = $('.msg-app__convo group').last().text();
+      if (lastText == this._lastText) return;
+      this._lastText = lastText;
       let scrollQ = 0;
       $('.msg-app__convo__msgs').each((i,e)=>{
         scrollQ = e.scrollTop/e.scrollHeight;

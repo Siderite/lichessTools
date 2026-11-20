@@ -96,7 +96,7 @@
         new Uint8Array(buffer)
           .reduce((data, byte) => data + String.fromCharCode(byte), '')
       );
-      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
+      const res = await lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64, context: lt.location.href } }, undefined, 10000).catch(e => { lt.global.console.error(e); });
       lt.global.console.debug('... got reply ' + JSON.stringify(res));
       if (!res?.link) {
         lt.global.console.warn('Could not send image!', res?.err);

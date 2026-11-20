@@ -144,4 +144,4 @@ Single **multiple-type** preference (`mchatOptions`) with 7 toggleable options:
 - `whispered`: "You whispered: %s" / "Ai șoptit: %s"
 
 ## Service Worker Communication
-- `lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } })` → service worker handles image upload to imgur/imgbb, returns `{link}` or `{err}`
+- `lt.comm.send({ type: 'pasteBuffer', options: { buffer: base64 } })` → service worker handles image upload through the imgur/lichess/imgbb fallback chain, returns `{link}` or `{err}`

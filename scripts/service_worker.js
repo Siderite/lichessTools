@@ -33,7 +33,149 @@ const getCenteredPosition = async (width, height) => {
   });
 };
 
-globalThis.hostingService ||= 'imgur'; // imgbb went paid
+globalThis.hostingService ||= 'imgur'; // imgbb went paid, imgur is blocked in some regions
+
+const hostingFallback = { imgur: 'lichess', imgbb: 'lichess', lichess: 'imgbb' };
+
+const bytesFromBase64 = (buffer) => {
+  const text = atob(buffer);
+  const bytes = new Uint8Array(text.length);
+  for (let i = 0; i < text.length; i++)
+    bytes[i] = text.charCodeAt(i);
+  return bytes;
+};
+
+// Best effort sniffing of the image format, so the multipart upload can name the
+// file and, when the header carries it, give the server the image dimensions.
+const imageInfo = (bytes) => {
+  const read16 = (i) => (bytes[i] << 8) | bytes[i + 1];
+  const read32 = (i) => ((bytes[i] << 24) | (bytes[i + 1] << 16) | (bytes[i + 2] << 8) | bytes[i + 3]) >>> 0;
+  if (bytes.length > 24 && read32(0) === 0x89504e47)
+    return { type: 'image/png', width: read32(16), height: read32(20) };
+  if (bytes.length > 10 && read32(0) === 0x52494f46 && read32(8) === 0x57454250)
+    return { type: 'image/webp' };
+  if (bytes.length > 10 && bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[6] && bytes[8])
+    return { type: 'image/gif', width: bytes[6] | (bytes[7] << 8), height: bytes[8] | (bytes[9] << 8) };
+  if (bytes.length > 4 && bytes[0] === 0xff && bytes[1] === 0xd8) {
+    for (let i = 2; i + 8 < bytes.length; i++) {
+      if (bytes[i] !== 0xff) continue;
+      const marker = bytes[i + 1];
+      if (marker === 0xda) break;
+      if (marker >= 0xc0 && marker <= 0xcf && marker != 0xc4 && marker != 0xc7) {
+        const height = read16(i + 5);
+        const width = read16(i + 7);
+        if (height && width)
+          return { type: 'image/jpeg', width: width, height: height };
+      }
+    }
+    return { type: 'image/jpeg' };
+  }
+  return null;
+};
+
+// One upload per hosting backend. Each of them throws on a rejected upload so
+// pasteBuffer can move on to the next provider instead of failing the paste.
+const uploadProviders = {
+  imgur: async (options, buffer) => {
+    const formData = new FormData();
+    formData.append('image', buffer);
+    formData.append('type', 'base64');
+    formData.append('title', 'LiChess Tools image');
+    formData.append('description', 'from Inbox chat paste in Lichess.org');
+    const response = await fetch(
+        'https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: new Headers({
+          Authorization: 'Client-ID dd38da6dc32098d',
+        }),
+        body: formData
+      });
+    if (!response.ok)
+      throw new Error('Imgur upload failed with status ' + response.status);
+    const responseData = await response.json();
+    return {
+      link: responseData.data?.link,
+      id: responseData.data?.id,
+      deleteHash: responseData.data?.deletehash,
+    };
+  },
+  imgbb: async (options, buffer) => {
+    const formData = new FormData();
+    formData.append('image', buffer);
+    formData.append('type', 'base64');
+    formData.append('title', 'LiChess Tools image');
+    formData.append('description', 'from Inbox chat paste in Lichess.org');
+    let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}';
+    const args = { 
+      key:'370e6c2c08e7773fc0960160e36f535c',
+      expiration: '' //86400*100
+    }; 
+    for (const k in args) {
+      url = url.replace('{' + k + '}', encodeURIComponent(args[k]));
+    }
+    const response = await fetch(url, {
+        method: 'POST',
+        body: formData
+      });
+    if (!response.ok)
+      throw new Error('Imgbb upload failed with status ' + response.status);
+    const responseData = await response.json();
+    return {
+      link: responseData.data?.url,
+      id: responseData.data?.id,
+      deleteHash: responseData.data?.delete_url?.match(/\/(?<hash>[^\/]+)$/)?.groups?.hash,
+    };
+  },
+  lichess: async (options, buffer) => {
+    // Same multipart form Lichess' own client posts to, so the server sees the
+    // image exactly as if it had been pasted into a forum post.
+    const bytes = bytesFromBase64(buffer);
+    const info = imageInfo(bytes);
+    const type = options?.type || info?.type || 'image/png';
+    const formData = new FormData();
+    formData.append('context', options?.context || 'https://lichess.org/forum');
+    if (info?.width) {
+      formData.append('dim.width', info.width);
+      formData.append('dim.height', info.height);
+    }
+    formData.append('image', new File([bytes], options?.filename || 'image.' + type.split('/')[1], { type: type }));
+    const response = await fetch(
+        options?.endpoint || 'https://lichess.org/upload/image/user/forum', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: new Headers({
+          accept: 'application/web.lichess+json',
+          'x-requested-with': 'XMLHttpRequest',
+        }),
+        body: formData
+      });
+    if (!response.ok)
+      throw new Error('Lichess upload failed with status ' + response.status);
+    const responseData = await response.json();
+    if (!responseData?.imageUrl)
+      throw new Error('Lichess upload returned no imageUrl');
+    return {
+      link: responseData.imageUrl,
+      imageUrl: responseData.imageUrl,
+    };
+  },
+};
+
+// The chain to walk before giving up on a paste: the requested backend first,
+// then every link of hostingFallback, then whatever backend is left over.
+const hostingChain = (start) => {
+  const chain = [ start ];
+  let next = hostingFallback[start];
+  while (next && !chain.includes(next)) {
+    chain.push(next);
+    next = hostingFallback[next];
+  }
+  for (const service of Object.keys(uploadProviders))
+    if (!chain.includes(service))
+      chain.push(service);
+  return chain;
+};
 
 const handlers = {
   disconnect: async (data) => {
@@ -56,68 +198,22 @@ const handlers = {
     const buffer = data?.options?.buffer;
     if (!buffer)
       return;
-    switch (globalThis.hostingService) {
-      case 'imgur': {
-        const formData = new FormData();
-        formData.append('image', buffer);
-        formData.append('type', 'base64');
-        formData.append('title', 'LiChess Tools image');
-        formData.append('description', 'from Inbox chat paste in Lichess.org');
-        const response = await fetch(
-            'https://api.imgur.com/3/image', {
-            method: 'POST',
-            headers: new Headers({
-              Authorization: 'Client-ID dd38da6dc32098d',
-            }),
-            body: formData
-          });
-        if (!response.ok) {
-          globalThis.hostingService = 'imgbb';
-          throw new Error('Imgur upload failed with status ' + response.status);
-        }
-        const responseData = await response.json();
-        return {
-          link: responseData.data?.link,
-          id: responseData.data?.id,
-          deleteHash: responseData.data?.deletehash,
-          service: globalThis.hostingService
-        };
+    const requested = data.options?.service || globalThis.hostingService;
+    if (!uploadProviders[requested])
+      throw new Error('Image hosting service ' + requested + ' not supported!');
+    const chain = hostingChain(requested);
+    const failures = [];
+    for (const service of chain) {
+      try {
+        const uploaded = await uploadProviders[service](data.options, buffer);
+        return { ...uploaded, service };
+      } catch (e) {
+        console.debug('Host provider ' + service + ' failed', e);
+        failures.push(service + ': ' + (e?.message ?? e));
       }
-      break;
-      case 'imgbb': { 
-        const formData = new FormData();
-        formData.append('image', buffer);
-        formData.append('type', 'base64');
-        formData.append('title', 'LiChess Tools image');
-        formData.append('description', 'from Inbox chat paste in Lichess.org');
-        let url = 'https://api.imgbb.com/1/upload?expiration={expiration}&key={key}';
-        const args = { 
-          key:'370e6c2c08e7773fc0960160e36f535c',
-          expiration: '' //86400*100
-        }; 
-        for (const k in args) {
-          url = url.replace('{' + k + '}', encodeURIComponent(args[k]));
-        }
-        const response = await fetch(url, {
-            method: 'POST',
-            body: formData
-          });
-        if (!response.ok) {
-          globalThis.hostingService = 'imgur';
-          throw new Error('Imgbb upload failed with status ' + response.status);
-        }
-        const responseData = await response.json();
-        return {
-          link : responseData.data?.url,
-          id: responseData.data?.id,
-          deleteHash: responseData.data?.delete_url?.match(/\/(?<hash>[^\/]+)$/)?.groups?.hash,
-          service: globalThis.hostingService
-        };
-      }
-      break;
-      default:
-        throw new Error('Image hosting service ' + globalThis.hostingService + ' not supported!');
     }
+    globalThis.hostingService = hostingFallback[requested] || requested;
+    throw new Error('Image hosting failed through the whole chain (' + chain.join(', ') + '): ' + failures.join('; '));
   },
   deleteImage: async (data) => {
     const id = data?.options?.id;
@@ -125,6 +221,10 @@ const handlers = {
     if (!hash) return;
     const service = data?.options?.service || globalThis.hostingService;
     switch (service) {
+      case 'lichess': {
+        // Lichess offers no delete endpoint, so there is nothing to revoke here.
+        return { ok: false };
+      }
       case 'imgur': {
         const response = await fetch('https://api.imgur.com/3/image/'+hash,{ method: 'DELETE' });
         if (!response.ok)

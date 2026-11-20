@@ -10,7 +10,7 @@ Enhances inbox chat, forum posts, and profile pages with: image paste support (u
 
 On textarea/msg-app content elements (`textarea.msg-app__convo__post__text`, `.msg-app__convo__msgs__content`):
 - paste/drop event → captures clipboard file, converts to base64 buffer
-- Sends via comm `pasteBuffer` type to service worker for image hosting (imgur/imgbb)
+- Sends via comm `pasteBuffer` type to service worker for image hosting (imgur/imgbb/lichess, tried as a fallback chain)
 - Returns link URL → inserts as markdown `![url](url)` or plain URL into textarea
 - Error handling: announces "There was an error generating the image URL"
 
