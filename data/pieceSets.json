@@ -1101,6 +1101,13 @@
       }
     },
     {
+      "category": "siderite",
+      "name": "Chessbase",
+      "url": "https://siderite.github.io/lichessToolsAdjacent/Chessbase/pieces/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
       "category": "chesscom",
       "name": "Neo",
       "url": "https://assets-themes.chess.com/image/ejgfv/150/",
