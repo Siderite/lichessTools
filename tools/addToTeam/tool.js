@@ -28,6 +28,9 @@
         'joinTeamText': 'Join the team',
         'teamTitle': 'Users of the LiChess Tools browser extension',
         'teamSubtitle': 'Join the team to access the forum, meet other users, get updates or give feedback',
+        'teamForumTitle': 'LiChess Tools forum',
+        'teamForumNewPosts': 'You have %s new LiChess Toools team forum posts',
+        'teamForumNotificationTitle': 'LiChess Tools - go to team forum',
         'welcomeToTeam': 'Welcome to the LiChess Tools user team!',
         'byeFromTeam': 'Sorry to see you go!'
       },
@@ -40,6 +43,9 @@
         'joinTeamText': 'Intr\u0103 \u00een echip\u0103',
         'teamTitle': 'Echipa utilizatorilor extensiei de browser LiChess Tools',
         'teamSubtitle': 'Intr\u0103 \u00een echip\u0103 pentru acces la forum, al\u0163i utilizatori, nout\u0103\u0163i sau p\u0103reri',
+        'teamForumTitle': 'Forum LiChess Tools',
+        'teamForumNewPosts': 'Ai %s posturi recente \u00een forum-ul LiChess Tools',
+        'teamForumNotificationTitle': 'LiChess Tools - c\u0103tre forum-ul echipei',
         'welcomeToTeam': 'Bine ai venit \u00een echipa utilizatorilor LiChess Tools!',
         'byeFromTeam': 'Ne pare r\u0103u c\u0103 pleci!'
       }
@@ -172,6 +178,13 @@
       lt.storage.set('addToTeam-visitedTeamPage', Date.now());
     };
 
+    // Opening the team forum list page adopts the current activity as read.
+    setForumRead = () => {
+      const lt = this.lichessTools;
+      lt.storage.set('LiChessTools.forumLastRead', Date.now());
+      lt.notifications?.refresh();
+    };
+
     notifyToJoin = () => {
       const lt = this.lichessTools;
       const trans = lt.translator;
@@ -192,6 +205,47 @@
             title: trans.noarg('teamSubtitle')
           };
           return [entry];
+        }
+      };
+      lt.notifications.add(notification);
+    };
+
+    // The count is the number of team forum topics with activity after last read.
+    notifyForumPosts = () => {
+      const lt = this.lichessTools;
+      const $ = lt.$;
+      const trans = lt.translator;
+      if (this.options.noNotifications) return;
+      if (!lt.notifications) return;
+      const notificationId = 'addToTeamForumPosts';
+      const notification = {
+        id: notificationId,
+        getEntries: async () => {
+          const forum = await lt.api.team.latestForumPosts(this.teamId);
+          const result = [];
+          if (!forum?.posts?.length) return result;
+          const lastRead = +(lt.storage.get('LiChessTools.forumLastRead')) || 0;
+          if (!lastRead) {
+            this.setForumRead();
+            return result;
+          }
+          const newPosts = forum.posts
+            .filter(p=>p.time && p.time > lastRead)
+            .length;
+          if (!newPosts) return result;
+          const entry = {
+            id: notificationId,
+            isNew: true,
+            icon: lt.icon.BubbleSpeech,
+            href: '/forum/team-' + lt.global.encodeURIComponent(this.teamId),
+            content: $('<div>')
+              .append($('<span>').text(trans.noarg('teamForumTitle')))
+              .append($('<span>').text(trans.pluralSame('teamForumNewPosts', newPosts)))
+              .html(),
+            title: trans.noarg('teamForumNotificationTitle')
+          };
+          result.push(entry);
+          return result;
         }
       };
       lt.notifications.add(notification);
@@ -221,6 +275,7 @@
         noNotifications: lt.isOptionSet(value, 'noNotifications')
       };
       if (lt.location.isTeamPageOf(this.teamId)) this.setVisitedTeamPage();
+      if (lt.location.isTeamForumPageOf('team-'+this.teamId)) this.setForumRead();
       this.refreshTeam(lt.location.isForumPage()).then(()=>{
         if (!this.inTeam) {
           this.notifyToJoin();
@@ -228,6 +283,7 @@
       });
       this.updateForumPage();
       this.removeWarningFromTeamForum();
+      this.notifyForumPosts();
     }
 
   }

@@ -14,6 +14,7 @@
         lt.cache.memoizeAsyncFunction(lt.api.game, 'getUserGamesJson', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getUserTeams', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.team, 'getTeamPlayers', { persist: 'session', interval: 10 * 86400 * 1000, minTime: 1 });
+        lt.cache.memoizeAsyncFunction(lt.api.team, 'latestForumPosts', { persist: 'session', interval: 60 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_', minTime: 1 });
@@ -542,6 +543,42 @@
             ignoreStatuses: [ 404 ]
           });
           return data;
+        },
+
+        // Rows of the team forum list page, ordered by most recent activity.
+        async latestForumPosts(teamId) {
+          const lt = this.lichessTools;
+          const $ = lt.$;
+          if (!teamId) throw new Error('teamId cannot be empty');
+          const forumPath = /^team-/.test(teamId) ? teamId : 'team-'+teamId;
+          const html = await lt.net.fetch({
+            url: '/forum/{forumPath}',
+            args: { forumPath }
+          },{
+            ignoreStatuses: [ 404 ]
+          });
+          if (!html) return null;
+          const posts = $(html).find('table.topics tbody tr').get()
+            .map(row=>{
+              const $row = $(row);
+              const subject = $row.find('td.subject a[href^="/forum/"]');
+              if (!subject.length) return null;
+              const replies = $row.find('td.right');
+              const datetime = $row.find('time.timeago').last().attr('datetime');
+              return {
+                href: subject.attr('href'),
+                title: subject.text(),
+                replies: +replies.text(),
+                time: datetime ? new Date(datetime).getTime() : null
+              };
+            })
+            .filter(p=>p);
+          if (!posts.length) return null;
+          return {
+            forumPath: forumPath,
+            posts: posts,
+            latest: posts[0]
+          };
         },
 
         async getLeaderTeams() {

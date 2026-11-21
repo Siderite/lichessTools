@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+21 Nov
+
+- New posts notification for the L1Chess Tools team forum
+
 14 Nov
 
 - updates to pieces, boards and sound schemes

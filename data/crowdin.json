@@ -1451,7 +1451,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2905,7 +2908,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4359,7 +4365,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5813,7 +5822,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7267,7 +7279,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8721,7 +8736,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -10175,7 +10193,10 @@
     "kindTournamentSwiss": "Tournoi au système suisse",
     "kindTournamentArena": "Tournoi Arène",
     "popupRated": "Classée",
-    "recordsDbOpenButton": "Ouvrir"
+    "recordsDbOpenButton": "Ouvrir",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11629,7 +11650,10 @@
     "kindTournamentSwiss": "Schweizer Turnier",
     "kindTournamentArena": "Arena Turnier",
     "popupRated": "Bewertet",
-    "recordsDbOpenButton": "Öffnen"
+    "recordsDbOpenButton": "Öffnen",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -13083,7 +13107,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14537,7 +14564,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -15991,7 +16021,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17445,7 +17478,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18899,7 +18935,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -20353,7 +20392,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21807,7 +21849,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -23261,7 +23306,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -24715,7 +24763,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -26169,7 +26220,10 @@
     "kindTournamentSwiss": "Turneu elvețian",
     "kindTournamentArena": "Turneu în arenă",
     "popupRated": "Oficial",
-    "recordsDbOpenButton": "Deschide"
+    "recordsDbOpenButton": "Deschide",
+    "teamForumTitle": "Forum LiChess Tools",
+    "teamForumNewPosts": "Ai %s posturi recente în forum-ul LiChess Tools",
+    "teamForumNotificationTitle": "LiChess Tools - către forum-ul echipei"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -27623,7 +27677,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -29077,7 +29134,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -30531,7 +30591,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -31985,7 +32048,10 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -33439,6 +33505,9 @@
     "kindTournamentSwiss": "Swiss tournament",
     "kindTournamentArena": "Arena tournament",
     "popupRated": "Rated",
-    "recordsDbOpenButton": "Open"
+    "recordsDbOpenButton": "Open",
+    "teamForumTitle": "LiChess Tools forum",
+    "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
   }
 }

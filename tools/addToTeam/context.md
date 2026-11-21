@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Promotes the "L1Chess Tools Users Team" (team ID: `l1chess-tools-users-team`) on Lichess. Adds a forum entry for the team, sends notification to join if user hasn't joined after visiting team page, and removes warning from team forum page.
+Promotes the "L1Chess Tools Users Team" (team ID: `l1chess-tools-users-team`) on Lichess. Adds a forum entry for the team, sends notification to join if user hasn't joined after visiting team page, and removes warning from team forum page. Notifies about new posts on the team forum while `noNotifications` is not set.
 
 ## How It Works
 
@@ -26,6 +26,26 @@ If user not in team and hasn't visited team page (`addToTeam-visitedTeamPage` st
 - Creates notification object with icon Group, href to team, join text content, subtitle title
 - Adds via `lt.notifications.add()`
 
+### Team Forum Notifications
+
+Gated only by the `noNotifications` option, so it also runs for users who did not join.
+
+- `notifyForumPosts()` registers a notification with id `addToTeamForumPosts`
+- `getEntries` awaits the session-memoized `lt.api.team.latestForumPosts(teamId)`
+- that api function fetches `/forum/team-<teamId>` and parses the `table.topics`
+  rows found in the `tbody`, newest activity first, keeping the `td.subject` link,
+  the `td.right` reply count and the `time.timeago` datetime of the last post cell
+- topics with a last post datetime newer than `LiChessTools.forumLastRead` count as new
+- the count reported is the number of topics updated, not the replies added to them
+- with no stored timestamp the current state is adopted and nothing is notified
+- `setForumRead()` runs when the forum list page opens, so visiting it marks it read
+- the notification href is the team forum list page, never the newest topic URL
+
+### Team Forum Read Timestamp
+
+`LiChessTools.forumLastRead` holds the timestamp of the last team forum visit, kept in
+local storage through `lt.storage`, while the api result lives only in session cache.
+
 ### Team Forum Warning Removal
 
 On `/forum/team-l1chess-tools-users-team/form`: removes `main.topic-form section.warning`, triggers resize.
@@ -45,3 +65,5 @@ On `/forum/team-l1chess-tools-users-team/form`: removes `main.topic-form section
 - `updateForumPage()` — manages forum page row
 - `notifyToJoin()` — creates notification to encourage joining
 - `removeWarningFromTeamForum()` — removes warning on team forum
+- `setForumRead()` — stores the read timestamp in `LiChessTools.forumLastRead`
+- `notifyForumPosts()` — notification about new team forum activity
