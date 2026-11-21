@@ -53,6 +53,10 @@ body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="white"] squ
   box-shadow: inset 0px 0px 4px 4px #38DCFFA0;
 }
 
+/* Grab highlight follows the side to move; red when Black is about to move */
+body.lichessTools.lichessTools-theme_arcade cg-container[sideToPlay="black"] piece {
+  --lt-grab-color: #C34B3240;
+}
 
 
 body.lichessTools.lichessTools-theme_arcade .mini-game square.last-move:not([style*="hidden"],[style*="display: none"]):after {

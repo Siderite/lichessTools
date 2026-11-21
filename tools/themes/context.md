@@ -59,6 +59,14 @@ Themes are applied as CSS classes on body element:
 
 CSS files loaded from extension assets at `tools/themes/<themeName>.css`.
 
+## Grab highlight colour (`--lt-grab-color`)
+
+- grabHighlight.css declares `--lt-grab-color` on `piece` and paints `piece::before`
+  with it, so other themes can recolour the highlight without restating the rule.
+- arcade.css overrides it to `#C34B3240` on `cg-container[sideToPlay="black"] piece`,
+  which makes the highlight red while Black is the side to move; the arcade palette
+  keeps cyan for White. The override needs boardStyle to set `sideToPlay`.
+
 ## Board Background Management (`setBoardVariables`)
 
 Sets CSS variable `--board-background` on html element:

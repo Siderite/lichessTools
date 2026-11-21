@@ -1,4 +1,8 @@
 
+body.lichessTools.lichessTools-theme_grabHighlight piece {
+  --lt-grab-color: #80FFFF40;
+}
+
 body.lichessTools.lichessTools-theme_grabHighlight piece::before {
   content: "";
   position: absolute;
@@ -8,7 +12,7 @@ body.lichessTools.lichessTools-theme_grabHighlight piece::before {
   height: 0%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: #80FFFF40;
+  background: var(--lt-grab-color);
   z-index: -1;
   pointer-events: none;
   transition:
