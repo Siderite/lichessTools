@@ -19,11 +19,11 @@
     intl = {
       'en-US': {
         'options.copyPgnCommand': 'Command: Copy moves to clipboard',
-        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"]\r\n fen: from current position\r\n separate: separate branches\r\n tohere: to current position\r\n unicode: unicode piece characters\r\nCopy moves to clipboard'
+        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"] ["nocomp"]\r\n fen: from current position\r\n separate: separate branches\r\n tohere: to current position\r\n unicode: unicode piece characters\r\n nocomp: skip computer evaluations\r\nCopy moves to clipboard'
       },
       'ro-RO': {
         'options.copyPgnCommand': 'Comand\u0103: Copiaz\u0103 mut\u0103ri \u00een clipboard',
-        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"]\r\n fen: de la pozi\u0163ia curent\u0103\r\n separate: separ\u0103 varia\u0163iile\r\n tohere: p\u00e2n\u0103 la pozi\u0163ia curent\u0103 unicode: caractere unicod ca piese\r\nCopiaz\u0103 mut\u0103ri \u00een clipboard'
+        'copyPgnCommand.helpText': '/copypgn ["fen"] ["separate"] ["tohere"] ["unicode"] ["nocomp"]\r\n fen: de la pozi\u0163ia curent\u0103\r\n separate: separ\u0103 varia\u0163iile\r\n tohere: p\u00e2n\u0103 la pozi\u0163ia curent\u0103\r\n unicode: caractere unicod ca piese\r\n nocomp: omite\u0103 evalu\u0103ri calculator\r\nCopiaz\u0103 mut\u0103ri \u00een clipboard'
       }
     };
 
@@ -38,6 +38,7 @@
         toPosition: /\btohere\b/.test(commandText),
         unicode: /\bunicode\b/.test(commandText),
         print: /\bprint\b/.test(commandText),
+        noComp: /\bnocomp\b/.test(commandText),
         path: analysis.path
       };
 
@@ -47,7 +48,8 @@
         separateLines: options.separateLines,
         toPosition: options.toPosition,
         unicode: options.unicode,
-        print: options.print
+        print: options.print,
+        noComp: options.noComp
       });
     };
 

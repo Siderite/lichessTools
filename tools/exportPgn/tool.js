@@ -58,6 +58,7 @@
         separateLines: false,
         unicode: false,
         print: false,
+        noComp: false,
         exportClock: this.options.exportClock,
         exportEval: this.options.exportEval,
         exportTags: this.options.exportTags,
@@ -112,6 +113,14 @@
         return s;
       }
 
+      const evalGroupReg = /\[%eval[^\]]*\]/g;
+
+      function visibleChildren(node) {
+        const children = node.children || [];
+        if (!options.noComp) return children;
+        return children.filter(ch=>!ch.comp && !ch.ltComp);
+      }
+
       function renderComments(node) {
         let s = '';
         if (!options.exportComments) return s;
@@ -120,10 +129,15 @@
             s += '<br/>\r\n<br/>\r\n<img src="https://lichess.org/export/fen.gif?fen='+encodeURIComponent(node.fen)+'&color='+analysis.getOrientation()+'&lastMove='+node.uci+'" /><br/>\r\n';
           }
           for (const comment of node.comments) {
+            let text = comment.text;
+            if (options.noComp) {
+              text = (text || '').replace(evalGroupReg, '');
+              if (!text.trim()) continue;
+            }
             if (options.print) {
-              s += '<br/>\r\n' + comment.text;
+              s += '<br/>\r\n' + text;
             } else {
-              s += ' {' + comment.text + '}';
+              s += ' {' + text + '}';
             }
           }
           if (options.print) {
@@ -155,7 +169,7 @@
           groups.push(group);
         }
         const evl = lt.getNodeCeval(node);
-        if (options.exportEval && evl) {
+        if (options.exportEval && !options.noComp && evl) {
           const group = {
             type: 'eval',
             shapes: [ evalToString(evl) ]
@@ -198,13 +212,14 @@
         }
         if (s) s += '\r\n'
 
+        const children = visibleChildren(node);
         const reg = options.searchObj?.reg;
-        if (node.children.length === 0) {
+        if (children.length === 0) {
           return s;
         }
 
 
-        const first = node.children[0];
+        const first = children[0];
         first.path = node.path + first.id;
         const moverIsWhite = lt.getMoverFromNode(first) === 'white';
         if (forcePly || moverIsWhite) s += plyPrefix(first);
@@ -215,7 +230,7 @@
 
         const metaTokens = [];
         metaTokens.push(moverIsWhite?'$white':'$black');
-        if (!first.children?.length) {
+        if (!visibleChildren(first).length) {
           metaTokens.push('$leaf');
         }
 
@@ -240,8 +255,8 @@
           }
         }
 
-        for (let i = 1; i < node.children.length; i++) {
-          const child = node.children[i];
+        for (let i = 1; i < children.length; i++) {
+          const child = children[i];
           child.path = node.path + child.id;
           s += ` (${plyPrefix(child)}${fixCrazySan(child.san)}`;
           s += renderGlyphs(child);
@@ -251,7 +266,7 @@
           s += ')';
         }
 
-        const mainline = renderNodesTxt(first, node.children.length > 1);
+        const mainline = renderNodesTxt(first, children.length > 1);
         if (mainline) s += ' ' + mainline;
 
         if (options.unicode) {
@@ -271,6 +286,8 @@
           shapes: lt.clone(n2.shapes) || [],
           ceval: lt.clone(n2.ceval) || null,
           opening: lt.clone(n2.opening) || null,
+          comp: n2.comp,
+          ltComp: n2.ltComp,
           id: n2.id,
           ply: n2.ply,
           san: n2.san,
@@ -347,14 +364,17 @@
         let varNode = null;
         let nodePath = options.fromPosition ? path?.slice(0, -2) : '';
         for (let i = startIndex; i < nodes.length; i++) {
+          const src = nodes[i];
+          nodePath += src.id;
+          if (options.noComp && (src.comp || src.ltComp)) break;
           const isLast = i == nodes.length - 1 && !options.toPosition;
-          const node = clone(nodes[i], !isLast);
-          nodePath += node.id;
+          const node = clone(src, !isLast);
           node.path = nodePath;
           if (prevNode) prevNode.children = [node];
           prevNode = node;
           if (!varNode) varNode = node;
         }
+        if (!varNode) return '';
         const varNodes = getVarNodes(varNode, options.separateLines);
         const pgns = [];
         const tags = (options.exportTags && lt.clone(analysis.study?.data?.chapter?.tags)) || [];
@@ -394,11 +414,12 @@
           ? tags.map(tag => '[' + tag[0] + ' "' + tag[1] + '"]').join('\r\n') + '\r\n' 
           : '';
         for (const node of varNodes) {
-          const pgn = tagString + renderNodesTxt(node, true);
-          pgns.push(pgn);
+          const rendered = renderNodesTxt(node, true);
+          if (options.noComp && !rendered) continue;
+          pgns.push(tagString + rendered);
         }
         const result = pgns.join('\r\n\r\n');
-        if (options.copyToClipboard) {
+        if (options.copyToClipboard && result) {
           await lt.writeToClipboard(result, trans.noarg('PGNCopiedToClipboard'), trans.noarg('clipboardDenied'), !!options.print);
         }
         return result;

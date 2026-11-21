@@ -51,6 +51,7 @@ The async function `exportPgn(path, options)` generates PGN from an analysis tre
 | **separateLines** | false | Separate variations into separate PGN lines |
 | **unicode** | false | Use unicode chess piece symbols instead of SAN letters |
 | **print** | false | Print format (HTML with images and breaks vs standard PGN) |
+| **noComp** | false | Skip computer lines and strip evaluation tokens from comments |
 | **exportClock** | user preference | Include clock values per move |
 | **exportEval** | user preference | Include computer evaluation per move |
 | **exportTags** | user preference | Include PGN tags header |
@@ -82,6 +83,19 @@ Recursive function that renders a tree node into PGN text:
 - **First child (mainline)**: ply prefix + SAN move (fixCrazySan for crazy chess where 'P' prefix removed) + glyphs + comments
 - **Variations (children[1..n])**: rendered as parenthesized variations `(plyPrefix san glyphs comments variation)`
 - **Mainline continuation**: appended after variations if multiple children exist
+
+### Computer Lines (`noComp`)
+
+With `noComp: true` the export contains only what a user sees with the computer disabled:
+
+- Nodes flagged `comp` or `ltComp` are skipped together with their whole subtree, both in
+  the path chain and in the variation tree, so a computer line disappears entirely.
+- Comment texts have their `[%eval ...]` tokens removed; a comment that ends up empty or
+  whitespace-only is not rendered, so no empty `{ }` block is emitted.
+- The generated eval group is suppressed as well, so no `[%eval ...]` token survives.
+- Clocks, glyphs, shapes and human comments are untouched.
+- In separate mode a variation that renders empty is dropped, and an empty result is never
+  pushed to the clipboard.
 
 ### Special Rendering Functions
 

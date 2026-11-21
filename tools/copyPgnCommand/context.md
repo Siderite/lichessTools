@@ -20,6 +20,7 @@ From command text regex matches:
 - `tohere` → toPosition (to current position)
 - `unicode` → unicode (Unicode piece characters)
 - `print` → print mode
+- `nocomp` → noComp (skip computer lines and their evaluations in the copied PGN)
 
 ### Copy Execution
 

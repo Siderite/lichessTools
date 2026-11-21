@@ -44,6 +44,8 @@ The **AnalysisContextActionsTool** adds extra options to the analysis/study tree
 ### Copy Branch as PGN (`copyPgn`)
 - Adds a menu item "Copy branch as PGN" to the analysis context menu.
 - When clicked, exports the current branch path as PGN and copies it to clipboard via `lt.exportPgn`.
+- When the computer evaluations are hidden (`analysis.showEvaluation()` returns false), the copy
+  passes `noComp: true`, so computer lines and `[%eval ...]` tokens are left out.
 - **Modifier keys alter behavior** (Shift/Ctrl/Alt-click):
   - **Shift**: copy from position (FEN only) — suffix `_f`
   - **Ctrl**: separate lines — suffix `_s`

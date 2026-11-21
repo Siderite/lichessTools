@@ -589,7 +589,8 @@
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
       if (analysis?.contextMenuPath === undefined) return;
-      lt.exportPgn(analysis.contextMenuPath, { copyToClipboard: true, fromPosition: ev.shiftKey, toPosition: ev.altKey, separateLines: ev.ctrlKey });
+      const evalsHidden = analysis.showEvaluation?.() === false;
+      lt.exportPgn(analysis.contextMenuPath, { copyToClipboard: true, fromPosition: ev.shiftKey, toPosition: ev.altKey, separateLines: ev.ctrlKey, noComp: evalsHidden });
     };
 
     addEvalComment = (node, ceval) => {
