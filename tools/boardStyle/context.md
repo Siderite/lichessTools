@@ -76,12 +76,12 @@ For each `cg-container` element:
 - Removes arrow SVG.
 - Resets attributes: sideToPlay=white, removes lastMovedPiece/lastMoveSquare/lastPieceCaptured.
 
-### Process Boards — debounced version (100ms debounce).
+### Process Boards - debounced version (10ms debounce).
 
 ## Event Handling
 
 When enabled:
-- Observer on `body` watching for `square.last-move` and `square.selected` changes (attributes=true) → triggers `processBoards`.
+- Observer on `body` for `square.last-move`/`square.selected` (attributes=true, executeDirect=true) -> triggers `processBoards`.
 - Listens to `lichessTools.uiApi.events.ply` → triggers `processBoards`.
 - Immediately calls `processBoards()`.
 

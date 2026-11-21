@@ -211,7 +211,7 @@
         container.attrSafe('opening',opening?.opening || null);
       });
     };
-    processBoards = this.lichessTools.debounce(this.processBoardsDirect,100);
+    processBoards = this.lichessTools.debounce(this.processBoardsDirect,10);
 
     async start() {
       const lt = this.lichessTools;
@@ -224,8 +224,9 @@
       $('cg-container').toggleClassSafe('lichessTools-boardStyle',false);
       lt.uiApi.events.off('ply', this.processBoards);
       if (value) {
+        // executeDirect: arcade.css paints square.last-move from sideToPlay, so the update must stay on the pre-paint path
         $('body').observer()
-          .on('square.last-move,square.selected,body,cg-wrap',this.processBoards, { attributes: true });
+          .on('square.last-move,square.selected,body,cg-wrap',this.processBoards, { attributes: true, executeDirect: true });
         lt.uiApi.events.on('ply', this.processBoards);
         this.processBoards();
       }
