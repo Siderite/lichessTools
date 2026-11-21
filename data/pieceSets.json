@@ -1071,7 +1071,7 @@
         "bk": "2TYyaelrZJRwbcSyutAzEA=="
       },
       "coordinates": {
-        "x": 17,
+        "x": 18,
         "y": 25
       }
     },
@@ -1105,7 +1105,25 @@
       "name": "Chessbase",
       "url": "https://siderite.github.io/lichessToolsAdjacent/Chessbase/pieces/",
       "type": "svg",
-      "cap": "wN"
+      "cap": "wN",
+      "hashes": {
+        "wp": "NzSWnGtrlJQCYWEyMhQUCA==",
+        "bp": "NMuUNGuVlOsGB4aOjkxMMA==",
+        "wn": "WplkZrZ4iZ0BMdnJaXEOCA==",
+        "bn": "pGaamWmFteoDgyc3Bw6YKA==",
+        "wb": "cmzKympylY1p4TMyajJUCA==",
+        "bb": "SHPaPWKFhfpVA46Wlg5MCA==",
+        "wr": "YSWXnXpihZ0DYyIyMnNXKg==",
+        "br": "pTyWJnqBhf4DI6aGhoaKYA==",
+        "wq": "GN60lW5qkbQzI2NzcSkLKg==",
+        "bq": "sE4002qZhfYGBiMDD2krjA==",
+        "wk": "npk3JmZimZkzY2nIxBNMAA==",
+        "bk": "tmYmmWORmeYGBoOzs00MAA=="
+      },
+      "coordinates": {
+        "x": 17,
+        "y": 25
+      }
     },
     {
       "category": "chesscom",
