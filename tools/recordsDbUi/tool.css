@@ -480,7 +480,8 @@ body.lichessTools .lichessTools-recordsDbUi .tree-restore-count {
   font-size: 0.8rem;
   color: var(--c-grayish, #8a9aab);
 }
-body.lichessTools .lichessTools-recordsDbUi input.tree-restore-file {
+body.lichessTools .lichessTools-recordsDbUi input.tree-restore-file,
+body.lichessTools .lichessTools-recordsDbUi input.tree-append-file {
   font-size: 0.8rem;
 }
 
@@ -492,7 +493,8 @@ body.lichessTools .lichessTools-recordsDbUi button.btn-newfolder,
 body.lichessTools .lichessTools-recordsDbUi button.btn-rename,
 body.lichessTools .lichessTools-recordsDbUi button.btn-fold,
 body.lichessTools .lichessTools-recordsDbUi button.btn-backup,
-body.lichessTools .lichessTools-recordsDbUi button.btn-restore {
+body.lichessTools .lichessTools-recordsDbUi button.btn-restore,
+body.lichessTools .lichessTools-recordsDbUi button.btn-append {
   border: 1px solid var(--c-border, #3a3a3a);
   border-radius: 0.3rem;
   background: var(--c-bg-fourth, #181818);

@@ -129,6 +129,9 @@
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restore',
+        'recordsDbAppend': 'Append',
+        'recordsDbAppendFolderPrompt': 'Name the folder to create at the root of the tree',
+        'recordsDbAppendFolderExists': 'A folder with that name is at the root already',
         'recordsDbDownloadedTree': 'Wrote the tree to file',
         'recordsDbOpenButton': 'Open',
 
@@ -242,6 +245,9 @@
         'recordsDbBackup': 'Backup',
 
         'recordsDbRestoreTree': 'Restaurare',
+        'recordsDbAppend': 'Adaug\u0103',
+        'recordsDbAppendFolderPrompt': 'Nume\u015fte un folder la r\u0103d\u0103cina arborelui',
+        'recordsDbAppendFolderExists': 'Acest folder exist\u0103 deja la r\u0103d\u0103cina arborelui',
         'recordsDbDownloadedTree': 'Am salvat arborele \u00een fi\u015fier',
         'recordsDbOpenButton': 'Deschide',
 
@@ -2498,13 +2504,13 @@
       return true;
     }
 
-    async folderName(fallback) {
+    async folderName(fallback, promptKey) {
       const lt = this.lichessTools;
       const trans = lt.translator;
       const dialog = lt.uiApi?.dialog;
       if (!dialog?.prompt) return fallback;
       try {
-        const asked = await dialog.prompt(trans.noarg('recordsDbFolderNamePrompt'), fallback);
+        const asked = await dialog.prompt(trans.noarg(promptKey), fallback);
         return (asked ?? '').trim() || fallback;
       } catch (ignored) {
         return fallback;
@@ -2514,7 +2520,7 @@
     async createFolder(name) {
       const selected = [...this.selected];
       const parent = selected.length === 1 && this.folder(selected[0]) ? selected[0] : undefined;
-      const named = (name || '').trim() || await this.folderName('New folder');
+      const named = (name || '').trim() || await this.folderName('New folder', 'recordsDbFolderNamePrompt');
       this.pushUndo();
       const folder = { name: named, children: [] };
       (parent?.children ?? this.entries).push(folder);
@@ -2750,6 +2756,70 @@
     }
 
 
+    // Append is the only file flow that keeps what the tree already holds: the file comes in
+    // whole under one new root folder, so no existing row is touched or re-homed by the press.
+    async appendToFolder(name, text) {
+      const parsed = this.previewRestore(text);
+      if (!parsed) {
+        this.message = 'restoreFailed';
+        this.onChange();
+        return false;
+      }
+      const named = (name || '').trim();
+      if (!named) return false;
+      const taken = this.entries.some(
+        (node) => this.folder(node) && (node.name ?? '') == named);
+      if (taken) {
+        this.message = 'appendFolderExists';
+        this.onChange();
+        return false;
+      }
+      this.pushUndo();
+      const folder = { name: named, children: this.fileChildren(parsed.tree) };
+      this.entries.push(folder);
+      this.expanded.add(folder);
+      this.selected.clear();
+      this.selected.add(folder);
+      this.refreshCaches();
+      this.message = 'restoredTree';
+      this.save();
+      return folder;
+    }
+
+    // The file keeps its own nesting and its own order; only a repeat under the same parent is
+    // dropped, so the same item in two folders stays two rows and the file's first copy wins.
+    fileChildren(nodes) {
+      const carry = (list) => {
+        const kept = [];
+        const seen = new Set();
+        for (const node of list || []) {
+          if (!node) continue;
+          if (this.folder(node)) {
+            const name = node.name ?? '';
+            if (seen.has('folder|' + name)) continue;
+            seen.add('folder|' + name);
+            kept.push({ name, children: carry(node.children) });
+            continue;
+          }
+          if (!node.kind || !node.id) continue;
+          const key = node.kind + '|' + node.id;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          const copy = { ...node };
+          if (Array.isArray(node.children)) copy.children = carry(node.children);
+          kept.push(copy);
+        }
+        return kept;
+      };
+      return carry(nodes);
+    }
+
+    // The name is asked before the file is picked, and the prompt says where the folder lands.
+    async appendFolderName() {
+      return this.folderName('New folder', 'recordsDbAppendFolderPrompt');
+    }
+
+
     editName(node, name) {
       if (!node) return false;
       const trimmed = (name || '').trim();
@@ -2771,7 +2841,7 @@
       const current = this.folder(node)
         ? node.name ?? ''
         : this.leafLabel(node) || (node.label ?? '');
-      return this.editName(node, await this.folderName(current));
+      return this.editName(node, await this.folderName(current,'recordsDbFolderNamePrompt'));
     }
 
 
@@ -3767,8 +3837,27 @@
       } catch (ignored) {}
     });
 
+    const appendButton = rackButton('btn-append', 'recordsDbAppend');
+    appendButton.on('click', async (ev) => {
+      const named = await content.appendFolderName();
+      try {
+        const picker = $('<input class="tree-append-file" type="file">')
+          .on('change', async (e) => {
+            const file = e.target?.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async (loaded) => {
+              await content.appendToFolder(named, loaded.target?.result ?? '');
+            };
+            reader.readAsText(file, 'UTF-8');
+          });
+        picker.trigger?.('click');
+      } catch (ignored) {}
+    });
+
     backupRack.append(backupButton);
     backupRack.append(restoreButton);
+    backupRack.append(appendButton);
 
     if (keptRack.length) {
       host.find('.tree-header').remove();

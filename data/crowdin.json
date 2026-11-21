@@ -1454,7 +1454,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -2911,7 +2914,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4368,7 +4374,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -5825,7 +5834,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7282,7 +7294,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -8739,7 +8754,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -10196,7 +10214,10 @@
     "recordsDbOpenButton": "Ouvrir",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -11653,7 +11674,10 @@
     "recordsDbOpenButton": "Öffnen",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -13110,7 +13134,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -14567,7 +14594,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -16024,7 +16054,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -17481,7 +17514,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18938,7 +18974,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -20395,7 +20434,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -21852,7 +21894,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -23309,7 +23354,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -24766,7 +24814,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -26223,7 +26274,10 @@
     "recordsDbOpenButton": "Deschide",
     "teamForumTitle": "Forum LiChess Tools",
     "teamForumNewPosts": "Ai %s posturi recente în forum-ul LiChess Tools",
-    "teamForumNotificationTitle": "LiChess Tools - către forum-ul echipei"
+    "teamForumNotificationTitle": "LiChess Tools - către forum-ul echipei",
+    "recordsDbAppend": "Adaugă",
+    "recordsDbAppendFolderPrompt": "Numește un folder la rădăcina arborelui",
+    "recordsDbAppendFolderExists": "Acest folder este deja la rădăcina arborelui"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -27680,7 +27734,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -29137,7 +29194,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -30594,7 +30654,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -32051,7 +32114,10 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -33508,6 +33574,9 @@
     "recordsDbOpenButton": "Open",
     "teamForumTitle": "LiChess Tools forum",
     "teamForumNewPosts": "You have %s new LiChess Toools team forum posts",
-    "teamForumNotificationTitle": "LiChess Tools - go to team forum"
+    "teamForumNotificationTitle": "LiChess Tools - go to team forum",
+    "recordsDbAppend": "Append",
+    "recordsDbAppendFolderPrompt": "Name the folder to create at the root of the tree",
+    "recordsDbAppendFolderExists": "A folder with that name is at the root already"
   }
 }

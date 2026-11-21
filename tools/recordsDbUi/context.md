@@ -1595,7 +1595,8 @@ names.
 - `BookmarkTabContent.folderName`
   New folder asks the page for the name - `lt.uiApi.dialog.prompt` is the precedent other tools
   use. A page with no dialog service (or a cancelled prompt) keeps the default name, so the folder
-  is still created rather than the gesture ending half-done.
+  is still created rather than the gesture ending half-done. Append passes its own prompt key so
+  its text can name where the folder lands.
 
 - `BookmarkTabContent.createFolder (at `if (parent) this.expanded.add(parent);`)`
   Opening the parent keeps the new folder visible; parent is always a folder here.
@@ -1665,6 +1666,22 @@ names.
   The chapter is on the page but the move the leaf names is not in it any more: the stamp is what
   the tooltip reads, so the row says where the landing differs from what it promised instead of
   landing silently at the chapter root.
+
+- `BookmarkTabContent.appendToFolder`
+  The one file flow that keeps what is already there: the parse is checked, the name is checked
+  against the root folders, and only then does a folder go in - a bad file or a taken name ends
+  the press with nothing written. The folder rides at the end of the root array, unsorted, and the
+  new folder is left expanded and selected so the rows it brought are on screen straight away.
+
+- `BookmarkTabContent.fileChildren`
+  The file's own nesting and its own order come through as they stand. Only a repeat under the
+  same parent drops: the same item in two folders stays two rows, and a file that names one item
+  twice in one folder keeps its first copy.
+
+- `BookmarkTabContent.appendFolderName`
+  The name is asked before the file is picked, through the same prompt New folder uses, so the
+  text can say where the folder lands. A page with no dialog service gets the same default name
+  New folder answers with, and a default that clashes with a root folder stops the press.
 
 - `BookmarkTabContent.editName`
   Rename is a chip, not an inline edit - the name comes from the same dialog prompt New folder
@@ -2054,7 +2071,9 @@ names.
 - `bookmarkView (at `const backupRack = $('<div class="rack-backu...`)`
   The backup rack, pinned to the bottom of the dialog. The file is one tree, so "Backup" writes
   the tree the user sees and "Restore" replaces the whole tree with it - there is no per-branch
-  half-action left to explain.
+  half-action left to explain. "Append" is the safe third: it asks the folder name first, then the
+  file, and files what the file holds inside one new root folder pushed last, so a row the tree
+  already has stays where it was - nothing needs a warning before the press.
 
 - `bookmarkView (at `if (keptRack.length) {`)`
   The read order: header, filters rack, actions rack, the tree (header above it), backup rack.
