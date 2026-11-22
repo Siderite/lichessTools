@@ -4462,7 +4462,7 @@
       const button = $('<button class="link records-db-button" type="button">')
         .attr('title', trans.noarg('recordsDbButtonTitle'))
         .attr('tabindex', '0')
-        .append($('<icon>').attr('data-icon', lt.icon.Folder));
+        .append($('<icon>').attr('data-icon', lt.icon.FileFolder));
       button.on('click', (ev) => {
         if (ev.button) return;
         ev.preventDefault?.();

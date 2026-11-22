@@ -160,11 +160,13 @@ body.lichessTools .lichessTools-recordsDbUi .error {
 }
 
 body.lichessTools .lichessTools-recordsDb button {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
 }
 
 body.lichessTools .lichessTools-recordsDb button icon:before {
   font-weight: bolder;
+  font-family: lichess, lichessTools;
+  filter: saturate(0);
 }
 
 body.lichessTools .lichessTools-recordsDb button:is(:focus-visible,:hover) {

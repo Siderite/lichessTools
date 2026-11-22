@@ -222,7 +222,7 @@
       Scroll: '\uD83D\uDCDC',
       PositionIndicator: '\u2316',
       SquarePositionIndicator: '\u2BD0',
-      Folder: '\uD83D\uDDC0',
+      FileFolder: '\uD83D\uDCC1',
 
       toEntity: function(s) {
         let result='';
