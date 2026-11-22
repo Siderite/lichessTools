@@ -652,6 +652,13 @@
     },
     {
       "category": "lichess",
+      "name": "chessboart",
+      "url": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/chessboart/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "lichess",
       "name": "monarchy",
       "url": "https://github.com/lichess-org/lila/raw/refs/heads/master/public/piece/monarchy/",
       "type": "webp",
