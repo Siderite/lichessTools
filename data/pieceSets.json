@@ -655,7 +655,25 @@
       "name": "chessboart",
       "url": "https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/chessboart/",
       "type": "svg",
-      "cap": "wN"
+      "cap": "wN",
+      "hashes": {
+        "wp": "liFrlLVqW5VpcTIUMjIMAA==",
+        "bp": "S86UcWmFlPoXFkxMTEwwAA==",
+        "wn": "To5mk5l4ZodhaXE52WEyDA==",
+        "bn": "sXjZDGaFmfqDl45HJxZMCA==",
+        "wb": "OJ3HhDhqx51pcWlpaSYUCA==",
+        "bb": "Z2A8G8uVNOoXhpaWjh5MCA==",
+        "wr": "g5eWjXhoh5dRYWlxc3FVKw==",
+        "br": "MXpo4YeVOPojFx+Ojh8rKg==",
+        "wq": "k5bJpZJqZZdhaXnoqitVFA==",
+        "bq": "YUmWmmmVtuoXhiMrVVVVFA==",
+        "wk": "ZpOZMzFrxpxhaWHs1NQXCA==",
+        "bk": "mUgmz86VOeIXloYTKyvMAA=="
+      },
+      "coordinates": {
+        "x": 19,
+        "y": 24
+      }
     },
     {
       "category": "lichess",
