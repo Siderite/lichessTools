@@ -11,7 +11,7 @@
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
           'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27',
-          'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF'
+          'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF', 'piece-packager'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
@@ -57,7 +57,8 @@
         'extraPieceSets.lukasmonk': 'lukasmonk',
         'extraPieceSets.chessskins': 'ChessSkins',
         'extraPieceSets.Mad_Amateur': 'Mad Amateur',
-        'extraPieceSets.FrogSF': 'Frog Software Foundation'
+        'extraPieceSets.FrogSF': 'Frog Software Foundation',
+        'extraPieceSets.piece-packager': 'Piece Packager'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
@@ -153,6 +154,21 @@
         { // WN
           const pieceLetter = piece == 'knight' ? 'N' : piece[0].toUpperCase();
           return pieceSet.url+color[0].toUpperCase()+pieceLetter+'.'+pieceSet.type;
+        }
+        case 'WhiteKnight':
+        {
+          const filename = color[0].toUpperCase()+color.slice(1).toLowerCase()+ piece[0].toUpperCase()+piece.slice(1).toLowerCase();
+          return pieceSet.url+filename+'.'+pieceSet.type;
+        }
+        case 'white_knight':
+        {
+          const filename = color.toLowerCase() + '_' + piece.toLowerCase();
+          return pieceSet.url+filename+'.'+pieceSet.type;
+        }
+        case 'knight-w':
+        {
+          const filename = piece.toLowerCase() + '-' + color[0].toLowerCase();
+          return pieceSet.url+filename+'.'+pieceSet.type;
         }
         case 'basedpolymer':
         { // weird

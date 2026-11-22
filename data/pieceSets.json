@@ -16103,6 +16103,1995 @@
         "x": 23,
         "y": 7
       }
+    },
+
+    {
+      "category": "piece-packager",
+      "name": "adventurer",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/adventurer/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "adventurer_berry",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/adventurer_berry/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "adventurer_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/adventurer_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "adventurer_grass",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/adventurer_grass/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfarishy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfarishy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfarishy_berry",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfarishy_berry/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfarishy_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfarishy_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfarishy_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfarishy_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfonso-x",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfonso-x/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfonso-x_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfonso-x_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfonso-x_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfonso-x_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alfonso-x_toy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alfonso-x_toy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alpha",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alpha/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alpha_ink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alpha_ink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alpha_mint",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alpha_mint/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "alpha_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/alpha_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy-plug",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy-plug/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy-plug_candy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy-plug_candy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy-plug_fresh",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy-plug_fresh/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy-plug_sepia",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy-plug_sepia/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy_candy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy_candy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy_fresh",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy_fresh/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy_halloween",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy_halloween/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "anarchy_sepia",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/anarchy_sepia/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "ansuz",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/ansuz/",
+      "type": "svg",
+      "cap": "WhiteKnight"
+    },
+    {
+      "category": "piece-packager",
+      "name": "bagnall",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/bagnall/",
+      "type": "svg",
+      "cap": "white_knight"
+    },
+    {
+      "category": "piece-packager",
+      "name": "berlin",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/berlin/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "berlin_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/berlin_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "berlin_loulou",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/berlin_loulou/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "berlin_maroon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/berlin_maroon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "caliente",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/caliente/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "caliente_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/caliente_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "caliente_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/caliente_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "caliente_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/caliente_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "california",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/california/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "california_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/california_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "california_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/california_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "california_red",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/california_red/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cardinal",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cardinal/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cardinal_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cardinal_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cardinal_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cardinal_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cardinal_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cardinal_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cases",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cases/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cases_cocoa",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cases_cocoa/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cases_forest",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cases_forest/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cases_gray",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cases_gray/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cburnett",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cburnett/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cburnett_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cburnett_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cburnett_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cburnett_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cburnett_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cburnett_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "celtic",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/celtic/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "checkers",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/checkers/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "checkers_cute",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/checkers_cute/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "checkers_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/checkers_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "checkers_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/checkers_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chess7",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chess7/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chess7_calm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chess7_calm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chess7_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chess7_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chess7_yellow",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chess7_yellow/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chessnut",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chessnut/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chessnut_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chessnut_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chessnut_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chessnut_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chessnut_burgundy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chessnut_burgundy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "chicago",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/chicago/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "companion",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/companion/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "companion_cyan",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/companion_cyan/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "companion_eggplant",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/companion_eggplant/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "companion_red",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/companion_red/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "condal",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/condal/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "condal_cold",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/condal_cold/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "condal_halloween",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/condal_halloween/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "condal_mustard",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/condal_mustard/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "condal_warm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/condal_warm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "cooke",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/cooke/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dmuysi",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dmuysi/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dmuysi_cotton",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dmuysi_cotton/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dmuysi_kournikova",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dmuysi_kournikova/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dmuysi_marzipan",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dmuysi_marzipan/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dubrovny",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dubrovny/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dubrovny_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dubrovny_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dubrovny_bw",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dubrovny_bw/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "dubrovny_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/dubrovny_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "echiquier",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/echiquier/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "echiquier_flesh",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/echiquier_flesh/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "echiquier_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/echiquier_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "echiquier_ink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/echiquier_ink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fantasy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fantasy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fantasy_calm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fantasy_calm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fantasy_cold",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fantasy_cold/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fantasy_warm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fantasy_warm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fresca",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fresca/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fresca_camelot",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fresca_camelot/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fresca_matisse",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fresca_matisse/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "fresca_zucchini",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/fresca_zucchini/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "gioco",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/gioco/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "gioco_metal",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/gioco_metal/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "gioco_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/gioco_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "gioco_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/gioco_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "governor",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/governor/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "governor_bw",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/governor_bw/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "governor_patina",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/governor_patina/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "governor_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/governor_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/green/",
+      "type": "svg",
+      "cap": "knight-w"
+    },
+    {
+      "category": "piece-packager",
+      "name": "harlequin",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/harlequin/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "harlequin_gold",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/harlequin_gold/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "harlequin_neon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/harlequin_neon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "harlequin_peach",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/harlequin_peach/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "horsey",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/horsey/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "horsey_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/horsey_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "horsey_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/horsey_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "horsey_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/horsey_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icon54",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icon54/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icon54_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icon54_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icon54_gray",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icon54_gray/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icon54_neon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icon54_neon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icpieces",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icpieces/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icpieces_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icpieces_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icpieces_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icpieces_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "icpieces_maroon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/icpieces_maroon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kingdom",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kingdom/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kingdom_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kingdom_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kingdom_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kingdom_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kingdom_sulu",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kingdom_sulu/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kiwen-suwi",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kiwen-suwi/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kosal",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kosal/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kosal_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kosal_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kosal_red",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kosal_red/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "kosal_violet",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/kosal_violet/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "leipzig",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/leipzig/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "leipzig_berry",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/leipzig_berry/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "leipzig_nature",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/leipzig_nature/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "leipzig_niagara",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/leipzig_niagara/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "letter",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/letter/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "letters",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/letters/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "letters_cold",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/letters_cold/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "letters_dim",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/letters_dim/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "letters_warm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/letters_warm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "libra",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/libra/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "libra_plum",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/libra_plum/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "libra_sea",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/libra_sea/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "libra_v0",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/libra_v0/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "libra_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/libra_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "line",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/line/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "line_berry",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/line_berry/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "line_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/line_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "line_toy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/line_toy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "lucena",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/lucena/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "lucena_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/lucena_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "lucena_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/lucena_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "lucena_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/lucena_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maestro",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maestro/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maestro_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maestro_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maestro_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maestro_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maestro_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maestro_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maestro_v6",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maestro_v6/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "magnetic",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/magnetic/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "magnetic_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/magnetic_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "magnetic_lila",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/magnetic_lila/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "magnetic_orange",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/magnetic_orange/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mark",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mark/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mark_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mark_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mark_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mark_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mark_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mark_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "marroquin",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/marroquin/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "marroquin_eggplant",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/marroquin_eggplant/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "marroquin_rajah",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/marroquin_rajah/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "marroquin_toy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/marroquin_toy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maya",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maya/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maya_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maya_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maya_cold",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maya_cold/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "maya_warm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/maya_warm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mediaeval",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mediaeval/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mediaeval_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mediaeval_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mediaeval_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mediaeval_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mediaeval_orange",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mediaeval_orange/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "merida",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/merida/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "merida_cyan",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/merida_cyan/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "merida_ink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/merida_ink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "merida_traffic",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/merida_traffic/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "millennia",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/millennia/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "millennia_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/millennia_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "millennia_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/millennia_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "millennia_sand",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/millennia_sand/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "monarchy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/monarchy/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mono",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mono/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "motif",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/motif/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "motif_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/motif_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "motif_maroon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/motif_maroon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "motif_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/motif_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "mpchess",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/mpchess/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "oldstyle",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/oldstyle/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "oldstyle_bondi",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/oldstyle_bondi/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "oldstyle_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/oldstyle_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "oldstyle_gossip",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/oldstyle_gossip/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "oslo",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/oslo/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirat",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirat/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirat_maroon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirat_maroon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirat_peach",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirat_peach/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirat_sea",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirat_sea/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_border",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_border/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_border_coral",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_border_coral/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_border_grass",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_border_grass/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_border_winter",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_border_winter/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_dream",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_dream/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_mint",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_mint/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pirouetti_summer",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pirouetti_summer/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pixel",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pixel/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pixel_juicy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pixel_juicy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pixel_neon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pixel_neon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "pixel_spring",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/pixel_spring/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "qootee",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/qootee/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "qootee_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/qootee_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "qootee_pink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/qootee_pink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "qootee_summer",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/qootee_summer/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "regular",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/regular/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "regular_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/regular_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "regular_ink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/regular_ink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "regular_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/regular_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "reillycraig",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/reillycraig/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "reillycraig_dixie",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/reillycraig_dixie/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "reillycraig_lawn",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/reillycraig_lawn/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "reillycraig_tamarind",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/reillycraig_tamarind/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "rhosgfx",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/rhosgfx/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "riohacha",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/riohacha/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "riohacha_cute",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/riohacha_cute/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "riohacha_spring",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/riohacha_spring/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "riohacha_winter",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/riohacha_winter/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "saakyan",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/saakyan/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "saakyan_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/saakyan_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "saakyan_coco",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/saakyan_coco/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "saakyan_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/saakyan_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "shapes",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/shapes/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "shapes_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/shapes_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "shapes_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/shapes_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "shapes_cute",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/shapes_cute/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "smart",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/smart/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "smart_apricot",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/smart_apricot/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "smart_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/smart_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "smart_cocoa",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/smart_cocoa/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "spatial",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/spatial/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "spatial_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/spatial_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "spatial_salmon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/spatial_salmon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "spatial_summer",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/spatial_summer/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "staunty",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/staunty/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "staunty_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/staunty_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "staunty_lila",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/staunty_lila/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "staunty_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/staunty_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "symmetric",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/symmetric/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "symmetric_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/symmetric_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "symmetric_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/symmetric_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "symmetric_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/symmetric_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "symmetric_shaded",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/symmetric_shaded/",
+      "type": "svg",
+      "cap": "wN"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tagged",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tagged/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tatiana",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tatiana/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tatiana_calm",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tatiana_calm/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tatiana_sweet",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tatiana_sweet/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tatiana_wood",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tatiana_wood/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tfb",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tfb/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tfb_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tfb_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tfb_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tfb_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "tfb_purple",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/tfb_purple/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "traveller",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/traveller/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "traveller_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/traveller_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "traveller_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/traveller_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "traveller_green",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/traveller_green/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "trendy",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/trendy/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "trendy_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/trendy_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "trendy_fresh",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/trendy_fresh/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "trendy_ink",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/trendy_ink/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "utrecht",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/utrecht/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "utrecht_crimson",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/utrecht_crimson/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "utrecht_mirage",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/utrecht_mirage/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "utrecht_violet",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/utrecht_violet/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "vecon",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/vecon/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "vecon_baltic",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/vecon_baltic/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "vecon_cute",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/vecon_cute/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "vecon_hemlock",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/vecon_hemlock/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "wisdom",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/wisdom/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "wisdom_blue",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/wisdom_blue/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "wisdom_brown",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/wisdom_brown/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "wisdom_grape",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/wisdom_grape/",
+      "type": "svg",
+      "cap": "nw"
+    },
+    {
+      "category": "piece-packager",
+      "name": "xkcd",
+      "url": "https://raw.githubusercontent.com/deverac/piece-packager/refs/heads/main/svg/xkcd/",
+      "type": "svg",
+      "cap": "wN"
     }
   ]
 }
