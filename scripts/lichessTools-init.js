@@ -174,6 +174,7 @@ lichessTools.loadTool(LiChessTools.Tools.GenLineCommand);
 lichessTools.loadTool(LiChessTools.Tools.LocalDatabase);
 lichessTools.loadTool(LiChessTools.Tools.RecordsDbStore);
 lichessTools.loadTool(LiChessTools.Tools.RecordsDbUi);
+lichessTools.loadTool(LiChessTools.Tools.MarathonRankings);
 lichessTools.loadTool(LiChessTools.Tools.PuzzleIndex);
 
 lichessTools.loadTool(LiChessTools.Tools.Preferences);

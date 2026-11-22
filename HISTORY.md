@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+22 Nov
+
+- Marathon page
+
 21 Nov
 
 - New posts notification for the L1Chess Tools team forum

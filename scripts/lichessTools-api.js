@@ -312,6 +312,12 @@
             processCrosstable(data);
           }
           return result;
+        },
+
+        async getTopPlayers(perfKey, nb) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/api/player/top/{nb}/{perfKey}', args: { nb: nb || 100, perfKey: perfKey } });
+          return data?.users || [];
         }
       };
 
@@ -820,6 +826,18 @@
       };
 
       tournament = {
+        async getStandings(tourId, page, options) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({
+            url: '/api/tournament/{tourId}?page={page}',
+            args: {
+              tourId: tourId,
+              page: page || 1
+            }
+          }, options);
+          return data;
+        },
+
         async getInfo(tourId) {
           const lt = this.lichessTools;
           const userId = lt.getUserId();

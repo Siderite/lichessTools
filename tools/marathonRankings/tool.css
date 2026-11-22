@@ -1,0 +1,59 @@
+body.lichessTools div.lichessTools-marathonRankings {
+  display: flex;
+  flex-direction: column;
+}
+
+body.lichessTools div.lichessTools-marathonRankings > .help-button {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+body.lichessTools div.lichessTools-marathonRankings .community__leaders {
+  display: block;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li.head {
+  font-weight: bold;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li {
+  justify-content: end;
+  gap: 1em;
+  position: relative;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li .rank {
+  min-width: 3ch;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li .rank .char {
+  font-family: lichess, lichessTools;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li .player {
+  flex-grow: 1;
+  display: flex;
+  max-width: 20ch;
+  overflow: hidden;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li :is(.games,.points) {
+  min-width: 6ch;
+}
+
+body.lichessTools div.lichessTools-marathonRankings li .places {
+  position: absolute;
+  display: none;
+  bottom: -1em;
+  right: 1em;
+  background: var(--c-bg-popup);
+  border: 1px solid var(--c-font);
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+
+body.lichessTools div.lichessTools-marathonRankings li:hover .places:has(*) {
+  display: block;
+}
