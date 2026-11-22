@@ -1,6 +1,7 @@
 body.lichessTools div.lichessTools-marathonRankings {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 body.lichessTools div.lichessTools-marathonRankings > .help-button {
@@ -18,6 +19,7 @@ body.lichessTools div.lichessTools-marathonRankings li.head {
 }
 
 body.lichessTools div.lichessTools-marathonRankings li {
+  display: flex;
   justify-content: end;
   gap: 1em;
   position: relative;

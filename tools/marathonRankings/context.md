@@ -20,21 +20,24 @@ Lichess's own top 100 rating places.
 
 The season page answers its standings ten rows a page and its field is 21k
 players wide, so the page reads a bounded slice: rows per season event, walked
-page by page with a gap between requests, and the season events indexed
-counted back from the current year.
+page by page with a gap between requests, and the season events indexed by
+whole marathon years counted back from the current one.
 
 ## Prefs
 `marathonRankings | community | [ false, true ] | defaultValue: true`
-There is one preference and it is a plain toggle. The seasons and the rows the
-board spends are class fields - `marathonRankingsSeasons` (3) and
+There is one preference and it is a plain toggle. The years and the rows the
+board spends are class fields - `marathonRankingsYears` (3) and
 `marathonRankingsRows` (25) - so the page reads always cost the same and there
-is nothing to tune.
+is nothing to tune. Three years back index twelve season slugs; once the ones
+that have not started yet are skipped, eleven season events go on the page.
 
 ## Page
 The tool hijacks the community page `/player#marathon` - it does not own a
 `/page/*` of its own. The tool takes over the community player page: it keeps
 the subnav (the community menu Lichess already carries) and replaces the rest
-of `<main>` with the community__leaders layout of the player page.
+of `div.page-menu__content` with the community__leaders layout of the player
+page. The tool marks that container `lichessTools-marathonRankings` so the
+sheet can scope the block, and re-marks the marathon subnav anchor `active`.
 
 A slug whose season has not run under answers 404 and is simply left out. A
 season event that has not started yet (its startsAt is in the future) is left
@@ -63,10 +66,10 @@ rank it gave the row, the seasons a player showed up in and a last cell for the
 rating places - there whether a player holds one or not, so the columns of the
 board line up for every row.
 
-Season cards lay side by side and wrap around when the row runs out; the seasons
-sit in their own container (`lichessTools-marathonRankings-seasons`) so the
-layout can flex them, and the board is a card next to that container. A season
-card and the board card share the same box.
+Season cards and the board card sit side by side under the leaderboards block;
+each is a `<section class="… user-top">` and inherits Lichess's own styling
+for that shape, so no container of our own is needed and the cards flow like
+the community page's leaders do.
 
 The player link sits inside a `<div class="player">` cell rather than directly
 in the row, so other tools can place siblings next to it without breaking the
@@ -74,7 +77,7 @@ row. The seasons and the combined board follow the community__leaders shape of
 Lichess's own leaders block.
 
 ## Code
-`seasonSlugs(seasons, year)` spells the slugs of the indexed seasons.
+`seasonSlugs(years, year)` spells the season slugs of the indexed years.
 `standingRow(player)` maps one standing row, taking games from the sheet.
 `fetchSeason(slug, rows)` reads one season event and caches it.
 `fetchRatingPlaces(perfKey)` reads one of Lichess's own top 100 lists.
@@ -84,16 +87,19 @@ the player holds, under a `topBullet`/`topBlitz` field named from the perf key.
 `boardOrder(a, b)` orders the board by games, then points, then name, then
 rating - never by any hidden figure.
 `headRow(columns)` writes the head of a table: a label per column.
-`rowElem(entry, rank)` writes the cells under it - a number per column, and the
-rating places of a player in a cell of their own, always last, so a board keeps
-its columns lined up whether a player holds a place or not.
+`rowElem(entry, rank)` writes the cells under it - a number per column, a `player`
+cell wrapping the user link, and a `places` cell of their own that is always
+there (hidden when empty), so a board keeps its columns lined up whether a
+player holds a place or not.
 `addSubnavLink` puts the link in the subnav of the community pages.
 `processPage` takes the /player#marathon page over: keeps the subnav, empties
-the rest, reads the seasons, builds the board and renders the community block.
+`div.page-menu__content`, reads the seasons inside a `try { } finally { spinner
+remove }` so a thrown fetch never leaves the spinner behind, builds the board
+and renders the community block.
 `start` calls the two, so the subnav link is added on every community page and
 the page takes over only on its own hash.
 
-`marathonRankingsSeasons`, `marathonRankingsRows`, `marathonRankingsPageMs`,
+`marathonRankingsYears`, `marathonRankingsRows`, `marathonRankingsPageMs`,
 `marathonRankingsSeasonMs`, `marathonRankingsStaleMs` and `marathonRankingsLiveMs`
 are the numbers of the reads and caches, edited here the way the records pair
 edits its own harvest numbers.

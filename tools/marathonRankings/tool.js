@@ -8,7 +8,9 @@
 
     // The numbers the board spends, edited here rather than carried as preferences:
     // a season field is 21k players wide and its standing answers ten rows a page.
-    marathonRankingsSeasons = 3;
+    // The year count spans whole seasons, so three years back index twelve season
+    // slugs; the ones that have not started yet read 404 and are skipped.
+    marathonRankingsYears = 3;
     marathonRankingsRows = 25;
     marathonRankingsPageMs = 400;
     marathonRankingsSeasonMs = 800;
@@ -63,11 +65,12 @@
     };
 
 
-    // The slug of a season event is the id Lichess answers on, so indexing a season
-    // means spelling its slug - only the two-digit year moves.
-    seasonSlugs(seasons, year) {
+    // The slug of a season event is the id Lichess answers on, so indexing the
+    // runs of a marathon means spelling every season slug of each year back -
+    // only the two-digit year moves.
+    seasonSlugs(years, year) {
       const result = [];
-      for (let back = 0; back < seasons; back++) {
+      for (let back = 0; back < years; back++) {
         const suffix = String((year - back + 100) % 100).padStart(2, '0');
         for (const season of ['spring', 'summer', 'autumn', 'winter']) {
           result.push(season + suffix);
@@ -200,6 +203,7 @@
     // "Tournament shields" anchor rather than the URLs because the subnav with
     // that entry shows only on the community pages that carry it.
     addSubnavLink = () => {
+      if (!this.options.enabled) return;
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -249,26 +253,30 @@
 
       const year = new Date().getFullYear();
       const seasons = [];
-      for (const slug of this.seasonSlugs(this.marathonRankingsSeasons, year)) {
-        const season = await this.fetchSeason(slug, this.marathonRankingsRows);
-        if (!season) continue;
-        if (new Date(season.startsAt).getTime() > lt.global.Date.now()) continue;
-        seasons.push(season);
-        await lt.timeout(this.marathonRankingsSeasonMs);
-      }
+      let board = [];
+      let shown = 0;
+      try {
+        for (const slug of this.seasonSlugs(this.marathonRankingsYears, year)) {
+          const season = await this.fetchSeason(slug, this.marathonRankingsRows);
+          if (!season) continue;
+          if (new Date(season.startsAt).getTime() > lt.global.Date.now()) continue;
+          seasons.push(season);
+          await lt.timeout(this.marathonRankingsSeasonMs);
+        }
 
-      const rowsBySeason = {};
-      seasons.forEach(season => rowsBySeason[season.slug] = season.rows);
-      const board = this.aggregateSeasons(rowsBySeason);
-      const placesByPerf = {};
-      for (const perf of ['bullet', 'blitz']) {
-        placesByPerf[perf] = await this.fetchRatingPlaces(perf);
+        const rowsBySeason = {};
+        seasons.forEach(season => rowsBySeason[season.slug] = season.rows);
+        board = this.aggregateSeasons(rowsBySeason);
+        const placesByPerf = {};
+        for (const perf of ['bullet', 'blitz']) {
+          placesByPerf[perf] = await this.fetchRatingPlaces(perf);
+        }
+        this.markRatingPlaces(board, placesByPerf);
+        board.sort(this.boardOrder);
+        shown = board.length < this.marathonRankingsRows ? board.length : this.marathonRankingsRows;
+      } finally {
+        spinner.remove();
       }
-      this.markRatingPlaces(board, placesByPerf);
-      board.sort(this.boardOrder);
-      const shown = board.length < this.marathonRankingsRows ? board.length : this.marathonRankingsRows;
-
-      spinner.remove();
 
       for (const season of seasons) {
         const section = $('<section class="lichessTools-marathonRankings-season user-top">').appendTo(leaderboards);
@@ -295,7 +303,7 @@
 
       const boardSection = $('<section class="lichessTools-marathonRankings-board user-top">').appendTo(leaderboards);
       $('<h2>').text(trans.noarg('marathonRankingsBoardText')).appendTo(boardSection);
-      const boardRows = $('<ol">').appendTo(boardSection);
+      const boardRows = $('<ol>').appendTo(boardSection);
       this.headRow({
         rank: '#',
         player: trans.noarg('marathonRankingsPlayerColumn'),
@@ -342,9 +350,9 @@
           .text(''+entry.seasons.length)
           .appendTo(row);
       }
+      const places = $('<span class="places">')
+        .appendTo(row);
       if (entry.topBullet || entry.topBlitz) {
-        const places = $('<span class="places">')
-          .appendTo(row);
         if (entry.topBullet) {
           places.append($('<span class="top topBullet">').text(trans.noarg('marathonRankingsTopBulletText')+' #'+entry.topBullet));
         }
@@ -374,7 +382,7 @@
         await this.processPage()
          .catch(e => {
            lt.announce(trans.noarg('marathonRankingsError'));
-           throw e;
+           lt.global.console.warn('Error processing marathon rankings page',e);
          });
       } else
       if (this._isMarathon) {
@@ -384,6 +392,7 @@
 
     async start() {
       const lt = this.lichessTools;
+      const $ = lt.$;
       const value = lt.currentOptions.getValue('marathonRankings');
       this.logOption('Marathon Rankings', value);
       this.options = { enabled: !!value };
