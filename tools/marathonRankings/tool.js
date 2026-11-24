@@ -53,13 +53,13 @@
         'marathonRankingsPageMenuText': 'Clasament maratoane',
         'marathonRankingsPageHeader': 'Clasament maratoane',
         'marathonRankingsPointsColumn': 'puncte',
-        'marathonRankingsBoardText': 'Tabel rezisten\u016f\u0103',
+        'marathonRankingsBoardText': 'Tabel rezisten\u0163\u0103',
         'marathonRankingsPlayerColumn': 'juc\u0103tor',
         'marathonRankingsGamesColumn': 'partide',
         'marathonRankingsSeasonsColumn': 'sezoane',
         'marathonRankingsTopBulletText': 'top bullet',
         'marathonRankingsTopBlitzText': 'top blitz',
-        'marathonRankingsError': 'Eroare la citirea situa\u016fiei maratoanelor',
+        'marathonRankingsError': 'Eroare la citirea situa\u0163iei maratoanelor',
         'marathonRankingsOpenTitle': 'detalii'
       }
     };

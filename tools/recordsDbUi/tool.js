@@ -276,7 +276,7 @@
         'kindStreamer': 'Streamer',
         'kindTeam': 'Echip\u0103',
         'kindTournament': 'Turneu',
-        'kindTournamentSwiss': 'Turneu elve\u016fian',
+        'kindTournamentSwiss': 'Turneu elve\u0163ian',
         'kindTournamentArena': 'Turneu \u00een aren\u0103',
         'kindUrl': 'Link',
         'recordsDbNodeMissing': 'Mutarea nu mai exist\u0103 \u00een capitol',

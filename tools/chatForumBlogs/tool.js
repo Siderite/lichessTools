@@ -42,7 +42,7 @@
         'chatForumBlogs.pasteImages': 'Suport lipire imagini',
         'chatForumBlogs.bigEmoji': 'Emoji mare c\u00e2nd singur \u00een mesaj',
         'chatForumBlogs.refreshOnMessage': 'Re\uee00mprosp\u0103teaz\u0103 la mesaj nou',
-        'chatForumBlogs.reactionsTooltip': 'Tooltip la reac\u016fii pe mobil',
+        'chatForumBlogs.reactionsTooltip': 'Tooltip la reac\u0163ii pe mobil',
         'chatForumBlogs.markdownShortcuts': 'Scurt\u0103turi taste \u00een forumuri',
         'pastingError': 'A ap\u0103rut o eroare \u00een generarea URLului imaginii',
         'uploadImageButtonTitle': 'LiChess Tools - \u00eenc\u0103rcare imagine',

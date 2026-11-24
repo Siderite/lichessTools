@@ -106,12 +106,12 @@
         'defaultValueLegend': '*Preferin\u0163ele cu margine alb\u0103strie sunt cele implicite',
         'noDirectoryPickerWarning': 'Acest browser nu suport\u0103 aceast\u0103 func\u0163ionalitate',
         'folderButtonTitle': 'Alege un director de fi\u015fiere',
-        'removeFolderButtonTitle': 'Cur\u0103\u016f\u0103 director',
+        'removeFolderButtonTitle': 'Cur\u0103\u0163\u0103 director',
         'fileButtonTitle': 'Alege un fi\u015fier',
         'userManualLinkTitle': 'Manual utilizator (EN)',
         'preferenceFilterPlaceholder': 'Filtru preferin\u0163e',
         'expandAllButtonText': 'Extinde/restr\u00e2nge toate',
-        'expandAllButtonTitle': 'Extinde/restr\u00e2nge toate preferin\u016fele',
+        'expandAllButtonTitle': 'Extinde/restr\u00e2nge toate preferin\u0163ele',
         'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools',
         'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?'
       }

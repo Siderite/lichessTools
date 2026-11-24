@@ -21,9 +21,9 @@
       },
       'ro-RO': {
         'options.appearance': 'Aspect',
-        'options.boardSaturate': 'Satura\u016fie tabl\u0103',
-        'boardSaturateText': 'Satura\u016fie',
-        'boardSaturateTitle': 'LiChess Tools - satura\u016fie tabl\u0103'
+        'options.boardSaturate': 'Satura\u0163ie tabl\u0103',
+        'boardSaturateText': 'Satura\u0163ie',
+        'boardSaturateTitle': 'LiChess Tools - satura\u0163ie tabl\u0103'
       }
     }
 

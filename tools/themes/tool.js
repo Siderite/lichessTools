@@ -91,7 +91,7 @@
         'themes.gridBoard': 'Grilaj pe p\u0103tratele tablei',
         'themes.fixThirdParties': 'Repar\u0103 ter\u0163e par\u0163i',
         'themes.timeControls': 'Controale timp la hover',
-        'themes.firstInteraction': 'Prima interac\u016fiune',
+        'themes.firstInteraction': 'Prima interac\u0163iune',
         'themes.noVariants': 'F\u0103r\u0103 variante de \u015fah',
         'themes.noBullet': 'Ascunde \u015fah Bullet',
         'themes.squares': 'P\u0103trate \u00een loc de cercuri',
