@@ -11,7 +11,7 @@
         possibleValues: [
           'siderite','chesscom','hollowleaf','fordCrownVictoria','bend-n','comfysage','tage64','OwOHamper','DragurKnight','LichessHelper','basedpolymer','FelixKling','Moldenke1',
           'sharechess','NayukiMafuyu','tsoj','davidssmith','Djapec','olliecampbell','mowi12','swapnilvasave24-web','withmy27',
-          'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF', 'piece-packager'
+          'code-and-chill','mannubhai1','lukasmonk','chessskins','Mad_Amateur','FrogSF', 'piece-packager','Space-Capybara'
         ],
         defaultValue: 'siderite,chesscom,hollowleaf',
         advanced: true
@@ -58,7 +58,8 @@
         'extraPieceSets.chessskins': 'ChessSkins',
         'extraPieceSets.Mad_Amateur': 'Mad Amateur',
         'extraPieceSets.FrogSF': 'Frog Software Foundation',
-        'extraPieceSets.piece-packager': 'Piece Packager'
+        'extraPieceSets.piece-packager': 'Piece Packager',
+        'extraPieceSets.Space-Capybara': 'Space Capybara'
       },
       'ro-RO': {
         'options.appearance': 'Aspect',

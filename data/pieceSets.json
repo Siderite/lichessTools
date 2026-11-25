@@ -23203,6 +23203,20 @@
         "x": 14,
         "y": 23
       }
+    },
+    {
+      "category": "Space-Capybara",
+      "name": "Chesscom GTA",
+      "url": "https://raw.githubusercontent.com/Space-Capybara/Chesscom-bots-pieces/refs/heads/main/Chesscom-GTA/",
+      "type": "png",
+      "cap": "wN"
+    },
+    {
+      "category": "Space-Capybara",
+      "name": "Chesscom Cryptids",
+      "url": "https://raw.githubusercontent.com/Space-Capybara/Chesscom-bots-pieces/refs/heads/main/Chesscom-Cryptids-pieces/",
+      "type": "png",
+      "cap": "wN"
     }
   ]
 }
