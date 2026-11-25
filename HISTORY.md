@@ -1,5 +1,9 @@
 History of features added to LiChess Tools in time (reversed order)
 
+25 Nov
+
+- User focus panel
+
 22 Nov
 
 - Marathon page

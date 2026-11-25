@@ -100,6 +100,30 @@
 
     alertMuted = (user, statusMap) => this.alertStatus(user, statusMap) == 'muted';
 
+    // what a name holds on its own in the alert key: a stored status spells its own decision even
+    // when it matches the preference default, and no entry means the preference answers for it
+    alertEntry = (user, statusMap) => (statusMap ?? this.alertStatusMap())[user?.toLowerCase()] ?? null;
+
+    // the entry as an explicit decision: a spelled status stays written whatever the default is, and
+    // a null erases the name so the preference default answers again
+    setAlertEntry = (user, status) => {
+      const lt = this.lichessTools;
+      const statusMap = this.alertStatusMap();
+      const key = user?.toLowerCase();
+      if (!key) return;
+      if (status == 'muted' || status == 'unmuted') statusMap[key] = status;
+      else delete statusMap[key];
+      lt.storage.set('LiChessTools.friendsAlertStatus', statusMap);
+    };
+
+    // one step of the three states a name can hold: no entry, muted, unmuted, no entry again
+    cycleAlertEntry = (user) => {
+      const current = this.alertEntry(user);
+      const next = current == null ? 'muted' : current == 'muted' ? 'unmuted' : null;
+      this.setAlertEntry(user, next);
+      return next;
+    };
+
     playFriendSound = async (username) => {
       if (!this.options.enabled) return;
       const lt = this.lichessTools;

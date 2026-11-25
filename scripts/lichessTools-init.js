@@ -49,6 +49,7 @@ lichessTools.loadTool(LiChessTools.Tools.CtrlSpaceForBestComputerMove);
 lichessTools.loadTool(LiChessTools.Tools.LobbyCrosstable);
 lichessTools.loadTool(LiChessTools.Tools.FriendsList);
 lichessTools.loadTool(LiChessTools.Tools.FriendsPlaying);
+lichessTools.loadTool(LiChessTools.Tools.UserPanel);
 lichessTools.loadTool(LiChessTools.Tools.Highlight);
 lichessTools.loadTool(LiChessTools.Tools.CtrlArrowsRandomVariation);
 lichessTools.loadTool(LiChessTools.Tools.CustomEngineLevel);

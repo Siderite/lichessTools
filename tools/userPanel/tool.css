@@ -1,0 +1,373 @@
+/* The card is one box that holds what the page knows about one person and what you can do with it.
+   The sheet owns the size: the content is a column of rows that wrap at any width, so a width
+   measured off the content only ever came out as narrow as the one line that would not break. */
+body.lichessTools dialog.lichessTools-userPanel {
+  width: min(40rem, 88vw);
+  min-width: 18rem;
+  max-width: 88vw;
+  max-height: min(88vh, 92svh);
+  padding: 10px 14px;
+  border-radius: var(--ui-roundness, 8px);
+  background: var(--c-bg-popup, rgba(24, 24, 24, .9));
+  border: 1px solid var(--c-border, #3a3a3a);
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+body.lichessTools.mobile dialog.lichessTools-userPanel {
+  width: min(94vw, 22rem);
+  max-height: 92svh;
+  padding: 8px 10px;
+}
+
+body.lichessTools dialog.lichessTools-userPanel .dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  min-width: 0;
+  max-width: 86vw;
+}
+
+/* the header of the box is the words of the card; the line under it names the person and clicks to
+   their profil */
+body.lichessTools dialog.lichessTools-userPanel .dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--c-bg-higher, #3a3a39);
+  color: var(--c-font, #d0d0cc);
+}
+
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanel-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 8px;
+  margin: 0;
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanel-titlelink {
+  cursor: pointer;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--c-font-clear, #e8e8e4);
+  text-decoration: none;
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanel-titlelink:hover {
+  color: var(--c-link, #6e95c6);
+  text-decoration: underline;
+}
+
+/* the badges beside the name are the cards this person has */
+body.lichessTools dialog.lichessTools-userPanel span.lichessTools-userPanel-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 6px;
+  font-size: .7em;
+}
+
+body.lichessTools dialog.lichessTools-userPanel span.lichessTools-userPanel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--c-bg-box, #2f2f2e);
+  border: 1px solid var(--c-border, #3a3a3a);
+  color: var(--c-font-dim, #90908c);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+body.lichessTools dialog.lichessTools-userPanel span.lichessTools-userPanel-badge::before {
+  font-family: lichess, lichessTools;
+  color: var(--c-font-dim, #90908c);
+  content: var(--icon-User);
+}
+
+body.lichessTools dialog.lichessTools-userPanel span.lichessTools-userPanel-badge[data-lt-badge=streamer]::before {
+  content: var(--icon-AnalogTv);
+}
+
+body.lichessTools dialog.lichessTools-userPanel span.lichessTools-userPanel-badge[data-lt-badge=coach]::before {
+  content: var(--icon-GraduateCap);
+}
+
+/* the dot carries the whole state of a line, and only the colour says which */
+body.lichessTools dialog.lichessTools-userPanel i.lichessTools-userPanel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 2px 8px 2px 0;
+  flex: none;
+  background: var(--c-font-dimmer, #70706c);
+}
+
+body.lichessTools dialog.lichessTools-userPanel i.lichessTools-userPanel-dot[data-state=on] {
+  background: var(--c-good, #7fa23f);
+}
+
+body.lichessTools dialog.lichessTools-userPanel i.lichessTools-userPanel-dot[data-state=play] {
+  background: var(--c-warn, #c8a526);
+}
+
+/* a section is a head and the rows under it; a closed head keeps its affordance and drops the rows,
+   which is the tap on the head that pays for them */
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: start;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--box-radius-size, 6px);
+  border: 1px solid var(--c-border, #3a3a3a);
+  background: var(--c-bg-box, #2f2f2e);
+}
+
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section:not([data-lt-open=true]) {
+  border: none;
+  background: transparent;
+  padding: 0 10px;
+}
+
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section:not([data-lt-open=true]) > :not(h4) {
+  display: none;
+}
+
+body.lichessTools dialog.lichessTools-userPanel h4.lichessTools-userPanel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: .9em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-font-dim, #90908c);
+}
+
+/* the plus is the tap that pays for a section; an open head shows the minus it turned into */
+body.lichessTools dialog.lichessTools-userPanel h4.lichessTools-userPanel-head::after {
+  content: var(--icon-PlusButton);
+  font-family: lichess, lichessTools;
+  font-size: 1.1em;
+  color: var(--c-font-dim, #90908c);
+  margin-left: auto;
+}
+
+body.lichessTools dialog.lichessTools-userPanel section[data-lt-open=true] h4.lichessTools-userPanel-head::after {
+  content: var(--icon-MinusButton);
+}
+
+/* a row is the claim and the reason a section cannot make one, so it wraps rather than forcing the
+   column wide */
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanelRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: .95em;
+}
+/* the band of writes packs its chips side by side under the head, so a thumb has one target per
+   write and the band reads as a row of buttons rather than a list of lines */
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section[data-lt-key=actions] {
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section[data-lt-key=actions] h4.lichessTools-userPanel-head {
+  flex: none;
+  width: 100%;
+  font-size: .8em;
+}
+
+/* a chip is a write you can make: the icon says which write, and the words say where it stands */
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip {
+  cursor: pointer;
+  outline: none;
+  touch-action: manipulation;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: var(--c-bg-higher, #3a3a39);
+  border: 1px solid var(--c-border, #3a3a3a);
+  color: var(--c-font, #d0d0cc);
+  font-size: .9em;
+  white-space: nowrap;
+}
+
+body.lichessTools dialog.lichessTools-userPanel section[data-lt-key=actions] > a.lichessTools-userPanelChip {
+  flex: none;
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip:hover {
+  background: var(--c-accent-faint, #1e3b52);
+  border: 1px solid var(--c-accent, #1b78d0);
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip:focus-visible {
+  border: 1px solid var(--c-accent, #1b78d0);
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip::before {
+  font-family: lichess, lichessTools;
+  color: var(--c-font-dim, #90908c);
+  font-size: 1.1em;
+  content: var(--icon-PlusButton);
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=follow]::before {
+  content: var(--icon-User);
+}
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=stream]::before {
+  content: var(--icon-Mic);
+}
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=alert]::before {
+  content: var(--icon-BellOutline);
+}
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=noteAdd]::before {
+  content: var(--icon-Pencil);
+}
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=noteDelete]::before {
+  content: var(--icon-Trash);
+}
+
+/* the stream chip wears the same glow the site puts on a card that is on air - the icon and its ring
+   go to the warning colour, and the ring breathes while the stream runs */
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=stream][data-lt-live=true]::before {
+  color: var(--c-bad, #d04040);
+  text-shadow: 0 0 8px var(--c-bad, #d04040);
+}
+
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=stream][data-lt-live=true] {
+  border: 1px solid var(--c-bad, #d04040);
+  box-shadow: 0 0 6px var(--c-bad, #d04040);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip[data-lt-act=stream][data-lt-live=true] {
+    animation: lichessTools-userPanel-air 2.4s ease-in-out infinite;
+  }
+
+  @keyframes lichessTools-userPanel-air {
+    50% { box-shadow: 0 0 12px var(--c-bad, #d04040); }
+  }
+}
+
+/* a link row is the click itself, so it keeps the site's link colour and its underline */
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanel-link {
+  cursor: pointer;
+  color: var(--c-link, #6e95c6);
+  text-decoration: underline;
+}
+
+/* the small words are the ones a reader skips, so they go to the site's dim colour and stay small */
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanelRow span.lichessTools-userPanel-why,
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanelRow span.lichessTools-userPanel-at,
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanelRow span.lichessTools-userPanel-note {
+  font-size: .8em;
+  color: var(--c-font-dimmer, #70706c);
+}
+/* the cross is the site's own markup, so it keeps the site's look; a phone scrolls it sideways rather
+   than squeezing the marks into a column */
+body.lichessTools dialog.lichessTools-userPanel section.lichessTools-userPanel-section[data-lt-key=match] > div.crosstable {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* notes: newest first, each in a rounded card with the bin in its corner; the date sits above the
+   text in the small dim type, and the box under the cards waits for the next note */
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanel-note {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: start;
+  gap: 4px;
+  padding: 6px 34px 6px 10px;
+  border-radius: 10px;
+  background: var(--c-bg-low, #232322);
+  border: 1px solid var(--c-border, #3a3a3a);
+}
+
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanel-note span.lichessTools-userPanel-note-when {
+  order: -1;
+  font-size: .75em;
+  color: var(--c-font-dimmer, #70706c);
+}
+
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanel-note span.lichessTools-userPanel-note-text {
+  font-size: .95em;
+  color: var(--c-font, #d0d0cc);
+  white-space: pre-wrap;
+}
+
+/* the bin is a write you can make on one note: small, tucked in the corner, and the same click that
+   asks again spells itself in its words */
+body.lichessTools dialog.lichessTools-userPanel a.lichessTools-userPanelChip.lichessTools-userPanel-trash {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 2px 6px;
+  font-size: .8em;
+}
+
+body.lichessTools dialog.lichessTools-userPanel textarea.lichessTools-userPanel-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 2.4em;
+  max-height: 14em;
+  font-size: .95em;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--c-border, #3a3a3a);
+  background: var(--c-bg-low, #232322);
+  color: var(--c-font, #d0d0cc);
+  resize: none;
+}
+
+/* the twin the box measures itself against: invisible, but it takes the wrap the box will take */
+body.lichessTools dialog.lichessTools-userPanel div.lichessTools-userPanel-measure {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  max-height: 14em;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  pointer-events: none;
+}
+
+/* a phone gets the tap-wide pill the dialog already takes for its edges */
+body.lichessTools.mobile dialog.lichessTools-userPanel a.lichessTools-userPanelChip {
+  padding: 8px 12px;
+  font-size: 1em;
+}
+
+body.lichessTools.mobile dialog.lichessTools-userPanel div.lichessTools-userPanel-note {
+  padding: 8px 40px 8px 10px;
+}
+
+body.lichessTools.mobile dialog.lichessTools-userPanel a.lichessTools-userPanelChip.lichessTools-userPanel-trash {
+  top: 6px;
+  right: 6px;
+  padding: 4px 8px;
+  font-size: .9em;
+}
+
+body.lichessTools .streamer-header .overview a.lichessTools-userPanel {
+  padding: .5em 1em;
+}

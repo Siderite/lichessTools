@@ -85,6 +85,35 @@
       return /^\/team\/[^\/]+\/edit\b/i.test(this.loc.pathname);
     };
 
+    // A card page names the person it is about: the bare profile, the streamer card and the coach
+    // card. A bare '/streamer' or '/coach' is a list, and the coach search carries four segments,
+    // so the id must be one segment of the characters an id is made of. `edit` and `live` are the
+    // owner's own card and the moved live list, which name no person to look at; records filing
+    // admits them because a filed card is not a browse.
+    isPersonCard(path) {
+      const m = /^\/(?<route>streamer|coach)\/(?<user>[a-zA-Z0-9_.-]+)$/i.exec(path);
+      if (!m) return null;
+      if (/^(edit|live)$/i.test(m.groups.user)) return null;
+      return { route: m.groups.route.toLowerCase(), userId: m.groups.user?.toLowerCase() };
+    }
+
+    isStreamerPage() {
+      return this.isPersonCard(this.loc.pathname)?.route == 'streamer';
+    }
+
+    isCoachPage() {
+      return this.isPersonCard(this.loc.pathname)?.route == 'coach';
+    }
+
+    // The person the page is about, spelled the way the path spells it. The bare profile only:
+    // `isProfilePageOf` matches a prefix and admits '/@/{user}/tv', which is another page's
+    // subject with a different affordance.
+    getPersonPage(path = this.loc.pathname) {
+      const profile = /^\/@\/([a-zA-Z0-9_.-]+)$/.exec(path);
+      if (profile) return { route: 'profile', userId: profile[1]?.toLowerCase() };
+      return this.isPersonCard(path);
+    }
+
     isTeamPageFormOf(teamId) {
       if (!teamId) throw new Error('teamId not specified');
       const lt = this.lichessTools;

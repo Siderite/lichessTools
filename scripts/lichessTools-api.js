@@ -18,6 +18,9 @@
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getChessDb', { persist: 'session', interval: 1 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.evaluation, 'getLichess', { persist: 'session', interval: 1 * 86400 * 1000, minTime: 1 });
         lt.cache.memoizeAsyncFunction(lt.api.timeline, 'get', { persist: 'session', interval: 60 * 1000, keyPrefix: 'timeline_', minTime: 1 });
+        // The whole live list is one read; a card that asks about one streamer pays a route of its
+        // own, so the list is the shared answer and it is held for a minute only.
+        lt.cache.memoizeAsyncFunction(lt.api.streamer, 'getLiveStreamers', { persist: 'session', interval: 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUsers', { persist: 'session', interval: 2 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getUserStatus', { persist: 'session', interval: 5 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.study, 'getChapterPgn', { persist: 'session', interval: 1000, minTime: 1000 });
@@ -29,7 +32,18 @@
         };
         lt.cache.memoizeAsyncFunction(lt.api.puzzle, 'getPuzzlesOfPlayerPageMemoized', { persist: 'local', interval: 30 * 86400 * 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.game,'getLichessGameData', { persist: 'local', interval: 1 * 86400 * 1000 });
+        // The pair search answers the one question a crosstable cannot: which game to open for the
+        // rendered cross. It is only paid when a crosstable says games exist, so a session cache is
+        // enough and the fragment itself is held much longer.
+        lt.cache.memoizeAsyncFunction(lt.api.game, 'search', { persist: 'session', interval: 10 * 60 * 1000, minTime: 1000 });
         lt.cache.memoizeAsyncFunction(lt.api.user, 'getCrosstable', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 5000 });
+        // The follow edge has no json route: the mini page answers it, one small page per name.
+        // A read that names no edge stays out of the cache so the next open can ask again.
+        lt.cache.memoizeAsyncFunction(lt.api.relation, 'followingUser', {
+          persist: 'session', interval: 30 * 60 * 1000, minTime: 1000,
+          keyFunction: (obj, funcName, args) => funcName + ':' + args[0],
+          resultFilter: (r) => r !== null
+        });
         lt.cache.memoizeAsyncFunction(lt.api.chessagine, 'analyseFen', { persist: 'local', interval: 10 * 86400 * 1000, minTime: 1100 });
         lt.cache.memoizeAsyncFunction(lt.api.chessinsights, 'getVideos', { persist: 'local', interval: 3600 * 1000, minTime: 10000 });
 
@@ -271,6 +285,37 @@
           return html;
         },
 
+        // A card page says it exists by answering. A head read asks the same question with no body
+        // at all, which is the cheapest way to ask it: an empty string is a page that is there, and
+        // `ignoreStatuses` turns a 404 into a null answer instead of a throw, so a null is the only
+        // absence these two can name. Both answer a plain yes/no, and a thrown read is left to the
+        // caller because a failed ask is not an absent card.
+        async isStreamer(userId) {
+          const lt = this.lichessTools;
+          if (!userId) return null;
+          const html = await lt.net.fetch({
+            url: '/streamer/{userId}',
+            args: { userId }
+          }, {
+            method: 'HEAD',
+            ignoreStatuses: [ 404 ]
+          });
+          return html !== null;
+        },
+
+        async isCoach(userId) {
+          const lt = this.lichessTools;
+          if (!userId) return null;
+          const html = await lt.net.fetch({
+            url: '/coach/{userId}',
+            args: { userId }
+          }, {
+            method: 'HEAD',
+            ignoreStatuses: [ 404 ]
+          });
+          return html !== null;
+        },
+
         async getUserPerfStats(userId, timeControl) {
           const lt = this.lichessTools;
           const data = await lt.net.json({ url: '/@/{userId}/perf/{timeControl}', args: { userId, timeControl } });
@@ -380,6 +425,21 @@
             }
           );
           return result;
+        },
+
+        // A pair search: the route answers with a paginator of games the two have played, newest
+        // first, and the panel only ever needs the first one. The query carries the ids, so the
+        // cache key takes them.
+        async search(userId1, userId2, page = 1) {
+          const lt = this.lichessTools;
+          if (!userId1 || !userId2) throw new Error('search requires both players');
+          const data = await lt.net.json({
+            url: '/games/search?players.a={userId1}&players.b={userId2}&page={page}',
+            args: { userId1, userId2, page }
+          }, {
+            ignoreStatuses: [ 404 ]
+          });
+          return data;
         },
 
         async getMini(gameId, color) {
@@ -614,6 +674,28 @@
           const lt = this.lichessTools;
           const streamers = await lt.net.json('/api/streamer/live');
           return streamers;
+        },
+
+        // One route both ways: the handler carries `set: Boolean ?= true`, so the off half is
+        // the same call with the flag. A subscription is not a follow edge, which is why the
+        // panel keeps the two writes apart.
+        async subscribe(userId, on) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({
+            url: '/streamer/subscribe/{user}?set={set}',
+            args: { user: userId, set: !!on }
+          }, {
+            method: 'POST',
+            credentials: 'include',
+            ignoreStatuses: [404]
+          });
+        },
+
+        // One card's own answer, paid only on a tap: the global live list is the shared read.
+        async checkOnline(userId) {
+          const lt = this.lichessTools;
+          const data = await lt.net.json({ url: '/streamer/{user}/check', args: { user: userId } }, { ignoreStatuses: [404] });
+          return data;
         }
       };
 
@@ -822,6 +904,32 @@
         async unblockPlayer(userId) {
           const lt = this.lichessTools;
           await lt.net.fetch({ url: '/api/rel/unblock/{userId}', args: { userId: userId } },{ method: 'POST' });
+        },
+
+        // The mini page carries the relation button, and that button names the write it would make:
+        // an unfollow link means the edge already stands, so one page read answers one name. A
+        // caller that holds the page passes it in and pays nothing.
+        async followingUser(userId, mini = null) {
+          const lt = this.lichessTools;
+          const id = userId?.toLowerCase();
+          if (!id) return null;
+          const page = mini ?? await lt.api.user.getMini(userId);
+          if (!page) return null;
+          const text = page.toLowerCase();
+          if (text.includes('/api/rel/unfollow/' + id)) return true;
+          if (text.includes('/api/rel/follow/' + id)) return false;
+          return null;
+        },
+
+        // The follow edge both ways.
+        async follow(userId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/api/rel/follow/{userId}', args: { userId: userId } },{ method: 'POST' });
+        },
+
+        async unfollow(userId) {
+          const lt = this.lichessTools;
+          await lt.net.fetch({ url: '/api/rel/unfollow/{userId}', args: { userId: userId } },{ method: 'POST' });
         }
       };
 
