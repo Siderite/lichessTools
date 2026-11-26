@@ -37,6 +37,7 @@
 
     computeControlMap() {
       const control = Array.from({ length: 8 }, () => Array(8).fill(0));
+      if (!this.co) return control;
       for (const sq of this.co.occupied) {
         const piece = this.co.get(sq);
         const color = piece.color === 'white' ? 1 : -1;
@@ -48,6 +49,7 @@
     }
 
     evaluatePieceActivity(sq, controlMap) {
+      if (!this.co) return null;
       const piece = this.co.get(sq);
       const type = piece.role;
       const color = piece.color === 'white' ? 1 : -1;
@@ -60,7 +62,10 @@
       for (const t of moves) {
         if (controlMap[7 - (t >> 3)][t & 7] * color < 0) continue;
         const clone = this.co.clone();
-        clone.set(t, piece);
+        const rank = t >> 3;
+        // rank-1/8 pawns act as the queen the repo's promotion convention gives them
+        const placed = piece.role === 'pawn' && (rank === 0 || rank === 7) ? { color: piece.color, role: 'queen' } : piece;
+        clone.set(t, placed);
         clone.take(sq);
         const sub = new ChessActivityEvaluator(clone);
         for (const s2 of sub.generateMoves(t)) {
@@ -71,6 +76,7 @@
     }
 
     cloneBoard() {
+      if (!this.co) return null;
       return this.co.clone();
     }
 

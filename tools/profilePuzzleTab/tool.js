@@ -47,8 +47,9 @@
       const $ = lt.$;
       const trans = lt.translator;
       const container = $('.puzzle-dashboard__global');
-      while (!container.length) {
+      if (!container.length) {
         await lt.timeout(100);
+        return this.enhancePuzzleDashboardPage();
       }
 
       const userId = lt.getUserId();
@@ -119,8 +120,6 @@
       const trans = lt.translator;
 
       const days = lt.location.getPuzzleDashboardDays();
-      const currentEnd = Date.now();
-      const currentStart = currentEnd - days*86400000;
       
       const section = $('section.lichessTools-profilePuzzleTab');
       if (section.attr('data-days')==days && !sort) {
@@ -143,6 +142,7 @@
       html = '<tr><th><a href="/training"><img src="'+lichess.asset.url('images/puzzle-themes/mix.svg')+'"/>$trans(dashboard.total)</a></th><td class="perc nr" title="'+data.global.firstWins+'+'+data.global.replayWins+'" style="--win:'+winperc+'%;--rep:'+repperc+'%;">'+data.global.nb+'</td><td class="nr">'+data.global.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/mix">'+replay+'</a></td>';
       for (const theme in data.themes) {
         const r = data.themes[theme].results;
+        if (!r) continue;
         r.replay = r.nb - r.firstWins - r.replayWins;
         r.winperc = r.nb ? Math.floor(100 * r.firstWins/r.nb) : 0;
         r.repperc = r.nb ? Math.floor(100 * r.replayWins/r.nb) : 0;
@@ -156,6 +156,7 @@
       for (const theme of themeKeys) {
         const d = data.themes[theme];
         const r = d.results;
+        if (!r) continue;
         const perf = r.performance > data.global.performance ? 'good' : r.performance < data.global.performance ? 'bad' : '';
         html += '<tr><th><a href="/training/'+theme+'"><img src="'+lichess.asset.url('images/puzzle-themes/'+theme+'.svg')+'"/>'+htmlEncode(d.theme)+'</a></th><td class="perc nr" title="'+r.firstWins+'+'+r.replayWins+'" style="--win:'+r.winperc+'%;--rep:'+r.repperc+'%;">'+r.nb+'</td><td class="nr '+perf+'">'+r.performance+'</td><td class="nr"><a href="/training/replay/'+days+'/'+theme+'">'+r.replay+'</a></td>';
       }

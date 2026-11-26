@@ -130,12 +130,9 @@
           .insertAfter($('.lichessTools-separator', container).last());
         $('#abset-noCloud')
           .on('change', async () => {
+            this.options.noCloud = $('#abset-noCloud').is(':checked');
             const options = lt.currentOptions;
-            options.customEngineOptions = [
-              $('#abset-noCloud').is(':checked') ? 'noCloud' : '',
-              this.options.noCloudExternal ? 'noCloudExternal' : '',
-              this.options.practice ? 'practice' : ''
-            ].filter(o => o).join(',');
+            options.customEngineOptions = this.options.toString();
             await lt.applyOptions(options);
             lt.fireReloadOptions();
           });
@@ -149,13 +146,9 @@
           .insertAfter($('.abset-noCloud', container).eq(0));
         $('#abset-noCloudExternal')
           .on('change', async () => {
+            this.options.noCloudExternal = $('#abset-noCloudExternal').is(':checked');
             const options = lt.currentOptions;
-            options.customEngineOptions = [$('#abset-noCloudExternal').is(':checked') ? 'noCloudExternal' : '', this.options.practice ? 'practice' : ''].filter(o => o).join(',');
-            options.customEngineOptions = [
-              this.options.noCloud ? 'noCloud' : '',
-              $('#abset-noCloudExternal').is(':checked') ? 'noCloudExternal' : '',
-              this.options.practice ? 'practice' : ''
-            ].filter(o => o).join(',');
+            options.customEngineOptions = this.options.toString();
             await lt.applyOptions(options);
             lt.fireReloadOptions();
           });
@@ -201,12 +194,9 @@
           .insertAfter($('.abset-engine-depth', container).eq(0));
         $('#abset-practice')
           .on('change', async () => {
+            this.options.practice = $('#abset-practice').is(':checked');
             const options = lt.currentOptions;
-            options.customEngineOptions = [
-              this.options.noCloud ? 'noCloud' : '',
-              this.options.noCloudExternal ? 'noCloudExternal' : '',
-              $('#abset-practice').is(':checked') ? 'practice' : ''
-            ].filter(o => o).join(',');
+            options.customEngineOptions = this.options.toString();
             this.setupPracticeDepth();
             await lt.applyOptions(options);
             lt.fireReloadOptions();
@@ -327,12 +317,12 @@
               analysis.practice.onCeval();
               if (nodeCeval) nodeCeval.depth = depth;
             } else if (analysis.retro) {
-              const doResetEval = analysis.node.ceval == null;
-              const resetNodes = doResetEval?.nodes;
+              const nodeCeval = analysis.node.ceval;
+              const resetNodes = nodeCeval.nodes;
               const fakeNodesMakeLichessAcceptCurrentEvaluation = 1000000;
-              analysis.node.ceval.nodes = fakeNodesMakeLichessAcceptCurrentEvaluation;
+              nodeCeval.nodes = fakeNodesMakeLichessAcceptCurrentEvaluation;
               analysis.retro.onCeval();
-              if (doResetEval) analysis.node.ceval.nodes = resetNodes;
+              nodeCeval.nodes = resetNodes;
             } else {
               if (curDepth>depth) {
                 analysis.node.ceval.depth = curDepth;
@@ -491,7 +481,12 @@
         practice: lt.isOptionSet(customEngineOptions, 'practice'),
         fix503: lt.isOptionSet(customEngineOptions, 'fix503'),
         plus: lt.isOptionSet(customEngineOptions, 'plus'),
-        get isSet() { return this.depth || this.noCloud || this.noCloudExternal || this.practice || this.fix503 || this.plus; }
+        get isSet() { return this.depth || this.practiceDepth || this.noCloud || this.noCloudExternal || this.practice || this.fix503 || this.plus; },
+        toString: function() {
+          return ['noCloud','noCloudExternal','practice','fix503','plus']
+                   .filter(k=>this[k])
+                   .join(',');
+                             }
       };
       const lichess = lt.lichess;
       const analysis = lichess.analysis;
@@ -502,8 +497,13 @@
       lt.pubsub.off('lichessTools.redraw', this.determineCevalState);
       lt.global.clearInterval(this.interval);
       analysis.actionMenu.toggle = lt.unwrapFunction(analysis.actionMenu.toggle, 'customEngineOptions');
+      analysis.instanciateEvalCache = lt.unwrapFunction(analysis.instanciateEvalCache, 'customEngineOptions');
 
       lt.pubsub.on('lichessTools.redraw', this.analysisControls);
+      this.analysisControls();
+
+      if (!this.options.isSet) return;
+
       lt.pubsub.on('lichessTools.redraw', this.determineCevalState);
       this.interval = lt.global.setInterval(this.determineCevalState, 5000);
       analysis.actionMenu.toggle = lt.wrapFunction(analysis.actionMenu.toggle, {
@@ -512,7 +512,6 @@
           lt.global.setTimeout(this.analysisControls, 100);
         }
       });
-      this.analysisControls();
 
       this.wrapEval();
       analysis.instanciateEvalCache = lt.wrapFunction(analysis.instanciateEvalCache, {

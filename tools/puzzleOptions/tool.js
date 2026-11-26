@@ -38,12 +38,6 @@
       }
     }
 
-    isPlaying = ()=>{
-      const lt = this.lichessTools;
-      const $ = lt.$;
-      return $.cached('body').is('.playing') && !$('.puzzle__feedback').is('.after');
-    };
-
     showTotal = () => {
       const lt = this.lichessTools;
       const $ = lt.$;

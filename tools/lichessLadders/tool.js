@@ -473,7 +473,7 @@
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
       }
-      const container = $('#topnav section a[href="/"]+div[role="group"]');
+      const container = $('#topnav section a:is([href="/"],[href^="/#"])+div[role="group"]')
       container.find('.lichessTools-lichessLadders').remove();
       if (this.options.menuItem) {
         const elem = $('<a>')

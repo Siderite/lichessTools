@@ -20,10 +20,10 @@
         'chessPursuit.chapter1': 'Chess Pursuit',
         'chessPursuit.chapter2': 'Chess Pursuit 2',
         'chessPursuitText': 'Chess Pursuit',
-        'chessPursuitTitle': 'Lichess Tools - play Chess Pursuit',
+        'chessPursuitTitle': 'LiChess Tools - play Chess Pursuit',
         'chessPursuitHeader': 'Chess Pursuit',
         'chessPursuit2Text': 'Chess Pursuit 2',
-        'chessPursuit2Title': 'Lichess Tools - play Chess Pursuit 2',
+        'chessPursuit2Title': 'LiChess Tools - play Chess Pursuit 2',
         'chessPursuit2Header': 'Chess Pursuit 2'
       },
       'ro-RO': {
@@ -32,10 +32,10 @@
         'chessPursuit.chapter1': 'Urm\u0103rire \u00een \u015fah',
         'chessPursuit.chapter2': 'Urm\u0103rire \u00een \u015fah 2',
         'chessPursuitText': 'Urm\u0103rire \u00een \u015fah',
-        'chessPursuitTitle': 'Lichess Tools - joac\u0103 Urm\u0103rire \u00een \u015fah',
+        'chessPursuitTitle': 'LiChess Tools - joac\u0103 Urm\u0103rire \u00een \u015fah',
         'chessPursuitHeader': 'Urm\u0103rire \u00een \u015fah',
         'chessPursuit2Text': 'Urm\u0103rire \u00een \u015fah 2',
-        'chessPursuit2Title': 'Lichess Tools - joac\u0103 Urm\u0103rire \u00een \u015fah 2',
+        'chessPursuit2Title': 'LiChess Tools - joac\u0103 Urm\u0103rire \u00een \u015fah 2',
         'chessPursuit2Header': 'Urm\u0103rire \u00een \u015fah 2'
       }
     }
@@ -72,7 +72,7 @@
         chapter1: lt.isOptionSet(chessPursuit, 'chapter1'),
         chapter2: lt.isOptionSet(chessPursuit, 'chapter2')
       };
-      const container = $('#topnav section a[href="/"]+div[role="group"]');
+      const container = $('#topnav section a:is([href="/"],[href^="/#"])+div[role="group"]')
       container.find('.lichessTools-chessPursuit').remove();
       container.find('.lichessTools-chessPursuit2').remove();
       if (this.options.chapter1) {

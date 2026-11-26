@@ -49,13 +49,14 @@
       const analysis = lichess?.analysis;
       if (!analysis) return;
 
-      $('body').toggleClassSafe('lichessTools-betterBestArrow',!!value);
+      $('body').toggleClassSafe('lichessTools-betterBestArrow',this.options.enabled);
       analysis.setAutoShapes = lt.unwrapFunction(analysis.setAutoShapes,'betterBestArrow');
       if (!this.options.enabled) return;
       let currBest;
       analysis.setAutoShapes = lt.wrapFunction(analysis.setAutoShapes,{
         id: 'betterBestArrow',
         before: ($this, ...args) => {
+          currBest = null;
           const node = analysis.node;
           if (node.outcome()) return;
           const isBadMove = !!node.glyphs?.find(g=>['?!','?','??'].includes(g.symbol));
@@ -91,7 +92,7 @@
           currBest = best;
         },
         after: ($this, result, ...args)=>{
-          if (!this.options.justOrientation) return;
+          if (!this.options.justOrientation || !currBest) return;
           if (analysis.getOrientation()!=analysis.turnColor()) return;
           const chessground = lt.getChessground();
           lt.arrayRemoveAll(chessground?.state?.drawable?.autoShapes,s=>s.brush=='paleGreen' && s.orig+s.dest==currBest)

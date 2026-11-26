@@ -792,7 +792,6 @@
         flipBoard: lt.isOptionSet(mobileExperienceRound, 'flipBoard'),
         lockBoardPlay : lt.isOptionSet(screenLock, 'play') || lt.isOptionSet(mobileExperience, 'lockBoard'),
         lockBoardPuzzle : lt.isOptionSet(screenLock, 'puzzle') || lt.isOptionSet(mobileExperience, 'lockBoard'),
-        wakeBoardPuzzle : lt.isOptionSet(wakeLock, 'puzzle') || lt.isOptionSet(lt.currentOptions.getValue('puzzleOptions'), 'wakeLock'),
         wakeBoardTv : lt.isOptionSet(wakeLock, 'tv') || lt.isOptionSet(lt.currentOptions.getValue('tvOptions'), 'wakeLock'),
         colorCount: colorCount
       };

@@ -771,10 +771,13 @@
       const analysis = lichess.analysis;
       const setTimeout = lt.global.setTimeout;
 
-      const checkState = (resolve) => {
-        if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) return;
-        if (!analysis?.isCevalAllowed()) {
+      const checkState = (resolve, reject) => {
+        if (!this.evaluateTerminationsStarted && !this.evaluateLineStarted) {
+          reject();
           return;
+        }
+        if (!analysis?.isCevalAllowed()) {
+          reject();
         }
         if (!analysis.cevalEnabled()) {
           analysis.cevalEnabled(true);
@@ -790,9 +793,7 @@
         resolve();
       };
 
-      return new Promise((resolve, reject) => {
-        checkState(resolve);
-      });
+      return new Promise(checkState);
     };
 
     showTranspos = () => {
@@ -1017,6 +1018,7 @@
           })
         }
       } else {
+        analysis.jump = lt.unwrapFunction(analysis.jump,'showOnEmpty');
         $('div.tview2')
           .toggleClassSafe('lichessTools-showOnEmpty', false)
           .removeAttrSafe('p');
@@ -1100,7 +1102,8 @@
         positionInfo: lt.isOptionSet(value, 'positionInfo'),
         positionInfoCoverageDepth: +lt.currentOptions.getValue('analysisContextActionsCoverage') || 0,
         engineDepth: +lt.currentOptions.getValue('analysisContextActionsEngineDepth') || 0,
-        get isSet() { return this.copyPgn || this.moveEval || this.lineEval || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations; }
+        get isSet() { return this.copyPgn || this.moveEval || this.lineEval
+                          || this.showTranspos || this.removeSuperfluous || this.showOnEmpty || this.reorderVariations || this.positionInfo; }
       };
       clearInterval(this.engineCheckInterval);
       lt.pubsub.off('lichessTools.redraw', this.analysisContextMenu);

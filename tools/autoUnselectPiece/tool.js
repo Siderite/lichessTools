@@ -52,11 +52,10 @@
 
     async start() {
       const lt = this.lichessTools;
-      const lichess = lt.lichess;
       const $ = lt.$;
       const value = lt.currentOptions.getValue('autoUnselectPiece');
       this.logOption('Auto unselect piece', value || 'no');
-      lt.global.clearInterval(this.checkPieceSelection);
+      lt.global.clearInterval(this.discoverChatInterval);
       this.options = { seconds: +value };
       if (!this.options.seconds) return;
       if (!$('main').is('.round,.puzzle')) return;

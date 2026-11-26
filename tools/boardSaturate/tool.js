@@ -56,7 +56,7 @@
       if (!resetButton.prop('_initBoardSaturate')) {
         resetButton
           .prop('_initBoardSaturate', true)
-          .on('click',()=>container.find('input')
+          .on('click',()=>div.find('input')
                             .val(100)
                             .trigger('input'));
       }
@@ -80,7 +80,8 @@
           .observer()
           .on('.sub.board.d2',this.addBoardSaturate);
         this.addBoardSaturate();
-        saturate = lt.storage.get('LiChessTools.boardSaturate') || 100;
+        const setValue = lt.storage.get('LiChessTools.boardSaturate');
+        if (setValue !== undefined) saturate = +setValue || 100;
       }
       $('body').css('--lt-board-saturate',saturate/100);
     }

@@ -54,9 +54,9 @@
             .filter((i2,e2)=>{
               const spans = $(e2).children('span');
               if (!spans.length) return showUnrated;
-			  return !!spans.filter((i3,e3)=>{
-				const span = $(e3);
-                const games = +(span.attr('title').replace(/[^\d]/g,''));
+              return !!spans.filter((i3,e3)=>{
+                const span = $(e3);
+                const games = +(span.attr('title')?.replace(/[^\d]/g,''));
                 const botIcon = span.find('span.svg-icon')
                                .get()
                                .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
@@ -68,16 +68,16 @@
                                                   : showUnrated);
               }).length;
             });
-          const foundOld = $('.bots__list__entry__rating',e)
-            .filter((i2,e2)=>{
-              const span = $(e2).find('span');
-              if (!span.length) return showUnrated;
-              const games = +(span.attr('title').replace(/[^\d]/g,''));
-              const icon = span.attr('data-icon');
-              const rating = +(span.text().replace(/[^\d]/g,''));
-              return icons.indexOf(icon)>=0 && (rating 
-                                                  ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
-                                                  : showUnrated);
+            const foundOld = $('.bots__list__entry__rating',e)
+              .filter((i2,e2)=>{
+                const span = $(e2).find('span');
+                if (!span.length) return showUnrated;
+                const games = +(span.attr('title')?.replace(/[^\d]/g,''));
+                const icon = span.attr('data-icon');
+                const rating = +(span.text().replace(/[^\d]/g,''));
+                return icons.indexOf(icon)>=0 && (rating
+                                                    ? rating>=minRating && rating<=maxRating && games>=minGames && games<=maxGames
+                                                    : showUnrated);
             });
           $(e).toggleClassSafe('filteredOut',!found.length&&!foundOld.length);
         });
@@ -160,7 +160,7 @@
         lt.icon.KeyPad,
         lt.icon.FlagRacingKings
       ];
-	  const oldIcons = [...new Set($('.bots__list__entry__rating') // TODO remove oldIcons when Lichess removes font icons
+      const oldIcons = [...new Set($('.bots__list__entry__rating') // TODO remove oldIcons when Lichess removes font icons
         .find('span').get().map(e=>$(e).attr('data-icon')))];
       const newIcons = [...new Set(
         $('.bots__list__entry__rating')
@@ -169,7 +169,7 @@
           .flatMap(e=>[...e.classList].filter(c=>c.startsWith('icon-')))
           .map(lt.iconClassToIcon)
       )];
-	  const icons = oldIcons.concat(newIcons);
+      const icons = oldIcons.concat(newIcons);
       const findex = (x)=>{ const i=order.indexOf(x); return i<0?1000:i; };
       icons.sort((a,b)=>findex(a)-findex(b));
       const div = container.find('.types');
