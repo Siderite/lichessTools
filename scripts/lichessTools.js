@@ -195,7 +195,6 @@
       SparklingHeart: '\uD83D\uDC96',
       SuperscriptCapitalL: '\u00a0\u1D38',
       SuperscriptCapitalT: '\u00a0\u1D40',
-      WhiteChessPawn: '\u2659',
       Opposition: '\u260D',
       Document: '\uD83D\uDDCE',
       UpwardsWhiteArrow: '\u21E7',
@@ -427,7 +426,7 @@
       if (rafId!==undefined) this.global.cancelAnimationFrame(rafId);
       rafId = this.global.requestAnimationFrame(()=>{
         func();
-        this.rafIds.delete(rafId);
+        this.rafIds.delete(id);
       });
       this.rafIds.set(id,rafId);
     };
@@ -583,7 +582,7 @@
     }
 
     toTimeString(date) {
-      return new this.global.Date().toISOString().replace(/[\-T:]/g, '').slice(0, 14);
+      return new this.global.Date(date).toISOString().replace(/[\-T:]/g, '').slice(0, 14);
     };
 
     async writeToClipboard(value, successText, failText, asHtml) {
@@ -916,7 +915,6 @@
 
     computeCollapsedRegex = () => {
       const $ = this.$;
-      const lichess = this.lichess;
       const container = $('div.analyse__moves');
 
       const collapsedPaths = [];
@@ -943,7 +941,7 @@
       const collapsedRegex = collapsedPaths.length
         ? new RegExp('^(' + collapsedPaths.map(p => this.escapeRegex(p)).join('|') + ')')
         : null;
-      if (this.collapsedRegex != collapsedRegex) {
+      if (this.collapsedRegex?.source != collapsedRegex?.source) {
         this.collapsedRegex = collapsedRegex;
         this?.emitRedraw();
       }
@@ -954,7 +952,6 @@
     elementCache = new Map();
     resetCache = () => {
       const $ = this.$;
-      const lichess = this.lichess;
       this.elementCache.clear();
       const container = $('div.analyse__moves');
 
@@ -966,7 +963,6 @@
     };
 
     getElementForPath(path) {
-      const $ = this.$;
       let elem = this.elementCache?.get(path);
       if (!this.inViewport(elem)) {
         if (!elem) {
@@ -994,7 +990,7 @@
       }
       if (path && !elem) {
         if (this.isTreeviewVisible(true)) {
-          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.loc.href);
+          this.debug && this.global.console.warn('Could not find elem for path ' + path, this.location.href);
         }
       }
       return elem;
@@ -1116,18 +1112,21 @@
       if (!analysis) return;
 
       if (lt._inAnalysisRedrawTimeout || lt._inApplyOptions) {
-        lt.global.clearTimeout(lt._analysisRedrawTimeout);
+        lt.global.clearTimeout(lt._inAnalysisRedrawTimeout);
         lt._inAnalysisRedrawTimeout = lt.global.setTimeout(()=>{
           lt.debug && lt.global.console.debug('Delayed analysis redraw');
           analysis.redraw();
-          lt._analysisRedrawTimeout = 0;
+          lt._inAnalysisRedrawTimeout = 0;
         },100);
         return;
       }
-      lt._analysisRedrawTimeout = -1;
-      lt.debug && lt.global.console.debug('Direct analysis redraw');
-      analysis.redraw();
-      lt._analysisRedrawTimeout = 0;
+      lt._inAnalysisRedrawTimeout = -1;
+      try {
+        lt.debug && lt.global.console.debug('Direct analysis redraw');
+        analysis.redraw();
+      } finally {
+        lt._inAnalysisRedrawTimeout = 0;
+      }
     };
 
     jumpToGlyphSymbols = (symbols, side) => {
@@ -1767,6 +1766,7 @@
         for (let attempt = 0; attempt <= maxRetries; attempt++) {
           try {
             const result = original.apply(this, args);
+            delayMs = 100;
             return await Promise.resolve(result);
           } catch (err) {
             if (attempt === maxRetries) {
@@ -1980,7 +1980,7 @@
             continue;
           }
           let currentValue = options[upgrade.name];
-          if (this.isOptionSet(currentValue,upgrade.value)) {
+          if (typeof currentValue == 'string' && this.isOptionSet(currentValue,upgrade.value)) {
             options[upgrade.name] = currentValue.split(/\s*,\s*/).filter(v=>v?.toString()!=upgrade.value).join(',');
           }
         }
@@ -2091,7 +2091,6 @@
     }
 
     async saveOptions(options) {
-      const trans = this.translator;
       this.obsoleteOptions(options);
       const optionsJson = this.global.JSON.stringify(options);
       this.global.localStorage.setItem('LiChessTools2.options', optionsJson);

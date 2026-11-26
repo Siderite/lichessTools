@@ -81,10 +81,8 @@
 
     prepareEvaluations() {
       const lt = this.lichessTools;
-      const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
-      const analysis = lichess?.analysis;
       $('section.explorer-box table.moves.lichessTools-evalTable').remove();
       let container = $('section.explorer-box table.moves');
       if (!container.length) return;
@@ -236,7 +234,7 @@
             const z = 1.96;
             return {
                      center: (x+z*z/2)/(n+z*z),
-                     halfWidth: z/(total+z*z)*Math.sqrt(x*(n-x)/n+z*z/4)
+                     halfWidth: z/(n+z*z)*Math.sqrt(x*(n-x)/n+z*z/4)
                    };
           };
           const whiteWilly = wilson(explorerItem.white,total);
@@ -385,7 +383,7 @@
                       .append($('<span>').text(text))
                       .append($('<span class="spoa">')
                                 .attr('title',trans.noarg('spoaTitle'))
-                                .text(text))
+                                .text(spoa))
             );
         }
       };
@@ -666,7 +664,7 @@
       const lichess = lt.lichess;
       const analysis = lichess?.analysis;
       if (analysis?.node?.fen != fen) return;
-      this.lichessTools.requestAF(() => {
+      lt.requestAF(() => {
         this.showEvaluations(result);
       }, 'explorerEval_showEvaluations_engine');
     };
@@ -796,7 +794,6 @@
     rebind = () => {
       const lt = this.lichessTools;
       const lichess = lt.lichess;
-      const $ = lt.$;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       const explorer = analysis.explorer;
