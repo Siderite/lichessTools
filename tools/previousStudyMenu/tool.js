@@ -92,7 +92,9 @@
           .attrSafe('title', title)
         elem.find('span')
           .textSafe(data.name);
-        const group = elem.find('div[role="group"]');
+        let group = elem.find('div[role="group"]');
+        if (itemCount > 1 && !group.length)
+          group = elem.append('<div role="group"></div>').find('div[role="group"]');
         if (itemCount < 2) {
           group.remove();
         } else {
@@ -104,7 +106,7 @@
               break;
             }
             const sd = studyData[i];
-            if (el.text() != sd.name || el.attr('href') != '/study/' + sd.id) {
+            if (el.text() != sd.name || el.attr('href') != (sd.url || '/study/' + sd.id)) {
               refresh = true;
               break;
             }
