@@ -38,7 +38,7 @@
       'P': 'pawn'
     };
 
-    readPosition = async (speed, voiceIndex, instrument) => {
+    readPosition = async (speed, voiceIndex) => {
       const lt = this.lichessTools;
       const $ = lt.$;
       const trans = lt.translator;
@@ -54,10 +54,10 @@
       if (!board) return;
 
       this.reading = true;
-      const roleByLetter = { 'K': 'king', 'Q': 'queen', 'R': 'rook', 'B': 'bishop', 'N': 'knight', 'P': 'pawn' };
+      this.paused = false;
       for (const color of ['white','black']) {
         for (const p of ['K','Q','R','B','N','P']) {
-          const role = roleByLetter[p];
+          const role = this.pieces[p];
           for (let i = 0; i<8; i++) {
             for (let j = 0; j<8; j++) {
               if (node != analysis.node) {
@@ -78,7 +78,7 @@
           }
         }
       }
-      
+      this.reading = false;
     };
 
     keyHandler = ev => {
@@ -108,12 +108,11 @@
         $.cached('body').on('keydown', this.keyHandler);
         lt.registerCommand && lt.registerCommand('readPositionCommand', {
           handle: (val) => {
-            const m = /^\s*readposition(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?(?:\s+(?<instrument>\d+))?/.exec(val);
+            const m = /^\s*readposition(?:\s+(?<speed>\d+))?(?:\s+(?<voice>\d+))?/.exec(val);
             if (!m) return;
             const speed = (+m.groups.speed) || this.defaultSpeed;
             const voice = m.groups.voice === undefined ? undefined : (+m.groups.voice) || 0;
-            const instrument = (+m.groups.instrument) || 0;
-            lt.global.setTimeout(() => this.readPosition(speed, voice, instrument), 100);
+            lt.global.setTimeout(() => this.readPosition(speed, voice), 100);
             return true;
           },
           getHelp: () => trans.noarg('readPositionCommand.helpText')

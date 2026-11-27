@@ -33,13 +33,18 @@
       const $ = lt.$;
       if (!study) return;
       if (study.relay) return;
+
       const override = study.vm.gamebookOverride;
-      const cls = 'lichessTools-gamebook-' + override;
-      const all = ['lichessTools-gamebook-play', 'lichessTools-gamebook-analyse']
-      $.cached('body').removeClass(all.filter(c => c != cls).join(' '));
-      if (override) {
-        $.cached('body').addClass(cls);
-      }
+      const prefix = 'lichessTools-gamebook-';
+      const cls = prefix + override;
+
+      const body = $.cached('body');
+      if (body.is('.'+cls)) return;
+      const newClasslist = [...body.prop('classList')]
+                              .filter(cls => !cls.startsWith(prefix))
+                              .concat([cls])
+                              .join(' ');
+      body.prop('classList',newClasslist);
     };
 
     async start() {
@@ -57,8 +62,8 @@
           after: this.setCssClass
         })
         lt.pubsub.on('lichessTools.chapterChange', this.setCssClass);
-        this.setCssClass();
       }
+      this.setCssClass();
     }
 
   }

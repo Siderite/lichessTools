@@ -120,9 +120,10 @@
         }
         return;
       }
-      input.off('keydown', this.keydown);
+      const el = input[0];
+      el.removeEventListener('keydown',this.keydown,{capture: true});
       if (this.options.enabled) {
-        input.on('keydown', this.keydown);
+        el.addEventListener('keydown',this.keydown,{capture: true});
       }
     };
 

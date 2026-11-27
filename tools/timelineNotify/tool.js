@@ -76,12 +76,11 @@
       this.prevRead = +(lt.storage.get('LiChessTools.lastRead'));
       this.lastRead = Date.now();
       lt.storage.set('LiChessTools.lastRead', this.lastRead);
-      lt.notifications.refresh();
+      lt.notifications?.refresh();
     };
 
     async start() {
       const lt = this.lichessTools;
-      const lichess = lt.lichess;
       const $ = lt.$;
       const trans = lt.translator;
       const value = lt.currentOptions.getValue('timelineNotify');
@@ -117,7 +116,7 @@
           if (!this.lastRead) {
             this.setAllRead();
           }
-          if (!timeline) return [];
+          if (!timeline?.entries?.length) return [];
           const newEntries = timeline.entries
             .filter(e => e.date > this.lastRead)
             .filter(e => this.types.includes(e.type));
