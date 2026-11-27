@@ -124,6 +124,14 @@
         });
       }
 
+      generateKey(funcName, args, options = {}) {
+        let key = options.keyFunction
+          ? options.keyFunction(obj, funcName, args)
+          : (options.keyPrefix||'') + funcName + JSON.stringify(args);
+        if (this._keySuffix) key+='_'+this._keySuffix;
+        return key;
+      }
+
       memoizeAsyncFunction(obj, funcName, options) {
         if (!options) throw new Error('No options provided to memoizeAsyncFunction');
         const cache = this;
@@ -134,10 +142,7 @@
         if (!original) throw new Error('Could not find function '+funcName);
         obj[funcName] = async function (...args) {
           const funcKey = 'sema_'+ (options.keyPrefix||'') + funcName;
-          let key = options.keyFunction
-            ? options.keyFunction(obj, funcName, args)
-            : (options.keyPrefix||'') + funcName + JSON.stringify(args);
-          if (cache._keySuffix) key+='_'+cache._keySuffix;
+          const key = cache.generateKey(funcName, args, options);
           await cache.waitRelease(key);
           const cached = cache.getCached(key);
           if (cached?.value !== undefined && !cached.isExpired) {

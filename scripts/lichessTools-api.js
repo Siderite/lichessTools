@@ -343,7 +343,7 @@
         async getCrosstableJustCache(...args) {
           const lt = this.lichessTools;
           const cache = lt.cache;
-          const key = 'getCrosstable' + JSON.stringify(args);
+          const key = cache.generateKey('getCrosstable',args);
           const cached = cache.getCached(key);
           return cached?.value;
         },

@@ -51,7 +51,7 @@
       const lt = this.lichessTools;
       const value = lt.currentOptions.getValue('lobbyCrosstable');
       this.logOption('Lobby crosstable', value);
-      this.userId = lt.getUserId();
+      this.userId = lt.getUserId()?.toLowerCase();
       if (!this.userId) {
         lt.global.console.debug(' ... Disabled (not logged in)');
         return;
