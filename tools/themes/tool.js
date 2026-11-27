@@ -198,7 +198,8 @@
           const body = $('body');
           const className = body.attr('class');
           const newClassName = className.split(/\s+/)
-            .filter(c => !c.startsWith('lichessTools-theme_'));
+            .filter(c => !c.startsWith('lichessTools-theme_'))
+            .join(' ');
 
           if (newClassName != className) {
             body.attr('class',newClassName);
@@ -465,12 +466,11 @@
       const $ = lt.$;
       $(lt.global).off('hashchange', this.applyThemes);
       $('body').observer()
-        .off('body, #main-wrap, .main-board cg-board',this.checkBody);
+        .off('body, #main-wrap, .main-board cg-board',this.checkBody)
+        .off('cg-container',this.addSizeToMiniboards);
       if (!value && !this.ranStart) {
         return;
       }
-      $('body').observer()
-        .off('cg-container',this.addSizeToMiniboards);
       if (value) {
         $(lt.global).on('hashchange', this.applyThemes);
         $('body').observer()

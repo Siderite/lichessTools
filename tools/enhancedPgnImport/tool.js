@@ -176,6 +176,7 @@
       const lichess = lt.lichess;
       const trans = lt.translator;
       const $ = lt.$;
+      const console = lt.global.console;
       const analysis = lichess?.analysis;
       if (!analysis) return;
       this.setupBlurOnEscape();
@@ -197,7 +198,7 @@
           try {
             let pgns = this.splitPgn(input);
             if (andReload) {
-              lt.global.console.debug('...merging ' + pgns.length + ' PGNs');
+              console.debug('...merging ' + pgns.length + ' PGNs');
               const pgnsByFen = new Map();
               let maxItem = { count: -1 };
               for (const pgn of pgns) {
@@ -249,10 +250,10 @@
               data = pgns[0];
             }
           } catch (ex) {
-            lt.global.console.warn('Enhanced import failed', ex);
+            console.warn('Enhanced import failed', ex);
             data = oldChangePgn(input, andReload);
           }
-          if (lastError) lt.global.console.debug('...merged only ' + successfulPGNs + ' PGNs');
+          if (lastError) console.debug('...merged only ' + successfulPGNs + ' PGNs');
           return data;
         }
       });

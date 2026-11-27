@@ -48,7 +48,7 @@
         if (!textEl.length) textEl = $(e);
 
         // Skip if already processed or has a badge
-        if (textEl.is('.lichessTools-nogamecount,.lichessTools-gamecount')) return;
+        if (textEl.is('.lichessTools-gamecount')) return;
         let next = textEl.next();
         next=next.add(next.next());
         if (next.is('.lichessTools-gameCountBadge')) return;
@@ -156,20 +156,19 @@
       if (!this.options.enabled) return;
       if (lt.global.document.hidden) return;
 
-      // Build list of users needing game counts
+      // Build list of users needing game counts; expired entries behave as cache misses
       const dict = this.getElementsForGameCount();
+      const now = Date.now();
       const data = Object.keys(dict).map(userId => {
         const item = this.gameCountCache.get(userId);
-        if (item) {
-          item.time = Date.now()
-          return item;
-        }
+        if (item && now - item.time <= this.cacheExpiration) return item;
         return { id: userId };
       });
 
       // Fetch data for users not in cache (max 200 per API call)
       let toSaveCache = false;
-      const userIds = data.filter(i => i.gameCount === undefined).map(i => i.id).slice(0, 200);
+      const needsFetch = data.filter(i => i.gameCount === undefined);
+      const userIds = needsFetch.map(i => i.id).slice(0, 200);
       if (userIds.length) {
         const users = await lt.api.user.getUsers(userIds);
 
@@ -188,8 +187,8 @@
           }
         }
 
-        // Update cache with new data
-        for (const item of data) {
+        // Update cache with the entries that were (re)fetched
+        for (const item of needsFetch) {
           if (item.gameCount === undefined) {
             if (userIds.includes(item.id) && !users.find(u => u.id.toLowerCase() == item.id.toLowerCase())) {
               item.gameCount = 0; // User not found, default to 0
@@ -197,7 +196,7 @@
               continue;
             }
           }
-          item.time = Date.now();
+          item.time = now;
           this.gameCountCache.set(item.id, item);
           toSaveCache = true;
         }
@@ -252,7 +251,7 @@
     refreshGameCounts = (m) => {
       const lt = this.lichessTools;
       const $ = lt.$;
-      const elems = $('.user-link').get();
+      const elems = $('.user-link,a[href^="/@/"]').get();
       let updated = false;
       for (const elem of elems) {
         const e = $(elem);
@@ -290,7 +289,7 @@
       lt.pubsub.off('lichessTools.contentLoaded', this.debouncedProcessGameCounts);
       lt.pubsub.off('lichessTools.puzzleStart', this.resetGameCounts);
       $('body').observer()
-        .off('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
+        .off('.user-link,a[href^="/@/"]',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
 
       if (value) {
         // Enable: start processing and bind event listeners
@@ -298,7 +297,7 @@
         lt.pubsub.on('lichessTools.contentLoaded', this.debouncedProcessGameCounts);
         lt.pubsub.on('lichessTools.puzzleStart', this.resetGameCounts);
         $('body').observer()
-          .on('.user-link',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
+          .on('.user-link,a[href^="/@/"]',this.refreshGameCounts,{attributes:true,attributeFilter:['href']});
       } else {
         // Disable: remove badges and clear cache
         $('.lichessTools-gameCountBadge').remove();

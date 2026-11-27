@@ -12,7 +12,10 @@
     }
 
     parseBoard(fen) {
-      return CoordinationCalculator._parseBoard(fen, this.co);
+      // chessops is required to read a board at all; without it there is nothing to parse
+      if (!this.co?.fen?.parseBoardFen) return null;
+      // hand out a private copy: the memoized board is shared, the bfs mutates this one
+      return CoordinationCalculator._parseBoard(fen, this.co)?.clone();
     }
 
     inBounds(sq) {
@@ -27,50 +30,37 @@
       return LiChessTools.MoveGen.controlMap(board, color);
     }
 
+    // one non-capture move of the piece standing on sq; control is the side to move set
     movementTargets(board, sq, control) {
-      const piece = board.get(sq);
-      if (!piece) return [];
-      const role = piece.role;
+      const role = board.get(sq)?.role;
+      if (!role || role === 'pawn') return [];
       const results = [];
-
-      const tryPush = (t) => {
-        if (!this.inBounds(t)) return;
-        if (board.get(t)) return;
-        if (!control.has(t)) return;
+      for (const t of this.attacks(board, sq)) {
+        if (!this.inBounds(t) || board.get(t) || !control.has(t)) continue;
         results.push(t);
-      };
-
-      if (role === 'knight' || role === 'king') {
-        for (const t of this.attacks(board, sq)) tryPush(t);
-        return results;
       }
-
-      if (role === 'bishop' || role === 'rook' || role === 'queen') {
-        for (const t of this.attacks(board, sq)) {
-          if (board.get(t)) continue;
-          if (control.has(t)) results.push(t);
-        }
-        return results;
-      }
-
       return results;
     }
 
     bfsDistances(board, startSq, control) {
       const dist = Array(64).fill(Infinity);
-      const queue = [startSq];
       dist[startSq] = 0;
+      const piece = board.get(startSq);
+      if (!piece || piece.role === 'pawn') return dist;
 
+      // the tracked piece travels with the search, so the generators see the occupancy
+      // each square needs; the origin stays vacated and gets restored on return
+      const queue = [startSq];
+      let at = startSq;
       while (queue.length) {
         const sq = queue.shift();
+        if (sq !== at) { board.take(at); board.set(sq, piece); at = sq; }
         const d = dist[sq];
         for (const t of this.movementTargets(board, sq, control)) {
-          if (dist[t] > d + 1) {
-            dist[t] = d + 1;
-            queue.push(t);
-          }
+          if (dist[t] > d + 1) { dist[t] = d + 1; queue.push(t); }
         }
       }
+      if (at !== startSq) { board.take(at); board.set(startSq, piece); }
 
       return dist;
     }

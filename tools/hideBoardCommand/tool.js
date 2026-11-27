@@ -46,6 +46,7 @@
         });
       } else {
         lt.unregisterCommand && lt.unregisterCommand('hideBoardCommand');
+        $.cached('body').toggleClassSafe('lichessTools-hideBoard', false);
       }
     }
   }

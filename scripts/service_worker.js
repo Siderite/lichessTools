@@ -229,8 +229,8 @@ const handlers = {
         const response = await fetch('https://api.imgur.com/3/image/'+hash,{ method: 'DELETE' });
         if (!response.ok)
           throw new Error('Imgur delete failed with status ' + response.status);
+        return { ok: true };
         }
-        break;
       case 'imgbb': {
         const url = 'https://ibb.co/json';
         const formData = new FormData();
@@ -243,15 +243,15 @@ const handlers = {
 
         const response = await fetch(url, {
           method: 'POST',
-          body: formData,
-          cors: true
+          body: formData
         });
         if (!response.ok)
           throw new Error('Imgbb delete failed with status ' + response.status);
+        return { ok: true };
         }
-        break;
+      default:
+        return { ok: false };
     }
-    return { ok: true };
   },
   getFile: async (data) => {
     const filename = data?.options?.filename;

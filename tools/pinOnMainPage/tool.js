@@ -87,7 +87,7 @@
       const trans = lt.translator;
       const $ = lt.$;
       const side = $('.lobby__side');
-      if (!side) return;
+      if (!side.length) return;
       let container = $('div.lichessTools-pins');
       if (!this.options.enabled) {
         container.remove();

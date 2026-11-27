@@ -306,10 +306,10 @@
         if (index<0) customTheme = null;
       }
       let soundVolume = +lt.currentOptions.getValue('soundVolume');
-      if (Number.isNaN(soundVolume)) soundValume = this.preferences.find(p=>p.name='soundVolume')?.defaultValue;
+      if (Number.isNaN(soundVolume)) soundVolume = this.preferences.find(p=>p.name='soundVolume')?.defaultValue;
       lt.soundVolume = soundVolume;
       let soundVoice = +lt.currentOptions.getValue('soundVoice');
-      if (Number.isNaN(soundVoice)) soundVaice = this.preferences.find(p=>p.name='soundVoice')?.defaultValue;
+      if (Number.isNaN(soundVoice)) soundVoice = this.preferences.find(p=>p.name='soundVoice')?.defaultValue;
       lt.speechVoiceIndex = soundVoice;
       const timeAlert = lt.currentOptions.getValue('timeAlert');
       const speakSeconds = lt.currentOptions.getValue('speakSeconds');
@@ -446,8 +446,8 @@
           .on('body',this.addVolumeBar,{ 
              subtree: false,
              childList: false,
-             atttributes: true,
-             attributeFiler: ['data-sound-set']
+             attributes: true,
+             attributeFilter: ['data-sound-set']
           })
       }
 

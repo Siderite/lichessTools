@@ -83,7 +83,7 @@
       const lt = this.lichessTools;
       const $ = lt.$;
 
-      let bar = $('.lichessTools-searchMovesCommand').prev();
+      let bar = $('.lichessTools-searchMovesCommand');
       if (bar.length) {
         bar.find('input.search:not(:focus)')
           .each((i,e)=>e.select());
@@ -182,7 +182,7 @@
           case '|': return '|';
           default: return c.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&');
         }
-      }).join(''),'gi');
+      }).join(''),'i');
       const elems = $('app z7yx,.tview2 move').filter((i,e)=>{
         return reg.test($(e).text());
       }).get();
@@ -216,7 +216,7 @@
             case '?': return '.';
             default: return c;
           }
-        }).join(''),'gi');
+        }).join(''),'i');
 
         const traverse = (node, ply = 0) => {
           const fen = node.fen;

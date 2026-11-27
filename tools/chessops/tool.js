@@ -33,18 +33,28 @@
       }
       if (!lt.chessops) {
         let chessops = null;
-        lt.chessops=()=>new Promise((resolve)=>{
+        let pending = null;
+        lt.chessops=()=>{
           if (chessops) {
-            resolve(chessops);
-            return;
+            return Promise.resolve(chessops);
           }
-          // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
-          lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
-            chessops = await import(url);
-            LiChessTools.chessopsModule = chessops;
-            resolve(chessops);
+          if (pending) {
+            return pending;
+          }
+          pending=new Promise((resolve)=>{
+            // generate this with the BundleJsLibraries project from LiChessToolsAdjacent
+            lt.comm.getChromeUrl('tools/chessops/chessops.bundle.mjs').then(async (url)=>{
+              chessops = await import(url);
+              LiChessTools.chessopsModule = chessops;
+              resolve(chessops);
+            }).catch((e)=>{
+              lt.global.console.warn('chessops load failed',e);
+              pending=null;
+              resolve(null);
+            });
           });
-        });
+          return pending;
+        };
       }
       // eagerly load chessops so synchronous code (e.g. the board adapter) can use it
       lt.chessops();

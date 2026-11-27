@@ -60,12 +60,10 @@
     };
 
     isForumListPage() {
-      const lt = this.lichessTools;
       return /^\/forum\/?$/i.test(this.loc.pathname);
     };
 
     isForumPage() {
-      const lt = this.lichessTools;
       return /^\/forum\//i.test(this.loc.pathname);
     };
 
@@ -76,12 +74,10 @@
     };
 
     isTeamPage(teamId) {
-      const lt = this.lichessTools;
       return /^\/team\b/i.test(this.loc.pathname);
     };
 
     isTeamEdit() {
-      const lt = this.lichessTools;
       return /^\/team\/[^\/]+\/edit\b/i.test(this.loc.pathname);
     };
 
@@ -135,12 +131,10 @@
     };
 
     isInboxPage() {
-      const lt = this.lichessTools;
       return /^\/inbox\b/i.test(this.loc.pathname);
     };
 
     isProfileEdit() {
-      const lt = this.lichessTools;
       return /^\/account\/profile\b/i.test(this.loc.pathname);
     };
 
@@ -219,7 +213,6 @@
     };
 
     isBestTvPage = () => {
-      const lt = this.lichessTools;
       return /^\/games(\/best)?\/?$/i.test(this.loc.pathname) && !this.loc.hash;
     };
 
@@ -279,6 +272,7 @@
     getStudyListMode() {
       const m = /\/(?<mode>hot|newest|oldest|updated|popular|alphabetical|mine)\b/i.exec(this.loc.pathname);
       const mode = m?.groups?.mode || 'hot';
+      return mode;
     }
 
     getTeamInfo() {

@@ -486,7 +486,7 @@
         }
       }
       const currCp = LiChessTools.ChessMetrics.getCentipawnOnlyValue(currCeval)*side;
-      if (currCp) {
+      if (currCp || currCp === 0) {
         const rcp = lt.global.Math.min(maxCp,lt.global.Math.max(minCp,currCp));
         let item = data.get(rcp);
         if (!item) {
@@ -603,7 +603,7 @@
         lt.pubsub.off('lichessTools.ceval',this.handleCeval);
         lt.pubsub.off('lichessTools.redraw',this.drawDifficulty);
         if (ceval) {
-          if (this.options.depthChart||this.options.downloadCeval||this.options.difficulty) {
+          if (this.options.depthChart||this.options.downloadCeval||this.options.difficulty||this.options.cost) {
             lt.pubsub.on('lichessTools.ceval',this.handleCeval);
             lt.uiApi.events.on('analysis.change',this.drawChart);
           }
