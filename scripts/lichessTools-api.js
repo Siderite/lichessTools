@@ -629,12 +629,15 @@
               const $row = $(row);
               const subject = $row.find('td.subject a[href^="/forum/"]');
               if (!subject.length) return null;
+              const authorHref = $row.find('a.user-link').attr('href');
+              const author = lt.location.getPersonPage(authorHref);
               const replies = $row.find('td.right');
               const datetime = $row.find('time.timeago').last().attr('datetime');
               return {
                 href: subject.attr('href'),
                 title: subject.text(),
                 replies: +replies.text(),
+                author: author?.userId,
                 time: datetime ? new Date(datetime).getTime() : null
               };
             })

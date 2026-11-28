@@ -14,6 +14,10 @@ body.lichessTools div.lichessTools-marathonRankings .community__leaders {
   display: block;
 }
 
+body.lichessTools div.lichessTools-marathonRankings .community__leaders .utitle {
+  margin-right: 0.25em;
+}
+
 body.lichessTools div.lichessTools-marathonRankings li.head {
   font-weight: bold;
 }

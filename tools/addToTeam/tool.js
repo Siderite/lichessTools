@@ -217,6 +217,7 @@
       const trans = lt.translator;
       if (this.options.noNotifications) return;
       if (!lt.notifications) return;
+      const userId = lt.getUserId();
       const notificationId = 'addToTeamForumPosts';
       const notification = {
         id: notificationId,
@@ -230,7 +231,7 @@
             return result;
           }
           const newPosts = forum.posts
-            .filter(p=>p.time && p.time > lastRead)
+            .filter(p=>p.time && p.time > lastRead && p.author != userId)
             .length;
           if (!newPosts) return result;
           const entry = {
