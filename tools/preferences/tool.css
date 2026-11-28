@@ -6,7 +6,7 @@ html[data-page-href*="/page/ltPreferences"] main:not(.lichessTools-preferences) 
 
 
 
-#dasher_app .links a.lichessTools-preferences {
+#dasher_app .links a:is(.lichessTools-preferences,.lichessTools-ltHelp) {
   display: flex;
   overflow: visible;
   align-items: center;
@@ -35,14 +35,14 @@ a.lichessTools-preferences:hover .lichessTools-toggleExtension {
 }
 
 
-a + a.lichessTools-preferences:before {
+a + a:is(.lichessTools-preferences,.lichessTools-ltHelp):before {
   position: relative;
   padding-left: 0.5em;
   left: -0.25em;
   top: -0.5em;
 }
 
-a.lichessTools-preferences:before {
+a:is(.lichessTools-preferences,.lichessTools-ltHelp):before {
   font-size: 0.9em;
   text-shadow: var(--c-clearer) 1px 0 7px;
 }

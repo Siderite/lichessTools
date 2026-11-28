@@ -37,6 +37,13 @@
         defaultValue: false,
         advanced: true,
         hidden: true
+      },
+      {
+        name: 'ltHelp',
+        category: 'general',
+        type: 'single',
+        possibleValues: [false, true],
+        defaultValue: true
       }
     ];
 
@@ -51,6 +58,7 @@
         'enableExtension': 'Enable LiChess Tools extension',
         'advancedPreferences': 'Advanced preferences (show a lot more!)',
         'options.advancedPreferences': 'Advanced preferences',
+        'options.ltHelp': 'LiChess Tools help menu',
         'author': 'by %s',
         'lichessTools': 'LiChess Tools',
         'lichessToolsPreferences': 'LiChess Tools preferences',
@@ -76,7 +84,10 @@
         'expandAllButtonText': 'Expand/collapse all',
         'expandAllButtonTitle': 'Expand/collapse all preferences',
         'toggleLiChessToolsTitle': 'Enable/disable LiChess Tools',
-        'disableLiChessToolsForTodayQuestion': 'Disable LiChess Tools for today?'
+        'disableLiChessToolsForTodayQuestion': 'Disable LiChess Tools for today?',
+        'lichessToolsHelpTitle': 'LiChess Tools - ask for help',
+        'lichessToolsHelpText': 'Help',
+        'ltHelpPrompt': 'Ask ChatGPT a question about LiChess Tools'
       },
       'ro-RO': {
         yes: 'Da',
@@ -88,6 +99,7 @@
         'enableExtension': 'Activeaz\u0103 extensia LiChess Tools',
         'advancedPreferences': 'Preferin\u0163e avansate (arat\u0103 mult mai multe!)',
         'options.advancedPreferences': 'Preferin\u0163e avansate',
+        'options.ltHelp': 'Meniu ajutor LiChess Tools',
         'author': 'de %s',
         'lichessTools': 'LiChess Tools',
         'lichessToolsPreferences': 'Preferin\u0163e LiChess Tools',
@@ -113,7 +125,10 @@
         'expandAllButtonText': 'Extinde/restr\u00e2nge toate',
         'expandAllButtonTitle': 'Extinde/restr\u00e2nge toate preferin\u0163ele',
         'toggleLiChessToolsTitle': 'Activeaz\u0103/dezactiveaz\u0103 LiChess Tools',
-        'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?'
+        'disableLiChessToolsForTodayQuestion': 'Dezactivez LiChess Tools pentru azi?',
+        'lichessToolsHelpTitle': 'LiChess Tools - cere ajutor',
+        'lichessToolsHelpText': 'Ajutor',
+        'ltHelpPrompt': '\u00centreab\u0103 ChatGPT despre LiChess Tools'
       }
     }
 
@@ -703,47 +718,77 @@
       const lichess = lt.lichess;
       const $ = lt.$;
       if (!$('#dasher_app *').length) return;
-      if (!$('#dasher_app a.lichessTools-preferences').length) {
-        lt.loadCss('user.account');
-        const isLoggedIn = !!lt.getUserId();
-        const elem = $('<a class="text lichessTools-preferences">')
-          .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
-          .attr('href', this.pageUrl)
-          .attr('title', trans.noarg('lichessToolsPreferences'))
-          .append($('<span>').text(trans.noarg('lichessTools')))
-          .append($.createToggle('toggleLiChessTools','',trans.noarg('toggleLiChessToolsTitle'),true)
-                    .addClass('lichessTools-toggleExtension')
-                    .on('change',async (ev)=>{
-                      const enabled = $(ev.target).prop('checked');
-                      if (!enabled) {
-                        const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
-                        if (!answer) {
-                          this.checkGlobalSwitch();
-                          return;
-                        }
+      if ($('#dasher_app a.lichessTools-preferences').length) return;
+
+      lt.loadCss('user.account');
+      const isLoggedIn = !!lt.getUserId();
+      const elem = $('<a class="text lichessTools-preferences">')
+        .attr('data-icon', isLoggedIn ? lt.icon.LightVerticalAndBottomRight : lt.icon.Gear)
+        .attr('href', this.pageUrl)
+        .attr('title', trans.noarg('lichessToolsPreferences'))
+        .append($('<span>').text(trans.noarg('lichessTools')))
+        .append($.createToggle('toggleLiChessTools','',trans.noarg('toggleLiChessToolsTitle'),true)
+                  .addClass('lichessTools-toggleExtension')
+                  .on('change',async (ev)=>{
+                    const enabled = $(ev.target).prop('checked');
+                    if (!enabled) {
+                      const answer = await lt.uiApi.dialog.confirm(trans.noarg('disableLiChessToolsForTodayQuestion'));
+                      if (!answer) {
+                        this.checkGlobalSwitch();
+                        return;
                       }
-                      lt.currentOptions.enableLichessTools = enabled;
-                      if (!enabled) {
-                        const tomorrow = new Date();
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        tomorrow.setHours(0, 0, 0, 0);
-                        lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
-                      }
-                      await lt.applyOptions(lt.currentOptions);
-                      this.checkGlobalSwitch();
-                    })
-                 );
-        let links = $('#dasher_app div.links');
-        if (!links.length) {
-          links = $('<div class="links">')
-            .insertBefore('#dasher_app div.subs');
-          elem.appendTo(links);
-        } else {
-          elem
-            .insertAfter($('[href="/account/profile"]',links));
-        }
-        this.checkGlobalSwitch();
+                    }
+                    lt.currentOptions.enableLichessTools = enabled;
+                    if (!enabled) {
+                      const tomorrow = new Date();
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+                      tomorrow.setHours(0, 0, 0, 0);
+                      lt.currentOptions['enableLichessTools.enableTime'] = +tomorrow;
+                    }
+                    await lt.applyOptions(lt.currentOptions);
+                    this.checkGlobalSwitch();
+                  })
+               );
+      let links = $('#dasher_app div.links');
+      if (!links.length) {
+        links = $('<div class="links">')
+          .insertBefore('#dasher_app div.subs');
+        elem.appendTo(links);
+      } else {
+        elem
+          .insertAfter($('[href="/account/profile"]',links));
       }
+      this.checkGlobalSwitch();
+    };
+
+    askForHelp = async (ev)=>{
+      ev.preventDefault();
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const question = await lt.uiApi.dialog.prompt(trans.noarg('ltHelpPrompt'));
+      if (!question) return;
+      const page = 'https://siderite.dev/blog/lichess-tools---user-manual';
+      const prompt = `Read the page ${page} and answer this question in the context of LiChess Tools: ${question}`;
+      const url = `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
+      lt.global.open(url, '_blank');
+    };
+
+    addHelpMenu = () => {
+      const lt = this.lichessTools;
+      const trans = lt.translator;
+      const lichess = lt.lichess;
+      const $ = lt.$;
+      const anchor = $('#dasher_app .lichessTools-preferences');
+      if (!anchor.length) return;
+      if ($('#dasher_app a.lichessTools-ltHelp').length) return;
+
+      $('<a class="text lichessTools-ltHelp">')
+        .attr('data-icon', lt.icon.LightVerticalAndBottomRight)
+        .attr('href', '#')
+        .attr('title', trans.noarg('lichessToolsHelpTitle'))
+        .append($('<span>').text(trans.noarg('lichessToolsHelpText')))
+        .on('click',this.askForHelp)
+        .insertAfter(anchor);
     };
 
     async start() {
@@ -754,7 +799,8 @@
       const trans = lt.translator;
       this.options = {
         enabled: true,
-        advanced: !!lt.currentOptions.getValue('advancedPreferences')
+        advanced: !!lt.currentOptions.getValue('advancedPreferences'),
+        ltHelp: !!lt.currentOptions.getValue('ltHelp')
       };
       this.logOption('Integration in Preferences', this.options.enabled);
       this.logOption(' ... show advanced', this.options.advanced);
@@ -764,6 +810,8 @@
 
       lt.global.clearInterval(this.interval);
       this.interval = lt.global.setInterval(this.addPreferencesMenu, 500);
+      lt.global.clearInterval(this.interval2);
+      this.interval2 = lt.global.setInterval(this.addHelpMenu, 500);
 
       if (this.redirectPageAliases()) return;
       if (!this.isPage()) return;

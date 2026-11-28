@@ -1511,7 +1511,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "zh-CN": {
     "LiChess Tools": "LiChess Tools",
@@ -3025,7 +3029,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "zh-TW": {
     "LiChess Tools": "LiChess Tools",
@@ -4539,7 +4547,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "cs-CZ": {
     "LiChess Tools": "LiChess Tools",
@@ -6053,7 +6065,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "nl-NL": {
     "LiChess Tools": "LiChess gereedschap",
@@ -7567,7 +7583,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "en-US": {
     "LiChess Tools": "LiChess Tools",
@@ -9081,7 +9101,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "fr-FR": {
     "LiChess Tools": "LiChess Tools",
@@ -10595,7 +10619,11 @@
     "userPanelWhyFetch": "la lecture a échoué",
     "userPanelWhyRate": "Lichess a ralenti la lecture",
     "userPanelWhy404": "la page n'était pas là",
-    "userPanelWhyOther": "erreur de lecture"
+    "userPanelWhyOther": "erreur de lecture",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "de-DE": {
     "LiChess Tools": "LiChess Tools",
@@ -12109,7 +12137,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "el-GR": {
     "LiChess Tools": "LiChess Tools",
@@ -13623,7 +13655,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "it-IT": {
     "LiChess Tools": "LiChess Tools",
@@ -15137,7 +15173,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "no-NO": {
     "LiChess Tools": "Lichess verktøy",
@@ -16651,7 +16691,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "nb-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -18165,7 +18209,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "nn-NO": {
     "LiChess Tools": "LiChess Tools",
@@ -19679,7 +19727,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "fa-IR": {
     "LiChess Tools": "LiChess Tools",
@@ -21193,7 +21245,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "pl-PL": {
     "LiChess Tools": "LiChess Tools",
@@ -22707,7 +22763,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "pt-PT": {
     "LiChess Tools": "LiChess Tools",
@@ -24221,7 +24281,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "pt-BR": {
     "LiChess Tools": "LiChess Tools",
@@ -25735,7 +25799,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "ro-RO": {
     "LiChess Tools": "LiChess Tools",
@@ -27249,7 +27317,11 @@
     "userPanelWhyFetch": "citire eșuată",
     "userPanelWhyRate": "Lichess a încetinit citirea",
     "userPanelWhy404": "pagina nu era acolo",
-    "userPanelWhyOther": "eroare la citire"
+    "userPanelWhyOther": "eroare la citire",
+    "options.ltHelp": "Meniu ajutor LiChess Tools",
+    "lichessToolsHelpTitle": "LiChess Tools - cere ajutor",
+    "lichessToolsHelpText": "Ajutor",
+    "ltHelpPrompt": "Întreabă ChatGPT despre LiChess Tools"
   },
   "ru-RU": {
     "LiChess Tools": "LiChess Tools",
@@ -28763,7 +28835,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "es-ES": {
     "LiChess Tools": "LiChess Tools",
@@ -30277,7 +30353,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "ta-IN": {
     "LiChess Tools": "LiChess கருவிகள்",
@@ -31791,7 +31871,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "tr-TR": {
     "LiChess Tools": "LiChess Tools",
@@ -33305,7 +33389,11 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   },
   "vi-VN": {
     "LiChess Tools": "LiChess Tools",
@@ -34819,6 +34907,10 @@
     "userPanelWhyFetch": "the read failed",
     "userPanelWhyRate": "Lichess slowed the read down",
     "userPanelWhy404": "the page was not there",
-    "userPanelWhyOther": "error reading"
+    "userPanelWhyOther": "error reading",
+    "options.ltHelp": "LiChess Tools help menu",
+    "lichessToolsHelpTitle": "LiChess Tools - ask for help",
+    "lichessToolsHelpText": "Help",
+    "ltHelpPrompt": "Ask ChatGPT a question about LiChess Tools"
   }
 }
